@@ -1,36 +1,87 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
+<div align="center">
 
-## Getting Started
+# CCCWAYS Nexus · Alt Season Black Login
 
-First, run the development server:
+Google OAuth + Firebase identity layer powering the CCCWAYS Nexus cockpit with a cinematic Alt Season background.
 
-```bash
-npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
-```
+</div>
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+## ⭐️ Highlights
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+- **Next.js 14 + Tailwind 4** with RTL-friendly Arabic typography (Cinzel / Montserrat / Share Tech Mono).
+- **Google Identity Services (GIS)** popup flow with `/api/auth/google/start`, `/callback`, `/refresh`, and `/logout` routes.
+- **Firebase Admin + Firestore** auto-registers users, encrypts tokens using AES-256-GCM, and stores profiles for downstream agents.
+- **Silent session restore** on `/login` attempts to refresh cookies automatically for frictionless re-entry.
+- **Alt Season Black UI** with a procedurally animated Three.js background, consent notice, and future-ready email/password placeholders.
 
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
+## 🚀 Getting Started
 
-## Learn More
+1. **Install dependencies**
+	```bash
+	npm install
+	```
+2. **Configure environment** (copy `.env.example` → `.env`) and provide:
+	- Google OAuth Web Client (ID, secret, redirect URI).
+	- Firebase Admin service account (project id, client email, private key).
+	- Frontend Firebase config (NEXT_PUBLIC_FIREBASE_*).
+	- `TOKEN_ENCRYPTION_KEY` (32 chars) + `SESSION_SECRET` (JWT signing key).
+3. **Run the dev server**
+	```bash
+	npm run dev
+	```
+4. Open [http://localhost:3000/login](http://localhost:3000/login) to experience the Alt Season login wall.
 
-To learn more about Next.js, take a look at the following resources:
+## 🔐 Auth Flow Overview
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+1. `/api/auth/google/start` returns `{ clientId, scope }` for GIS.
+2. GIS popup exchanges the code via `/api/auth/google/callback` → tokens + Google profile.
+3. Firestore `users` collection stores the profile alongside encrypted `accessToken` and `refreshToken`.
+4. Signed JWT + refresh token cookies (`cccways_session`, `cccways_refresh`) are issued.
+5. `/api/auth/google/refresh` can silently rehydrate the session when cookies exist (triggered automatically on `/login`).
+6. `/api/auth/logout` wipes cookies for manual exit.
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
+## 🗂️ Key Folders
 
-## Deploy on Vercel
+| Path | Purpose |
+| --- | --- |
+| `src/app/login/page.tsx` | Server component that loads GIS script and renders `LoginHero`. |
+| `src/components/auth/LoginHero.tsx` | Client UI + silent refresh logic + CTA copy. |
+| `src/components/auth/LoginBackground.tsx` | Three.js infinity tube + glyph sprites. |
+| `src/hooks/useGoogleLogin.ts` | GIS popup integration + state wiring. |
+| `src/lib` | Environment loader, Firebase admin, token helpers, Google auth utilities. |
+| `src/app/api/auth/*` | REST endpoints for start/callback/refresh/logout. |
 
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
+## 🔧 Environment Reference
 
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+See `.env.example` for the full list. Critical entries:
+
+| Variable | Notes |
+| --- | --- |
+| `GOOGLE_CLIENT_ID` | OAuth Web Client (Authorized origin must include app base URL). |
+| `GOOGLE_REDIRECT_URI` | Should match `https://<host>/api/auth/google/callback`. |
+| `FIREBASE_PRIVATE_KEY` | Keep escaped (`\n`) when storing inside `.env`. |
+| `TOKEN_ENCRYPTION_KEY` | 32-character string used by AES-256-GCM to encrypt tokens before Firestore writes. |
+| `SESSION_SECRET` | JWT signing secret for session cookies. |
+
+## 🎨 Customizing the Alt Season Background
+
+- Modify `src/components/auth/LoginBackground.tsx` to change geometry, sprite palettes, or bloom intensity.
+- All Three.js resources are lazily imported, and cleanup disposes of meshes/materials to avoid GPU leaks.
+- Foreground colors are sourced from the CSS variables in `src/app/globals.css`.
+
+## 📊 Enterprise-Grade Charts
+
+- `plotly.js` + `react-plotly.js` power the institutional visualization layer (candlesticks, volume profiles, KPI sparklines).
+- Reusable components live under `src/components/charts/`:
+	- `CandlestickChart.tsx` → full Plotly candlestick with dark-mode theming and responsive resizing.
+	- `MetricSparkline.tsx` → compact metric tile with smooth spline sparkline and variance coloring.
+- Visit `/charts-demo` while running `npm run dev` to preview both components with mock data.
+- Pass real OHLCV arrays or KPI series from your agents to these components to instantly level-up dashboards.
+
+## ✅ Next Steps
+
+- Wire the authenticated session into the forthcoming dashboard routes.
+- Expand the GIS data set (organization name, locale preferences) and push to Firestore for agent orchestration.
+- Replace the placeholder email/password form with institutional SSO once ready.
+
+Happy hacking! ✨
