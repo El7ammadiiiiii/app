@@ -1,26 +1,807 @@
 @import "tailwindcss";
 
+/* ═══════════════════════════════════════════════════════════════
+   CCCWAYS - Three Theme System: Light / Normal / Dark
+   ═══════════════════════════════════════════════════════════════ */
+
+@plugin "tailwindcss-animate";
+
+@custom-variant dark (&:where(.dark, .dark *));
+@custom-variant normal (&:where(.normal, .normal *));
+@custom-variant light (&:where(.light, .light *));
+@custom-variant dark-b (&:where(.dark-b, .dark-b *));
+@custom-variant light-b (&:where(.light-b, .light-b *));
+@custom-variant normal-b (&:where(.normal-b, .normal-b *));
+
+/* ═══════════════════════════════════════════════════════════════
+   ROOT - قيم مشتركة فقط (يُطبق على كل الثيمات)
+   ═══════════════════════════════════════════════════════════════ */
 :root {
-  --background: #000000;
-  --foreground: #f5f5f5;
-  --accent-primary: #b8860b;
-  --accent-secondary: #7d0552;
+  --radius: 0.5rem;
+}
+
+/* ═══════════════════════════════════════════════════════════════
+   LIGHT MODE - الوضع الفاتح الكلاسيكي
+   ═══════════════════════════════════════════════════════════════ */
+html.light,
+html:not(.dark):not(.normal) {
+  --background: 218 44% 97%;
+  --foreground: 0 0% 0%; /* أسود */
+  --card: 0 0% 100%;
+  --card-foreground: 0 0% 0%; /* أسود */
+  --popover: 0 0% 100%;
+  --popover-foreground: 0 0% 0%; /* أسود */
+  --primary: 174 72% 28%;
+  --primary-foreground: 151 80% 96%;
+  --secondary: 24 95% 53%;
+  --secondary-foreground: 0 0% 0%; /* أسود */
+  --muted: 214 32% 92%;
+  --muted-foreground: 0 0% 20%; /* أسود فاتح */
+  --accent: 214 32% 92%;
+  --accent-foreground: 222 47% 11%;
+  --destructive: 0 84.2% 60.2%;
+  --destructive-foreground: 210 40% 98%;
+  --border: 214 32% 91%;
+  --input: 214 32% 91%;
+  --ring: 174 72% 45%;
+  --chart-1: 12 76% 61%;
+  --chart-2: 173 58% 39%;
+  --chart-3: 197 37% 24%;
+  --chart-4: 43 74% 66%;
+  --chart-5: 27 87% 67%;
+}
+
+/* ═══════════════════════════════════════════════════════════════
+   DARK MODE A - CCCWAYS Luxury Glass (Glassmorphism)
+   تصميم زجاجي فاخر فوق خلفية متحركة
+   
+   🎨 الألوان الأساسية:
+   - Deep Gunmetal: #0B0E11 (الخلفية)
+   - Pearl White: #F0F6FC (النصوص الرئيسية)
+   - Metallic Grey: #8B949E (النصوص الثانوية)
+   - Neon Turquoise: #00D2B4 (اللون المميز)
+   
+   📊 ألوان البيانات المالية:
+   - Emerald: #10B981 (صعود/إيجابي)
+   - Soft Coral: #F87171 (هبوط/سلبي)
+   - Sky Blue: #38BDF8 (معلومة/محايد)
+   ═══════════════════════════════════════════════════════════════ */
+html.dark {
+  /* ═══════════════════════════════════════════════════════════════
+     1. الخلفيات والأسطح (Surfaces & Glass)
+     ═══════════════════════════════════════════════════════════════ */
+  
+  /* الخلفية الأساسية: Deep Gunmetal #0B0E11 */
+  --background: 210 21% 4%; /* hsl(210, 21%, 4%) ≈ #0B0E11 */
+  
+  /* البطاقات والقوائم: شفافة للتأثير الزجاجي */
+  --card: 210 21% 5%;
+  --card-foreground: 210 40% 97%;
+  
+  --popover: 210 21% 5%;
+  --popover-foreground: 210 40% 97%;
+  
+  /* ═══════════════════════════════════════════════════════════════
+     2. النصوص والأيقونات (Typography & Icons)
+     ═══════════════════════════════════════════════════════════════ */
+  
+  /* النصوص الرئيسية: Pearl White #F0F6FC - أبيض لؤلؤي مريح للعين */
+  --foreground: 210 40% 97%; /* #F0F6FC */
+  
+  /* النصوص الثانوية: Metallic Grey #8B949E */
+  --muted: 210 14% 15%;
+  --muted-foreground: 212 9% 58%; /* #8B949E رمادي معدني */
+  
+  /* ═══════════════════════════════════════════════════════════════
+     3. اللون المميز (Brand Color)
+     ═══════════════════════════════════════════════════════════════ */
+  
+  /* Neon Turquoise #00D2B4 - للأزرار والأيقونات النشطة */
+  --primary: 170 100% 41%; /* #00D2B4 */
+  --primary-foreground: 210 21% 4%;
+  
+  /* ثانوي */
+  --secondary: 210 14% 12%;
+  --secondary-foreground: 210 40% 97%;
+  
+  --accent: 210 14% 15%;
+  --accent-foreground: 210 40% 97%;
+  
+  /* ═══════════════════════════════════════════════════════════════
+     4. ألوان البيانات المالية (Financial Data Colors)
+     ═══════════════════════════════════════════════════════════════ */
+  
+  /* Soft Coral #F87171 - هبوط/سلبي */
+  --destructive: 0 91% 71%;
+  --destructive-foreground: 210 40% 97%;
+  
+  /* الحدود: White Glow rgba(255, 255, 255, 0.08) */
+  --border: 210 14% 18%;
+  --input: 210 14% 18%;
+  --ring: 170 100% 41%;
+  
+  /* ألوان الرسوم البيانية */
+  --chart-1: 160 84% 39%; /* 🟢 Emerald #10B981 - صعود/إيجابي */
+  --chart-2: 170 100% 41%; /* 🔵 Neon Turquoise #00D2B4 */
+  --chart-3: 0 91% 71%; /* 🔴 Soft Coral #F87171 - هبوط/سلبي */
+  --chart-4: 199 89% 60%; /* 🔵 Sky Blue #38BDF8 - معلومة/محايد */
+  --chart-5: 212 9% 58%; /* Metallic Grey #8B949E */
+  
+  /* ألوان التداول المباشرة */
+  --success: 160 84% 39%; /* Emerald #10B981 */
+  --danger: 0 91% 71%; /* Soft Coral #F87171 */
+  --info: 199 89% 60%; /* Sky Blue #38BDF8 */
+  
+  /* ═══════════════════════════════════════════════════════════════
+     5. متغيرات الزجاج (Glass Variables)
+     ═══════════════════════════════════════════════════════════════ */
+  --glass-bg: rgba(11, 14, 17, 0.75);
+  --glass-border: rgba(255, 255, 255, 0.08);
+  --glass-shadow: rgba(0, 0, 0, 0.37);
+  --glass-blur: 20px;
+}
+
+/* ═══════════════════════════════════════════════════════════════
+   NORMAL MODE - CCCWAYS Clean & Crisp Design
+   خلفية رمادية باردة + بطاقات بيضاء + ظلال ناعمة
+   ═══════════════════════════════════════════════════════════════ */
+html.normal {
+  /* الخلفية العامة: رمادي بارد أغمق قليلاً #E8EAED */
+  --background: 216 12% 91%; /* #E8EAED */
+  --background-secondary: 216 10% 89%;
+  --background-tertiary: 216 8% 87%;
+
+  /* النصوص: أسود نقي */
+  --foreground: 0 0% 0%; /* أسود */
+  --foreground-muted: 0 0% 20%; /* أسود فاتح */
+
+  /* البطاقات والقوائم: Pure White #FFFFFF */
+  --card: 0 0% 100%;
+  --card-foreground: 0 0% 0%; /* أسود */
+  --popover: 0 0% 100%;
+  --popover-foreground: 0 0% 0%; /* أسود */
+
+  /* اللون الأساسي: Primary Teal #00BFA5 */
+  --primary: 168 100% 37%; /* #00BFA5 */
+  --primary-hover: 168 100% 32%; /* #00A793 للتحويم */
+  --primary-foreground: 0 0% 100%;
+
+  /* الأزرار الثانوية */
+  --secondary: 210 14% 97%; /* #F4F6F8 */
+  --secondary-foreground: 0 0% 0%; /* أسود */
+
+  /* Muted: للنصوص غير النشطة */
+  --muted: 210 14% 97%;
+  --muted-foreground: 0 0% 25%; /* أسود فاتح */
+
+  /* Accent */
+  --accent: 210 14% 97%;
+  --accent-foreground: 0 0% 0%; /* أسود */
+
+  /* Destructive: أحمر قاني #B71C1C */
+  --destructive: 0 76% 42%; /* #B71C1C */
+  --destructive-foreground: 0 0% 100%;
+
+  /* الحدود: Grey 300 #DFE3E8 */
+  --border: 210 14% 89%; /* #DFE3E8 */
+  --input: 210 14% 89%;
+  --ring: 168 100% 37%;
+
+  /* ألوان التداول والبيانات المالية */
+  --chart-1: 152 100% 24%; /* #007B55 أخضر غامق صعود */
+  --chart-2: 168 100% 37%; /* #00BFA5 تركواز */
+  --chart-3: 0 76% 42%; /* #B71C1C أحمر قاني هبوط */
+  --chart-4: 207 90% 54%; /* #1890FF أزرق سماوي */
+  --chart-5: 210 9% 56%; /* #919EAB رمادي */
+
+  /* ألوان التداول */
+  --success: 152 100% 24%; /* #007B55 */
+  --danger: 0 76% 42%; /* #B71C1C */
+  --info: 207 90% 54%; /* #1890FF */
+}
+
+/* ═══════════════════════════════════════════════════════════════
+   DARK-B MODE - الظل الليلي (Silent Night) 🌑
+   تصميم يعتمد على التبين الدقيق وإضاءة حوافية
+   ═══════════════════════════════════════════════════════════════ */
+html.dark-b {
+  /* الخلفية: رمادي فحمي دافئ */
+  --background: 240 6% 12%; /* #1c1c1e */
+  --foreground: 240 6% 91%; /* #e5e5ea */
+  
+  /* البطاقات: رمادي متوسط */
+  --card: 240 4% 18%; /* #2c2c2e */
+  --card-foreground: 240 6% 91%;
+  
+  --popover: 240 4% 18%;
+  --popover-foreground: 240 6% 91%;
+  
+  /* اللون المميز: أزرق سماوي */
+  --primary: 206 90% 60%; /* #5ab0ff */
+  --primary-foreground: 240 6% 12%;
+  
+  --secondary: 240 4% 22%;
+  --secondary-foreground: 240 6% 91%;
+  
+  /* رمادي فاتح للنصوص الثانوية */
+  --muted: 240 4% 24%;
+  --muted-foreground: 240 4% 64%; /* #a1a1aa */
+  
+  --accent: 240 4% 22%;
+  --accent-foreground: 240 6% 91%;
+  
+  --destructive: 0 72% 55%;
+  --destructive-foreground: 240 6% 91%;
+  
+  /* حدود دقيقة */
+  --border: 240 4% 23%; /* #3a3a3c */
+  --input: 240 4% 23%;
+  --ring: 206 90% 60%;
+  
+  --chart-1: 145 63% 42%;
+  --chart-2: 206 90% 60%;
+  --chart-3: 0 72% 55%;
+  --chart-4: 199 89% 60%;
+  --chart-5: 240 4% 64%;
+  
+  --success: 145 63% 42%;
+  --danger: 0 72% 55%;
+  --info: 199 89% 60%;
+}
+
+/* ═══════════════════════════════════════════════════════════════
+   LIGHT-B MODE - الوردي المغبر (Dusty Rose) 🌸
+   تصميم ناعم بألوان وردية وظلال ملونة
+   ═══════════════════════════════════════════════════════════════ */
+html.light-b {
+  /* الخلفية: وردي فاتح كالغيمة */
+  --background: 351 100% 97%; /* #fff1f2 */
+  --foreground: 343 81% 22%; /* #881337 */
+  
+  /* البطاقات بيضاء نقية */
+  --card: 0 0% 100%;
+  --card-foreground: 343 81% 22%;
+  
+  --popover: 0 0% 100%;
+  --popover-foreground: 343 81% 22%;
+  
+  /* اللون الأساسي: زهري ناعم */
+  --primary: 351 90% 71%; /* #fb7185 */
+  --primary-foreground: 0 0% 100%;
+  
+  --secondary: 351 80% 96%;
+  --secondary-foreground: 343 81% 22%;
+  
+  --muted: 351 60% 95%;
+  --muted-foreground: 343 40% 45%;
+  
+  --accent: 351 80% 96%;
+  --accent-foreground: 343 81% 22%;
+  
+  --destructive: 0 72% 55%;
+  --destructive-foreground: 0 0% 100%;
+  
+  --border: 351 40% 90%;
+  --input: 351 40% 90%;
+  --ring: 351 90% 71%;
+  
+  --chart-1: 152 76% 35%;
+  --chart-2: 351 90% 71%;
+  --chart-3: 0 72% 55%;
+  --chart-4: 199 89% 60%;
+  --chart-5: 343 40% 45%;
+  
+  --success: 152 76% 35%;
+  --danger: 0 72% 55%;
+  --info: 199 89% 60%;
+}
+
+/* ═══════════════════════════════════════════════════════════════
+   NORMAL-B MODE - نمط الورق الدافئ (Warm Paper) ☕
+   خلفية كريمي دافئة + حواف ناعمة بدلاً من الظلال
+   ═══════════════════════════════════════════════════════════════ */
+html.normal-b {
+  /* الخلفية: كريمي دافئ كالورق الطبيعي */
+  --background: 40 33% 97%; /* #F9F6F2 */
+  --foreground: 20 14% 20%; /* رمادي بني دافئ */
+  
+  /* البطاقات بيضاء */
+  --card: 0 0% 100%;
+  --card-foreground: 20 14% 20%;
+  
+  --popover: 0 0% 100%;
+  --popover-foreground: 20 14% 20%;
+  
+  /* اللون الأساسي: بني/ترابي */
+  --primary: 25 50% 45%; /* بني دافئ */
+  --primary-foreground: 0 0% 100%;
+  
+  --secondary: 40 20% 94%;
+  --secondary-foreground: 20 14% 20%;
+  
+  --muted: 40 20% 94%;
+  --muted-foreground: 20 10% 45%;
+  
+  --accent: 40 20% 94%;
+  --accent-foreground: 20 14% 20%;
+  
+  --destructive: 0 65% 48%;
+  --destructive-foreground: 0 0% 100%;
+  
+  /* حدود بيج خفيفة */
+  --border: 30 20% 88%; /* stone-200 */
+  --input: 30 20% 88%;
+  --ring: 25 50% 45%;
+  
+  --chart-1: 145 55% 35%;
+  --chart-2: 25 50% 45%;
+  --chart-3: 0 65% 48%;
+  --chart-4: 199 70% 50%;
+  --chart-5: 20 10% 45%;
+  
+  --success: 145 55% 35%;
+  --danger: 0 65% 48%;
+  --info: 199 70% 50%;
+}
+
+@theme inline {
+  --color-background: hsl(var(--background));
+  --color-foreground: hsl(var(--foreground));
+  --color-card: hsl(var(--card));
+  --color-card-foreground: hsl(var(--card-foreground));
+  --color-popover: hsl(var(--popover));
+  --color-popover-foreground: hsl(var(--popover-foreground));
+  --color-primary: hsl(var(--primary));
+  --color-primary-foreground: hsl(var(--primary-foreground));
+  --color-secondary: hsl(var(--secondary));
+  --color-secondary-foreground: hsl(var(--secondary-foreground));
+  --color-muted: hsl(var(--muted));
+  --color-muted-foreground: hsl(var(--muted-foreground));
+  --color-accent: hsl(var(--accent));
+  --color-accent-foreground: hsl(var(--accent-foreground));
+  --color-destructive: hsl(var(--destructive));
+  --color-destructive-foreground: hsl(var(--destructive-foreground));
+  --color-border: hsl(var(--border));
+  --color-input: hsl(var(--input));
+  --color-ring: hsl(var(--ring));
+  --color-chart-1: hsl(var(--chart-1));
+  --color-chart-2: hsl(var(--chart-2));
+  --color-chart-3: hsl(var(--chart-3));
+  --color-chart-4: hsl(var(--chart-4));
+  --color-chart-5: hsl(var(--chart-5));
+  --radius-lg: var(--radius);
+  --radius-md: calc(var(--radius) - 2px);
+  --radius-sm: calc(var(--radius) - 4px);
+  
+  --font-sans: var(--font-inter), ui-sans-serif, system-ui, sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol", "Noto Color Emoji";
+  --font-mono: var(--font-ibm-plex-mono), ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, "Liberation Mono", "Courier New", monospace;
+  --font-display: var(--font-league-spartan), sans-serif;
+  --font-arabic: var(--font-cairo), sans-serif;
+}
+
+/* Custom Utilities */
+@layer utilities {
+  .bg-radial-gradient {
+    background-image: radial-gradient(circle at center, rgba(15, 118, 110, 0.08) 0%, transparent 70%);
+  }
+  .dark .bg-radial-gradient {
+    background-image: radial-gradient(circle at center, rgba(0, 210, 180, 0.06) 0%, transparent 70%);
+  }
+  .normal .bg-radial-gradient {
+    background-image: radial-gradient(circle at center, rgba(0, 191, 165, 0.04) 0%, transparent 70%);
+  }
+}
+
+/* ═══════════════════════════════════════════════════════════════
+   NORMAL MODE - Clean & Crisp Design with Soft Shadows
+   ═══════════════════════════════════════════════════════════════ */
+@layer components {
+  /* البطاقات مع ظلال ناعمة */
+  .normal .card-elevated,
+  .normal .shadow-card {
+    background: #FFFFFF;
+    box-shadow: 0px 4px 12px rgba(0, 0, 0, 0.05);
+    border: 1px solid #DFE3E8;
+  }
+
+  /* القوائم المنبثقة */
+  .normal .dropdown-elevated,
+  .normal .shadow-dropdown {
+    background: #FFFFFF;
+    box-shadow: 0px 8px 24px rgba(0, 0, 0, 0.12);
+    border: 1px solid #DFE3E8;
+  }
+
+  /* الهيدر والقائمة الجانبية */
+  .normal .sidebar-elevated {
+    background: #FFFFFF;
+    box-shadow: 0px 2px 8px rgba(0, 0, 0, 0.04);
+    border-color: #DFE3E8;
+  }
+
+  /* ألوان التداول للـ Normal Mode */
+  .normal .text-success,
+  .normal .text-bullish {
+    color: #007B55; /* أخضر غامق */
+  }
+  
+  .normal .text-danger,
+  .normal .text-bearish {
+    color: #B71C1C; /* أحمر قاني */
+  }
+  
+  .normal .text-info,
+  .normal .text-neutral {
+    color: #1890FF; /* أزرق سماوي */
+  }
+
+  .normal .text-brand {
+    color: #00BFA5; /* تركواز */
+  }
+
+  /* خلفيات البيانات المالية */
+  .normal .bg-success {
+    background-color: rgba(0, 123, 85, 0.1);
+  }
+  
+  .normal .bg-danger {
+    background-color: rgba(183, 28, 28, 0.1);
+  }
+  
+  .normal .bg-info {
+    background-color: rgba(24, 144, 255, 0.1);
+  }
+
+  /* تأثير الهوفر للأزرار */
+  .normal .btn-primary:hover {
+    background-color: #00A793;
+  }
+
+  /* الحدود الناعمة */
+  .normal .border-subtle {
+    border-color: #DFE3E8;
+  }
+}
+
+/* ═══════════════════════════════════════════════════════════════
+   GLASSMORPHISM - DARK MODE A - تأثير الزجاج الفاخر
+   
+   📋 كيفية الاستخدام:
+   - glass-panel: للبطاقات والقوائم والهيدر
+   - glass-light: للعناصر الصغيرة (الأزرار، الشارات)
+   - glass-heavy: للمودال والعناصر المهمة
+   ═══════════════════════════════════════════════════════════════ */
+@layer components {
+  /* ═══════════════════════════════════════════════════════════════
+     الطبقة الزجاجية الأساسية (Main Glass Panel)
+     للبطاقات، القوائم، الهيدر
+     ═══════════════════════════════════════════════════════════════ */
+  .dark .glass-panel,
+  .dark .glass {
+    /* اللون الكحلي الفخم بنسبة شفافية 75% */
+    background: rgba(11, 14, 17, 0.75); /* Deep Gunmetal #0B0E11 */
+    
+    /* التمويه: ما يجعل الخلفية المتحركة تبدو جميلة */
+    backdrop-filter: blur(20px);
+    -webkit-backdrop-filter: blur(20px);
+    
+    /* حدود نحيفة لتعريف الشكل - White Glow */
+    border: 1px solid rgba(255, 255, 255, 0.08);
+    
+    /* ظل خفيف للعمق */
+    box-shadow: 0 8px 32px 0 rgba(0, 0, 0, 0.37);
+  }
+
+  /* ═══════════════════════════════════════════════════════════════
+     زجاج خفيف (Light Glass)
+     للعناصر الصغيرة مثل الأزرار والشارات
+     ═══════════════════════════════════════════════════════════════ */
+  .dark .glass-light {
+    background: rgba(11, 14, 17, 0.5);
+    backdrop-filter: blur(12px);
+    -webkit-backdrop-filter: blur(12px);
+    border: 1px solid rgba(255, 255, 255, 0.05);
+  }
+
+  /* ═══════════════════════════════════════════════════════════════
+     زجاج كثيف (Heavy Glass)
+     للمودال والعناصر المهمة التي تحتاج تركيز
+     ═══════════════════════════════════════════════════════════════ */
+  .dark .glass-heavy {
+    background: rgba(11, 14, 17, 0.9);
+    backdrop-filter: blur(24px);
+    -webkit-backdrop-filter: blur(24px);
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    box-shadow: 0 12px 40px 0 rgba(0, 0, 0, 0.5);
+  }
+
+  /* ═══════════════════════════════════════════════════════════════
+     تأثيرات التوهج (Glow Effects)
+     للعناصر النشطة والتفاعلية
+     ═══════════════════════════════════════════════════════════════ */
+  .dark .glow-primary {
+    box-shadow: 0 0 20px rgba(0, 210, 180, 0.3); /* Neon Turquoise */
+  }
+  
+  .dark .glow-success {
+    box-shadow: 0 0 15px rgba(16, 185, 129, 0.4); /* Emerald */
+  }
+  
+  .dark .glow-danger {
+    box-shadow: 0 0 15px rgba(248, 113, 113, 0.4); /* Soft Coral */
+  }
+  
+  .dark .glow-info {
+    box-shadow: 0 0 15px rgba(56, 189, 248, 0.4); /* Sky Blue */
+  }
+
+  /* ═══════════════════════════════════════════════════════════════
+     ألوان البيانات المالية (Financial Data Colors)
+     ═══════════════════════════════════════════════════════════════ */
+  
+  /* 🟢 صعود / إيجابي - Emerald #10B981 */
+  .dark .text-success,
+  .dark .text-bullish {
+    color: #10B981;
+  }
+  
+  /* 🔴 هبوط / سلبي - Soft Coral #F87171 */
+  .dark .text-danger,
+  .dark .text-bearish {
+    color: #F87171;
+  }
+  
+  /* 🔵 معلومة / محايد - Sky Blue #38BDF8 */
+  .dark .text-info,
+  .dark .text-neutral {
+    color: #38BDF8;
+  }
+
+  /* اللون المميز - Neon Turquoise #00D2B4 */
+  .dark .text-brand {
+    color: #00D2B4;
+  }
+  
+  /* النصوص الثانوية - Metallic Grey #8B949E */
+  .dark .text-secondary-custom {
+    color: #8B949E;
+  }
+
+  /* ═══════════════════════════════════════════════════════════════
+     خلفيات البيانات المالية (Financial Backgrounds)
+     ═══════════════════════════════════════════════════════════════ */
+  .dark .bg-success {
+    background-color: rgba(16, 185, 129, 0.15); /* Emerald */
+  }
+  
+  .dark .bg-danger {
+    background-color: rgba(248, 113, 113, 0.15); /* Soft Coral */
+  }
+  
+  .dark .bg-info {
+    background-color: rgba(56, 189, 248, 0.15); /* Sky Blue */
+  }
+  
+  .dark .bg-brand {
+    background-color: rgba(0, 210, 180, 0.15); /* Neon Turquoise */
+  }
+
+  /* ═══════════════════════════════════════════════════════════════
+     البطاقات المرتفعة (Elevated Cards)
+     ═══════════════════════════════════════════════════════════════ */
+  .dark .card-elevated,
+  .dark .shadow-card {
+    background: rgba(11, 14, 17, 0.75);
+    backdrop-filter: blur(20px);
+    -webkit-backdrop-filter: blur(20px);
+    border: 1px solid rgba(255, 255, 255, 0.08);
+    box-shadow: 0 8px 32px 0 rgba(0, 0, 0, 0.37);
+  }
+  
+  .dark .card-elevated:hover,
+  .dark .shadow-card:hover {
+    border-color: rgba(255, 255, 255, 0.12);
+    box-shadow: 0 12px 40px 0 rgba(0, 0, 0, 0.45);
+  }
+
+  /* ═══════════════════════════════════════════════════════════════
+     القوائم الجانبية والهيدر (Sidebar & Header)
+     ═══════════════════════════════════════════════════════════════ */
+  .dark .sidebar-elevated {
+    background: rgba(11, 14, 17, 0.85);
+    backdrop-filter: blur(24px);
+    -webkit-backdrop-filter: blur(24px);
+    border-color: rgba(255, 255, 255, 0.08);
+  }
+  
+  .dark .header-glass {
+    background: rgba(11, 14, 17, 0.7);
+    backdrop-filter: blur(20px);
+    -webkit-backdrop-filter: blur(20px);
+    border-bottom: 1px solid rgba(255, 255, 255, 0.08);
+  }
+}
+
+/* ═══════════════════════════════════════════════════════════════
+   DARK-B MODE - الظل الليلي: Rim Lighting & Glass
+   ═══════════════════════════════════════════════════════════════ */
+@layer components {
+  .dark-b .card-elevated,
+  .dark-b .shadow-card {
+    background: #2c2c2e;
+    box-shadow: 
+      0 4px 20px rgba(0, 0, 0, 0.5),
+      inset 0 1px 0 0 rgba(255, 255, 255, 0.1);
+    border: 1px solid rgba(255, 255, 255, 0.05);
+    border-radius: 16px;
+  }
+  
+  .dark-b .card-elevated:hover,
+  .dark-b .shadow-card:hover {
+    background: #3a3a3c;
+    box-shadow: 
+      0 6px 24px rgba(0, 0, 0, 0.55),
+      inset 0 1px 0 0 rgba(255, 255, 255, 0.15);
+  }
+  
+  .dark-b .text-success { color: #34D399; }
+  .dark-b .text-danger { color: #F87171; }
+  .dark-b .text-info { color: #38BDF8; }
+}
+
+/* ═══════════════════════════════════════════════════════════════
+   LIGHT-B MODE - الوردي المغبر: Soft UI & Colored Shadows
+   ═══════════════════════════════════════════════════════════════ */
+@layer components {
+  .light-b .card-elevated,
+  .light-b .shadow-card {
+    background: #ffffff;
+    box-shadow: 0 10px 40px -10px rgba(251, 113, 133, 0.15);
+    border: none;
+    border-radius: 24px;
+  }
+  
+  .light-b .btn-primary {
+    background: #fb7185;
+    color: #ffffff;
+    box-shadow: 0 4px 16px rgba(251, 113, 133, 0.4);
+  }
+  
+  .light-b .btn-primary:hover {
+    background: #f43f5e;
+  }
+  
+  .light-b .text-success { color: #059669; }
+  .light-b .text-danger { color: #DC2626; }
+  .light-b .text-info { color: #0284C7; }
+}
+
+/* ═══════════════════════════════════════════════════════════════
+   NORMAL-B MODE - الورق الدافئ: Soft Borders + Warm Tones
+   ═══════════════════════════════════════════════════════════════ */
+@layer components {
+  .normal-b .card-elevated,
+  .normal-b .shadow-card {
+    background: #ffffff;
+    border: 1px solid #E7E5E4; /* stone-200 */
+    box-shadow: none;
+    border-radius: 16px;
+  }
+  
+  .normal-b .sidebar-elevated {
+    background: #ffffff;
+    border-color: #E7E5E4;
+  }
+  
+  .normal-b .text-success { color: #15803D; }
+  .normal-b .text-danger { color: #B91C1C; }
+  .normal-b .text-info { color: #0369A1; }
+}
+
+/* Base Styles */
+@layer base {
+  * {
+    @apply border-border outline-ring/50;
+  }
+  body {
+    @apply bg-background text-foreground antialiased min-h-screen;
+  }
+}
+
+/* Light Mode */
+.light, [data-theme="light"] {
+  --background: #fafafa;
+  --background-secondary: #f5f5f5;
+  --background-tertiary: #e5e5e5;
+  --foreground: #171717;
+  --foreground-muted: #525252;
+  
+  --surface: rgba(255, 255, 255, 0.95);
+  --surface-hover: rgba(245, 245, 245, 0.95);
+  --surface-border: rgba(229, 229, 229, 0.8);
+  
+  --shadow-sm: 0 1px 2px rgba(0, 0, 0, 0.05);
+  --shadow-md: 0 4px 12px rgba(0, 0, 0, 0.08);
+  --shadow-lg: 0 8px 24px rgba(0, 0, 0, 0.12);
+  --shadow-glow: 0 0 20px rgba(34, 197, 94, 0.1);
+  
+  --chat-user-bubble: rgba(34, 197, 94, 0.08);
+  --chat-agent-bubble: rgba(245, 245, 245, 0.9);
 }
 
 @theme inline {
   --color-background: var(--background);
+  --color-background-secondary: var(--background-secondary);
+  --color-background-tertiary: var(--background-tertiary);
   --color-foreground: var(--foreground);
+  --color-foreground-muted: var(--foreground-muted);
+  --color-accent-primary: var(--accent-primary);
+  --color-accent-secondary: var(--accent-secondary);
+  --color-accent-tertiary: var(--accent-tertiary);
+  --color-surface: var(--surface);
+  --color-surface-hover: var(--surface-hover);
+  --color-surface-border: var(--surface-border);
   --font-sans: var(--font-montserrat);
   --font-serif: var(--font-cinzel);
   --font-mono: var(--font-share-tech);
+}
+
+/* Base Styles */
+html {
+  scroll-behavior: smooth;
 }
 
 body {
   background: var(--background);
   color: var(--foreground);
   min-height: 100vh;
+  font-family: var(--font-sans), system-ui, sans-serif;
 }
 
 * {
   box-sizing: border-box;
+}
+
+/* Utility Classes */
+.surface {
+  background: var(--surface);
+  border: 1px solid var(--surface-border);
+}
+
+.chat-area {
+  background: transparent;
+}
+
+.chat-bubble-user {
+  background: var(--chat-user-bubble);
+  border: 1px solid rgba(34, 197, 94, 0.2);
+}
+
+.chat-bubble-agent {
+  background: var(--chat-agent-bubble);
+  border: 1px solid var(--surface-border);
+}
+
+/* Scrollbar */
+::-webkit-scrollbar {
+  width: 6px;
+  height: 6px;
+}
+
+::-webkit-scrollbar-track {
+  background: transparent;
+}
+
+::-webkit-scrollbar-thumb {
+  background: rgba(115, 115, 115, 0.4);
+  border-radius: 3px;
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: rgba(115, 115, 115, 0.6);
+}
+
+* {
+  scrollbar-width: thin;
+  scrollbar-color: rgba(115, 115, 115, 0.4) transparent;
 }

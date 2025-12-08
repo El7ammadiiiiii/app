@@ -1,0 +1,14 @@
+export { AccountSection } from "./AccountSection";
+export { SubscriptionSection } from "./SubscriptionSection";
+export { PrivacySection } from "./PrivacySection";
+export { AppearanceSection } from "./AppearanceSection";
+export { LanguageSection } from "./LanguageSection";
+export { VoiceModeSection } from "./VoiceModeSection";
+export { AssistantsSection } from "./AssistantsSection";
+export { IntegrationsSection } from "./IntegrationsSection";
+export { AdvancedSection } from "./AdvancedSection";
+export { FilesSection } from "./FilesSection";
+export { NotificationsSection } from "./NotificationsSection";
+export { PluginsSection } from "./PluginsSection";
+export { AppSettingsSection } from "./AppSettingsSection";
+export { AboutSection } from "./AboutSection";

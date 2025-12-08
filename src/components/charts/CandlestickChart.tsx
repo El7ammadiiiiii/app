@@ -42,7 +42,7 @@ const CandlestickChart = ({ title = "Price Action", candles, theme = "dark" }: C
             close: candles.map((c) => c.close),
             increasing: { line: { color: "#16f2b3" }, fillcolor: "#16f2b333" },
             decreasing: { line: { color: "#f97316" }, fillcolor: "#f9731633" },
-            hoverinfo: "x+open+high+low+close" as any,
+            hoverinfo: "x+open+high+low+close" as PlotData["hoverinfo"],
           } as Partial<PlotData>,
         ]}
         layout={

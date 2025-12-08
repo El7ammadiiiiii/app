@@ -1,11 +1,30 @@
 "use client";
 
 import { useEffect, useRef } from "react";
+import type { OrbitControls } from "three/examples/jsm/controls/OrbitControls.js";
+import type { EffectComposer } from "three/examples/jsm/postprocessing/EffectComposer.js";
+import type { RenderPass } from "three/examples/jsm/postprocessing/RenderPass.js";
+import type { UnrealBloomPass } from "three/examples/jsm/postprocessing/UnrealBloomPass.js";
 
 type ThreeModule = typeof import("three");
 type WebGLRendererInstance = InstanceType<ThreeModule["WebGLRenderer"]>;
 type Vector3Instance = InstanceType<ThreeModule["Vector3"]>;
 type SpriteInstance = InstanceType<ThreeModule["Sprite"]>;
+
+const createInfinityCurve = (THREE: ThreeModule) =>
+  class InfinityCurve extends THREE.Curve<Vector3Instance> {
+    constructor(private readonly size = 15) {
+      super();
+    }
+    getPoint(t: number, optionalTarget = new THREE.Vector3() as Vector3Instance) {
+      const angle = t * Math.PI * 2;
+      const denominator = 1 + Math.sin(angle) ** 2;
+      const x = (this.size * Math.cos(angle)) / denominator;
+      const y = (this.size * Math.sin(angle) * Math.cos(angle)) / denominator;
+      const z = Math.sin(angle * 2) * 3.5;
+      return optionalTarget.set(x, y, z);
+    }
+  };
 
 type CleanupFn = () => void;
 
@@ -14,17 +33,17 @@ export const LoginBackground = () => {
 
   useEffect(() => {
     let renderer: WebGLRendererInstance | null = null;
-    let composer: any;
-    let controls: any;
+    let composer: EffectComposer | null = null;
+    let controls: OrbitControls | null = null;
     let frameId: number;
     let cleanupScene: CleanupFn | undefined;
 
     const init = async () => {
       const THREE: ThreeModule = await import("three");
-      const { OrbitControls } = await import("three/examples/jsm/controls/OrbitControls.js");
-      const { EffectComposer } = await import("three/examples/jsm/postprocessing/EffectComposer.js");
-      const { RenderPass } = await import("three/examples/jsm/postprocessing/RenderPass.js");
-      const { UnrealBloomPass } = await import("three/examples/jsm/postprocessing/UnrealBloomPass.js");
+      const { OrbitControls: OrbitControlsImpl } = await import("three/examples/jsm/controls/OrbitControls.js");
+      const { EffectComposer: EffectComposerImpl } = await import("three/examples/jsm/postprocessing/EffectComposer.js");
+      const { RenderPass: RenderPassImpl } = await import("three/examples/jsm/postprocessing/RenderPass.js");
+      const { UnrealBloomPass: UnrealBloomPassImpl } = await import("three/examples/jsm/postprocessing/UnrealBloomPass.js");
 
       if (!containerRef.current) return;
 
@@ -39,33 +58,19 @@ export const LoginBackground = () => {
       renderer.toneMappingExposure = 1.2;
       containerRef.current.appendChild(renderer.domElement);
 
-      composer = new EffectComposer(renderer);
-      composer.addPass(new RenderPass(scene, camera));
-      const bloom = new UnrealBloomPass(new THREE.Vector2(window.innerWidth, window.innerHeight), 1.5, 0.4, 0.85);
+      composer = new EffectComposerImpl(renderer) as EffectComposer;
+      composer.addPass(new RenderPassImpl(scene, camera) as RenderPass);
+      const bloom = new UnrealBloomPassImpl(new THREE.Vector2(window.innerWidth, window.innerHeight), 1.5, 0.4, 0.85) as UnrealBloomPass;
       bloom.strength = 0.8;
       bloom.radius = 0.5;
       composer.addPass(bloom);
 
-      controls = new OrbitControls(camera, renderer.domElement);
+      controls = new OrbitControlsImpl(camera, renderer.domElement) as OrbitControls;
       controls.enableDamping = true;
       controls.autoRotate = true;
       controls.autoRotateSpeed = 0.6;
 
-      const { Curve } = THREE;
-      class InfinityCurve extends Curve<Vector3Instance> {
-        constructor(private readonly size = 15) {
-          super();
-        }
-        getPoint(t: number, optionalTarget = new THREE.Vector3() as Vector3Instance) {
-          const angle = t * Math.PI * 2;
-          const denominator = 1 + Math.sin(angle) ** 2;
-          const x = (this.size * Math.cos(angle)) / denominator;
-          const y = (this.size * Math.sin(angle) * Math.cos(angle)) / denominator;
-          const z = Math.sin(angle * 2) * 3.5;
-          return optionalTarget.set(x, y, z);
-        }
-      }
-
+      const InfinityCurve = createInfinityCurve(THREE);
       const tubeGeometry = new THREE.TubeGeometry(new InfinityCurve(15), 100, 1.5, 16, true);
       const tubeMaterial = new THREE.MeshNormalMaterial({ wireframe: true });
       const tubeMesh = new THREE.Mesh(tubeGeometry, tubeMaterial);
@@ -113,7 +118,7 @@ export const LoginBackground = () => {
       const animate = () => {
         frameId = requestAnimationFrame(animate);
         tubeMesh.rotation.y += 0.002;
-        controls.update();
+        if (controls) controls.update();
         animatables.forEach((item) => {
           item.sprite.position.y -= item.speed;
           if (item.sprite.position.y < item.limitY) {
@@ -121,11 +126,11 @@ export const LoginBackground = () => {
             item.sprite.position.x = (Math.random() - 0.5) * 60;
           }
         });
-        composer.render();
+        if (composer) composer.render();
       };
 
       const onResize = () => {
-        if (!renderer) return;
+        if (!renderer || !composer) return;
         camera.aspect = window.innerWidth / window.innerHeight;
         camera.updateProjectionMatrix();
         renderer.setSize(window.innerWidth, window.innerHeight);
