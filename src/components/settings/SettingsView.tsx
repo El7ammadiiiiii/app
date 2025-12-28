@@ -21,6 +21,7 @@ import {
   PluginsSection,
   AppSettingsSection,
   AboutSection,
+  ColorCustomizerSection,
 } from "./sections";
 
 interface SettingsViewProps {
@@ -32,6 +33,7 @@ const sectionComponents: Record<SettingsSectionId, React.ComponentType> = {
   subscription: SubscriptionSection,
   privacy: PrivacySection,
   appearance: AppearanceSection,
+  colors: ColorCustomizerSection,
   language: LanguageSection,
   voice: VoiceModeSection,
   assistants: AssistantsSection,
@@ -49,6 +51,7 @@ const sectionTitles: Record<SettingsSectionId, string> = {
   subscription: "الاشتراك",
   privacy: "الخصوصية",
   appearance: "المظهر",
+  colors: "تخصيص الألوان",
   language: "اللغة والتاريخ",
   voice: "الوضع الصوتي",
   assistants: "المساعدون",
@@ -86,7 +89,7 @@ export function SettingsView({ onClose }: SettingsViewProps) {
     }
   }, [isMobile, isTablet]);
 
-  console.log("SettingsView rendered! activeSection:", activeSection);
+  
 
   const SectionComponent = sectionComponents[activeSection];
 
@@ -113,7 +116,7 @@ export function SettingsView({ onClose }: SettingsViewProps) {
       initial={{ opacity: 0 }}
       animate={{ opacity: 1 }}
       exit={{ opacity: 0 }}
-      className="fixed inset-0 z-50 flex items-center justify-center bg-black/50"
+      className="fixed inset-0 z-50 flex items-center justify-center bg-black/30 backdrop-blur-sm"
       onClick={onClose}
       dir="rtl"
     >
@@ -123,7 +126,7 @@ export function SettingsView({ onClose }: SettingsViewProps) {
         exit={{ opacity: 0, scale: 0.95, y: 20 }}
         transition={{ type: "spring", stiffness: 300, damping: 30 }}
         className={`
-          relative bg-card shadow-2xl overflow-hidden border border-border
+          relative shadow-2xl overflow-hidden bg-[var(--glass-bg)] backdrop-blur-xl border border-[var(--glass-border)]
           ${isMobile 
             ? "w-full h-full rounded-none flex-col" 
             : isTablet 
@@ -139,7 +142,7 @@ export function SettingsView({ onClose }: SettingsViewProps) {
           <motion.div 
             initial={{ y: -20, opacity: 0 }}
             animate={{ y: 0, opacity: 1 }}
-            className="flex items-center justify-between p-3 border-b border-border bg-card"
+            className="flex items-center justify-between p-3 border-b border-[var(--border-default)] bg-[var(--glass-bg)] backdrop-blur-xl"
           >
             <motion.button
               onClick={() => setShowMobileSidebar(!showMobileSidebar)}
@@ -210,7 +213,9 @@ export function SettingsView({ onClose }: SettingsViewProps) {
         )}
 
         {/* Main Content */}
-        <div className="flex-1 flex flex-col overflow-hidden min-w-0 bg-card">
+        <div 
+          className="flex-1 flex flex-col overflow-hidden min-w-0"
+        >
           {/* Header - Hidden on mobile/tablet */}
           {!showDrawer && (
             <SettingsHeader
@@ -222,7 +227,9 @@ export function SettingsView({ onClose }: SettingsViewProps) {
           )}
 
           {/* Content with staggered animation */}
-          <div className="flex-1 overflow-y-auto custom-scrollbar bg-card">
+          <div 
+            className="flex-1 overflow-y-auto custom-scrollbar"
+          >
             <div className={`p-3 sm:p-4 lg:p-5 ${isMobile ? "pb-20" : ""}`}>
               <AnimatePresence mode="wait">
                 <motion.div

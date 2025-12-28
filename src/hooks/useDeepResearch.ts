@@ -5,7 +5,7 @@
 
 "use client";
 
-import { useState, useCallback, useRef } from 'react';
+import { useState, useCallback, useRef, useEffect } from 'react';
 import type {
   ResearchQuery,
   ResearchStep,
@@ -73,28 +73,57 @@ export function useDeepResearch(userId: string = 'anonymous'): UseDeepResearchRe
   const [quota, setQuota] = useState<UserQuota | null>(null);
   const [error, setError] = useState<Error | null>(null);
   
+  // 🔧 SSR-safe state for quota values
+  const [canSearchState, setCanSearchState] = useState(true);
+  const [remainingSearchesState, setRemainingSearchesState] = useState(3);
+  const [timeUntilResetState, setTimeUntilResetState] = useState('');
+  const [isMounted, setIsMounted] = useState(false);
+  
   // Refs
   const abortControllerRef = useRef<AbortController | null>(null);
   const isSearchingRef = useRef(false);
+  
+  // ==========================================================================
+  // 🔧 SSR-safe initialization
+  // ==========================================================================
+  
+  useEffect(() => {
+    setIsMounted(true);
+    // Only access localStorage after component mounts (client-side)
+    if (typeof window !== 'undefined') {
+      const userQuota = getUserQuota(userId);
+      setQuota(userQuota);
+      setCanSearchState(canSearch(userId));
+      setRemainingSearchesState(getRemainingSearches(userId));
+      setTimeUntilResetState(getTimeUntilReset(userId));
+    }
+  }, [userId]);
   
   // ==========================================================================
   // 💰 Quota Management
   // ==========================================================================
   
   const refreshQuota = useCallback(() => {
+    if (typeof window === 'undefined') return;
     const userQuota = getUserQuota(userId);
     setQuota(userQuota);
+    setCanSearchState(canSearch(userId));
+    setRemainingSearchesState(getRemainingSearches(userId));
+    setTimeUntilResetState(getTimeUntilReset(userId));
   }, [userId]);
   
   const checkCanSearch = useCallback((): boolean => {
+    if (typeof window === 'undefined') return true;
     return canSearch(userId);
   }, [userId]);
   
   const getRemaining = useCallback((): number => {
+    if (typeof window === 'undefined') return 3;
     return getRemainingSearches(userId);
   }, [userId]);
   
   const getResetTime = useCallback((): string => {
+    if (typeof window === 'undefined') return '';
     return getTimeUntilReset(userId);
   }, [userId]);
   
@@ -230,9 +259,9 @@ export function useDeepResearch(userId: string = 'anonymous'): UseDeepResearchRe
     result,
     steps,
     quota,
-    canSearch: checkCanSearch(),
-    remainingSearches: getRemaining(),
-    timeUntilReset: getResetTime(),
+    canSearch: canSearchState,
+    remainingSearches: remainingSearchesState,
+    timeUntilReset: timeUntilResetState,
     error,
     
     // Actions

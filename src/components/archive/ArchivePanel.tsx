@@ -122,11 +122,11 @@ export function ArchivePanel({ isOpen, onClose, userId, onInsertToChat }: Archiv
             animate={{ opacity: 1, x: 0 }}
             exit={{ opacity: 0, x: 400 }}
             transition={{ type: "spring", damping: 25, stiffness: 300 }}
-            className="fixed left-0 top-0 bottom-0 w-full max-w-2xl bg-card 
+            className="fixed left-0 top-0 bottom-0 w-full max-w-2xl theme-card 
                        border-r border-border z-50 flex flex-col overflow-hidden shadow-2xl"
           >
             {/* Header */}
-            <div className="flex items-center justify-between px-6 py-4 border-b border-border bg-card">
+            <div className="flex items-center justify-between px-6 py-4 border-b border-border theme-card">
               <div className="flex items-center gap-3">
                 <div className="w-10 h-10 rounded-xl bg-gradient-to-br from-amber-500 to-orange-500 
                                flex items-center justify-center">
@@ -287,7 +287,7 @@ export function ArchivePanel({ isOpen, onClose, userId, onInsertToChat }: Archiv
                     className="flex-1 flex flex-col overflow-hidden bg-muted/30"
                   >
                     {/* Chat Header */}
-                    <div className="px-4 py-3 border-b border-border bg-card flex items-center justify-between">
+                    <div className="px-4 py-3 border-b border-border theme-card flex items-center justify-between">
                       <div>
                         <h3 className="font-medium text-foreground text-sm">{selectedChat.title}</h3>
                         <p className="text-xs text-muted-foreground">
@@ -336,7 +336,7 @@ export function ArchivePanel({ isOpen, onClose, userId, onInsertToChat }: Archiv
                             "max-w-[85%] p-3 rounded-xl",
                             msg.role === 'user'
                               ? "mr-auto bg-primary/10 border border-primary/20 rounded-tl-none"
-                              : "ml-auto bg-card border border-border rounded-tr-none"
+                              : "ml-auto theme-card border border-border rounded-tr-none"
                           )}
                         >
                           <div className="flex items-center gap-2 mb-1">
@@ -374,7 +374,7 @@ export function ArchivePanel({ isOpen, onClose, userId, onInsertToChat }: Archiv
             </div>
 
             {/* Footer */}
-            <div className="px-6 py-3 border-t border-border bg-card flex items-center justify-between">
+            <div className="px-6 py-3 border-t border-border theme-card flex items-center justify-between">
               <div className="flex items-center gap-4 text-xs text-muted-foreground">
                 {stats && (
                   <>

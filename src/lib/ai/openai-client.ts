@@ -1,9 +1,7 @@
 // =============================================================================
-// 📦 CCCWAYS Canvas - OpenAI Client
+// 📦 CCCWAYS - OpenAI Client
 // عميل OpenAI للتكامل مع الذكاء الاصطناعي
 // =============================================================================
-
-import type { CanvasElement, Point, Bounds } from "@/types/canvas";
 
 // =============================================================================
 // ⚙️ Configuration
@@ -390,60 +388,10 @@ export const CANVAS_SYSTEM_PROMPTS = {
 };
 
 // =============================================================================
-// 🔧 Utility Functions
-// =============================================================================
-
-/**
- * إنشاء سياق من عناصر الكانفاس
- */
-export function createCanvasContext(elements: CanvasElement[]): string {
-  const summary = elements.map((el) => {
-    const baseInfo = `- ${el.type} (id: ${el.id}) at (${el.x}, ${el.y}), size: ${el.width}x${el.height}`;
-    switch (el.type) {
-      case "text":
-        return `${baseInfo}, content: "${(el as any).content?.substring(0, 50)}..."`;
-      case "shape":
-        return `${baseInfo}, shape: ${(el as any).shapeType}`;
-      case "sticky":
-        return `${baseInfo}, color: ${(el as any).color}`;
-      default:
-        return baseInfo;
-    }
-  });
-
-  return `Canvas Elements (${elements.length}):\n${summary.join("\n")}`;
-}
-
-/**
- * تحليل استجابة الأشكال
- */
-export function parseShapeResponse(response: string): Partial<CanvasElement>[] {
-  try {
-    // Try to extract JSON from response
-    const jsonMatch = response.match(/\[[\s\S]*\]/);
-    if (jsonMatch) {
-      return JSON.parse(jsonMatch[0]);
-    }
-
-    const objectMatch = response.match(/\{[\s\S]*\}/);
-    if (objectMatch) {
-      return [JSON.parse(objectMatch[0])];
-    }
-
-    return [];
-  } catch {
-    console.warn("Failed to parse shape response:", response);
-    return [];
-  }
-}
-
-// =============================================================================
 // 📤 Export
 // =============================================================================
 
 export const OpenAI = {
   OpenAIClient,
   CANVAS_SYSTEM_PROMPTS,
-  createCanvasContext,
-  parseShapeResponse,
 };

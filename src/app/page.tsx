@@ -23,12 +23,12 @@ const CryptoBackground = dynamic(
 
 export default function Home() {
   return (
-    <div className="relative min-h-screen">
+    <div className="relative min-h-screen overflow-x-hidden">
       {/* Animated Background - 6% opacity as requested */}
       <CryptoBackground opacity={0.06} />
       
-      {/* Main Content */}
-      <div className="relative z-10">
+      {/* Main Content - z-20 to ensure visibility above backgrounds */}
+      <div className="relative z-20">
         {/* Header */}
         <header className="fixed top-0 left-0 right-0 z-50">
           <div className="surface mx-4 mt-4 rounded-2xl px-6 py-4">
@@ -52,8 +52,8 @@ export default function Home() {
         </header>
 
         {/* Hero Section */}
-        <main className="pt-32 px-4">
-          <div className="max-w-6xl mx-auto">
+        <main className="pt-32 px-4 min-h-screen">
+          <div className="max-w-7xl mx-auto w-full">
             {/* Hero Text */}
             <motion.div 
               initial={{ opacity: 0, y: 30 }}
@@ -61,16 +61,16 @@ export default function Home() {
               transition={{ delay: 0.2 }}
               className="text-center mb-16"
             >
-              <h1 className="font-serif text-5xl md:text-7xl font-bold mb-6 text-glow">
+              <h1 className="font-serif text-4xl sm:text-5xl md:text-6xl lg:text-7xl xl:text-8xl font-bold mb-6 text-glow">
                 تحليل ذكي
                 <br />
                 <span className="text-accent-primary">للعملات الرقمية</span>
               </h1>
-              <p className="text-foreground-muted text-lg md:text-xl max-w-2xl mx-auto mb-8">
+              <p className="text-foreground-muted text-base sm:text-lg md:text-xl lg:text-2xl max-w-3xl mx-auto mb-8">
                 منصة متكاملة مدعومة بالذكاء الاصطناعي للتحليل الفني والأساسي وتحليل السلسلة
               </p>
               <div className="flex flex-wrap gap-4 justify-center">
-                <Link href="/app">
+                <Link href="/chat">
                   <Button size="lg" className="glow-primary">
                     <Sparkles className="ml-2" />
                     ابدأ التحليل
@@ -88,7 +88,7 @@ export default function Home() {
               initial={{ opacity: 0, y: 50 }}
               animate={{ opacity: 1, y: 0 }}
               transition={{ delay: 0.4 }}
-              className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6 mb-16"
+              className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4 md:gap-6 lg:gap-8 mb-16 px-2 lg:px-0"
             >
               <FeatureCard 
                 icon={<TrendingUp className="w-8 h-8" />}
@@ -210,8 +210,8 @@ export default function Home() {
         </main>
 
         {/* Footer */}
-        <footer className="surface mt-20 py-8">
-          <div className="max-w-6xl mx-auto px-4 text-center">
+        <footer className="surface mt-20 py-8 lg:py-12">
+          <div className="max-w-7xl mx-auto px-4 lg:px-8 text-center">
             <p className="text-foreground-muted text-sm">
               © 2024 CCCWAYS. جميع الحقوق محفوظة.
             </p>

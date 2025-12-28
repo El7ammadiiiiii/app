@@ -101,7 +101,7 @@ export function FilesSection() {
     <div className="space-y-6">
       {/* Storage Overview */}
       <SettingGroup title="نظرة عامة على التخزين">
-        <div className="p-6 rounded-xl bg-card border border-border">
+        <div className="p-6 rounded-xl bg-[var(--glass-bg)] backdrop-blur-xl border border-[var(--glass-border)]">
           <div className="flex items-center gap-6">
             <div className="relative w-24 h-24">
               <svg className="w-full h-full -rotate-90">
@@ -258,7 +258,7 @@ export function FilesSection() {
                   layout
                   initial={{ opacity: 0, y: 10 }}
                   animate={{ opacity: 1, y: 0 }}
-                  className="flex items-center gap-3 p-3 rounded-xl bg-card border border-border
+                  className="flex items-center gap-3 p-3 rounded-xl bg-[var(--glass-bg)] backdrop-blur-xl border border-[var(--glass-border)]
                            hover:border-primary transition-all group"
                 >
                   <div className="w-10 h-10 rounded-lg bg-muted flex items-center justify-center">

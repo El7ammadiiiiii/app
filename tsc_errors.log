@@ -1,0 +1,9 @@
+src/Display_6_Models/descending_triangle.ts(1,1): error TS1434: Unexpected keyword or identifier.
+src/lib/indicators/elite-pattern-bridge.ts(250,1): error TS1160: Unterminated template literal.
+src/lib/indicators/elite-pattern-detection.ts(167,16): error TS1161: Unterminated regular expression literal.
+src/lib/indicators/elite-pattern-detection.ts(167,19): error TS1005: ';' expected.
+src/lib/indicators/elite-pattern-detection.ts(167,20): error TS1128: Declaration or statement expected.
+src/lib/indicators/elite-pattern-detection.ts(167,31): error TS1005: ';' expected.
+src/lib/indicators/index.ts(307,3): error TS1128: Declaration or statement expected.
+src/lib/indicators/index.ts(307,43): error TS1127: Invalid character.
+src/lib/indicators/index.ts(307,47): error TS1002: Unterminated string literal.

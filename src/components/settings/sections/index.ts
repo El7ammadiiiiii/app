@@ -12,3 +12,4 @@ export { NotificationsSection } from "./NotificationsSection";
 export { PluginsSection } from "./PluginsSection";
 export { AppSettingsSection } from "./AppSettingsSection";
 export { AboutSection } from "./AboutSection";
+export { ColorCustomizerSection } from "./ColorCustomizerSection";

@@ -58,7 +58,7 @@ export function BranchChatModal({ isOpen, onClose, chat }: BranchChatModalProps)
             exit={{ opacity: 0, scale: 0.95, y: 20 }}
             transition={{ type: "spring", duration: 0.4 }}
             className="fixed inset-4 md:inset-auto md:left-1/2 md:top-1/2 md:-translate-x-1/2 md:-translate-y-1/2 
-                       md:w-[600px] md:max-h-[80vh] bg-card border border-border rounded-2xl 
+                       md:w-[600px] md:max-h-[80vh] theme-card border border-border rounded-2xl 
                        shadow-2xl z-50 overflow-hidden flex flex-col"
           >
             {/* Header */}
@@ -91,7 +91,7 @@ export function BranchChatModal({ isOpen, onClose, chat }: BranchChatModalProps)
                   value={branchTitle}
                   onChange={(e) => setBranchTitle(e.target.value)}
                   placeholder={`فرع من: ${chat.title}`}
-                    className="w-full px-4 py-3 rounded-xl border border-border bg-card
+                    className="w-full px-4 py-3 rounded-xl border border-border theme-card
                              focus:border-primary focus:ring-2 focus:ring-primary/20 
                              outline-none transition-all"
                 />

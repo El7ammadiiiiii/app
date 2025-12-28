@@ -96,7 +96,7 @@ export function CreateProjectModal() {
             exit={{ opacity: 0, scale: 0.95, y: 20 }}
             transition={{ type: "spring", duration: 0.4 }}
             className="fixed inset-4 md:inset-auto md:left-1/2 md:top-1/2 md:-translate-x-1/2 md:-translate-y-1/2 
-                       md:w-[600px] md:max-h-[85vh] bg-card border border-border rounded-2xl 
+                       md:w-[600px] md:max-h-[85vh] theme-card border border-border rounded-2xl 
                        shadow-2xl z-50 overflow-hidden flex flex-col"
           >
             {/* Header */}
@@ -163,7 +163,7 @@ export function CreateProjectModal() {
                     value={name}
                     onChange={(e) => setName(e.target.value)}
                     placeholder="اسم المشروع..."
-                    className="w-full h-14 px-4 rounded-xl border border-border bg-background
+                    className="w-full h-14 px-4 rounded-xl border border-border theme-surface
                              focus:border-primary focus:ring-2 focus:ring-primary/20 
                              outline-none transition-all text-lg"
                     autoFocus
@@ -223,7 +223,7 @@ export function CreateProjectModal() {
                         value={description}
                         onChange={(e) => setDescription(e.target.value)}
                         placeholder="وصف مختصر للمشروع..."
-                        className="w-full px-4 py-3 rounded-xl border border-border bg-background
+                        className="w-full px-4 py-3 rounded-xl border border-border theme-surface
                                  focus:border-primary focus:ring-2 focus:ring-primary/20 
                                  outline-none transition-all"
                       />
@@ -237,7 +237,7 @@ export function CreateProjectModal() {
                         onChange={(e) => setInstructions(e.target.value)}
                         placeholder="أضف تعليمات خاصة لهذا المشروع..."
                         rows={4}
-                        className="w-full px-4 py-3 rounded-xl border border-border bg-background
+                        className="w-full px-4 py-3 rounded-xl border border-border theme-surface
                                  focus:border-primary focus:ring-2 focus:ring-primary/20 
                                  outline-none transition-all resize-none"
                       />

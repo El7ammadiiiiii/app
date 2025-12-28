@@ -1,16 +1,9 @@
 "use client";
 
 import * as React from "react";
-import { motion } from "framer-motion";
 import { 
-  Bot,
   Sparkles,
   Brain,
-  Settings2,
-  MessageSquare,
-  Zap,
-  Building2,
-  LineChart,
   Lightbulb,
 } from "lucide-react";
 import { 
@@ -20,31 +13,7 @@ import {
   SettingGroup,
 } from "../components";
 import { useSettingsStore } from "../store/settingsStore";
-import type { AssistantType, ResponseStyle } from "../types/settings";
-
-const assistants: { id: AssistantType; name: string; description: string; icon: typeof Bot; color: string }[] = [
-  {
-    id: "general",
-    name: "المساعد العام",
-    description: "مساعد ذكي متعدد الأغراض",
-    icon: Bot,
-    color: "from-blue-500 to-cyan-500",
-  },
-  {
-    id: "analyst",
-    name: "المحلل المالي",
-    description: "متخصص في التحليل الفني والأساسي",
-    icon: LineChart,
-    color: "from-green-500 to-emerald-500",
-  },
-  {
-    id: "institute",
-    name: "وكيل المعهد",
-    description: "مساعد متخصص في تعليم التداول",
-    icon: Building2,
-    color: "from-purple-500 to-pink-500",
-  },
-];
+import type { ResponseStyle } from "../types/settings";
 
 const responseStyleOptions = [
   { value: "concise", label: "مختصر - ردود قصيرة ومباشرة" },
@@ -60,7 +29,6 @@ const responseToneOptions = [
 
 export function AssistantsSection() {
   const {
-    defaultAssistant,
     responseLength,
     responseTone,
     customInstructions,
@@ -72,55 +40,6 @@ export function AssistantsSection() {
 
   return (
     <div className="space-y-6">
-      {/* Assistant Selection */}
-      <SettingGroup title="اختيار المساعد">
-        <div className="grid gap-3">
-          {assistants.map((assistant) => {
-            const Icon = assistant.icon;
-            const isSelected = defaultAssistant === assistant.id;
-            
-            return (
-              <motion.button
-                key={assistant.id}
-                onClick={() => updateSetting("defaultAssistant", assistant.id)}
-                className={`
-                  relative flex items-center gap-4 p-4 rounded-xl border-2 transition-all text-right
-                  ${isSelected
-                    ? "border-primary bg-primary text-primary-foreground"
-                    : "border-border bg-card hover:border-primary"
-                  }
-                `}
-                whileHover={{ scale: 1.01 }}
-                whileTap={{ scale: 0.99 }}
-              >
-                <div className={`
-                  w-12 h-12 rounded-xl bg-gradient-to-br ${assistant.color}
-                  flex items-center justify-center flex-shrink-0
-                `}>
-                  <Icon className="w-6 h-6 text-white" />
-                </div>
-                <div className="flex-1">
-                  <h4 className="font-semibold text-foreground">{assistant.name}</h4>
-                  <p className="text-sm text-muted-foreground">{assistant.description}</p>
-                </div>
-                <div className={`
-                  w-5 h-5 rounded-full border-2 flex items-center justify-center
-                  ${isSelected ? "border-primary bg-primary" : "border-muted-foreground"}
-                `}>
-                  {isSelected && (
-                    <motion.div
-                      initial={{ scale: 0 }}
-                      animate={{ scale: 1 }}
-                      className="w-2 h-2 rounded-full bg-white"
-                    />
-                  )}
-                </div>
-              </motion.button>
-            );
-          })}
-        </div>
-      </SettingGroup>
-
       {/* Response Style */}
       <SettingGroup title="أسلوب الاستجابة">
         <SettingSelect

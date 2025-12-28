@@ -48,8 +48,8 @@ const MetricSparkline = ({ label, currentValue, changePct, series, suffix = "" }
             layout={
               {
                 margin: { l: 0, r: 0, t: 0, b: 0 },
-                paper_bgcolor: "rgba(0,0,0,0)",
-                plot_bgcolor: "rgba(0,0,0,0)",
+                paper_bgcolor: "#040506",
+                plot_bgcolor: "#0f3133",
                 xaxis: { visible: false },
                 yaxis: { visible: false },
                 height: 64,

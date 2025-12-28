@@ -72,7 +72,7 @@ export function VoiceModeSection() {
                   relative p-4 rounded-xl border-2 transition-all text-right
                   ${selectedVoice === voice.id
                     ? "border-primary bg-primary text-primary-foreground"
-                    : "border-border bg-card hover:border-primary"
+                    : "border-[var(--glass-border)] bg-[var(--glass-bg)] backdrop-blur-xl hover:border-primary"
                   }
                 `}
               whileHover={{ scale: 1.02 }}

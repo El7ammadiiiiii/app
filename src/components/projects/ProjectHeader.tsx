@@ -42,13 +42,13 @@ export function ProjectHeader() {
       {/* شريط اللون */}
       <div className={`absolute top-0 left-0 right-0 h-1 ${colorClasses.bg}`} />
 
-      <div className="flex items-center justify-between p-4 pt-5 border-b border-border bg-card/50">
+      <div className="flex items-center justify-between p-4 pt-5 border-b border-border theme-card/50">
         {/* معلومات المشروع */}
         <div className="flex items-center gap-3">
           {/* زر العودة */}
           <motion.button
             onClick={() => setActiveProject(null)}
-            className="p-2 rounded-xl hover:bg-accent transition-colors"
+            className="p-2 rounded-2xl hover:bg-accent transition-colors"
             whileHover={{ scale: 1.05 }}
             whileTap={{ scale: 0.95 }}
           >
@@ -61,7 +61,7 @@ export function ProjectHeader() {
             onClick={() => setShowInfo(!showInfo)}
           >
             <div className={`
-              w-10 h-10 rounded-xl ${colorClasses.bg}/20 
+              w-10 h-10 rounded-2xl ${colorClasses.bg}/20 
               flex items-center justify-center
             `}>
               <EmojiDisplay emoji={project.emoji} size="md" />
@@ -96,7 +96,7 @@ export function ProjectHeader() {
           {/* زر المعلومات */}
           <motion.button
             onClick={() => setShowInfo(!showInfo)}
-            className={`p-2 rounded-xl transition-colors ${showInfo ? "bg-accent" : "hover:bg-accent"}`}
+            className={`p-2 rounded-2xl transition-colors ${showInfo ? "bg-accent" : "hover:bg-accent"}`}
             whileHover={{ scale: 1.05 }}
             whileTap={{ scale: 0.95 }}
           >

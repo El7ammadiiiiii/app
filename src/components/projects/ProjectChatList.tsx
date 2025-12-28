@@ -200,7 +200,7 @@ function ChatItem({ chat, isActive, onSelect }: ChatItemProps) {
               if (e.key === "Enter") handleSaveRename();
               if (e.key === "Escape") setIsEditing(false);
             }}
-            className="w-full bg-background px-2 py-1 rounded border border-primary 
+            className="w-full theme-surface px-2 py-1 rounded border border-primary 
                      focus:outline-none text-sm"
             autoFocus
             onClick={(e) => e.stopPropagation()}

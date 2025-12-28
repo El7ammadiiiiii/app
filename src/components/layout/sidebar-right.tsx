@@ -1,51 +1,41 @@
 "use client";
 
 import { useState, useRef, useEffect } from "react";
+import { useRouter } from "next/navigation";
 import { motion, AnimatePresence, Variants } from "framer-motion";
 import {
   TrendingUp,
-  BarChart3,
   CandlestickChart,
   Activity,
-  Target,
-  Layers,
-  Waves,
-  LineChart,
-  Link2,
-  Wallet,
-  Users,
-  Coins,
-  Building2,
-  FileText,
-  Calculator,
-  Bell,
-  Wand2,
-  Zap,
-  Bot,
   ChevronDown,
   ChevronRight,
   Menu,
   X,
-  Gauge,
   Eye,
   TrendingDown,
-  PieChart,
-  BarChart2,
-  Scale,
   Flame,
-  Network,
   Plus,
   Pin,
+  Zap,
 } from "lucide-react";
 import { cn } from "@/lib/utils";
 
 // Types
+interface AnalysisPage {
+  id: string;
+  label: string;
+  icon: React.ReactNode;
+  description?: string;
+  path: string;
+}
+
 interface AnalysisCategory {
   id: string;
   label: string;
   icon: React.ReactNode;
   color: string;
-  pages: { id: string; label: string; icon: React.ReactNode; description?: string }[];
+  basePath: string;
+  pages: AnalysisPage[];
 }
 
 interface SidebarRightProps {
@@ -54,31 +44,35 @@ interface SidebarRightProps {
   isMobile?: boolean;
 }
 
-// Analysis Categories Data
+// Analysis Categories Data - الفئات الأربع الرئيسية للتحليل
 const analysisCategories: AnalysisCategory[] = [
   {
     id: "scanners",
     label: "الماسحات الذكية",
     icon: <Eye className="w-5 h-5" />,
     color: "text-cyan-400",
+    basePath: "/chat/scanners",
     pages: [
       { 
-        id: "nexus-scanner", 
-        label: "🔥 Nexus Scanner", 
+        id: "scanners-main", 
+        label: "📡 ماسحات السوق الحية", 
         icon: <Activity className="w-4 h-4" />,
-        description: "ماسح السوق الشامل"
+        description: "بيانات السوق المباشرة من CoinGecko",
+        path: "/chat/scanners"
       },
       { 
-        id: "smart-money", 
-        label: "🎯 Smart Money Radar", 
-        icon: <Target className="w-4 h-4" />,
-        description: "تتبع الأموال الذكية"
+        id: "trend-scanner", 
+        label: "📈 ماسح الاتجاهات", 
+        icon: <TrendingUp className="w-4 h-4" />,
+        description: "تحليل متعدد المؤشرات",
+        path: "/chat/trend-scanner"
       },
       { 
-        id: "momentum-matrix", 
-        label: "⚡ Momentum Matrix", 
-        icon: <Zap className="w-4 h-4" />,
-        description: "تحليل الزخم والقوة"
+        id: "divergence-scanner", 
+        label: "🔀 Divergence Scanner", 
+        icon: <TrendingDown className="w-4 h-4" />,
+        description: "كشف الدايفرجنس المتقدم",
+        path: "/chat/divergence-scanner"
       },
     ],
   },
@@ -87,101 +81,54 @@ const analysisCategories: AnalysisCategory[] = [
     label: "التحليل الفني المتقدم",
     icon: <TrendingUp className="w-5 h-5" />,
     color: "text-purple-400",
+    basePath: "/chat/technical-pro",
     pages: [
       { 
-        id: "harmonic-hunter", 
-        label: "🌀 Harmonic Hunter", 
-        icon: <Waves className="w-4 h-4" />,
-        description: "اكتشاف النماذج التوافقية"
-      },
-      { 
-        id: "pattern-ai", 
-        label: "🔮 Pattern AI", 
-        icon: <Wand2 className="w-4 h-4" />,
-        description: "الذكاء الاصطناعي للأنماط"
-      },
-      { 
-        id: "mtf-confluence", 
-        label: "📊 MTF Confluence", 
-        icon: <Layers className="w-4 h-4" />,
-        description: "توافق الأطر الزمنية"
-      },
-      { 
-        id: "volatility-theater", 
-        label: "🎪 Volatility Theater", 
-        icon: <Activity className="w-4 h-4" />,
-        description: "تحليل التقلبات"
+        id: "technical-main", 
+        label: "📊 التحليل الفني الحي", 
+        icon: <CandlestickChart className="w-4 h-4" />,
+        description: "RSI, MACD, أنماط الشموع",
+        path: "/chat/technical-pro"
       },
     ],
   },
   {
-    id: "onchain-fund",
-    label: "On-Chain & أساسي",
-    icon: <Link2 className="w-5 h-5" />,
-    color: "text-green-400",
+    id: "patterns",
+    label: "الأنماط",
+    icon: <Flame className="w-5 h-5" />,
+    color: "text-purple-400",
+    basePath: "/chat/patterns",
     pages: [
       { 
-        id: "whale-intel", 
-        label: "🐋 Whale Intelligence", 
-        icon: <Wallet className="w-4 h-4" />,
-        description: "ذكاء الحيتان"
-      },
-      { 
-        id: "tokenomics-lab", 
-        label: "💎 Tokenomics Lab", 
-        icon: <PieChart className="w-4 h-4" />,
-        description: "مختبر الاقتصاديات"
-      },
-      { 
-        id: "network-health", 
-        label: "🌐 Network Health", 
-        icon: <Network className="w-4 h-4" />,
-        description: "صحة الشبكة"
-      },
-      { 
-        id: "macro-liquidity", 
-        label: "🏦 Macro Liquidity", 
-        icon: <Building2 className="w-4 h-4" />,
-        description: "السيولة الكلية"
+        id: "patterns-main", 
+        label: "🔷 Patterns", 
+        icon: <Flame className="w-4 h-4" />,
+        description: "أنماط الرسم البياني",
+        path: "/chat/patterns"
       },
     ],
   },
   {
-    id: "security-strategy",
-    label: "الأمان والاستراتيجية",
-    icon: <Scale className="w-5 h-5" />,
-    color: "text-amber-400",
+    id: "test",
+    label: "صفحة الاختبار",
+    icon: <Flame className="w-5 h-5" />,
+    color: "text-pink-400",
+    basePath: "/chat/test",
     pages: [
       { 
-        id: "security-scanner", 
-        label: "🔐 Security Scanner", 
-        icon: <Gauge className="w-4 h-4" />,
-        description: "فحص الأمان والمخاطر"
-      },
-      { 
-        id: "ai-advisor", 
-        label: "🤖 AI Advisor", 
-        icon: <Bot className="w-4 h-4" />,
-        description: "المستشار الذكي"
-      },
-      { 
-        id: "genius-alerts", 
-        label: "🔔 Genius Alerts", 
-        icon: <Bell className="w-4 h-4" />,
-        description: "تنبيهات العبقرية"
-      },
-      { 
-        id: "strategy-builder", 
-        label: "🛠️ Strategy Builder", 
-        icon: <Wand2 className="w-4 h-4" />,
-        description: "باني الاستراتيجيات"
+        id: "test-main", 
+        label: "🧪 Test", 
+        icon: <Flame className="w-4 h-4" />,
+        description: "صفحة الاختبار والتطوير",
+        path: "/chat/test"
       },
     ],
   },
 ];
 
 export function SidebarRight({ isOpen, onToggle, isMobile = false }: SidebarRightProps) {
-  const [expandedCategories, setExpandedCategories] = useState<string[]>(["scanners", "technical-pro", "onchain-fund", "security-strategy"]);
+  const router = useRouter();
+  const [expandedCategories, setExpandedCategories] = useState<string[]>(["scanners", "technical-pro", "onchain-fund", "security-strategy", "test"]);
   const [activePageId, setActivePageId] = useState<string | null>(null);
   const sidebarRef = useRef<HTMLElement>(null);
 
@@ -213,8 +160,8 @@ export function SidebarRight({ isOpen, onToggle, isMobile = false }: SidebarRigh
       transition: { type: "spring", stiffness: 300, damping: 30 },
     },
     closed: {
-      width: isMobile ? 0 : 72,
-      opacity: isMobile ? 0 : 1,
+      width: 0,
+      opacity: 0,
       x: isMobile ? -280 : 0,
       transition: { type: "spring", stiffness: 300, damping: 30 },
     },
@@ -229,7 +176,7 @@ export function SidebarRight({ isOpen, onToggle, isMobile = false }: SidebarRigh
             initial={{ opacity: 0 }}
             animate={{ opacity: 1 }}
             exit={{ opacity: 0 }}
-            className="fixed left-0 top-0 h-full w-[280px] bg-black/30 backdrop-blur-sm z-40 lg:hidden"
+            className="fixed left-0 top-0 h-full w-[280px] z-40 lg:hidden theme-bg"
             onClick={onToggle}
           />
         )}
@@ -242,22 +189,27 @@ export function SidebarRight({ isOpen, onToggle, isMobile = false }: SidebarRigh
         initial={false}
         animate={isOpen ? "open" : "closed"}
         className={cn(
-          "fixed left-0 top-0 h-full z-50",
+          "fixed left-0 z-50",
           "flex flex-col",
-          "bg-card border-r border-border shadow-[0_0_24px_rgba(0,0,0,0.08)] dark:bg-[rgba(11,14,17,0.85)] dark:backdrop-blur-2xl dark:border-white/[0.08] dark:shadow-[0_0_60px_rgba(0,0,0,0.5)]",
-          isMobile ? "lg:relative" : "relative"
+          "bg-white/5 backdrop-blur-xl border-r border-white/10",
+          "shadow-[0_0_60px_rgba(0,0,0,0.5)]",
+          // Mobile: full height from top, Desktop: below header
+          isMobile ? "top-0 h-full" : "top-[65px] h-[calc(100vh-65px)]"
         )}
       >
         {/* Header */}
         <div className="flex items-center justify-between p-5 border-b border-border dark:border-white/[0.08]">
-          <motion.button
-            whileHover={{ scale: 1.1 }}
-            whileTap={{ scale: 0.9 }}
-            onClick={onToggle}
-            className="p-2 rounded-xl hover:bg-muted text-muted-foreground hover:text-foreground transition-colors border border-transparent hover:border-border"
-          >
-            {isOpen ? <X className="w-5 h-5" /> : <Menu className="w-5 h-5" />}
-          </motion.button>
+          {/* Toggle button - only show on mobile */}
+          {isMobile && (
+            <motion.button
+              whileHover={{ scale: 1.1 }}
+              whileTap={{ scale: 0.9 }}
+              onClick={onToggle}
+              className="p-2 rounded-xl hover:bg-muted text-muted-foreground hover:text-foreground transition-colors border border-transparent hover:border-border"
+            >
+              {isOpen ? <X className="w-5 h-5" /> : <Menu className="w-5 h-5" />}
+            </motion.button>
+          )}
 
           <AnimatePresence mode="wait">
             {isOpen && (
@@ -265,7 +217,10 @@ export function SidebarRight({ isOpen, onToggle, isMobile = false }: SidebarRigh
                 initial={{ opacity: 0, x: -20 }}
                 animate={{ opacity: 1, x: 0 }}
                 exit={{ opacity: 0, x: -20 }}
-                className="flex items-center gap-2"
+                className={cn(
+                  "flex items-center gap-2",
+                  !isMobile && "w-full"
+                )}
               >
                 <span className="font-bold text-lg text-foreground tracking-tight">أدوات التحليل</span>
                 <div className="p-1.5 rounded-lg bg-primary/10 text-primary border border-primary/20 shadow-sm">
@@ -329,7 +284,23 @@ export function SidebarRight({ isOpen, onToggle, isMobile = false }: SidebarRigh
                         className="relative"
                       >
                         <button
-                          onClick={() => setActivePageId(page.id)}
+                          onClick={() => {
+                            setActivePageId(page.id);
+                            // Handle hash navigation properly
+                            if (page.path.includes('#')) {
+                              const [basePath, hash] = page.path.split('#');
+                              router.push(basePath);
+                              // Wait for navigation then scroll to element
+                              setTimeout(() => {
+                                const element = document.getElementById(hash);
+                                if (element) {
+                                  element.scrollIntoView({ behavior: 'smooth', block: 'center' });
+                                }
+                              }, 300);
+                            } else {
+                              router.push(page.path);
+                            }
+                          }}
                           className={cn(
                             "w-full flex items-center gap-3 py-2 px-3 rounded-lg",
                             "text-sm transition-all duration-150",

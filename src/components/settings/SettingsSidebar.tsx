@@ -45,6 +45,7 @@ const sections: SectionItem[] = [
   { id: "privacy", label: "الخصوصية", icon: <Lock className="w-5 h-5" />, group: "الحساب" },
   
   { id: "appearance", label: "المظهر", icon: <Palette className="w-5 h-5" />, group: "التخصيص" },
+  { id: "colors", label: "تخصيص الألوان", icon: <Palette className="w-5 h-5" />, group: "التخصيص" },
   { id: "language", label: "اللغة", icon: <Globe className="w-5 h-5" />, group: "التخصيص" },
   { id: "voice", label: "الصوت", icon: <Mic className="w-5 h-5" />, group: "التخصيص" },
   
@@ -86,13 +87,13 @@ export function SettingsSidebar({
   return (
     <div
       className={cn(
-        "h-full flex flex-col bg-card border-l border-border",
+        "h-full flex flex-col border-l border-[var(--glass-border)] bg-[var(--glass-bg)] backdrop-blur-xl",
         isMobile ? "w-full" : "w-[240px]"
       )}
       dir="rtl"
     >
       {/* Header */}
-      <div className="p-3 border-b border-border">
+      <div className="p-3 border-b border-[var(--glass-border)]">
         <div className="flex items-center justify-between mb-3">
           <h2 className="text-base font-bold text-foreground">الإعدادات</h2>
           {onClose && (
@@ -114,7 +115,7 @@ export function SettingsSidebar({
             onChange={(e) => onSearchChange(e.target.value)}
             placeholder="بحث في الإعدادات..."
             className={cn(
-              "w-full pr-8 pl-2.5 py-1.5 bg-muted/50 border border-border rounded-lg",
+              "w-full pr-8 pl-2.5 py-1.5 bg-[var(--glass-bg)] border border-[var(--glass-border)] rounded-lg",
               "text-xs text-foreground placeholder:text-muted-foreground",
               "focus:outline-none focus:ring-2 focus:ring-primary/50"
             )}
@@ -207,7 +208,7 @@ function SectionButton({
         "relative overflow-hidden",
         isActive
           ? "bg-primary/10 text-primary"
-          : "text-muted-foreground hover:text-foreground hover:bg-muted/50"
+          : "text-muted-foreground hover:text-foreground hover:bg-[var(--glass-bg)]"
       )}
       whileHover={{ x: -3, scale: 1.01 }}
       whileTap={{ scale: 0.98 }}

@@ -235,6 +235,19 @@ export const PROJECT_TEMPLATES: ProjectTemplateConfig[] = [
 ];
 
 // ═══════════════════════════════════════════════════════════════
+// Canvas Data for inline canvas in chat
+// ═══════════════════════════════════════════════════════════════
+export interface CanvasData {
+  id: string;
+  title: string;
+  content: string;
+  type: 'code' | 'text' | 'html';
+  language?: string;
+  previousContent?: string;
+  isStreaming?: boolean;
+}
+
+// ═══════════════════════════════════════════════════════════════
 // رسالة في المحادثة
 // ═══════════════════════════════════════════════════════════════
 export interface ChatMessage {
@@ -243,6 +256,7 @@ export interface ChatMessage {
   content: string;
   timestamp: Date;
   isCanvas?: boolean;
+  canvasData?: CanvasData;
   attachments?: MessageAttachment[];
   reactions?: MessageReaction[];
   // Deep Research Support

@@ -129,7 +129,7 @@ export function AdvancedSection() {
 
       {/* Cache & Storage */}
       <SettingGroup title="الذاكرة المؤقتة والتخزين">
-        <div className="p-4 rounded-xl bg-card border border-border">
+        <div className="p-4 rounded-xl bg-[var(--glass-bg)] backdrop-blur-xl border border-[var(--glass-border)]">
           <div className="flex items-center justify-between mb-4">
             <div className="flex items-center gap-3">
               <div className="w-10 h-10 rounded-lg bg-muted flex items-center justify-center">
@@ -142,7 +142,7 @@ export function AdvancedSection() {
             </div>
                 <button
                   onClick={() => setShowClearModal(true)}
-                  className="flex items-center gap-2 px-3 py-1.5 rounded-lg bg-card border border-destructive text-destructive text-sm transition-colors hover:bg-destructive hover:text-white"
+                  className="flex items-center gap-2 px-3 py-1.5 rounded-lg bg-[var(--glass-bg)] backdrop-blur-xl border border-destructive text-destructive text-sm transition-colors hover:bg-destructive hover:text-white"
                 >
               <Trash2 className="w-4 h-4" />
               <span>مسح</span>

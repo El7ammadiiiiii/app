@@ -23,12 +23,9 @@ import {
   SettingGroup,
   SettingsTabs,
   ProfileAvatar,
-  CircularProgress,
   ProfileCompletionCard,
   ConfirmModal,
 } from "../components";
-import { Tooltip } from "../components/Tooltip";
-import { cn } from "@/lib/utils";
 
 // Mock user data
 const mockUser = {
@@ -56,16 +53,6 @@ export function AccountSection() {
   const [deleteModalOpen, setDeleteModalOpen] = React.useState(false);
   const [disableModalOpen, setDisableModalOpen] = React.useState(false);
 
-  // Calculate profile completion
-  const profileCompletion = React.useMemo(() => {
-    let score = 0;
-    if (mockUser.fullName) score += 25;
-    if (mockUser.email && mockUser.emailVerified) score += 25;
-    if (mockUser.phone) score += 25;
-    if (mockUser.photoUrl) score += 25;
-    return score;
-  }, []);
-
   // Profile completion items for the card
   const completionItems = React.useMemo(() => [
     { id: "name", label: "أضف اسمك الكامل", completed: !!mockUser.fullName, priority: "high" as const },
@@ -90,7 +77,7 @@ export function AccountSection() {
         initial={{ opacity: 0, y: 20 }}
         animate={{ opacity: 1, y: 0 }}
         transition={{ delay: 0.1 }}
-        className="bg-card border border-border rounded-xl p-4"
+        className="bg-[var(--glass-bg)] backdrop-blur-xl border border-[var(--glass-border)] rounded-xl p-4"
       >
         <div className="flex items-center gap-4">
           <ProfileAvatar
@@ -98,7 +85,7 @@ export function AccountSection() {
             name={mockUser.fullName}
             size="lg"
             editable
-            onEdit={() => console.log("Edit photo")}
+            onEdit={() => {}}
           />
           
           <div className="flex-1 text-right min-w-0">
@@ -253,7 +240,7 @@ export function AccountSection() {
               >
                 <button 
                   onClick={() => setDisableModalOpen(true)}
-                  className="px-4 py-1.5 bg-card border border-secondary text-secondary rounded-lg text-sm font-medium hover:bg-secondary hover:text-white transition-colors"
+                  className="px-4 py-1.5 bg-[var(--glass-bg)] backdrop-blur-xl border border-secondary text-secondary rounded-lg text-sm font-medium hover:bg-secondary hover:text-white transition-colors"
                 >
                   تعطيل
                 </button>
@@ -266,7 +253,7 @@ export function AccountSection() {
               >
                 <button 
                   onClick={() => setDeleteModalOpen(true)}
-                  className="px-4 py-1.5 bg-card border border-destructive text-destructive rounded-lg text-sm font-medium hover:bg-destructive hover:text-white transition-colors"
+                  className="px-4 py-1.5 bg-[var(--glass-bg)] backdrop-blur-xl border border-destructive text-destructive rounded-lg text-sm font-medium hover:bg-destructive hover:text-white transition-colors"
                 >
                   حذف
                 </button>
@@ -281,7 +268,7 @@ export function AccountSection() {
         isOpen={deleteModalOpen}
         onClose={() => setDeleteModalOpen(false)}
         onConfirm={() => {
-          console.log("Delete account");
+          
           setDeleteModalOpen(false);
         }}
         type="danger"
@@ -295,7 +282,7 @@ export function AccountSection() {
         isOpen={disableModalOpen}
         onClose={() => setDisableModalOpen(false)}
         onConfirm={() => {
-          console.log("Disable account");
+          
           setDisableModalOpen(false);
         }}
         type="warning"

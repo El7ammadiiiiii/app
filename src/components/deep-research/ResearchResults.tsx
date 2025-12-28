@@ -199,7 +199,7 @@ export const ResearchResults: React.FC<ResearchResultsProps> = ({
             className={cn(
               "flex-1 flex items-center justify-center gap-1.5 px-3 py-2 rounded-lg text-sm font-medium transition-all",
               activeTab === tab.id
-                ? "bg-background text-foreground shadow-sm"
+                ? "theme-surface text-foreground shadow-sm"
                 : "text-muted-foreground hover:text-foreground"
             )}
           >

@@ -142,7 +142,7 @@ class SoundManager {
       
       soundEffects[effect]?.();
     } catch (error) {
-      console.warn("Failed to play sound:", error);
+      
     }
   }
 

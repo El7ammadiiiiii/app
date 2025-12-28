@@ -124,7 +124,7 @@ export function SubscriptionSection() {
       <motion.div
         initial={{ opacity: 0, y: 20 }}
         animate={{ opacity: 1, y: 0 }}
-        className="bg-card border border-primary rounded-2xl p-6 shadow-lg"
+        className="bg-[var(--glass-bg)] backdrop-blur-xl border border-primary rounded-2xl p-6 shadow-lg"
       >
         <div className="flex items-center justify-between">
           <div className="text-right">
@@ -154,7 +154,7 @@ export function SubscriptionSection() {
           <div className="space-y-6">
             {/* Usage */}
             <SettingGroup title="الاستهلاك">
-              <div className="bg-card border border-border rounded-xl p-4 space-y-4">
+              <div className="bg-[var(--glass-bg)] backdrop-blur-xl border border-[var(--glass-border)] rounded-xl p-4 space-y-4">
                 <div>
                   <div className="flex items-center justify-between mb-2">
                     <span className="text-sm text-muted-foreground flex items-center gap-2">
@@ -230,10 +230,10 @@ export function SubscriptionSection() {
                   <motion.div
                     key={plan.id}
                     className={cn(
-                      "bg-card border rounded-xl p-4 text-center relative",
+                      "bg-[var(--glass-bg)] backdrop-blur-xl border rounded-xl p-4 text-center relative",
                       plan.id === mockSubscription.plan
                         ? "border-primary ring-2 ring-primary"
-                        : "border-border hover:border-primary"
+                        : "border-[var(--glass-border)] hover:border-primary"
                     )}
                     whileHover={{ y: -2 }}
                   >
@@ -297,7 +297,7 @@ export function SubscriptionSection() {
                   "p-4 rounded-xl border text-center transition-colors",
                   mockSubscription.billingCycle === "monthly"
                     ? "border-primary bg-primary text-primary-foreground"
-                    : "border-border hover:border-primary"
+                    : "border-[var(--glass-border)] hover:border-primary"
                 )}>
                   <span className="font-medium">شهري</span>
                   <p className="text-sm text-muted-foreground mt-1">$19.99/شهر</p>
@@ -306,7 +306,7 @@ export function SubscriptionSection() {
                   "p-4 rounded-xl border text-center transition-colors relative",
                   mockSubscription.billingCycle === "yearly"
                     ? "border-primary bg-primary text-primary-foreground"
-                    : "border-border hover:border-primary"
+                    : "border-[var(--glass-border)] hover:border-primary"
                 )}>
                   <span className="absolute -top-2 left-1/2 -translate-x-1/2 bg-primary text-primary-foreground text-xs px-2 py-0.5 rounded-full">
                     وفر 20%
@@ -323,9 +323,9 @@ export function SubscriptionSection() {
         {activeTab === "invoices" && (
           <div className="space-y-6">
             <SettingGroup title="سجل الفواتير">
-              <div className="bg-card border border-border rounded-xl overflow-hidden">
+              <div className="bg-[var(--glass-bg)] backdrop-blur-xl border border-[var(--glass-border)] rounded-xl overflow-hidden">
                 <table className="w-full">
-                  <thead className="bg-card">
+                  <thead className="bg-[var(--glass-bg)] backdrop-blur-xl">
                     <tr>
                       <th className="text-right p-3 text-sm font-medium text-muted-foreground">التاريخ</th>
                       <th className="text-right p-3 text-sm font-medium text-muted-foreground">المبلغ</th>

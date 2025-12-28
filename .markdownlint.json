@@ -1,0 +1,6 @@
+{
+  "markdownlint.config": {
+    "default": false
+  },
+  "markdownlint.run": "onSave"
+}

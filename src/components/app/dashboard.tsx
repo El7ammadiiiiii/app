@@ -84,7 +84,7 @@ export function Dashboard() {
             </span>
             نظام حي
           </span>
-          <button className="p-2.5 rounded-xl bg-card border border-border text-muted-foreground hover:text-foreground hover:border-primary/50 transition-all shadow-sm hover:shadow-md">
+          <button className="p-2.5 rounded-xl theme-card border border-border text-muted-foreground hover:text-foreground hover:border-primary/50 transition-all shadow-sm hover:shadow-md">
             <Globe className="w-5 h-5" />
           </button>
         </div>
@@ -99,14 +99,14 @@ export function Dashboard() {
             animate={{ opacity: 1, y: 0 }}
             transition={{ delay: i * 0.1 }}
             whileHover={{ scale: 1.02, translateY: -5 }}
-            className="relative p-5 rounded-2xl bg-card/40 border border-white/5 backdrop-blur-xl hover:bg-card/60 hover:border-primary/30 transition-all group overflow-hidden shadow-lg"
+            className="relative p-5 rounded-2xl theme-card/40 border border-white/5 backdrop-blur-xl hover:theme-card/60 hover:border-primary/30 transition-all group overflow-hidden shadow-lg"
           >
             <div className="absolute inset-0 bg-gradient-to-br from-primary/5 to-transparent opacity-0 group-hover:opacity-100 transition-opacity" />
             <div className="relative z-10">
               <div className="flex justify-between items-start mb-3">
                 <span className="text-muted-foreground text-xs font-semibold uppercase tracking-wider">{stat.label}</span>
                 <span className={cn(
-                  "p-1.5 rounded-lg bg-background/50 backdrop-blur-sm border border-white/5",
+                  "p-1.5 rounded-lg theme-surface/50 backdrop-blur-sm border border-white/5",
                   stat.isUp ? "text-green-500 shadow-[0_0_10px_rgba(34,197,94,0.2)]" : "text-red-500 shadow-[0_0_10px_rgba(239,68,68,0.2)]"
                 )}>
                   {stat.isUp ? <TrendingUp className="w-3.5 h-3.5" /> : <TrendingDown className="w-3.5 h-3.5" />}
@@ -133,7 +133,7 @@ export function Dashboard() {
           <motion.div 
             initial={{ opacity: 0, scale: 0.98 }}
             animate={{ opacity: 1, scale: 1 }}
-            className="rounded-3xl border border-white/10 bg-card/30 backdrop-blur-xl overflow-hidden shadow-2xl"
+            className="rounded-3xl border border-white/10 theme-card/30 backdrop-blur-xl overflow-hidden shadow-2xl"
           >
             <div className="p-5 border-b border-white/5 flex items-center justify-between bg-gradient-to-r from-card/50 to-transparent">
               <div className="flex items-center gap-3">
@@ -145,9 +145,9 @@ export function Dashboard() {
                   <span className="text-[10px] text-muted-foreground">BTC/USD • Binance Spot</span>
                 </div>
               </div>
-              <div className="flex gap-1 bg-background/30 p-1 rounded-lg border border-white/5">
+              <div className="flex gap-1 theme-surface/30 p-1 rounded-lg border border-white/5">
                 {['1H', '4H', '1D', '1W'].map((tf) => (
-                  <button key={tf} className="px-3 py-1.5 rounded-md text-[10px] font-bold text-muted-foreground hover:text-foreground hover:bg-card transition-all">
+                  <button key={tf} className="px-3 py-1.5 rounded-md text-[10px] font-bold text-muted-foreground hover:text-foreground hover:theme-card transition-all">
                     {tf}
                   </button>
                 ))}
@@ -176,7 +176,7 @@ export function Dashboard() {
                   action.color
                 )}
               >
-                <div className="p-3 rounded-xl bg-background/40 shadow-inner group-hover:scale-110 transition-transform duration-300">
+                <div className="p-3 rounded-xl theme-surface/40 shadow-inner group-hover:scale-110 transition-transform duration-300">
                   {action.icon}
                 </div>
                 <span className="text-xs font-bold text-muted-foreground group-hover:text-foreground transition-colors">{action.label}</span>
@@ -220,7 +220,7 @@ export function Dashboard() {
 
       {/* Recent Activity Section */}
       <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
-        <div className="rounded-3xl bg-card/30 border border-white/10 p-6 backdrop-blur-xl shadow-lg">
+        <div className="rounded-3xl theme-card/30 border border-white/10 p-6 backdrop-blur-xl shadow-lg">
           <div className="flex items-center justify-between mb-6">
             <h2 className="text-base font-bold text-foreground flex items-center gap-2">
               <Activity className="w-5 h-5 text-primary" />
@@ -234,7 +234,7 @@ export function Dashboard() {
               { type: 'sell', asset: 'ETH', amount: '12.5', price: '$38,400', time: 'منذ 5 دقائق' },
               { type: 'buy', asset: 'SOL', amount: '150', price: '$21,450', time: 'منذ 12 دقيقة' },
             ].map((item, i) => (
-              <div key={i} className="flex items-center justify-between p-4 rounded-2xl bg-background/20 border border-white/5 hover:bg-background/40 transition-all group">
+              <div key={i} className="flex items-center justify-between p-4 rounded-2xl theme-surface/20 border border-white/5 hover:theme-surface/40 transition-all group">
                 <div className="flex items-center gap-4">
                   <div className={cn(
                     "w-10 h-10 rounded-xl flex items-center justify-center shadow-inner",
@@ -256,7 +256,7 @@ export function Dashboard() {
           </div>
         </div>
 
-        <div className="rounded-3xl bg-card/30 border border-white/10 p-6 backdrop-blur-xl shadow-lg">
+        <div className="rounded-3xl theme-card/30 border border-white/10 p-6 backdrop-blur-xl shadow-lg">
           <div className="flex items-center justify-between mb-6">
             <h2 className="text-base font-bold text-foreground flex items-center gap-2">
               <Globe className="w-5 h-5 text-blue-500" />

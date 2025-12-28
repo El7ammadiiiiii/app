@@ -1,0 +1,19 @@
+# =============================================================================
+# GitHub Copilot Ignore File - ملف حماية الصفحات المكتملة
+# =============================================================================
+# هذا الملف يمنع GitHub Copilot من تعديل الملفات المحمية تلقائياً
+# =============================================================================
+
+# Trend Scanner Pages - مقفلة ✓
+src/app/app/trend-scanner/page.tsx
+src/app/app/trend-scanner/[pair]/page.tsx
+
+# Expert Components - مقفلة ✓
+src/components/charts/PatternOverlay.tsx
+src/components/charts/AdvancedChart.tsx
+src/components/trading/SignalsSidebar.tsx
+
+# Core Algorithms - مقفلة ✓
+src/lib/indicators/technical.ts
+src/lib/indicators/ehlers-dsp.ts
+src/lib/ai/openai-client.ts

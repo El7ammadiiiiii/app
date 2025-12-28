@@ -43,3 +43,28 @@ export const readSession = async () => {
     return null;
   }
 };
+
+export interface Session {
+  user?: {
+    uid: string;
+    email?: string;
+    name?: string;
+  };
+}
+
+export async function getServerSession(): Promise<Session | null> {
+  const cookieStore = await cookies();
+  const sessionCookie = cookieStore.get("session");
+
+  if (!sessionCookie?.value) {
+    return null;
+  }
+
+  try {
+    // In production, verify the session token with Firebase Admin
+    const session = JSON.parse(sessionCookie.value);
+    return session;
+  } catch {
+    return null;
+  }
+}

@@ -86,9 +86,9 @@ export function AppShell() {
   const isDesktop = screenSize === "desktop";
 
   return (
-    <div className="h-screen w-screen bg-background flex flex-col overflow-hidden" dir="rtl">
+    <div className="h-screen w-screen theme-surface flex flex-col overflow-hidden" dir="rtl">
       {/* ===== الهيدر الرئيسي ===== */}
-      <header className="h-14 min-h-[56px] flex items-center justify-between px-3 sm:px-4 border-b border-border bg-card/80 backdrop-blur-sm z-40 shrink-0">
+      <header className="h-14 min-h-[56px] flex items-center justify-between px-3 sm:px-4 border-b border-border theme-card/80 backdrop-blur-sm z-40 shrink-0">
         {/* الجانب الأيمن - القائمة والشعار */}
         <div className="flex items-center gap-2 sm:gap-3">
           {/* زر القائمة اليمنى */}
@@ -184,7 +184,7 @@ export function AppShell() {
         {/* Desktop - ثابتة */}
         {isDesktop && (
           <aside className={cn(
-            "h-full border-l border-border bg-card transition-all duration-300 overflow-hidden shrink-0",
+            "h-full border-l border-border theme-card transition-all duration-300 overflow-hidden shrink-0",
             leftSidebarOpen ? "w-72" : "w-0"
           )}>
             {leftSidebarOpen && (
@@ -217,9 +217,9 @@ export function AppShell() {
                 animate={{ x: 0 }}
                 exit={{ x: "100%" }}
                 transition={{ type: "spring", damping: 25, stiffness: 300 }}
-                className="fixed top-0 right-0 h-full w-[280px] max-w-[85vw] bg-card border-l border-border z-50 shadow-2xl overflow-y-auto"
+                className="fixed top-0 right-0 h-full w-[280px] max-w-[85vw] theme-card border-l border-border z-50 shadow-2xl overflow-y-auto"
               >
-                <div className="flex items-center justify-between p-4 border-b border-border sticky top-0 bg-card z-10">
+                <div className="flex items-center justify-between p-4 border-b border-border sticky top-0 theme-card z-10">
                   <span className="font-bold text-foreground">القائمة</span>
                   <button
                     onClick={() => setLeftSidebarOpen(false)}
@@ -241,7 +241,7 @@ export function AppShell() {
         </AnimatePresence>
 
         {/* === المحتوى الرئيسي === */}
-        <main className="flex-1 min-w-0 overflow-hidden bg-background">
+        <main className="flex-1 min-w-0 overflow-hidden theme-surface">
           <AnimatePresence mode="wait">
             <motion.div
               key={activeView}
@@ -274,7 +274,7 @@ export function AppShell() {
         {/* Desktop - ثابتة */}
         {isDesktop && (
           <aside className={cn(
-            "h-full border-r border-border bg-card transition-all duration-300 overflow-hidden shrink-0",
+            "h-full border-r border-border theme-card transition-all duration-300 overflow-hidden shrink-0",
             rightSidebarOpen ? "w-80" : "w-0"
           )}>
             {rightSidebarOpen && (
@@ -301,9 +301,9 @@ export function AppShell() {
                 animate={{ x: 0 }}
                 exit={{ x: "-100%" }}
                 transition={{ type: "spring", damping: 25, stiffness: 300 }}
-                className="fixed top-0 left-0 h-full w-[300px] max-w-[85vw] bg-card border-r border-border z-50 shadow-2xl overflow-y-auto"
+                className="fixed top-0 left-0 h-full w-[300px] max-w-[85vw] theme-card border-r border-border z-50 shadow-2xl overflow-y-auto"
               >
-                <div className="flex items-center justify-between p-4 border-b border-border sticky top-0 bg-card z-10">
+                <div className="flex items-center justify-between p-4 border-b border-border sticky top-0 theme-card z-10">
                   <span className="font-bold text-foreground">أدوات التحليل</span>
                   <button
                     onClick={() => setRightSidebarOpen(false)}
@@ -321,7 +321,7 @@ export function AppShell() {
 
       {/* ===== شريط التنقل السفلي (موبايل فقط) ===== */}
       {isMobile && (
-        <nav className="h-16 min-h-[64px] flex items-center justify-around px-2 border-t border-border bg-card/95 backdrop-blur-sm shrink-0">
+        <nav className="h-16 min-h-[64px] flex items-center justify-around px-2 border-t border-border theme-card/95 backdrop-blur-sm shrink-0">
           {navItems.map((item) => {
             const Icon = item.icon;
             const isActive = activeView === item.id;

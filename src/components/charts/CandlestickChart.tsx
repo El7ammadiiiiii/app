@@ -26,11 +26,11 @@ const Plot = dynamic(() => import("react-plotly.js"), {
 
 const CandlestickChart = ({ title = "Price Action", candles, theme = "dark" }: CandlestickChartProps) => {
   const timestamps = candles.map((c) => c.time);
-  const layoutBg = theme === "dark" ? "#05060a" : "#ffffff";
+  const layoutBg = theme === "dark" ? "#040506" : "#ffffff";
   const textColor = theme === "dark" ? "#f5f6fa" : "#1f2937";
 
   return (
-    <div className="rounded-3xl border border-white/5 bg-black/40 p-4 backdrop-blur">
+    <div className="rounded-3xl border border-white/5 theme-card p-4">
       <Plot
         data={[
           {
@@ -49,8 +49,8 @@ const CandlestickChart = ({ title = "Price Action", candles, theme = "dark" }: C
           {
             dragmode: "pan",
             title: { text: title, font: { color: textColor, size: 16 } },
-            paper_bgcolor: "rgba(0,0,0,0)",
-            plot_bgcolor: layoutBg,
+            paper_bgcolor: "#040506",
+            plot_bgcolor: "#0f3133",
             xaxis: {
               rangeslider: { visible: false },
               color: textColor,

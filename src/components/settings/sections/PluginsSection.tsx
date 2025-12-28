@@ -5,24 +5,15 @@ import { motion, AnimatePresence } from "framer-motion";
 import { 
   Puzzle,
   Download,
-  Trash2,
-  Settings,
   Star,
   Search,
-  Check,
   ExternalLink,
-  TrendingUp,
-  BarChart3,
-  Wallet,
-  Bot,
   Newspaper,
   Calculator,
+  BarChart3,
 } from "lucide-react";
 import { 
-  SettingCard, 
-  SettingToggle,
   SettingGroup,
-  ConfirmModal,
 } from "../components";
 
 interface Plugin {
@@ -38,42 +29,6 @@ interface Plugin {
   rating?: number;
   downloads?: string;
 }
-
-const installedPlugins: Plugin[] = [
-  {
-    id: "ta-indicators",
-    name: "المؤشرات الفنية المتقدمة",
-    description: "مجموعة شاملة من المؤشرات الفنية",
-    icon: TrendingUp,
-    color: "bg-green-500",
-    installed: true,
-    enabled: true,
-    version: "2.1.0",
-    author: "CCC Trading",
-  },
-  {
-    id: "portfolio-tracker",
-    name: "متتبع المحفظة",
-    description: "تتبع أداء محفظتك في الوقت الفعلي",
-    icon: Wallet,
-    color: "bg-blue-500",
-    installed: true,
-    enabled: true,
-    version: "1.5.3",
-    author: "FinTech Pro",
-  },
-  {
-    id: "ai-signals",
-    name: "إشارات AI",
-    description: "إشارات تداول مدعومة بالذكاء الاصطناعي",
-    icon: Bot,
-    color: "bg-purple-500",
-    installed: true,
-    enabled: false,
-    version: "3.0.0",
-    author: "AI Trading Lab",
-  },
-];
 
 const availablePlugins: Plugin[] = [
   {
@@ -109,23 +64,7 @@ const availablePlugins: Plugin[] = [
 ];
 
 export function PluginsSection() {
-  const [showDeleteModal, setShowDeleteModal] = React.useState(false);
-  const [selectedPlugin, setSelectedPlugin] = React.useState<string | null>(null);
   const [searchQuery, setSearchQuery] = React.useState("");
-  const [enabledPlugins, setEnabledPlugins] = React.useState<Record<string, boolean>>({
-    "ta-indicators": true,
-    "portfolio-tracker": true,
-    "ai-signals": false,
-  });
-
-  const handleUninstall = (pluginId: string) => {
-    setSelectedPlugin(pluginId);
-    setShowDeleteModal(true);
-  };
-
-  const togglePlugin = (pluginId: string) => {
-    setEnabledPlugins(prev => ({ ...prev, [pluginId]: !prev[pluginId] }));
-  };
 
   const filteredAvailable = availablePlugins.filter(p =>
     p.name.toLowerCase().includes(searchQuery.toLowerCase()) ||
@@ -134,53 +73,6 @@ export function PluginsSection() {
 
   return (
     <div className="space-y-6">
-      {/* Installed Plugins */}
-      <SettingGroup title={`الإضافات المثبتة (${installedPlugins.length})`}>
-        <div className="space-y-3">
-          {installedPlugins.map((plugin) => {
-            const Icon = plugin.icon;
-            return (
-              <motion.div
-                key={plugin.id}
-                layout
-                  className="p-4 rounded-xl bg-card border border-border hover:border-primary transition-all"
-              >
-                <div className="flex items-start gap-4">
-                  <div className={`w-12 h-12 rounded-xl ${plugin.color} flex items-center justify-center flex-shrink-0`}>
-                    <Icon className="w-6 h-6 text-white" />
-                  </div>
-                  <div className="flex-1 min-w-0">
-                    <div className="flex items-center gap-2 mb-1">
-                      <h4 className="font-semibold text-foreground">{plugin.name}</h4>
-                      <span className="text-xs px-2 py-0.5 rounded-full bg-muted text-muted-foreground">
-                        v{plugin.version}
-                      </span>
-                    </div>
-                    <p className="text-sm text-muted-foreground mb-2">{plugin.description}</p>
-                    <p className="text-xs text-muted-foreground">بواسطة {plugin.author}</p>
-                  </div>
-                  <div className="flex items-center gap-2">
-                    <SettingToggle
-                      checked={enabledPlugins[plugin.id] ?? false}
-                      onCheckedChange={() => togglePlugin(plugin.id)}
-                    />
-                    <button className="p-2 rounded-lg hover:bg-muted transition-colors">
-                      <Settings className="w-4 h-4 text-muted-foreground" />
-                    </button>
-                    <button
-                      onClick={() => handleUninstall(plugin.id)}
-                      className="p-2 rounded-lg transition-colors hover:bg-destructive hover:text-white"
-                    >
-                      <Trash2 className="w-4 h-4 text-destructive" />
-                    </button>
-                  </div>
-                </div>
-              </motion.div>
-            );
-          })}
-        </div>
-      </SettingGroup>
-
       {/* Plugin Store */}
       <SettingGroup title="متجر الإضافات">
         <div className="space-y-4">
@@ -210,7 +102,7 @@ export function PluginsSection() {
                     initial={{ opacity: 0, scale: 0.95 }}
                     animate={{ opacity: 1, scale: 1 }}
                     exit={{ opacity: 0, scale: 0.95 }}
-                    className="p-4 rounded-xl bg-card border border-border hover:border-primary 
+                    className="p-4 rounded-xl bg-[var(--glass-bg)] backdrop-blur-xl border border-[var(--glass-border)] hover:border-primary 
                              transition-all cursor-pointer group"
                   >
                     <div className="flex items-start gap-3 mb-3">
@@ -258,19 +150,6 @@ export function PluginsSection() {
           </button>
         </div>
       </SettingGroup>
-
-      <ConfirmModal
-        isOpen={showDeleteModal}
-        onClose={() => setShowDeleteModal(false)}
-        onConfirm={() => {
-          setShowDeleteModal(false);
-          setSelectedPlugin(null);
-        }}
-        title="إزالة الإضافة"
-        description="هل أنت متأكد من إزالة هذه الإضافة؟ سيتم حذف جميع بياناتها."
-        confirmText="إزالة"
-        type="danger"
-      />
     </div>
   );
 }

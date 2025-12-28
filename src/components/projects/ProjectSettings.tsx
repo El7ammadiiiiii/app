@@ -118,7 +118,7 @@ export function ProjectSettings() {
             animate={{ opacity: 1, x: 0 }}
             exit={{ opacity: 0, x: "100%" }}
             transition={{ type: "spring", damping: 25 }}
-            className="fixed top-0 right-0 bottom-0 w-full max-w-md bg-card border-r border-border 
+            className="fixed top-0 right-0 bottom-0 w-full max-w-md theme-card border-r border-border 
                      shadow-2xl z-50 flex flex-col overflow-hidden"
           >
             {/* Header */}
@@ -180,7 +180,7 @@ export function ProjectSettings() {
                     value={name}
                     onChange={(e) => handleChange(setName, e.target.value)}
                     placeholder="اسم المشروع..."
-                    className="w-full h-12 px-4 rounded-xl border border-border bg-card
+                    className="w-full h-12 px-4 rounded-xl border border-border theme-card
                              focus:border-primary focus:ring-2 focus:ring-primary/20 
                              outline-none transition-all"
                   />
@@ -204,7 +204,7 @@ export function ProjectSettings() {
                   value={description}
                   onChange={(e) => handleChange(setDescription, e.target.value)}
                   placeholder="وصف مختصر للمشروع..."
-                  className="w-full px-4 py-3 rounded-xl border border-border bg-card
+                  className="w-full px-4 py-3 rounded-xl border border-border theme-card
                            focus:border-primary focus:ring-2 focus:ring-primary/20 
                            outline-none transition-all"
                 />
@@ -218,7 +218,7 @@ export function ProjectSettings() {
                   onChange={(e) => handleChange(setInstructions, e.target.value)}
                   placeholder="أضف تعليمات خاصة لهذا المشروع..."
                   rows={6}
-                  className="w-full px-4 py-3 rounded-xl border border-border bg-card
+                  className="w-full px-4 py-3 rounded-xl border border-border theme-card
                            focus:border-primary focus:ring-2 focus:ring-primary/20 
                            outline-none transition-all resize-none"
                 />

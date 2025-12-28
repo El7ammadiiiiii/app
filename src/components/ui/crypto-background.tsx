@@ -69,12 +69,11 @@ function CryptoBackgroundComponent({ opacity = 0.06, className = "" }: CryptoBac
     if (!containerRef.current) return;
 
     const container = containerRef.current;
-    const isDark = resolvedTheme === "dark";
 
     // Scene setup
     const scene = new THREE.Scene();
     sceneRef.current = scene;
-    scene.background = new THREE.Color(isDark ? 0x000000 : 0xffffff);
+    scene.background = null; // شفاف لإظهار التدرج اللوني
 
     // Camera
     const camera = new THREE.PerspectiveCamera(
@@ -106,7 +105,7 @@ function CryptoBackgroundComponent({ opacity = 0.06, className = "" }: CryptoBac
     const tubeGeometry = new THREE.TubeGeometry(infinityCurve, 100, 1.5, 16, true);
     const tubeMaterial = new THREE.MeshNormalMaterial({ 
       wireframe: true,
-      opacity: isDark ? 0.3 : 0.15,
+      opacity: 0.25,
       transparent: true
     });
     const tubeMesh = new THREE.Mesh(tubeGeometry, tubeMaterial);
@@ -121,7 +120,7 @@ function CryptoBackgroundComponent({ opacity = 0.06, className = "" }: CryptoBac
       const mat = new THREE.SpriteMaterial({
         map: createTextTexture(sym, colStr),
         transparent: true,
-        opacity: isDark ? 0.7 : 0.5
+        opacity: 0.6
       });
       const sprite = new THREE.Sprite(mat);
       

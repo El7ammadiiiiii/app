@@ -41,7 +41,7 @@ export function SettingsHeader({
     <motion.div 
       initial={{ opacity: 0, y: -10 }}
       animate={{ opacity: 1, y: 0 }}
-      className="flex items-center justify-between gap-3 p-3 border-b border-border bg-card sticky top-0 z-10"
+      className="flex items-center justify-between gap-3 p-3 border-b border-[var(--glass-border)] sticky top-0 z-10 bg-[var(--glass-bg)] backdrop-blur-xl"
     >
       <div className="flex-1 min-w-0">
         <h1 className="text-base font-bold text-foreground truncate">{title}</h1>
@@ -67,7 +67,7 @@ export function SettingsHeader({
               onBlur={() => setIsSearchFocused(false)}
               placeholder="بحث..."
               className={cn(
-                "w-full pr-8 pl-8 py-1.5 bg-muted/50 border border-border rounded-lg",
+                "w-full pr-8 pl-8 py-1.5 bg-[var(--glass-bg)] border border-[var(--glass-border)] rounded-lg",
                 "text-xs text-foreground placeholder:text-muted-foreground",
                 "focus:outline-none focus:ring-2 focus:ring-primary/50",
                 "transition-all duration-200"

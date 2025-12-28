@@ -42,6 +42,8 @@ const defaultSettings: SettingsState = {
   memoryEnabled: true,
   historyEnabled: true,
   historyRetention: '30d',
+  temporaryChatMode: false,
+  improveModelForAll: true,
   
   // Notifications
   inAppNotifications: true,
@@ -140,11 +142,13 @@ const sectionKeys: Record<SettingsSectionId, (keyof SettingsState)[]> = {
   subscription: [], // Subscription data is managed separately
   privacy: [
     'dataSharing', 'anonymousAnalytics', 'smartPersonalization',
-    'memoryEnabled', 'historyEnabled', 'historyRetention'
+    'memoryEnabled', 'historyEnabled', 'historyRetention',
+    'temporaryChatMode', 'improveModelForAll'
   ],
   appearance: [
     'theme', 'accentColor', 'fontSize', 'compactMode', 'animations', 'reducedMotion'
   ],
+  colors: [], // Colors are managed via appearance or separately
   language: [
     'language', 'direction', 'dateFormat', 'timeFormat', 'calendar', 'timezone',
     'autoCorrect', 'autoComplete', 'animatedTyping'

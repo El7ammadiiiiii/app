@@ -147,7 +147,7 @@ export function ChatArea({ activeAgent, onAgentChange }: ChatAreaProps) {
                 <div className="text-lg font-semibold text-foreground">{panel.value}</div>
                 <p className="text-[11px] text-muted-foreground">{panel.subtitle}</p>
               </div>
-              <div className="p-2 rounded-xl bg-background/40 border border-border/5">
+              <div className="p-2 rounded-xl theme-surface/40 border border-border/5">
                 {panel.icon}
               </div>
             </div>
@@ -183,18 +183,18 @@ export function ChatArea({ activeAgent, onAgentChange }: ChatAreaProps) {
             {/* Bubble */}
             <div className="group relative max-w-[78%] space-y-2">
               <div className="flex items-center justify-start gap-2 text-[11px] text-muted-foreground">
-                <button className="p-1.5 rounded-lg bg-background/50 border border-border text-muted-foreground hover:text-foreground hover:border-border transition-colors">
+                <button className="p-1.5 rounded-lg theme-surface/50 border border-border text-muted-foreground hover:text-foreground hover:border-border transition-colors">
                   <Share2 className="w-3.5 h-3.5" />
                 </button>
                 {msg.role === "agent" && (
-                  <button className="p-1.5 rounded-lg bg-background/50 border border-border text-muted-foreground hover:text-foreground hover:border-border transition-colors">
+                  <button className="p-1.5 rounded-lg theme-surface/50 border border-border text-muted-foreground hover:text-foreground hover:border-border transition-colors">
                     <RefreshCw className="w-3.5 h-3.5" />
                   </button>
                 )}
-                <button className="p-1.5 rounded-lg bg-background/50 border border-border text-muted-foreground hover:text-foreground hover:border-border transition-colors">
+                <button className="p-1.5 rounded-lg theme-surface/50 border border-border text-muted-foreground hover:text-foreground hover:border-border transition-colors">
                   <Star className="w-3.5 h-3.5" />
                 </button>
-                <button className="p-1.5 rounded-lg bg-background/50 border border-border text-muted-foreground hover:text-foreground hover:border-border transition-colors">
+                <button className="p-1.5 rounded-lg theme-surface/50 border border-border text-muted-foreground hover:text-foreground hover:border-border transition-colors">
                   <Copy className="w-3.5 h-3.5" />
                 </button>
               </div>
@@ -204,7 +204,7 @@ export function ChatArea({ activeAgent, onAgentChange }: ChatAreaProps) {
                   "px-4 py-3 rounded-2xl text-sm leading-relaxed whitespace-pre-wrap shadow-md border backdrop-blur",
                   msg.role === "user"
                     ? "bg-gradient-to-br from-primary/20 via-primary/10 to-transparent border-primary/30 rounded-br-md"
-                    : "bg-card/90 border-border rounded-bl-md"
+                    : "border-border rounded-bl-md theme-surface"
                 )}
               >
                 {msg.title && (
@@ -234,7 +234,7 @@ export function ChatArea({ activeAgent, onAgentChange }: ChatAreaProps) {
       </div>
 
       {/* Input */}
-      <div className="p-4 md:p-6 border-t border-border bg-background/90 backdrop-blur">
+      <div className="p-4 md:p-6 border-t border-border theme-surface/90 backdrop-blur">
         <div className="max-w-4xl mx-auto flex items-end gap-3 md:gap-4">
           <div className="flex flex-col gap-2">
             <button className="h-11 w-11 rounded-xl bg-muted/80 border border-border text-muted-foreground hover:text-foreground hover:border-border transition-colors">

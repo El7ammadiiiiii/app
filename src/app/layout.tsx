@@ -19,6 +19,12 @@ export const metadata: Metadata = {
   title: "CCCWAYS | AI-Powered Crypto Intelligence",
   description: "Advanced cryptocurrency analysis platform powered by AI agents for technical, fundamental, and on-chain analysis.",
   keywords: ["crypto", "cryptocurrency", "trading", "analysis", "AI", "blockchain", "on-chain"],
+  viewport: {
+    width: "device-width",
+    initialScale: 1,
+    maximumScale: 5,
+    userScalable: true,
+  },
 };
 
 export default function RootLayout({
@@ -28,11 +34,13 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="ar" dir="rtl" suppressHydrationWarning>
-      <body className={`${inter.variable} ${cairo.variable} ${ibmPlexMono.variable} ${leagueSpartan.variable} font-sans antialiased bg-radial-gradient`}>
+      <body
+        className={`${inter.variable} ${cairo.variable} ${ibmPlexMono.variable} ${leagueSpartan.variable} font-sans antialiased`}
+      >
         <ThemeProvider
-          attribute="class"
-          defaultTheme="normal"
-          themes={["light", "normal", "dark"]}
+          attribute="data-theme"
+          defaultTheme="dark"
+          themes={["light", "dark"]}
           enableSystem={false}
           disableTransitionOnChange={false}
           storageKey="cccways-theme"

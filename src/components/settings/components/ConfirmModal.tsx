@@ -80,7 +80,7 @@ export function ConfirmModal({
           >
             <div
               className={cn(
-                "bg-card border border-border rounded-2xl p-6 w-full max-w-md",
+                "theme-card border border-border rounded-2xl p-6 w-full max-w-md",
                 "shadow-2xl"
               )}
               onClick={(e) => e.stopPropagation()}

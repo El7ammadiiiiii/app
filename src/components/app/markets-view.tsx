@@ -47,17 +47,17 @@ export function MarketsView() {
             <input 
               type="text" 
               placeholder="بحث عن عملة..." 
-              className="pl-4 pr-10 py-2.5 rounded-xl bg-card/50 border border-border text-sm text-foreground focus:outline-none focus:border-primary/50 focus:bg-card w-64 transition-all shadow-sm"
+              className="pl-4 pr-10 py-2.5 rounded-xl theme-card/50 border border-border text-sm text-foreground focus:outline-none focus:border-primary/50 focus:theme-card w-64 transition-all shadow-sm"
             />
           </div>
-          <button className="p-2.5 rounded-xl bg-card/50 border border-border text-muted-foreground hover:text-foreground hover:border-primary/50 transition-all shadow-sm">
+          <button className="p-2.5 rounded-xl theme-card/50 border border-border text-muted-foreground hover:text-foreground hover:border-primary/50 transition-all shadow-sm">
             <Filter className="w-5 h-5" />
           </button>
         </div>
       </div>
 
       {/* Market Table */}
-      <div className="rounded-3xl border border-white/10 bg-card/30 backdrop-blur-xl overflow-hidden shadow-2xl">
+      <div className="rounded-3xl border border-white/10 theme-card/30 backdrop-blur-xl overflow-hidden shadow-2xl">
         <div className="overflow-x-auto">
           <table className="w-full text-right">
             <thead>

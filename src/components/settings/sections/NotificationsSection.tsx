@@ -55,7 +55,7 @@ export function NotificationsSection() {
   return (
     <div className="space-y-6">
       {/* Master Toggle */}
-      <div className="p-4 rounded-xl bg-card border border-primary">
+      <div className="p-4 rounded-xl bg-[var(--glass-bg)] backdrop-blur-xl border border-primary">
         <div className="flex items-center justify-between">
           <div className="flex items-center gap-3">
             {inAppNotifications ? (
@@ -123,7 +123,7 @@ export function NotificationsSection() {
       {/* Notification Types */}
       <SettingGroup title="أنواع الإشعارات">
         <div className="space-y-2">
-          <div className="flex items-center justify-between p-3 rounded-lg bg-card border border-border">
+          <div className="flex items-center justify-between p-3 rounded-lg bg-[var(--glass-bg)] backdrop-blur-xl border border-[var(--glass-border)]">
             <div className="flex items-center gap-3">
               <MessageSquare className="w-5 h-5 text-muted-foreground" />
               <span className="text-foreground">رسائل المساعد</span>
@@ -133,7 +133,7 @@ export function NotificationsSection() {
               onCheckedChange={(v) => updateSetting("notifyNewMessage", v)}
             />
           </div>
-          <div className="flex items-center justify-between p-3 rounded-lg bg-card border border-border">
+          <div className="flex items-center justify-between p-3 rounded-lg bg-[var(--glass-bg)] backdrop-blur-xl border border-[var(--glass-border)]">
             <div className="flex items-center gap-3">
               <TrendingUp className="w-5 h-5 text-muted-foreground" />
               <span className="text-foreground">تنبيهات الأسعار</span>
@@ -143,7 +143,7 @@ export function NotificationsSection() {
               onCheckedChange={(v) => updateSetting("notifyPriceAlerts", v)}
             />
           </div>
-          <div className="flex items-center justify-between p-3 rounded-lg bg-card border border-border">
+          <div className="flex items-center justify-between p-3 rounded-lg bg-[var(--glass-bg)] backdrop-blur-xl border border-[var(--glass-border)]">
             <div className="flex items-center gap-3">
               <Sparkles className="w-5 h-5 text-muted-foreground" />
               <span className="text-foreground">تحديثات النظام</span>
@@ -153,7 +153,7 @@ export function NotificationsSection() {
               onCheckedChange={(v) => updateSetting("notifySystemUpdates", v)}
             />
           </div>
-          <div className="flex items-center justify-between p-3 rounded-lg bg-card border border-border">
+          <div className="flex items-center justify-between p-3 rounded-lg bg-[var(--glass-bg)] backdrop-blur-xl border border-[var(--glass-border)]">
             <div className="flex items-center gap-3">
               <Calendar className="w-5 h-5 text-muted-foreground" />
               <span className="text-foreground">النصائح والتلميحات</span>

@@ -70,7 +70,7 @@ export function ArchivedChatCard({
         "group relative p-4 rounded-xl border cursor-pointer transition-all duration-200",
         isSelected
           ? "bg-primary/10 border-primary/30 shadow-lg shadow-primary/10"
-          : "bg-card border-border hover:bg-muted/50 hover:border-border/80"
+          : "theme-card border-border hover:bg-muted/50 hover:border-border/80"
       )}
     >
       {/* Header */}
@@ -134,7 +134,7 @@ export function ArchivedChatCard({
           opacity: showActions ? 1 : 0, 
           scale: showActions ? 1 : 0.95 
         }}
-        className="absolute left-2 top-1/2 -translate-y-1/2 flex items-center gap-1 bg-card border border-border rounded-lg p-1 shadow-lg"
+        className="absolute left-2 top-1/2 -translate-y-1/2 flex items-center gap-1 theme-card border border-border rounded-lg p-1 shadow-lg"
       >
         {/* استعادة */}
         <button

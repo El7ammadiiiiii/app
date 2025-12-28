@@ -128,7 +128,7 @@ export function NewsCard({
     <div 
       onClick={onClick}
       className={cn(
-        "group cursor-pointer p-3 rounded-xl hover:bg-background/20 transition-all",
+        "group cursor-pointer p-3 rounded-xl hover:theme-surface/20 transition-all",
         className
       )}
     >
@@ -187,7 +187,7 @@ export function SmartStat({
   
   return (
     <div className={cn(
-      "relative p-5 rounded-2xl bg-card/40 border border-white/5 backdrop-blur-xl hover:bg-card/60 hover:border-primary/30 transition-all group overflow-hidden shadow-lg",
+      "relative p-5 rounded-2xl theme-card/40 border border-white/5 backdrop-blur-xl hover:theme-card/60 hover:border-primary/30 transition-all group overflow-hidden shadow-lg",
       className
     )}>
       <div className="absolute inset-0 bg-gradient-to-br from-primary/5 to-transparent opacity-0 group-hover:opacity-100 transition-opacity" />
@@ -198,7 +198,7 @@ export function SmartStat({
           </span>
           {icon && (
             <span className={cn(
-              "p-1.5 rounded-lg bg-background/50 backdrop-blur-sm border border-white/5",
+              "p-1.5 rounded-lg theme-surface/50 backdrop-blur-sm border border-white/5",
               changeData?.isPositive 
                 ? "text-green-500 shadow-[0_0_10px_rgba(34,197,94,0.2)]" 
                 : changeData?.isNegative 
@@ -275,7 +275,7 @@ export function AIInsightCard({
 
   return (
     <div className={cn(
-      "p-5 rounded-2xl bg-card/40 border border-white/5 hover:bg-card/60 transition-all group shadow-md backdrop-blur-md",
+      "p-5 rounded-2xl theme-card/40 border border-white/5 hover:theme-card/60 transition-all group shadow-md backdrop-blur-md",
       overallSentiment === "positive" || overallSentiment === "bullish"
         ? "hover:border-green-500/30"
         : overallSentiment === "negative" || overallSentiment === "bearish"
@@ -295,7 +295,7 @@ export function AIInsightCard({
           </span>
         )}
         {time && (
-          <span className="text-[10px] text-muted-foreground flex items-center gap-1.5 font-medium bg-background/30 px-2 py-0.5 rounded-full">
+          <span className="text-[10px] text-muted-foreground flex items-center gap-1.5 font-medium theme-surface/30 px-2 py-0.5 rounded-full">
             {time}
           </span>
         )}

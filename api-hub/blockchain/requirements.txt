@@ -1,0 +1,88 @@
+# omnichain/requirements.txt
+# Omnichain Multi-Agent Blockchain Data System
+# 12 GPT-4o-mini agents + 1 Claude 3.5 Sonnet orchestrator
+# Supporting 101+ blockchains
+
+# ═══════════════════════════════════════════════════════════════════════════════
+# 🔧 CORE DEPENDENCIES
+# ═══════════════════════════════════════════════════════════════════════════════
+
+# Async HTTP Client
+aiohttp>=3.9.0
+
+# Web Framework
+fastapi>=0.109.0
+uvicorn>=0.27.0
+
+# Data Validation
+pydantic>=2.5.0
+
+# ═══════════════════════════════════════════════════════════════════════════════
+# 🤖 AI/LLM CLIENTS
+# ═══════════════════════════════════════════════════════════════════════════════
+
+# OpenAI (GPT-4o-mini for 12 agents)
+openai>=1.10.0
+
+# Anthropic (Claude 3.5 Sonnet for orchestrator)
+anthropic>=0.18.0
+
+# ═══════════════════════════════════════════════════════════════════════════════
+# 📊 DATA PROCESSING
+# ═══════════════════════════════════════════════════════════════════════════════
+
+# JSON handling (built-in, but useful extras)
+orjson>=3.9.0  # Fast JSON
+
+# Environment variables
+python-dotenv>=1.0.0
+
+# Numerical computing
+numpy>=1.24.0
+
+# ═══════════════════════════════════════════════════════════════════════════════
+# 🔬 ANALYTICS & ML
+# ═══════════════════════════════════════════════════════════════════════════════
+
+# Graph/Network analysis (for transaction graph analysis)
+networkx>=3.0
+
+# Machine learning (for anomaly detection)
+scikit-learn>=1.3.0
+
+# ═══════════════════════════════════════════════════════════════════════════════
+# 🔐 SECURITY & UTILS
+# ═══════════════════════════════════════════════════════════════════════════════
+
+# Rate limiting (optional, for production)
+# aiolimiter>=1.1.0
+
+# Logging
+rich>=13.7.0  # Pretty console output
+
+# ═══════════════════════════════════════════════════════════════════════════════
+# 📦 OPTIONAL DEPENDENCIES
+# ═══════════════════════════════════════════════════════════════════════════════
+
+# For Solana SPL token parsing (optional)
+# base58>=2.1.0
+
+# For advanced caching (Redis - production recommended)
+redis>=5.0.0
+
+# For in-memory caching fallback
+# aiocache>=0.12.0
+
+# For WebSocket support (optional)
+# websockets>=12.0
+
+# ═══════════════════════════════════════════════════════════════════════════════
+# 🧪 DEVELOPMENT DEPENDENCIES (uncomment for dev)
+# ═══════════════════════════════════════════════════════════════════════════════
+
+# pytest>=7.4.0
+# pytest-asyncio>=0.23.0
+# pytest-cov>=4.1.0
+# black>=24.1.0
+# isort>=5.13.0
+# mypy>=1.8.0

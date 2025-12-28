@@ -200,7 +200,7 @@ export function RightSidebar({ isOpen, onClose, onSelectPage }: RightSidebarProp
     <>
       {/* Desktop Mode - Inline sidebar */}
       <div className="hidden lg:flex">
-        <div className="w-80 h-full bg-card border-l border-border flex flex-col shrink-0">
+        <div className="w-80 h-full theme-card border-l border-border flex flex-col shrink-0">
           {sidebarContent}
         </div>
       </div>
@@ -215,7 +215,7 @@ export function RightSidebar({ isOpen, onClose, onSelectPage }: RightSidebarProp
               animate={{ opacity: 1 }}
               exit={{ opacity: 0 }}
               onClick={onClose}
-              className="lg:hidden fixed inset-0 bg-background/60 z-40"
+              className="lg:hidden fixed inset-0 theme-surface/60 z-40"
             />
             {/* Sidebar */}
             <motion.div
@@ -223,7 +223,7 @@ export function RightSidebar({ isOpen, onClose, onSelectPage }: RightSidebarProp
               animate={{ x: 0 }}
               exit={{ x: -288 }}
               transition={{ type: "spring", damping: 25, stiffness: 200 }}
-              className="lg:hidden fixed top-0 left-0 h-full w-72 z-50 bg-card border-l border-border flex flex-col"
+              className="lg:hidden fixed top-0 left-0 h-full w-72 z-50 theme-card border-l border-border flex flex-col"
             >
               {sidebarContent}
             </motion.div>

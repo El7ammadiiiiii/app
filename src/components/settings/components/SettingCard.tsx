@@ -30,7 +30,7 @@ export function SettingCard({
       onClick={onClick}
       disabled={disabled}
       className={cn(
-        "w-full bg-card border border-border rounded-lg p-2.5 sm:p-3 text-right",
+        "w-full bg-[var(--glass-bg)] backdrop-blur-xl border border-[var(--glass-border)] rounded-lg p-2.5 sm:p-3 text-right",
         "hover:border-primary/30 transition-all duration-200",
         "flex items-center justify-between gap-2.5 sm:gap-3",
         onClick && "cursor-pointer",

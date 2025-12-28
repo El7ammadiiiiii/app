@@ -112,7 +112,7 @@ export function QuickAccessBar({ onNavigate, className }: QuickAccessBarProps) {
       animate={{ opacity: 1, y: 0, scale: 1 }}
       className={cn(
         "fixed bottom-4 left-4 z-40",
-        "bg-card border border-border",
+        "theme-card border border-border",
         "rounded-2xl shadow-2xl",
         "overflow-hidden",
         className

@@ -145,7 +145,7 @@ export const DeepResearchPanel: React.FC<DeepResearchPanelProps> = ({
               "fixed inset-x-4 bottom-4 md:inset-x-auto md:left-1/2 md:-translate-x-1/2",
               "md:w-[600px] md:max-w-[90vw]",
               "max-h-[85vh] overflow-hidden",
-              "bg-card border border-border rounded-2xl shadow-2xl",
+              "theme-card border border-border rounded-2xl shadow-2xl",
               "z-50 flex flex-col",
               className
             )}

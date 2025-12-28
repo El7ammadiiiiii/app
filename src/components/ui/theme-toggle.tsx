@@ -43,7 +43,7 @@ export function ThemeToggle() {
   const nextTheme = themeOrder[(safeIndex + 1) % themeOrder.length];
   const Icon = themeIcons[currentTheme] || Monitor;
 
-  console.log("Current theme:", theme, "Next theme:", nextTheme);
+  
 
   return (
     <div className="flex flex-col items-center gap-1">
@@ -118,7 +118,7 @@ export function ThemeSelector() {
               animate={{ opacity: 1, y: 0, scale: 1 }}
               exit={{ opacity: 0, y: -10, scale: 0.95 }}
               className="absolute top-full mt-2 right-0 z-50 min-w-[140px]
-                         bg-card border border-border rounded-xl shadow-lg
+                         theme-card border border-border rounded-xl shadow-lg
                          overflow-hidden"
             >
               {themeOrder.map((t) => {

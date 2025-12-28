@@ -185,7 +185,7 @@ export function AppSettingsSection() {
               </SettingGroup>
 
               <SettingGroup title="الذاكرة">
-                <div className="p-4 rounded-xl bg-card border border-border">
+                <div className="p-4 rounded-xl bg-[var(--glass-bg)] backdrop-blur-xl border border-[var(--glass-border)]">
                   <div className="flex items-center justify-between mb-4">
                     <div>
                       <h4 className="font-medium text-foreground">استخدام الذاكرة</h4>
@@ -271,7 +271,7 @@ export function AppSettingsSection() {
                 </SettingCard>
               </SettingGroup>
 
-              <div className="p-4 rounded-xl bg-card border border-border">
+              <div className="p-4 rounded-xl bg-[var(--glass-bg)] backdrop-blur-xl border border-[var(--glass-border)]">
                 <h4 className="font-medium text-foreground mb-3">اختصارات مهمة</h4>
                 <div className="space-y-2">
                   {[
@@ -285,7 +285,7 @@ export function AppSettingsSection() {
                       <div className="flex items-center gap-1">
                         {shortcut.keys.map((key, j) => (
                           <React.Fragment key={j}>
-                            <kbd className="px-2 py-1 rounded bg-card border border-border 
+                            <kbd className="px-2 py-1 rounded bg-[var(--glass-bg)] backdrop-blur-xl border border-[var(--glass-border)] 
                                           text-xs font-mono text-foreground">
                               {key}
                             </kbd>

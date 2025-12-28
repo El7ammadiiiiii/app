@@ -60,7 +60,7 @@ export function AboutSection() {
       <motion.div
         initial={{ opacity: 0, y: 20 }}
         animate={{ opacity: 1, y: 0 }}
-        className="relative overflow-hidden rounded-2xl bg-card border border-primary p-6 shadow-lg"
+        className="relative overflow-hidden rounded-2xl theme-card border border-primary p-6 shadow-lg"
       >
         <div className="relative flex items-center gap-6">
           <div className="w-20 h-20 rounded-2xl bg-gradient-to-br from-primary to-primary/60 
@@ -73,7 +73,7 @@ export function AboutSection() {
             <div className="flex items-center gap-3">
               <button
                 onClick={copyVersion}
-                className="flex items-center gap-2 px-3 py-1.5 rounded-lg bg-card border border-border
+                className="flex items-center gap-2 px-3 py-1.5 rounded-lg theme-card border border-border
                          text-sm font-mono text-foreground transition-colors hover:bg-muted"
               >
                 v{appVersion}
@@ -105,7 +105,7 @@ export function AboutSection() {
                 href={link.url}
                 target="_blank"
                 rel="noopener noreferrer"
-                className="flex items-center gap-3 p-4 rounded-xl bg-card border border-border
+                className="flex items-center gap-3 p-4 rounded-xl theme-card border border-border
                          hover:border-primary hover:bg-primary transition-all group"
               >
                 <Icon className="w-5 h-5 text-muted-foreground group-hover:text-white transition-colors" />
@@ -127,7 +127,7 @@ export function AboutSection() {
               initial={{ opacity: 0, x: -10 }}
               animate={{ opacity: 1, x: 0 }}
               transition={{ delay: index * 0.1 }}
-              className="flex items-start gap-4 p-4 rounded-xl bg-card border border-border"
+              className="flex items-start gap-4 p-4 rounded-xl theme-card border border-border"
             >
               <div className="w-10 h-10 rounded-lg bg-primary flex items-center justify-center flex-shrink-0">
                 <Sparkles className="w-5 h-5 text-white" />
@@ -157,7 +157,7 @@ export function AboutSection() {
             <a
               key={link.label}
               href={link.url}
-              className="flex items-center gap-2 p-3 rounded-lg bg-card border border-border 
+              className="flex items-center gap-2 p-3 rounded-lg theme-card border border-border 
                        text-sm text-muted-foreground transition-colors hover:bg-muted hover:text-foreground"
             >
               <FileText className="w-4 h-4" />
@@ -169,7 +169,7 @@ export function AboutSection() {
 
       {/* Support */}
       <SettingGroup title="الدعم">
-        <div className="p-4 rounded-xl bg-card border border-border">
+        <div className="p-4 rounded-xl theme-card border border-border">
           <div className="flex items-start gap-4">
             <div className="w-12 h-12 rounded-xl bg-blue-500 flex items-center justify-center">
               <Mail className="w-6 h-6 text-white" />

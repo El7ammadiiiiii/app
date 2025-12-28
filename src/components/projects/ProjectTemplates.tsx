@@ -20,7 +20,7 @@ export function ProjectTemplates({ selectedTemplate, onSelect }: ProjectTemplate
           type="button"
           onClick={() => onSelect(null)}
           className={`
-            relative p-4 rounded-xl border-2 transition-all
+            relative p-4 rounded-2xl border-2 transition-all
             flex flex-col items-center gap-2 text-center
             ${selectedTemplate === null
               ? "border-primary bg-primary/5"
@@ -78,7 +78,7 @@ function TemplateCard({ template, isSelected, onSelect }: TemplateCardProps) {
       type="button"
       onClick={onSelect}
       className={`
-        relative p-4 rounded-xl border-2 transition-all
+        relative p-4 rounded-2xl border-2 transition-all
         flex flex-col items-center gap-2 text-center
         ${isSelected
           ? "border-primary bg-primary/5"
@@ -90,7 +90,7 @@ function TemplateCard({ template, isSelected, onSelect }: TemplateCardProps) {
     >
       {/* شريط اللون */}
       <div 
-        className={`absolute top-0 left-0 right-0 h-1 rounded-t-xl ${colorClasses.bg}`}
+        className={`absolute top-0 left-0 right-0 h-1 rounded-t-2xl ${colorClasses.bg}`}
       />
 
       {/* علامة الاختيار */}
@@ -129,7 +129,7 @@ export function TemplatePreview({ templateId }: TemplatePreviewProps) {
   const colorClasses = PROJECT_COLORS[template.color];
 
   return (
-    <div className="p-4 rounded-xl border bg-card space-y-3">
+    <div className="p-4 rounded-xl border theme-card space-y-3">
       <div className="flex items-center gap-3">
         <span className="text-3xl">{template.emoji}</span>
         <div>

@@ -11,3 +11,9 @@ export { ProfileAvatar } from "./ProfileAvatar";
 export { CircularProgress, ProfileCompletionCard } from "./CircularProgress";
 export { Tooltip } from "./Tooltip";
 export { QuickAccessBar } from "./QuickAccessBar";
+
+// Privacy Feature Modals
+export { SharedLinksModal } from "./SharedLinksModal";
+export { ArchivedChatsModal } from "./ArchivedChatsModal";
+export { ExportDataModal } from "./ExportDataModal";
+export { ImproveModelModal } from "./ImproveModelModal";

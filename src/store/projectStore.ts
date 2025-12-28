@@ -14,8 +14,6 @@ import type {
   ProjectViewMode,
   ProjectSortBy,
   ProjectFilterBy,
-  ProjectTemplate,
-  PROJECT_TEMPLATES,
 } from "@/types/project";
 
 // ═══════════════════════════════════════════════════════════════
@@ -39,7 +37,8 @@ interface ProjectStoreActions {
   moveChat: (chatId: string, toProjectId: string) => void;
   branchChat: (chatId: string, fromMessageId: string, title?: string) => ProjectChat | null;
   pinChat: (id: string) => void;
-  addMessage: (chatId: string, message: Omit<ChatMessage, "id" | "timestamp">) => void;
+  addMessage: (chatId: string, message: Omit<ChatMessage, "id" | "timestamp">) => ChatMessage;
+  updateMessage: (chatId: string, messageId: string, updates: Partial<ChatMessage>) => void;
   setActiveChat: (id: string | null) => void;
 
   // ─── الملفات ───
@@ -359,6 +358,24 @@ export const useProjectStore = create<ProjectStore>()(
               : c
           ),
         }));
+
+        return newMessage;
+      },
+
+      updateMessage: (chatId: string, messageId: string, updates: Partial<ChatMessage>) => {
+        set((state) => ({
+          chats: state.chats.map((c) =>
+            c.id === chatId
+              ? {
+                  ...c,
+                  messages: c.messages.map((m) =>
+                    m.id === messageId ? { ...m, ...updates } : m
+                  ),
+                  updatedAt: new Date(),
+                }
+              : c
+          ),
+        }));
       },
 
       setActiveChat: (id: string | null) => {
@@ -469,7 +486,7 @@ export const useProjectStore = create<ProjectStore>()(
       getFilteredProjects: () => {
         const { projects, filterBy, sortBy, searchQuery } = get();
 
-        let filtered = projects.filter((p) => {
+        const filtered = projects.filter((p) => {
           // فلتر البحث
           if (searchQuery) {
             const query = searchQuery.toLowerCase();

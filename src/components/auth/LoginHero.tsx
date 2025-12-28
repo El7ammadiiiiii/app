@@ -71,7 +71,7 @@ export const LoginHero = () => {
         setStatusMessage("تمت استعادة جلستك تلقائياً ⚡");
       } catch (error) {
         if (!cancelled) {
-          console.warn("Silent refresh skipped", error);
+          
           setSilentState("failed");
           setStatusMessage(null);
         }

@@ -53,6 +53,7 @@ export type SettingsSectionId =
   | 'subscription'
   | 'privacy'
   | 'appearance'
+  | 'colors'
   | 'language'
   | 'voice'
   | 'assistants'
@@ -189,6 +190,17 @@ export interface MemoryItem {
 }
 
 // ============================================
+// Shared Link Interface
+// ============================================
+export interface SharedLink {
+  id: string;
+  name: string;
+  type: 'chat' | 'post' | 'document';
+  url: string;
+  sharedAt: Date;
+}
+
+// ============================================
 // Changelog Entry Interface
 // ============================================
 export interface ChangelogEntry {
@@ -239,6 +251,8 @@ export interface SettingsState {
   memoryEnabled: boolean;
   historyEnabled: boolean;
   historyRetention: HistoryRetention;
+  temporaryChatMode: boolean;
+  improveModelForAll: boolean;
   
   // Notifications
   inAppNotifications: boolean;

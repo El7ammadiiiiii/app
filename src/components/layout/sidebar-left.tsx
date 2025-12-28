@@ -195,11 +195,6 @@ export function SidebarLeft({ isOpen, onToggle, isMobile = false, onOpenSettings
       badge: projects.filter(p => p.isFavorite).length || undefined,
     },
     {
-      id: "archive",
-      label: "الأرشيف",
-      icon: <Archive className="w-5 h-5" />,
-    },
-    {
       id: "institute",
       label: "معهد CCCWAYS",
       icon: <GraduationCap className="w-5 h-5" />,
@@ -245,7 +240,7 @@ export function SidebarLeft({ isOpen, onToggle, isMobile = false, onOpenSettings
 
   const sidebarVariants: Variants = {
     open: {
-      width: isMobile ? 280 : 260,
+      width: isMobile ? 280 : 280,
       opacity: 1,
       x: 0,
       transition: { type: "spring", stiffness: 400, damping: 35 },
@@ -253,7 +248,7 @@ export function SidebarLeft({ isOpen, onToggle, isMobile = false, onOpenSettings
     closed: {
       width: 0,
       opacity: 0,
-      x: 260,
+      x: 280,
       transition: { type: "spring", stiffness: 400, damping: 35 },
     },
   };
@@ -267,7 +262,7 @@ export function SidebarLeft({ isOpen, onToggle, isMobile = false, onOpenSettings
             initial={{ opacity: 0 }}
             animate={{ opacity: 1 }}
             exit={{ opacity: 0 }}
-            className="fixed inset-0 bg-black/30 z-40 lg:hidden"
+            className="fixed inset-0 z-40 lg:hidden bg-black/60 backdrop-blur-sm"
             onClick={onToggle}
           />
         )}
@@ -280,82 +275,99 @@ export function SidebarLeft({ isOpen, onToggle, isMobile = false, onOpenSettings
         initial={false}
         animate={isOpen ? "open" : "closed"}
         className={cn(
-          "fixed right-0 top-0 h-full z-50",
+          "fixed right-0 z-50",
           "flex flex-col",
-          "bg-card border-l border-border/50",
-          isMobile ? "lg:relative" : "relative"
+          "sidebar-professional",
+          "bg-white/5 backdrop-blur-xl border-l border-white/10",
+          "shadow-[-4px_0_32px_rgba(0,0,0,0.4)]",
+          // Mobile: full height from top, Desktop: below header
+          isMobile ? "top-0 h-full bg-[#051014] border-l-0" : "top-[65px] h-[calc(100vh-65px)]"
         )}
       >
-        {/* Header - Simple */}
-        <div className="flex items-center justify-between px-3 py-3 border-b border-border/30">
+        {/* Header - Refined */}
+        <div className="flex items-center justify-between p-5 border-b border-border/20 dark:border-white/[0.04]">
           <AnimatePresence mode="wait">
             {isOpen && (
               <motion.div
-                initial={{ opacity: 0 }}
-                animate={{ opacity: 1 }}
-                exit={{ opacity: 0 }}
-                className="flex items-center gap-2"
+                initial={{ opacity: 0, x: 10 }}
+                animate={{ opacity: 1, x: 0 }}
+                exit={{ opacity: 0, x: 10 }}
+                transition={{ duration: 0.2 }}
+                className="flex items-center gap-2.5"
               >
-                <div className="w-7 h-7 rounded-lg bg-primary/10 flex items-center justify-center">
+                <div className="w-8 h-8 rounded-xl bg-gradient-to-br from-primary/20 to-primary/5 dark:from-primary/15 dark:to-primary/5 flex items-center justify-center ring-1 ring-primary/10">
                   <Crown className="w-4 h-4 text-primary" />
                 </div>
-                <span className="font-semibold text-sm text-foreground">CCCWAYS</span>
+                <span className="font-semibold text-sm tracking-wide text-foreground">CCCWAYS</span>
               </motion.div>
             )}
           </AnimatePresence>
 
           <motion.button
-            whileHover={{ scale: 1.1 }}
-            whileTap={{ scale: 0.9 }}
+            whileHover={{ scale: 1.05 }}
+            whileTap={{ scale: 0.95 }}
             onClick={onToggle}
-            className="p-2 rounded-xl hover:bg-muted text-muted-foreground hover:text-foreground transition-colors border border-transparent hover:border-border"
+            className="p-2 rounded-xl hover:bg-muted/60 dark:hover:bg-white/[0.06] text-muted-foreground hover:text-foreground transition-all duration-200"
           >
-            <X className="w-5 h-5" />
+            <X className="w-4.5 h-4.5" />
           </motion.button>
         </div>
 
-        {/* New Chat Button - Top */}
-        <div className="px-3 py-3 border-b border-border/30">
+        {/* New Chat Button - Professional */}
+        <div className="px-3 py-3">
           <motion.button
             onClick={handleNewChat}
-            className="w-full flex items-center gap-2 py-2 px-3 rounded-lg
-                     border border-border/50 hover:bg-muted/50
-                     text-foreground transition-all text-sm"
-            whileHover={{ scale: 1.01 }}
-            whileTap={{ scale: 0.99 }}
+            className="w-full flex items-center justify-center gap-2 py-2.5 px-4 rounded-xl
+                     bg-gradient-to-r from-primary/10 to-primary/5 dark:from-primary/15 dark:to-primary/5
+                     border border-primary/20 dark:border-primary/15
+                     hover:from-primary/15 hover:to-primary/10 dark:hover:from-primary/20 dark:hover:to-primary/10
+                     text-primary font-medium transition-all duration-300 text-sm
+                     shadow-sm shadow-primary/5"
+            whileHover={{ scale: 1.01, y: -1 }}
+            whileTap={{ scale: 0.98 }}
           >
             <Plus className="w-4 h-4" />
             <span>دردشة جديدة</span>
           </motion.button>
         </div>
 
-        {/* Search */}
+        {/* Search - Refined */}
         <div className="px-3 py-2">
-          <div className="relative">
-            <Search className="absolute right-2.5 top-1/2 -translate-y-1/2 w-4 h-4 text-muted-foreground/60" />
+          <div className="relative group">
+            <Search className="absolute right-3 top-1/2 -translate-y-1/2 w-4 h-4 text-muted-foreground/50 group-focus-within:text-primary/70 transition-colors" />
             <input
               type="text"
-              placeholder="البحث في الدردشات"
+              placeholder="البحث في الدردشات..."
               value={searchQuery}
               onChange={(e) => setSearchQuery(e.target.value)}
-              className="w-full pl-3 pr-8 py-1.5 rounded-lg bg-muted/30 border border-border/30 text-sm text-foreground focus:outline-none focus:border-border placeholder:text-muted-foreground/50"
+              className="w-full pl-3 pr-9 py-2 rounded-xl 
+                       bg-muted/20 dark:bg-white/[0.03] 
+                       border border-border/30 dark:border-white/[0.06] 
+                       text-sm text-foreground 
+                       focus:outline-none focus:border-primary/30 focus:bg-muted/30 dark:focus:bg-white/[0.05]
+                       placeholder:text-muted-foreground/40 
+                       transition-all duration-200"
             />
           </div>
         </div>
 
-        {/* Navigation - Simple */}
-        <div className="flex-1 overflow-y-auto py-2 px-2 space-y-0.5 custom-scrollbar">
+        {/* Divider */}
+        <div className="mx-3 h-px bg-gradient-to-r from-transparent via-border/40 to-transparent dark:via-white/[0.06]" />
+
+        {/* Navigation - Professional */}
+        <div className="flex-1 overflow-y-auto py-3 px-2.5 space-y-1 custom-scrollbar">
           
           {/* 1. Section: المشروعات */}
-          <div className="flex items-center justify-between px-2 py-1.5">
-            <span className="text-xs font-medium text-muted-foreground/70">المشروعات</span>
+          <div className="section-header flex items-center justify-between px-2 py-2 mb-1">
+            <span className="section-title text-[0.6875rem] font-semibold uppercase tracking-wider text-muted-foreground/60">المشروعات</span>
             <motion.button
               onClick={() => {
                 openCreateModal();
                 playSound("click");
               }}
-              className="p-0.5 rounded hover:bg-muted text-muted-foreground/60 hover:text-foreground"
-              whileTap={{ scale: 0.95 }}
+              className="p-1 rounded-lg hover:bg-muted/60 dark:hover:bg-white/[0.06] text-muted-foreground/50 hover:text-primary transition-colors"
+              whileHover={{ scale: 1.1 }}
+              whileTap={{ scale: 0.9 }}
             >
               <Plus className="w-3.5 h-3.5" />
             </motion.button>
@@ -364,7 +376,7 @@ export function SidebarLeft({ isOpen, onToggle, isMobile = false, onOpenSettings
           {/* Projects List */}
           <div className="space-y-0.5">
             {projects.filter(p => !p.isArchived).length === 0 ? (
-              <div className="text-center py-3 text-muted-foreground/60">
+              <div className="text-center py-4 text-muted-foreground/50">
                 <p className="text-xs">لا توجد مشروعات</p>
               </div>
             ) : (
@@ -373,7 +385,7 @@ export function SidebarLeft({ isOpen, onToggle, isMobile = false, onOpenSettings
                 .map((project) => (
                   <div key={project.id} className="relative group">
                     {editingId === `project-${project.id}` ? (
-                      <div className="flex items-center gap-2 py-2 px-2.5">
+                      <div className="flex items-center gap-2 py-2 px-3">
                         <span className="text-base">{project.emoji || "📁"}</span>
                         <input
                           type="text"
@@ -384,7 +396,7 @@ export function SidebarLeft({ isOpen, onToggle, isMobile = false, onOpenSettings
                             if (e.key === "Escape") { setEditingId(null); setEditingName(""); }
                           }}
                           onBlur={() => handleRenameProject(project.id, editingName)}
-                          className="flex-1 bg-muted/50 border border-border rounded px-2 py-0.5 text-sm focus:outline-none"
+                          className="flex-1 bg-muted/30 dark:bg-white/[0.05] border border-border/50 dark:border-white/[0.08] rounded-lg px-2.5 py-1 text-sm focus:outline-none focus:border-primary/40"
                           autoFocus
                         />
                       </div>
@@ -395,34 +407,35 @@ export function SidebarLeft({ isOpen, onToggle, isMobile = false, onOpenSettings
                           if (isMobile && onToggle) onToggle();
                         }}
                         className={cn(
-                          "w-full flex items-center gap-2 py-2 px-2.5 rounded-lg text-sm transition-colors text-right",
+                          "w-full flex items-center gap-2.5 py-2 px-3 rounded-xl text-sm transition-all duration-200 text-right",
                           activeProjectId === project.id
-                            ? "bg-muted text-foreground"
-                            : "text-muted-foreground hover:bg-muted/50 hover:text-foreground"
+                            ? "bg-primary/8 dark:bg-primary/12 text-foreground border border-primary/15 dark:border-primary/20 shadow-sm"
+                            : "text-muted-foreground hover:bg-muted/50 dark:hover:bg-white/[0.04] hover:text-foreground border border-transparent"
                         )}
                       >
                         <span className="text-base">{project.emoji || "📁"}</span>
-                        <span className="truncate flex-1">{project.name}</span>
+                        <span className="truncate flex-1 font-medium">{project.name}</span>
                         <motion.div
                           onClick={(e) => {
                             e.stopPropagation();
                             setOpenMenuId(openMenuId === `project-${project.id}` ? null : `project-${project.id}`);
                           }}
-                          className="p-1 rounded opacity-0 group-hover:opacity-100 hover:bg-muted transition-all"
+                          className="p-1.5 rounded-lg opacity-0 group-hover:opacity-100 hover:bg-muted/60 dark:hover:bg-white/[0.08] transition-all"
                         >
                           <MoreHorizontal className="w-3.5 h-3.5" />
                         </motion.div>
                       </motion.button>
                     )}
                     
-                    {/* Dropdown Menu */}
+                    {/* Dropdown Menu - Refined */}
                     <AnimatePresence>
                       {openMenuId === `project-${project.id}` && (
                         <motion.div
-                          initial={{ opacity: 0, scale: 0.95, y: -5 }}
+                          initial={{ opacity: 0, scale: 0.96, y: -4 }}
                           animate={{ opacity: 1, scale: 1, y: 0 }}
-                          exit={{ opacity: 0, scale: 0.95, y: -5 }}
-                          className="absolute left-0 top-full mt-1 z-50 bg-popover border border-border rounded-lg shadow-lg py-1 min-w-[140px]"
+                          exit={{ opacity: 0, scale: 0.96, y: -4 }}
+                          transition={{ duration: 0.15 }}
+                          className="dropdown-refined absolute left-0 top-full mt-1.5 z-50 border border-white/[0.08] rounded-xl shadow-lg shadow-[0_12px_40px_rgba(0,0,0,0.45)] p-1 min-w-[160px] theme-dropdown"
                         >
                           <button
                             onClick={() => {
@@ -430,29 +443,29 @@ export function SidebarLeft({ isOpen, onToggle, isMobile = false, onOpenSettings
                               setEditingName(project.name);
                               setOpenMenuId(null);
                             }}
-                            className="w-full flex items-center gap-2 px-3 py-1.5 text-sm text-muted-foreground hover:bg-muted hover:text-foreground transition-colors"
+                            className="dropdown-item w-full flex items-center gap-2.5 px-3 py-2 text-[13px] text-muted-foreground hover:bg-muted/60 dark:hover:bg-white/[0.06] hover:text-foreground rounded-lg transition-colors"
                           >
                             <Edit3 className="w-3.5 h-3.5" />
                             <span>إعادة تسمية</span>
                           </button>
                           <button
                             onClick={() => handleShare(project.id, project.name, "project")}
-                            className="w-full flex items-center gap-2 px-3 py-1.5 text-sm text-muted-foreground hover:bg-muted hover:text-foreground transition-colors"
+                            className="dropdown-item w-full flex items-center gap-2.5 px-3 py-2 text-[13px] text-muted-foreground hover:bg-muted/60 dark:hover:bg-white/[0.06] hover:text-foreground rounded-lg transition-colors"
                           >
                             <Share2 className="w-3.5 h-3.5" />
                             <span>مشاركة</span>
                           </button>
                           <button
                             onClick={() => handleArchiveProject(project.id)}
-                            className="w-full flex items-center gap-2 px-3 py-1.5 text-sm text-muted-foreground hover:bg-muted hover:text-foreground transition-colors"
+                            className="dropdown-item w-full flex items-center gap-2.5 px-3 py-2 text-[13px] text-muted-foreground hover:bg-muted/60 dark:hover:bg-white/[0.06] hover:text-foreground rounded-lg transition-colors"
                           >
                             <Archive className="w-3.5 h-3.5" />
                             <span>أرشفة</span>
                           </button>
-                          <div className="h-px bg-border my-1" />
+                          <div className="dropdown-divider h-px bg-border/40 dark:bg-white/[0.06] my-1 mx-2" />
                           <button
                             onClick={() => handleDeleteProject(project.id)}
-                            className="w-full flex items-center gap-2 px-3 py-1.5 text-sm text-red-500 hover:bg-red-500/10 transition-colors"
+                            className="dropdown-item w-full flex items-center gap-2.5 px-3 py-2 text-[13px] text-red-500 hover:bg-red-500/10 rounded-lg transition-colors"
                           >
                             <Trash2 className="w-3.5 h-3.5" />
                             <span>حذف</span>
@@ -466,17 +479,17 @@ export function SidebarLeft({ isOpen, onToggle, isMobile = false, onOpenSettings
           </div>
 
           {/* Divider */}
-          <div className="my-3 h-px bg-border/30" />
+          <div className="my-4 mx-1 h-px bg-gradient-to-r from-transparent via-border/30 to-transparent dark:via-white/[0.05]" />
 
           {/* 2. المفضلة */}
           <motion.button
             onClick={() => toggleExpand("favorites")}
-            className="w-full flex items-center gap-2 py-2 px-2.5 rounded-lg text-sm text-muted-foreground hover:bg-muted/50 hover:text-foreground transition-colors"
+            className="w-full flex items-center gap-2.5 py-2 px-3 rounded-xl text-sm text-muted-foreground hover:bg-muted/50 dark:hover:bg-white/[0.04] hover:text-foreground transition-all duration-200"
           >
-            <Star className="w-4 h-4 opacity-60" />
-            <span>المفضلة</span>
+            <Star className="w-4 h-4 opacity-50" />
+            <span className="font-medium">المفضلة</span>
             <ChevronDown className={cn(
-              "w-3.5 h-3.5 mr-auto transition-transform",
+              "w-3.5 h-3.5 mr-auto transition-transform duration-200",
               expandedItems.includes("favorites") && "rotate-180"
             )} />
           </motion.button>
@@ -496,15 +509,6 @@ export function SidebarLeft({ isOpen, onToggle, isMobile = false, onOpenSettings
               </motion.div>
             )}
           </AnimatePresence>
-
-          {/* 3. الأرشيف */}
-          <motion.button
-            onClick={() => setIsArchiveOpen(true)}
-            className="w-full flex items-center gap-2 py-2 px-2.5 rounded-lg text-sm text-muted-foreground hover:bg-muted/50 hover:text-foreground transition-colors"
-          >
-            <Archive className="w-4 h-4 opacity-60" />
-            <span>الأرشيف</span>
-          </motion.button>
 
           {/* Divider */}
           <div className="my-3 h-px bg-border/30" />
@@ -731,6 +735,13 @@ export function SidebarLeft({ isOpen, onToggle, isMobile = false, onOpenSettings
 function ModernFooter({ isOpen, onOpenSettings }: { isOpen: boolean; onOpenSettings?: () => void }) {
   const { theme, setTheme } = useTheme();
   const [isHovered, setIsHovered] = useState(false);
+  const [mounted, setMounted] = useState(false);
+
+  useEffect(() => {
+    setMounted(true);
+  }, []);
+
+  if (!mounted) return null;
 
   const themes = [
     { id: "light", icon: Sun, label: "فاتح" },
@@ -782,8 +793,7 @@ function ModernFooter({ isOpen, onOpenSettings }: { isOpen: boolean; onOpenSetti
             ? "0 8px 32px rgba(16, 185, 129, 0.15)" 
             : "0 4px 16px rgba(0, 0, 0, 0.1)"
         }}
-        className="relative overflow-hidden rounded-2xl bg-gradient-to-br from-white/[0.08] to-white/[0.02] 
-                   backdrop-blur-xl border border-white/[0.08] p-3"
+        className="relative overflow-hidden rounded-2xl border border-white/[0.08] p-3 theme-card"
       >
         {/* Animated Background Gradient */}
         <motion.div
@@ -840,7 +850,7 @@ function ModernFooter({ isOpen, onOpenSettings }: { isOpen: boolean; onOpenSetti
 
           {/* Theme Switcher - Pill Style */}
           {typeof window !== "undefined" ? (
-            <div className="flex items-center gap-1 p-1 rounded-xl bg-black/20 backdrop-blur-sm">
+            <div className="flex items-center gap-1 p-1 rounded-xl bg-muted">
               {themes.map((t) => (
                 <motion.button
                   key={t.id}

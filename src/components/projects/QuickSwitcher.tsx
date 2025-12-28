@@ -151,7 +151,7 @@ export function QuickSwitcher() {
             exit={{ opacity: 0, scale: 0.95, y: -20 }}
             transition={{ type: "spring", duration: 0.3 }}
             className="fixed left-1/2 top-[15%] -translate-x-1/2 w-[90%] max-w-xl 
-                       bg-card border border-border rounded-2xl shadow-2xl z-50 overflow-hidden"
+                       theme-card border border-border rounded-2xl shadow-2xl z-50 overflow-hidden"
           >
             {/* حقل البحث */}
             <div className="flex items-center gap-3 p-4 border-b border-border">

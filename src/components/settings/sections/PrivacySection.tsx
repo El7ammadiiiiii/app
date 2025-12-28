@@ -9,6 +9,11 @@ import {
   Trash2,
   Eye,
   Database,
+  Search,
+  Link2,
+  Archive,
+  Clock,
+  Sparkles,
 } from "lucide-react";
 import { 
   SettingCard, 
@@ -17,6 +22,10 @@ import {
   SettingGroup,
   SettingsTabs,
   ConfirmModal,
+  SharedLinksModal,
+  ArchivedChatsModal,
+  ExportDataModal,
+  ImproveModelModal,
 } from "../components";
 import { useSettingsStore } from "../store/settingsStore";
 
@@ -24,6 +33,11 @@ export function PrivacySection() {
   const [activeTab, setActiveTab] = React.useState("data");
   const [deleteChatsModal, setDeleteChatsModal] = React.useState(false);
   const [clearMemoryModal, setClearMemoryModal] = React.useState(false);
+  const [sharedLinksModal, setSharedLinksModal] = React.useState(false);
+  const [archivedChatsModal, setArchivedChatsModal] = React.useState(false);
+  const [exportDataModal, setExportDataModal] = React.useState(false);
+  const [improveModelModal, setImproveModelModal] = React.useState(false);
+  const [searchQuery, setSearchQuery] = React.useState("");
   
   const {
     dataSharing,
@@ -32,6 +46,8 @@ export function PrivacySection() {
     memoryEnabled,
     historyEnabled,
     historyRetention,
+    temporaryChatMode,
+    improveModelForAll,
     updateSetting,
   } = useSettingsStore();
 
@@ -39,6 +55,7 @@ export function PrivacySection() {
     { id: "data", label: "البيانات" },
     { id: "memory", label: "الذاكرة" },
     { id: "conversations", label: "المحادثات" },
+    { id: "security", label: "الأمان" },
   ];
 
   const retentionOptions = [
@@ -57,6 +74,18 @@ export function PrivacySection() {
 
   return (
     <div className="space-y-6">
+      {/* Search Input */}
+      <div className="relative">
+        <Search className="absolute right-3 top-1/2 -translate-y-1/2 w-4 h-4 text-muted-foreground" />
+        <input
+          type="text"
+          placeholder="البحث في المحادثات..."
+          value={searchQuery}
+          onChange={(e) => setSearchQuery(e.target.value)}
+          className="w-full pr-10 pl-4 py-2.5 bg-[var(--glass-bg)] backdrop-blur-xl border border-[var(--glass-border)] rounded-lg text-sm text-foreground placeholder:text-muted-foreground focus:outline-none focus:ring-2 focus:ring-primary/50 transition-all"
+        />
+      </div>
+
       <SettingsTabs tabs={tabs} activeTab={activeTab} onTabChange={setActiveTab}>
         {/* Data Tab */}
         {activeTab === "data" && (
@@ -122,9 +151,33 @@ export function PrivacySection() {
                 title="تصدير كل البيانات"
                 description="تحميل جميع بياناتك في ملف ZIP"
               >
-                <button className="px-4 py-1.5 bg-primary text-primary-foreground rounded-lg text-sm font-medium hover:brightness-90 transition-colors">
+                <button 
+                  onClick={() => setExportDataModal(true)}
+                  className="px-4 py-1.5 bg-primary text-primary-foreground rounded-lg text-sm font-medium hover:brightness-90 transition-colors"
+                >
                   تصدير الكل
                 </button>
+              </SettingCard>
+            </SettingGroup>
+
+            <SettingGroup title="تحسين النموذج">
+              <SettingCard
+                icon={<Sparkles className="w-5 h-5" />}
+                title="تحسين النموذج للجميع"
+                description="السماح باستخدام محادثاتك لتحسين نماذج الذكاء الاصطناعي"
+              >
+                <div className="flex items-center gap-2">
+                  <button 
+                    onClick={() => setImproveModelModal(true)}
+                    className="text-xs text-primary hover:underline"
+                  >
+                    معرفة المزيد
+                  </button>
+                  <SettingToggle
+                    checked={improveModelForAll}
+                    onCheckedChange={(v) => updateSetting("improveModelForAll", v)}
+                  />
+                </div>
               </SettingCard>
             </SettingGroup>
           </div>
@@ -152,7 +205,7 @@ export function PrivacySection() {
                   {memoryItems.map((item) => (
                     <div
                       key={item.id}
-                      className="flex items-center justify-between bg-card border border-border rounded-lg p-3"
+                      className="flex items-center justify-between bg-[var(--glass-bg)] backdrop-blur-xl border border-[var(--glass-border)] rounded-lg p-3"
                     >
                       <div className="text-right flex-1">
                         <p className="text-sm text-foreground">{item.content}</p>
@@ -210,9 +263,55 @@ export function PrivacySection() {
               >
                 <button
                   onClick={() => setDeleteChatsModal(true)}
-                  className="px-4 py-1.5 bg-card border border-destructive text-destructive rounded-lg text-sm font-medium hover:bg-destructive hover:text-white transition-colors"
+                  className="px-4 py-1.5 bg-[var(--glass-bg)] backdrop-blur-xl border border-destructive text-destructive rounded-lg text-sm font-medium hover:bg-destructive hover:text-white transition-colors"
                 >
                   حذف الكل
+                </button>
+              </SettingCard>
+            </SettingGroup>
+          </div>
+        )}
+
+        {/* Security Tab */}
+        {activeTab === "security" && (
+          <div className="space-y-6">
+            <SettingGroup title="وضع المحادثة">
+              <SettingCard
+                icon={<Clock className="w-5 h-5" />}
+                title="وضع المحادثة المؤقتة"
+                description="المحادثات المؤقتة لا يتم حفظها في السجل ولا تُستخدم لتحسين النموذج"
+              >
+                <SettingToggle
+                  checked={temporaryChatMode}
+                  onCheckedChange={(v) => updateSetting("temporaryChatMode", v)}
+                />
+              </SettingCard>
+            </SettingGroup>
+
+            <SettingGroup title="إدارة الروابط والمحادثات">
+              <SettingCard
+                icon={<Link2 className="w-5 h-5" />}
+                title="الروابط المشتركة"
+                description="إدارة الروابط التي شاركتها مع الآخرين"
+              >
+                <button
+                  onClick={() => setSharedLinksModal(true)}
+                  className="px-4 py-1.5 bg-muted text-foreground rounded-lg text-sm font-medium hover:brightness-90 transition-colors"
+                >
+                  إدارة
+                </button>
+              </SettingCard>
+
+              <SettingCard
+                icon={<Archive className="w-5 h-5" />}
+                title="المحادثات المؤرشفة"
+                description="عرض وإدارة المحادثات المؤرشفة"
+              >
+                <button
+                  onClick={() => setArchivedChatsModal(true)}
+                  className="px-4 py-1.5 bg-muted text-foreground rounded-lg text-sm font-medium hover:brightness-90 transition-colors"
+                >
+                  عرض
                 </button>
               </SettingCard>
             </SettingGroup>
@@ -225,7 +324,7 @@ export function PrivacySection() {
         isOpen={deleteChatsModal}
         onClose={() => setDeleteChatsModal(false)}
         onConfirm={() => {
-          console.log("Delete all chats");
+          
           setDeleteChatsModal(false);
         }}
         type="danger"
@@ -239,13 +338,34 @@ export function PrivacySection() {
         isOpen={clearMemoryModal}
         onClose={() => setClearMemoryModal(false)}
         onConfirm={() => {
-          console.log("Clear memory");
+          
           setClearMemoryModal(false);
         }}
         type="danger"
         title="مسح كل الذاكرة"
         description="سيتم مسح جميع المعلومات التي يتذكرها المساعد عنك."
         confirmText="مسح الذاكرة"
+      />
+
+      {/* New Feature Modals */}
+      <SharedLinksModal
+        isOpen={sharedLinksModal}
+        onClose={() => setSharedLinksModal(false)}
+      />
+
+      <ArchivedChatsModal
+        isOpen={archivedChatsModal}
+        onClose={() => setArchivedChatsModal(false)}
+      />
+
+      <ExportDataModal
+        isOpen={exportDataModal}
+        onClose={() => setExportDataModal(false)}
+      />
+
+      <ImproveModelModal
+        isOpen={improveModelModal}
+        onClose={() => setImproveModelModal(false)}
       />
     </div>
   );

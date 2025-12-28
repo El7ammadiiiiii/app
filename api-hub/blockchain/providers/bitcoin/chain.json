@@ -1,0 +1,59 @@
+{
+    "chain_id": 0,
+    "name": "Bitcoin",
+    "symbol": "BTC",
+    "decimals": 8,
+    "type": "Non-EVM",
+    "layer": "L1",
+    "consensus": "Proof of Work",
+    "block_time": 600,
+    "explorer": "https://mempool.space",
+    "api_url": "https://mempool.space/api",
+    "rpc_url": null,
+    "description": "The original cryptocurrency and largest by market cap",
+    "features": [
+        "UTXO model",
+        "Lightning Network (L2)",
+        "SegWit",
+        "Taproot"
+    ],
+    "native_token": {
+        "name": "Bitcoin",
+        "symbol": "BTC",
+        "decimals": 8,
+        "smallest_unit": "satoshi"
+    },
+    "address_formats": [
+        {
+            "type": "P2PKH",
+            "prefix": "1",
+            "example": "1A1zP1eP5QGefi2DMPTfTL5SLmv7DivfNa"
+        },
+        {
+            "type": "P2SH",
+            "prefix": "3",
+            "example": "3J98t1WpEZ73CNmQviecrnyiWrnqRhWNLy"
+        },
+        {
+            "type": "Bech32 (P2WPKH)",
+            "prefix": "bc1q",
+            "example": "bc1qxy2kgdygjrsqtzq2n0yrf2493p83kkfjhx0wlh"
+        },
+        {
+            "type": "Bech32m (P2TR)",
+            "prefix": "bc1p",
+            "example": "bc1p5d7rjq7g6rdk2yhzks9smlaqtedr4dekq08ge8ztwac72sfr9rusxg3297"
+        }
+    ],
+    "data_endpoints": {
+        "balance": "/address/{address}",
+        "transactions": "/address/{address}/txs",
+        "utxos": "/address/{address}/utxo",
+        "transaction": "/tx/{txid}",
+        "block": "/block/{hash}",
+        "fees": "/v1/fees/recommended",
+        "mempool": "/mempool",
+        "price": "/v1/prices",
+        "lightning": "/v1/lightning/statistics/latest"
+    }
+}

@@ -3,13 +3,10 @@
 import { useState, useRef, useEffect } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 import {
-  User,
   Send,
   Mic,
   MicOff,
   PhoneCall,
-  MoreHorizontal,
-  Copy,
   Share2,
   Star,
   RefreshCw,
@@ -21,81 +18,94 @@ import {
   GraduationCap,
   Search,
   Plus,
-  ChevronDown,
   Camera,
   Paperclip,
   Activity,
   Database,
-  GitBranch,
-  FolderKanban,
-  MessageSquarePlus,
-  AlertTriangle,
-  LayoutGrid,
+  Code2,
+  X,
 } from "lucide-react";
 import { cn } from "@/lib/utils";
+import { useCanvasParser } from "@/hooks/useCanvasParser";
+import { useCanvasStore, CanvasType } from "@/store/canvasStore";
 import { useProjectStore } from "@/store/projectStore";
-import { ProjectHeader, useConfetti } from "@/components/projects";
+import { ProjectHeader } from "@/components/projects";
 import { useSound } from "@/lib/sounds";
-import { PROJECT_COLORS } from "@/types/project";
+import { useMounted } from "@/hooks/use-mounted";
+// Project types imported from store
 import { DeepResearchPanel } from "@/components/deep-research";
 import { WebSearchPanel } from "@/components/web-search";
-import { CanvasPanel } from "@/components/canvas/CanvasPanel";
 
-// Types
-interface CanvasNote {
+// Message interface is defined in projectStore
+type MessageRole = "user" | "assistant";
+
+interface DemoMessage {
   id: string;
-  title: string;
+  role: MessageRole;
   content: string;
-  timestamp: Date;
-  type: 'code' | 'design' | 'diagram' | 'text';
+  timestamp: number;
 }
 
-interface Message {
-  id: string;
-  role: "user" | "agent";
-  content: string;
-  timestamp: Date;
-  isCanvas?: boolean;
-}
+const DEMO_MESSAGES: DemoMessage[] = [
+  {
+    id: "1",
+    role: "user" as MessageRole,
+    content: "مرحباً، أريد تحليلاً لسوق العملات الرقمية اليوم.",
+    timestamp: Date.now() - 100000,
+  },
+  {
+    id: "2",
+    role: "assistant" as MessageRole,
+    content: "أهلاً بك! بالتأكيد. يشهد السوق اليوم تقلبات ملحوظة مع اتجاه عام للصعود في العملات الرئيسية.\n\n**أبرز النقاط:**\n- **Bitcoin (BTC):** يتداول فوق مستوى 65,000$ مع دعم قوي.\n- **Ethereum (ETH):** يظهر إشارات إيجابية بعد التحديث الأخير.\n\nهل تود التركيز على عملة محددة؟",
+    timestamp: Date.now() - 80000,
+  },
+  {
+    id: "3",
+    role: "user" as MessageRole,
+    content: "نعم، ماذا عن Solana؟",
+    timestamp: Date.now() - 60000,
+  },
+  {
+    id: "4",
+    role: "assistant" as MessageRole,
+    content: "عملة **Solana (SOL)** تظهر أداءً ممتازاً:\n\n1. **السعر الحالي:** 145$\n2. **حجم التداول:** مرتفع بنسبة 15% عن الأمس.\n3. **المؤشرات الفنية:** مؤشر RSI يشير إلى منطقة شراء قوية.\n\nأنصح بمراقبة مستوى المقاومة عند 150$.",
+    timestamp: Date.now() - 40000,
+  }
+];
 
 interface ChatAreaProps {
   activeAgent: "general" | "institute";
   onAgentChange: (agent: "general" | "institute") => void;
 }
 
-export function ChatArea({ activeAgent, onAgentChange }: ChatAreaProps) {
+export function ChatArea({ }: ChatAreaProps) {
   const [message, setMessage] = useState("");
   const [isRecording, setIsRecording] = useState(false);
-  const [isExpanded, setIsExpanded] = useState(false);
-  const [showActions, setShowActions] = useState<string | null>(null);
-  const [showCanvasMenu, setShowCanvasMenu] = useState(false);
   const [showPlusMenu, setShowPlusMenu] = useState(false);
   const [isAgentMenuOpen, setIsAgentMenuOpen] = useState(false);
-  const [isCanvasActive, setIsCanvasActive] = useState(false);
-  const [isCanvasPanelOpen, setIsCanvasPanelOpen] = useState(false);
-  const [isDeepResearchOpen, setIsDeepResearchOpen] = useState(false);
-  const [isWebSearchOpen, setIsWebSearchOpen] = useState(false);
   const [isTopMenuOpen, setIsTopMenuOpen] = useState(false);
   const topMenuRef = useRef<HTMLDivElement>(null);
   const [isReportOpen, setIsReportOpen] = useState(false);
   const [reportText, setReportText] = useState("");
   const [reportConsent, setReportConsent] = useState(false);
+  const [isDeepResearchOpen, setIsDeepResearchOpen] = useState(false);
+  const [isWebSearchOpen, setIsWebSearchOpen] = useState(false);
   const overlayActive = showPlusMenu || isAgentMenuOpen;
-  const [canvasNotes, setCanvasNotes] = useState<CanvasNote[]>([]);
   const inputRef = useRef<HTMLTextAreaElement>(null);
   const plusMenuRef = useRef<HTMLDivElement>(null);
   const agentMenuRef = useRef<HTMLDivElement>(null);
   const plusButtonRef = useRef<HTMLButtonElement>(null);
   const agentButtonRef = useRef<HTMLButtonElement>(null);
+  const mounted = useMounted();
 
   // Project Store Integration
   const {
     getActiveProject,
     getActiveChat,
     addMessage,
+    updateMessage,
     createChat,
     createProject,
-    getProjectChats,
     setActiveChat,
     deleteChat,
     activeProjectId,
@@ -105,13 +115,31 @@ export function ChatArea({ activeAgent, onAgentChange }: ChatAreaProps) {
     closeQuickSwitcher,
     closeSettings,
   } = useProjectStore();
+  
+  // Canvas Parser Integration
+  const { processChunk, chatContent } = useCanvasParser();
+  const [streamingMessageId, setStreamingMessageId] = useState<string | null>(null);
+
+  // Sync chatContent to store
+  useEffect(() => {
+    if (streamingMessageId && activeChatId) {
+      updateMessage(activeChatId, streamingMessageId, { content: chatContent });
+    }
+  }, [chatContent, streamingMessageId, activeChatId, updateMessage]);
+
   const { playSound } = useSound();
-  const { celebrate } = useConfetti();
+  const { 
+    openCanvas, 
+    closeCanvas, 
+    isOpen: isCanvasOpen,
+    isModeActive,
+    activeModeType,
+    enableMode,
+    disableMode
+  } = useCanvasStore();
 
   const activeProject = getActiveProject();
   const activeChat = getActiveChat();
-  const projectColor = activeProject ? PROJECT_COLORS[activeProject.color] : null;
-  const projectChats = activeProject ? getProjectChats(activeProject.id) : [];
 
   const conversationLink =
     typeof window !== "undefined" && activeChatId
@@ -141,36 +169,90 @@ export function ChatArea({ activeAgent, onAgentChange }: ChatAreaProps) {
     return () => document.removeEventListener("mousedown", handleClickOutside);
   }, [showPlusMenu, isAgentMenuOpen, isTopMenuOpen]);
 
-  // استخدم الرسائل من المحادثة النشطة في Zustand
-  const messages = activeChat?.messages || [];
+  // استخدم الرسائل من المحادثة النشطة في Zustand أو الرسائل التجريبية
+  const messages = activeChat?.messages?.length ? activeChat.messages : DEMO_MESSAGES;
 
   const handleSend = () => {
     if (!message.trim()) return;
     
-    // إذا كان هناك مشروع ومحادثة نشطة، احفظ الرسالة في Store
+    // Disable canvas mode when sending
+    if (isModeActive) {
+      disableMode();
+    }
+
     if (activeChatId) {
+      // Add user message
       addMessage(activeChatId, {
         role: "user",
         content: message.trim(),
       });
+      
+      // Add placeholder assistant message
+      const assistantMsg = addMessage(activeChatId, {
+        role: "assistant",
+        content: "...",
+      });
+      setStreamingMessageId(assistantMsg.id);
+      
+      // Check if this is a demo request or if Canvas mode was active
+      const isDemo = message.toLowerCase().includes("canvas") || 
+                    message.toLowerCase().includes("code") || 
+                    isModeActive;
+
+      // Simulate streaming with XML for Canvas (Only for demo/testing)
+      const demoXML = isDemo ? `حسناً، سأقوم بإنشاء مكون React لك في الـ Canvas.
+
+<canvas_action>
+<type>${activeModeType}</type>
+<language>typescript</language>
+<title>UserProfile.tsx</title>
+<content>
+import React from 'react';
+
+interface UserProfileProps {
+  name: string;
+  role: string;
+}
+
+export const UserProfile: React.FC<UserProfileProps> = ({ name, role }) => {
+  return (
+    <div className="p-4 border rounded-lg shadow-sm bg-white dark:bg-slate-800">
+      <h2 className="text-xl font-bold text-primary">{name}</h2>
+      <p className="text-gray-500 dark:text-gray-400">{role}</p>
+    </div>
+  );
+};
+</content>
+</canvas_action>
+
+هذا هو المكون المطلوب. يمكنك رؤيته الآن في الشاشة الجانبية.` : `هذا رد تجريبي. لتجربة نظام Canvas، اختر الأداة من القائمة أو اكتب "canvas" في رسالتك.`;
+
+      let i = 0;
+      const interval = setInterval(() => {
+        const chunk = demoXML.slice(i, i + 5);
+        processChunk(chunk);
+        i += 5;
+        if (i >= demoXML.length) {
+          clearInterval(interval);
+          setStreamingMessageId(null);
+        }
+      }, 30);
+      
       playSound("click");
     }
     
     setMessage("");
     setShowPlusMenu(false);
     setIsAgentMenuOpen(false);
-    closeCanvasMenu();
   };
 
   // Handle inserting deep research results into chat
-  const handleInsertResearch = (content: string, researchData?: any) => {
+  const handleInsertResearch = (content: string) => {
     if (activeChatId) {
       // Add research result as assistant message
       addMessage(activeChatId, {
         role: "assistant",
         content: content,
-        isResearch: true,
-        researchData: researchData,
       });
       playSound("click");
     }
@@ -187,48 +269,22 @@ export function ChatArea({ activeAgent, onAgentChange }: ChatAreaProps) {
     }
   };
 
-  const handleAddCanvasNote = () => {
-    const baseText = message.trim() || "ملاحظة كانفاس جديدة";
-    const nextId = canvasNotes.length + 1;
-    setCanvasNotes((prev) => [
-      ...prev,
-      {
-        id: `canvas-${nextId}`,
-        title: `Canvas #${nextId}`,
-        content: baseText,
-        timestamp: new Date(),
-        type: 'text' as const,
-      },
-    ]);
+  // Toggle Canvas Mode - تفعيل/إيقاف وضع Canvas (Gemini Style)
+  const handleToggleCanvasMode = (type: CanvasType = 'CODE') => {
+    if (isModeActive && activeModeType === type) {
+      disableMode();
+    } else {
+      enableMode(type);
+    }
+    setShowPlusMenu(false);
+    playSound('click');
   };
 
-  // Handle canvas creation from CanvasPanel
-  const handleCanvasCreated = (canvas: CanvasNote) => {
-    setCanvasNotes((prev) => [...prev, canvas]);
-    setIsCanvasActive(true); // Show canvas menu after creation
+  // Handle edit request from canvas message
+  const handleCanvasEditRequest = (_messageId: string, _editPrompt: string, _selectedText?: string) => {
+    // Here you would call your AI API to edit the canvas content
+    // For now, this is a placeholder
     
-    // Insert canvas content as assistant message
-    if (activeChatId) {
-      addMessage(activeChatId, {
-        role: "assistant",
-        content: canvas.content,
-        isCanvas: true,
-      });
-      playSound("click");
-    }
-  };
-
-  // Handle inserting canvas to chat
-  const handleInsertCanvas = (content: string) => {
-    if (activeChatId) {
-      addMessage(activeChatId, {
-        role: "assistant",
-        content: content,
-        isCanvas: true,
-      });
-      playSound("click");
-    }
-    setIsCanvasPanelOpen(false);
   };
 
   const handleKeyDown = (e: React.KeyboardEvent) => {
@@ -238,41 +294,32 @@ export function ChatArea({ activeAgent, onAgentChange }: ChatAreaProps) {
     }
   };
 
-  const handleCreateChat = () => {
+  // Create new chat
+  const _handleCreateChat = () => {
     // Close any open modals
     closeCreateModal();
     closeQuickSwitcher();
     closeSettings();
     setIsTopMenuOpen(false);
     setShowPlusMenu(false);
-    setIsAgentMenuOpen(false);
-    
-    let targetProjectId = activeProjectId || projects[0]?.id;
-    
-    // If no project exists, create a default one
-    if (!targetProjectId) {
-      const defaultProject = createProject({
-        name: "محادثاتي",
-        description: "محادثات عامة مع المساعد الذكي",
-        color: "turquoise",
-        emoji: "💬",
-      });
-      targetProjectId = defaultProject.id;
+
+    if (activeProjectId) {
+      const newChat = createChat(activeProjectId, "محادثة جديدة");
+      setActiveChat(newChat.id);
+      playSound("click");
     }
-    
-    const newChat = createChat(targetProjectId, "محادثة جديدة");
-    setActiveChat(newChat.id);
-    playSound("click");
   };
 
-  const handleDeleteChat = () => {
+  // Delete current chat
+  const _handleDeleteChat = () => {
     if (!activeChatId) return;
     deleteChat(activeChatId);
     setActiveChat(null);
     setIsTopMenuOpen(false);
   };
 
-  const shareCurrentChat = (channel: "whatsapp" | "email" | "twitter" | "instagram") => {
+  // Share chat to social media
+  const _shareCurrentChat = (channel: "whatsapp" | "email" | "twitter" | "instagram") => {
     if (!activeChatId || !conversationLink) return;
     const text = `مشاركة محادثة #${activeChatId}`;
 
@@ -303,147 +350,52 @@ export function ChatArea({ activeAgent, onAgentChange }: ChatAreaProps) {
 
   const handleReportSubmit = () => {
     if (!reportText.trim() || !reportConsent) return;
-    console.info("Report submitted", {
-      chatId: activeChatId,
-      link: conversationLink,
-      message: reportText,
-      consent: reportConsent,
-    });
+    
     setReportText("");
     setReportConsent(false);
     setIsReportOpen(false);
     setIsTopMenuOpen(false);
   };
 
-  const toggleCanvasMenu = () => setShowCanvasMenu((v) => !v);
+  const _closeCanvasMenu = () => {};
 
-  const closeCanvasMenu = () => setShowCanvasMenu(false);
+  if (!mounted) {
+    return (
+      <div className="flex items-center justify-center h-full">
+        <p className="text-gray-500 text-lg">Loading chat...</p>
+      </div>
+    );
+  }
 
   return (
-    <div className="flex flex-col h-full relative">
+    <div className="flex flex-col h-full relative chat-container min-h-0">
       {/* Project Header أعلى منطقة الرسائل */}
       {activeProject && (
         <ProjectHeader />
       )}
 
-      {/* Top bar with new chat button and actions */}
-      <div className="sticky top-0 z-30 bg-background/70 backdrop-blur border-b border-border/50 px-4 py-3 flex items-center justify-between gap-3">
-        <div className="flex items-center gap-3">
-          {/* More Options Button (three dots) */}
-          <button
-            onClick={() => setIsTopMenuOpen((v) => !v)}
-            className="h-9 w-9 rounded-full border border-border bg-background/60 hover:border-primary/50 flex items-center justify-center transition-colors"
-          >
-            <MoreHorizontal className="w-4 h-4 text-muted-foreground" />
-          </button>
-
-          {/* Canvas Menu Button - Only shows when canvas is active */}
-          {(isCanvasActive || canvasNotes.length > 0) && (
-            <motion.button
-              onClick={() => setIsCanvasPanelOpen(true)}
-              whileHover={{ scale: 1.05 }}
-              whileTap={{ scale: 0.95 }}
-              initial={{ opacity: 0, x: -10 }}
-              animate={{ opacity: 1, x: 0 }}
-              className="flex items-center gap-1.5 px-2 py-1 text-muted-foreground hover:text-foreground transition-colors relative"
-              title="Canvas"
-            >
-              <ChevronDown className="w-3.5 h-3.5" />
-              <span className="text-sm font-medium">Canvas</span>
-              {canvasNotes.length > 0 && (
-                <span className="w-5 h-5 bg-purple-500/20 text-purple-500 text-xs font-semibold rounded-full flex items-center justify-center">
-                  {canvasNotes.length}
-                </span>
-              )}
-            </motion.button>
-          )}
-        </div>
-
-        {/* CCCWAYS Logo - Center */}
-        <div className="absolute left-1/2 top-1/3 -translate-x-1/2 -translate-y-1/2">
-          <motion.span
-            initial={{ opacity: 0, scale: 0.9 }}
-            animate={{ opacity: 1, scale: 1 }}
-            className="text-xl font-bold tracking-widest dark:text-gray-400 light:text-black normal:text-gray-500"
-            dir="ltr"
-          >
-            CCCWAYS
-          </motion.span>
-        </div>
-
-        <div className="flex items-center gap-3">
-          {/* New Chat Icon Button - Same style as three dots */}
-          <motion.button
-            onClick={handleCreateChat}
-            whileHover={{ scale: 1.05 }}
-            whileTap={{ scale: 0.95 }}
-            className="h-9 w-9 rounded-full border border-border bg-background/60 hover:border-primary/50 flex items-center justify-center transition-colors"
-            title="محادثة جديدة"
-          >
-            <MessageSquarePlus className="w-4 h-4 text-muted-foreground" />
-          </motion.button>
-        </div>
-
-        <AnimatePresence>
-          {isTopMenuOpen && (
-            <motion.div
-              ref={topMenuRef}
-              initial={{ opacity: 0, y: -6 }}
-              animate={{ opacity: 1, y: 0 }}
-              exit={{ opacity: 0, y: -6 }}
-              className="absolute top-full mt-2 right-4 min-w-[220px] rounded-xl border border-border bg-card shadow-xl p-2"
-            >
-              <div className="text-xs text-muted-foreground px-2 py-1">مشاركة</div>
-              <div className="grid grid-cols-2 gap-2 px-2">
-                <button onClick={() => shareCurrentChat("whatsapp")} className="px-3 py-2 rounded-lg bg-muted/60 hover:bg-muted text-sm">واتساب</button>
-                <button onClick={() => shareCurrentChat("email")} className="px-3 py-2 rounded-lg bg-muted/60 hover:bg-muted text-sm">بريد</button>
-                <button onClick={() => shareCurrentChat("twitter")} className="px-3 py-2 rounded-lg bg-muted/60 hover:bg-muted text-sm">تويتر</button>
-                <button onClick={() => shareCurrentChat("instagram")} className="px-3 py-2 rounded-lg bg-muted/60 hover:bg-muted text-sm">إنستاغرام</button>
-              </div>
-
-              <div className="border-t border-border/70 my-2" />
-
-              <button
-                onClick={handleDeleteChat}
-                className="w-full flex items-center gap-2 px-3 py-2 rounded-lg hover:bg-destructive/10 text-destructive text-sm"
-              >
-                <Trash2 className="w-4 h-4" />
-                حذف المحادثة
-              </button>
-
-              <button
-                onClick={() => setIsReportOpen(true)}
-                className="w-full flex items-center gap-2 px-3 py-2 rounded-lg hover:bg-amber-500/10 text-amber-500 text-sm"
-              >
-                <AlertTriangle className="w-4 h-4" />
-                الإبلاغ عن مشكلة
-              </button>
-            </motion.div>
-          )}
-        </AnimatePresence>
-      </div>
-
-      {/* Report dialog */}
+      {/* Report dialog - Refined */}
       <AnimatePresence>
         {isReportOpen && (
           <motion.div
             initial={{ opacity: 0 }}
             animate={{ opacity: 1 }}
             exit={{ opacity: 0 }}
-            className="fixed inset-0 z-40 bg-black/40 backdrop-blur-sm flex items-center justify-center px-4"
+            className="fixed inset-0 z-50 flex items-center justify-center px-4 theme-bg"
           >
             <motion.div
-              initial={{ scale: 0.97, opacity: 0 }}
-              animate={{ scale: 1, opacity: 1 }}
-              exit={{ scale: 0.97, opacity: 0 }}
-              className="w-full max-w-lg rounded-2xl bg-card border border-border p-4 space-y-3"
+              initial={{ scale: 0.96, opacity: 0, y: 10 }}
+              animate={{ scale: 1, opacity: 1, y: 0 }}
+              exit={{ scale: 0.96, opacity: 0, y: 10 }}
+              transition={{ duration: 0.2 }}
+              className="w-full max-w-lg rounded-3xl border border-white/[0.08] shadow-2xl shadow-[0_25px_60px_rgba(0,0,0,0.5)] p-5 space-y-4 theme-card"
             >
               <div className="flex items-center justify-between">
                 <div>
                   <div className="text-base font-semibold">الإبلاغ عن مشكلة</div>
-                  <p className="text-xs text-muted-foreground">سيتم إرفاق رابط المحادثة وبيانات حسابك تلقائياً</p>
+                  <p className="text-xs text-muted-foreground/70 mt-0.5">سيتم إرفاق رابط المحادثة وبيانات حسابك تلقائياً</p>
                 </div>
-                <button onClick={() => setIsReportOpen(false)} className="text-muted-foreground hover:text-foreground">✕</button>
+                <button onClick={() => setIsReportOpen(false)} className="p-2 rounded-2xl hover:bg-muted/60 dark:hover:bg-white/[0.06] text-muted-foreground hover:text-foreground transition-colors">✕</button>
               </div>
 
               <div className="text-sm text-muted-foreground">رابط المحادثة: <span className="text-primary break-all">{conversationLink || "غير متوفر"}</span></div>
@@ -452,25 +404,25 @@ export function ChatArea({ activeAgent, onAgentChange }: ChatAreaProps) {
                 value={reportText}
                 onChange={(e) => setReportText(e.target.value)}
                 rows={4}
-                className="w-full rounded-xl border border-border bg-muted/50 p-3 text-sm focus:outline-none focus:ring-2 focus:ring-primary/40"
+                className="w-full rounded-2xl border border-border/50 dark:border-white/[0.08] bg-muted/30 dark:bg-white/[0.03] p-3.5 text-sm leading-relaxed placeholder:text-muted-foreground/50 focus:outline-none focus:ring-2 focus:ring-primary/30 focus:border-primary/30 transition-all resize-none"
                 placeholder="اكتب الشكوى بالتفصيل..."
               />
 
-              <label className="flex items-center gap-2 text-sm text-muted-foreground">
-                <input type="checkbox" checked={reportConsent} onChange={(e) => setReportConsent(e.target.checked)} />
+              <label className="flex items-center gap-2.5 text-[13px] text-muted-foreground cursor-pointer select-none">
+                <input type="checkbox" checked={reportConsent} onChange={(e) => setReportConsent(e.target.checked)} className="w-4 h-4 rounded border-border accent-primary" />
                 أوافق على أن يطّلع مسؤول النظام على محتوى المحادثة للتحقق
               </label>
 
-              <div className="flex justify-end gap-2">
-                <button onClick={() => setIsReportOpen(false)} className="px-3 py-2 rounded-lg border border-border text-sm">إلغاء</button>
+              <div className="flex justify-end gap-2 pt-1">
+                <button onClick={() => setIsReportOpen(false)} className="btn-professional ghost px-4 py-2.5 rounded-2xl border border-border/50 dark:border-white/[0.08] text-[13px] font-medium hover:bg-muted/60 dark:hover:bg-white/[0.06] transition-colors">إلغاء</button>
                 <button
                   onClick={handleReportSubmit}
                   disabled={!reportText.trim() || !reportConsent}
                   className={cn(
-                    "px-4 py-2 rounded-lg text-sm",
+                    "btn-professional solid px-5 py-2.5 rounded-2xl text-[13px] font-semibold transition-all",
                     reportText.trim() && reportConsent
-                      ? "bg-primary text-primary-foreground hover:bg-primary/90"
-                      : "bg-muted text-muted-foreground cursor-not-allowed"
+                      ? "bg-gradient-to-r from-primary to-primary/90 text-primary-foreground hover:shadow-lg hover:shadow-primary/20 hover:-translate-y-0.5"
+                      : "bg-muted text-muted-foreground cursor-not-allowed opacity-60"
                   )}
                 >
                   إرسال البلاغ
@@ -481,78 +433,86 @@ export function ChatArea({ activeAgent, onAgentChange }: ChatAreaProps) {
         )}
       </AnimatePresence>
 
-      {/* Messages Area */}
-      <div className="flex-1 overflow-y-auto p-4 space-y-8 custom-scrollbar">
-        {messages.map((msg) => (
+      {/* Messages Area - Refined */}
+      <div className="flex-1 min-h-0 overflow-y-auto p-5 space-y-6 custom-scrollbar">
+        {messages.length === 0 ? (
+          <div className="flex items-center justify-center h-full">
+            <p className="text-gray-500 text-lg">ابدأ محادثة جديدة...</p>
+          </div>
+        ) : (
+          messages.map((msg) => (
           <motion.div
             key={msg.id}
-            initial={{ opacity: 0, y: 20 }}
+            initial={{ opacity: 0, y: 16 }}
             animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.3, ease: [0.25, 0.46, 0.45, 0.94] }}
             className={cn(
               "flex gap-4 max-w-3xl mx-auto group",
               msg.role === "user" ? "flex-row-reverse" : "flex-row"
             )}
           >
             <div className={cn("flex flex-col max-w-[85%]", msg.role === "user" ? "items-end" : "items-start")}> 
-              {/* Message Bubble */}
-              <div className={cn(
-                "relative p-5 rounded-2xl w-full transition-shadow",
-                msg.role === "assistant"
-                  ? "bg-card border border-border rounded-tl-none shadow-[0_4px_12px_rgba(0,0,0,0.05)] dark:bg-[rgba(11,14,17,0.75)] dark:backdrop-blur-xl dark:border-white/[0.08] dark:shadow-[0_8px_32px_rgba(0,0,0,0.37)]"
-                  : "bg-primary/10 border border-primary/20 rounded-tr-none dark:bg-primary/15 dark:border-primary/30"
-              )}>
-                {/* Content */}
-                <div className="prose prose-sm dark:prose-invert max-w-none leading-relaxed whitespace-pre-wrap font-medium text-foreground">
-                  {msg.content}
-                </div>
+              {/* Message Content */}
+              <div
+                className={cn(
+                  "px-5 py-3.5 rounded-3xl text-[15px] leading-relaxed shadow-sm whitespace-pre-wrap",
+                  msg.role === "user"
+                    ? "bg-primary text-primary-foreground rounded-br-lg"
+                    : "bg-white/[0.05] backdrop-blur-xl border border-white/[0.1] text-foreground rounded-3xl"
+                )}
+              >
+                {msg.content}
               </div>
 
-              {/* Actions */}
-              <div className={cn(
-                "flex items-center gap-1 mt-2 px-2",
-                msg.role === "user" ? "flex-row-reverse" : "flex-row"
-              )}>
-                {msg.role === "assistant" && (
-                  <div className="flex items-center gap-1">
-                    <button className="flex items-center gap-1 px-2 py-1.5 rounded-lg hover:bg-muted dark:hover:bg-white/10 text-muted-foreground hover:text-primary transition-colors text-[12px] font-semibold" title="طلب صياغة أطول">
-                      <Maximize2 className="w-4 h-4" />
-                      <span>أطول</span>
+                  {/* Actions - Refined */}
+                  <div className={cn(
+                    "flex items-center gap-0.5 mt-2.5 px-1 opacity-0 group-hover:opacity-100 transition-opacity duration-200",
+                    msg.role === "user" ? "flex-row-reverse" : "flex-row"
+                  )}>
+                    {msg.role === "assistant" && (
+                      <div className="flex items-center gap-0.5">
+                        <button className="flex items-center gap-1.5 px-2.5 py-1.5 rounded-lg hover:bg-muted/60 dark:hover:bg-white/[0.06] text-muted-foreground/70 hover:text-primary transition-all text-[11px] font-medium" title="طلب صياغة أطول">
+                          <Maximize2 className="w-4 h-4" />
+                          <span>أطول</span>
+                        </button>
+                        <button className="flex items-center gap-1 px-2 py-1.5 rounded-lg hover:bg-muted dark:hover:bg-white/10 text-muted-foreground hover:text-primary transition-colors text-[12px] font-semibold" title="طلب صياغة مختصرة">
+                          <Minimize2 className="w-4 h-4" />
+                          <span>أقصر</span>
+                        </button>
+                      </div>
+                    )}
+                    <button className="p-1.5 rounded-lg hover:bg-muted/60 dark:hover:bg-white/[0.06] text-muted-foreground/70 hover:text-amber-400 transition-all" title="مفضلة">
+                      <Star className="w-3.5 h-3.5" />
                     </button>
-                    <button className="flex items-center gap-1 px-2 py-1.5 rounded-lg hover:bg-muted dark:hover:bg-white/10 text-muted-foreground hover:text-primary transition-colors text-[12px] font-semibold" title="طلب صياغة مختصرة">
-                      <Minimize2 className="w-4 h-4" />
-                      <span>أقصر</span>
+                    {msg.role === "assistant" && (
+                      <button className="p-1.5 rounded-lg hover:bg-muted/60 dark:hover:bg-white/[0.06] text-muted-foreground/70 hover:text-foreground transition-all" title="إعادة توليد">
+                        <RefreshCw className="w-3.5 h-3.5" />
+                      </button>
+                    )}
+                    <button className="p-1.5 rounded-lg hover:bg-muted/60 dark:hover:bg-white/[0.06] text-muted-foreground/70 hover:text-foreground transition-all" title="مشاركة">
+                      <Share2 className="w-3.5 h-3.5" />
+                    </button>
+                    <button className="p-1.5 rounded-lg hover:bg-muted/60 dark:hover:bg-white/[0.06] text-muted-foreground/70 hover:text-destructive transition-all" title="حذف">
+                      <Trash2 className="w-3.5 h-3.5" />
                     </button>
                   </div>
-                )}
-                <button className="p-1.5 rounded-lg hover:bg-muted dark:hover:bg-white/10 text-muted-foreground hover:text-yellow-400 transition-colors" title="مفضلة">
-                  <Star className="w-4 h-4" />
-                </button>
-                {msg.role === "assistant" && (
-                  <button className="p-1.5 rounded-lg hover:bg-muted dark:hover:bg-white/10 text-muted-foreground hover:text-foreground transition-colors" title="إعادة توليد">
-                    <RefreshCw className="w-4 h-4" />
-                  </button>
-                )}
-                <button className="p-1.5 rounded-lg hover:bg-muted dark:hover:bg-white/10 text-muted-foreground hover:text-foreground transition-colors" title="مشاركة">
-                  <Share2 className="w-4 h-4" />
-                </button>
-                <button className="p-1.5 rounded-lg hover:bg-muted dark:hover:bg-white/10 text-muted-foreground hover:text-destructive transition-colors" title="حذف">
-                  <Trash2 className="w-4 h-4" />
-                </button>
-              </div>
             </div>
           </motion.div>
-        ))}
+        ))
+      )}
       </div>
 
-      {/* Input Area */}
-      <div className="p-0 z-20">
+      {/* Input Area - Professional - Fixed at bottom */}
+      <div className="input-container mt-auto z-40 shrink-0">
         <div className="w-full">
           <div
             className={cn(
-              "relative flex flex-col px-4 pt-4 pb-12 min-h-[110px] rounded-t-[32px] rounded-b-none border border-b-0 transition-all duration-300",
+              "relative flex flex-col px-5 pt-5 pb-14 min-h-[140px] rounded-t-2xl border-t transition-all duration-300 bg-gradient-to-b from-white/[0.08] via-[#081820]/95 to-[#081820] backdrop-blur-2xl animate-shimmer",
               overlayActive
-                ? "bg-card shadow-[0_-4px_16px_rgba(0,0,0,0.06)] border-border dark:bg-[rgba(11,14,17,0.85)] dark:backdrop-blur-xl dark:border-white/[0.08] dark:shadow-[0_-8px_24px_rgba(0,0,0,0.3)]"
-                : "bg-muted/30 border-border/50 hover:shadow-[0_-2px_12px_rgba(0,0,0,0.04)] dark:bg-[rgba(11,14,17,0.6)] dark:backdrop-blur-lg dark:border-white/[0.05] focus-within:bg-card dark:focus-within:bg-[rgba(11,14,17,0.85)] hover:border-border dark:hover:border-white/[0.08] focus-within:border-primary/30"
+                ? "shadow-[0_-4px_20px_rgba(0,0,0,0.08)] border-white/[0.15]"
+                : isModeActive 
+                  ? "border-primary/40 shadow-[0_0_30px_rgba(13,148,136,0.1)]"
+                  : "border-white/[0.08] hover:border-white/[0.12] focus-within:border-primary/30 focus-within:shadow-[0_0_30px_rgba(13,148,136,0.15)]"
             )}
           >
 
@@ -561,18 +521,18 @@ export function ChatArea({ activeAgent, onAgentChange }: ChatAreaProps) {
               {showPlusMenu && (
                 <motion.div
                   key="plus-menu"
-                  initial={{ opacity: 0, y: 8 }}
+                  initial={{ opacity: 0, y: 10 }}
                   animate={{ opacity: 1, y: 0 }}
-                  exit={{ opacity: 0, y: 8 }}
+                  exit={{ opacity: 0, y: 10 }}
+                  transition={{ duration: 0.2, ease: [0.25, 0.46, 0.45, 0.94] }}
                   drag="y"
-                  dragConstraints={{ top: 0, bottom: 140 }}
                   dragElastic={{ top: 0, bottom: 0.22 }}
                   dragMomentum={false}
                   onDragEnd={(_, info) => {
                     if (info.offset.y > 40) setShowPlusMenu(false);
                   }}
                   ref={plusMenuRef}
-                  className="absolute -top-7 inset-x-[-12px] rounded-[24px] bg-card border border-border shadow-[0_8px_24px_rgba(0,0,0,0.12)] text-foreground z-40 p-5 min-h-[180px] h-[200px] flex items-center justify-center dark:bg-[rgba(11,14,17,0.9)] dark:backdrop-blur-2xl dark:border-white/[0.1] dark:shadow-[0_25px_60px_rgba(0,0,0,0.5)]"
+                  className="absolute inset-0 rounded-t-2xl border-t border-white/[0.15] shadow-[0_-4px_20px_rgba(0,0,0,0.08)] text-foreground z-50 p-6 flex items-center justify-center bg-gradient-to-b from-white/[0.08] via-[#081820]/95 to-[#081820] backdrop-blur-2xl animate-shimmer"
                 >
                   <div className="flex items-center justify-center gap-3 w-full">
                     {[
@@ -580,29 +540,29 @@ export function ChatArea({ activeAgent, onAgentChange }: ChatAreaProps) {
                       { icon: Sparkles, label: "بحث تفصيلي", action: () => { setIsDeepResearchOpen(true); setShowPlusMenu(false); } },
                       { icon: Search, label: "البحث في الويب", action: () => { setIsWebSearchOpen(true); setShowPlusMenu(false); } },
                       { icon: Paperclip, label: "إرفاق ملف", action: () => {} },
-                      { icon: Bot, label: "canvas", action: () => { setIsCanvasPanelOpen(true); setShowPlusMenu(false); } },
+                      { icon: Code2, label: "Canvas", action: () => { handleToggleCanvasMode('CODE'); setShowPlusMenu(false); } },
                     ].map((item) => (
                       <button
                         key={item.label}
                         onClick={item.action}
-                        className="flex flex-col items-center gap-2 px-4 py-3 rounded-2xl bg-muted dark:bg-white/[0.05] border border-border dark:border-white/[0.08] hover:border-primary/50 dark:hover:border-primary/40 hover:bg-muted/80 dark:hover:bg-white/[0.1] transition-colors text-foreground"
+                        className="flex flex-col items-center gap-2.5 px-4 py-3.5 rounded-3xl bg-muted/50 dark:bg-white/[0.04] border border-border/30 dark:border-white/[0.06] hover:border-primary/40 dark:hover:border-primary/30 hover:bg-muted/70 dark:hover:bg-white/[0.08] transition-all text-foreground group"
                       >
-                        <item.icon className="w-6 h-6 text-foreground" />
-                        <span className="text-xs font-semibold text-muted-foreground">{item.label}</span>
+                        <item.icon className="w-5 h-5 text-foreground/70 group-hover:text-primary transition-colors" />
+                        <span className="text-[11px] font-medium text-muted-foreground group-hover:text-foreground/80 transition-colors">{item.label}</span>
                       </button>
                     ))}
                   </div>
                 </motion.div>
               )}
-            </AnimatePresence>
-
-            <AnimatePresence>
-              {isAgentMenuOpen && (
+</AnimatePresence>
+<AnimatePresence>
+  {isAgentMenuOpen && (
                 <motion.div
                   key="agent-menu"
-                  initial={{ opacity: 0, y: 8 }}
+                  initial={{ opacity: 0, y: 10 }}
                   animate={{ opacity: 1, y: 0 }}
-                  exit={{ opacity: 0, y: 8 }}
+                  exit={{ opacity: 0, y: 10 }}
+                  transition={{ duration: 0.2, ease: [0.25, 0.46, 0.45, 0.94] }}
                   drag="y"
                   dragConstraints={{ top: 0, bottom: 140 }}
                   dragElastic={{ top: 0, bottom: 0.22 }}
@@ -611,7 +571,7 @@ export function ChatArea({ activeAgent, onAgentChange }: ChatAreaProps) {
                     if (info.offset.y > 40) setIsAgentMenuOpen(false);
                   }}
                   ref={agentMenuRef}
-                  className="absolute -top-7 inset-x-[-12px] rounded-[24px] bg-card border border-border shadow-[0_8px_24px_rgba(0,0,0,0.12)] text-foreground z-40 p-5 min-h-[180px] h-[200px] flex items-center justify-center dark:bg-[rgba(11,14,17,0.9)] dark:backdrop-blur-2xl dark:border-white/[0.1] dark:shadow-[0_25px_60px_rgba(0,0,0,0.5)]"
+                  className="absolute inset-0 rounded-t-2xl border-t border-white/[0.15] shadow-[0_-4px_20px_rgba(0,0,0,0.08)] text-foreground z-50 p-6 flex items-center justify-center bg-gradient-to-b from-white/[0.08] via-[#081820]/95 to-[#081820] backdrop-blur-2xl animate-shimmer"
                 >
                   <div className="flex flex-wrap items-center justify-center gap-2.5 w-full max-w-3xl">
                     {[
@@ -622,7 +582,7 @@ export function ChatArea({ activeAgent, onAgentChange }: ChatAreaProps) {
                     ].map((item) => (
                       <button
                         key={item.label}
-                        className="flex items-center gap-2.5 px-3.5 py-2.5 rounded-xl bg-muted dark:bg-white/[0.05] border border-border dark:border-white/[0.08] hover:border-primary/40 hover:bg-muted/80 dark:hover:bg-white/[0.1] text-foreground transition-colors shadow-sm"
+                        className="flex items-center gap-2.5 px-3.5 py-2.5 rounded-2xl bg-muted dark:bg-white/[0.05] border border-border dark:border-white/[0.08] hover:border-primary/40 hover:bg-muted/80 dark:hover:bg-white/[0.1] text-foreground transition-colors shadow-sm"
                         onClick={() => setIsAgentMenuOpen(false)}
                       >
                         <item.icon className="w-5 h-5 text-primary" />
@@ -634,81 +594,110 @@ export function ChatArea({ activeAgent, onAgentChange }: ChatAreaProps) {
               )}
             </AnimatePresence>
 
-            {/* Input Field - fills area from فوق زر + إلى أسفل الصندوق */}
-            <textarea
-              dir="rtl"
-              ref={inputRef}
-              value={message}
-              onChange={(e) => {
-                setMessage(e.target.value);
-                e.target.style.height = 'auto';
-                e.target.style.height = `${Math.min(e.target.scrollHeight, 240)}px`;
-              }}
-              onKeyDown={handleKeyDown}
-              placeholder="إسأل cccways"
-              rows={3}
-              className="w-full flex-1 min-h-[100px] max-h-[240px] py-3 px-3 bg-transparent border-none outline-none focus:outline-none focus:ring-0 focus-visible:outline-none appearance-none resize-none custom-scrollbar placeholder:text-muted-foreground text-base leading-relaxed text-right placeholder:text-right text-foreground"
-              style={{ height: "auto" }}
-            />
-
-            {/* Bottom actions pinned */}
-            <div className="absolute inset-x-4 bottom-4 flex items-center justify-between">
-              <div className="flex items-center gap-2">
-                <button
-                  ref={plusButtonRef}
-                  onClick={() => setShowPlusMenu((v) => !v)}
-                  className="p-2 rounded-xl hover:bg-muted text-muted-foreground hover:text-foreground transition-colors"
-                  title="المزيد"
-                >
-                  <Plus className="w-5 h-5" />
-                </button>
-
-                <button
-                  ref={agentButtonRef}
-                  onClick={() => {
-                    setIsAgentMenuOpen((v) => !v);
-                    setShowPlusMenu(false);
-                    closeCanvasMenu();
+            {!overlayActive && (
+              <>
+                {/* Input Field - Refined */}
+                <textarea
+                  dir="rtl"
+                  ref={inputRef}
+                  value={message}
+                  onChange={(e) => {
+                    setMessage(e.target.value);
+                    e.target.style.height = 'auto';
+                    e.target.style.height = `${Math.min(e.target.scrollHeight, 240)}px`;
                   }}
-                  className="px-3 py-2 rounded-xl bg-muted border border-border hover:border-primary/50 text-sm font-semibold text-foreground transition-colors"
-                >
-                  agent
-                </button>
-              </div>
-
-              <div className="flex items-center gap-2">
-                <button
-                  onClick={() => setIsRecording(!isRecording)}
+                  onKeyDown={handleKeyDown}
+                  placeholder={isModeActive ? "صف ما تريد إنشاءه في Canvas..." : "إسأل cccways"}
+                  rows={3}
                   className={cn(
-                    "p-2 rounded-xl transition-all duration-200",
-                    isRecording
-                      ? "bg-destructive text-destructive-foreground animate-pulse"
-                      : "hover:bg-muted text-muted-foreground hover:text-foreground"
+                    "w-full flex-1 min-h-[100px] max-h-[240px] py-3.5 px-4 bg-transparent border-none outline-none focus:outline-none focus:ring-0 focus-visible:outline-none appearance-none resize-none custom-scrollbar placeholder:text-muted-foreground/50 text-[15px] leading-[1.7] text-right placeholder:text-right text-foreground/90 font-normal transition-all",
+                    isModeActive && "border-primary/20 bg-primary/[0.02]"
                   )}
-                  title="تحويل الصوت لنص"
-                >
-                  {isRecording ? <MicOff className="w-5 h-5" /> : <Mic className="w-5 h-5" />}
-                </button>
+                  style={{ height: "auto" }}
+                />
 
-                {!message.trim() && (
-                  <button
-                    className="p-2 rounded-xl hover:bg-muted text-muted-foreground hover:text-foreground transition-colors"
-                    title="مكالمة مع الأيجنت"
-                  >
-                    <PhoneCall className="w-5 h-5" />
-                  </button>
-                )}
+                {/* Bottom actions pinned - Refined */}
+                <div className="absolute inset-x-5 bottom-4 flex items-center justify-between">
+                  <div className="flex items-center gap-1.5">
+                    <button
+                      ref={plusButtonRef}
+                      onClick={() => setShowPlusMenu((v) => !v)}
+                      className="p-2.5 rounded-xl hover:bg-muted/60 dark:hover:bg-white/[0.06] text-muted-foreground/70 hover:text-foreground transition-all"
+                      title="المزيد"
+                    >
+                      <Plus className="w-5 h-5" />
+                    </button>
 
-                {message.trim() && (
-                  <button
-                    onClick={handleSend}
-                    className="p-2 rounded-xl transition-all duration-200 bg-primary text-primary-foreground shadow-lg shadow-primary/20 hover:shadow-primary/40 hover:-translate-y-0.5"
-                  >
-                    <Send className="w-5 h-5" />
-                  </button>
-                )}
-              </div>
-            </div>
+                    <button
+                      ref={agentButtonRef}
+                      onClick={() => {
+                        setIsAgentMenuOpen((v) => !v);
+                        setShowPlusMenu(false);
+                      }}
+                      className="px-3.5 py-2 rounded-xl bg-muted/50 dark:bg-white/[0.04] border border-border/30 dark:border-white/[0.06] hover:border-primary/40 dark:hover:border-primary/30 text-[13px] font-medium text-foreground/80 hover:text-foreground transition-all"
+                    >
+                      agent
+                    </button>
+                    
+                    {/* Canvas Mode Badge - Gemini Style */}
+                    <AnimatePresence>
+                      {isModeActive && (
+                        <motion.div
+                          initial={{ opacity: 0, scale: 0.9 }}
+                          animate={{ opacity: 1, scale: 1 }}
+                          exit={{ opacity: 0, scale: 0.9 }}
+                          className="flex items-center gap-1.5 px-3 py-2 rounded-xl bg-primary/10 border border-primary/20 text-primary"
+                        >
+                          <Code2 className="w-4 h-4" />
+                          <span className="text-[13px] font-medium">
+                            Canvas
+                          </span>
+                          <button 
+                            onClick={() => disableMode()}
+                            className="ml-1 -mr-1 p-0.5 hover:bg-primary/20 rounded-full transition-colors"
+                          >
+                            <X className="w-3.5 h-3.5" />
+                          </button>
+                        </motion.div>
+                      )}
+                    </AnimatePresence>
+                  </div>
+
+                  <div className="flex items-center gap-1.5">
+                    <button
+                      onClick={() => setIsRecording(!isRecording)}
+                      className={cn(
+                        "p-2.5 rounded-xl transition-all duration-200",
+                        isRecording
+                          ? "bg-destructive text-destructive-foreground animate-pulse shadow-lg shadow-destructive/30"
+                          : "hover:bg-muted/60 dark:hover:bg-white/[0.06] text-muted-foreground/70 hover:text-foreground"
+                      )}
+                      title="تحويل الصوت لنص"
+                    >
+                      {isRecording ? <MicOff className="w-5 h-5" /> : <Mic className="w-5 h-5" />}
+                    </button>
+
+                    {!message.trim() && (
+                      <button
+                        className="p-2.5 rounded-xl hover:bg-muted/60 dark:hover:bg-white/[0.06] text-muted-foreground/70 hover:text-foreground transition-all"
+                        title="مكالمة مع الأيجنت"
+                      >
+                        <PhoneCall className="w-5 h-5" />
+                      </button>
+                    )}
+
+                    {message.trim() && (
+                      <button
+                        onClick={handleSend}
+                        className="p-2.5 rounded-xl transition-all duration-200 bg-gradient-to-r from-primary to-primary/90 text-primary-foreground shadow-lg shadow-primary/25 hover:shadow-xl hover:shadow-primary/35 hover:-translate-y-0.5 active:translate-y-0"
+                      >
+                        <Send className="w-5 h-5" />
+                      </button>
+                    )}
+                  </div>
+                </div>
+              </>
+            )}
           </div>
 
         </div>
@@ -728,14 +717,8 @@ export function ChatArea({ activeAgent, onAgentChange }: ChatAreaProps) {
         onClose={() => setIsWebSearchOpen(false)}
         onInsertToChat={handleInsertWebSearch}
       />
-
-      {/* Canvas Panel */}
-      <CanvasPanel
-        isOpen={isCanvasPanelOpen}
-        onClose={() => setIsCanvasPanelOpen(false)}
-        onInsertToChat={handleInsertCanvas}
-        onCanvasCreated={handleCanvasCreated}
-      />
     </div>
   );
 }
+
+export default ChatArea;

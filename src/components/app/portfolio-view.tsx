@@ -37,7 +37,7 @@ export function PortfolioView() {
             <Plus className="w-5 h-5" />
             إيداع
           </button>
-          <button className="p-2.5 rounded-xl bg-card border border-border text-muted-foreground hover:text-foreground hover:border-primary/50 transition-all shadow-sm">
+          <button className="p-2.5 rounded-xl theme-card border border-border text-muted-foreground hover:text-foreground hover:border-primary/50 transition-all shadow-sm">
             <History className="w-5 h-5" />
           </button>
         </div>
@@ -69,7 +69,7 @@ export function PortfolioView() {
           animate={{ opacity: 1, y: 0 }}
           transition={{ delay: 0.1 }}
           whileHover={{ scale: 1.02 }}
-          className="p-6 rounded-3xl bg-card/50 border border-white/10 backdrop-blur-xl shadow-lg"
+          className="p-6 rounded-3xl theme-card/50 border border-white/10 backdrop-blur-xl shadow-lg"
         >
           <div className="flex items-center gap-3 mb-6">
             <div className="p-2.5 rounded-xl bg-blue-500/10 text-blue-500 border border-blue-500/20">
@@ -104,7 +104,7 @@ export function PortfolioView() {
           animate={{ opacity: 1, y: 0 }}
           transition={{ delay: 0.2 }}
           whileHover={{ scale: 1.02 }}
-          className="p-6 rounded-3xl bg-card/50 border border-white/10 backdrop-blur-xl shadow-lg"
+          className="p-6 rounded-3xl theme-card/50 border border-white/10 backdrop-blur-xl shadow-lg"
         >
           <div className="flex items-center gap-3 mb-6">
             <div className="p-2.5 rounded-xl bg-purple-500/10 text-purple-500 border border-purple-500/20">
@@ -119,7 +119,7 @@ export function PortfolioView() {
       </div>
 
       {/* Assets List */}
-      <div className="rounded-3xl border border-white/10 bg-card/30 backdrop-blur-xl overflow-hidden shadow-2xl">
+      <div className="rounded-3xl border border-white/10 theme-card/30 backdrop-blur-xl overflow-hidden shadow-2xl">
         <div className="p-5 border-b border-white/5 flex items-center justify-between bg-white/5">
           <h3 className="font-bold text-foreground text-lg">الأصول المملوكة</h3>
           <button className="text-xs font-medium text-muted-foreground hover:text-foreground flex items-center gap-2 px-3 py-1.5 rounded-lg hover:bg-white/5 transition-colors">

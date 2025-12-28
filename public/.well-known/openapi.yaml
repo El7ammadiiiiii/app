@@ -1,0 +1,378 @@
+openapi: 3.1.0
+info:
+  title: Nexus Trading Platform API
+  description: |
+    Nexus Trading Platform provides advanced cryptocurrency analytics, 
+    on-chain data, whale tracking, and AI-powered trading insights.
+    
+    ## Features
+    - Real-time cryptocurrency prices and market data
+    - On-chain analytics and blockchain metrics
+    - Whale movement tracking and alerts
+    - AI-powered trading signals and recommendations
+    - Sentiment analysis from social media
+    - Portfolio tracking and management
+  version: 1.0.0
+  contact:
+    email: support@cccways.com
+    url: https://nexus.cccways.com
+
+servers:
+  - url: https://nexus.cccways.com/api/v1
+    description: Production server
+
+tags:
+  - name: Market Data
+    description: Cryptocurrency market data and prices
+  - name: On-Chain Analytics
+    description: Blockchain metrics and on-chain data
+  - name: Whale Tracking
+    description: Track large wallet movements
+  - name: AI Signals
+    description: AI-powered trading signals
+  - name: Sentiment
+    description: Social media sentiment analysis
+  - name: Portfolio
+    description: Portfolio management
+
+paths:
+  /market/prices:
+    get:
+      operationId: getMarketPrices
+      summary: Get cryptocurrency prices
+      description: Get current prices for one or more cryptocurrencies
+      tags:
+        - Market Data
+      parameters:
+        - name: symbols
+          in: query
+          required: true
+          description: Comma-separated list of cryptocurrency symbols (e.g., BTC,ETH,SOL)
+          schema:
+            type: string
+        - name: currency
+          in: query
+          required: false
+          description: Fiat currency for price conversion
+          schema:
+            type: string
+            default: USD
+      responses:
+        '200':
+          description: Successful response with price data
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  prices:
+                    type: array
+                    items:
+                      type: object
+                      properties:
+                        symbol:
+                          type: string
+                        price:
+                          type: number
+                        change24h:
+                          type: number
+                        volume24h:
+                          type: number
+                        marketCap:
+                          type: number
+
+  /market/trending:
+    get:
+      operationId: getTrendingCoins
+      summary: Get trending cryptocurrencies
+      description: Get the most trending cryptocurrencies based on search and trading volume
+      tags:
+        - Market Data
+      parameters:
+        - name: limit
+          in: query
+          required: false
+          schema:
+            type: integer
+            default: 10
+      responses:
+        '200':
+          description: List of trending cryptocurrencies
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  trending:
+                    type: array
+                    items:
+                      type: object
+                      properties:
+                        symbol:
+                          type: string
+                        name:
+                          type: string
+                        rank:
+                          type: integer
+                        priceChange24h:
+                          type: number
+
+  /onchain/metrics/{symbol}:
+    get:
+      operationId: getOnChainMetrics
+      summary: Get on-chain metrics for a cryptocurrency
+      description: Get detailed on-chain analytics including active addresses, transaction volume, exchange flows
+      tags:
+        - On-Chain Analytics
+      parameters:
+        - name: symbol
+          in: path
+          required: true
+          description: Cryptocurrency symbol (e.g., BTC, ETH)
+          schema:
+            type: string
+      responses:
+        '200':
+          description: On-chain metrics data
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  symbol:
+                    type: string
+                  activeAddresses:
+                    type: integer
+                  transactionCount:
+                    type: integer
+                  transactionVolume:
+                    type: number
+                  exchangeInflow:
+                    type: number
+                  exchangeOutflow:
+                    type: number
+                  netFlow:
+                    type: number
+                  nvt:
+                    type: number
+                  sopr:
+                    type: number
+
+  /onchain/whale-alerts:
+    get:
+      operationId: getWhaleAlerts
+      summary: Get recent whale alerts
+      description: Get recent large transactions from whale wallets
+      tags:
+        - Whale Tracking
+      parameters:
+        - name: symbol
+          in: query
+          required: false
+          description: Filter by cryptocurrency symbol
+          schema:
+            type: string
+        - name: minValue
+          in: query
+          required: false
+          description: Minimum transaction value in USD
+          schema:
+            type: number
+            default: 1000000
+        - name: limit
+          in: query
+          required: false
+          schema:
+            type: integer
+            default: 20
+      responses:
+        '200':
+          description: List of whale alerts
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  alerts:
+                    type: array
+                    items:
+                      type: object
+                      properties:
+                        id:
+                          type: string
+                        symbol:
+                          type: string
+                        amount:
+                          type: number
+                        amountUsd:
+                          type: number
+                        from:
+                          type: string
+                        to:
+                          type: string
+                        fromType:
+                          type: string
+                          enum: [exchange, wallet, unknown]
+                        toType:
+                          type: string
+                          enum: [exchange, wallet, unknown]
+                        timestamp:
+                          type: string
+                          format: date-time
+
+  /signals/recommendations:
+    get:
+      operationId: getTradingSignals
+      summary: Get AI trading signals
+      description: Get AI-powered trading recommendations based on technical and on-chain analysis
+      tags:
+        - AI Signals
+      parameters:
+        - name: symbol
+          in: query
+          required: false
+          description: Filter by cryptocurrency symbol
+          schema:
+            type: string
+        - name: timeframe
+          in: query
+          required: false
+          description: Analysis timeframe
+          schema:
+            type: string
+            enum: [1h, 4h, 1d, 1w]
+            default: 4h
+      responses:
+        '200':
+          description: Trading signals
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  signals:
+                    type: array
+                    items:
+                      type: object
+                      properties:
+                        symbol:
+                          type: string
+                        signal:
+                          type: string
+                          enum: [strong_buy, buy, neutral, sell, strong_sell]
+                        confidence:
+                          type: number
+                          minimum: 0
+                          maximum: 100
+                        targetPrice:
+                          type: number
+                        stopLoss:
+                          type: number
+                        reasoning:
+                          type: string
+
+  /sentiment/social:
+    get:
+      operationId: getSocialSentiment
+      summary: Get social media sentiment
+      description: Get sentiment analysis from Twitter, Reddit, and other social platforms
+      tags:
+        - Sentiment
+      parameters:
+        - name: symbol
+          in: query
+          required: true
+          description: Cryptocurrency symbol
+          schema:
+            type: string
+        - name: period
+          in: query
+          required: false
+          description: Time period for sentiment analysis
+          schema:
+            type: string
+            enum: [1h, 4h, 24h, 7d]
+            default: 24h
+      responses:
+        '200':
+          description: Sentiment data
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  symbol:
+                    type: string
+                  overallSentiment:
+                    type: number
+                    minimum: -100
+                    maximum: 100
+                  twitterSentiment:
+                    type: number
+                  redditSentiment:
+                    type: number
+                  mentionCount:
+                    type: integer
+                  topInfluencers:
+                    type: array
+                    items:
+                      type: object
+                      properties:
+                        username:
+                          type: string
+                        platform:
+                          type: string
+                        sentiment:
+                          type: string
+
+  /portfolio:
+    get:
+      operationId: getPortfolio
+      summary: Get user portfolio
+      description: Get the authenticated user's cryptocurrency portfolio
+      tags:
+        - Portfolio
+      security:
+        - oauth2: [read]
+      responses:
+        '200':
+          description: Portfolio data
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  totalValue:
+                    type: number
+                  totalChange24h:
+                    type: number
+                  holdings:
+                    type: array
+                    items:
+                      type: object
+                      properties:
+                        symbol:
+                          type: string
+                        amount:
+                          type: number
+                        value:
+                          type: number
+                        allocation:
+                          type: number
+                        pnl:
+                          type: number
+                        pnlPercentage:
+                          type: number
+
+components:
+  securitySchemes:
+    oauth2:
+      type: oauth2
+      flows:
+        authorizationCode:
+          authorizationUrl: https://nexus.cccways.com/api/auth/authorize
+          tokenUrl: https://nexus.cccways.com/api/auth/token
+          scopes:
+            read: Read access to user data
+            write: Write access to user data
+            trading: Execute trades on user's behalf

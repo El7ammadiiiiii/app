@@ -1,0 +1,419 @@
+/**
+ * نظام الثيم المركزي لـ CCCWAYS
+ * ============================
+ * تغيير أي لون هنا = تغيير كامل الموقع
+ * 
+ * الهيكل:
+ * 1. Base Colors - الألوان الأساسية (Teal, Slate, etc.)
+ * 2. Semantic Colors - ألوان ذات معنى (bg, text, border)
+ * 3. Component Colors - ألوان المكونات (btn, input, card)
+ * 4. Chart Colors - ألوان الرسوم البيانية
+ * 5. Light/Dark Mode - دعم الوضعين
+ */
+
+/* ===========================================
+   1. BASE COLORS - الألوان الأساسية
+   =========================================== */
+:root {
+  /* Teal - اللون الرئيسي */
+  --teal-50: #f0fdfa;
+  --teal-100: #ccfbf1;
+  --teal-200: #99f6e4;
+  --teal-300: #5eead4;
+  --teal-400: #2dd4bf;
+  --teal-500: #14b8a6;
+  --teal-600: #0d9488;
+  --teal-700: #0f766e;
+  --teal-800: #115e59;
+  --teal-900: #134e4a;
+  --teal-950: #042f2e;
+
+  /* Slate - الألوان المحايدة */
+  --slate-50: #f8fafc;
+  --slate-100: #f1f5f9;
+  --slate-200: #e2e8f0;
+  --slate-300: #cbd5e1;
+  --slate-400: #94a3b8;
+  --slate-500: #64748b;
+  --slate-600: #475569;
+  --slate-700: #334155;
+  --slate-800: #1e293b;
+  --slate-900: #0f172a;
+  --slate-950: #020617;
+
+  /* Status Colors - ألوان الحالة */
+  --green-500: #22c55e;
+  --green-600: #16a34a;
+  --red-500: #ef4444;
+  --red-600: #dc2626;
+  --yellow-500: #eab308;
+  --yellow-600: #ca8a04;
+  --blue-500: #3b82f6;
+  --blue-600: #2563eb;
+}
+
+/* ===========================================
+   2. DARK MODE - الوضع الداكن (الافتراضي)
+   =========================================== */
+:root,
+[data-theme="dark"] {
+  /* === الخلفيات === */
+  --bg-base: #051014;           /* خلفية الصفحة الرئيسية */
+  --bg-surface: #081820;        /* الأسطح والبطاقات */
+  --bg-elevated: #0a2029;       /* العناصر المرتفعة */
+  --bg-overlay: rgba(5, 16, 20, 0.85); /* الـ overlays */
+  --bg-skeleton: rgba(100, 116, 139, 0.5); /* الـ skeleton loading */
+  
+  /* === Glass Effects - تأثيرات الزجاج === */
+  --glass-bg: rgba(255, 255, 255, 0.05);
+  --glass-bg-hover: rgba(255, 255, 255, 0.08);
+  --glass-border: rgba(255, 255, 255, 0.1);
+  --glass-border-subtle: rgba(255, 255, 255, 0.06);
+  
+  /* === النصوص === */
+  --text-primary: #f8fafc;      /* النص الرئيسي */
+  --text-secondary: #cbd5e1;    /* النص الثانوي */
+  --text-muted: #64748b;        /* النص الخافت */
+  --text-accent: #2dd4bf;       /* النص المميز */
+  --text-inverse: #0f172a;      /* النص المعكوس */
+  
+  /* === الحدود === */
+  --border-default: rgba(255, 255, 255, 0.08);
+  --border-subtle: rgba(255, 255, 255, 0.04);
+  --border-accent: rgba(13, 148, 136, 0.4);
+  --border-focus: rgba(13, 148, 136, 0.6);
+  
+  /* === اللون الرئيسي (Primary/Accent) === */
+  --color-primary: #0d9488;
+  --color-primary-hover: #0f766e;
+  --color-primary-light: rgba(13, 148, 136, 0.15);
+  --color-primary-glow: rgba(13, 148, 136, 0.25);
+  
+  /* === الأزرار === */
+  --btn-primary-bg: linear-gradient(135deg, var(--teal-600), var(--teal-700));
+  --btn-primary-text: #ffffff;
+  --btn-primary-border: var(--teal-500);
+  --btn-primary-hover: linear-gradient(135deg, var(--teal-500), var(--teal-600));
+  
+  --btn-secondary-bg: transparent;
+  --btn-secondary-text: var(--text-secondary);
+  --btn-secondary-border: var(--border-default);
+  --btn-secondary-hover: rgba(255, 255, 255, 0.06);
+  
+  --btn-ghost-bg: transparent;
+  --btn-ghost-text: var(--text-muted);
+  --btn-ghost-hover: rgba(255, 255, 255, 0.08);
+  
+  /* === الـ Inputs === */
+  --input-bg: var(--bg-surface);
+  --input-border: var(--border-default);
+  --input-border-focus: var(--border-accent);
+  --input-text: var(--text-primary);
+  --input-placeholder: var(--text-muted);
+  
+  /* === البطاقات === */
+  --card-bg: var(--bg-surface);
+  --card-border: var(--border-default);
+  --card-shadow: 0 4px 20px rgba(0, 0, 0, 0.25);
+  
+  /* === القوائم المنسدلة === */
+  --dropdown-bg: var(--bg-elevated);
+  --dropdown-border: var(--border-default);
+  --dropdown-shadow: 0 25px 60px rgba(0, 0, 0, 0.5);
+  --dropdown-item-hover: rgba(255, 255, 255, 0.06);
+  
+  /* === الـ Header === */
+  --header-bg: rgba(5, 16, 20, 0.8);
+  --header-border: var(--border-subtle);
+  
+  /* === الـ Sidebar === */
+  --sidebar-bg: var(--bg-surface);
+  --sidebar-border: var(--border-default);
+  --sidebar-item-hover: rgba(255, 255, 255, 0.06);
+  --sidebar-item-active: var(--color-primary-light);
+  
+  /* === الرسائل === */
+  --message-user-bg: linear-gradient(135deg, rgba(13, 148, 136, 0.18), rgba(13, 148, 136, 0.08));
+  --message-user-border: rgba(13, 148, 136, 0.25);
+  --message-assistant-bg: var(--bg-surface);
+  --message-assistant-border: var(--border-default);
+  
+  /* === الـ Scrollbar === */
+  --scrollbar-track: rgba(255, 255, 255, 0.05);
+  --scrollbar-thumb: rgba(255, 255, 255, 0.15);
+  --scrollbar-thumb-hover: rgba(255, 255, 255, 0.25);
+  
+  /* === Charts - الرسوم البيانية === */
+  --chart-up: #22c55e;          /* صعود - أخضر */
+  --chart-down: #ef4444;        /* هبوط - أحمر */
+  --chart-neutral: #64748b;     /* محايد - رمادي */
+  --chart-grid: rgba(255, 255, 255, 0.06);
+  --chart-text: var(--text-muted);
+  --chart-bg: var(--bg-surface);
+  
+  /* === Candlestick === */
+  --candle-up-body: #22c55e;
+  --candle-up-wick: #22c55e;
+  --candle-down-body: #ef4444;
+  --candle-down-wick: #ef4444;
+  
+  /* === Volume === */
+  --volume-up: rgba(34, 197, 94, 0.5);
+  --volume-down: rgba(239, 68, 68, 0.5);
+  
+  /* === Indicators === */
+  --indicator-ma-fast: #3b82f6;   /* المتوسط السريع - أزرق */
+  --indicator-ma-slow: #f59e0b;   /* المتوسط البطيء - برتقالي */
+  --indicator-bb-upper: #8b5cf6;  /* Bollinger العلوي - بنفسجي */
+  --indicator-bb-lower: #8b5cf6;  /* Bollinger السفلي */
+  --indicator-bb-middle: #6366f1; /* Bollinger الأوسط */
+  --indicator-rsi: #ec4899;       /* RSI - وردي */
+  --indicator-macd: #06b6d4;      /* MACD - سماوي */
+  
+  /* === Status === */
+  --status-success: var(--green-500);
+  --status-error: var(--red-500);
+  --status-warning: var(--yellow-500);
+  --status-info: var(--blue-500);
+  
+  /* === Selection === */
+  --selection-bg: rgba(13, 148, 136, 0.45);
+  --selection-text: #ffffff;
+}
+
+/* ===========================================
+   3. LIGHT MODE - الوضع الفاتح
+   =========================================== */
+[data-theme="light"] {
+  /* === الخلفيات === */
+  --bg-base: #f8fafc;
+  --bg-surface: #ffffff;
+  --bg-elevated: #f1f5f9;
+  --bg-overlay: rgba(248, 250, 252, 0.9);
+  --bg-skeleton: rgba(148, 163, 184, 0.3);
+  
+  /* === Glass Effects - تأثيرات الزجاج === */
+  --glass-bg: rgba(0, 0, 0, 0.03);
+  --glass-bg-hover: rgba(0, 0, 0, 0.06);
+  --glass-border: rgba(0, 0, 0, 0.08);
+  --glass-border-subtle: rgba(0, 0, 0, 0.05);
+  
+  /* === النصوص === */
+  --text-primary: #0f172a;
+  --text-secondary: #334155;
+  --text-muted: #64748b;
+  --text-accent: #0d9488;
+  --text-inverse: #f8fafc;
+  
+  /* === الحدود === */
+  --border-default: rgba(0, 0, 0, 0.08);
+  --border-subtle: rgba(0, 0, 0, 0.04);
+  --border-accent: rgba(13, 148, 136, 0.4);
+  --border-focus: rgba(13, 148, 136, 0.6);
+  
+  /* === الأزرار === */
+  --btn-secondary-hover: rgba(0, 0, 0, 0.04);
+  --btn-ghost-hover: rgba(0, 0, 0, 0.06);
+  
+  /* === البطاقات === */
+  --card-shadow: 0 4px 20px rgba(0, 0, 0, 0.08);
+  
+  /* === القوائم المنسدلة === */
+  --dropdown-shadow: 0 25px 60px rgba(0, 0, 0, 0.15);
+  --dropdown-item-hover: rgba(0, 0, 0, 0.04);
+  
+  /* === الـ Header === */
+  --header-bg: rgba(248, 250, 252, 0.8);
+  
+  /* === الـ Sidebar === */
+  --sidebar-item-hover: rgba(0, 0, 0, 0.04);
+  
+  /* === الرسائل === */
+  --message-user-bg: linear-gradient(135deg, rgba(13, 148, 136, 0.12), rgba(13, 148, 136, 0.06));
+  --message-assistant-bg: var(--bg-elevated);
+  
+  /* === الـ Scrollbar === */
+  --scrollbar-track: rgba(0, 0, 0, 0.05);
+  --scrollbar-thumb: rgba(0, 0, 0, 0.15);
+  --scrollbar-thumb-hover: rgba(0, 0, 0, 0.25);
+  
+  /* === Charts === */
+  --chart-grid: rgba(0, 0, 0, 0.06);
+  
+  /* === Volume === */
+  --volume-up: rgba(34, 197, 94, 0.3);
+  --volume-down: rgba(239, 68, 68, 0.3);
+}
+
+/* ===========================================
+   4. UTILITY CLASSES - كلاسات المساعدة
+   =========================================== */
+
+/* --- الخلفيات --- */
+.bg-base { background-color: var(--bg-base); }
+.bg-surface { background-color: var(--bg-surface); }
+.bg-elevated { background-color: var(--bg-elevated); }
+.bg-overlay { background-color: var(--bg-overlay); }
+.bg-skeleton { background-color: var(--bg-skeleton); }
+
+/* --- النصوص --- */
+.text-primary { color: var(--text-primary); }
+.text-secondary { color: var(--text-secondary); }
+.text-muted { color: var(--text-muted); }
+.text-accent { color: var(--text-accent); }
+
+/* --- الحدود --- */
+.border-default { border-color: var(--border-default); }
+.border-subtle { border-color: var(--border-subtle); }
+.border-accent { border-color: var(--border-accent); }
+
+/* --- Glass Effects --- */
+.glass-bg { background-color: var(--glass-bg); }
+.glass-bg-hover:hover { background-color: var(--glass-bg-hover); }
+.glass-border { border-color: var(--glass-border); }
+.glass-border-subtle { border-color: var(--glass-border-subtle); }
+
+/* --- الأزرار --- */
+.btn-primary {
+  background: var(--btn-primary-bg);
+  color: var(--btn-primary-text);
+  border: 1px solid var(--btn-primary-border);
+  transition: all 0.2s ease;
+}
+.btn-primary:hover {
+  background: var(--btn-primary-hover);
+}
+
+.btn-secondary {
+  background: var(--btn-secondary-bg);
+  color: var(--btn-secondary-text);
+  border: 1px solid var(--btn-secondary-border);
+  transition: all 0.2s ease;
+}
+.btn-secondary:hover {
+  background: var(--btn-secondary-hover);
+}
+
+.btn-ghost {
+  background: var(--btn-ghost-bg);
+  color: var(--btn-ghost-text);
+  border: none;
+  transition: all 0.2s ease;
+}
+.btn-ghost:hover {
+  background: var(--btn-ghost-hover);
+}
+
+/* --- الـ Inputs --- */
+.input-base {
+  background-color: var(--input-bg);
+  border: 1px solid var(--input-border);
+  color: var(--input-text);
+  transition: border-color 0.2s ease, box-shadow 0.2s ease;
+}
+.input-base::placeholder {
+  color: var(--input-placeholder);
+}
+.input-base:focus {
+  border-color: var(--input-border-focus);
+  box-shadow: 0 0 0 3px var(--color-primary-light);
+  outline: none;
+}
+
+/* --- البطاقات --- */
+.card-base {
+  background-color: var(--card-bg);
+  border: 1px solid var(--card-border);
+  box-shadow: var(--card-shadow);
+}
+
+/* --- القوائم المنسدلة --- */
+.dropdown-base {
+  background-color: var(--dropdown-bg);
+  border: 1px solid var(--dropdown-border);
+  box-shadow: var(--dropdown-shadow);
+}
+
+/* --- الرسائل --- */
+.message-user {
+  background: var(--message-user-bg);
+  border: 1px solid var(--message-user-border);
+}
+
+.message-assistant {
+  background-color: var(--message-assistant-bg);
+  border: 1px solid var(--message-assistant-border);
+}
+
+/* --- Charts --- */
+.chart-up { color: var(--chart-up); }
+.chart-down { color: var(--chart-down); }
+.chart-neutral { color: var(--chart-neutral); }
+
+/* --- Status --- */
+.status-success { color: var(--status-success); }
+.status-error { color: var(--status-error); }
+.status-warning { color: var(--status-warning); }
+.status-info { color: var(--status-info); }
+
+/* ===========================================
+   5. SCROLLBAR - شريط التمرير
+   =========================================== */
+.custom-scrollbar::-webkit-scrollbar {
+  width: 6px;
+  height: 6px;
+}
+
+.custom-scrollbar::-webkit-scrollbar-track {
+  background: var(--scrollbar-track);
+  border-radius: 3px;
+}
+
+.custom-scrollbar::-webkit-scrollbar-thumb {
+  background: var(--scrollbar-thumb);
+  border-radius: 3px;
+}
+
+.custom-scrollbar::-webkit-scrollbar-thumb:hover {
+  background: var(--scrollbar-thumb-hover);
+}
+
+/* Firefox */
+.custom-scrollbar {
+  scrollbar-width: thin;
+  scrollbar-color: var(--scrollbar-thumb) var(--scrollbar-track);
+}
+
+/* ===========================================
+   6. ANIMATIONS - الحركات
+   =========================================== */
+.shimmer {
+  position: relative;
+  overflow: hidden;
+  background: linear-gradient(
+    90deg, 
+    var(--bg-skeleton) 25%, 
+    rgba(255, 255, 255, 0.14) 37%, 
+    var(--bg-skeleton) 63%
+  );
+  background-size: 400% 100%;
+  animation: shimmer 1.2s ease-in-out infinite;
+}
+
+@keyframes shimmer {
+  0% { background-position: -200% 0; }
+  100% { background-position: 200% 0; }
+}
+
+/* ===========================================
+   7. SELECTION - التحديد
+   =========================================== */
+::selection {
+  background-color: var(--selection-bg);
+  color: var(--selection-text);
+}
+
+::-moz-selection {
+  background-color: var(--selection-bg);
+  color: var(--selection-text);
+}

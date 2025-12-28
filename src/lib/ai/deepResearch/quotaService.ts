@@ -12,7 +12,11 @@ const QUOTA_STORAGE_KEY = 'deep_research_quota';
  * التحقق من أننا في المتصفح
  */
 function isBrowser(): boolean {
-  return typeof window !== 'undefined' && typeof localStorage !== 'undefined';
+  try {
+    return typeof window !== 'undefined' && typeof localStorage !== 'undefined';
+  } catch {
+    return false;
+  }
 }
 
 /**
@@ -66,11 +70,14 @@ function createNewQuota(userId: string, isPremium: boolean): UserQuota {
  */
 function saveQuota(quota: UserQuota): void {
   if (!isBrowser()) return;
-  
-  localStorage.setItem(
-    `${QUOTA_STORAGE_KEY}_${quota.userId}`,
-    JSON.stringify(quota)
-  );
+  try {
+    localStorage.setItem(
+      `${QUOTA_STORAGE_KEY}_${quota.userId}`,
+      JSON.stringify(quota)
+    );
+  } catch {
+    // ignore storage failures in non-browser contexts
+  }
 }
 
 /**

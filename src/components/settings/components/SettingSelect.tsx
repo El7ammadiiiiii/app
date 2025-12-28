@@ -68,7 +68,7 @@ export function SettingSelect({
           disabled={disabled}
           className={cn(
             "w-full flex items-center justify-between gap-2 px-3 py-2.5",
-            "bg-card border border-border rounded-lg text-right",
+            "bg-[var(--glass-bg)] backdrop-blur-xl border border-[var(--glass-border)] rounded-lg text-right",
             "hover:border-primary/30 transition-colors",
             "focus:outline-none focus:ring-2 focus:ring-primary/50",
             disabled && "opacity-50 cursor-not-allowed",
@@ -100,7 +100,7 @@ export function SettingSelect({
               transition={{ duration: 0.15 }}
               className={cn(
                 "absolute z-50 w-full mt-1",
-                "bg-card border border-border rounded-lg shadow-lg",
+                "theme-card border border-border rounded-lg shadow-lg",
                 "max-h-60 overflow-auto"
               )}
             >
