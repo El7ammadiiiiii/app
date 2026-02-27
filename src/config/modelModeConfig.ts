@@ -107,7 +107,7 @@ export interface ModelConfig
     displayName: ModelName;
 
     /** المزود (Provider) */
-    provider: "google" | "openai" | "anthropic" | "xai" | "alibaba" | "deepseek" | "mistral" | "meta" | "amazon";
+    provider: "google" | "openai" | "anthropic" | "xai" | "alibaba" | "deepseek" | "mistral" | "meta" | "amazon" | "vertexMeta";
 
     /** إعدادات لكل وضع */
     modes: Partial<Record<ChatMode, ModeConfig>>;
@@ -611,23 +611,24 @@ export const MODEL_CONFIGS: Record<ModelName, ModelConfig> = {
 
     "llama-4-maverick": {
         displayName: "llama-4-maverick",
-        provider: "meta",
+        provider: "vertexMeta",
         available: true,
-        description: "Llama 4 Maverick - نموذج Meta المفتوح",
+        description: "Llama 4 Maverick - نموذج Meta عبر Vertex AI",
         modes: {
             "normal chat": {
-                apiModel: "llama-4-maverick",
+                apiModel: "llama-4-maverick-17b-128e-instruct-maas",
                 reasoningEffort: "low",
                 temperature: 0.7,
                 maxTokens: 16384,
             },
             "thinking": {
-                apiModel: "llama-4-maverick",
+                apiModel: "llama-4-maverick-17b-128e-instruct-maas",
                 reasoningEffort: "high",
                 temperature: 0.3,
                 maxTokens: 32768,
-            },            "deep research": {
-                apiModel: "llama-4-maverick",
+            },
+            "deep research": {
+                apiModel: "llama-4-maverick-17b-128e-instruct-maas",
                 reasoningEffort: "medium",
                 searchEnabled: true,
                 enabledTools: [ "Search" ],
@@ -635,7 +636,7 @@ export const MODEL_CONFIGS: Record<ModelName, ModelConfig> = {
                 maxTokens: 16384,
             },
             "agent": {
-                apiModel: "llama-4-maverick",
+                apiModel: "llama-4-maverick-17b-128e-instruct-maas",
                 reasoningEffort: "medium",
                 agentMode: true,
                 enabledTools: [ "Research", "Search", "Thinking" ],

@@ -54,6 +54,7 @@ const API_ENDPOINTS = {
     deepseek: 'https://api.deepseek.com/v1/chat/completions',
     mistral: 'https://api.mistral.ai/v1/chat/completions',
     meta: 'https://api.together.xyz/v1/chat/completions', // أو أي endpoint آخر
+    vertexMeta: 'https://us-east5-aiplatform.googleapis.com/v1beta1/projects/ccways-5a160/locations/us-east5/endpoints/openapi/chat/completions',
     amazon: 'https://bedrock-runtime.us-east-1.amazonaws.com/model', // AWS Bedrock
 };
 
@@ -67,6 +68,7 @@ const API_KEYS = {
     deepseek: process.env.DEEPSEEK_API_KEY,
     mistral: process.env.MISTRAL_API_KEY,
     meta: process.env.META_API_KEY,
+    vertexMeta: process.env.VERTEX_AI_API_KEY,
     amazon: process.env.AWS_ACCESS_KEY_ID,
     // Specific model keys
     'gemini-3-pro-preview': process.env.GEMINI_3_PRO_API_KEY,
@@ -83,7 +85,7 @@ const API_KEYS = {
     'DeepSeek-V3.2': process.env.DEEPSEEK_V32_API_KEY,
     'mistral-large-latest': process.env.MISTRAL_LARGE_API_KEY,
     'mistral-ocr-latest': process.env.MISTRAL_OCR_API_KEY,
-    'llama-4-maverick': process.env.LLAMA_4_API_KEY,
+    'llama-4-maverick': process.env.VERTEX_AI_API_KEY,
     'nova-2-pro-v1': process.env.NOVA_2_PRO_API_KEY,
     // Coding-specialized model keys
     'gpt-5.2-codex': process.env.GPT_5_2_CODEX_API_KEY,
@@ -326,6 +328,37 @@ async function callMetaAPI ( payload: any, stream: boolean )
     return response;
 }
 
+async function callVertexMetaAPI ( payload: any, stream: boolean )
+{
+    const apiKey = API_KEYS.vertexMeta || API_KEYS[ payload.model as keyof typeof API_KEYS ];
+    if ( !apiKey ) throw new Error( 'Vertex AI API key not configured' );
+
+    const response = await fetch( API_ENDPOINTS.vertexMeta, {
+        method: 'POST',
+        headers: {
+            'Content-Type': 'application/json',
+            'x-goog-api-key': apiKey,
+        },
+        body: JSON.stringify( {
+            model: `meta/${ payload.model }`,
+            messages: payload.messages,
+            max_tokens: payload.max_tokens || 16384,
+            temperature: payload.temperature || 0.7,
+            stream,
+            extra_body: {
+                google: {
+                    model_safety_settings: {
+                        enabled: false,
+                        llama_guard_settings: {},
+                    },
+                },
+            },
+        } ),
+    } );
+
+    return response;
+}
+
 async function callAmazonAPI ( payload: any, stream: boolean ): Promise<Response>
 {
     const apiKey = API_KEYS.amazon;
@@ -425,6 +458,9 @@ export async function POST ( request: NextRequest )
                 break;
             case 'amazon':
                 response = await callAmazonAPI( payload, stream );
+                break;
+            case 'vertexMeta':
+                response = await callVertexMetaAPI( payload, stream );
                 break;
             default:
                 return NextResponse.json(

@@ -81,7 +81,7 @@ export async function POST ( request: NextRequest )
             'DeepSeek-V3.2': process.env.DEEPSEEK_V32_API_KEY,
             'mistral-large-latest': process.env.MISTRAL_LARGE_API_KEY,
             'mistral-ocr-latest': process.env.MISTRAL_OCR_API_KEY,
-            'llama-4-maverick': process.env.LLAMA_4_API_KEY,
+            'llama-4-maverick': process.env.VERTEX_AI_API_KEY,
             'nova-2-pro-v1': process.env.NOVA_2_PRO_API_KEY,
             // Coding-specialized models
             'gpt-5.2-codex': process.env.GPT_5_2_CODEX_API_KEY,
@@ -111,6 +111,7 @@ export async function POST ( request: NextRequest )
             anthropic: 'https://api.anthropic.com/v1/messages',
             xai: 'https://api.x.ai/v1/chat/completions',
             deepseek: 'https://api.deepseek.com/v1/chat/completions',
+            vertexMeta: 'https://us-east5-aiplatform.googleapis.com/v1beta1/projects/ccways-5a160/locations/us-east5/endpoints/openapi/chat/completions',
         };
 
         const endpoint = apiEndpoints[ provider ];
@@ -120,18 +121,32 @@ export async function POST ( request: NextRequest )
         }
 
         // Make API call (simplified for OpenAI-compatible APIs)
+        const modelName = provider === 'vertexMeta' ? `meta/${ payload.model }` : payload.model;
+        const authHeader = provider === 'vertexMeta'
+            ? { 'x-goog-api-key': apiKey! }
+            : { 'Authorization': `Bearer ${ apiKey }` };
         const response = await fetch( endpoint, {
             method: 'POST',
             headers: {
                 'Content-Type': 'application/json',
-                'Authorization': `Bearer ${ apiKey }`,
+                ...authHeader,
             },
             body: JSON.stringify( {
-                model: payload.model,
+                model: modelName,
                 messages: payload.messages,
                 stream: true,
                 temperature: 0.3, // Lower temperature for precise edits
                 max_tokens: 4000,
+                ...( provider === 'vertexMeta' ? {
+                    extra_body: {
+                        google: {
+                            model_safety_settings: {
+                                enabled: false,
+                                llama_guard_settings: {},
+                            },
+                        },
+                    },
+                } : {} ),
             } ),
         } );
 
