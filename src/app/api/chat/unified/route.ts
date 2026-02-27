@@ -55,6 +55,8 @@ const API_ENDPOINTS = {
     mistral: 'https://api.mistral.ai/v1/chat/completions',
     meta: 'https://api.together.xyz/v1/chat/completions', // أو أي endpoint آخر
     vertexMeta: 'https://us-east5-aiplatform.googleapis.com/v1beta1/projects/ccways-5a160/locations/us-east5/endpoints/openapi/chat/completions',
+    vertexMistral: 'https://us-central1-aiplatform.googleapis.com/v1/projects/ccways-5a160/locations/us-central1/publishers/mistralai/models',
+    vertexGoogle: 'https://us-central1-aiplatform.googleapis.com/v1/projects/ccways-5a160/locations/us-central1/publishers/google/models',
     amazon: 'https://bedrock-runtime.us-east-1.amazonaws.com/model', // AWS Bedrock
 };
 
@@ -69,10 +71,13 @@ const API_KEYS = {
     mistral: process.env.MISTRAL_API_KEY,
     meta: process.env.META_API_KEY,
     vertexMeta: process.env.VERTEX_AI_API_KEY,
+    vertexMistral: process.env.VERTEX_MISTRAL_API_KEY,
+    vertexGoogle: process.env.VERTEX_GOOGLE_API_KEY,
     amazon: process.env.AWS_ACCESS_KEY_ID,
     // Specific model keys
-    'gemini-3-pro-preview': process.env.GEMINI_3_PRO_API_KEY,
-    'gemini-3-flash-preview': process.env.GEMINI_3_FLASH_API_KEY,
+    'gemini-3-pro-preview': process.env.VERTEX_GEMINI3_PRO_API_KEY,
+    'gemini-3-flash-preview': process.env.VERTEX_GEMINI3_FLASH_API_KEY,
+    'gemini-3.1-pro-preview': process.env.VERTEX_GEMINI31_PRO_API_KEY,
     'gpt-5.2-2025-12-11': process.env.GPT_5_2_API_KEY,
     'gpt-5.1-2025-11-13': process.env.GPT_5_1_API_KEY,
     'gpt-5-mini-2025-08-07': process.env.GPT_5_MINI_API_KEY,
@@ -83,21 +88,22 @@ const API_KEYS = {
     'grok-4-1-fast-reasoning': process.env.GROK_41_FAST_API_KEY,
     'qwen3-max': process.env.QWEN3_MAX_API_KEY,
     'DeepSeek-V3.2': process.env.DEEPSEEK_V32_API_KEY,
-    'mistral-large-latest': process.env.MISTRAL_LARGE_API_KEY,
-    'mistral-ocr-latest': process.env.MISTRAL_OCR_API_KEY,
+    'mistral-medium-3': process.env.VERTEX_MISTRAL_MEDIUM3_API_KEY,
+    'mistral-ocr-latest': process.env.VERTEX_MISTRAL_OCR_API_KEY,
     'llama-4-maverick': process.env.VERTEX_AI_API_KEY,
     'nova-2-pro-v1': process.env.NOVA_2_PRO_API_KEY,
     // Coding-specialized model keys
+    'gpt-5.3-codex': process.env.GPT_53_CODEX_API_KEY,
     'gpt-5.2-codex': process.env.GPT_5_2_CODEX_API_KEY,
     'gpt-5.1-codex-max': process.env.GPT_5_1_CODEX_MAX_API_KEY,
-    'devstral-medium-latest': process.env.DEVSTRAL_MEDIUM_API_KEY,
+    'codestral-2': process.env.VERTEX_CODESTRAL2_API_KEY,
     'Qwen3-Coder-Plus': process.env.QWEN3_CODER_PLUS_API_KEY,
     'DeepSeek-V3.2-Speciale': process.env.DEEPSEEK_V32_SPECIALE_API_KEY,
     'llama-3.3-70b-versatile': process.env.LLAMA_33_70B_API_KEY,
     'claude-sonnet-4-6-coder': process.env.CLAUDE_SONNET_46_CODER_API_KEY,
     'kimi-k2.5-CODE': process.env.KIMI_K25_CODE_API_KEY,
     'grok-code-fast-1': process.env.GROK_CODE_FAST_1_API_KEY,
-    'gemini-3-coder': process.env.GEMINI_3_CODER_API_KEY,
+    'gemini-3-coder': process.env.VERTEX_GEMINI3_CODER_API_KEY,
 };
 
 // ═══════════════════════════════════════════════════════════════════════════════
@@ -359,6 +365,68 @@ async function callVertexMetaAPI ( payload: any, stream: boolean )
     return response;
 }
 
+async function callVertexGoogleAPI ( payload: any, stream: boolean, reasoningParams?: Record<string, any> )
+{
+    const apiKey = API_KEYS[ payload.model as keyof typeof API_KEYS ] || API_KEYS.vertexGoogle;
+    if ( !apiKey ) throw new Error( 'Vertex AI Google API key not configured' );
+
+    const url = `${ API_ENDPOINTS.vertexGoogle }/${ payload.model }:${ stream ? 'streamGenerateContent' : 'generateContent' }`;
+
+    // تحويل الرسائل لصيغة Google
+    const contents = payload.messages.map( ( msg: any ) => ( {
+        role: msg.role === 'assistant' ? 'model' : 'user',
+        parts: [ { text: msg.content } ],
+    } ) );
+
+    const response = await fetch( url, {
+        method: 'POST',
+        headers: {
+            'Content-Type': 'application/json',
+            'x-goog-api-key': apiKey,
+        },
+        body: JSON.stringify( {
+            contents,
+            generationConfig: {
+                temperature: payload.temperature,
+                maxOutputTokens: payload.max_tokens,
+                topP: payload.top_p,
+                ...( reasoningParams?.thinkingConfig && {
+                    thinkingConfig: reasoningParams.thinkingConfig,
+                } ),
+            },
+        } ),
+    } );
+
+    return response;
+}
+
+async function callVertexMistralAPI ( payload: any, stream: boolean )
+{
+    const apiKey = API_KEYS[ payload.model as keyof typeof API_KEYS ] || API_KEYS.vertexMistral;
+    if ( !apiKey ) throw new Error( 'Vertex AI Mistral API key not configured' );
+
+    const modelName = payload.model;
+    const action = stream ? 'streamRawPredict' : 'rawPredict';
+    const url = `${ API_ENDPOINTS.vertexMistral }/${ modelName }:${ action }`;
+
+    const response = await fetch( url, {
+        method: 'POST',
+        headers: {
+            'Content-Type': 'application/json',
+            'x-goog-api-key': apiKey,
+        },
+        body: JSON.stringify( {
+            model: modelName,
+            messages: payload.messages,
+            max_tokens: payload.max_tokens || 16384,
+            temperature: payload.temperature || 0.7,
+            stream,
+        } ),
+    } );
+
+    return response;
+}
+
 async function callAmazonAPI ( payload: any, stream: boolean ): Promise<Response>
 {
     const apiKey = API_KEYS.amazon;
@@ -370,6 +438,63 @@ async function callAmazonAPI ( payload: any, stream: boolean ): Promise<Response
 }
 
 // ═══════════════════════════════════════════════════════════════════════════════
+// MODEL NAME RESOLVER - maps ChatInputBox display names → MODEL_CONFIGS keys
+// ═══════════════════════════════════════════════════════════════════════════════
+
+// Display names from ChatInputBox → MODEL_CONFIGS keys
+const DISPLAY_NAME_MAP: Record<string, ModelName> = {
+    // General models (ChatInputBox display → config key)
+    "gemini 3 pro": "gemini3 pro" as ModelName,
+    "gemini 3 flash": "gemini 3 flash" as ModelName,
+    "gemini 3.1 pro": "gemini 3.1 pro" as ModelName,
+    "gpt 5.2": "gpt 5.2" as ModelName,
+    "gpt 5": "gpt 5" as ModelName,
+    "claude opus 4.6": "claude opus 4.6" as ModelName,
+    "claude sonnet 4.6": "claude sonnet 4.6" as ModelName,
+    "claude haiku 4.5": "claude Haiku 4.5" as ModelName,
+    "grok-4.1": "grok-4.1" as ModelName,
+    "fast grok": "fast grok" as ModelName,
+    "gpt-5.1": "gpt-5.1" as ModelName,
+    "qwen3-max": "qwen3-max" as ModelName,
+    "deepseek v3.1": "deepseek v3.1" as ModelName,
+    "mistral-medium-3": "mistral-medium-3" as ModelName,
+    "llama 4": "llama 4" as ModelName,
+    "amazon-nova": "amazon-nova" as ModelName,
+    // Coder models (ChatInputBox display → config key)
+    "gpt 5.2 codex": "gpt-5.2-codex" as ModelName,
+    "gpt 5.3 codex": "gpt-5.3-codex" as ModelName,
+    "gpt 5.1 codex max": "gpt-5.1-codex-max" as ModelName,
+    "codestral-2": "codestral-2" as ModelName,
+    "qwen3 coder": "Qwen3-Coder-Plus" as ModelName,
+    "deepseek coder": "DeepSeek-V3.2-Speciale" as ModelName,
+    "llama coder": "llama-3.3-70b-versatile" as ModelName,
+    "claude sonnet 4.6 coder": "claude-sonnet-4-6-coder" as ModelName,
+    "kimi k2.5 coder": "kimi-k2.5-CODE" as ModelName,
+    "grok coder": "grok-code-fast-1" as ModelName,
+    "gemini 3 coder": "gemini-3-coder" as ModelName,
+};
+
+function resolveModelName ( raw: string ): ModelName
+{
+    // Direct hit (exact match with config key)
+    if ( MODEL_CONFIGS[ raw as ModelName ] ) return raw as ModelName;
+
+    // Display name lookup (case-insensitive)
+    const lower = raw.toLowerCase();
+    const mapped = DISPLAY_NAME_MAP[ lower ];
+    if ( mapped && MODEL_CONFIGS[ mapped ] ) return mapped;
+
+    // Case-insensitive fallback search through all config keys
+    for ( const key of Object.keys( MODEL_CONFIGS ) )
+    {
+        if ( key.toLowerCase() === lower ) return key as ModelName;
+    }
+
+    // Final fallback: return as-is
+    return raw as ModelName;
+}
+
+// ═══════════════════════════════════════════════════════════════════════════════
 // MAIN HANDLER
 // ═══════════════════════════════════════════════════════════════════════════════
 
@@ -378,16 +503,19 @@ export async function POST ( request: NextRequest )
     try
     {
         const body: ChatRequest = await request.json();
-        const { model, mode, messages, stream = false, thinkingDepth } = body;
+        const { model: rawModel, mode, messages, stream = false, thinkingDepth } = body;
 
         // التحقق من صحة المدخلات
-        if ( !model || !mode || !messages )
+        if ( !rawModel || !mode || !messages )
         {
             return NextResponse.json(
                 { error: 'Missing required fields: model, mode, messages' },
                 { status: 400 }
             );
         }
+
+        // Resolve display name → MODEL_CONFIGS key (case-insensitive)
+        const model = resolveModelName( rawModel );
 
         // الحصول على التكوين
         const config = getModeConfig( model, mode );
@@ -461,6 +589,12 @@ export async function POST ( request: NextRequest )
                 break;
             case 'vertexMeta':
                 response = await callVertexMetaAPI( payload, stream );
+                break;
+            case 'vertexGoogle':
+                response = await callVertexGoogleAPI( payload, stream, reasoningParams );
+                break;
+            case 'vertexMistral':
+                response = await callVertexMistralAPI( payload, stream );
                 break;
             default:
                 return NextResponse.json(

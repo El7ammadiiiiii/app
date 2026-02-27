@@ -1,13 +1,14 @@
 /**
- * Google Veo 3.1 Video Generation Service (server-only)
+ * Google Veo 3.0 Video Generation Service via Vertex AI (server-only)
  *
  * NOTE: This module must not be imported by client components.
  * It reads its API key from environment variables.
  */
 
-const VEO_API_KEY = process.env.VEO_API_KEY ?? process.env.GOOGLE_API_KEY;
-const VEO_API_BASE = 'https://generativelanguage.googleapis.com/v1beta';
-const VEO_MODEL = 'veo-3.1-generate-preview';
+const VEO_API_KEY = process.env.VEO_API_KEY ?? process.env.VERTEX_GOOGLE_API_KEY ?? process.env.GOOGLE_API_KEY;
+const VEO_API_BASE = 'https://us-central1-aiplatform.googleapis.com/v1/projects/ccways-5a160/locations/us-central1/publishers/google/models';
+const VEO_OPERATIONS_BASE = 'https://us-central1-aiplatform.googleapis.com/v1';
+const VEO_MODEL = 'veo-3.0-generate-preview';
 
 function requireVeoApiKey ()
 {
@@ -51,9 +52,12 @@ type VeoOperationResponse = { name: string } & Record<string, unknown>;
 async function postVeo ( action: string, body: unknown ): Promise<VeoOperationResponse>
 {
     requireVeoApiKey();
-    const response = await fetch( `${ VEO_API_BASE }/models/${ VEO_MODEL }:${ action }?key=${ VEO_API_KEY }`, {
+    const response = await fetch( `${ VEO_API_BASE }/${ VEO_MODEL }:${ action }`, {
         method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
+        headers: {
+            'Content-Type': 'application/json',
+            'x-goog-api-key': VEO_API_KEY!,
+        },
         body: JSON.stringify( body ),
     } );
 
@@ -286,9 +290,12 @@ export async function checkVideoStatus ( operationName: string ): Promise<VideoG
     try
     {
         requireVeoApiKey();
-        const response = await fetch( `${ VEO_API_BASE }/${ operationName }?key=${ VEO_API_KEY }`, {
+        const response = await fetch( `${ VEO_OPERATIONS_BASE }/${ operationName }`, {
             method: 'GET',
-            headers: { 'Content-Type': 'application/json' },
+            headers: {
+                'Content-Type': 'application/json',
+                'x-goog-api-key': VEO_API_KEY!,
+            },
         } );
 
         if ( !response.ok )

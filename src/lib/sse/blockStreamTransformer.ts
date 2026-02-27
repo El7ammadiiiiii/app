@@ -34,7 +34,7 @@ export interface BlockEvent {
   data: Record<string, any>;
 }
 
-type Provider = 'openai' | 'anthropic' | 'google' | 'xai' | 'deepseek' | 'mistral' | 'meta' | 'alibaba' | 'amazon';
+type Provider = 'openai' | 'anthropic' | 'google' | 'xai' | 'deepseek' | 'mistral' | 'meta' | 'alibaba' | 'amazon' | 'vertexMeta' | 'vertexMistral' | 'vertexGoogle';
 
 /**
  * Create a TransformStream that normalizes raw provider SSE
@@ -126,13 +126,18 @@ function normalizeProviderEvent(provider: Provider, parsed: any): BlockEvent[] {
     case 'deepseek':
     case 'mistral':
     case 'meta':
+    case 'vertexMeta':
+    case 'vertexMistral':
       return normalizeOpenAIFormat(parsed);
     case 'anthropic':
       return normalizeAnthropicFormat(parsed);
     case 'google':
+    case 'vertexGoogle':
       return normalizeGoogleFormat(parsed);
     case 'alibaba':
       return normalizeAlibabaFormat(parsed);
+    case 'amazon':
+      return normalizeOpenAIFormat(parsed);
     default:
       return normalizeOpenAIFormat(parsed);
   }

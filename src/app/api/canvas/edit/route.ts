@@ -67,8 +67,9 @@ export async function POST ( request: NextRequest )
         // Handle specific model API keys
         let apiKey: string | undefined;
         const keyMap: Record<string, string | undefined> = {
-            'gemini-3-pro-preview': process.env.GEMINI_3_PRO_API_KEY,
-            'gemini-3-flash-preview': process.env.GEMINI_3_FLASH_API_KEY,
+            'gemini-3-pro-preview': process.env.VERTEX_GEMINI3_PRO_API_KEY,
+            'gemini-3-flash-preview': process.env.VERTEX_GEMINI3_FLASH_API_KEY,
+            'gemini-3.1-pro-preview': process.env.VERTEX_GEMINI31_PRO_API_KEY,
             'gpt-5.2-2025-12-11': process.env.GPT_5_2_API_KEY,
             'gpt-5.1-2025-11-13': process.env.GPT_5_1_API_KEY,
             'gpt-5-mini-2025-08-07': process.env.GPT_5_MINI_API_KEY,
@@ -79,21 +80,22 @@ export async function POST ( request: NextRequest )
             'grok-4-1-fast-reasoning': process.env.GROK_41_FAST_API_KEY,
             'qwen3-max': process.env.QWEN3_MAX_API_KEY,
             'DeepSeek-V3.2': process.env.DEEPSEEK_V32_API_KEY,
-            'mistral-large-latest': process.env.MISTRAL_LARGE_API_KEY,
-            'mistral-ocr-latest': process.env.MISTRAL_OCR_API_KEY,
+            'mistral-medium-3': process.env.VERTEX_MISTRAL_MEDIUM3_API_KEY,
+            'mistral-ocr-latest': process.env.VERTEX_MISTRAL_OCR_API_KEY,
             'llama-4-maverick': process.env.VERTEX_AI_API_KEY,
             'nova-2-pro-v1': process.env.NOVA_2_PRO_API_KEY,
             // Coding-specialized models
+            'gpt-5.3-codex': process.env.GPT_53_CODEX_API_KEY,
             'gpt-5.2-codex': process.env.GPT_5_2_CODEX_API_KEY,
             'gpt-5.1-codex-max': process.env.GPT_5_1_CODEX_MAX_API_KEY,
-            'devstral-medium-latest': process.env.DEVSTRAL_MEDIUM_API_KEY,
+            'codestral-2': process.env.VERTEX_CODESTRAL2_API_KEY,
             'Qwen3-Coder-Plus': process.env.QWEN3_CODER_PLUS_API_KEY,
             'DeepSeek-V3.2-Speciale': process.env.DEEPSEEK_V32_SPECIALE_API_KEY,
             'llama-3.3-70b-versatile': process.env.LLAMA_33_70B_API_KEY,
             'claude-sonnet-4-6-coder': process.env.CLAUDE_SONNET_46_CODER_API_KEY,
             'kimi-k2.5-CODE': process.env.KIMI_K25_CODE_API_KEY,
             'grok-code-fast-1': process.env.GROK_CODE_FAST_1_API_KEY,
-            'gemini-3-coder': process.env.GEMINI_3_CODER_API_KEY,
+            'gemini-3-coder': process.env.VERTEX_GEMINI3_CODER_API_KEY,
         };
 
         apiKey = keyMap[ model ] || process.env[ `${ provider.toUpperCase() }_API_KEY` ];
@@ -112,6 +114,8 @@ export async function POST ( request: NextRequest )
             xai: 'https://api.x.ai/v1/chat/completions',
             deepseek: 'https://api.deepseek.com/v1/chat/completions',
             vertexMeta: 'https://us-east5-aiplatform.googleapis.com/v1beta1/projects/ccways-5a160/locations/us-east5/endpoints/openapi/chat/completions',
+            vertexMistral: 'https://us-central1-aiplatform.googleapis.com/v1/projects/ccways-5a160/locations/us-central1/publishers/mistralai/models',
+            vertexGoogle: 'https://us-central1-aiplatform.googleapis.com/v1/projects/ccways-5a160/locations/us-central1/publishers/google/models',
         };
 
         const endpoint = apiEndpoints[ provider ];
@@ -120,24 +124,61 @@ export async function POST ( request: NextRequest )
             return new Response( `Provider ${ provider } not supported`, { status: 500 } );
         }
 
-        // Make API call (simplified for OpenAI-compatible APIs)
-        const modelName = provider === 'vertexMeta' ? `meta/${ payload.model }` : payload.model;
-        const authHeader = provider === 'vertexMeta'
+        // Make API call with provider-specific handling
+        const isVertexMeta = provider === 'vertexMeta';
+        const isVertexMistral = provider === 'vertexMistral';
+        const isVertexGoogle = provider === 'vertexGoogle';
+        const isVertex = isVertexMeta || isVertexMistral || isVertexGoogle;
+
+        const modelName = isVertexMeta ? `meta/${ payload.model }` : payload.model;
+        const authHeader: Record<string, string> = isVertex
             ? { 'x-goog-api-key': apiKey! }
             : { 'Authorization': `Bearer ${ apiKey }` };
-        const response = await fetch( endpoint, {
-            method: 'POST',
-            headers: {
-                'Content-Type': 'application/json',
-                ...authHeader,
-            },
-            body: JSON.stringify( {
+
+        // Build endpoint URL
+        let finalEndpoint = endpoint;
+        if ( isVertexGoogle )
+        {
+            finalEndpoint = `${ endpoint }/${ payload.model }:streamGenerateContent`;
+        } else if ( isVertexMistral )
+        {
+            finalEndpoint = `${ endpoint }/${ payload.model }:streamRawPredict`;
+        }
+
+        // Build request body
+        let requestBody: any;
+        if ( isVertexGoogle )
+        {
+            // Google Gemini format
+            const contents = payload.messages.map( ( msg: any ) => ( {
+                role: msg.role === 'assistant' ? 'model' : 'user',
+                parts: [ { text: msg.content } ],
+            } ) );
+            requestBody = {
+                contents,
+                generationConfig: {
+                    temperature: 0.3,
+                    maxOutputTokens: 4000,
+                },
+            };
+        } else if ( isVertexMistral )
+        {
+            requestBody = {
+                model: payload.model,
+                messages: payload.messages,
+                stream: true,
+                temperature: 0.3,
+                max_tokens: 4000,
+            };
+        } else
+        {
+            requestBody = {
                 model: modelName,
                 messages: payload.messages,
                 stream: true,
-                temperature: 0.3, // Lower temperature for precise edits
+                temperature: 0.3,
                 max_tokens: 4000,
-                ...( provider === 'vertexMeta' ? {
+                ...( isVertexMeta ? {
                     extra_body: {
                         google: {
                             model_safety_settings: {
@@ -147,7 +188,16 @@ export async function POST ( request: NextRequest )
                         },
                     },
                 } : {} ),
-            } ),
+            };
+        }
+
+        const response = await fetch( finalEndpoint, {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json',
+                ...authHeader,
+            },
+            body: JSON.stringify( requestBody ),
         } );
 
         if ( !response.ok )

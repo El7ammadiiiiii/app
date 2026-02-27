@@ -229,7 +229,7 @@ export function ChatInputBox ( {
   const GENERAL_MODEL_OPTIONS = [
     "Gemini 3 Pro",
     "Gemini 3 Flash",
-    "Gemini 2.5 Pro",
+    "Gemini 3.1 Pro",
     "GPT 5.2",
     "GPT 5",
     "Claude Opus 4.6",
@@ -240,7 +240,7 @@ export function ChatInputBox ( {
     "GPT-5.1",
     "Qwen3-Max",
     "Deepseek V3.1",
-    "Mistral-Large",
+    "Mistral-Medium-3",
     "Llama 4",
     "Amazon-Nova",
   ] as const;
@@ -248,8 +248,9 @@ export function ChatInputBox ( {
   // نماذج البرمجة - 10 نماذج متخصصة لوضع coder
   const CODER_MODEL_OPTIONS = [
     "GPT 5.2 Codex",
+    "GPT 5.3 Codex",
     "GPT 5.1 Codex Max",
-    "Devstral Medium",
+    "Codestral-2",
     "Qwen3 Coder",
     "Deepseek Coder",
     "Llama Coder",

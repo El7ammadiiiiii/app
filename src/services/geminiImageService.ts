@@ -1,20 +1,35 @@
 /**
- * Google Gemini 3 Pro Image Generation Service
+ * Google Gemini 3 Pro Image Generation Service via Vertex AI
  * Provides comprehensive 4K image generation and editing capabilities
  */
 
 const GEMINI_API_KEY = process.env.GEMINI_IMAGE_API_KEY
-    ?? process.env.GEMINI_3_PRO_API_KEY
+    ?? process.env.VERTEX_GOOGLE_API_KEY
     ?? process.env.GOOGLE_API_KEY;
-const GEMINI_API_BASE = 'https://generativelanguage.googleapis.com/v1beta';
+const GEMINI_API_BASE = 'https://us-central1-aiplatform.googleapis.com/v1/projects/ccways-5a160/locations/us-central1/publishers/google/models';
 const GEMINI_MODEL = 'gemini-3-pro-image-preview';
 
 function requireGeminiImageApiKey ()
 {
     if ( !GEMINI_API_KEY )
     {
-        throw new Error( 'Gemini image API key not configured (set GEMINI_IMAGE_API_KEY / GEMINI_3_PRO_API_KEY / GOOGLE_API_KEY)' );
+        throw new Error( 'Gemini image API key not configured (set GEMINI_IMAGE_API_KEY / VERTEX_GOOGLE_API_KEY / GOOGLE_API_KEY)' );
     }
+}
+
+/** Shared helper for Gemini image API calls via Vertex AI */
+async function fetchGeminiImage ( body: unknown ): Promise<Response>
+{
+    requireGeminiImageApiKey();
+    const url = `${ GEMINI_API_BASE }/${ GEMINI_MODEL }:generateContent`;
+    return fetch( url, {
+        method: 'POST',
+        headers: {
+            'Content-Type': 'application/json',
+            'x-goog-api-key': GEMINI_API_KEY!,
+        },
+        body: JSON.stringify( body ),
+    } );
 }
 
 export interface ImageGenerationOptions
@@ -141,33 +156,22 @@ export async function generateImageFromText (
         requireGeminiImageApiKey();
         const dims = applyAspectRatio( getImageResolution( resolution ), aspectRatio );
 
-        const response = await fetch(
-            `${ GEMINI_API_BASE }/models/${ GEMINI_MODEL }:generateContent?key=${ GEMINI_API_KEY }`,
-            {
-                method: 'POST',
-                headers: {
-                    'Content-Type': 'application/json',
-                },
-                body: JSON.stringify( {
-                    contents: [ {
-                        role: 'user',
-                        parts: [ {
-                            text: prompt
-                        } ]
-                    } ],
-                    generationConfig: {
-                        temperature: 1.0,
-                        topK: 40,
-                        topP: 0.95,
-                        maxOutputTokens: 8192,
-                        // Request image output from the model. Some models ignore unsupported knobs.
-                        responseModalities: [ 'IMAGE' ],
-                        // Best-effort: map requested count to candidateCount.
-                        ...( numberOfImages ? { candidateCount: Math.max( 1, Math.min( 4, numberOfImages ) ) } : {} )
-                    }
-                } )
+        const response = await fetchGeminiImage( {
+            contents: [ {
+                role: 'user',
+                parts: [ {
+                    text: prompt
+                } ]
+            } ],
+            generationConfig: {
+                temperature: 1.0,
+                topK: 40,
+                topP: 0.95,
+                maxOutputTokens: 8192,
+                responseModalities: [ 'IMAGE' ],
+                ...( numberOfImages ? { candidateCount: Math.max( 1, Math.min( 4, numberOfImages ) ) } : {} )
             }
-        );
+        } );
 
         if ( !response.ok )
         {
@@ -277,26 +281,17 @@ export async function editImageWithText (
             } );
         }
 
-        const response = await fetch(
-            `${ GEMINI_API_BASE }/models/${ GEMINI_MODEL }:generateContent?key=${ GEMINI_API_KEY }`,
-            {
-                method: 'POST',
-                headers: {
-                    'Content-Type': 'application/json',
-                },
-                body: JSON.stringify( {
-                    contents: [ {
-                        role: 'user',
-                        parts
-                    } ],
-                    generationConfig: {
-                        temperature: 1.0,
-                        responseModalities: [ 'IMAGE' ],
-                        candidateCount: 1
-                    }
-                } )
+        const response = await fetchGeminiImage( {
+            contents: [ {
+                role: 'user',
+                parts
+            } ],
+            generationConfig: {
+                temperature: 1.0,
+                responseModalities: [ 'IMAGE' ],
+                candidateCount: 1
             }
-        );
+        } );
 
         if ( !response.ok )
         {
@@ -406,23 +401,14 @@ export async function continueConversationEditing (
             parts: newParts
         } );
 
-        const response = await fetch(
-            `${ GEMINI_API_BASE }/models/${ GEMINI_MODEL }:generateContent?key=${ GEMINI_API_KEY }`,
-            {
-                method: 'POST',
-                headers: {
-                    'Content-Type': 'application/json',
-                },
-                body: JSON.stringify( {
-                    contents,
-                    generationConfig: {
-                        temperature: 1.0,
-                        responseModalities: [ 'IMAGE', 'TEXT' ],
-                        candidateCount: 1
-                    }
-                } )
+        const response = await fetchGeminiImage( {
+            contents,
+            generationConfig: {
+                temperature: 1.0,
+                responseModalities: [ 'IMAGE', 'TEXT' ],
+                candidateCount: 1
             }
-        );
+        } );
 
         if ( !response.ok )
         {
@@ -509,26 +495,17 @@ export async function transferStyle (
             } );
         } );
 
-        const response = await fetch(
-            `${ GEMINI_API_BASE }/models/${ GEMINI_MODEL }:generateContent?key=${ GEMINI_API_KEY }`,
-            {
-                method: 'POST',
-                headers: {
-                    'Content-Type': 'application/json',
-                },
-                body: JSON.stringify( {
-                    contents: [ {
-                        role: 'user',
-                        parts
-                    } ],
-                    generationConfig: {
-                        temperature: 1.0,
-                        responseModalities: [ 'IMAGE' ],
-                        candidateCount: 1
-                    }
-                } )
+        const response = await fetchGeminiImage( {
+            contents: [ {
+                role: 'user',
+                parts
+            } ],
+            generationConfig: {
+                temperature: 1.0,
+                responseModalities: [ 'IMAGE' ],
+                candidateCount: 1
             }
-        );
+        } );
 
         if ( !response.ok )
         {
@@ -614,26 +591,17 @@ export async function composeImages (
             } );
         } );
 
-        const response = await fetch(
-            `${ GEMINI_API_BASE }/models/${ GEMINI_MODEL }:generateContent?key=${ GEMINI_API_KEY }`,
-            {
-                method: 'POST',
-                headers: {
-                    'Content-Type': 'application/json',
-                },
-                body: JSON.stringify( {
-                    contents: [ {
-                        role: 'user',
-                        parts
-                    } ],
-                    generationConfig: {
-                        temperature: 1.0,
-                        responseModalities: [ 'IMAGE' ],
-                        candidateCount: 1
-                    }
-                } )
+        const response = await fetchGeminiImage( {
+            contents: [ {
+                role: 'user',
+                parts
+            } ],
+            generationConfig: {
+                temperature: 1.0,
+                responseModalities: [ 'IMAGE' ],
+                candidateCount: 1
             }
-        );
+        } );
 
         if ( !response.ok )
         {

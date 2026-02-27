@@ -46,13 +46,14 @@ export type ModelName =
     | "grok-4-1-fast-reasoning"
     | "qwen3-max"
     | "DeepSeek-V3.2"
-    | "mistral-large-latest"
+    | "mistral-medium-3"
     | "mistral-ocr-latest"
     | "llama-4-maverick"
+    | "gemini-3.1-pro-preview"
     | "nova-2-pro-v1"
     | "gemini3 pro"
     | "gemini 3 flash"
-    | "gemini 2.5 pro"
+    | "gemini 3.1 pro"
     | "gpt 5.2"
     | "gpt 5"
     | "claude opus 4.6"
@@ -64,9 +65,10 @@ export type ModelName =
     | "deepseek v3.1"
     | "llama 4"
     | "amazon-nova"
+    | "gpt-5.3-codex"
     | "gpt-5.2-codex"
     | "gpt-5.1-codex-max"
-    | "devstral-medium-latest"
+    | "codestral-2"
     | "Qwen3-Coder-Plus"
     | "DeepSeek-V3.2-Speciale"
     | "llama-3.3-70b-versatile"
@@ -107,7 +109,7 @@ export interface ModelConfig
     displayName: ModelName;
 
     /** المزود (Provider) */
-    provider: "google" | "openai" | "anthropic" | "xai" | "alibaba" | "deepseek" | "mistral" | "meta" | "amazon" | "vertexMeta";
+    provider: "google" | "openai" | "anthropic" | "xai" | "alibaba" | "deepseek" | "mistral" | "meta" | "amazon" | "vertexMeta" | "vertexMistral" | "vertexGoogle";
 
     /** إعدادات لكل وضع */
     modes: Partial<Record<ChatMode, ModeConfig>>;
@@ -261,7 +263,7 @@ export const MODEL_CONFIGS: Record<ModelName, ModelConfig> = {
     // ─────────────────────────────────────────────────────────────────────────────
     "gemini-3-pro-preview": {
         displayName: "gemini-3-pro-preview",
-        provider: "google",
+        provider: "vertexGoogle",
         available: true,
         description: "Gemini 3 Pro Preview - أحدث نموذج من Google",
         modes: {
@@ -297,7 +299,7 @@ export const MODEL_CONFIGS: Record<ModelName, ModelConfig> = {
 
     "gemini-3-flash-preview": {
         displayName: "gemini-3-flash-preview",
-        provider: "google",
+        provider: "vertexGoogle",
         available: true,
         description: "Gemini 3 Flash Preview - سريع وفعال",
         modes: {
@@ -327,6 +329,42 @@ export const MODEL_CONFIGS: Record<ModelName, ModelConfig> = {
                 enabledTools: [ "Research", "Search", "Thinking" ],
                 temperature: 0.5,
                 maxTokens: 16384,
+            },
+        },
+    },
+
+    "gemini-3.1-pro-preview": {
+        displayName: "gemini-3.1-pro-preview",
+        provider: "vertexGoogle",
+        available: true,
+        description: "Gemini 3.1 Pro Preview - أحدث إصدار من Google عبر Vertex AI",
+        modes: {
+            "normal chat": {
+                apiModel: "gemini-3.1-pro-preview",
+                reasoningEffort: "low",
+                temperature: 0.7,
+                maxTokens: 8192,
+            },
+            "thinking": {
+                apiModel: "gemini-3.1-pro-preview",
+                reasoningEffort: "high",
+                temperature: 0.3,
+                maxTokens: 16384,
+            },            "deep research": {
+                apiModel: "gemini-3.1-pro-preview",
+                reasoningEffort: "medium",
+                searchEnabled: true,
+                enabledTools: [ "Search" ],
+                temperature: 0.5,
+                maxTokens: 16384,
+            },
+            "agent": {
+                apiModel: "gemini-3.1-pro-preview",
+                reasoningEffort: "medium",
+                agentMode: true,
+                enabledTools: [ "Research", "Search", "Thinking" ],
+                temperature: 0.4,
+                maxTokens: 32768,
             },
         },
     },
@@ -573,25 +611,25 @@ export const MODEL_CONFIGS: Record<ModelName, ModelConfig> = {
         },
     },
 
-    "mistral-large-latest": {
-        displayName: "mistral-large-latest",
-        provider: "mistral",
+    "mistral-medium-3": {
+        displayName: "mistral-medium-3",
+        provider: "vertexMistral",
         available: true,
-        description: "Mistral Large - نموذج قوي ومتقدم",
+        description: "Mistral Medium 3 - نموذج متعدد المهام عبر Vertex AI",
         modes: {
             "normal chat": {
-                apiModel: "mistral-large-latest",
+                apiModel: "mistral-medium-3",
                 reasoningEffort: "low",
                 temperature: 0.7,
                 maxTokens: 16384,
             },
             "thinking": {
-                apiModel: "mistral-large-latest",
+                apiModel: "mistral-medium-3",
                 reasoningEffort: "high",
                 temperature: 0.3,
                 maxTokens: 32768,
             },            "deep research": {
-                apiModel: "mistral-large-latest",
+                apiModel: "mistral-medium-3",
                 reasoningEffort: "medium",
                 searchEnabled: true,
                 enabledTools: [ "Search" ],
@@ -599,7 +637,7 @@ export const MODEL_CONFIGS: Record<ModelName, ModelConfig> = {
                 maxTokens: 16384,
             },
             "agent": {
-                apiModel: "mistral-large-latest",
+                apiModel: "mistral-medium-3",
                 reasoningEffort: "medium",
                 agentMode: true,
                 enabledTools: [ "Research", "Search", "Thinking" ],
@@ -684,7 +722,7 @@ export const MODEL_CONFIGS: Record<ModelName, ModelConfig> = {
 
     "gemini3 pro": {
         displayName: "gemini3 pro",
-        provider: "google",
+        provider: "vertexGoogle",
         available: true,
         description: "Gemini 3 Pro - أقوى نموذج من Google",
         modes: {
@@ -720,7 +758,7 @@ export const MODEL_CONFIGS: Record<ModelName, ModelConfig> = {
 
     "gemini 3 flash": {
         displayName: "gemini 3 flash",
-        provider: "google",
+        provider: "vertexGoogle",
         available: true,
         description: "Gemini 3 Flash - سريع وفعال",
         modes: {
@@ -754,25 +792,25 @@ export const MODEL_CONFIGS: Record<ModelName, ModelConfig> = {
         },
     },
 
-    "gemini 2.5 pro": {
-        displayName: "gemini 2.5 pro",
-        provider: "google",
+    "gemini 3.1 pro": {
+        displayName: "gemini 3.1 pro",
+        provider: "vertexGoogle",
         available: true,
-        description: "Gemini 2.5 Pro - الإصدار السابق المستقر",
+        description: "Gemini 3.1 Pro - أحدث إصدار من Google عبر Vertex AI",
         modes: {
             "normal chat": {
-                apiModel: "gemini-2.5-pro-latest",
+                apiModel: "gemini-3.1-pro-preview",
                 reasoningEffort: "low",
                 temperature: 0.7,
                 maxTokens: 8192,
             },
             "thinking": {
-                apiModel: "gemini-2.5-pro-latest",
+                apiModel: "gemini-3.1-pro-preview",
                 reasoningEffort: "high",
                 temperature: 0.3,
                 maxTokens: 16384,
             },            "deep research": {
-                apiModel: "gemini-2.5-pro-latest",
+                apiModel: "gemini-3.1-pro-preview",
                 reasoningEffort: "medium",
                 searchEnabled: true,
                 enabledTools: [ "Search" ],
@@ -780,7 +818,7 @@ export const MODEL_CONFIGS: Record<ModelName, ModelConfig> = {
                 maxTokens: 8192,
             },
             "agent": {
-                apiModel: "gemini-2.5-pro-latest",
+                apiModel: "gemini-3.1-pro-preview",
                 reasoningEffort: "medium",
                 agentMode: true,
                 enabledTools: [ "Research", "Search", "Thinking" ],
@@ -1381,6 +1419,47 @@ export const MODEL_CONFIGS: Record<ModelName, ModelConfig> = {
     // CODING-SPECIALIZED MODELS
     // ═══════════════════════════════════════════════════════════════════════════════
 
+    "gpt-5.3-codex": {
+        displayName: "gpt-5.3-codex",
+        provider: "openai",
+        available: true,
+        description: "GPT 5.3 Codex - أحدث نموذج OpenAI للبرمجة",
+        modes: {
+            "normal chat": {
+                apiModel: "gpt-5.3-codex",
+                temperature: 0.3,
+                maxTokens: 32768,
+            },
+            "thinking": {
+                apiModel: "gpt-5.3-codex",
+                reasoningEffort: "high",
+                temperature: 0.2,
+                maxTokens: 65536,
+            },            "deep research": {
+                apiModel: "gpt-5.3-codex",
+                reasoningEffort: "medium",
+                searchEnabled: true,
+                enabledTools: [ "Search" ],
+                temperature: 0.3,
+                maxTokens: 32768,
+            },
+            "agent": {
+                apiModel: "gpt-5.3-codex",
+                reasoningEffort: "medium",
+                agentMode: true,
+                enabledTools: [ "Research", "Search", "CodeAnalysis", "Thinking" ],
+                temperature: 0.3,
+                maxTokens: 65536,
+            },
+            "coder": {
+                apiModel: "gpt-5.3-codex",
+                temperature: 0.2,
+                maxTokens: 65536,
+                enabledTools: [ "Canvas", "CodeAnalysis" ],
+            },
+        },
+    },
+
     "gpt-5.2-codex": {
         displayName: "gpt-5.2-codex",
         provider: "openai",
@@ -1463,24 +1542,24 @@ export const MODEL_CONFIGS: Record<ModelName, ModelConfig> = {
         },
     },
 
-    "devstral-medium-latest": {
-        displayName: "devstral-medium-latest",
-        provider: "mistral",
+    "codestral-2": {
+        displayName: "codestral-2",
+        provider: "vertexMistral",
         available: true,
-        description: "Devstral - نموذج Mistral المتخصص في البرمجة",
+        description: "Codestral 2 - نموذج Mistral المتخصص في البرمجة عبر Vertex AI",
         modes: {
             "normal chat": {
-                apiModel: "devstral-medium-latest",
+                apiModel: "codestral-2",
                 temperature: 0.3,
                 maxTokens: 32768,
             },
             "thinking": {
-                apiModel: "devstral-medium-latest",
+                apiModel: "codestral-2",
                 reasoningEffort: "high",
                 temperature: 0.2,
                 maxTokens: 65536,
             },            "deep research": {
-                apiModel: "devstral-medium-latest",
+                apiModel: "codestral-2",
                 reasoningEffort: "medium",
                 searchEnabled: true,
                 enabledTools: [ "Search" ],
@@ -1488,7 +1567,7 @@ export const MODEL_CONFIGS: Record<ModelName, ModelConfig> = {
                 maxTokens: 32768,
             },
             "agent": {
-                apiModel: "devstral-medium-latest",
+                apiModel: "codestral-2",
                 reasoningEffort: "medium",
                 agentMode: true,
                 enabledTools: [ "Research", "Search", "CodeAnalysis", "Thinking" ],
@@ -1496,7 +1575,7 @@ export const MODEL_CONFIGS: Record<ModelName, ModelConfig> = {
                 maxTokens: 65536,
             },
             "coder": {
-                apiModel: "devstral-medium-latest",
+                apiModel: "codestral-2",
                 temperature: 0.2,
                 maxTokens: 65536,
                 enabledTools: [ "Canvas", "CodeAnalysis" ],
@@ -1757,7 +1836,7 @@ export const MODEL_CONFIGS: Record<ModelName, ModelConfig> = {
 
     "gemini-3-coder": {
         displayName: "gemini-3-coder",
-        provider: "google",
+        provider: "vertexGoogle",
         available: true,
         description: "Gemini 3 Coder - متخصص في البرمجة",
         modes: {
@@ -1798,22 +1877,22 @@ export const MODEL_CONFIGS: Record<ModelName, ModelConfig> = {
 
     "mistral-ocr-latest": {
         displayName: "mistral-ocr-latest",
-        provider: "mistral",
+        provider: "vertexMistral",
         available: true,
-        description: "Mistral OCR - استخراج النصوص من المستندات والصور",
+        description: "Mistral OCR 25.05 - استخراج النصوص من المستندات والصور عبر Vertex AI",
         modes: {
             "normal chat": {
-                apiModel: "pixtral-12b-2409",
+                apiModel: "mistral-ocr-2505",
                 temperature: 0.1,
                 maxTokens: 32768,
             },
             "thinking": {
-                apiModel: "pixtral-12b-2409",
+                apiModel: "mistral-ocr-2505",
                 reasoningEffort: "high",
                 temperature: 0.1,
                 maxTokens: 65536,
             },            "deep research": {
-                apiModel: "pixtral-12b-2409",
+                apiModel: "mistral-ocr-2505",
                 reasoningEffort: "medium",
                 searchEnabled: true,
                 enabledTools: [ "Search" ],
@@ -1821,7 +1900,7 @@ export const MODEL_CONFIGS: Record<ModelName, ModelConfig> = {
                 maxTokens: 32768,
             },
             "agent": {
-                apiModel: "pixtral-12b-2409",
+                apiModel: "mistral-ocr-2505",
                 reasoningEffort: "medium",
                 agentMode: true,
                 enabledTools: [ "Research", "Search", "OCR" ],
@@ -1829,7 +1908,7 @@ export const MODEL_CONFIGS: Record<ModelName, ModelConfig> = {
                 maxTokens: 65536,
             },
             "coder": {
-                apiModel: "pixtral-12b-2409",
+                apiModel: "mistral-ocr-2505",
                 temperature: 0.1,
                 maxTokens: 65536,
                 enabledTools: [ "Canvas", "OCR" ],
