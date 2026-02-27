@@ -85,6 +85,76 @@ def get_line_value(slope: float, intercept: float, x: int) -> float:
     return slope * x + intercept
 
 
+def calculate_r2(points: List[Tuple[int, float]], slope: float, intercept: float) -> float:
+    """Calculate R² (coefficient of determination) for trendline fit"""
+    if len(points) < 2:
+        return 0
+    
+    y_actual = np.array([p[1] for p in points])
+    y_predicted = np.array([slope * p[0] + intercept for p in points])
+    
+    ss_res = np.sum((y_actual - y_predicted) ** 2)
+    ss_tot = np.sum((y_actual - np.mean(y_actual)) ** 2)
+    
+    return 1 - (ss_res / ss_tot) if ss_tot > 0 else 0
+
+
+@dataclass
+class ZigzagPivot:
+    """Zigzag pivot point"""
+    index: int
+    price: float
+    direction: int  # 1 for up, -1 for down
+
+
+def calculate_zigzag(df: pd.DataFrame, length: int = 5) -> List[ZigzagPivot]:
+    """
+    Calculate zigzag pivots based on Pine Script logic
+    # Pine Script ref: zg.Zigzag.new and calculate methods
+    """
+    pivots = []
+    if len(df) < length * 2:
+        return pivots
+    
+    last_dir = 0
+    last_pivot_idx = -1
+    last_pivot_price = 0
+    
+    for i in range(length, len(df) - length):
+        # Check for pivot high
+        is_high = True
+        for j in range(1, length + 1):
+            if df['high'].iloc[i] <= df['high'].iloc[i - j] or df['high'].iloc[i] <= df['high'].iloc[i + j]:
+                is_high = False
+                break
+        
+        # Check for pivot low
+        is_low = True
+        for j in range(1, length + 1):
+            if df['low'].iloc[i] >= df['low'].iloc[i - j] or df['low'].iloc[i] >= df['low'].iloc[i + j]:
+                is_low = False
+                break
+        
+        if is_high and last_dir != 1:
+            if last_pivot_idx != -1:
+                pivots.append(ZigzagPivot(last_pivot_idx, last_pivot_price, last_dir))
+            last_dir = 1
+            last_pivot_idx = i
+            last_pivot_price = df['high'].iloc[i]
+        elif is_low and last_dir != -1:
+            if last_pivot_idx != -1:
+                pivots.append(ZigzagPivot(last_pivot_idx, last_pivot_price, last_dir))
+            last_dir = -1
+            last_pivot_idx = i
+            last_pivot_price = df['low'].iloc[i]
+    
+    # Add last pivot
+    if last_pivot_idx != -1:
+        pivots.append(ZigzagPivot(last_pivot_idx, last_pivot_price, last_dir))
+    
+    return pivots
+
+
 def is_converging(
     slope1: float,
     slope2: float,
@@ -280,51 +350,102 @@ def detect_bull_pennant(
     lookback: int = 50
 ) -> List[PatternResult]:
     """
-    Detect Bull Pennant pattern
-    - Strong upward move (pole)
-    - Converging triangle formation (pennant)
+    Detect Bull Pennant pattern based on Pine Script logic
+    - Strong upward move (pole) using zigzag pivots
+    - Converging triangle formation (pennant) with angle and width validation
+    # Pine Script ref: lines 45-120 (zigzag), 200-300 (pattern detection)
     """
     patterns = []
     data = df.tail(lookback)
     
-    # Similar to bull flag but with converging lines
-    for i in range(pennant_length + 10, len(data)):
-        pole_start = i - pennant_length - 10
-        pole_end = i - pennant_length
+    # Calculate zigzag pivots - # Pine Script ref: zg.Zigzag.new and calculate
+    zigzags = calculate_zigzag(data, 5)  # Use length 5 like Pine Script default
+    if len(zigzags) < 5:
+        return patterns  # Need at least 5 pivots for pattern
+    
+    # Find pole: strong upward move followed by convergence
+    # # Pine Script ref: findPatternPlain logic
+    for i in range(len(zigzags) - 4):
+        pivot1 = zigzags[i]
+        pivot2 = zigzags[i + 1]
+        pivot3 = zigzags[i + 2]
+        pivot4 = zigzags[i + 3]
+        pivot5 = zigzags[i + 4]
         
-        pole_gain = (data['close'].iloc[pole_end] - data['close'].iloc[pole_start]) / data['close'].iloc[pole_start]
-        
-        if pole_gain >= 0.05:
-            pennant_data = data.iloc[pole_end:i]
-            swing_highs = find_swing_highs(pennant_data, order=2)
-            swing_lows = find_swing_lows(pennant_data, order=2)
+        # Check for upward pole (pivot1 low to pivot2 high)
+        if pivot1.direction == -1 and pivot2.direction == 1 and pivot2.price > pivot1.price:
+            pole_height = pivot2.price - pivot1.price
+            pole_length = pivot2.index - pivot1.index
             
-            if len(swing_highs) >= 2 and len(swing_lows) >= 2:
-                high_points = [(j, pennant_data['high'].iloc[j]) for j in swing_highs]
-                low_points = [(j, pennant_data['low'].iloc[j]) for j in swing_lows]
+            # Check if pole is strong enough - # Pine Script ref: retracement check
+            if pole_height / pivot1.price < 0.05:
+                continue  # Minimum 5% move
+            
+            # Pennant: pivots 3,4,5 should form converging triangle
+            if pivot3.direction == -1 and pivot4.direction == 1 and pivot5.direction == -1:
+                # Check convergence: lines from pivot2-pivot4 and pivot3-pivot5 should converge
+                upper_points = [pivot2, pivot4]
+                lower_points = [pivot3, pivot5]
                 
-                high_slope, _ = calculate_trendline(high_points)
-                low_slope, _ = calculate_trendline(low_points)
+                upper_slope, upper_intercept = calculate_trendline([(p.index, p.price) for p in upper_points])
+                lower_slope, lower_intercept = calculate_trendline([(p.index, p.price) for p in lower_points])
                 
-                # Pennant: converging lines (negative high slope, positive low slope)
-                if high_slope < 0 and low_slope > 0:
-                    pole_height = data['close'].iloc[pole_end] - data['close'].iloc[pole_start]
-                    target = data['close'].iloc[-1] + pole_height
-                    stop_loss = data['low'].iloc[pole_end:i].min() * 0.98
-                    
-                    patterns.append(PatternResult(
-                        name="Bull Pennant",
-                        pattern_type=PatternType.BULLISH,
-                        strength=PatternStrength.STRONG,
-                        start_index=pole_start,
-                        end_index=i - 1,
-                        points=high_points + low_points,
-                        target_price=target,
-                        stop_loss=stop_loss,
-                        probability=0.72,
-                        description="Strong upward pole followed by converging pennant - bullish continuation"
-                    ))
-                    break
+                # Check angles - # Pine Script ref: f_angle() equivalent
+                upper_angle = np.degrees(np.arctan(upper_slope))
+                lower_angle = np.degrees(np.arctan(lower_slope))
+                
+                # For pennant, upper should be descending, lower ascending (converging)
+                is_converging_angles = upper_angle < 0 and lower_angle > 0
+                if not is_converging_angles:
+                    continue
+                
+                # Check width convergence - # Pine Script ref: convergenceRatio
+                start_width = abs(get_line_value(upper_slope, upper_intercept, upper_points[0][0]) - 
+                                 get_line_value(lower_slope, lower_intercept, upper_points[0][0]))
+                end_width = abs(get_line_value(upper_slope, upper_intercept, upper_points[1][0]) - 
+                               get_line_value(lower_slope, lower_intercept, upper_points[1][0]))
+                convergence_ratio = end_width / start_width if start_width > 0 else 1
+                if convergence_ratio >= 0.5:
+                    continue  # Must converge to <50% width
+                
+                # Check retracement - # Pine Script ref: maxRetracement
+                breakout_level = pivot5.price
+                retracement = abs(breakout_level - pivot1.price) / pole_height
+                if retracement > 0.5:
+                    continue  # Max 50% retracement
+                
+                # Volume analysis - # Pine Script ref: volume decline in consolidation
+                pole_start = pivot1.index
+                pole_end = pivot2.index
+                pennant_end = pivot5.index
+                pole_volume = data['volume'].iloc[pole_start:pole_end].mean()
+                pennant_volume = data['volume'].iloc[pole_end:pennant_end].mean()
+                volume_decline = pennant_volume < pole_volume * 0.95  # 5% decline like Pine Script
+                
+                # R² validation - # Pine Script ref: errorRatio (approximated)
+                # Calculate R² for trendlines
+                upper_r2 = calculate_r2(upper_points, upper_slope, upper_intercept)
+                lower_r2 = calculate_r2(lower_points, lower_slope, lower_intercept)
+                high_precision_fit = upper_r2 >= 0.8 and lower_r2 >= 0.8
+                if not high_precision_fit:
+                    continue
+                
+                combined_r2 = (upper_r2 + lower_r2) / 2
+                confidence = combined_r2 * 100 * (1.05 if volume_decline else 0.95)
+                
+                patterns.append(PatternResult(
+                    name="Bull Pennant",
+                    pattern_type=PatternType.BULLISH,
+                    strength=PatternStrength.STRONG,
+                    start_index=pole_start,
+                    end_index=pennant_end,
+                    points=[{"index": p.index, "price": p.price, "type": "high" if p.direction == 1 else "low"} for p in [pivot1, pivot2, pivot3, pivot4, pivot5]],
+                    target_price=breakout_level + pole_height,
+                    stop_loss=pivot1.price * 0.98,
+                    probability=min(0.95, confidence / 100),
+                    description=f"Bull Pennant - R² = {combined_r2:.4f} | Volume: {'✓' if volume_decline else '✗'} | Convergence: {convergence_ratio:.1%}"
+                ))
+                break  # Only find one pattern
     
     return patterns
 
@@ -594,49 +715,101 @@ def detect_bear_pennant(
     lookback: int = 50
 ) -> List[PatternResult]:
     """
-    Detect Bear Pennant pattern
-    - Strong downward move (pole)
-    - Converging triangle formation (pennant)
+    Detect Bear Pennant pattern based on Pine Script logic
+    - Strong downward move (pole) using zigzag pivots
+    - Converging triangle formation (pennant) with angle and width validation
+    # Pine Script ref: lines 45-120 (zigzag), 200-300 (pattern detection)
     """
     patterns = []
     data = df.tail(lookback)
     
-    for i in range(pennant_length + 10, len(data)):
-        pole_start = i - pennant_length - 10
-        pole_end = i - pennant_length
+    # Calculate zigzag pivots - # Pine Script ref: zg.Zigzag.new and calculate
+    zigzags = calculate_zigzag(data, 5)  # Use length 5 like Pine Script default
+    if len(zigzags) < 5:
+        return patterns  # Need at least 5 pivots for pattern
+    
+    # Find pole: strong downward move followed by convergence
+    # # Pine Script ref: findPatternPlain logic
+    for i in range(len(zigzags) - 4):
+        pivot1 = zigzags[i]
+        pivot2 = zigzags[i + 1]
+        pivot3 = zigzags[i + 2]
+        pivot4 = zigzags[i + 3]
+        pivot5 = zigzags[i + 4]
         
-        pole_loss = (data['close'].iloc[pole_start] - data['close'].iloc[pole_end]) / data['close'].iloc[pole_start]
-        
-        if pole_loss >= 0.05:
-            pennant_data = data.iloc[pole_end:i]
-            swing_highs = find_swing_highs(pennant_data, order=2)
-            swing_lows = find_swing_lows(pennant_data, order=2)
+        # Check for downward pole (pivot1 high to pivot2 low)
+        if pivot1.direction == 1 and pivot2.direction == -1 and pivot2.price < pivot1.price:
+            pole_height = pivot1.price - pivot2.price
+            pole_length = pivot2.index - pivot1.index
             
-            if len(swing_highs) >= 2 and len(swing_lows) >= 2:
-                high_points = [(j, pennant_data['high'].iloc[j]) for j in swing_highs]
-                low_points = [(j, pennant_data['low'].iloc[j]) for j in swing_lows]
+            # Check if pole is strong enough - # Pine Script ref: retracement check
+            if pole_height / pivot1.price < 0.05:
+                continue  # Minimum 5% move
+            
+            # Pennant: pivots 3,4,5 should form converging triangle
+            if pivot3.direction == 1 and pivot4.direction == -1 and pivot5.direction == 1:
+                # Check convergence: lines from pivot3-pivot5 (upper) and pivot2-pivot4 (lower)
+                upper_points = [pivot3, pivot5]  # Upper trendline from highs
+                lower_points = [pivot2, pivot4]  # Lower trendline from lows
                 
-                high_slope, _ = calculate_trendline(high_points)
-                low_slope, _ = calculate_trendline(low_points)
+                upper_slope, upper_intercept = calculate_trendline([(p.index, p.price) for p in upper_points])
+                lower_slope, lower_intercept = calculate_trendline([(p.index, p.price) for p in lower_points])
                 
-                if high_slope < 0 and low_slope > 0:
-                    pole_height = data['close'].iloc[pole_start] - data['close'].iloc[pole_end]
-                    target = data['close'].iloc[-1] - pole_height
-                    stop_loss = data['high'].iloc[pole_end:i].max() * 1.02
-                    
-                    patterns.append(PatternResult(
-                        name="Bear Pennant",
-                        pattern_type=PatternType.BEARISH,
-                        strength=PatternStrength.STRONG,
-                        start_index=pole_start,
-                        end_index=i - 1,
-                        points=high_points + low_points,
-                        target_price=target,
-                        stop_loss=stop_loss,
-                        probability=0.72,
-                        description="Strong downward pole followed by converging pennant - bearish continuation"
-                    ))
-                    break
+                # Check angles - # Pine Script ref: f_angle() equivalent
+                upper_angle = np.degrees(np.arctan(upper_slope))
+                lower_angle = np.degrees(np.arctan(lower_slope))
+                
+                # For bear pennant, upper should be descending, lower ascending (converging)
+                is_converging_angles = upper_angle < 0 and lower_angle > 0
+                if not is_converging_angles:
+                    continue
+                
+                # Check width convergence - # Pine Script ref: convergenceRatio
+                start_width = abs(get_line_value(upper_slope, upper_intercept, upper_points[0][0]) - 
+                                 get_line_value(lower_slope, lower_intercept, upper_points[0][0]))
+                end_width = abs(get_line_value(upper_slope, upper_intercept, upper_points[1][0]) - 
+                               get_line_value(lower_slope, lower_intercept, upper_points[1][0]))
+                convergence_ratio = end_width / start_width if start_width > 0 else 1
+                if convergence_ratio >= 0.5:
+                    continue  # Must converge to <50% width
+                
+                # Check retracement - # Pine Script ref: maxRetracement
+                breakout_level = pivot5.price
+                retracement = abs(pivot1.price - breakout_level) / pole_height
+                if retracement > 0.5:
+                    continue  # Max 50% retracement
+                
+                # Volume analysis - # Pine Script ref: volume decline in consolidation
+                pole_start = pivot1.index
+                pole_end = pivot2.index
+                pennant_end = pivot5.index
+                pole_volume = data['volume'].iloc[pole_start:pole_end].mean()
+                pennant_volume = data['volume'].iloc[pole_end:pennant_end].mean()
+                volume_decline = pennant_volume < pole_volume * 0.95  # 5% decline like Pine Script
+                
+                # R² validation - # Pine Script ref: errorRatio (approximated)
+                upper_r2 = calculate_r2(upper_points, upper_slope, upper_intercept)
+                lower_r2 = calculate_r2(lower_points, lower_slope, lower_intercept)
+                high_precision_fit = upper_r2 >= 0.8 and lower_r2 >= 0.8
+                if not high_precision_fit:
+                    continue
+                
+                combined_r2 = (upper_r2 + lower_r2) / 2
+                confidence = combined_r2 * 100 * (1.05 if volume_decline else 0.95)
+                
+                patterns.append(PatternResult(
+                    name="Bear Pennant",
+                    pattern_type=PatternType.BEARISH,
+                    strength=PatternStrength.STRONG,
+                    start_index=pole_start,
+                    end_index=pennant_end,
+                    points=[{"index": p.index, "price": p.price, "type": "high" if p.direction == 1 else "low"} for p in [pivot1, pivot2, pivot3, pivot4, pivot5]],
+                    target_price=breakout_level - pole_height,
+                    stop_loss=pivot1.price * 1.02,
+                    probability=min(0.95, confidence / 100),
+                    description=f"Bear Pennant - R² = {combined_r2:.4f} | Volume: {'✓' if volume_decline else '✗'} | Convergence: {convergence_ratio:.1%}"
+                ))
+                break  # Only find one pattern
     
     return patterns
 

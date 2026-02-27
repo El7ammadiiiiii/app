@@ -15,7 +15,7 @@
  * Touch Tolerance: 0.15% (vs traditional 0.6%)
  * 
  * @version 3.0.0 Ultra-Precision Edition
- * @author CCCWays Trading Systems - World-Class Accuracy
+ * @author CCWAYS Trading Systems - World-Class Accuracy
  */
 
 // ============================================

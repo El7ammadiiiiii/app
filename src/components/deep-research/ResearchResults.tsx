@@ -6,6 +6,7 @@
 "use client";
 
 import React, { useState } from 'react';
+import useTimeout from '@/hooks/useTimeout';
 import { motion, AnimatePresence } from 'framer-motion';
 import { 
   FileText, 
@@ -42,8 +43,8 @@ const CopyButton: React.FC<{ text: string }> = ({ text }) => {
   const handleCopy = async () => {
     await navigator.clipboard.writeText(text);
     setCopied(true);
-    setTimeout(() => setCopied(false), 2000);
   };
+  useTimeout(() => setCopied(false), copied ? 2000 : undefined, [copied]);
 
   return (
     <button

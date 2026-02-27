@@ -10,7 +10,8 @@ const API_URL = process.env.NEXT_PUBLIC_PYTHON_API_URL || 'http://localhost:8000
 // TYPES
 // ═══════════════════════════════════════════════════════════════
 
-export interface OHLCVData {
+export interface OHLCVData
+{
   timestamp: number[];
   open: number[];
   high: number[];
@@ -19,7 +20,8 @@ export interface OHLCVData {
   volume: number[];
 }
 
-export interface IndicatorConfig {
+export interface IndicatorConfig
+{
   supertrend?: boolean;
   bollinger_bands?: boolean;
   sma10?: boolean;
@@ -39,7 +41,8 @@ export interface IndicatorConfig {
   obv?: boolean;
 }
 
-export interface TrendlineConfig {
+export interface TrendlineConfig
+{
   trendlines?: boolean;
   horizontal_levels?: boolean;
   fibonacci_retracements?: boolean;
@@ -47,7 +50,8 @@ export interface TrendlineConfig {
   vertical_support?: boolean;
 }
 
-export interface PatternConfig {
+export interface PatternConfig
+{
   // Bullish
   ascending_channel?: boolean;
   ascending_triangle?: boolean;
@@ -68,14 +72,16 @@ export interface PatternConfig {
   symmetrical_triangle?: boolean;
 }
 
-export interface AnalysisRequest {
+export interface AnalysisRequest
+{
   ohlcv: OHLCVData;
   indicators?: IndicatorConfig;
   trendlines?: TrendlineConfig;
   patterns?: PatternConfig;
 }
 
-export interface Signal {
+export interface Signal
+{
   source: string;
   type: string;
   name?: string;
@@ -87,14 +93,16 @@ export interface Signal {
   probability?: number;
 }
 
-export interface IndicatorResult {
+export interface IndicatorResult
+{
   name: string;
   values: Record<string, number[]>;
   signals: Signal[];
   metadata: Record<string, unknown>;
 }
 
-export interface PatternResult {
+export interface PatternResult
+{
   name: string;
   type: string;
   strength: string;
@@ -107,9 +115,10 @@ export interface PatternResult {
   description: string;
 }
 
-export interface TrendlineResult {
-  start: [number, number];
-  end: [number, number];
+export interface TrendlineResult
+{
+  start: [ number, number ];
+  end: [ number, number ];
   slope: number;
   intercept: number;
   touches: number;
@@ -117,18 +126,30 @@ export interface TrendlineResult {
   type: string;
 }
 
-export interface FibonacciResult {
+export interface FibonacciResult
+{
   swing_high: number;
   swing_low: number;
   direction: string;
   levels: Record<number, number>;
 }
 
-export interface AnalysisResponse {
+export interface AnalysisResponse
+{
   success: boolean;
   timestamp: string;
   symbol?: string;
   timeframe?: string;
+  trend_strength?: {
+    trend: 'bullish' | 'bearish' | 'neutral';
+    bullish_score: number;
+    bearish_score: number;
+    score?: number;
+    regime?: string;
+    positives?: string[];
+    negatives?: string[];
+    notes?: string[];
+  };
   indicators?: Record<string, IndicatorResult>;
   trendlines?: {
     trendlines?: TrendlineResult[];
@@ -173,22 +194,27 @@ export interface AnalysisResponse {
 // API CLIENT CLASS
 // ═══════════════════════════════════════════════════════════════
 
-export class AnalysisAPI {
+export class AnalysisAPI
+{
   private baseUrl: string;
 
-  constructor(baseUrl: string = API_URL) {
+  constructor ( baseUrl: string = API_URL )
+  {
     this.baseUrl = baseUrl;
   }
 
   /**
    * Check if the API is available
    */
-  async healthCheck(): Promise<boolean> {
-    try {
-      const response = await fetch(`${this.baseUrl}/`);
+  async healthCheck (): Promise<boolean>
+  {
+    try
+    {
+      const response = await fetch( `${ this.baseUrl }/` );
       const data = await response.json();
       return data.status === 'online';
-    } catch {
+    } catch
+    {
       return false;
     }
   }
@@ -196,15 +222,17 @@ export class AnalysisAPI {
   /**
    * Perform full technical analysis
    */
-  async analyze(request: AnalysisRequest): Promise<AnalysisResponse> {
-    const response = await fetch(`${this.baseUrl}/analyze`, {
+  async analyze ( request: AnalysisRequest ): Promise<AnalysisResponse>
+  {
+    const response = await fetch( `${ this.baseUrl }/analyze`, {
       method: 'POST',
       headers: { 'Content-Type': 'application/json' },
-      body: JSON.stringify(request)
-    });
+      body: JSON.stringify( request )
+    } );
 
-    if (!response.ok) {
-      throw new Error(`API Error: ${response.status}`);
+    if ( !response.ok )
+    {
+      throw new Error( `API Error: ${ response.status }` );
     }
 
     return response.json();
@@ -213,15 +241,16 @@ export class AnalysisAPI {
   /**
    * Calculate specific indicators
    */
-  async calculateIndicators(
+  async calculateIndicators (
     ohlcv: OHLCVData,
     config: IndicatorConfig
-  ): Promise<Record<string, IndicatorResult>> {
-    const response = await fetch(`${this.baseUrl}/indicators`, {
+  ): Promise<Record<string, IndicatorResult>>
+  {
+    const response = await fetch( `${ this.baseUrl }/indicators`, {
       method: 'POST',
       headers: { 'Content-Type': 'application/json' },
-      body: JSON.stringify({ ohlcv, config })
-    });
+      body: JSON.stringify( { ohlcv, config } )
+    } );
 
     const data = await response.json();
     return data.indicators;
@@ -230,19 +259,20 @@ export class AnalysisAPI {
   /**
    * Detect chart patterns
    */
-  async detectPatterns(
+  async detectPatterns (
     ohlcv: OHLCVData,
     config: PatternConfig
   ): Promise<{
     bullish: PatternResult[];
     bearish: PatternResult[];
     neutral: PatternResult[];
-  }> {
-    const response = await fetch(`${this.baseUrl}/patterns`, {
+  }>
+  {
+    const response = await fetch( `${ this.baseUrl }/patterns`, {
       method: 'POST',
       headers: { 'Content-Type': 'application/json' },
-      body: JSON.stringify({ ohlcv, config })
-    });
+      body: JSON.stringify( { ohlcv, config } )
+    } );
 
     const data = await response.json();
     return data.patterns;
@@ -251,15 +281,16 @@ export class AnalysisAPI {
   /**
    * Analyze trendlines and levels
    */
-  async analyzeTrendlines(
+  async analyzeTrendlines (
     ohlcv: OHLCVData,
     config: TrendlineConfig
-  ): Promise<AnalysisResponse['trendlines']> {
-    const response = await fetch(`${this.baseUrl}/trendlines`, {
+  ): Promise<AnalysisResponse[ 'trendlines' ]>
+  {
+    const response = await fetch( `${ this.baseUrl }/trendlines`, {
       method: 'POST',
       headers: { 'Content-Type': 'application/json' },
-      body: JSON.stringify({ ohlcv, config })
-    });
+      body: JSON.stringify( { ohlcv, config } )
+    } );
 
     const data = await response.json();
     return data.trendlines;
@@ -268,18 +299,20 @@ export class AnalysisAPI {
   /**
    * Get live analysis from exchange
    */
-  async getLiveAnalysis(
+  async getLiveAnalysis (
     exchange: string,
     symbol: string,
     timeframe: string,
     limit: number = 200
-  ): Promise<AnalysisResponse & { current_price: number }> {
+  ): Promise<AnalysisResponse & { current_price: number }>
+  {
     const response = await fetch(
-      `${this.baseUrl}/live/${exchange}/${symbol}/${timeframe}?limit=${limit}`
+      `${ this.baseUrl }/live/${ exchange }/${ symbol }/${ timeframe }?limit=${ limit }`
     );
 
-    if (!response.ok) {
-      throw new Error(`API Error: ${response.status}`);
+    if ( !response.ok )
+    {
+      throw new Error( `API Error: ${ response.status }` );
     }
 
     return response.json();
@@ -288,23 +321,25 @@ export class AnalysisAPI {
   /**
    * Get available indicators info
    */
-  async getAvailableIndicators(): Promise<{
+  async getAvailableIndicators (): Promise<{
     overlay_indicators: Array<{ id: string; name: string; category: string }>;
     panel_indicators: Array<{ id: string; name: string; category: string }>;
-  }> {
-    const response = await fetch(`${this.baseUrl}/info/indicators`);
+  }>
+  {
+    const response = await fetch( `${ this.baseUrl }/info/indicators` );
     return response.json();
   }
 
   /**
    * Get available patterns info
    */
-  async getAvailablePatterns(): Promise<{
+  async getAvailablePatterns (): Promise<{
     bullish: Array<{ id: string; name: string }>;
     bearish: Array<{ id: string; name: string }>;
     neutral: Array<{ id: string; name: string }>;
-  }> {
-    const response = await fetch(`${this.baseUrl}/info/patterns`);
+  }>
+  {
+    const response = await fetch( `${ this.baseUrl }/info/patterns` );
     return response.json();
   }
 }
@@ -317,7 +352,7 @@ export class AnalysisAPI {
 /**
  * Convert candlestick array to OHLCV format
  */
-export function candlesToOHLCV(
+export function candlesToOHLCV (
   candles: Array<{
     time: number;
     open: number;
@@ -326,37 +361,40 @@ export function candlesToOHLCV(
     close: number;
     volume?: number;
   }>
-): OHLCVData {
+): OHLCVData
+{
   return {
-    timestamp: candles.map(c => c.time),
-    open: candles.map(c => c.open),
-    high: candles.map(c => c.high),
-    low: candles.map(c => c.low),
-    close: candles.map(c => c.close),
-    volume: candles.map(c => c.volume || 0)
+    timestamp: candles.map( c => c.time ),
+    open: candles.map( c => c.open ),
+    high: candles.map( c => c.high ),
+    low: candles.map( c => c.low ),
+    close: candles.map( c => c.close ),
+    volume: candles.map( c => c.volume || 0 )
   };
 }
 
 /**
- * Convert Binance klines to OHLCV format
+ * Convert standard klines to OHLCV format
  */
-export function binanceKlinesToOHLCV(
-  klines: Array<[number, string, string, string, string, string, ...unknown[]]>
-): OHLCVData {
+export function klinesToOHLCV (
+  klines: Array<[ number | string, string, string, string, string, string, ...unknown[] ]>
+): OHLCVData
+{
   return {
-    timestamp: klines.map(k => k[0]),
-    open: klines.map(k => parseFloat(k[1])),
-    high: klines.map(k => parseFloat(k[2])),
-    low: klines.map(k => parseFloat(k[3])),
-    close: klines.map(k => parseFloat(k[4])),
-    volume: klines.map(k => parseFloat(k[5]))
+    timestamp: klines.map( k => typeof k[ 0 ] === 'string' ? parseInt( k[ 0 ] ) : k[ 0 ] ),
+    open: klines.map( k => parseFloat( k[ 1 ] ) ),
+    high: klines.map( k => parseFloat( k[ 2 ] ) ),
+    low: klines.map( k => parseFloat( k[ 3 ] ) ),
+    close: klines.map( k => parseFloat( k[ 4 ] ) ),
+    volume: klines.map( k => parseFloat( k[ 5 ] ) )
   };
 }
 
 /**
  * Create default indicator config
  */
-export function createDefaultIndicatorConfig(): IndicatorConfig {
+export function createDefaultIndicatorConfig (): IndicatorConfig
+{
   return {
     supertrend: false,
     bollinger_bands: false,
@@ -381,7 +419,8 @@ export function createDefaultIndicatorConfig(): IndicatorConfig {
 /**
  * Create default pattern config
  */
-export function createDefaultPatternConfig(): PatternConfig {
+export function createDefaultPatternConfig (): PatternConfig
+{
   return {
     ascending_channel: true,
     ascending_triangle: true,
@@ -404,7 +443,8 @@ export function createDefaultPatternConfig(): PatternConfig {
 /**
  * Create default trendline config
  */
-export function createDefaultTrendlineConfig(): TrendlineConfig {
+export function createDefaultTrendlineConfig (): TrendlineConfig
+{
   return {
     trendlines: true,
     horizontal_levels: true,

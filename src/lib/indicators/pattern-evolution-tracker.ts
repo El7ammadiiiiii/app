@@ -8,7 +8,7 @@
  * - Pattern maturity assessment
  * - Breakout timing prediction
  * 
- * @author CCCWAYS Elite Trading System
+ * @author CCWAYS Elite Trading System
  * @version 2.0.0
  */
 

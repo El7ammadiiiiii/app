@@ -31,6 +31,7 @@ export interface IntegrationCategory {
 interface IntegrationState {
   integrations: Record<ProviderType, Integration>;
   categories: IntegrationCategory[];
+  selectedExchanges: ProviderType[]; // الـ 12 منصة المختارة
   isLoading: boolean;
   error?: string;
   lastFetched?: number;
@@ -38,6 +39,8 @@ interface IntegrationState {
   connectIntegration: (provider: ProviderType) => void;
   disconnectIntegration: (provider: ProviderType) => Promise<void>;
   setIntegrationLoading: (provider: ProviderType, isLoading: boolean) => void;
+  toggleExchangeSelection: (provider: ProviderType) => void;
+  reorderExchanges: (newOrder: ProviderType[]) => void;
 }
 
 // Define categories
@@ -47,7 +50,7 @@ const INTEGRATION_CATEGORIES: IntegrationCategory[] = [
     name: "Trading & Exchanges",
     nameAr: "التداول والمنصات",
     icon: "📈",
-    integrations: ["alpaca", "binance", "bybit", "mexc", "coinbase", "kucoin", "okx"],
+    integrations: ["alpaca", "bybit", "mexc", "coinbase", "kucoin", "okx"],
   },
   {
     id: "social",
@@ -143,13 +146,6 @@ const DEFAULT_INTEGRATIONS: Record<ProviderType, Omit<Integration, "isConnected"
     nameAr: "فيرسيل",
     icon: "▲",
     color: "bg-black",
-  },
-  binance: {
-    provider: "binance",
-    name: "Binance",
-    nameAr: "بينانس",
-    icon: "🟡",
-    color: "bg-yellow-400",
   },
   bybit: {
     provider: "bybit",
@@ -261,9 +257,34 @@ export const useIntegrationStore = create<IntegrationState>()(
         ])
       ) as Record<ProviderType, Integration>,
       categories: INTEGRATION_CATEGORIES,
+      selectedExchanges: ['bybit'], // Bybit افتراضية دائماً
       isLoading: false,
       error: undefined,
       lastFetched: undefined,
+
+      toggleExchangeSelection: (provider) => {
+        const current = get().selectedExchanges;
+        if (current.includes(provider)) {
+          if (provider === 'bybit') return; // لا يمكن إلغاء Bybit
+          set({ selectedExchanges: current.filter(p => p !== provider) });
+        } else {
+          if (current.length < 12) {
+            set({ selectedExchanges: [...current, provider] });
+          }
+        }
+        
+        // تحديث المحرك المركزي فوراً
+        import('@/lib/services/ExchangeOrchestrator').then(m => {
+          m.exchangeOrchestrator.updatePriorityList(get().selectedExchanges as any);
+        });
+      },
+
+      reorderExchanges: (newOrder) => {
+        set({ selectedExchanges: newOrder });
+        import('@/lib/services/ExchangeOrchestrator').then(m => {
+          m.exchangeOrchestrator.updatePriorityList(newOrder as any);
+        });
+      },
 
       setIntegrationLoading: (provider, isLoading) => {
         set((state) => ({

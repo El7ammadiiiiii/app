@@ -9,7 +9,7 @@
  * © whentotrade / Lars von Thienen
  */
 
-import { CandleData } from "@/components/charts/TradingChart";
+import type { CandleData } from "@/components/charts/types";
 
 export interface CyclicRSIConfig {
   dominantCycle: number;      // Length of dominant cycle

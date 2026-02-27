@@ -1,20 +1,23 @@
 "use client";
 
 import { motion } from "framer-motion";
-import { Search, Filter, ArrowUpRight, ArrowDownRight, Star, MoreHorizontal } from "lucide-react";
+import { Search, Filter, ArrowUpRight, ArrowDownRight, Star, MoreHorizontal, Loader2 } from "lucide-react";
 import { cn } from "@/lib/utils";
 import { SmartValue } from "@/components/ui/smart-colors";
+import { useState, useEffect } from "react";
+import { useExchangeStore } from "@/stores/exchangeStore";
+import { EXCHANGE_CONFIGS } from "@/constants/exchanges";
 
-const assets = [
-  { id: 1, name: "Bitcoin", symbol: "BTC", price: "$97,540.20", change: "+2.4%", volume: "$45B", cap: "$1.9T", isUp: true },
-  { id: 2, name: "Ethereum", symbol: "ETH", price: "$3,840.50", change: "-0.8%", volume: "$18B", cap: "$450B", isUp: false },
-  { id: 3, name: "Solana", symbol: "SOL", price: "$145.20", change: "+5.6%", volume: "$4.2B", cap: "$65B", isUp: true },
-  { id: 4, name: "Binance Coin", symbol: "BNB", price: "$605.10", change: "+0.5%", volume: "$1.1B", cap: "$92B", isUp: true },
-  { id: 5, name: "Cardano", symbol: "ADA", price: "$0.55", change: "-1.2%", volume: "$450M", cap: "$19B", isUp: false },
-  { id: 6, name: "Ripple", symbol: "XRP", price: "$0.62", change: "+1.1%", volume: "$1.2B", cap: "$34B", isUp: true },
-  { id: 7, name: "Polkadot", symbol: "DOT", price: "$7.80", change: "-2.5%", volume: "$250M", cap: "$11B", isUp: false },
-  { id: 8, name: "Dogecoin", symbol: "DOGE", price: "$0.12", change: "+8.4%", volume: "$2.1B", cap: "$17B", isUp: true },
-];
+interface Asset {
+  id: string | number;
+  name: string;
+  symbol: string;
+  price: string;
+  change: string;
+  volume: string;
+  cap: string;
+  isUp: boolean;
+}
 
 // Mock trend data (simple SVG path) - Green for up, Red for down
 const TrendLine = ({ isUp }: { isUp: boolean }) => (
@@ -32,12 +35,76 @@ const TrendLine = ({ isUp }: { isUp: boolean }) => (
 );
 
 export function MarketsView() {
+  const { activeExchange } = useExchangeStore();
+  const [assets, setAssets] = useState<Asset[]>([]);
+  const [loading, setLoading] = useState(true);
+  const [searchQuery, setSearchQuery] = useState("");
+
+  useEffect(() => {
+    const fetchMarketData = async () => {
+      setLoading(true);
+      try {
+        // 1. Get available symbols for the exchange
+        const marketsRes = await fetch(`/api/exchanges/markets?exchange=${activeExchange}`);
+        const marketsData = await marketsRes.json();
+        
+        if (!marketsData.success || !Array.isArray(marketsData.data)) return;
+
+        // 2. Fetch tickers for top symbols (limiting to 15 for performance)
+        const topSymbols = marketsData.data
+          .filter((s: string) => s.endsWith('/USDT'))
+          .slice(0, 15);
+
+        const tickerPromises = topSymbols.map(async (symbol: string) => {
+          try {
+            const res = await fetch(`/api/exchanges/ticker?exchange=${activeExchange}&symbol=${encodeURIComponent(symbol)}`);
+            const json = await res.json();
+            return json.success ? json.data : null;
+          } catch { return null; }
+        });
+
+        const tickers = (await Promise.all(tickerPromises)).filter(Boolean);
+
+        const formattedAssets: Asset[] = tickers.map((ticker: any) => ({
+          id: ticker.symbol,
+          name: ticker.symbol.split('/')[0],
+          symbol: ticker.symbol,
+          price: ticker.last ? `$${ticker.last.toLocaleString()}` : '$0.00',
+          change: ticker.percentage ? `${ticker.percentage > 0 ? '+' : ''}${ticker.percentage.toFixed(2)}%` : '0.00%',
+          volume: ticker.quoteVolume ? `$${(ticker.quoteVolume / 1e6).toFixed(1)}M` : '0.0M',
+          cap: 'N/A',
+          isUp: (ticker.percentage || 0) >= 0
+        }));
+        
+        setAssets(formattedAssets);
+      } catch (error) {
+        console.error("Failed to fetch market data:", error);
+      } finally {
+        setLoading(false);
+      }
+    };
+
+    fetchMarketData();
+    const interval = setInterval(fetchMarketData, 10000); // Refresh every 10s
+    return () => clearInterval(interval);
+  }, [activeExchange]);
+
+  const filteredAssets = assets.filter(a => 
+    a.symbol.toLowerCase().includes(searchQuery.toLowerCase()) ||
+    a.name.toLowerCase().includes(searchQuery.toLowerCase())
+  );
+
   return (
     <div className="h-full overflow-y-auto p-4 md:p-6 space-y-6 bg-gradient-to-b from-background to-background/50">
       {/* Header */}
       <div className="flex flex-col md:flex-row md:items-center justify-between gap-4">
         <div>
-          <h1 className="text-3xl font-bold text-foreground tracking-tight">الأسواق المباشرة</h1>
+          <div className="flex items-center gap-3">
+            <h1 className="text-3xl font-bold text-foreground tracking-tight">الأسواق المباشرة</h1>
+            <div className="px-2 py-1 rounded-lg bg-primary/10 border border-primary/20 text-primary text-[10px] font-bold uppercase">
+              {EXCHANGE_CONFIGS[activeExchange]?.name || activeExchange}
+            </div>
+          </div>
           <p className="text-muted-foreground text-sm mt-2 font-medium">تتبع أسعار العملات الرقمية والتحليلات الفورية بدقة عالية</p>
         </div>
         
@@ -47,6 +114,9 @@ export function MarketsView() {
             <input 
               type="text" 
               placeholder="بحث عن عملة..." 
+              aria-label="بحث عن عملة رقمية"
+              value={searchQuery}
+              onChange={(e) => setSearchQuery(e.target.value)}
               className="pl-4 pr-10 py-2.5 rounded-xl theme-card/50 border border-border text-sm text-foreground focus:outline-none focus:border-primary/50 focus:theme-card w-64 transition-all shadow-sm"
             />
           </div>
@@ -72,9 +142,25 @@ export function MarketsView() {
               </tr>
             </thead>
             <tbody className="divide-y divide-white/5">
-              {assets.map((asset, i) => (
-                <motion.tr 
-                  key={asset.id}
+              {loading && assets.length === 0 ? (
+                <tr>
+                  <td colSpan={7} className="px-6 py-20 text-center">
+                    <div className="flex flex-col items-center gap-3">
+                      <Loader2 className="w-8 h-8 text-primary animate-spin" />
+                      <p className="text-muted-foreground text-sm">جاري جلب بيانات السوق من {EXCHANGE_CONFIGS[activeExchange]?.name}...</p>
+                    </div>
+                  </td>
+                </tr>
+              ) : filteredAssets.length === 0 ? (
+                <tr>
+                  <td colSpan={7} className="px-6 py-20 text-center text-muted-foreground">
+                    لا توجد نتائج تطابق بحثك
+                  </td>
+                </tr>
+              ) : (
+                filteredAssets.map((asset, i) => (
+                  <motion.tr 
+                    key={asset.id}
                   initial={{ opacity: 0, y: 10 }}
                   animate={{ opacity: 1, y: 0 }}
                   transition={{ delay: i * 0.05 }}
@@ -115,13 +201,14 @@ export function MarketsView() {
                   <td className="px-6 py-4 whitespace-nowrap hidden xl:table-cell">
                     <TrendLine isUp={asset.isUp} />
                   </td>
-                  <td className="px-6 py-4 whitespace-nowrap text-left">
-                    <button className="p-2 rounded-lg hover:bg-white/10 text-muted-foreground hover:text-foreground transition-colors opacity-0 group-hover:opacity-100">
-                      <MoreHorizontal className="w-4 h-4" />
-                    </button>
-                  </td>
-                </motion.tr>
-              ))}
+                    <td className="px-6 py-4 whitespace-nowrap text-left">
+                      <button className="p-2 rounded-lg hover:bg-white/10 text-muted-foreground hover:text-foreground transition-all opacity-0 group-hover:opacity-100">
+                        <MoreHorizontal className="w-4 h-4" />
+                      </button>
+                    </td>
+                  </motion.tr>
+                ))
+              )}
             </tbody>
           </table>
         </div>

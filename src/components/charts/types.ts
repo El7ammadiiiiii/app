@@ -8,7 +8,7 @@ export interface CandleData {
   high: number;
   low: number;
   close: number;
-  volume: number;
+  volume?: number;
 }
 
 export type ChartTheme = 'light' | 'dark';

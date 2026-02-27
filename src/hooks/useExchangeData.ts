@@ -6,7 +6,7 @@
 'use client';
 
 import { useState, useEffect, useCallback, useRef } from 'react';
-import type { ExchangeId, Ticker, OrderBook, OHLCV, Trade, ApiResponse } from '@/lib/exchanges/types';
+import type { ExchangeId, Ticker, OrderBook, OHLCV, Trade, ApiResponse } from '@/types/exchanges';
 
 // ═══════════════════════════════════════════════════════════════════════════
 // 🎯 Hook Options

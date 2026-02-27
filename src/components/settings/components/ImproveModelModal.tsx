@@ -31,7 +31,7 @@ export function ImproveModelModal({ isOpen, onClose }: ImproveModelModalProps) {
           initial={{ opacity: 0 }}
           animate={{ opacity: 1 }}
           exit={{ opacity: 0 }}
-          className="fixed inset-0 z-50 flex items-center justify-center theme-bg p-4"
+          className="fixed inset-0 z-50 flex items-center justify-center bg-black/60 p-4"
           onClick={onClose}
         >
           <motion.div
@@ -39,7 +39,7 @@ export function ImproveModelModal({ isOpen, onClose }: ImproveModelModalProps) {
             animate={{ scale: 1, opacity: 1 }}
             exit={{ scale: 0.95, opacity: 0 }}
             onClick={(e) => e.stopPropagation()}
-            className="w-full max-w-md theme-card rounded-2xl border border-border shadow-2xl overflow-hidden"
+            className="w-full max-w-md bg-[#1a3a36] rounded-2xl border border-white/10 shadow-2xl overflow-hidden"
           >
             {/* Header */}
             <div className="p-6 space-y-4">

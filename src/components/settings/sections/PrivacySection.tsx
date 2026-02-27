@@ -246,6 +246,9 @@ export function PrivacySection() {
 
               {historyEnabled && (
                 <SettingSelect
+                  variant="cmdk"
+                  id="settings-privacy-history-retention"
+                  modalTitle="مدة الاحتفاظ بالمحادثات"
                   label="مدة الاحتفاظ"
                   description="المدة التي يتم فيها الاحتفاظ بالمحادثات"
                   value={historyRetention}

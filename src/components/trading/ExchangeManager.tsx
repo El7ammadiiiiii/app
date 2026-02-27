@@ -134,7 +134,7 @@ export function ExchangeManager({ isOpen, onClose }: ExchangeManagerProps) {
             initial={{ opacity: 0 }}
             animate={{ opacity: 1 }}
             exit={{ opacity: 0 }}
-            className="fixed inset-0 bg-black/60 backdrop-blur-sm z-50"
+            className="fixed inset-0 overlay-backdrop z-50"
             onClick={onClose}
           />
 
@@ -143,22 +143,22 @@ export function ExchangeManager({ isOpen, onClose }: ExchangeManagerProps) {
             initial={{ opacity: 0, scale: 0.95, y: 20 }}
             animate={{ opacity: 1, scale: 1, y: 0 }}
             exit={{ opacity: 0, scale: 0.95, y: 20 }}
-            className="fixed inset-4 sm:inset-auto sm:left-1/2 sm:top-1/2 sm:-translate-x-1/2 sm:-translate-y-1/2 sm:w-[600px] sm:max-h-[80vh] border border-white/10 rounded-2xl shadow-2xl z-50 overflow-hidden flex flex-col theme-surface"
+            className="fixed inset-4 sm:inset-auto sm:left-1/2 sm:top-1/2 sm:-translate-x-1/2 sm:-translate-y-1/2 sm:w-[600px] sm:max-h-[80vh] rounded-2xl shadow-2xl z-50 overflow-hidden flex flex-col overlay-modal"
           >
             {/* Header */}
-            <div className="flex items-center justify-between p-4 border-b border-white/10">
+            <div className="flex items-center justify-between p-4 overlay-header">
               <div className="flex items-center gap-3">
                 <span className="text-2xl">🔗</span>
                 <div>
-                  <h2 className="text-lg font-bold text-white">إدارة المنصات</h2>
-                  <p className="text-xs text-white/50">ربط وإدارة حسابات التداول</p>
+                  <h2 className="text-lg font-bold text-foreground">إدارة المنصات</h2>
+                  <p className="text-xs text-muted-foreground">ربط وإدارة حسابات التداول</p>
                 </div>
               </div>
               <button
                 onClick={onClose}
                 className="p-2 hover:bg-white/10 rounded-lg transition-colors"
               >
-                <svg className="w-5 h-5 text-white/60" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <svg className="w-5 h-5 text-muted-foreground" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                   <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M6 18L18 6M6 6l12 12" />
                 </svg>
               </button>
@@ -170,11 +170,11 @@ export function ExchangeManager({ isOpen, onClose }: ExchangeManagerProps) {
                 <motion.div
                   key={exchange.id}
                   layout
-                  className="bg-white/5 border border-white/10 rounded-xl overflow-hidden"
+                  className="glass-lite rounded-xl overflow-hidden"
                 >
                   {/* Exchange Header */}
                   <div
-                    className="flex items-center justify-between p-4 cursor-pointer hover:bg-white/5 transition-colors"
+                    className="flex items-center justify-between p-4 cursor-pointer hover:bg-white/10 transition-colors"
                     onClick={() => setSelectedExchange(
                       selectedExchange?.id === exchange.id ? null : exchange
                     )}
@@ -182,15 +182,15 @@ export function ExchangeManager({ isOpen, onClose }: ExchangeManagerProps) {
                     <div className="flex items-center gap-3">
                       <span className="text-2xl">{exchange.icon}</span>
                       <div>
-                        <div className="font-medium text-white">{exchange.name}</div>
-                        <div className="text-xs text-white/50">
+                        <div className="font-medium text-foreground">{exchange.name}</div>
+                        <div className="text-xs text-muted-foreground">
                           {exchange.connected ? (
                             <span className="flex items-center gap-1 text-green-400">
                               <span className="w-2 h-2 bg-green-400 rounded-full animate-pulse"></span>
                               متصل
                             </span>
                           ) : (
-                            <span className="text-white/40">غير متصل</span>
+                            <span className="text-muted-foreground">غير متصل</span>
                           )}
                         </div>
                       </div>
@@ -215,7 +215,7 @@ export function ExchangeManager({ isOpen, onClose }: ExchangeManagerProps) {
                       {/* Expand Arrow */}
                       <motion.svg
                         animate={{ rotate: selectedExchange?.id === exchange.id ? 180 : 0 }}
-                        className="w-5 h-5 text-white/40"
+                        className="w-5 h-5 text-muted-foreground"
                         fill="none"
                         stroke="currentColor"
                         viewBox="0 0 24 24"
@@ -232,22 +232,22 @@ export function ExchangeManager({ isOpen, onClose }: ExchangeManagerProps) {
                         initial={{ height: 0, opacity: 0 }}
                         animate={{ height: "auto", opacity: 1 }}
                         exit={{ height: 0, opacity: 0 }}
-                        className="border-t border-white/10 overflow-hidden"
+                        className="border-t border-[var(--overlay-border)] overflow-hidden"
                       >
-                        <div className="p-4 space-y-3 bg-black/20">
+                        <div className="p-4 space-y-3">
                           {/* API Key */}
                           <div>
-                            <label className="block text-xs text-white/50 mb-1">API Key</label>
+                            <label className="block text-xs text-muted-foreground mb-1">API Key</label>
                             <div className="flex items-center gap-2">
                               <input
                                 type="text"
                                 value={exchange.apiKey}
                                 readOnly
-                                className="flex-1 bg-black/30 border border-white/10 rounded-lg px-3 py-2 text-sm text-white/80 font-mono"
+                                className="flex-1 glass-lite-input rounded-lg px-3 py-2 text-sm text-foreground font-mono"
                               />
                               <button
                                 onClick={() => navigator.clipboard.writeText(exchange.apiKey)}
-                                className="p-2 bg-white/10 hover:bg-white/20 rounded-lg transition-colors"
+                                className="p-2 rounded-lg transition-colors glass-lite glass-lite--interactive"
                                 title="نسخ"
                               >
                                 📋
@@ -257,24 +257,24 @@ export function ExchangeManager({ isOpen, onClose }: ExchangeManagerProps) {
 
                           {/* Secret Key */}
                           <div>
-                            <label className="block text-xs text-white/50 mb-1">Secret Key</label>
+                            <label className="block text-xs text-muted-foreground mb-1">Secret Key</label>
                             <div className="flex items-center gap-2">
                               <input
                                 type={showSecrets[exchange.id] ? "text" : "password"}
                                 value={showSecrets[exchange.id] ? exchange.secretKey : maskSecret(exchange.secretKey)}
                                 readOnly
-                                className="flex-1 bg-black/30 border border-white/10 rounded-lg px-3 py-2 text-sm text-white/80 font-mono"
+                                className="flex-1 glass-lite-input rounded-lg px-3 py-2 text-sm text-foreground font-mono"
                               />
                               <button
                                 onClick={() => toggleShowSecret(exchange.id)}
-                                className="p-2 bg-white/10 hover:bg-white/20 rounded-lg transition-colors"
+                                className="p-2 rounded-lg transition-colors glass-lite glass-lite--interactive"
                                 title={showSecrets[exchange.id] ? "إخفاء" : "إظهار"}
                               >
                                 {showSecrets[exchange.id] ? "🙈" : "👁️"}
                               </button>
                               <button
                                 onClick={() => navigator.clipboard.writeText(exchange.secretKey)}
-                                className="p-2 bg-white/10 hover:bg-white/20 rounded-lg transition-colors"
+                                className="p-2 rounded-lg transition-colors glass-lite glass-lite--interactive"
                                 title="نسخ"
                               >
                                 📋
@@ -285,17 +285,17 @@ export function ExchangeManager({ isOpen, onClose }: ExchangeManagerProps) {
                           {/* Additional ID (for Phemex) */}
                           {exchange.additionalId && (
                             <div>
-                              <label className="block text-xs text-white/50 mb-1">ID</label>
+                              <label className="block text-xs text-muted-foreground mb-1">ID</label>
                               <div className="flex items-center gap-2">
                                 <input
                                   type="text"
                                   value={exchange.additionalId}
                                   readOnly
-                                  className="flex-1 bg-black/30 border border-white/10 rounded-lg px-3 py-2 text-sm text-white/80 font-mono"
+                                  className="flex-1 glass-lite-input rounded-lg px-3 py-2 text-sm text-foreground font-mono"
                                 />
                                 <button
                                   onClick={() => navigator.clipboard.writeText(exchange.additionalId!)}
-                                  className="p-2 bg-white/10 hover:bg-white/20 rounded-lg transition-colors"
+                                  className="p-2 rounded-lg transition-colors glass-lite glass-lite--interactive"
                                   title="نسخ"
                                 >
                                   📋
@@ -329,7 +329,7 @@ export function ExchangeManager({ isOpen, onClose }: ExchangeManagerProps) {
 
                           {/* Last Sync */}
                           {exchange.lastSync && (
-                            <div className="text-xs text-white/40 text-center">
+                            <div className="text-xs text-muted-foreground text-center">
                               آخر مزامنة: {exchange.lastSync.toLocaleTimeString("ar-SA")}
                             </div>
                           )}
@@ -342,8 +342,8 @@ export function ExchangeManager({ isOpen, onClose }: ExchangeManagerProps) {
             </div>
 
             {/* Footer */}
-            <div className="border-t border-white/10 p-4">
-              <div className="flex items-center justify-between text-xs text-white/40">
+            <div className="border-t border-[var(--overlay-border)] p-4">
+              <div className="flex items-center justify-between text-xs text-muted-foreground">
                 <span>🔒 المفاتيح مشفرة ومحمية</span>
                 <span>{exchanges.filter(e => e.connected).length} / {exchanges.length} متصل</span>
               </div>

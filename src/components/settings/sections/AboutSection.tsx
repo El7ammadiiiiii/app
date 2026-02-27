@@ -2,6 +2,7 @@
 
 import * as React from "react";
 import { motion } from "framer-motion";
+import useTimeout from '@/hooks/useTimeout';
 import { 
   Info,
   ExternalLink,
@@ -48,10 +49,12 @@ export function AboutSection() {
   const appVersion = "2.5.0";
   const buildNumber = "2024030115";
 
+  // Auto-clear copied flag
+  useTimeout(() => setCopied(false), copied ? 2000 : undefined, [copied]);
+
   const copyVersion = () => {
     navigator.clipboard.writeText(`v${appVersion} (${buildNumber})`);
     setCopied(true);
-    setTimeout(() => setCopied(false), 2000);
   };
 
   return (
@@ -60,21 +63,21 @@ export function AboutSection() {
       <motion.div
         initial={{ opacity: 0, y: 20 }}
         animate={{ opacity: 1, y: 0 }}
-        className="relative overflow-hidden rounded-2xl theme-card border border-primary p-6 shadow-lg"
+        className="relative overflow-hidden rounded-xl bg-card border border-primary p-3 sm:p-4 shadow-lg max-w-md mx-auto"
       >
-        <div className="relative flex items-center gap-6">
-          <div className="w-20 h-20 rounded-2xl bg-gradient-to-br from-primary to-primary/60 
+        <div className="relative flex flex-col items-center text-center gap-3">
+          <div className="w-14 h-14 sm:w-20 sm:h-20 rounded-2xl bg-gradient-to-br from-primary to-primary/60 
                         flex items-center justify-center shadow-lg shadow-primary/25">
-            <Sparkles className="w-10 h-10 text-white" />
+            <Sparkles className="w-7 h-7 sm:w-10 sm:h-10 text-white" />
           </div>
           <div className="flex-1">
-            <h2 className="text-2xl font-bold text-foreground mb-1">NEXUS AI</h2>
-            <p className="text-muted-foreground mb-3">مساعدك الذكي للتداول والتحليل</p>
-            <div className="flex items-center gap-3">
+            <h2 className="text-xl sm:text-2xl font-bold text-foreground mb-1">NEXUS AI</h2>
+            <p className="text-muted-foreground mb-3 text-sm sm:text-base">مساعدك الذكي للتداول والتحليل</p>
+            <div className="flex flex-wrap items-center gap-2.5 sm:gap-3">
               <button
                 onClick={copyVersion}
                 className="flex items-center gap-2 px-3 py-1.5 rounded-lg theme-card border border-border
-                         text-sm font-mono text-foreground transition-colors hover:bg-muted"
+                         text-[12px] sm:text-sm font-mono text-foreground transition-colors hover:bg-muted"
               >
                 v{appVersion}
                 {copied ? (
@@ -83,20 +86,21 @@ export function AboutSection() {
                   <Copy className="w-3.5 h-3.5 text-muted-foreground" />
                 )}
               </button>
-              <span className="text-xs text-muted-foreground">Build {buildNumber}</span>
+              <span className="text-[11px] sm:text-xs text-muted-foreground">Build {buildNumber}</span>
             </div>
           </div>
-          <button className="flex items-center gap-2 px-4 py-2 rounded-lg bg-primary text-white
-                           transition-colors hover:brightness-90">
+          <button className="flex items-center justify-center gap-2 px-3 py-2 rounded-lg bg-primary text-white
+                           text-[12px] sm:text-sm transition-colors hover:brightness-90">
             <RefreshCw className="w-4 h-4" />
-            <span>التحقق من التحديثات</span>
+            <span className="hidden sm:inline">التحقق من التحديثات</span>
+            <span className="sm:hidden">تحديث</span>
           </button>
         </div>
       </motion.div>
 
       {/* Links */}
       <SettingGroup title="روابط">
-        <div className="grid grid-cols-2 sm:grid-cols-3 gap-3">
+        <div className="grid grid-cols-2 sm:grid-cols-3 gap-2 sm:gap-3">
           {links.map((link) => {
             const Icon = link.icon;
             return (
@@ -105,11 +109,11 @@ export function AboutSection() {
                 href={link.url}
                 target="_blank"
                 rel="noopener noreferrer"
-                className="flex items-center gap-3 p-4 rounded-xl theme-card border border-border
+                className="flex items-center gap-2.5 p-3 sm:p-4 rounded-xl theme-card border border-border
                          hover:border-primary hover:bg-primary transition-all group"
               >
-                <Icon className="w-5 h-5 text-muted-foreground group-hover:text-white transition-colors" />
-                <span className="text-foreground group-hover:text-white transition-colors">{link.label}</span>
+                <Icon className="w-4 h-4 sm:w-5 sm:h-5 text-muted-foreground group-hover:text-white transition-colors" />
+                <span className="text-[13px] sm:text-[14px] text-foreground group-hover:text-white transition-colors">{link.label}</span>
                 <ExternalLink className="w-4 h-4 text-muted-foreground mr-auto opacity-0 
                                        group-hover:opacity-100 transition-opacity" />
               </a>
@@ -120,26 +124,26 @@ export function AboutSection() {
 
       {/* Changelog */}
       <SettingGroup title="سجل التغييرات">
-        <div className="space-y-3">
+        <div className="space-y-2.5 sm:space-y-3">
           {changelog.map((item, index) => (
             <motion.div
               key={item.version}
               initial={{ opacity: 0, x: -10 }}
               animate={{ opacity: 1, x: 0 }}
               transition={{ delay: index * 0.1 }}
-              className="flex items-start gap-4 p-4 rounded-xl theme-card border border-border"
+              className="flex items-start gap-3 p-3 sm:p-4 rounded-xl theme-card border border-border"
             >
-              <div className="w-10 h-10 rounded-lg bg-primary flex items-center justify-center flex-shrink-0">
-                <Sparkles className="w-5 h-5 text-white" />
+              <div className="w-9 h-9 sm:w-10 sm:h-10 rounded-lg bg-primary flex items-center justify-center flex-shrink-0">
+                <Sparkles className="w-4 h-4 sm:w-5 sm:h-5 text-white" />
               </div>
               <div className="flex-1">
                 <div className="flex items-center gap-2 mb-1">
-                  <span className="font-semibold text-foreground">v{item.version}</span>
+                  <span className="font-semibold text-foreground text-[13px] sm:text-[14px]">v{item.version}</span>
                   <span className="text-xs text-muted-foreground">{item.date}</span>
                 </div>
-                <p className="text-sm text-muted-foreground">{item.title}</p>
+                <p className="text-[12px] sm:text-sm text-muted-foreground">{item.title}</p>
               </div>
-              <button className="text-sm text-primary hover:underline">
+              <button className="text-[12px] sm:text-sm text-primary hover:underline">
                 التفاصيل
               </button>
             </motion.div>
@@ -157,8 +161,8 @@ export function AboutSection() {
             <a
               key={link.label}
               href={link.url}
-              className="flex items-center gap-2 p-3 rounded-lg theme-card border border-border 
-                       text-sm text-muted-foreground transition-colors hover:bg-muted hover:text-foreground"
+              className="flex items-center gap-2 p-2.5 sm:p-3 rounded-lg theme-card border border-border 
+                       text-[12px] sm:text-sm text-muted-foreground transition-colors hover:bg-muted hover:text-foreground"
             >
               <FileText className="w-4 h-4" />
               <span>{link.label}</span>
@@ -169,21 +173,21 @@ export function AboutSection() {
 
       {/* Support */}
       <SettingGroup title="الدعم">
-        <div className="p-4 rounded-xl theme-card border border-border">
+        <div className="p-3 sm:p-4 rounded-xl theme-card border border-border">
           <div className="flex items-start gap-4">
-            <div className="w-12 h-12 rounded-xl bg-blue-500 flex items-center justify-center">
-              <Mail className="w-6 h-6 text-white" />
+            <div className="w-10 h-10 sm:w-12 sm:h-12 rounded-xl bg-blue-500 flex items-center justify-center">
+              <Mail className="w-5 h-5 sm:w-6 sm:h-6 text-white" />
             </div>
             <div className="flex-1">
               <h4 className="font-medium text-foreground mb-1">تحتاج مساعدة؟</h4>
-              <p className="text-sm text-muted-foreground mb-3">
+              <p className="text-[12px] sm:text-sm text-muted-foreground mb-3">
                 فريق الدعم متاح 24/7 للإجابة على استفساراتك
               </p>
-              <div className="flex items-center gap-3">
-                <button className="px-4 py-2 rounded-lg bg-primary text-white transition-colors hover:brightness-90">
+              <div className="flex flex-wrap items-center gap-2 sm:gap-3">
+                <button className="px-3 py-2 rounded-lg bg-primary text-white text-[12px] sm:text-sm transition-colors hover:brightness-90">
                   تواصل معنا
                 </button>
-                <button className="px-4 py-2 rounded-lg border border-border text-foreground 
+                <button className="px-3 py-2 rounded-lg border border-border text-foreground text-[12px] sm:text-sm 
                                  hover:bg-muted transition-colors">
                   الأسئلة الشائعة
                 </button>

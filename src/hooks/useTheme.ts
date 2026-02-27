@@ -12,7 +12,7 @@ interface UseThemeReturn {
   isLight: boolean;
 }
 
-const THEME_KEY = "cccways-theme";
+const THEME_KEY = "CCWAYS-theme";
 
 /**
  * useTheme - Hook لإدارة الثيم

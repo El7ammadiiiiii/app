@@ -9,6 +9,65 @@ from dataclasses import dataclass, field
 from typing import Dict, Optional
 from pathlib import Path
 
+try:
+    from dotenv import load_dotenv
+except ImportError:  # pragma: no cover - optional dependency in some environments
+    load_dotenv = None
+
+
+def _safe_parent(path: Path, index: int) -> Optional[Path]:
+    try:
+        return path.parents[index]
+    except IndexError:
+        return None
+
+
+def _parse_env_file(path: Path) -> Dict[str, str]:
+    values: Dict[str, str] = {}
+    try:
+        content = path.read_text(encoding="utf-8")
+    except FileNotFoundError:
+        return values
+
+    for raw_line in content.splitlines():
+        line = raw_line.strip()
+        if not line or line.startswith("#"):
+            continue
+        if line.startswith("export "):
+            line = line[len("export ") :]
+        if "=" not in line:
+            continue
+        key, value = line.split("=", 1)
+        key = key.strip()
+        value = value.strip().strip('"').strip("'")
+        if key:
+            values[key] = value
+    return values
+
+
+def _load_env_file(path: Path) -> None:
+    if not path.exists():
+        return
+    if load_dotenv is not None:
+        load_dotenv(path, override=False)
+        return
+    for key, value in _parse_env_file(path).items():
+        os.environ.setdefault(key, value)
+
+
+def _load_env_sources() -> None:
+    this_file = Path(__file__).resolve()
+    nexus_root = _safe_parent(this_file, 2)
+    repo_root = _safe_parent(this_file, 3)
+
+    if repo_root is not None:
+        _load_env_file(repo_root / ".env")
+    if nexus_root is not None:
+        _load_env_file(nexus_root / ".env.local")
+
+
+_load_env_sources()
+
 # ═══════════════════════════════════════════════════════════════════════════════
 # 🔑 API KEYS
 # ═══════════════════════════════════════════════════════════════════════════════
@@ -308,7 +367,7 @@ class Settings:
     RETRY_DELAY_SECONDS: float = 1.0
     
     # Logging
-    LOG_LEVEL: str = "INFO"
+    LOG_LEVEL: str = os.getenv("LOG_LEVEL", "INFO").upper()
     LOG_FORMAT: str = "%(asctime)s - %(name)s - %(levelname)s - %(message)s"
     
     # Paths

@@ -1,9 +1,9 @@
-# 📚 دليل تطوير CCCWAYS (nexus-webapp)
+# 📚 دليل تطوير CCWAYS (ccways)
 
 ## 🗂️ هيكل المشروع
 
 ```
-nexus-webapp/
+ccways/
 ├── src/
 │   ├── app/                    # Next.js App Router
 │   │   ├── app/               # /app route - التطبيق الرئيسي
@@ -332,7 +332,7 @@ rm -rf .next && npm run dev
 
 ## 📝 ملاحظات إضافية
 
-1. **الثيم يُحفظ في localStorage** تحت المفتاح `cccways-theme`
+1. **الثيم يُحفظ في localStorage** تحت المفتاح `CCWAYS-theme`
 2. **الوضع الافتراضي** هو Dark mode
 3. **RTL support** - الموقع يدعم العربية (direction: rtl)
 4. **Responsive** - يتكيف مع الشاشات الصغيرة (< 1024px)

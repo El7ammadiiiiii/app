@@ -6,7 +6,7 @@
 
 ```bash
 # 1. انتقل للمجلد
-cd nexus-webapp/python_analysis
+cd ccways/python_analysis
 
 # 2. إنشاء بيئة افتراضية
 python -m venv venv
@@ -26,7 +26,7 @@ python run_server.py
 
 ## 📁 هيكل الملفات
 
-```
+```text
 python_analysis/
 ├── __init__.py          # Package initialization
 ├── config.py            # Configuration classes
@@ -44,7 +44,7 @@ python_analysis/
 ### Overlay Indicators (على الشارت الرئيسي)
 
 | المؤشر | الوصف | المعاملات الافتراضية |
-|--------|-------|---------------------|
+| :--- | :--- | :--- |
 | **Supertrend** | مؤشر الاتجاه الفائق | length=10, multiplier=3.0 |
 | **Bollinger Bands** | نطاقات بولينجر | length=20, std=2.0 |
 | **SMA 10/25/50/100/200** | المتوسط المتحرك البسيط | - |
@@ -53,7 +53,7 @@ python_analysis/
 ### Panel Indicators (أسفل الشارت)
 
 | المؤشر | الوصف | المعاملات الافتراضية |
-|--------|-------|---------------------|
+| :--- | :--- | :--- |
 | **RSI** | مؤشر القوة النسبية | length=14 |
 | **Stochastic RSI** | ستوكاستيك RSI | length=14, k=3, d=3 |
 | **MACD** | ماكد | fast=12, slow=26, signal=9 |
@@ -96,6 +96,7 @@ python_analysis/
 ## 🔌 API Endpoints
 
 ### POST `/analyze`
+
 تحليل شامل مع كل المؤشرات والأنماط
 
 ```json
@@ -124,11 +125,12 @@ python_analysis/
 }
 ```
 
-### GET `/live/{exchange}/{symbol}/{timeframe}`
-تحليل مباشر من المنصة
+### GET `/api/exchanges/ohlcv`
 
-```
-GET /live/binance/BTCUSDT/1h?limit=200
+تحليل مباشر من المنصة عبر المصدر المركزي
+
+```text
+GET /api/exchanges/ohlcv?exchange=bybit&symbol=BTCUSDT&timeframe=1h&limit=200
 ```
 
 ## 💡 الاستخدام من Next.js
@@ -176,7 +178,7 @@ def calculate_my_indicator(df: pd.DataFrame, length: int = 14) -> IndicatorResul
     )
 ```
 
-2. أضفه في `calculate_all_indicators()`:
+1. أضفه في `calculate_all_indicators()`:
 
 ```python
 if config.get('my_indicator'):
@@ -194,7 +196,7 @@ def detect_my_pattern(df: pd.DataFrame) -> List[PatternResult]:
     return patterns
 ```
 
-2. أضفه في `detect_all_patterns()`:
+1. أضفه في `detect_all_patterns()`:
 
 ```python
 if config.get('my_pattern'):
@@ -206,15 +208,15 @@ if config.get('my_pattern'):
 - **pandas-ta** - مكتبة المؤشرات الفنية الرئيسية
 - **scipy** - للحسابات العلمية (trendlines, clustering)
 - **FastAPI** - إطار الـ API
-- **ccxt** - جلب البيانات المباشرة (اختياري)
+- **Centralized API** - جلب البيانات المباشرة الموحد
 - **plotly** - الرسوم البيانية (اختياري)
 
 ## 🔒 ملاحظات الإنتاج
 
-1. **CORS**: عدّل `allow_origins` في `api.py` للإنتاج
-2. **Rate Limiting**: أضف middleware للحماية
-3. **Caching**: استخدم Redis للـ caching
-4. **Logging**: فعّل الـ logging للمراقبة
+1. **CORS**: عدّل `allow_origins` in `api.py` للإنتاج
+1. **Rate Limiting**: أضف middleware للحماية
+1. **Caching**: استخدم Redis للـ caching
+1. **Logging**: فعّل الـ logging للمراقبة
 
 ## 📄 الترخيص
 

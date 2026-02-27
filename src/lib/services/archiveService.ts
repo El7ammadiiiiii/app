@@ -21,7 +21,7 @@ import {
   writeBatch,
   DocumentData
 } from 'firebase/firestore';
-import { db } from '@/lib/firebase/client';
+import { db, ensureAnonymousAuth } from '@/lib/firebase/client';
 import { 
   ArchivedConversation, 
   ArchivedMessage, 
@@ -86,6 +86,7 @@ const docToMessage = (docId: string, data: DocumentData): ArchivedMessage => ({
  */
 export async function getArchivedConversations(userId: string): Promise<ArchivedConversation[]> {
   if (!db) throw new Error('Firebase not initialized');
+  await ensureAnonymousAuth();
   
   const q = query(
     collection(db, CONVERSATIONS_COLLECTION),
@@ -103,6 +104,7 @@ export async function getArchivedConversations(userId: string): Promise<Archived
  */
 export async function getActiveConversations(userId: string): Promise<ArchivedConversation[]> {
   if (!db) throw new Error('Firebase not initialized');
+  await ensureAnonymousAuth();
   
   const q = query(
     collection(db, CONVERSATIONS_COLLECTION),

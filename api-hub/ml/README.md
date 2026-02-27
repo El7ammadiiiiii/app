@@ -397,7 +397,7 @@ Combine ML predictions with technical analysis:
 ```python
 # 1. Get live data
 live_data = requests.get(
-    'http://localhost:8001/live/binance/BTC/USDT/1h'
+    'http://localhost:8001/api/exchanges/ohlcv?exchange=bybit&symbol=BTC/USDT&timeframe=1h'
 ).json()['data']
 
 # 2. Generate chart image (using matplotlib or TradingView screenshot)

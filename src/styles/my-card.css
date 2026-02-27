@@ -1,0 +1,280 @@
+/* =========================================================
+   🎴 My Card - Premium Card Design System
+   بطاقة فاخرة مع إضاءة وتدرجات احترافية
+   
+   @author CCWAYS Team
+   @version 1.0.0
+   @created 2026-02-04
+   ========================================================= */
+
+/* ═══════════════════════════════════════════════════════════════════
+   CSS Variables للتخصيص
+   ═══════════════════════════════════════════════════════════════════ */
+:root {
+    /* الألوان الأساسية - التصميم الأصلي */
+    --my-card-gradient: linear-gradient(54deg, #264a46, #1d2b28, #183e3a, #1a3232, #141f1f);
+    --my-card-inner-bg: #2a4f4a;
+    --my-card-separator-color: rgba(43, 64, 62, 0.4);
+    --my-card-button-bg: rgba(43, 64, 62, 0.3);
+    --my-card-button-hover-bg: rgba(43, 64, 62, 0.5);
+
+    /* لون الإضاءة التركوازي */
+    --my-card-glow-color: rgba(74, 222, 200, 1);
+    --my-card-glow-25: rgba(74, 222, 200, 0.25);
+    --my-card-glow-20: rgba(74, 222, 200, 0.2);
+    --my-card-glow-15: rgba(74, 222, 200, 0.15);
+    --my-card-glow-08: rgba(74, 222, 200, 0.08);
+
+    /* الحدود المضيئة */
+    --my-card-border-glow-left: rgba(74, 222, 200, 0.35);
+    --my-card-border-glow-bottom: rgba(74, 222, 200, 0.3);
+    --my-card-border-subtle: rgba(255, 255, 255, 0.05);
+    --my-card-border-inset: rgba(255, 255, 255, 0.1);
+}
+
+/* ═══════════════════════════════════════════════════════════════════
+   الإطار الخارجي للبطاقة
+   ═══════════════════════════════════════════════════════════════════ */
+.my-card {
+    position: relative;
+    overflow: hidden;
+    display: flex;
+    flex-direction: column;
+    border-radius: 0.5rem;
+    /* rounded-lg */
+    transition: opacity 0.3s ease;
+
+    /* الخلفية المتدرجة - مثل خلفية الموقع */
+    background: var(--my-card-gradient);
+
+    /* الإضاءة الفاخرة على الجانب الأيسر والأسفل */
+    box-shadow:
+        -4px 0 20px var(--my-card-glow-25),
+        0 4px 20px var(--my-card-glow-20),
+        -2px 2px 30px var(--my-card-glow-15),
+        inset -1px -1px 0 var(--my-card-border-inset),
+        0 0 40px var(--my-card-glow-08);
+
+    /* الحدود المضيئة - يسار وأسفل بارزة */
+    border-left: 1px solid var(--my-card-border-glow-left);
+    border-bottom: 1px solid var(--my-card-border-glow-bottom);
+    border-right: 1px solid var(--my-card-border-subtle);
+    border-top: 1px solid var(--my-card-border-subtle);
+}
+
+/* حالة منتهية الصلاحية */
+.my-card--expired {
+    opacity: 0.6;
+}
+
+/* تأثير hover اختياري */
+.my-card--hover:hover {
+    box-shadow:
+        -6px 0 25px var(--my-card-glow-25),
+        0 6px 25px var(--my-card-glow-20),
+        -3px 3px 35px var(--my-card-glow-15),
+        inset -1px -1px 0 var(--my-card-border-inset),
+        0 0 50px var(--my-card-glow-08);
+    transform: translateY(-2px);
+    transition: all 0.3s ease;
+}
+
+/* ═══════════════════════════════════════════════════════════════════
+   الجزء الداخلي من البطاقة
+   ═══════════════════════════════════════════════════════════════════ */
+.my-card__inner {
+    background-color: var(--my-card-inner-bg);
+    border-radius: 0.25rem;
+    /* rounded */
+    margin: 0 0.5rem 0.5rem 0.5rem;
+    /* mx-2 mb-2 */
+    display: flex;
+    flex-direction: column;
+    position: relative;
+    overflow: hidden;
+    box-shadow: inset 0 0 10px rgba(0, 0, 0, 0.1);
+}
+
+/* ═══════════════════════════════════════════════════════════════════
+   خط الفاصل
+   ═══════════════════════════════════════════════════════════════════ */
+.my-card__separator {
+    height: 1px;
+    width: 100%;
+    background-color: var(--my-card-separator-color);
+}
+
+/* ═══════════════════════════════════════════════════════════════════
+   زر عرض الشارت الكامل
+   ═══════════════════════════════════════════════════════════════════ */
+.my-card__button {
+    width: 100%;
+    padding: 0.5rem 0;
+    /* py-2 */
+    font-size: 10px;
+    text-transform: uppercase;
+    font-weight: 700;
+    color: #9ca3af;
+    /* text-gray-400 */
+    background-color: var(--my-card-button-bg);
+    border-radius: 0.25rem;
+    outline: none;
+    border: none;
+    cursor: pointer;
+    transition: all 0.2s ease;
+}
+
+.my-card__button:hover {
+    color: #ffffff;
+    background-color: var(--my-card-button-hover-bg);
+}
+
+/* ═══════════════════════════════════════════════════════════════════
+   الهيدر
+   ═══════════════════════════════════════════════════════════════════ */
+.my-card__header {
+    padding: 0.75rem;
+    /* px-3 py-3 */
+    display: flex;
+    align-items: flex-start;
+    justify-content: space-between;
+}
+
+/* ═══════════════════════════════════════════════════════════════════
+   الفوتر
+   ═══════════════════════════════════════════════════════════════════ */
+.my-card__footer {
+    padding: 0 0.75rem 0.75rem 0.75rem;
+    /* px-3 pb-3 */
+    margin-top: auto;
+    display: flex;
+    align-items: flex-end;
+    justify-content: space-between;
+}
+
+/* ═══════════════════════════════════════════════════════════════════
+   منطقة الشارت مع خطوط الشبكة
+   ═══════════════════════════════════════════════════════════════════ */
+.my-card__chart-area {
+    height: 300px;
+    width: 100%;
+    position: relative;
+    /* خطوط الشبكة الخلفية */
+    background-image:
+        linear-gradient(rgba(74, 222, 200, 0.03) 1px, transparent 1px),
+        linear-gradient(90deg, rgba(74, 222, 200, 0.03) 1px, transparent 1px);
+    background-size: 20px 20px;
+}
+
+/* ═══════════════════════════════════════════════════════════════════
+   العناصر النصية
+   ═══════════════════════════════════════════════════════════════════ */
+
+/* العنوان الرئيسي (رمز العملة) */
+.my-card__title {
+    color: #ffffff;
+    font-weight: 700;
+    font-size: 14px;
+    line-height: 1;
+}
+
+/* العنوان الفرعي */
+.my-card__subtitle {
+    color: #9ca3af;
+    font-size: 10px;
+    font-weight: 500;
+    line-height: 1;
+}
+
+/* نص المعلومات */
+.my-card__info {
+    color: #9ca3af;
+    font-size: 11px;
+}
+
+/* شارة النوع */
+.my-card__badge {
+    font-size: 10px;
+    font-weight: 900;
+    text-transform: uppercase;
+    letter-spacing: 0.1em;
+}
+
+.my-card__badge--regular {
+    color: #f59e0b;
+    /* amber-500 */
+}
+
+.my-card__badge--hidden {
+    color: #6b7280;
+    /* gray-500 */
+}
+
+/* ═══════════════════════════════════════════════════════════════════
+   الحجم
+   ═══════════════════════════════════════════════════════════════════ */
+.my-card__volume--increasing {
+    color: #34d399;
+    /* emerald-400 */
+    font-size: 11px;
+    font-weight: 700;
+}
+
+.my-card__volume--decreasing {
+    color: #fb7185;
+    /* rose-400 */
+    font-size: 11px;
+    font-weight: 700;
+}
+
+/* ═══════════════════════════════════════════════════════════════════
+   مؤشر الوقت
+   ═══════════════════════════════════════════════════════════════════ */
+.my-card__time {
+    font-size: 10px;
+    color: #6b7280;
+    font-family: monospace;
+    display: flex;
+    align-items: center;
+    gap: 0.25rem;
+}
+
+.my-card__time-dot {
+    width: 6px;
+    height: 6px;
+    border-radius: 50%;
+    background-color: #10b981;
+    /* emerald-500 */
+}
+
+/* ═══════════════════════════════════════════════════════════════════
+   أيقونات الأزرار
+   ═══════════════════════════════════════════════════════════════════ */
+.my-card__icon-btn {
+    padding: 2px;
+    color: #6b7280;
+    transition: color 0.2s ease;
+    background: transparent;
+    border: none;
+    cursor: pointer;
+}
+
+.my-card__icon-btn:hover {
+    color: #ffffff;
+}
+
+.my-card__icon-btn--active {
+    color: #facc15;
+    /* yellow-400 */
+}
+
+/* ═══════════════════════════════════════════════════════════════════
+   اسم المؤشر
+   ═══════════════════════════════════════════════════════════════════ */
+.my-card__indicator {
+    font-size: 11px;
+    font-weight: 700;
+    color: #6b7280;
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+}

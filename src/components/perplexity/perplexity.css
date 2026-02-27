@@ -1,0 +1,445 @@
+/**
+ * ═══════════════════════════════════════════════════════════════════════════════
+ * PERPLEXITY STYLES
+ * ═══════════════════════════════════════════════════════════════════════════════
+ * 
+ * CSS styles للمكونات بتصميم Glassmorphism فاخر
+ * 
+ * @version 1.0.0
+ */
+
+/* ═══════════════════════════════════════════════════════════════════════════════
+   GLASSMORPHISM BASE
+   ═══════════════════════════════════════════════════════════════════════════════ */
+
+.perplexity-glass {
+  background: rgba(255, 255, 255, 0.03);
+  backdrop-filter: blur(20px);
+  -webkit-backdrop-filter: blur(20px);
+  border: 1px solid rgba(255, 255, 255, 0.08);
+  border-radius: 16px;
+}
+
+.perplexity-glass-card {
+  background: linear-gradient(
+    135deg,
+    rgba(255, 255, 255, 0.05) 0%,
+    rgba(255, 255, 255, 0.02) 100%
+  );
+  backdrop-filter: blur(16px);
+  -webkit-backdrop-filter: blur(16px);
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  border-radius: 12px;
+  transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.perplexity-glass-card:hover {
+  background: linear-gradient(
+    135deg,
+    rgba(255, 255, 255, 0.08) 0%,
+    rgba(255, 255, 255, 0.04) 100%
+  );
+  border-color: rgba(255, 255, 255, 0.15);
+  transform: translateY(-2px);
+  box-shadow: 
+    0 8px 32px rgba(0, 0, 0, 0.2),
+    0 0 0 1px rgba(255, 255, 255, 0.1) inset;
+}
+
+/* ═══════════════════════════════════════════════════════════════════════════════
+   SEARCHING ANIMATION
+   ═══════════════════════════════════════════════════════════════════════════════ */
+
+.perplexity-searching {
+  background: linear-gradient(
+    135deg,
+    rgba(59, 130, 246, 0.1) 0%,
+    rgba(147, 51, 234, 0.1) 50%,
+    rgba(6, 182, 212, 0.1) 100%
+  );
+  border: 1px solid rgba(59, 130, 246, 0.2);
+}
+
+.perplexity-progress-bar {
+  height: 4px;
+  background: rgba(255, 255, 255, 0.1);
+  border-radius: 2px;
+  overflow: hidden;
+}
+
+.perplexity-progress-fill {
+  height: 100%;
+  background: linear-gradient(
+    90deg,
+    #3b82f6 0%,
+    #8b5cf6 50%,
+    #06b6d4 100%
+  );
+  border-radius: 2px;
+  transition: width 0.5s cubic-bezier(0.4, 0, 0.2, 1);
+  position: relative;
+}
+
+.perplexity-progress-fill::after {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: linear-gradient(
+    90deg,
+    transparent 0%,
+    rgba(255, 255, 255, 0.4) 50%,
+    transparent 100%
+  );
+  animation: shimmer 2s infinite;
+}
+
+@keyframes shimmer {
+  0% { transform: translateX(-100%); }
+  100% { transform: translateX(100%); }
+}
+
+/* ═══════════════════════════════════════════════════════════════════════════════
+   SOURCES STRIP
+   ═══════════════════════════════════════════════════════════════════════════════ */
+
+.perplexity-sources-strip {
+  display: flex;
+  gap: 8px;
+  overflow-x: auto;
+  padding: 4px;
+  scrollbar-width: none;
+  -ms-overflow-style: none;
+  scroll-behavior: smooth;
+  scroll-snap-type: x mandatory;
+}
+
+.perplexity-sources-strip::-webkit-scrollbar {
+  display: none;
+}
+
+/* ═══════════════════════════════════════════════════════════════════════════════
+   SOURCE CARD
+   ═══════════════════════════════════════════════════════════════════════════════ */
+
+.perplexity-source-card {
+  flex-shrink: 0;
+  width: 120px;
+  padding: 12px;
+  cursor: pointer;
+  scroll-snap-align: start;
+  position: relative;
+  overflow: hidden;
+}
+
+.perplexity-source-card::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: linear-gradient(
+    135deg,
+    transparent 0%,
+    rgba(255, 255, 255, 0.05) 100%
+  );
+  opacity: 0;
+  transition: opacity 0.3s ease;
+}
+
+.perplexity-source-card:hover::before {
+  opacity: 1;
+}
+
+.perplexity-source-card .source-glow {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  width: 100px;
+  height: 100px;
+  transform: translate(-50%, -50%);
+  background: radial-gradient(
+    circle,
+    rgba(59, 130, 246, 0.3) 0%,
+    transparent 70%
+  );
+  opacity: 0;
+  transition: opacity 0.3s ease;
+  pointer-events: none;
+}
+
+.perplexity-source-card:hover .source-glow {
+  opacity: 1;
+}
+
+.perplexity-source-favicon {
+  width: 24px;
+  height: 24px;
+  border-radius: 6px;
+  object-fit: cover;
+  background: rgba(255, 255, 255, 0.1);
+}
+
+.perplexity-source-index {
+  position: absolute;
+  top: 8px;
+  right: 8px;
+  width: 18px;
+  height: 18px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: rgba(59, 130, 246, 0.2);
+  border: 1px solid rgba(59, 130, 246, 0.3);
+  border-radius: 4px;
+  font-size: 10px;
+  font-weight: 600;
+  color: #60a5fa;
+}
+
+[dir="rtl"] .perplexity-source-index {
+  right: auto;
+  left: 8px;
+}
+
+.perplexity-more-sources {
+  flex-shrink: 0;
+  width: 60px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 13px;
+  font-weight: 500;
+  color: rgba(255, 255, 255, 0.6);
+}
+
+/* ═══════════════════════════════════════════════════════════════════════════════
+   CITATION LINK
+   ═══════════════════════════════════════════════════════════════════════════════ */
+
+.perplexity-citation {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  min-width: 18px;
+  height: 18px;
+  padding: 0 5px;
+  margin: 0 2px;
+  font-size: 11px;
+  font-weight: 600;
+  color: #60a5fa;
+  background: rgba(59, 130, 246, 0.15);
+  border: 1px solid rgba(59, 130, 246, 0.25);
+  border-radius: 4px;
+  cursor: pointer;
+  transition: all 0.2s ease;
+  vertical-align: middle;
+  text-decoration: none;
+}
+
+.perplexity-citation:hover {
+  background: rgba(59, 130, 246, 0.25);
+  border-color: rgba(59, 130, 246, 0.4);
+  color: #93c5fd;
+  transform: scale(1.05);
+}
+
+/* ═══════════════════════════════════════════════════════════════════════════════
+   SOURCE PREVIEW
+   ═══════════════════════════════════════════════════════════════════════════════ */
+
+.perplexity-source-preview {
+  position: absolute;
+  z-index: 100;
+  width: 320px;
+  padding: 16px;
+  background: rgba(15, 23, 42, 0.95);
+  backdrop-filter: blur(20px);
+  -webkit-backdrop-filter: blur(20px);
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  border-radius: 12px;
+  box-shadow: 
+    0 20px 40px rgba(0, 0, 0, 0.4),
+    0 0 0 1px rgba(255, 255, 255, 0.05) inset;
+}
+
+.perplexity-source-preview::before {
+  content: '';
+  position: absolute;
+  top: -8px;
+  left: 50%;
+  transform: translateX(-50%) rotate(45deg);
+  width: 16px;
+  height: 16px;
+  background: rgba(15, 23, 42, 0.95);
+  border-left: 1px solid rgba(255, 255, 255, 0.1);
+  border-top: 1px solid rgba(255, 255, 255, 0.1);
+}
+
+/* ═══════════════════════════════════════════════════════════════════════════════
+   RELATED QUESTIONS
+   ═══════════════════════════════════════════════════════════════════════════════ */
+
+.perplexity-related-grid {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 10px;
+}
+
+@media (max-width: 640px) {
+  .perplexity-related-grid {
+    grid-template-columns: 1fr;
+  }
+}
+
+.perplexity-related-card {
+  padding: 12px 16px;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.perplexity-related-card .arrow-icon {
+  flex-shrink: 0;
+  width: 20px;
+  height: 20px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: rgba(255, 255, 255, 0.4);
+  transition: all 0.3s ease;
+}
+
+[dir="ltr"] .perplexity-related-card .arrow-icon {
+  transform: rotate(0deg);
+}
+
+[dir="rtl"] .perplexity-related-card .arrow-icon {
+  transform: rotate(180deg);
+}
+
+.perplexity-related-card:hover .arrow-icon {
+  color: #60a5fa;
+  transform: translateX(4px);
+}
+
+[dir="rtl"] .perplexity-related-card:hover .arrow-icon {
+  transform: translateX(-4px) rotate(180deg);
+}
+
+.perplexity-related-card .question-text {
+  font-size: 14px;
+  color: rgba(255, 255, 255, 0.8);
+  line-height: 1.4;
+}
+
+/* ═══════════════════════════════════════════════════════════════════════════════
+   CONTENT AREA
+   ═══════════════════════════════════════════════════════════════════════════════ */
+
+.perplexity-content {
+  font-size: 15px;
+  line-height: 1.7;
+  color: rgba(255, 255, 255, 0.9);
+}
+
+.perplexity-content h3 {
+  font-size: 16px;
+  font-weight: 600;
+  color: rgba(255, 255, 255, 0.95);
+  margin: 20px 0 12px;
+}
+
+.perplexity-content ul,
+.perplexity-content ol {
+  padding-inline-start: 20px;
+  margin: 12px 0;
+}
+
+.perplexity-content li {
+  margin: 8px 0;
+}
+
+.perplexity-content strong {
+  color: rgba(255, 255, 255, 1);
+  font-weight: 600;
+}
+
+/* ═══════════════════════════════════════════════════════════════════════════════
+   SECTION HEADERS
+   ═══════════════════════════════════════════════════════════════════════════════ */
+
+.perplexity-section-header {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  margin-bottom: 12px;
+  padding-bottom: 8px;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.08);
+}
+
+.perplexity-section-title {
+  font-size: 13px;
+  font-weight: 600;
+  color: rgba(255, 255, 255, 0.6);
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+}
+
+/* ═══════════════════════════════════════════════════════════════════════════════
+   ANIMATIONS
+   ═══════════════════════════════════════════════════════════════════════════════ */
+
+@keyframes fadeInUp {
+  from {
+    opacity: 0;
+    transform: translateY(10px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@keyframes pulse-glow {
+  0%, 100% {
+    box-shadow: 0 0 20px rgba(59, 130, 246, 0.3);
+  }
+  50% {
+    box-shadow: 0 0 30px rgba(59, 130, 246, 0.5);
+  }
+}
+
+.perplexity-fade-in {
+  animation: fadeInUp 0.4s cubic-bezier(0.4, 0, 0.2, 1) forwards;
+}
+
+.perplexity-stagger-1 { animation-delay: 0.05s; }
+.perplexity-stagger-2 { animation-delay: 0.1s; }
+.perplexity-stagger-3 { animation-delay: 0.15s; }
+.perplexity-stagger-4 { animation-delay: 0.2s; }
+.perplexity-stagger-5 { animation-delay: 0.25s; }
+.perplexity-stagger-6 { animation-delay: 0.3s; }
+.perplexity-stagger-7 { animation-delay: 0.35s; }
+.perplexity-stagger-8 { animation-delay: 0.4s; }
+
+/* ═══════════════════════════════════════════════════════════════════════════════
+   INFINITY LOGO
+   ═══════════════════════════════════════════════════════════════════════════════ */
+
+.perplexity-infinity-container {
+  width: 32px;
+  height: 32px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.perplexity-infinity-logo {
+  animation: pulse-glow 2s ease-in-out infinite;
+  border-radius: 50%;
+}

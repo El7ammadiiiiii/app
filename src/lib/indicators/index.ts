@@ -10,7 +10,7 @@
  * 
  * @module indicators
  * @version 2.0.0
- * @author CCCWAYS NEXUS Elite Trading System
+ * @author CCWAYS Elite Trading System
  */
 
 // ============================================================================
@@ -147,6 +147,57 @@ export {
 export * from './technical';
 
 // ============================================================================
+// UNIFIED INDICATORS - جميع المؤشرات في ملف واحد
+// ============================================================================
+export {
+  // MACD
+  calculateMACD,
+  type MACDResult,
+  
+  // Stochastic
+  calculateStochastic,
+  type StochasticResult,
+  
+  // OBV
+  calculateOBV,
+  type OBVResult,
+  
+  // ADX
+  calculateADX,
+  type ADXResult,
+  
+  // MFI (مكرر في advanced-volume لكن نبقيه هنا للتوافق)
+  calculateMFI as calculateMFIUnified,
+  type MFIResult as MFIResultUnified,
+  
+  // Connors RSI (مكرر في ehlers-dsp)
+  calculateConnorsRSI as calculateConnorsRSIUnified,
+  type ConnorsRSIResult as ConnorsRSIResultUnified,
+  
+  // Laguerre RSI (مكرر في ehlers-dsp)
+  calculateLaguerreRSI as calculateLaguerreRSIUnified,
+  type LaguerreRSIResult as LaguerreRSIResultUnified,
+  
+  // VWAP (مكرر في advanced-volume)
+  calculateVWAP as calculateVWAPUnified,
+  type VWAPResult as VWAPResultUnified,
+  
+  // CVD (مكرر في advanced-volume)
+  calculateCVD as calculateCVDUnified,
+  type CVDResult as CVDResultUnified,
+  
+  // Klinger (مكرر في advanced-volume)
+  calculateKlinger as calculateKlingerUnified,
+  type KlingerResult as KlingerResultUnified,
+  
+  // Aggregate object
+  UnifiedIndicators,
+  
+  // OHLCV Type
+  type OHLCV as OHLCVUnified,
+} from './indicators-unified';
+
+// ============================================================================
 // ADVANCED PATTERN DETECTION - NEW
 // ============================================================================
 export {
@@ -263,10 +314,10 @@ export {
  */
 export const VERSION = {
   major: 2,
-  minor: 1,
+  minor: 2,
   patch: 0,
-  codename: 'Elite Trading Suite - Advanced Patterns',
-  releaseDate: '2025-01-01',
+  codename: 'Elite Trading Suite - Unified Indicators',
+  releaseDate: '2026-01-01',
   features: [
     'Ehlers Digital Signal Processing',
     'Connors RSI & Laguerre RSI',
@@ -287,6 +338,11 @@ export const VERSION = {
     'Risk/Reward Zone Calculator',
     'Pattern Quality Scoring (15+ criteria)',
     'Pattern Evolution Tracker',
+    // NEW in v2.2
+    'Unified Indicators - All in One File',
+    'MACD, Stochastic, OBV, ADX',
+    'MFI, CVD, VWAP, Klinger',
+    'Python Integration Ready',
   ],
 };
 

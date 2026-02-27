@@ -1,0 +1,12 @@
+fastapi==0.115.6
+uvicorn[standard]==0.34.0
+python-binance==1.0.22
+pybit==5.9.0
+coinbase-advanced-py==1.8.1
+python-okx==0.3.14
+bitfinex-api-py==3.0.4
+cryptofeed==2.4.1
+websockets==14.2
+httpx==0.28.1
+pydantic==2.10.4
+python-dotenv==1.0.1

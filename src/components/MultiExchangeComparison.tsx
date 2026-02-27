@@ -6,7 +6,7 @@
 'use client';
 
 import { useState, useEffect } from 'react';
-import type { ExchangeId, Ticker, ApiResponse } from '@/lib/exchanges/types';
+import type { ExchangeId, Ticker, ApiResponse } from '@/types/exchanges';
 
 interface ExchangePrice {
   exchange: ExchangeId;
@@ -20,19 +20,21 @@ interface ExchangePrice {
 export default function MultiExchangeComparison() {
   const [symbol, setSymbol] = useState<string>('BTC/USDT');
   const [exchanges] = useState<ExchangeId[]>([
-    'binance',
     'bybit',
+    'coinbase',
     'okx',
     'bitget',
     'kucoin',
+    'mexc',
   ]);
   
   const [prices, setPrices] = useState<Partial<Record<ExchangeId, ExchangePrice>>>({
-    binance: { exchange: 'binance', price: null, volume: null, spread: null, loading: true, error: null },
     bybit: { exchange: 'bybit', price: null, volume: null, spread: null, loading: true, error: null },
+    coinbase: { exchange: 'coinbase', price: null, volume: null, spread: null, loading: true, error: null },
     okx: { exchange: 'okx', price: null, volume: null, spread: null, loading: true, error: null },
     bitget: { exchange: 'bitget', price: null, volume: null, spread: null, loading: true, error: null },
     kucoin: { exchange: 'kucoin', price: null, volume: null, spread: null, loading: true, error: null },
+    mexc: { exchange: 'mexc', price: null, volume: null, spread: null, loading: true, error: null },
   });
 
   const [aggregatedOrderBook, setAggregatedOrderBook] = useState<any>(null);

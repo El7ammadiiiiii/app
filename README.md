@@ -1,10 +1,6 @@
-<div align="center">
+# CCWAYS · Alt Season Black Login
 
-# CCCWAYS Nexus · Alt Season Black Login
-
-Google OAuth + Firebase identity layer powering the CCCWAYS Nexus cockpit with a cinematic Alt Season background.
-
-</div>
+Google OAuth + Firebase identity layer powering the CCWAYS cockpit with a cinematic Alt Season background.
 
 ## ⭐️ Highlights
 
@@ -17,26 +13,26 @@ Google OAuth + Firebase identity layer powering the CCCWAYS Nexus cockpit with a
 ## 🚀 Getting Started
 
 1. **Install dependencies**
-	```bash
-	npm install
-	```
-2. **Configure environment** (copy `.env.example` → `.env`) and provide:
-	- Google OAuth Web Client (ID, secret, redirect URI).
-	- Firebase Admin service account (project id, client email, private key).
-	- Frontend Firebase config (NEXT_PUBLIC_FIREBASE_*).
-	- `TOKEN_ENCRYPTION_KEY` (32 chars) + `SESSION_SECRET` (JWT signing key).
-3. **Run the dev server**
-	```bash
-	npm run dev
-	```
-4. Open [http://localhost:3000/login](http://localhost:3000/login) to experience the Alt Season login wall.
+ ```bash
+ npm install
+ ```
+1. **Configure environment** (copy `.env.example` → `.env`) and provide:
+- Google OAuth Web Client (ID, secret, redirect URI).
+- Firebase Admin service account (project id, client email, private key).
+- Frontend Firebase config (NEXT_PUBLIC_FIREBASE_*).
+- `TOKEN_ENCRYPTION_KEY` (32 chars) + `SESSION_SECRET` (JWT signing key).
+1. **Run the dev server**
+ ```bash
+ npm run dev
+ ```
+1. Open [http://localhost:3000/login](http://localhost:3000/login) to experience the Alt Season login wall.
 
 ## 🔐 Auth Flow Overview
 
 1. `/api/auth/google/start` returns `{ clientId, scope }` for GIS.
 2. GIS popup exchanges the code via `/api/auth/google/callback` → tokens + Google profile.
 3. Firestore `users` collection stores the profile alongside encrypted `accessToken` and `refreshToken`.
-4. Signed JWT + refresh token cookies (`cccways_session`, `cccways_refresh`) are issued.
+4. Signed JWT + refresh token cookies (`CCWAYS_session`, `CCWAYS_refresh`) are issued.
 5. `/api/auth/google/refresh` can silently rehydrate the session when cookies exist (triggered automatically on `/login`).
 6. `/api/auth/logout` wipes cookies for manual exit.
 
@@ -73,10 +69,32 @@ See `.env.example` for the full list. Critical entries:
 
 - `plotly.js` + `react-plotly.js` power the institutional visualization layer (candlesticks, volume profiles, KPI sparklines).
 - Reusable components live under `src/components/charts/`:
-	- `CandlestickChart.tsx` → full Plotly candlestick with dark-mode theming and responsive resizing.
-	- `MetricSparkline.tsx` → compact metric tile with smooth spline sparkline and variance coloring.
+  - `CandlestickChart.tsx` → full Plotly candlestick with dark-mode theming and responsive resizing.
+  - `MetricSparkline.tsx` → compact metric tile with smooth spline sparkline and variance coloring.
 - Visit `/charts-demo` while running `npm run dev` to preview both components with mock data.
 - Pass real OHLCV arrays or KPI series from your agents to these components to instantly level-up dashboards.
+
+## 🕸️ Canonical Crypto Crawlers (Single-Source Policy)
+
+To avoid duplicate data sources, use the crawler pipeline below only:
+
+1. `crawl-500-markets.js` → writes `public/data/coingecko-markets.json`
+2. `crawl-all-details.js` → writes `public/data/coingecko-details.json`
+3. `crawl-about-all.js` → writes `public/data/coingecko-about.json`
+
+### Recommended run order
+
+```bash
+npm run crawl:markets
+npm run crawl:details
+npm run crawl:about
+```
+
+### Backward-compatibility wrappers
+
+- `crawl-coingecko.js` is a wrapper that delegates to the canonical market + details scripts.
+- Legacy about scripts (`crawl-about.js`, `crawl-about-v2.js`, `crawl-about-stable.js`, `crawl-about-retry.js`, `crawl-about-fix.js`, `crawl-about-puppeteer.js`) are wrappers that delegate to `crawl-about-all.js`.
+- Wrappers are kept only to preserve old commands and prevent team confusion.
 
 ## ✅ Next Steps
 

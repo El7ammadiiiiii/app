@@ -1,9 +1,9 @@
 "use client";
 
-import dynamic from "next/dynamic";
-import React, { memo } from "react";
-import type { PlotData, Layout } from "plotly.js";
-import type { PlotParams } from "react-plotly.js";
+import React, { useMemo } from "react";
+import ReactECharts from "echarts-for-react";
+import { ChartConfig } from "../../lib/ChartConfig";
+import { ChartContainer } from "./ChartContainer";
 
 type Candle = {
   time: string | number;
@@ -18,58 +18,194 @@ type CandlestickChartProps = {
   title?: string;
   candles: Candle[];
   theme?: "light" | "dark";
+  height?: number;
 };
 
-const Plot = dynamic(() => import("react-plotly.js"), {
-  ssr: false,
-}) as unknown as (props: PlotParams) => React.JSX.Element;
+const CandlestickChart = ( {
+  title = "Price Action",
+  candles,
+  theme = "dark",
+  height = 420
+}: CandlestickChartProps ) =>
+{
 
-const CandlestickChart = ({ title = "Price Action", candles, theme = "dark" }: CandlestickChartProps) => {
-  const timestamps = candles.map((c) => c.time);
-  const layoutBg = theme === "dark" ? "#040506" : "#ffffff";
-  const textColor = theme === "dark" ? "#f5f6fa" : "#1f2937";
+  const chartOption = useMemo( () =>
+  {
+    // Convert data to format expected by ECharts
+    const data = candles.map( c => ( {
+      time: typeof c.time === 'string' ? new Date( c.time ).getTime() : c.time,
+      open: c.open,
+      high: c.high,
+      low: c.low,
+      close: c.close,
+      volume: c.volume
+    } ) );
+
+    const dates = data.map( item =>
+    {
+      const date = new Date( item.time );
+      return date.toLocaleTimeString( [], { hour: '2-digit', minute: '2-digit' } );
+    } );
+
+    const values = data.map( item => [
+      item.open,
+      item.close,
+      item.low,
+      item.high,
+      item.volume
+    ] );
+
+    const volumes = data.map( ( item, index ) => [ index, item.volume, item.open > item.close ? -1 : 1 ] );
+
+    const colors = theme === 'dark' ? ChartConfig.COLORS_DARK : ChartConfig.COLORS_LIGHT;
+
+    return {
+      backgroundColor: 'transparent', // Let container gradient show through
+      animation: false,
+      grid: [
+        {
+          left: '3%',
+          right: '3%',
+          top: '10%',
+          height: '65%',
+          containLabel: true
+        },
+        {
+          left: '3%',
+          right: '3%',
+          top: '78%',
+          height: '15%',
+          containLabel: true
+        }
+      ],
+      tooltip: {
+        trigger: 'axis',
+        axisPointer: {
+          type: 'cross',
+          label: {
+            backgroundColor: colors.textSecondary
+          }
+        },
+        backgroundColor: colors.background.includes( 'gradient' ) ? 'rgba(12, 14, 13, 0.95)' : colors.background,
+        borderColor: colors.border,
+        textStyle: {
+          color: colors.text
+        }
+      },
+      axisPointer: {
+        link: [ { xAxisIndex: 'all' } ],
+        label: {
+          backgroundColor: '#777'
+        }
+      },
+      xAxis: [
+        {
+          type: 'category',
+          data: dates,
+          scale: true,
+          boundaryGap: false,
+          axisLine: { onZero: false, lineStyle: { color: colors.border } },
+          splitLine: { show: false },
+          min: 'dataMin',
+          max: 'dataMax',
+          axisLabel: { color: colors.textSecondary }
+        },
+        {
+          type: 'category',
+          gridIndex: 1,
+          data: dates,
+          scale: true,
+          boundaryGap: false,
+          axisLine: { onZero: false, lineStyle: { color: colors.border } },
+          axisTick: { show: false },
+          splitLine: { show: false },
+          axisLabel: { show: false },
+          min: 'dataMin',
+          max: 'dataMax'
+        }
+      ],
+      yAxis: [
+        {
+          scale: true,
+          splitArea: {
+            show: false
+          },
+          splitLine: {
+            show: true,
+            lineStyle: {
+              color: colors.grid
+            }
+          },
+          axisLabel: {
+            color: colors.textSecondary
+          }
+        },
+        {
+          scale: true,
+          gridIndex: 1,
+          splitNumber: 2,
+          axisLabel: { show: false },
+          axisLine: { show: false },
+          axisTick: { show: false },
+          splitLine: { show: false }
+        }
+      ],
+      dataZoom: [
+        {
+          type: 'inside',
+          xAxisIndex: [ 0, 1 ],
+          start: 50,
+          end: 100
+        },
+        {
+          show: true,
+          xAxisIndex: [ 0, 1 ],
+          type: 'slider',
+          bottom: '0%',
+          start: 50,
+          end: 100,
+          borderColor: colors.border,
+          textStyle: { color: colors.textSecondary }
+        }
+      ],
+      series: [
+        {
+          name: title,
+          type: 'candlestick',
+          data: values,
+          itemStyle: {
+            color: colors.candleUp,
+            color0: colors.candleDown,
+            borderColor: colors.candleUp,
+            borderColor0: colors.candleDown
+          }
+        },
+        {
+          name: 'Volume',
+          type: 'bar',
+          xAxisIndex: 1,
+          yAxisIndex: 1,
+          data: volumes,
+          itemStyle: {
+            color: ( params: any ) =>
+            {
+              return params.value[ 2 ] === 1 ? colors.candleUp : colors.candleDown;
+            }
+          }
+        }
+      ]
+    };
+  }, [ candles, theme, title ] );
 
   return (
-    <div className="rounded-3xl border border-white/5 theme-card p-4">
-      <Plot
-        data={[
-          {
-            type: "candlestick",
-            x: timestamps,
-            open: candles.map((c) => c.open),
-            high: candles.map((c) => c.high),
-            low: candles.map((c) => c.low),
-            close: candles.map((c) => c.close),
-            increasing: { line: { color: "#16f2b3" }, fillcolor: "#16f2b333" },
-            decreasing: { line: { color: "#f97316" }, fillcolor: "#f9731633" },
-            hoverinfo: "x+open+high+low+close" as PlotData["hoverinfo"],
-          } as Partial<PlotData>,
-        ]}
-        layout={
-          {
-            dragmode: "pan",
-            title: { text: title, font: { color: textColor, size: 16 } },
-            paper_bgcolor: "#040506",
-            plot_bgcolor: "#0f3133",
-            xaxis: {
-              rangeslider: { visible: false },
-              color: textColor,
-              gridcolor: "#1f2937",
-            },
-            yaxis: {
-              color: textColor,
-              gridcolor: "#1f2937",
-              tickprefix: "$",
-            },
-            margin: { l: 48, r: 16, t: 48, b: 32 },
-          } satisfies Partial<Layout>
-        }
-        useResizeHandler
-        style={{ width: "100%", height: "420px" }}
-        config={{ displaylogo: false, responsive: true }}
+    <ChartContainer title={ title } height={ `${ height }px` }>
+      <ReactECharts
+        option={ chartOption }
+        className="h-full w-full"
+        theme={ theme }
       />
-    </div>
+    </ChartContainer>
   );
 };
 
-export default memo(CandlestickChart);
+export default CandlestickChart;

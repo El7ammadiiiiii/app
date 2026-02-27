@@ -73,15 +73,15 @@ A world-class professional chart pattern detection system designed to compete at
 ## 📁 File Structure هيكل الملفات
 
 ```
-nexus-webapp/src/lib/indicators/
+ccways/src/lib/indicators/
 ├── elite-pattern-detection.ts      # Core elite detection engine
 ├── elite-pattern-bridge.ts         # Integration bridge for legacy system
 └── chart-patterns.ts                # Legacy system (cleaned up)
 
-nexus-webapp/src/components/charts/
+ccways/src/components/charts/
 └── TradingChart.tsx                 # Updated with elite detection
 
-nexus-webapp/src/app/app/trend-scanner/[pair]/
+ccways/src/app/app/trend-scanner/[pair]/
 └── page.tsx                         # Updated to pass timeframe
 ```
 

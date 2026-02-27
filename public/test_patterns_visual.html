@@ -1,0 +1,1459 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>🧪 اختبار تفاعلي للنماذج الفنية - Pattern Tester</title>
+  <script src="https://unpkg.com/lightweight-charts@4.1.0/dist/lightweight-charts.standalone.production.js"></script>
+  <style>
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+    body { 
+      background: linear-gradient(135deg, #0f0f1a 0%, #1a1a2e 50%, #16213e 100%);
+      color: #e2e8f0; 
+      font-family: 'Segoe UI', Tahoma, Arial, sans-serif;
+      min-height: 100vh;
+      padding: 20px;
+    }
+    
+    .container { max-width: 1400px; margin: 0 auto; }
+    
+    h1 { 
+      text-align: center; 
+      font-size: 2rem; 
+      margin-bottom: 20px;
+      background: linear-gradient(90deg, #3b82f6, #8b5cf6, #ec4899);
+      -webkit-background-clip: text;
+      background-clip: text;
+      -webkit-text-fill-color: transparent;
+      text-shadow: 0 0 30px rgba(59, 130, 246, 0.3);
+    }
+    
+    .mode-tabs {
+      display: flex;
+      justify-content: center;
+      gap: 10px;
+      margin-bottom: 15px;
+    }
+    
+    .mode-tab {
+      padding: 12px 30px;
+      cursor: pointer;
+      background: rgba(30, 30, 50, 0.8);
+      color: #94a3b8;
+      border: 2px solid rgba(59, 130, 246, 0.3);
+      border-radius: 10px;
+      font-size: 1rem;
+      font-weight: bold;
+      transition: all 0.3s ease;
+    }
+    
+    .mode-tab:hover {
+      border-color: #3b82f6;
+      color: white;
+    }
+    
+    .mode-tab.active {
+      background: linear-gradient(135deg, #3b82f6 0%, #8b5cf6 100%);
+      border-color: #8b5cf6;
+      color: white;
+      box-shadow: 0 0 20px rgba(139, 92, 246, 0.5);
+    }
+    
+    .real-data-controls {
+      display: none;
+      flex-wrap: wrap;
+      gap: 15px;
+      justify-content: center;
+      align-items: center;
+      margin-bottom: 20px;
+      padding: 20px;
+      background: rgba(30, 30, 50, 0.8);
+      border-radius: 12px;
+      border: 1px solid rgba(34, 197, 94, 0.3);
+    }
+    
+    .real-data-controls.visible { display: flex; }
+    
+    .real-data-controls select,
+    .real-data-controls input {
+      padding: 10px 15px;
+      background: rgba(20, 20, 35, 0.9);
+      border: 1px solid rgba(59, 130, 246, 0.4);
+      border-radius: 8px;
+      color: white;
+      font-size: 0.9rem;
+      min-width: 140px;
+    }
+    
+    .real-data-controls select:focus,
+    .real-data-controls input:focus {
+      outline: none;
+      border-color: #3b82f6;
+      box-shadow: 0 0 10px rgba(59, 130, 246, 0.3);
+    }
+    
+    .fetch-btn {
+      padding: 12px 25px !important;
+      background: linear-gradient(135deg, #22c55e 0%, #16a34a 100%) !important;
+      border-color: #22c55e !important;
+      font-weight: bold;
+    }
+    
+    .fetch-btn:hover {
+      background: linear-gradient(135deg, #16a34a 0%, #15803d 100%) !important;
+      box-shadow: 0 5px 20px rgba(34, 197, 94, 0.4) !important;
+    }
+    
+    .scan-btn {
+      padding: 12px 25px !important;
+      background: linear-gradient(135deg, #8b5cf6 0%, #7c3aed 100%) !important;
+      border-color: #8b5cf6 !important;
+      font-weight: bold;
+    }
+    
+    .scan-btn:hover {
+      background: linear-gradient(135deg, #7c3aed 0%, #6d28d9 100%) !important;
+      box-shadow: 0 5px 20px rgba(139, 92, 246, 0.4) !important;
+    }
+    
+    .loading {
+      display: none;
+      color: #3b82f6;
+      font-size: 0.9rem;
+      animation: pulse 1.5s infinite;
+    }
+    
+    .loading.visible { display: inline-block; }
+    
+    @keyframes pulse {
+      0%, 100% { opacity: 1; }
+      50% { opacity: 0.5; }
+    }
+    
+    .detected-patterns {
+      display: none;
+      margin-top: 15px;
+      padding: 15px;
+      background: rgba(139, 92, 246, 0.1);
+      border: 1px solid rgba(139, 92, 246, 0.3);
+      border-radius: 10px;
+    }
+    
+    .detected-patterns.visible { display: block; }
+    
+    .detected-patterns h4 {
+      color: #8b5cf6;
+      margin-bottom: 10px;
+      font-size: 1rem;
+    }
+    
+    .pattern-chip {
+      display: inline-block;
+      padding: 6px 12px;
+      margin: 4px;
+      background: rgba(59, 130, 246, 0.2);
+      border: 1px solid rgba(59, 130, 246, 0.4);
+      border-radius: 20px;
+      font-size: 0.8rem;
+      cursor: pointer;
+      transition: all 0.2s;
+    }
+    
+    .pattern-chip:hover {
+      background: rgba(59, 130, 246, 0.4);
+      transform: scale(1.05);
+    }
+    
+    .pattern-chip.bullish { background: rgba(34, 197, 94, 0.2); border-color: #22c55e; color: #22c55e; }
+    .pattern-chip.bearish { background: rgba(239, 68, 68, 0.2); border-color: #ef4444; color: #ef4444; }
+    .pattern-chip.neutral { background: rgba(234, 179, 8, 0.2); border-color: #eab308; color: #eab308; }
+    
+    .controls {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 10px;
+      justify-content: center;
+      margin-bottom: 20px;
+      padding: 15px;
+      background: rgba(30, 30, 50, 0.8);
+      border-radius: 12px;
+      border: 1px solid rgba(59, 130, 246, 0.3);
+    }
+    
+    .controls.hidden { display: none; }
+    
+    .btn-group {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 8px;
+      justify-content: center;
+    }
+    
+    .btn-group-label {
+      width: 100%;
+      text-align: center;
+      font-size: 0.75rem;
+      color: #94a3b8;
+      margin-bottom: 5px;
+      text-transform: uppercase;
+      letter-spacing: 1px;
+    }
+    
+    button {
+      padding: 10px 18px;
+      cursor: pointer;
+      background: linear-gradient(135deg, #1e3a5f 0%, #2d4a6f 100%);
+      color: white;
+      border: 1px solid rgba(59, 130, 246, 0.4);
+      border-radius: 8px;
+      font-size: 0.85rem;
+      transition: all 0.3s ease;
+      display: flex;
+      align-items: center;
+      gap: 6px;
+    }
+    
+    button:hover {
+      background: linear-gradient(135deg, #3b82f6 0%, #2563eb 100%);
+      transform: translateY(-2px);
+      box-shadow: 0 5px 20px rgba(59, 130, 246, 0.4);
+    }
+    
+    button.active {
+      background: linear-gradient(135deg, #3b82f6 0%, #8b5cf6 100%);
+      border-color: #8b5cf6;
+      box-shadow: 0 0 20px rgba(139, 92, 246, 0.5);
+    }
+    
+    .chart-container {
+      background: rgba(20, 20, 35, 0.9);
+      border-radius: 16px;
+      padding: 20px;
+      border: 1px solid rgba(59, 130, 246, 0.2);
+      box-shadow: 0 10px 40px rgba(0, 0, 0, 0.5);
+    }
+    
+    .info-bar {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: 15px 20px;
+      background: linear-gradient(90deg, rgba(59, 130, 246, 0.1), rgba(139, 92, 246, 0.1));
+      border-radius: 10px;
+      margin-bottom: 15px;
+      border: 1px solid rgba(59, 130, 246, 0.2);
+    }
+    
+    .pattern-name {
+      font-size: 1.2rem;
+      font-weight: bold;
+      display: flex;
+      align-items: center;
+      gap: 10px;
+    }
+    
+    .pattern-name .icon { font-size: 1.5rem; }
+    
+    .pattern-stats {
+      display: flex;
+      gap: 20px;
+    }
+    
+    .stat {
+      text-align: center;
+      padding: 5px 15px;
+      background: rgba(30, 30, 50, 0.8);
+      border-radius: 8px;
+    }
+    
+    .stat-value {
+      font-size: 1.1rem;
+      font-weight: bold;
+      color: #3b82f6;
+    }
+    
+    .stat-label {
+      font-size: 0.7rem;
+      color: #94a3b8;
+      text-transform: uppercase;
+    }
+    
+    #chart { 
+      width: 100%; 
+      height: 500px; 
+      border-radius: 10px;
+      overflow: hidden;
+    }
+    
+    .pattern-description {
+      margin-top: 15px;
+      padding: 15px;
+      background: rgba(30, 30, 50, 0.6);
+      border-radius: 10px;
+      border-right: 4px solid #3b82f6;
+    }
+    
+    .pattern-description h3 {
+      color: #3b82f6;
+      margin-bottom: 8px;
+      font-size: 1rem;
+    }
+    
+    .pattern-description p {
+      color: #94a3b8;
+      font-size: 0.9rem;
+      line-height: 1.6;
+    }
+    
+    .bullish { color: #22c55e !important; border-color: #22c55e !important; }
+    .bearish { color: #ef4444 !important; border-color: #ef4444 !important; }
+    .neutral { color: #eab308 !important; border-color: #eab308 !important; }
+    
+    .legend {
+      display: flex;
+      gap: 20px;
+      justify-content: center;
+      margin-top: 15px;
+      font-size: 0.8rem;
+    }
+    
+    .legend-item {
+      display: flex;
+      align-items: center;
+      gap: 6px;
+    }
+    
+    .legend-color {
+      width: 20px;
+      height: 3px;
+      border-radius: 2px;
+    }
+
+    @media (max-width: 768px) {
+      h1 { font-size: 1.5rem; }
+      button { padding: 8px 12px; font-size: 0.75rem; }
+      .pattern-stats { flex-direction: column; gap: 10px; }
+      #chart { height: 350px; }
+    }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <h1>🧪 اختبار تفاعلي للنماذج الفنية</h1>
+    
+    <!-- Mode Tabs -->
+    <div class="mode-tabs">
+      <button class="mode-tab active" onclick="switchMode('simulated')" id="tab-simulated">📊 بيانات تجريبية</button>
+      <button class="mode-tab" onclick="switchMode('real')" id="tab-real">🌐 بيانات حقيقية (المصدر المركزي)</button>
+    </div>
+    
+    <!-- Real Data Controls -->
+    <div class="real-data-controls" id="realDataControls">
+      <select id="symbolSelect">
+        <option value="BTCUSDT">BTC/USDT</option>
+        <option value="ETHUSDT">ETH/USDT</option>
+        <option value="BNBUSDT">BNB/USDT</option>
+        <option value="SOLUSDT">SOL/USDT</option>
+        <option value="XRPUSDT">XRP/USDT</option>
+        <option value="ADAUSDT">ADA/USDT</option>
+        <option value="DOGEUSDT">DOGE/USDT</option>
+        <option value="DOTUSDT">DOT/USDT</option>
+        <option value="MATICUSDT">MATIC/USDT</option>
+        <option value="LINKUSDT">LINK/USDT</option>
+        <option value="AVAXUSDT">AVAX/USDT</option>
+        <option value="ATOMUSDT">ATOM/USDT</option>
+      </select>
+      
+      <select id="timeframeSelect">
+        <option value="15m">15 دقيقة</option>
+        <option value="1h" selected>1 ساعة</option>
+        <option value="4h">4 ساعات</option>
+        <option value="1d">يومي</option>
+      </select>
+      
+      <input type="number" id="limitInput" value="200" min="50" max="500" placeholder="عدد الشموع">
+      
+      <button class="fetch-btn" onclick="fetchRealData()">📡 جلب البيانات</button>
+      <button class="scan-btn" onclick="scanPatterns()">🔍 فحص النماذج</button>
+      
+      <span class="loading" id="loadingIndicator">⏳ جاري التحميل...</span>
+    </div>
+    
+    <!-- Detected Patterns -->
+    <div class="detected-patterns" id="detectedPatterns">
+      <h4>🎯 النماذج المكتشفة:</h4>
+      <div id="patternChips"></div>
+    </div>
+    
+    <!-- Simulated Patterns Controls -->
+    <div class="controls" id="simulatedControls">
+      <div class="btn-group">
+        <span class="btn-group-label">📊 المثلثات</span>
+        <button onclick="showPattern('symmetricalTriangle')" id="btn-symmetricalTriangle">🔺 مثلث متماثل</button>
+        <button onclick="showPattern('ascendingTriangle')" id="btn-ascendingTriangle">📈 مثلث صاعد</button>
+        <button onclick="showPattern('descendingTriangle')" id="btn-descendingTriangle">📉 مثلث هابط</button>
+      </div>
+      
+      <div class="btn-group">
+        <span class="btn-group-label">📈 القنوات</span>
+        <button onclick="showPattern('ascendingChannel')" id="btn-ascendingChannel">📈 قناة صاعدة</button>
+        <button onclick="showPattern('descendingChannel')" id="btn-descendingChannel">📉 قناة هابطة</button>
+      </div>
+      
+      <div class="btn-group">
+        <span class="btn-group-label">🚩 الأعلام</span>
+        <button onclick="showPattern('bullFlag')" id="btn-bullFlag">🟢 علم صاعد</button>
+        <button onclick="showPattern('bearFlag')" id="btn-bearFlag">🔴 علم هابط</button>
+      </div>
+      
+      <div class="btn-group">
+        <span class="btn-group-label">📐 الأوتاد</span>
+        <button onclick="showPattern('risingWedge')" id="btn-risingWedge">📐 وتد صاعد</button>
+        <button onclick="showPattern('fallingWedge')" id="btn-fallingWedge">📐 وتد هابط</button>
+      </div>
+      
+      <div class="btn-group">
+        <span class="btn-group-label">🔝 القمم والقيعان</span>
+        <button onclick="showPattern('doubleTop')" id="btn-doubleTop">🔝 قمة مزدوجة</button>
+        <button onclick="showPattern('doubleBottom')" id="btn-doubleBottom">🔻 قاع مزدوج</button>
+        <button onclick="showPattern('headShoulders')" id="btn-headShoulders">👤 رأس وكتفين</button>
+      </div>
+      
+      <div class="btn-group">
+        <span class="btn-group-label">📦 أخرى</span>
+        <button onclick="showPattern('rectangle')" id="btn-rectangle">📦 مستطيل</button>
+      </div>
+    </div>
+    
+    <div class="chart-container">
+      <div class="info-bar">
+        <div class="pattern-name">
+          <span class="icon" id="patternIcon">📊</span>
+          <span id="patternName">اختر نمط لعرضه</span>
+        </div>
+        <div class="pattern-stats">
+          <div class="stat">
+            <div class="stat-value" id="statBars">-</div>
+            <div class="stat-label">شموع</div>
+          </div>
+          <div class="stat">
+            <div class="stat-value" id="statType">-</div>
+            <div class="stat-label">النوع</div>
+          </div>
+          <div class="stat">
+            <div class="stat-value" id="statTarget">-</div>
+            <div class="stat-label">الهدف</div>
+          </div>
+        </div>
+      </div>
+      
+      <div id="chart"></div>
+      
+      <div class="legend">
+        <div class="legend-item">
+          <div class="legend-color" style="background: #22c55e;"></div>
+          <span>خط الدعم</span>
+        </div>
+        <div class="legend-item">
+          <div class="legend-color" style="background: #ef4444;"></div>
+          <span>خط المقاومة</span>
+        </div>
+        <div class="legend-item">
+          <div class="legend-color" style="background: #3b82f6;"></div>
+          <span>خط الاتجاه</span>
+        </div>
+        <div class="legend-item">
+          <div class="legend-color" style="background: #eab308;"></div>
+          <span>خط الهدف</span>
+        </div>
+      </div>
+      
+      <div class="pattern-description" id="description">
+        <h3>📖 وصف النمط</h3>
+        <p id="descriptionText">اختر نمطاً من القائمة أعلاه لعرض تفاصيله.</p>
+      </div>
+    </div>
+  </div>
+
+  <script>
+    let chart, candleSeries, lineSeries = [];
+    let activeButton = null;
+    
+    const PATTERNS_INFO = {
+      symmetricalTriangle: {
+        name: 'مثلث متماثل',
+        nameEn: 'Symmetrical Triangle',
+        icon: '🔺',
+        type: 'محايد',
+        typeClass: 'neutral',
+        target: '±10-15%',
+        description: 'نمط استمراري محايد يتشكل عندما يتقارب خط المقاومة الهابط مع خط الدعم الصاعد. يشير إلى فترة تردد قبل اختراق قوي في أي اتجاه. الاختراق عادة يكون في اتجاه الترند السابق.'
+      },
+      ascendingTriangle: {
+        name: 'مثلث صاعد',
+        nameEn: 'Ascending Triangle',
+        icon: '📈',
+        type: 'صعودي',
+        typeClass: 'bullish',
+        target: '+10-15%',
+        description: 'نمط استمراري صعودي يتشكل من مقاومة أفقية ودعم صاعد. يشير إلى تراكم قوة الشراء. الاختراق المتوقع للأعلى مع زيادة في الحجم.'
+      },
+      descendingTriangle: {
+        name: 'مثلث هابط',
+        nameEn: 'Descending Triangle',
+        icon: '📉',
+        type: 'هبوطي',
+        typeClass: 'bearish',
+        target: '-10-15%',
+        description: 'نمط استمراري هبوطي يتشكل من دعم أفقي ومقاومة هابطة. يشير إلى ضغط بيعي متزايد. الاختراق المتوقع للأسفل.'
+      },
+      ascendingChannel: {
+        name: 'قناة صاعدة',
+        nameEn: 'Ascending Channel',
+        icon: '📈',
+        type: 'صعودي',
+        typeClass: 'bullish',
+        target: 'عرض القناة',
+        description: 'قناة سعرية صاعدة تتكون من خطين متوازيين صاعدين. الشراء عند الدعم والبيع عند المقاومة. كسر الدعم إشارة انعكاس.'
+      },
+      descendingChannel: {
+        name: 'قناة هابطة',
+        nameEn: 'Descending Channel',
+        icon: '📉',
+        type: 'هبوطي',
+        typeClass: 'bearish',
+        target: 'عرض القناة',
+        description: 'قناة سعرية هابطة تتكون من خطين متوازيين هابطين. البيع عند المقاومة والشراء عند الدعم. اختراق المقاومة إشارة انعكاس صعودي.'
+      },
+      bullFlag: {
+        name: 'علم صاعد',
+        nameEn: 'Bull Flag',
+        icon: '🟢',
+        type: 'صعودي',
+        typeClass: 'bullish',
+        target: 'طول السارية',
+        description: 'نمط استمراري صعودي قوي. يتكون من حركة صعودية حادة (السارية) تليها فترة تصحيح هابطة قصيرة (العلم). الهدف = طول السارية من نقطة الاختراق.'
+      },
+      bearFlag: {
+        name: 'علم هابط',
+        nameEn: 'Bear Flag',
+        icon: '🔴',
+        type: 'هبوطي',
+        typeClass: 'bearish',
+        target: 'طول السارية',
+        description: 'نمط استمراري هبوطي قوي. يتكون من حركة هبوطية حادة (السارية) تليها فترة تصحيح صاعدة قصيرة (العلم). الهدف = طول السارية من نقطة الكسر.'
+      },
+      risingWedge: {
+        name: 'وتد صاعد',
+        nameEn: 'Rising Wedge',
+        icon: '📐',
+        type: 'انعكاسي هبوطي',
+        typeClass: 'bearish',
+        target: '-15-25%',
+        description: 'نمط انعكاسي هبوطي. خطان صاعدان متقاربان مع ضعف الزخم الصعودي. كسر الدعم يؤكد الانعكاس. كلما طال النمط، كان الانعكاس أقوى.'
+      },
+      fallingWedge: {
+        name: 'وتد هابط',
+        nameEn: 'Falling Wedge',
+        icon: '📐',
+        type: 'انعكاسي صعودي',
+        typeClass: 'bullish',
+        target: '+15-25%',
+        description: 'نمط انعكاسي صعودي. خطان هابطان متقاربان مع ضعف الزخم الهبوطي. اختراق المقاومة يؤكد الانعكاس الصعودي.'
+      },
+      doubleTop: {
+        name: 'قمة مزدوجة',
+        nameEn: 'Double Top',
+        icon: '🔝',
+        type: 'انعكاسي هبوطي',
+        typeClass: 'bearish',
+        target: 'ارتفاع النمط',
+        description: 'نمط انعكاسي هبوطي قوي يشبه حرف M. قمتان متساويتان تقريباً مع قاع بينهما. كسر خط العنق يؤكد النمط. الهدف = المسافة من القمة لخط العنق.'
+      },
+      doubleBottom: {
+        name: 'قاع مزدوج',
+        nameEn: 'Double Bottom',
+        icon: '🔻',
+        type: 'انعكاسي صعودي',
+        typeClass: 'bullish',
+        target: 'ارتفاع النمط',
+        description: 'نمط انعكاسي صعودي قوي يشبه حرف W. قاعان متساويان تقريباً مع قمة بينهما. اختراق خط العنق يؤكد النمط. الهدف = المسافة من القاع لخط العنق.'
+      },
+      headShoulders: {
+        name: 'رأس وكتفين',
+        nameEn: 'Head & Shoulders',
+        icon: '👤',
+        type: 'انعكاسي هبوطي',
+        typeClass: 'bearish',
+        target: 'ارتفاع الرأس',
+        description: 'أقوى أنماط الانعكاس. ثلاث قمم: الوسطى (الرأس) أعلى من الجانبيتين (الكتفين). كسر خط العنق إشارة بيع قوية. الهدف = المسافة من الرأس لخط العنق.'
+      },
+      rectangle: {
+        name: 'مستطيل',
+        nameEn: 'Rectangle',
+        icon: '📦',
+        type: 'محايد',
+        typeClass: 'neutral',
+        target: 'ارتفاع المستطيل',
+        description: 'نمط تجميع/توزيع محايد. السعر يتذبذب بين دعم ومقاومة أفقيين. الاختراق في أي اتجاه يحدد الحركة التالية. الهدف = ارتفاع المستطيل.'
+      }
+    };
+    
+    function initChart() {
+      const chartContainer = document.getElementById('chart');
+      chart = LightweightCharts.createChart(chartContainer, {
+        layout: {
+          background: { type: 'solid', color: '#0f0f1a' },
+          textColor: '#9ca3af',
+        },
+        grid: {
+          vertLines: { color: 'rgba(59, 130, 246, 0.1)' },
+          horzLines: { color: 'rgba(59, 130, 246, 0.1)' },
+        },
+        crosshair: {
+          mode: LightweightCharts.CrosshairMode.Normal,
+          vertLine: { color: 'rgba(59, 130, 246, 0.5)', width: 1, style: 2 },
+          horzLine: { color: 'rgba(59, 130, 246, 0.5)', width: 1, style: 2 },
+        },
+        rightPriceScale: {
+          borderColor: 'rgba(59, 130, 246, 0.3)',
+        },
+        timeScale: {
+          borderColor: 'rgba(59, 130, 246, 0.3)',
+          timeVisible: true,
+        },
+        width: chartContainer.clientWidth,
+        height: 500,
+      });
+      
+      candleSeries = chart.addCandlestickSeries({
+        upColor: '#22c55e',
+        downColor: '#ef4444',
+        borderUpColor: '#22c55e',
+        borderDownColor: '#ef4444',
+        wickUpColor: '#22c55e',
+        wickDownColor: '#ef4444',
+      });
+      
+      window.addEventListener('resize', () => {
+        chart.applyOptions({ width: chartContainer.clientWidth });
+      });
+    }
+    
+    // Pattern Generators
+    function generateSymmetricalTriangle(bars = 45) {
+      const data = [];
+      const baseTime = Math.floor(Date.now() / 1000) - bars * 3600;
+      const startHigh = 120, startLow = 100;
+      
+      for (let i = 0; i < bars; i++) {
+        const highLine = startHigh - i * 0.35;
+        const lowLine = startLow + i * 0.35;
+        const mid = (highLine + lowLine) / 2;
+        const range = (highLine - lowLine) / 2;
+        const wave = Math.sin(i * 0.5) * range * 0.85;
+        const o = mid + wave;
+        const c = mid + wave + (Math.random() - 0.5) * 0.8;
+        data.push({
+          time: baseTime + i * 3600,
+          open: o,
+          high: Math.min(highLine + 0.5, Math.max(o, c) + Math.random() * 0.4),
+          low: Math.max(lowLine - 0.5, Math.min(o, c) - Math.random() * 0.4),
+          close: c
+        });
+      }
+      
+      return {
+        data,
+        lines: [
+          { points: [{x: 0, y: startHigh}, {x: bars-1, y: startHigh - (bars-1) * 0.35}], color: '#ef4444', style: 2 },
+          { points: [{x: 0, y: startLow}, {x: bars-1, y: startLow + (bars-1) * 0.35}], color: '#22c55e', style: 2 },
+        ]
+      };
+    }
+    
+    function generateAscendingTriangle(bars = 45) {
+      const data = [];
+      const baseTime = Math.floor(Date.now() / 1000) - bars * 3600;
+      const resistance = 120, startSupport = 100;
+      
+      for (let i = 0; i < bars; i++) {
+        const supportLine = startSupport + i * 0.4;
+        const mid = (resistance + supportLine) / 2;
+        const range = (resistance - supportLine) / 2;
+        const wave = Math.sin(i * 0.5) * range * 0.8;
+        const o = mid + wave;
+        const c = mid + wave + (Math.random() - 0.5) * 0.8;
+        data.push({
+          time: baseTime + i * 3600,
+          open: o,
+          high: Math.min(resistance + 0.5, Math.max(o, c) + Math.random() * 0.4),
+          low: Math.max(supportLine - 0.5, Math.min(o, c) - Math.random() * 0.4),
+          close: c
+        });
+      }
+      
+      return {
+        data,
+        lines: [
+          { points: [{x: 0, y: resistance}, {x: bars-1, y: resistance}], color: '#ef4444', style: 0 },
+          { points: [{x: 0, y: startSupport}, {x: bars-1, y: startSupport + (bars-1) * 0.4}], color: '#22c55e', style: 2 },
+        ]
+      };
+    }
+    
+    function generateDescendingTriangle(bars = 45) {
+      const data = [];
+      const baseTime = Math.floor(Date.now() / 1000) - bars * 3600;
+      const support = 100, startResistance = 120;
+      
+      for (let i = 0; i < bars; i++) {
+        const resistanceLine = startResistance - i * 0.4;
+        const mid = (resistanceLine + support) / 2;
+        const range = (resistanceLine - support) / 2;
+        const wave = Math.sin(i * 0.5) * range * 0.8;
+        const o = mid + wave;
+        const c = mid + wave + (Math.random() - 0.5) * 0.8;
+        data.push({
+          time: baseTime + i * 3600,
+          open: o,
+          high: Math.min(resistanceLine + 0.5, Math.max(o, c) + Math.random() * 0.4),
+          low: Math.max(support - 0.5, Math.min(o, c) - Math.random() * 0.4),
+          close: c
+        });
+      }
+      
+      return {
+        data,
+        lines: [
+          { points: [{x: 0, y: startResistance}, {x: bars-1, y: startResistance - (bars-1) * 0.4}], color: '#ef4444', style: 2 },
+          { points: [{x: 0, y: support}, {x: bars-1, y: support}], color: '#22c55e', style: 0 },
+        ]
+      };
+    }
+    
+    function generateAscendingChannel(bars = 55) {
+      const data = [];
+      const baseTime = Math.floor(Date.now() / 1000) - bars * 3600;
+      const slope = 0.5, width = 6;
+      
+      for (let i = 0; i < bars; i++) {
+        const base = 100 + i * slope;
+        const wave = Math.sin(i * 0.28) * (width / 2);
+        const o = base + wave;
+        const c = o + (Math.random() - 0.5) * 0.6;
+        data.push({
+          time: baseTime + i * 3600,
+          open: o,
+          high: Math.max(o, c) + Math.random() * 0.5,
+          low: Math.min(o, c) - Math.random() * 0.5,
+          close: c
+        });
+      }
+      
+      return {
+        data,
+        lines: [
+          { points: [{x: 0, y: 100 + width/2}, {x: bars-1, y: 100 + (bars-1) * slope + width/2}], color: '#ef4444', style: 2 },
+          { points: [{x: 0, y: 100 - width/2}, {x: bars-1, y: 100 + (bars-1) * slope - width/2}], color: '#22c55e', style: 2 },
+        ]
+      };
+    }
+    
+    function generateDescendingChannel(bars = 55) {
+      const data = [];
+      const baseTime = Math.floor(Date.now() / 1000) - bars * 3600;
+      const slope = -0.5, width = 6;
+      
+      for (let i = 0; i < bars; i++) {
+        const base = 150 + i * slope;
+        const wave = Math.sin(i * 0.28) * (width / 2);
+        const o = base + wave;
+        const c = o + (Math.random() - 0.5) * 0.6;
+        data.push({
+          time: baseTime + i * 3600,
+          open: o,
+          high: Math.max(o, c) + Math.random() * 0.5,
+          low: Math.min(o, c) - Math.random() * 0.5,
+          close: c
+        });
+      }
+      
+      return {
+        data,
+        lines: [
+          { points: [{x: 0, y: 150 + width/2}, {x: bars-1, y: 150 + (bars-1) * slope + width/2}], color: '#ef4444', style: 2 },
+          { points: [{x: 0, y: 150 - width/2}, {x: bars-1, y: 150 + (bars-1) * slope - width/2}], color: '#22c55e', style: 2 },
+        ]
+      };
+    }
+    
+    function generateBullFlag(bars = 65) {
+      const data = [];
+      const baseTime = Math.floor(Date.now() / 1000) - bars * 3600;
+      let price = 100;
+      
+      // Pole (sharp up move)
+      for (let i = 0; i < 20; i++) {
+        price += 1.8 + Math.random() * 0.5;
+        const o = price;
+        const c = price + Math.random() * 1;
+        data.push({
+          time: baseTime + i * 3600,
+          open: o,
+          high: Math.max(o, c) + 0.4,
+          low: Math.min(o, c) - 0.3,
+          close: c
+        });
+      }
+      
+      const flagTop = price;
+      
+      // Flag (slight down channel)
+      for (let i = 0; i < 20; i++) {
+        const flagPrice = flagTop - i * 0.18;
+        const wave = Math.sin(i * 0.4) * 1.2;
+        const o = flagPrice + wave;
+        const c = o + (Math.random() - 0.5) * 0.6;
+        data.push({
+          time: baseTime + (20 + i) * 3600,
+          open: o,
+          high: Math.max(o, c) + 0.3,
+          low: Math.min(o, c) - 0.3,
+          close: c
+        });
+      }
+      
+      // Breakout
+      const breakoutStart = flagTop - 20 * 0.18;
+      for (let i = 0; i < 25; i++) {
+        price = breakoutStart + i * 1.2;
+        const o = price;
+        const c = price + Math.random() * 0.8;
+        data.push({
+          time: baseTime + (40 + i) * 3600,
+          open: o,
+          high: Math.max(o, c) + 0.4,
+          low: Math.min(o, c) - 0.2,
+          close: c
+        });
+      }
+      
+      return {
+        data,
+        lines: [
+          { points: [{x: 20, y: flagTop + 1.2}, {x: 39, y: flagTop - 19 * 0.18 + 1.2}], color: '#3b82f6', style: 2 },
+          { points: [{x: 20, y: flagTop - 1.2}, {x: 39, y: flagTop - 19 * 0.18 - 1.2}], color: '#3b82f6', style: 2 },
+          { points: [{x: 39, y: flagTop}, {x: 64, y: flagTop + 30}], color: '#eab308', style: 1 },
+        ]
+      };
+    }
+    
+    function generateBearFlag(bars = 65) {
+      const data = [];
+      const baseTime = Math.floor(Date.now() / 1000) - bars * 3600;
+      let price = 150;
+      
+      // Pole (sharp down move)
+      for (let i = 0; i < 20; i++) {
+        price -= 1.8 + Math.random() * 0.5;
+        const o = price;
+        const c = price - Math.random() * 1;
+        data.push({
+          time: baseTime + i * 3600,
+          open: o,
+          high: Math.max(o, c) + 0.3,
+          low: Math.min(o, c) - 0.4,
+          close: c
+        });
+      }
+      
+      const flagBottom = price;
+      
+      // Flag (slight up channel)
+      for (let i = 0; i < 20; i++) {
+        const flagPrice = flagBottom + i * 0.18;
+        const wave = Math.sin(i * 0.4) * 1.2;
+        const o = flagPrice + wave;
+        const c = o + (Math.random() - 0.5) * 0.6;
+        data.push({
+          time: baseTime + (20 + i) * 3600,
+          open: o,
+          high: Math.max(o, c) + 0.3,
+          low: Math.min(o, c) - 0.3,
+          close: c
+        });
+      }
+      
+      // Breakdown
+      const breakdownStart = flagBottom + 20 * 0.18;
+      for (let i = 0; i < 25; i++) {
+        price = breakdownStart - i * 1.2;
+        const o = price;
+        const c = price - Math.random() * 0.8;
+        data.push({
+          time: baseTime + (40 + i) * 3600,
+          open: o,
+          high: Math.max(o, c) + 0.2,
+          low: Math.min(o, c) - 0.4,
+          close: c
+        });
+      }
+      
+      return {
+        data,
+        lines: [
+          { points: [{x: 20, y: flagBottom + 1.2}, {x: 39, y: flagBottom + 19 * 0.18 + 1.2}], color: '#3b82f6', style: 2 },
+          { points: [{x: 20, y: flagBottom - 1.2}, {x: 39, y: flagBottom + 19 * 0.18 - 1.2}], color: '#3b82f6', style: 2 },
+          { points: [{x: 39, y: flagBottom}, {x: 64, y: flagBottom - 30}], color: '#eab308', style: 1 },
+        ]
+      };
+    }
+    
+    function generateRisingWedge(bars = 50) {
+      const data = [];
+      const baseTime = Math.floor(Date.now() / 1000) - bars * 3600;
+      const startHigh = 105, startLow = 100;
+      const highSlope = 0.55, lowSlope = 0.75;
+      
+      for (let i = 0; i < bars; i++) {
+        const highLine = startHigh + i * highSlope;
+        const lowLine = startLow + i * lowSlope;
+        const mid = (highLine + lowLine) / 2;
+        const range = Math.max(0.5, (highLine - lowLine) / 2);
+        const wave = Math.sin(i * 0.4) * range * 0.75;
+        const o = mid + wave;
+        const c = mid + wave + (Math.random() - 0.5) * 0.5;
+        data.push({
+          time: baseTime + i * 3600,
+          open: o,
+          high: Math.min(highLine + 0.3, Math.max(o, c) + Math.random() * 0.25),
+          low: Math.max(lowLine - 0.3, Math.min(o, c) - Math.random() * 0.25),
+          close: c
+        });
+      }
+      
+      return {
+        data,
+        lines: [
+          { points: [{x: 0, y: startHigh}, {x: bars-1, y: startHigh + (bars-1) * highSlope}], color: '#ef4444', style: 2 },
+          { points: [{x: 0, y: startLow}, {x: bars-1, y: startLow + (bars-1) * lowSlope}], color: '#22c55e', style: 2 },
+        ]
+      };
+    }
+    
+    function generateFallingWedge(bars = 50) {
+      const data = [];
+      const baseTime = Math.floor(Date.now() / 1000) - bars * 3600;
+      const startHigh = 150, startLow = 145;
+      const highSlope = -0.75, lowSlope = -0.55;
+      
+      for (let i = 0; i < bars; i++) {
+        const highLine = startHigh + i * highSlope;
+        const lowLine = startLow + i * lowSlope;
+        const mid = (highLine + lowLine) / 2;
+        const range = Math.max(0.5, (highLine - lowLine) / 2);
+        const wave = Math.sin(i * 0.4) * range * 0.75;
+        const o = mid + wave;
+        const c = mid + wave + (Math.random() - 0.5) * 0.5;
+        data.push({
+          time: baseTime + i * 3600,
+          open: o,
+          high: Math.min(highLine + 0.3, Math.max(o, c) + Math.random() * 0.25),
+          low: Math.max(lowLine - 0.3, Math.min(o, c) - Math.random() * 0.25),
+          close: c
+        });
+      }
+      
+      return {
+        data,
+        lines: [
+          { points: [{x: 0, y: startHigh}, {x: bars-1, y: startHigh + (bars-1) * highSlope}], color: '#ef4444', style: 2 },
+          { points: [{x: 0, y: startLow}, {x: bars-1, y: startLow + (bars-1) * lowSlope}], color: '#22c55e', style: 2 },
+        ]
+      };
+    }
+    
+    function generateDoubleTop(bars = 65) {
+      const data = [];
+      const baseTime = Math.floor(Date.now() / 1000) - bars * 3600;
+      const peak = 130, trough = 115, start = 100;
+      
+      // First rise
+      for (let i = 0; i < 16; i++) {
+        const p = start + (peak - start) * (i / 15);
+        data.push({ time: baseTime + i * 3600, open: p, high: p + 1, low: p - 0.5, close: p + 0.5 });
+      }
+      
+      // First decline
+      for (let i = 0; i < 16; i++) {
+        const p = peak - (peak - trough) * (i / 15);
+        data.push({ time: baseTime + (16 + i) * 3600, open: p, high: p + 0.8, low: p - 0.5, close: p - 0.3 });
+      }
+      
+      // Second rise
+      for (let i = 0; i < 16; i++) {
+        const p = trough + (peak - trough) * (i / 15);
+        data.push({ time: baseTime + (32 + i) * 3600, open: p, high: p + 0.8, low: p - 0.5, close: p + 0.3 });
+      }
+      
+      // Second decline (breakdown)
+      for (let i = 0; i < 17; i++) {
+        const p = peak - (peak - 95) * (i / 16);
+        data.push({ time: baseTime + (48 + i) * 3600, open: p, high: p + 0.5, low: p - 0.9, close: p - 0.6 });
+      }
+      
+      return {
+        data,
+        lines: [
+          { points: [{x: 15, y: peak}, {x: 47, y: peak}], color: '#ef4444', style: 0 },
+          { points: [{x: 0, y: trough}, {x: 64, y: trough}], color: '#22c55e', style: 1 },
+          { points: [{x: 48, y: trough}, {x: 64, y: trough - 15}], color: '#eab308', style: 1 },
+        ]
+      };
+    }
+    
+    function generateDoubleBottom(bars = 65) {
+      const data = [];
+      const baseTime = Math.floor(Date.now() / 1000) - bars * 3600;
+      const bottom = 100, peak = 115, start = 130;
+      
+      // First decline
+      for (let i = 0; i < 16; i++) {
+        const p = start - (start - bottom) * (i / 15);
+        data.push({ time: baseTime + i * 3600, open: p, high: p + 0.5, low: p - 1, close: p - 0.5 });
+      }
+      
+      // First rise
+      for (let i = 0; i < 16; i++) {
+        const p = bottom + (peak - bottom) * (i / 15);
+        data.push({ time: baseTime + (16 + i) * 3600, open: p, high: p + 0.8, low: p - 0.5, close: p + 0.3 });
+      }
+      
+      // Second decline
+      for (let i = 0; i < 16; i++) {
+        const p = peak - (peak - bottom) * (i / 15);
+        data.push({ time: baseTime + (32 + i) * 3600, open: p, high: p + 0.5, low: p - 0.8, close: p - 0.3 });
+      }
+      
+      // Breakout up
+      for (let i = 0; i < 17; i++) {
+        const p = bottom + (135 - bottom) * (i / 16);
+        data.push({ time: baseTime + (48 + i) * 3600, open: p, high: p + 0.9, low: p - 0.5, close: p + 0.6 });
+      }
+      
+      return {
+        data,
+        lines: [
+          { points: [{x: 15, y: bottom}, {x: 47, y: bottom}], color: '#22c55e', style: 0 },
+          { points: [{x: 0, y: peak}, {x: 64, y: peak}], color: '#ef4444', style: 1 },
+          { points: [{x: 48, y: peak}, {x: 64, y: peak + 15}], color: '#eab308', style: 1 },
+        ]
+      };
+    }
+    
+    function generateHeadShoulders(bars = 75) {
+      const data = [];
+      const baseTime = Math.floor(Date.now() / 1000) - bars * 3600;
+      const head = 140, shoulder = 125, neckline = 110;
+      
+      // Left shoulder rise
+      for (let i = 0; i < 15; i++) {
+        const p = 100 + (shoulder - 100) * (i / 14);
+        data.push({ time: baseTime + i * 3600, open: p, high: p + 0.8, low: p - 0.4, close: p + 0.4 });
+      }
+      
+      // Left shoulder decline
+      for (let i = 0; i < 10; i++) {
+        const p = shoulder - (shoulder - neckline) * (i / 9);
+        data.push({ time: baseTime + (15 + i) * 3600, open: p, high: p + 0.6, low: p - 0.6, close: p - 0.3 });
+      }
+      
+      // Head rise
+      for (let i = 0; i < 15; i++) {
+        const p = neckline + (head - neckline) * (i / 14);
+        data.push({ time: baseTime + (25 + i) * 3600, open: p, high: p + 0.8, low: p - 0.4, close: p + 0.4 });
+      }
+      
+      // Head decline
+      for (let i = 0; i < 15; i++) {
+        const p = head - (head - neckline) * (i / 14);
+        data.push({ time: baseTime + (40 + i) * 3600, open: p, high: p + 0.6, low: p - 0.6, close: p - 0.3 });
+      }
+      
+      // Right shoulder rise
+      for (let i = 0; i < 10; i++) {
+        const p = neckline + (shoulder - neckline) * (i / 9);
+        data.push({ time: baseTime + (55 + i) * 3600, open: p, high: p + 0.6, low: p - 0.4, close: p + 0.3 });
+      }
+      
+      // Right shoulder decline + breakdown
+      for (let i = 0; i < 10; i++) {
+        const p = shoulder - (shoulder - 95) * (i / 9);
+        data.push({ time: baseTime + (65 + i) * 3600, open: p, high: p + 0.5, low: p - 0.8, close: p - 0.5 });
+      }
+      
+      return {
+        data,
+        lines: [
+          { points: [{x: 0, y: neckline}, {x: 74, y: neckline}], color: '#3b82f6', style: 0 },
+          { points: [{x: 14, y: shoulder}, {x: 64, y: shoulder}], color: '#ef4444', style: 1 },
+          { points: [{x: 39, y: head}, {x: 39, y: head}], color: '#8b5cf6', style: 0 },
+          { points: [{x: 65, y: neckline}, {x: 74, y: neckline - 20}], color: '#eab308', style: 1 },
+        ]
+      };
+    }
+    
+    function generateRectangle(bars = 55) {
+      const data = [];
+      const baseTime = Math.floor(Date.now() / 1000) - bars * 3600;
+      const upper = 120, lower = 108;
+      
+      for (let i = 0; i < bars; i++) {
+        const mid = (upper + lower) / 2;
+        const wave = Math.sin(i * 0.28) * ((upper - lower) / 2) * 0.85;
+        const o = mid + wave;
+        const c = o + (Math.random() - 0.5) * 1.2;
+        data.push({
+          time: baseTime + i * 3600,
+          open: o,
+          high: Math.min(upper + 0.5, Math.max(o, c) + Math.random() * 0.5),
+          low: Math.max(lower - 0.5, Math.min(o, c) - Math.random() * 0.5),
+          close: c
+        });
+      }
+      
+      return {
+        data,
+        lines: [
+          { points: [{x: 0, y: upper}, {x: bars-1, y: upper}], color: '#ef4444', style: 0 },
+          { points: [{x: 0, y: lower}, {x: bars-1, y: lower}], color: '#22c55e', style: 0 },
+        ]
+      };
+    }
+    
+    const GENERATORS = {
+      symmetricalTriangle: generateSymmetricalTriangle,
+      ascendingTriangle: generateAscendingTriangle,
+      descendingTriangle: generateDescendingTriangle,
+      ascendingChannel: generateAscendingChannel,
+      descendingChannel: generateDescendingChannel,
+      bullFlag: generateBullFlag,
+      bearFlag: generateBearFlag,
+      risingWedge: generateRisingWedge,
+      fallingWedge: generateFallingWedge,
+      doubleTop: generateDoubleTop,
+      doubleBottom: generateDoubleBottom,
+      headShoulders: generateHeadShoulders,
+      rectangle: generateRectangle,
+    };
+    
+    function showPattern(type) {
+      // Clear old lines
+      lineSeries.forEach(s => chart.removeSeries(s));
+      lineSeries = [];
+      
+      // Update button states
+      if (activeButton) activeButton.classList.remove('active');
+      activeButton = document.getElementById(`btn-${type}`);
+      if (activeButton) activeButton.classList.add('active');
+      
+      // Generate pattern
+      const generator = GENERATORS[type];
+      if (!generator) return;
+      
+      const pattern = generator();
+      const info = PATTERNS_INFO[type];
+      
+      // Update candle data
+      candleSeries.setData(pattern.data);
+      
+      // Update info
+      document.getElementById('patternIcon').textContent = info.icon;
+      document.getElementById('patternName').textContent = `${info.name} - ${info.nameEn}`;
+      document.getElementById('statBars').textContent = pattern.data.length;
+      document.getElementById('statType').textContent = info.type;
+      document.getElementById('statType').className = `stat-value ${info.typeClass}`;
+      document.getElementById('statTarget').textContent = info.target;
+      document.getElementById('descriptionText').textContent = info.description;
+      
+      // Draw pattern lines
+      pattern.lines.forEach(line => {
+        const ls = chart.addLineSeries({
+          color: line.color,
+          lineWidth: 2,
+          lineStyle: line.style || 0,
+          crosshairMarkerVisible: false,
+        });
+        
+        const baseTime = pattern.data[0].time;
+        const lineData = line.points.map(p => ({
+          time: baseTime + p.x * 3600,
+          value: p.y
+        }));
+        
+        ls.setData(lineData);
+        lineSeries.push(ls);
+      });
+      
+      chart.timeScale().fitContent();
+    }
+    
+    // ═══════════════════════════════════════════════════════════════
+    // 🌐 Real Data Functions
+    // ═══════════════════════════════════════════════════════════════
+    
+    let currentMode = 'simulated';
+    let realOhlcvData = [];
+    
+    function switchMode(mode) {
+      currentMode = mode;
+      
+      // Update tabs
+      document.getElementById('tab-simulated').classList.toggle('active', mode === 'simulated');
+      document.getElementById('tab-real').classList.toggle('active', mode === 'real');
+      
+      // Show/hide controls
+      document.getElementById('simulatedControls').classList.toggle('hidden', mode === 'real');
+      document.getElementById('realDataControls').classList.toggle('visible', mode === 'real');
+      document.getElementById('detectedPatterns').classList.remove('visible');
+      
+      // Clear lines
+      lineSeries.forEach(s => chart.removeSeries(s));
+      lineSeries = [];
+      
+      if (mode === 'simulated') {
+        showPattern('symmetricalTriangle');
+      } else {
+        // Show empty chart for real data
+        candleSeries.setData([]);
+        document.getElementById('patternIcon').textContent = '🌐';
+        document.getElementById('patternName').textContent = 'بيانات حقيقية - Real Market Data';
+        document.getElementById('statBars').textContent = '-';
+        document.getElementById('statType').textContent = '-';
+        document.getElementById('statTarget').textContent = '-';
+        document.getElementById('descriptionText').textContent = 'اختر زوج العملة والإطار الزمني ثم اضغط "جلب البيانات" لعرض بيانات السوق الحقيقية من المصدر المركزي.';
+      }
+    }
+    
+    async function fetchRealData() {
+      const symbol = document.getElementById('symbolSelect').value;
+      const timeframe = document.getElementById('timeframeSelect').value;
+      const limit = parseInt(document.getElementById('limitInput').value) || 200;
+      
+      const loading = document.getElementById('loadingIndicator');
+      loading.classList.add('visible');
+      
+      try {
+        // Fetch from Centralized API
+        const url = `/api/ohlcv?symbol=${symbol}&interval=${timeframe}&limit=${limit}&exchange=bybit`;
+        const response = await fetch(url);
+        
+        if (!response.ok) {
+          throw new Error(`HTTP ${response.status}`);
+        }
+        
+        const klines = await response.json();
+        
+        // Convert to chart format
+        const chartData = klines.map(k => ({
+          time: Math.floor(k[0] / 1000),
+          open: parseFloat(k[1]),
+          high: parseFloat(k[2]),
+          low: parseFloat(k[3]),
+          close: parseFloat(k[4])
+        }));
+        
+        // Store for pattern scanning
+        realOhlcvData = klines.map(k => ({
+          timestamp: k[0],
+          open: parseFloat(k[1]),
+          high: parseFloat(k[2]),
+          low: parseFloat(k[3]),
+          close: parseFloat(k[4]),
+          volume: parseFloat(k[5])
+        }));
+        
+        // Clear old lines
+        lineSeries.forEach(s => chart.removeSeries(s));
+        lineSeries = [];
+        
+        // Update chart
+        candleSeries.setData(chartData);
+        chart.timeScale().fitContent();
+        
+        // Update info
+        const symbolDisplay = symbol.replace('USDT', '/USDT');
+        document.getElementById('patternIcon').textContent = '📈';
+        document.getElementById('patternName').textContent = `${symbolDisplay} - ${timeframe}`;
+        document.getElementById('statBars').textContent = chartData.length;
+        document.getElementById('statType').textContent = 'حقيقي';
+        document.getElementById('statType').className = 'stat-value';
+        document.getElementById('statTarget').textContent = `$${chartData[chartData.length - 1].close.toFixed(2)}`;
+        document.getElementById('descriptionText').textContent = `تم جلب ${chartData.length} شمعة لزوج ${symbolDisplay} على الإطار الزمني ${timeframe}. اضغط "فحص النماذج" للكشف عن الأنماط الفنية.`;
+        
+        // Hide patterns section
+        document.getElementById('detectedPatterns').classList.remove('visible');
+        
+      } catch (error) {
+        console.error('Error fetching data:', error);
+        alert(`خطأ في جلب البيانات: ${error.message}`);
+      } finally {
+        loading.classList.remove('visible');
+      }
+    }
+    
+    async function scanPatterns() {
+      if (realOhlcvData.length === 0) {
+        alert('الرجاء جلب البيانات أولاً!');
+        return;
+      }
+      
+      const loading = document.getElementById('loadingIndicator');
+      loading.classList.add('visible');
+      loading.textContent = '🔍 جاري فحص النماذج...';
+      
+      try {
+        const symbol = document.getElementById('symbolSelect').value;
+        const timeframe = document.getElementById('timeframeSelect').value;
+        
+        // Call the pattern scanner API
+        const ohlcvTuples = realOhlcvData.map(c => [c.timestamp, c.open, c.high, c.low, c.close, c.volume]);
+        
+        const response = await fetch('/api/patterns/ts-scan', {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify({
+            symbol,
+            timeframe,
+            ohlcv: ohlcvTuples
+          })
+        });
+        
+        if (!response.ok) {
+          throw new Error(`API Error: ${response.status}`);
+        }
+        
+        const result = await response.json();
+        const patterns = result.patterns || [];
+        
+        // Display detected patterns
+        displayDetectedPatterns(patterns);
+        
+        // Draw pattern lines on chart
+        drawPatternLines(patterns);
+        
+      } catch (error) {
+        console.error('Error scanning patterns:', error);
+        alert(`خطأ في فحص النماذج: ${error.message}`);
+      } finally {
+        loading.classList.remove('visible');
+        loading.textContent = '⏳ جاري التحميل...';
+      }
+    }
+    
+    function displayDetectedPatterns(patterns) {
+      const container = document.getElementById('detectedPatterns');
+      const chipsContainer = document.getElementById('patternChips');
+      
+      if (patterns.length === 0) {
+        chipsContainer.innerHTML = '<span style="color: #94a3b8;">لم يتم العثور على نماذج في هذه البيانات</span>';
+      } else {
+        chipsContainer.innerHTML = patterns.map((p, i) => {
+          const typeClass = p.type === 'bullish' ? 'bullish' : p.type === 'bearish' ? 'bearish' : 'neutral';
+          const confidence = p.confidence ? ` (${Math.round(p.confidence)}%)` : '';
+          return `<span class="pattern-chip ${typeClass}" onclick="highlightPattern(${i})" title="انقر لعرض الخطوط">
+            ${p.name || p.patternType}${confidence}
+          </span>`;
+        }).join('');
+      }
+      
+      container.classList.add('visible');
+      
+      // Store patterns globally for highlighting
+      window.detectedPatterns = patterns;
+    }
+    
+    function drawPatternLines(patterns) {
+      // Clear old lines
+      lineSeries.forEach(s => chart.removeSeries(s));
+      lineSeries = [];
+      
+      patterns.forEach((pattern, idx) => {
+        if (!pattern.lines || pattern.lines.length === 0) return;
+        
+        const colors = ['#3b82f6', '#22c55e', '#ef4444', '#eab308', '#8b5cf6'];
+        const color = colors[idx % colors.length];
+        
+        pattern.lines.forEach(line => {
+          if (!line.start || !line.end) return;
+          
+          const ls = chart.addLineSeries({
+            color: color,
+            lineWidth: 2,
+            lineStyle: 2,
+            crosshairMarkerVisible: false,
+          });
+          
+          // Convert time index to timestamp
+          const startTime = realOhlcvData[line.start.index]?.timestamp || line.start.time;
+          const endTime = realOhlcvData[line.end.index]?.timestamp || line.end.time;
+          
+          if (startTime && endTime) {
+            ls.setData([
+              { time: Math.floor(startTime / 1000), value: line.start.price },
+              { time: Math.floor(endTime / 1000), value: line.end.price }
+            ]);
+            lineSeries.push(ls);
+          }
+        });
+      });
+    }
+    
+    function highlightPattern(index) {
+      const patterns = window.detectedPatterns || [];
+      if (!patterns[index]) return;
+      
+      const pattern = patterns[index];
+      
+      // Update description
+      document.getElementById('descriptionText').textContent = 
+        `📊 ${pattern.name || pattern.patternType}: ${pattern.type === 'bullish' ? 'صعودي' : pattern.type === 'bearish' ? 'هبوطي' : 'محايد'}` +
+        (pattern.confidence ? ` | الثقة: ${Math.round(pattern.confidence)}%` : '') +
+        (pattern.breakout_target ? ` | الهدف: $${pattern.breakout_target.toFixed(2)}` : '');
+      
+      // Redraw only this pattern's lines with highlight
+      lineSeries.forEach(s => chart.removeSeries(s));
+      lineSeries = [];
+      
+      if (pattern.lines && pattern.lines.length > 0) {
+        pattern.lines.forEach(line => {
+          if (!line.start || !line.end) return;
+          
+          const ls = chart.addLineSeries({
+            color: '#eab308',
+            lineWidth: 3,
+            lineStyle: 0,
+            crosshairMarkerVisible: false,
+          });
+          
+          const startTime = realOhlcvData[line.start.index]?.timestamp || line.start.time;
+          const endTime = realOhlcvData[line.end.index]?.timestamp || line.end.time;
+          
+          if (startTime && endTime) {
+            ls.setData([
+              { time: Math.floor(startTime / 1000), value: line.start.price },
+              { time: Math.floor(endTime / 1000), value: line.end.price }
+            ]);
+            lineSeries.push(ls);
+          }
+        });
+      }
+    }
+    
+    // Initialize
+    initChart();
+    showPattern('symmetricalTriangle');
+  </script>
+</body>
+</html>

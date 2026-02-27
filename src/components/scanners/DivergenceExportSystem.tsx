@@ -205,7 +205,7 @@ export function DivergenceExportSystem({
     }
     
     markdown += `\n---\n\n`;
-    markdown += `*تم إنشاء هذا التقرير بواسطة Nexus Elite Divergence Scanner v2.0*\n`;
+    markdown += `*تم إنشاء هذا التقرير بواسطة CCWAYS Divergence Scanner v2.0*\n`;
 
     const blob = new Blob([markdown], { type: 'text/markdown;charset=utf-8;' });
     const url = URL.createObjectURL(blob);

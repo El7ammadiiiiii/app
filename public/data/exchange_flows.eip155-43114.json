@@ -1,0 +1,64 @@
+{
+  "metadata": {
+    "chain_uid": "eip155:43114",
+    "chain_name": "Avalanche C-Chain",
+    "last_updated": "2026-02-07T04:02:39.084Z",
+    "last_block": 77459540,
+    "data_source": "Live RPC",
+    "tokens": [
+      "USDT",
+      "USDC",
+      "USDCe"
+    ]
+  },
+  "exchanges": [
+    {
+      "name": "binance",
+      "inflow_24h": 0,
+      "outflow_24h": 0,
+      "net_flow_24h": 0
+    },
+    {
+      "name": "cryptocom",
+      "inflow_24h": 0,
+      "outflow_24h": 0,
+      "net_flow_24h": 0
+    },
+    {
+      "name": "kucoin",
+      "inflow_24h": 0,
+      "outflow_24h": 0,
+      "net_flow_24h": 0
+    },
+    {
+      "name": "okx",
+      "inflow_24h": 0,
+      "outflow_24h": 0,
+      "net_flow_24h": 0
+    },
+    {
+      "name": "deribit",
+      "inflow_24h": 0,
+      "outflow_24h": 0,
+      "net_flow_24h": 0
+    },
+    {
+      "name": "bitfinex",
+      "inflow_24h": 0,
+      "outflow_24h": 0,
+      "net_flow_24h": 0
+    },
+    {
+      "name": "huobi",
+      "inflow_24h": 0,
+      "outflow_24h": 0,
+      "net_flow_24h": 0
+    },
+    {
+      "name": "bybit",
+      "inflow_24h": 0,
+      "outflow_24h": 0,
+      "net_flow_24h": 0
+    }
+  ]
+}

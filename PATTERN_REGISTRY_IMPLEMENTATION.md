@@ -344,7 +344,7 @@ const patternDef = resolvePatternFromPython(pythonResponse.name);
    python run_server.py
    
    # Start Next.js dev server
-   cd nexus-webapp
+   cd ccways
    npm run dev
    
    # Visit: http://localhost:3000/app/patterns

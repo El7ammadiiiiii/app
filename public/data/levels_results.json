@@ -1,0 +1,542 @@
+[
+  {
+    "symbol": "BTC/USDT",
+    "exchange": "Centralized",
+    "timeframe": "1h",
+    "price": 87869.9,
+    "levels": [
+      {
+        "price": 84450.01,
+        "type": "support"
+      },
+      {
+        "price": 85146.64,
+        "type": "support"
+      },
+      {
+        "price": 85314.0,
+        "type": "support"
+      },
+      {
+        "price": 86420.0,
+        "type": "support"
+      },
+      {
+        "price": 86601.9,
+        "type": "support"
+      },
+      {
+        "price": 86655.08,
+        "type": "support"
+      },
+      {
+        "price": 86806.5,
+        "type": "support"
+      },
+      {
+        "price": 87600.04,
+        "type": "support"
+      },
+      {
+        "price": 88175.98,
+        "type": "resistance"
+      },
+      {
+        "price": 89399.97,
+        "type": "resistance"
+      },
+      {
+        "price": 89400.0,
+        "type": "resistance"
+      },
+      {
+        "price": 89477.61,
+        "type": "resistance"
+      },
+      {
+        "price": 89480.0,
+        "type": "support"
+      },
+      {
+        "price": 89567.75,
+        "type": "resistance"
+      },
+      {
+        "price": 90365.85,
+        "type": "resistance"
+      },
+      {
+        "price": 90406.08,
+        "type": "resistance"
+      },
+      {
+        "price": 90588.23,
+        "type": "resistance"
+      },
+      {
+        "price": 93555.0,
+        "type": "resistance"
+      }
+    ],
+    "timestamp": "2025-12-31T21:45:36.323181"
+  },
+  {
+    "symbol": "ETH/USDT",
+    "exchange": "Centralized",
+    "timeframe": "1h",
+    "price": 2978.76,
+    "levels": [
+      {
+        "price": 2775.19,
+        "type": "support"
+      },
+      {
+        "price": 2791.02,
+        "type": "support"
+      },
+      {
+        "price": 2876.0,
+        "type": "support"
+      },
+      {
+        "price": 2888.7,
+        "type": "support"
+      },
+      {
+        "price": 2891.2,
+        "type": "support"
+      },
+      {
+        "price": 2900.93,
+        "type": "support"
+      },
+      {
+        "price": 2910.25,
+        "type": "support"
+      },
+      {
+        "price": 2917.13,
+        "type": "support"
+      },
+      {
+        "price": 2944.0,
+        "type": "support"
+      },
+      {
+        "price": 2994.38,
+        "type": "resistance"
+      },
+      {
+        "price": 2997.4,
+        "type": "resistance"
+      },
+      {
+        "price": 3009.8,
+        "type": "resistance"
+      },
+      {
+        "price": 3020.0,
+        "type": "resistance"
+      },
+      {
+        "price": 3030.92,
+        "type": "resistance"
+      },
+      {
+        "price": 3045.31,
+        "type": "support"
+      },
+      {
+        "price": 3057.78,
+        "type": "resistance"
+      },
+      {
+        "price": 3077.39,
+        "type": "resistance"
+      },
+      {
+        "price": 3177.5,
+        "type": "resistance"
+      }
+    ],
+    "timestamp": "2025-12-31T21:45:39.334447"
+  },
+  {
+    "symbol": "SOL/USDT",
+    "exchange": "Centralized",
+    "timeframe": "1h",
+    "price": 125.14,
+    "levels": [
+      {
+        "price": 116.88,
+        "type": "support"
+      },
+      {
+        "price": 119.24,
+        "type": "support"
+      },
+      {
+        "price": 120.63,
+        "type": "support"
+      },
+      {
+        "price": 121.36,
+        "type": "support"
+      },
+      {
+        "price": 122.36,
+        "type": "support"
+      },
+      {
+        "price": 123.4,
+        "type": "support"
+      },
+      {
+        "price": 123.63,
+        "type": "support"
+      },
+      {
+        "price": 124.46,
+        "type": "resistance"
+      },
+      {
+        "price": 125.08,
+        "type": "resistance"
+      },
+      {
+        "price": 125.14,
+        "type": "resistance"
+      },
+      {
+        "price": 127.87,
+        "type": "resistance"
+      },
+      {
+        "price": 128.78,
+        "type": "resistance"
+      },
+      {
+        "price": 129.05,
+        "type": "resistance"
+      },
+      {
+        "price": 130.14,
+        "type": "resistance"
+      },
+      {
+        "price": 130.16,
+        "type": "resistance"
+      },
+      {
+        "price": 130.35,
+        "type": "support"
+      },
+      {
+        "price": 133.99,
+        "type": "resistance"
+      },
+      {
+        "price": 135.43,
+        "type": "resistance"
+      }
+    ],
+    "timestamp": "2025-12-31T21:45:42.515328"
+  },
+  {
+    "symbol": "XRP/USDT",
+    "exchange": "Centralized",
+    "timeframe": "1h",
+    "price": 1.8375,
+    "levels": [
+      {
+        "price": 1.7711,
+        "type": "support"
+      },
+      {
+        "price": 1.8246,
+        "type": "support"
+      },
+      {
+        "price": 1.8372,
+        "type": "support"
+      },
+      {
+        "price": 1.8439,
+        "type": "support"
+      },
+      {
+        "price": 1.852,
+        "type": "support"
+      },
+      {
+        "price": 1.8539,
+        "type": "support"
+      },
+      {
+        "price": 1.8864,
+        "type": "resistance"
+      },
+      {
+        "price": 1.8892,
+        "type": "resistance"
+      },
+      {
+        "price": 1.8948,
+        "type": "support"
+      },
+      {
+        "price": 1.918,
+        "type": "resistance"
+      },
+      {
+        "price": 1.9341,
+        "type": "resistance"
+      },
+      {
+        "price": 1.9491,
+        "type": "resistance"
+      },
+      {
+        "price": 1.9498,
+        "type": "resistance"
+      },
+      {
+        "price": 1.9588,
+        "type": "resistance"
+      },
+      {
+        "price": 1.9692,
+        "type": "support"
+      },
+      {
+        "price": 1.9874,
+        "type": "resistance"
+      }
+    ],
+    "timestamp": "2025-12-31T21:45:45.820043"
+  },
+  {
+    "symbol": "BNB/USDT",
+    "exchange": "Centralized",
+    "timeframe": "1h",
+    "price": 862.69,
+    "levels": [
+      {
+        "price": 818.39,
+        "type": "support"
+      },
+      {
+        "price": 821.21,
+        "type": "support"
+      },
+      {
+        "price": 835.21,
+        "type": "support"
+      },
+      {
+        "price": 840.75,
+        "type": "support"
+      },
+      {
+        "price": 845.5,
+        "type": "support"
+      },
+      {
+        "price": 846.0,
+        "type": "support"
+      },
+      {
+        "price": 847.16,
+        "type": "resistance"
+      },
+      {
+        "price": 850.0,
+        "type": "resistance"
+      },
+      {
+        "price": 853.49,
+        "type": "resistance"
+      },
+      {
+        "price": 862.33,
+        "type": "resistance"
+      },
+      {
+        "price": 870.58,
+        "type": "support"
+      },
+      {
+        "price": 871.0,
+        "type": "resistance"
+      },
+      {
+        "price": 872.12,
+        "type": "resistance"
+      },
+      {
+        "price": 876.16,
+        "type": "resistance"
+      },
+      {
+        "price": 878.44,
+        "type": "resistance"
+      },
+      {
+        "price": 896.07,
+        "type": "resistance"
+      },
+      {
+        "price": 904.22,
+        "type": "resistance"
+      }
+    ],
+    "timestamp": "2025-12-31T21:45:49.378598"
+  },
+  {
+    "symbol": "DOGE/USDT",
+    "exchange": "Centralized",
+    "timeframe": "1h",
+    "price": 0.11786,
+    "levels": [
+      {
+        "price": 0.11993,
+        "type": "support"
+      },
+      {
+        "price": 0.12064,
+        "type": "support"
+      },
+      {
+        "price": 0.12228,
+        "type": "support"
+      },
+      {
+        "price": 0.12492,
+        "type": "resistance"
+      },
+      {
+        "price": 0.12537,
+        "type": "resistance"
+      },
+      {
+        "price": 0.12651,
+        "type": "support"
+      },
+      {
+        "price": 0.12661,
+        "type": "support"
+      },
+      {
+        "price": 0.12805,
+        "type": "resistance"
+      },
+      {
+        "price": 0.12871,
+        "type": "support"
+      }
+    ],
+    "timestamp": "2025-12-31T21:45:52.517633"
+  },
+  {
+    "symbol": "ADA/USDT",
+    "exchange": "Centralized",
+    "timeframe": "1h",
+    "price": 0.3338,
+    "levels": [
+      {
+        "price": 0.3393,
+        "type": "support"
+      },
+      {
+        "price": 0.3466,
+        "type": "support"
+      },
+      {
+        "price": 0.3481,
+        "type": "support"
+      },
+      {
+        "price": 0.3576,
+        "type": "support"
+      },
+      {
+        "price": 0.3614,
+        "type": "resistance"
+      }
+    ],
+    "timestamp": "2025-12-31T21:45:55.935948"
+  },
+  {
+    "symbol": "AVAX/USDT",
+    "exchange": "Centralized",
+    "timeframe": "1h",
+    "price": 12.37,
+    "levels": [
+      {
+        "price": 11.26,
+        "type": "support"
+      },
+      {
+        "price": 11.84,
+        "type": "support"
+      },
+      {
+        "price": 11.89,
+        "type": "support"
+      },
+      {
+        "price": 11.91,
+        "type": "support"
+      },
+      {
+        "price": 11.96,
+        "type": "support"
+      },
+      {
+        "price": 12.03,
+        "type": "support"
+      },
+      {
+        "price": 12.32,
+        "type": "resistance"
+      },
+      {
+        "price": 12.33,
+        "type": "support"
+      },
+      {
+        "price": 12.45,
+        "type": "resistance"
+      },
+      {
+        "price": 12.55,
+        "type": "resistance"
+      },
+      {
+        "price": 12.62,
+        "type": "resistance"
+      },
+      {
+        "price": 12.66,
+        "type": "resistance"
+      },
+      {
+        "price": 12.81,
+        "type": "support"
+      },
+      {
+        "price": 12.9,
+        "type": "resistance"
+      },
+      {
+        "price": 13.2,
+        "type": "resistance"
+      },
+      {
+        "price": 13.35,
+        "type": "resistance"
+      }
+    ],
+    "timestamp": "2025-12-31T21:45:59.214797"
+  }
+]

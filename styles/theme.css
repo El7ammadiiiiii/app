@@ -1,0 +1,701 @@
+/**
+ * نظام الثيم لـ CCWAYS - الوضع الداكن فقط
+ * ==========================================
+ */
+
+:root {
+  /* === Base Colors === */
+  --teal-50: #f0fdfa;
+  --teal-100: #ccfbf1;
+  --teal-200: #99f6e4;
+  --teal-300: #5eead4;
+  --teal-400: #2dd4bf;
+  --teal-500: #14b8a6;
+  --teal-600: #0d9488;
+  --teal-700: #0f766e;
+  --teal-800: #115e59;
+  --teal-900: #134e4a;
+  --teal-950: #042f2e;
+
+  --slate-50: #f8fafc;
+  --slate-100: #f1f5f9;
+  --slate-200: #e2e8f0;
+  --slate-300: #cbd5e1;
+  --slate-400: #94a3b8;
+  --slate-500: #64748b;
+  --slate-600: #475569;
+  --slate-700: #334155;
+  --slate-800: #1d2b28;
+  --slate-900: #264a46;
+  --slate-950: #020617;
+
+  --green-500: #22c55e;
+  --green-600: #16a34a;
+  --red-500: #ef4444;
+  --red-600: #dc2626;
+  --yellow-500: #eab308;
+  --yellow-600: #ca8a04;
+  --blue-500: #3b82f6;
+  --blue-600: #2563eb;
+
+  /* === Backgrounds === */
+  --bg-base: transparent;
+  --bg-surface: rgba(255, 255, 255, 0.10);
+  --bg-elevated: rgba(255, 255, 255, 0.14);
+  --bg-overlay: rgba(255, 255, 255, 0.22);
+  --bg-skeleton: rgba(100, 116, 139, 0.5);
+  --bg-gradient-card: linear-gradient(135deg, rgba(255, 255, 255, 0.20) 0%, rgba(255, 255, 255, 0.14) 50%, rgba(255, 255, 255, 0.18) 100%);
+
+  /* === Glass === */
+  --glass-bg: rgba(255, 255, 255, 0.05);
+  --glass-bg-hover: rgba(255, 255, 255, 0.08);
+  --glass-border: rgba(255, 255, 255, 0.1);
+  --glass-border-subtle: rgba(255, 255, 255, 0.06);
+
+  /* === Glass Lite (lighter + more opaque + stronger blur) === */
+  --glass-lite-bg: rgba(255, 255, 255, 0.10);
+  --glass-lite-bg-strong: rgba(255, 255, 255, 0.14);
+  --glass-lite-bg-hover: rgba(255, 255, 255, 0.16);
+  --glass-lite-border: rgba(255, 255, 255, 0.14);
+  --glass-lite-border-strong: rgba(255, 255, 255, 0.18);
+  --glass-lite-highlight: rgba(255, 255, 255, 0.10);
+  --glass-lite-blur: 40px;
+  --glass-lite-saturate: 160%;
+  --glass-lite-shadow: 0 24px 60px rgba(0, 0, 0, 0.55);
+  --glass-lite-shadow-tight: 0 14px 34px rgba(0, 0, 0, 0.45);
+
+  /* === Text === */
+  --text-primary: #f8fafc;
+  --text-secondary: #cbd5e1;
+  --text-muted: #64748b;
+  --text-accent: #2dd4bf;
+  --text-inverse: #264a46;
+
+  /* === Borders === */
+  --border-default: rgba(255, 255, 255, 0.08);
+  --border-subtle: rgba(255, 255, 255, 0.04);
+  --border-accent: rgba(13, 148, 136, 0.4);
+  --border-focus: rgba(13, 148, 136, 0.6);
+
+  /* === Primary === */
+  --color-primary: #0d9488;
+  --color-primary-hover: #0f766e;
+  --color-primary-light: rgba(13, 148, 136, 0.15);
+  --color-primary-glow: rgba(13, 148, 136, 0.25);
+
+  /* === Buttons === */
+  --btn-primary-bg: linear-gradient(135deg, var(--teal-600), var(--teal-700));
+  --btn-primary-text: #ffffff;
+  --btn-primary-border: var(--teal-500);
+  --btn-primary-hover: linear-gradient(135deg, var(--teal-500), var(--teal-600));
+
+  --btn-secondary-bg: transparent;
+  --btn-secondary-text: var(--text-secondary);
+  --btn-secondary-border: var(--border-default);
+  --btn-secondary-hover: rgba(255, 255, 255, 0.06);
+
+  --btn-ghost-bg: transparent;
+  --btn-ghost-text: var(--text-muted);
+  --btn-ghost-hover: rgba(255, 255, 255, 0.08);
+
+  /* === Inputs === */
+  --input-bg: var(--bg-surface);
+  --input-border: var(--border-default);
+  --input-border-focus: var(--border-accent);
+  --input-text: var(--text-primary);
+  --input-placeholder: var(--text-muted);
+
+  /* === Cards === */
+  --card-bg: var(--bg-surface);
+  --card-border: var(--border-default);
+  --card-shadow: 0 4px 20px rgba(0, 0, 0, 0.25);
+
+  /* === Dropdown === */
+  --dropdown-bg: #365353;
+  --dropdown-border: var(--border-default);
+  --dropdown-shadow: 0 25px 60px rgba(0, 0, 0, 0.5);
+  --dropdown-item-hover: rgba(255, 255, 255, 0.06);
+
+  /* === Header === */
+  --header-bg: rgba(255, 255, 255, 0.14);
+  --header-border: var(--border-subtle);
+  --app-header-height: 64px;
+  --app-header-gap: 8px;
+
+  /* === Sidebar === */
+  --sidebar-bg: rgba(255, 255, 255, 0.12);
+  --sidebar-border: var(--border-default);
+  --sidebar-item-hover: rgba(255, 255, 255, 0.06);
+  --sidebar-item-active: var(--color-primary-light);
+
+  /* === Messages === */
+  --message-user-bg: linear-gradient(135deg, rgba(13, 148, 136, 0.18), rgba(13, 148, 136, 0.08));
+  --message-user-border: rgba(13, 148, 136, 0.25);
+  --message-assistant-bg: var(--bg-surface);
+  --message-assistant-border: var(--border-default);
+
+  /* === Scrollbar === */
+  --scrollbar-track: rgba(255, 255, 255, 0.05);
+  --scrollbar-thumb: rgba(255, 255, 255, 0.15);
+  --scrollbar-thumb-hover: rgba(255, 255, 255, 0.25);
+
+  /* === Charts === */
+  --chart-up: #22c55e;
+  --chart-down: #ef4444;
+  --chart-neutral: #64748b;
+  --chart-grid: rgba(255, 255, 255, 0.06);
+  --chart-text: var(--text-muted);
+  --chart-bg: var(--bg-surface);
+
+  --candle-up-body: #22c55e;
+  --candle-up-wick: #22c55e;
+  --candle-down-body: #ef4444;
+  --candle-down-wick: #ef4444;
+
+  --volume-up: rgba(34, 197, 94, 0.5);
+  --volume-down: rgba(239, 68, 68, 0.5);
+
+  /* === Indicators === */
+  --indicator-ma-fast: #3b82f6;
+  --indicator-ma-slow: #f59e0b;
+  --indicator-bb-upper: #8b5cf6;
+  --indicator-bb-lower: #8b5cf6;
+  --indicator-bb-middle: #6366f1;
+  --indicator-rsi: #ec4899;
+  --indicator-macd: #06b6d4;
+
+  /* === Status === */
+  --status-success: var(--green-500);
+  --status-error: var(--red-500);
+  --status-warning: var(--yellow-500);
+  --status-info: var(--blue-500);
+
+  /* === Selection === */
+  --selection-bg: rgba(13, 148, 136, 0.45);
+  --selection-text: #ffffff;
+
+  /* === Unified Overlay System Variables === */
+  /* Backdrop should hide app content almost completely (user request: 99%) */
+  --overlay-backdrop: rgba(255, 255, 255, 0.28);
+
+  /* Overlay surfaces: solid dark background matching the main theme */
+  --overlay-bg: rgba(255, 255, 255, 0.20);
+  --overlay-border: rgba(255, 255, 255, 0.1);
+  --overlay-shadow-modal: 0 25px 60px rgba(0, 0, 0, 0.7);
+  --overlay-shadow-dropdown: 0 20px 40px rgba(0, 0, 0, 0.6);
+  --overlay-shadow-popover: 0 15px 35px rgba(0, 0, 0, 0.5);
+}
+
+/* === Utility Classes === */
+.bg-base {
+  background-color: var(--bg-base);
+}
+
+.bg-surface {
+  background-color: var(--bg-surface);
+}
+
+.bg-elevated {
+  background-color: var(--bg-elevated);
+}
+
+.text-primary {
+  color: var(--text-primary);
+}
+
+.text-secondary {
+  color: var(--text-secondary);
+}
+
+.text-muted {
+  color: var(--text-muted);
+}
+
+.text-accent {
+  color: var(--text-accent);
+}
+
+.border-default {
+  border-color: var(--border-default);
+}
+
+/* === Dropdown utilities (keep dark theme, consistent menu color) === */
+.dropdown-surface {
+  background-color: var(--dropdown-bg);
+}
+
+.dropdown-item-hover:hover {
+  background-color: var(--dropdown-item-hover);
+}
+
+.border-accent {
+  border-color: var(--border-accent);
+}
+
+.btn-primary {
+  background: var(--btn-primary-bg);
+  color: var(--btn-primary-text);
+  border: 1px solid var(--btn-primary-border);
+  transition: all 0.2s;
+}
+
+.btn-primary:hover {
+  background: var(--btn-primary-hover);
+}
+
+.btn-secondary {
+  background: var(--btn-secondary-bg);
+  color: var(--btn-secondary-text);
+  border: 1px solid var(--btn-secondary-border);
+  transition: all 0.2s;
+}
+
+.btn-secondary:hover {
+  background: var(--btn-secondary-hover);
+}
+
+.input-base {
+  background: var(--input-bg);
+  border: 1px solid var(--input-border);
+  color: var(--input-text);
+  transition: all 0.2s;
+}
+
+.input-base::placeholder {
+  color: var(--input-placeholder);
+}
+
+.input-base:focus {
+  border-color: var(--input-border-focus);
+  box-shadow: 0 0 0 3px var(--color-primary-light);
+  outline: none;
+}
+
+.card-base {
+  background: var(--card-bg);
+  border: 1px solid var(--card-border);
+  box-shadow: var(--card-shadow);
+}
+
+.chart-up {
+  color: var(--chart-up);
+}
+
+.chart-down {
+  color: var(--chart-down);
+}
+
+.status-success {
+  color: var(--status-success);
+}
+
+.status-error {
+  color: var(--status-error);
+}
+
+.status-warning {
+  color: var(--status-warning);
+}
+
+.app-header-gap {
+  padding-top: var(--app-header-gap);
+}
+
+.app-overlay-gap {
+  padding-top: calc(var(--app-header-height) + var(--app-header-gap));
+}
+
+/* === Scrollbar === */
+.custom-scrollbar::-webkit-scrollbar {
+  width: 6px;
+  height: 6px;
+}
+
+.custom-scrollbar::-webkit-scrollbar-track {
+  background: var(--scrollbar-track);
+  border-radius: 3px;
+}
+
+.custom-scrollbar::-webkit-scrollbar-thumb {
+  background: var(--scrollbar-thumb);
+  border-radius: 3px;
+}
+
+.custom-scrollbar::-webkit-scrollbar-thumb:hover {
+  background: var(--scrollbar-thumb-hover);
+}
+
+@supports (scrollbar-color: #000 #fff) {
+  .custom-scrollbar {
+    scrollbar-color: var(--scrollbar-thumb) var(--scrollbar-track);
+  }
+}
+
+/* === Animations === */
+.shimmer {
+  background: var(--bg-skeleton);
+}
+
+::selection {
+  background: var(--selection-bg);
+  color: var(--selection-text);
+}
+
+::-moz-selection {
+  background: var(--selection-bg);
+  color: var(--selection-text);
+}
+
+/* ═══════════════════════════════════════════════════════════════════════════════
+   نظام القوالب الموحد - Unified Overlay System
+   ═══════════════════════════════════════════════════════════════════════════════ */
+
+/* === Backdrop (خلفية مغبشة تخفي المحتوى) === */
+.overlay-backdrop {
+  background: var(--overlay-backdrop);
+  -webkit-backdrop-filter: blur(var(--glass-lite-blur)) saturate(var(--glass-lite-saturate));
+  backdrop-filter: blur(var(--glass-lite-blur)) saturate(var(--glass-lite-saturate));
+}
+
+/* === Modal (النوافذ المنبثقة) === */
+.overlay-modal {
+  background: var(--bg-gradient-card);
+  -webkit-backdrop-filter: blur(var(--glass-lite-blur)) saturate(var(--glass-lite-saturate));
+  backdrop-filter: blur(var(--glass-lite-blur)) saturate(var(--glass-lite-saturate));
+  border: 1px solid var(--overlay-border);
+  box-shadow: var(--overlay-shadow-modal);
+}
+
+/* === Panel (اللوحات الجانبية) === */
+.overlay-panel {
+  background: var(--bg-gradient-card);
+  -webkit-backdrop-filter: blur(var(--glass-lite-blur)) saturate(var(--glass-lite-saturate));
+  backdrop-filter: blur(var(--glass-lite-blur)) saturate(var(--glass-lite-saturate));
+  border: 1px solid var(--overlay-border);
+  box-shadow: var(--overlay-shadow-modal);
+}
+
+/* === Dropdown (القوائم المنسدلة) === */
+.overlay-dropdown {
+  background: rgba(38, 74, 70, 0.90);
+  -webkit-backdrop-filter: blur(24px) saturate(180%);
+  backdrop-filter: blur(24px) saturate(180%);
+  border: 1px solid rgba(255, 255, 255, 0.10);
+  box-shadow: 0 8px 40px rgba(0, 0, 0, 0.4);
+}
+
+/* === Popover (النوافذ الصغيرة) === */
+.overlay-popover {
+  background: var(--bg-gradient-card);
+  -webkit-backdrop-filter: blur(var(--glass-lite-blur)) saturate(var(--glass-lite-saturate));
+  backdrop-filter: blur(var(--glass-lite-blur)) saturate(var(--glass-lite-saturate));
+  border: 1px solid var(--overlay-border);
+  box-shadow: var(--overlay-shadow-popover);
+}
+
+/* === Tooltip === */
+.overlay-tooltip {
+  background: var(--overlay-bg);
+  -webkit-backdrop-filter: blur(12px);
+  backdrop-filter: blur(12px);
+  border: 1px solid var(--overlay-border);
+  box-shadow: 0 8px 20px rgba(0, 0, 0, 0.4);
+}
+
+/* === Menu Items === */
+.overlay-item {
+  transition: background 0.15s ease;
+}
+
+.overlay-item:hover {
+  background: rgba(255, 255, 255, 0.06);
+}
+
+.overlay-item:active {
+  background: rgba(255, 255, 255, 0.1);
+}
+
+/* === Inputs داخل القوالب === */
+.overlay-input {
+  background: rgba(255, 255, 255, 0.08);
+  border: 1px solid rgba(255, 255, 255, 0.14);
+  color: #f8fafc;
+  transition: border-color 0.2s, background 0.2s;
+}
+
+.overlay-input::placeholder {
+  color: #64748b;
+}
+
+.overlay-input:focus {
+  border-color: rgba(13, 148, 136, 0.5);
+  background: rgba(255, 255, 255, 0.10);
+  outline: none;
+}
+
+/* ═══════════════════════════════════════════════════════════════════════════════
+   Glass Lite — reusable frosted surfaces (global)
+   ═══════════════════════════════════════════════════════════════════════════════ */
+
+.glass {
+  background: var(--bg-gradient-card);
+  -webkit-backdrop-filter: blur(12px);
+  backdrop-filter: blur(12px);
+  border: 1px solid var(--glass-border);
+  box-shadow: 0 8px 32px 0 rgba(0, 0, 0, 0.37);
+}
+
+.glass-lite {
+  background-color: var(--glass-lite-bg);
+  -webkit-backdrop-filter: blur(var(--glass-lite-blur)) saturate(var(--glass-lite-saturate));
+  backdrop-filter: blur(var(--glass-lite-blur)) saturate(var(--glass-lite-saturate));
+  border: 1px solid var(--glass-lite-border);
+  box-shadow: var(--glass-lite-shadow-tight);
+  color: var(--text-primary);
+}
+
+.glass-lite--strong {
+  background-color: var(--glass-lite-bg-strong);
+  border-color: var(--glass-lite-border-strong);
+  box-shadow: var(--glass-lite-shadow);
+}
+
+.glass-lite--sheen {
+  box-shadow: inset 0 1px 0 var(--glass-lite-highlight), var(--glass-lite-shadow-tight);
+}
+
+.glass-lite--interactive {
+  transition: background-color 160ms ease, border-color 160ms ease, box-shadow 160ms ease;
+}
+
+.glass-lite--interactive:hover {
+  background-color: var(--glass-lite-bg-hover);
+  border-color: var(--glass-lite-border-strong);
+}
+
+.glass-lite--interactive:focus-visible {
+  outline: none;
+  box-shadow:
+    var(--glass-lite-shadow-tight),
+    0 0 0 1px rgba(13, 148, 136, 0.35),
+    0 0 0 4px rgba(13, 148, 136, 0.18);
+}
+
+.glass-lite-input {
+  background-color: rgba(255, 255, 255, 0.08);
+  border: 1px solid rgba(255, 255, 255, 0.14);
+  color: var(--text-primary);
+}
+
+.glass-lite-input::placeholder {
+  color: var(--text-muted);
+}
+
+.glass-lite-input:focus {
+  outline: none;
+  background-color: rgba(255, 255, 255, 0.10);
+  border-color: rgba(13, 148, 136, 0.35);
+  box-shadow:
+    0 0 0 1px rgba(13, 148, 136, 0.35),
+    0 0 0 4px rgba(13, 148, 136, 0.18);
+}
+
+@supports not ((backdrop-filter: blur(1px)) or (-webkit-backdrop-filter: blur(1px))) {
+
+  .glass-lite,
+  .glass-lite--strong,
+  .overlay-modal,
+  .overlay-panel,
+  .overlay-dropdown,
+  .overlay-popover {
+    background-color: rgba(255, 255, 255, 0.18);
+  }
+}
+
+/* === Buttons داخل القوالب === */
+.overlay-btn-primary {
+  background: #f8fafc;
+  color: #264a46;
+  font-weight: 500;
+  transition: background 0.2s;
+}
+
+.overlay-btn-primary:hover {
+  background: #e2e8f0;
+}
+
+.overlay-btn-primary:disabled {
+  opacity: 0.4;
+  cursor: not-allowed;
+}
+
+.overlay-btn-secondary {
+  background: transparent;
+  border: 1px solid rgba(255, 255, 255, 0.15);
+  color: #cbd5e1;
+  transition: background 0.2s;
+}
+
+.overlay-btn-secondary:hover {
+  background: rgba(255, 255, 255, 0.06);
+}
+
+.overlay-btn-danger {
+  background: transparent;
+  border: 1px solid rgba(239, 68, 68, 0.3);
+  color: #f87171;
+  transition: background 0.2s;
+}
+
+.overlay-btn-danger:hover {
+  background: rgba(239, 68, 68, 0.1);
+}
+
+/* === Labels/Text === */
+.overlay-label {
+  color: #94a3b8;
+  font-size: 0.75rem;
+  font-weight: 500;
+}
+
+.overlay-text {
+  color: #f8fafc;
+}
+
+.overlay-text-secondary {
+  color: #cbd5e1;
+}
+
+.overlay-text-muted {
+  color: #64748b;
+}
+
+/* === Dividers === */
+.overlay-divider {
+  border-color: rgba(255, 255, 255, 0.08);
+}
+
+/* === Header داخل القوالب === */
+.overlay-header {
+  border-bottom: 1px solid rgba(255, 255, 255, 0.08);
+}
+
+/* === Footer داخل القوالب === */
+.overlay-footer {
+  border-top: 1px solid rgba(255, 255, 255, 0.08);
+}
+
+/* === Pair Template Utilities === */
+.pair-template {
+  background-color: var(--bg-surface);
+  border: 1px solid var(--border-default);
+  box-shadow: var(--card-shadow);
+  -webkit-backdrop-filter: blur(12px);
+  backdrop-filter: blur(12px);
+}
+
+.pair-template-header {
+  background-color: var(--color-primary-light);
+  border-bottom: 1px solid var(--border-subtle);
+}
+
+.pair-template-footer {
+  background-color: rgba(255, 255, 255, 0.06);
+  border-top: 1px solid var(--border-subtle);
+}
+
+.pair-template-chart {
+  background-color: var(--chart-bg);
+}
+
+
+
+
+/* === Gradient Utilities === */
+.bg-gradient-card {
+  background: var(--bg-gradient-card) !important;
+}
+
+/* === Card Component === */
+.card {
+  background: var(--bg-gradient-card);
+  border: 1px solid var(--overlay-border);
+  box-shadow: var(--card-shadow);
+  -webkit-backdrop-filter: blur(12px);
+  backdrop-filter: blur(12px);
+}
+
+/* ═══════════════════════════════════════════════════════════════════════════════
+   Glass Dropdown — قوائم منبثقة ضبابية قابلة لإعادة الاستخدام
+   ═══════════════════════════════════════════════════════════════════════════════ */
+
+/* زر القائمة المنبثقة - Dropdown trigger button */
+.glass-dropdown-trigger {
+  background: linear-gradient(135deg, #0D1C1C 0%, #134436 100%);
+  border: none;
+  color: #ffffff;
+  transition: all 0.2s ease;
+}
+
+.glass-dropdown-trigger:hover {
+  filter: brightness(1.1);
+}
+
+.glass-dropdown-trigger:focus {
+  outline: none;
+  box-shadow: 0 0 0 2px rgba(13, 68, 54, 0.4);
+}
+
+/* القائمة المنبثقة - Dropdown menu container */
+.glass-dropdown-menu {
+  background: rgba(255, 255, 255, 0.08);
+  -webkit-backdrop-filter: blur(40px);
+  backdrop-filter: blur(40px);
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  box-shadow: 0 8px 32px rgba(0, 0, 0, 0.4);
+  border-radius: 0.5rem;
+  overflow: hidden;
+}
+
+/* عنصر القائمة - Dropdown item */
+.glass-dropdown-item {
+  background: transparent;
+  color: #ffffff;
+  transition: background 0.2s ease;
+  -webkit-backdrop-filter: blur(10px);
+  backdrop-filter: blur(10px);
+}
+
+.glass-dropdown-item:hover {
+  background: rgba(255, 255, 255, 0.12);
+}
+
+.glass-dropdown-item--selected {
+  background: rgba(255, 255, 255, 0.15);
+  font-weight: 500;
+}
+
+/* تمرير داخل القائمة - Dropdown scroll area */
+.glass-dropdown-scroll {
+  max-height: 60vh;
+  overflow-y: auto;
+}
+
+/* Scrollbar styling for dropdown */
+.glass-dropdown-scroll::-webkit-scrollbar {
+  width: 6px;
+}
+
+.glass-dropdown-scroll::-webkit-scrollbar-track {
+  background: rgba(255, 255, 255, 0.05);
+  border-radius: 3px;
+}
+
+.glass-dropdown-scroll::-webkit-scrollbar-thumb {
+  background: rgba(255, 255, 255, 0.2);
+  border-radius: 3px;
+}
+
+.glass-dropdown-scroll::-webkit-scrollbar-thumb:hover {
+  background: rgba(255, 255, 255, 0.3);
+}

@@ -33,12 +33,8 @@ from patterns import detect_all_patterns, patterns_to_json
 from trendlines import analyze_all_trendlines, trendlines_to_json
 from coingecko import CryptoTracker
 
-# Optional: CCXT for live data
-try:
-    import ccxt.async_support as ccxt
-    CCXT_AVAILABLE = True
-except ImportError:
-    CCXT_AVAILABLE = False
+# Centralized API used as per requirements
+CENTRALIZED_API_AVAILABLE = True
 
 
 # ═══════════════════════════════════════════════════════════════
@@ -341,73 +337,7 @@ async def analyze_trendlines_endpoint(
         raise HTTPException(status_code=500, detail=str(e))
 
 
-# ═══════════════════════════════════════════════════════════════
-# LIVE DATA ENDPOINTS (Optional - requires CCXT)
-# ═══════════════════════════════════════════════════════════════
-
-@app.get("/live/{exchange}/{symbol}/{timeframe}")
-async def get_live_analysis(
-    exchange: str,
-    symbol: str,
-    timeframe: str,
-    limit: int = Query(default=200, le=1000)
-):
-    """
-    Fetch live data and perform analysis
-    
-    Example: /live/binance/BTC/USDT/1h
-    """
-    if not CCXT_AVAILABLE:
-        raise HTTPException(
-            status_code=501,
-            detail="CCXT not installed. Install with: pip install ccxt"
-        )
-    
-    try:
-        # Create exchange instance
-        exchange_class = getattr(ccxt, exchange.lower())
-        ex = exchange_class({'enableRateLimit': True})
-        
-        # Fetch OHLCV
-        formatted_symbol = f"{symbol.upper()}"
-        ohlcv = await ex.fetch_ohlcv(formatted_symbol, timeframe, limit=limit)
-        await ex.close()
-        
-        # Convert to DataFrame
-        df = pd.DataFrame(
-            ohlcv,
-            columns=['timestamp', 'open', 'high', 'low', 'close', 'volume']
-        )
-        df['timestamp'] = pd.to_datetime(df['timestamp'], unit='ms')
-        df.set_index('timestamp', inplace=True)
-        
-        # Perform full analysis
-        indicator_results = calculate_all_indicators(df)
-        pattern_results = detect_all_patterns(df)
-        trendline_results = analyze_all_trendlines(df)
-        
-        signals = aggregate_signals(
-            results_to_json(indicator_results),
-            patterns_to_json(pattern_results),
-            trendlines_to_json(trendline_results)
-        )
-        
-        return {
-            "success": True,
-            "symbol": symbol,
-            "exchange": exchange,
-            "timeframe": timeframe,
-            "candles": len(df),
-            "timestamp": datetime.utcnow().isoformat(),
-            "current_price": float(df['close'].iloc[-1]),
-            "indicators": results_to_json(indicator_results),
-            "patterns": patterns_to_json(pattern_results),
-            "trendlines": trendlines_to_json(trendline_results),
-            "signals": signals
-        }
-        
-    except Exception as e:
-        raise HTTPException(status_code=500, detail=str(e))
+# LIVE DATA ENDPOINTS (Centralized API)
 
 
 # ═══════════════════════════════════════════════════════════════
@@ -940,96 +870,7 @@ async def get_pattern_categories():
     }
 
 
-@app.post("/patterns/scan-multiple")
-async def scan_multiple_symbols(
-    symbols: List[str],
-    timeframe: str = "1h",
-    categories: Optional[List[str]] = None
-):
-    """
-    Scan multiple symbols for patterns (batch processing)
-    
-    Request body:
-        - symbols: List of trading pairs to scan
-        - timeframe: Candle timeframe
-        - categories: Optional list of specific categories to scan
-    
-    Note: This endpoint requires CCXT for fetching live data
-    """
-    if not CCXT_AVAILABLE:
-        raise HTTPException(status_code=501, detail="CCXT not available for live data fetching")
-    
-    try:
-        # Import detectors
-        from detectors import (
-            TrianglesDetector, ChannelsDetector, FlagsPennantsDetector,
-            WedgesDetector, TopsBottomsDetector, HeadShouldersDetector,
-            RangesDetector, TrendlinesDetector, LevelsDetector,
-            BreakoutsDetector, LiquidityDetector, ScalpingDetector
-        )
-        
-        detector_map = {
-            "triangles": TrianglesDetector(),
-            "channels": ChannelsDetector(),
-            "flags_pennants": FlagsPennantsDetector(),
-            "wedges": WedgesDetector(),
-            "tops_bottoms": TopsBottomsDetector(),
-            "head_shoulders": HeadShouldersDetector(),
-            "ranges": RangesDetector(),
-            "trendlines": TrendlinesDetector(),
-            "levels": LevelsDetector(),
-            "breakouts": BreakoutsDetector(),
-            "liquidity": LiquidityDetector(),
-            "scalping": ScalpingDetector(),
-        }
-        
-        # Filter categories if specified
-        if categories:
-            detector_map = {k: v for k, v in detector_map.items() if k in categories}
-        
-        # Fetch and scan each symbol
-        exchange = ccxt.binance()
-        results = []
-        
-        for symbol in symbols:
-            try:
-                # Fetch OHLCV data
-                ohlcv = await exchange.fetch_ohlcv(symbol, timeframe, limit=200)
-                df = pd.DataFrame(ohlcv, columns=['timestamp', 'open', 'high', 'low', 'close', 'volume'])
-                df['timestamp'] = pd.to_datetime(df['timestamp'], unit='ms')
-                
-                # Scan patterns
-                symbol_patterns = []
-                for category, detector in detector_map.items():
-                    patterns = detector.detect(df, timeframe)
-                    symbol_patterns.extend([p.to_dict() for p in patterns])
-                
-                results.append({
-                    "symbol": symbol,
-                    "pattern_count": len(symbol_patterns),
-                    "patterns": symbol_patterns
-                })
-            
-            except Exception as e:
-                results.append({
-                    "symbol": symbol,
-                    "error": str(e),
-                    "pattern_count": 0,
-                    "patterns": []
-                })
-        
-        await exchange.close()
-        
-        return {
-            "timeframe": timeframe,
-            "scanned_symbols": len(symbols),
-            "total_patterns_found": sum(r["pattern_count"] for r in results),
-            "results": results,
-            "timestamp": datetime.now().isoformat()
-        }
-    
-    except Exception as e:
-        raise HTTPException(status_code=500, detail=f"Batch scanning failed: {str(e)}")
+# Batch scanning (Centralized API)
 
 
 # ═══════════════════════════════════════════════════════════════

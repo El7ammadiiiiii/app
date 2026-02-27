@@ -1,10 +1,10 @@
-/**
- * 📋 Markets API Route
- * GET /api/exchanges/markets?exchange=binance
- */
-
 import { NextRequest, NextResponse } from 'next/server';
-import { ccxtManager, getAllExchanges, type ExchangeId } from '@/lib/exchanges';
+import { cexManager, type ExchangeId } from '@/lib/services/centralizedExchanges';
+
+/**
+ * 📋 Markets API Route - Updated to use CEXManager
+ * GET /api/exchanges/markets?exchange=bybit
+ */
 
 export const runtime = 'nodejs';
 export const dynamic = 'force-dynamic';
@@ -12,30 +12,23 @@ export const dynamic = 'force-dynamic';
 export async function GET(request: NextRequest) {
   try {
     const { searchParams } = new URL(request.url);
-    
     const exchange = searchParams.get('exchange') as ExchangeId;
 
-    // If no exchange specified, return all exchanges
     if (!exchange) {
-      const exchanges = getAllExchanges();
-      return NextResponse.json({
-        success: true,
-        data: exchanges,
-        timestamp: Date.now(),
-      });
-    }
-
-    // Fetch markets for specific exchange
-    const result = await ccxtManager.fetchMarkets(exchange);
-
-    if (!result.success) {
       return NextResponse.json(
-        { error: result.error },
-        { status: 500 }
+        { error: 'Missing required parameter: exchange' },
+        { status: 400 }
       );
     }
 
-    return NextResponse.json(result);
+    // Fetch top coins by volume as a proxy for markets
+    const coins = await cexManager.getTopCoinsByVolume(exchange);
+
+    return NextResponse.json({
+      success: true,
+      data: coins,
+      timestamp: Date.now(),
+    });
   } catch (error) {
     console.error('Markets API Error:', error);
     return NextResponse.json(

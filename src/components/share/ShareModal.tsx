@@ -1,8 +1,10 @@
 "use client";
 
-import { useState } from "react";
+import { useState, useEffect } from "react";
+import { createPortal } from "react-dom";
 import { motion, AnimatePresence } from "framer-motion";
-import {
+import
+{
   X,
   Link2,
   Twitter,
@@ -11,16 +13,18 @@ import {
   Check,
   MessageSquare,
 } from "lucide-react";
+import useTimeout from '@/hooks/useTimeout';
 import { cn } from "@/lib/utils";
 
-// Reddit icon component
-const RedditIcon = () => (
+// WhatsApp icon component
+const WhatsAppIcon = () => (
   <svg viewBox="0 0 24 24" className="w-5 h-5" fill="currentColor">
-    <path d="M12 0A12 12 0 0 0 0 12a12 12 0 0 0 12 12 12 12 0 0 0 12-12A12 12 0 0 0 12 0zm5.01 4.744c.688 0 1.25.561 1.25 1.249a1.25 1.25 0 0 1-2.498.056l-2.597-.547-.8 3.747c1.824.07 3.48.632 4.674 1.488.308-.309.73-.491 1.207-.491.968 0 1.754.786 1.754 1.754 0 .716-.435 1.333-1.01 1.614a3.111 3.111 0 0 1 .042.52c0 2.694-3.13 4.87-7.004 4.87-3.874 0-7.004-2.176-7.004-4.87 0-.183.015-.366.043-.534A1.748 1.748 0 0 1 4.028 12c0-.968.786-1.754 1.754-1.754.463 0 .898.196 1.207.49 1.207-.883 2.878-1.43 4.744-1.487l.885-4.182a.342.342 0 0 1 .14-.197.35.35 0 0 1 .238-.042l2.906.617a1.214 1.214 0 0 1 1.108-.701zM9.25 12C8.561 12 8 12.562 8 13.25c0 .687.561 1.248 1.25 1.248.687 0 1.248-.561 1.248-1.249 0-.688-.561-1.249-1.249-1.249zm5.5 0c-.687 0-1.248.561-1.248 1.25 0 .687.561 1.248 1.249 1.248.688 0 1.249-.561 1.249-1.249 0-.687-.562-1.249-1.25-1.249zm-5.466 3.99a.327.327 0 0 0-.231.094.33.33 0 0 0 0 .463c.842.842 2.484.913 2.961.913.477 0 2.105-.056 2.961-.913a.361.361 0 0 0 .029-.463.33.33 0 0 0-.464 0c-.547.533-1.684.73-2.512.73-.828 0-1.979-.196-2.512-.73a.326.326 0 0 0-.232-.095z"/>
+    <path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.008-.57-.008-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413Z" />
   </svg>
 );
 
-interface ShareModalProps {
+interface ShareModalProps
+{
   isOpen: boolean;
   onClose: () => void;
   title?: string;
@@ -29,32 +33,45 @@ interface ShareModalProps {
   type?: "chat" | "project";
 }
 
-export function ShareModal({
+export function ShareModal ( {
   isOpen,
   onClose,
   title = "مشاركة المحادثة",
   shareUrl,
-  shareText = "شاهد هذه المحادثة على CCCWAYS",
+  shareText = "شاهد هذه المحادثة على CCWAYS",
   type = "chat",
-}: ShareModalProps) {
-  const [copied, setCopied] = useState(false);
-  const [linkCopied, setLinkCopied] = useState(false);
+}: ShareModalProps )
+{
+  const [ copied, setCopied ] = useState( false );
+  const [ linkCopied, setLinkCopied ] = useState( false );
 
-  const url = shareUrl || (typeof window !== "undefined" ? window.location.href : "https://cccways.com");
-  const encodedUrl = encodeURIComponent(url);
-  const encodedText = encodeURIComponent(shareText);
+  // Auto-clear linkCopied flag
+  useTimeout( () => setLinkCopied( false ), linkCopied ? 2000 : undefined, [ linkCopied ] );
 
-  const handleCopyLink = async () => {
-    try {
-      await navigator.clipboard.writeText(url);
-      setLinkCopied(true);
-      setTimeout(() => setLinkCopied(false), 2000);
-    } catch (err) {
-      console.error("Failed to copy:", err);
+  const url = shareUrl || ( typeof window !== "undefined" ? window.location.href : "https://ccways.com" );
+  const encodedUrl = encodeURIComponent( url );
+  const encodedText = encodeURIComponent( shareText );
+
+  const handleCopyLink = async () =>
+  {
+    try
+    {
+      await navigator.clipboard.writeText( url );
+      setLinkCopied( true );
+    } catch ( err )
+    {
+      console.error( "Failed to copy:", err );
     }
   };
 
   const shareOptions = [
+    {
+      id: "whatsapp",
+      label: "WhatsApp",
+      icon: WhatsAppIcon,
+      onClick: () => window.open( `https://wa.me/?text=${ encodedText }%20${ encodedUrl }`, "_blank" ),
+      className: "hover:text-[#25D366]",
+    },
     {
       id: "copy",
       label: "نسخ الرابط",
@@ -64,144 +81,143 @@ export function ShareModal({
     },
     {
       id: "x",
-      label: "X",
+      label: "Twitter",
       icon: Twitter,
-      onClick: () => window.open(`https://twitter.com/intent/tweet?url=${encodedUrl}&text=${encodedText}`, "_blank"),
-    },
-    {
-      id: "linkedin",
-      label: "LinkedIn",
-      icon: Linkedin,
-      onClick: () => window.open(`https://www.linkedin.com/sharing/share-offsite/?url=${encodedUrl}`, "_blank"),
-    },
-    {
-      id: "reddit",
-      label: "Reddit",
-      icon: RedditIcon,
-      onClick: () => window.open(`https://reddit.com/submit?url=${encodedUrl}&title=${encodedText}`, "_blank"),
+      onClick: () => window.open( `https://twitter.com/intent/tweet?url=${ encodedUrl }&text=${ encodedText }`, "_blank" ),
     },
   ];
 
-  return (
+  const [ mounted, setMounted ] = useState( false );
+
+  useEffect( () =>
+  {
+    setMounted( true );
+  }, [] );
+
+  if ( !mounted ) return null;
+
+  return createPortal(
     <AnimatePresence>
-      {isOpen && (
+      { isOpen && (
         <>
-          {/* Backdrop */}
+          {/* Backdrop */ }
           <motion.div
-            initial={{ opacity: 0 }}
-            animate={{ opacity: 1 }}
-            exit={{ opacity: 0 }}
-            onClick={onClose}
-            className="fixed inset-0 bg-black/50 z-50"
+            initial={ { opacity: 0 } }
+            animate={ { opacity: 1 } }
+            exit={ { opacity: 0 } }
+            onClick={ onClose }
+            className="fixed inset-0 bg-black/30 backdrop-blur-sm z-[100]"
           />
 
-          {/* Modal */}
+          {/* Modal */ }
           <motion.div
-            initial={{ opacity: 0, scale: 0.95, y: 20 }}
-            animate={{ opacity: 1, scale: 1, y: 0 }}
-            exit={{ opacity: 0, scale: 0.95, y: 20 }}
-            className="fixed left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2 z-50 w-full max-w-md"
+            initial={ { opacity: 0, scale: 0.95, y: 20 } }
+            animate={ { opacity: 1, scale: 1, y: 0 } }
+            exit={ { opacity: 0, scale: 0.95, y: 20 } }
+            className="fixed left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2 z-[101] w-full max-w-[320px]"
           >
-            <div className="theme-card border border-border rounded-2xl shadow-2xl overflow-hidden mx-4">
-              {/* Header */}
-              <div className="flex items-center justify-between px-5 py-4 border-b border-border">
+            <div className="rounded-2xl overflow-hidden mx-4 
+                          bg-[#264a46]/90 backdrop-blur-2xl
+                          border border-white/10
+                          shadow-[0_8px_40px_rgba(0,0,0,0.4)]">
+              {/* Header */ }
+              <div className="flex items-center justify-between px-4 py-3 border-b border-white/8">
+                <button
+                  onClick={ onClose }
+                  className="p-1.5 rounded-lg hover:bg-white/10 text-white/60 hover:text-white/90 transition-colors"
+                >
+                  <X className="w-4 h-4" />
+                </button>
                 <div className="flex items-center gap-2">
-                  <span className="text-lg font-semibold text-foreground">
-                    {type === "chat" ? "CCCWAYS" : "CCCWAYS"} {title}
+                  <span className="text-base font-semibold text-white/90">
+                    { type === "chat" ? "CCWAYS" : "CCWAYS" } { title }
                   </span>
                 </div>
-                <motion.button
-                  onClick={onClose}
-                  whileHover={{ scale: 1.1 }}
-                  whileTap={{ scale: 0.95 }}
-                  className="p-1.5 rounded-lg hover:bg-muted text-muted-foreground hover:text-foreground transition-colors"
-                >
-                  <X className="w-5 h-5" />
-                </motion.button>
               </div>
 
-              {/* Content */}
-              <div className="p-5 space-y-5">
-                {/* Preview Card */}
-                <div className="bg-muted/50 rounded-xl p-4 border border-border/50">
+              {/* Content */ }
+              <div className="p-4 space-y-4">
+                {/* Preview Card */ }
+                <div className="bg-white/8 rounded-xl p-3 border border-white/10">
                   <div className="flex items-start gap-3">
-                    <div className="w-10 h-10 rounded-lg bg-gradient-to-br from-emerald-500 to-teal-500 flex items-center justify-center text-white shrink-0">
-                      <MessageSquare className="w-5 h-5" />
+                    <div className="w-8 h-8 rounded-lg bg-teal-500/30 flex items-center justify-center text-teal-300 shrink-0">
+                      <MessageSquare className="w-4 h-4" />
                     </div>
                     <div className="flex-1 min-w-0">
-                      <p className="text-sm text-muted-foreground leading-relaxed text-right">
-                        {shareText}
+                      <p className="text-xs text-white/70 leading-relaxed text-right">
+                        { shareText }
                       </p>
                     </div>
                   </div>
                 </div>
 
-                {/* Logo */}
+                {/* Logo */ }
                 <div className="flex justify-center">
-                  <span className="text-2xl font-bold bg-gradient-to-r from-emerald-500 to-teal-500 bg-clip-text text-transparent" dir="ltr">
-                    CCCWAYS
+                  <span className="text-xl font-bold text-teal-400" dir="ltr">
+                    CCWAYS
                   </span>
                 </div>
 
-                {/* Share Options */}
-                <div className="flex items-center justify-center gap-4">
-                  {shareOptions.map((option) => (
+                {/* Share Options */ }
+                <div className="flex items-center justify-center gap-3">
+                  { shareOptions.map( ( option ) => (
                     <motion.button
-                      key={option.id}
-                      onClick={option.onClick}
-                      whileHover={{ scale: 1.1, y: -2 }}
-                      whileTap={{ scale: 0.95 }}
-                      className={cn(
-                        "flex flex-col items-center gap-2 p-3 rounded-xl hover:bg-muted transition-colors min-w-[70px]",
+                      key={ option.id }
+                      onClick={ option.onClick }
+                      whileHover={ { scale: 1.1, y: -2 } }
+                      whileTap={ { scale: 0.95 } }
+                      className={ cn(
+                        "flex flex-col items-center gap-1.5 p-2 rounded-xl hover:bg-white/10 transition-colors min-w-[60px]",
                         option.className
-                      )}
+                      ) }
                     >
-                      <div className="w-10 h-10 rounded-full bg-muted flex items-center justify-center">
-                        <option.icon className="w-5 h-5" />
+                      <div className="w-8 h-8 rounded-full bg-white/10 flex items-center justify-center text-teal-400">
+                        <option.icon className="w-4 h-4" />
                       </div>
-                      <span className="text-xs text-muted-foreground">{option.label}</span>
+                      <span className="text-[10px] text-white/60">{ option.label }</span>
                     </motion.button>
-                  ))}
+                  ) ) }
                 </div>
 
-                {/* Copy URL Input */}
-                <div className="flex items-center gap-2 p-2 bg-muted/30 rounded-xl border border-border/50">
+                {/* Copy URL Input */ }
+                <div className="flex items-center gap-2 p-1.5 bg-white/8 rounded-xl border border-white/10">
                   <input
                     type="text"
-                    value={url}
+                    value={ url }
                     readOnly
-                    className="flex-1 bg-transparent text-sm text-muted-foreground px-2 py-1.5 focus:outline-none truncate"
+                    className="flex-1 bg-transparent text-xs text-white/70 px-2 py-1 focus:outline-none truncate"
                     dir="ltr"
                   />
                   <motion.button
-                    onClick={handleCopyLink}
-                    whileHover={{ scale: 1.05 }}
-                    whileTap={{ scale: 0.95 }}
-                    className={cn(
-                      "px-4 py-2 rounded-lg text-sm font-medium transition-colors",
+                    onClick={ handleCopyLink }
+                    whileHover={ { scale: 1.05 } }
+                    whileTap={ { scale: 0.95 } }
+                    className={ cn(
+                      "px-3 py-1.5 rounded-lg text-xs font-medium transition-colors",
                       linkCopied
-                        ? "bg-green-500/20 text-green-500"
-                        : "bg-primary/10 text-primary hover:bg-primary/20"
-                    )}
+                        ? "bg-teal-500/30 text-teal-300"
+                        : "bg-white/10 text-white/80 hover:bg-white/15"
+                    ) }
                   >
-                    {linkCopied ? (
+                    { linkCopied ? (
                       <span className="flex items-center gap-1">
-                        <Check className="w-4 h-4" />
+                        <Check className="w-3 h-3" />
                         تم النسخ
                       </span>
                     ) : (
                       <span className="flex items-center gap-1">
-                        <Copy className="w-4 h-4" />
+                        <Copy className="w-3 h-3" />
                         نسخ
                       </span>
-                    )}
+                    ) }
                   </motion.button>
                 </div>
               </div>
             </div>
           </motion.div>
         </>
-      )}
-    </AnimatePresence>
+      ) }
+    </AnimatePresence>,
+    document.body
   );
 }

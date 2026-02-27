@@ -23,7 +23,7 @@ export default function ResponsiveDemoPage() {
         logo={
           <div className="flex items-center gap-2">
             <div className="w-8 h-8 bg-accent-primary rounded-lg" />
-            <span className="font-bold text-xl">CCCWAYS</span>
+            <span className="font-bold text-xl">CCWAYS</span>
           </div>
         }
       >
@@ -204,7 +204,7 @@ export default function ResponsiveDemoPage() {
         <ResponsiveContainer>
           <ResponsiveStack direction="responsive" justify="between" align="center">
             <p className="text-text-secondary text-sm">
-              © 2025 CCCWAYS. All rights reserved.
+              © 2025 CCWAYS. All rights reserved.
             </p>
             <ResponsiveStack direction="horizontal" spacing="md">
               <a href="#" className="text-text-secondary hover:text-accent-primary text-sm">

@@ -1,0 +1,206 @@
+"use client";
+
+import { memo } from "react";
+import { motion } from "framer-motion";
+import
+{
+  PanelRightOpen,
+  PanelRightClose,
+  PanelLeftOpen,
+  PanelLeftClose,
+  PenLine,
+  Share2,
+  MoreHorizontal,
+  Menu,
+  X,
+} from "lucide-react";
+import { cn } from "@/lib/utils";
+import InfinityLogoSvg from "@/components/ui/InfinityLogoSvg";
+import { CanvasArtifactsMenu } from "@/components/canvas/CanvasArtifactsMenu";
+import { useChatStore } from "@/store/chatStore";
+import type { SidebarMode } from "./app-layout";
+
+interface TopHeaderProps
+{
+  /** Current left sidebar mode */
+  sidebarMode: SidebarMode;
+  /** Whether left sidebar is open on mobile */
+  mobileSidebarOpen: boolean;
+  /** Toggle left sidebar */
+  onToggleSidebar: () => void;
+  /** Whether the right sidebar is open */
+  rightSidebarOpen: boolean;
+  /** Toggle right sidebar */
+  onToggleRightSidebar: () => void;
+  /** Whether screen is mobile */
+  isMobile: boolean;
+  /** Whether screen is tablet */
+  isTablet: boolean;
+  /** Current pathname */
+  pathname: string | null;
+  /** Callback when new chat is requested */
+  onNewChat?: () => void;
+  /** Whether the transition overlay is active */
+  showTransition?: boolean;
+}
+
+/** Height of the top header in pixels — keep in sync with CSS var --header-height */
+export const HEADER_HEIGHT = 48;
+
+/**
+ * Fixed top header bar — Gemini-like.
+ *
+ * Always shows: logo + "CCWAYS" + sidebar toggles.
+ * On chat pages additionally shows: new chat + share + overflow menu.
+ */
+export const TopHeader = memo( function TopHeader ( {
+  sidebarMode,
+  mobileSidebarOpen,
+  onToggleSidebar,
+  rightSidebarOpen,
+  onToggleRightSidebar,
+  isMobile,
+  isTablet,
+  pathname,
+  onNewChat,
+  showTransition = false,
+}: TopHeaderProps )
+{
+  const isChatPage = pathname === "/chat" || ( pathname?.startsWith( "/chat/" ) ?? false );
+  const isSmallScreen = isMobile || isTablet;
+  const isRailDesktop = !isSmallScreen && sidebarMode === "rail";
+  const activeChatId = useChatStore( state => state.activeChatId );
+
+  return (
+    <header
+      className={ cn(
+        "fixed top-0 inset-x-0 z-[45] flex items-center",
+        "bg-[#1d2b28]/80 backdrop-blur-xl border-b border-white/[0.08]",
+        isRailDesktop ? "px-2 sm:pr-0 sm:pl-3" : "px-2 sm:px-3",
+        "safe-top select-none",
+        showTransition && "opacity-0 pointer-events-none"
+      ) }
+      style={ { height: HEADER_HEIGHT } }
+    >
+      {/* ───── Right side (RTL = visually left side of screen is "left", right side is start) ───── */}
+      {/* In RTL layout, flex-row keeps the natural RTL order:
+          right-sidebar toggle | spacer | logo area | left-sidebar toggle
+          But we want:
+            right side:  left-sidebar toggle  ·  logo  ·  CCWAYS
+            left side:   chat buttons  ·  right-sidebar toggle
+      */}
+
+      {/* Left sidebar toggle — sits in a 68px area to align with rail mode below */}
+      <div
+        className="flex items-center justify-center shrink-0"
+        style={ { width: ( !isSmallScreen && sidebarMode === "rail" ) ? 68 : undefined } }
+      >
+        <motion.button
+          type="button"
+          whileTap={ { scale: 0.9 } }
+          onClick={ onToggleSidebar }
+          className="w-9 h-9 rounded-xl flex items-center justify-center text-white/60 hover:text-white
+                     hover:bg-white/[0.08] transition-colors touch-target shrink-0"
+          aria-label={ isSmallScreen
+            ? ( mobileSidebarOpen ? "إغلاق القائمة" : "فتح القائمة" )
+            : ( sidebarMode === "expanded" ? "طي القائمة" : "توسيع القائمة" )
+          }
+          title={ isSmallScreen
+            ? ( mobileSidebarOpen ? "إغلاق القائمة" : "فتح القائمة" )
+            : ( sidebarMode === "expanded" ? "طي القائمة (Ctrl+Shift+S)" : "توسيع القائمة (Ctrl+Shift+S)" )
+          }
+        >
+          { isSmallScreen ? (
+            mobileSidebarOpen ? <X className="w-[18px] h-[18px]" /> : <Menu className="w-[18px] h-[18px]" />
+          ) : (
+            sidebarMode === "expanded"
+              ? <PanelRightClose className="w-[18px] h-[18px]" />
+              : <PanelRightOpen className="w-[18px] h-[18px]" />
+          ) }
+        </motion.button>
+      </div>
+
+      {/* Divider — aligns with sidebar-left rail border */}
+      <div className={ cn( "w-px h-5 bg-white/10 shrink-0 hidden sm:block", isRailDesktop ? "ml-1.5" : "mx-1.5" ) } />
+
+      {/* Logo + Brand */}
+      <div className="flex items-center gap-1.5 shrink-0 mr-1">
+        <InfinityLogoSvg size={ 22 } />
+        <span className="text-sm font-bold tracking-[0.12em] text-white/70 hidden sm:inline">
+          CCWAYS
+        </span>
+      </div>
+
+      {/* ───── Spacer ───── */}
+      <div className="flex-1" />
+
+      {/* ───── Chat-page-only actions ───── */}
+      { isChatPage && (
+        <div className="flex items-center gap-1">
+          {/* New chat */}
+          { onNewChat && (
+            <motion.button
+              type="button"
+              whileTap={ { scale: 0.9 } }
+              onClick={ onNewChat }
+              className="w-9 h-9 rounded-xl flex items-center justify-center text-white/60 hover:text-white
+                         hover:bg-white/[0.08] transition-colors touch-target"
+              title="دردشة جديدة (Ctrl+Shift+O)"
+              aria-label="دردشة جديدة"
+            >
+              <PenLine className="w-[18px] h-[18px]" />
+            </motion.button>
+          ) }
+
+          {/* Canvas Artifacts Menu — appears only when chat has artifacts */}
+          <CanvasArtifactsMenu chatId={ activeChatId } />
+
+          {/* Share */}
+          <motion.button
+            type="button"
+            whileTap={ { scale: 0.9 } }
+            onClick={ () => window.dispatchEvent( new CustomEvent( "header:share" ) ) }
+            className="w-9 h-9 rounded-xl flex items-center justify-center text-white/60 hover:text-white
+                       hover:bg-white/[0.08] transition-colors touch-target"
+            title="مشاركة"
+            aria-label="مشاركة"
+          >
+            <Share2 className="w-[18px] h-[18px]" />
+          </motion.button>
+
+          {/* Overflow menu */}
+          <motion.button
+            type="button"
+            whileTap={ { scale: 0.9 } }
+            onClick={ () => window.dispatchEvent( new CustomEvent( "header:more" ) ) }
+            className="w-9 h-9 rounded-xl flex items-center justify-center text-white/60 hover:text-white
+                       hover:bg-white/[0.08] transition-colors touch-target"
+            title="المزيد"
+            aria-label="المزيد"
+          >
+            <MoreHorizontal className="w-[18px] h-[18px]" />
+          </motion.button>
+        </div>
+      ) }
+
+      {/* Divider before right-sidebar toggle */}
+      <div className="w-px h-5 bg-white/10 mx-1.5 shrink-0 hidden sm:block" />
+
+      {/* Right sidebar toggle */}
+      <motion.button
+          type="button"
+          whileTap={ { scale: 0.9 } }
+          onClick={ onToggleRightSidebar }
+          className="w-9 h-9 rounded-xl flex items-center justify-center text-white/60 hover:text-white
+                     hover:bg-white/[0.08] transition-colors touch-target shrink-0"
+          aria-label={ rightSidebarOpen ? "إغلاق أدوات التحليل" : "فتح أدوات التحليل" }
+          title={ rightSidebarOpen ? "إغلاق أدوات التحليل" : "فتح أدوات التحليل" }
+        >
+          { rightSidebarOpen
+            ? <PanelLeftClose className="w-[18px] h-[18px]" />
+            : <PanelLeftOpen className="w-[18px] h-[18px]" />
+          }
+        </motion.button>
+    </header>
+  );
+} );

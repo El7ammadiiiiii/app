@@ -6,7 +6,7 @@
  * They consist of 5 waves showing supply and demand and the price equilibrium.
  */
 
-import { CandleData } from "@/components/charts/TradingChart";
+import type { CandleData } from "@/components/charts/types";
 
 export interface WolfeWavePivot {
   price: number;

@@ -8,7 +8,7 @@
  * - Signal line for the oscillator
  */
 
-import { CandleData } from "@/components/charts/TradingChart";
+import type { CandleData } from "@/components/charts/types";
 
 export interface LogRegressionChannel {
   upperLine: { startIndex: number; startPrice: number; endIndex: number; endPrice: number };

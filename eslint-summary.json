@@ -1,0 +1,353 @@
+{
+  "totals": {
+    "total": 1222,
+    "errors": 626,
+    "warnings": 596
+  },
+  "topRules": [
+    {
+      "rule": "@typescript-eslint/no-unused-vars",
+      "count": 563
+    },
+    {
+      "rule": "@typescript-eslint/no-explicit-any",
+      "count": 543
+    },
+    {
+      "rule": "prefer-const",
+      "count": 28
+    },
+    {
+      "rule": "react-hooks/set-state-in-effect",
+      "count": 25
+    },
+    {
+      "rule": "import/no-anonymous-default-export",
+      "count": 14
+    },
+    {
+      "rule": "@typescript-eslint/prefer-as-const",
+      "count": 12
+    },
+    {
+      "rule": "react-hooks/exhaustive-deps",
+      "count": 11
+    },
+    {
+      "rule": "react/no-unescaped-entities",
+      "count": 11
+    },
+    {
+      "rule": "@next/next/no-img-element",
+      "count": 6
+    },
+    {
+      "rule": "(no-rule)",
+      "count": 2
+    },
+    {
+      "rule": "react-hooks/immutability",
+      "count": 2
+    },
+    {
+      "rule": "react-hooks/purity",
+      "count": 1
+    },
+    {
+      "rule": "react-hooks/refs",
+      "count": 1
+    },
+    {
+      "rule": "react-hooks/static-components",
+      "count": 1
+    },
+    {
+      "rule": "react-hooks/preserve-manual-memoization",
+      "count": 1
+    }
+  ],
+  "topFilesByTotal": [
+    {
+      "file": "c:\\Users\\GAME\\elhammadi\\nexus-webapp\\src\\components\\charts\\TradingChart.backup.tsx",
+      "errors": 152,
+      "warnings": 73,
+      "total": 225,
+      "count": 225
+    },
+    {
+      "file": "c:\\Users\\GAME\\elhammadi\\nexus-webapp\\src\\components\\charts\\TradingChart.tsx",
+      "errors": 152,
+      "warnings": 73,
+      "total": 225,
+      "count": 225
+    },
+    {
+      "file": "c:\\Users\\GAME\\elhammadi\\nexus-webapp\\src\\components\\layout\\chat-area.tsx",
+      "errors": 2,
+      "warnings": 24,
+      "total": 26,
+      "count": 26
+    },
+    {
+      "file": "c:\\Users\\GAME\\elhammadi\\nexus-webapp\\src\\components\\layout\\sidebar-left.tsx",
+      "errors": 1,
+      "warnings": 24,
+      "total": 25,
+      "count": 25
+    },
+    {
+      "file": "c:\\Users\\GAME\\elhammadi\\nexus-webapp\\src\\app\\chat\\trend-scanner\\[pair]\\page.tsx",
+      "errors": 2,
+      "warnings": 14,
+      "total": 16,
+      "count": 16
+    },
+    {
+      "file": "c:\\Users\\GAME\\elhammadi\\nexus-webapp\\src\\components\\charts\\indicators\\SMCIndicators.ts",
+      "errors": 10,
+      "warnings": 6,
+      "total": 16,
+      "count": 16
+    },
+    {
+      "file": "c:\\Users\\GAME\\elhammadi\\nexus-webapp\\src\\app\\chat\\ai-draw\\page.tsx",
+      "errors": 8,
+      "warnings": 6,
+      "total": 14,
+      "count": 14
+    },
+    {
+      "file": "c:\\Users\\GAME\\elhammadi\\nexus-webapp\\src\\lib\\exchanges\\spot\\gemini.ts",
+      "errors": 10,
+      "warnings": 3,
+      "total": 13,
+      "count": 13
+    },
+    {
+      "file": "c:\\Users\\GAME\\elhammadi\\nexus-webapp\\src\\app\\chat\\trend-scanner\\page.tsx",
+      "errors": 2,
+      "warnings": 10,
+      "total": 12,
+      "count": 12
+    },
+    {
+      "file": "c:\\Users\\GAME\\elhammadi\\nexus-webapp\\src\\components\\charts\\SubIndicatorChart.backup.tsx",
+      "errors": 6,
+      "warnings": 6,
+      "total": 12,
+      "count": 12
+    },
+    {
+      "file": "c:\\Users\\GAME\\elhammadi\\nexus-webapp\\src\\components\\charts\\SubIndicatorChart.tsx",
+      "errors": 6,
+      "warnings": 6,
+      "total": 12,
+      "count": 12
+    },
+    {
+      "file": "c:\\Users\\GAME\\elhammadi\\nexus-webapp\\src\\lib\\analysis\\engine.ts",
+      "errors": 0,
+      "warnings": 11,
+      "total": 11,
+      "count": 11
+    },
+    {
+      "file": "c:\\Users\\GAME\\elhammadi\\nexus-webapp\\src\\components\\charts\\SubIndicatorChartV2.tsx",
+      "errors": 4,
+      "warnings": 6,
+      "total": 10,
+      "count": 10
+    },
+    {
+      "file": "c:\\Users\\GAME\\elhammadi\\nexus-webapp\\src\\lib\\agents\\pattern-master\\index.ts",
+      "errors": 1,
+      "warnings": 9,
+      "total": 10,
+      "count": 10
+    },
+    {
+      "file": "c:\\Users\\GAME\\elhammadi\\nexus-webapp\\src\\lib\\indicators\\smartMoneyConcepts.ts",
+      "errors": 4,
+      "warnings": 6,
+      "total": 10,
+      "count": 10
+    },
+    {
+      "file": "c:\\Users\\GAME\\elhammadi\\nexus-webapp\\src\\lib\\exchanges\\spot\\kraken.ts",
+      "errors": 9,
+      "warnings": 0,
+      "total": 9,
+      "count": 9
+    },
+    {
+      "file": "c:\\Users\\GAME\\elhammadi\\nexus-webapp\\src\\lib\\exchanges\\futures\\okx-swap.ts",
+      "errors": 5,
+      "warnings": 3,
+      "total": 8,
+      "count": 8
+    },
+    {
+      "file": "c:\\Users\\GAME\\elhammadi\\nexus-webapp\\src\\lib\\indicators\\advanced-indicators.ts",
+      "errors": 5,
+      "warnings": 3,
+      "total": 8,
+      "count": 8
+    },
+    {
+      "file": "c:\\Users\\GAME\\elhammadi\\nexus-webapp\\src\\lib\\indicators\\chart-patterns.ts",
+      "errors": 1,
+      "warnings": 7,
+      "total": 8,
+      "count": 8
+    },
+    {
+      "file": "c:\\Users\\GAME\\elhammadi\\nexus-webapp\\src\\lib\\scanners\\advanced-divergence-detector.ts",
+      "errors": 0,
+      "warnings": 8,
+      "total": 8,
+      "count": 8
+    }
+  ],
+  "topFilesByErrors": [
+    {
+      "file": "c:\\Users\\GAME\\elhammadi\\nexus-webapp\\src\\components\\charts\\TradingChart.backup.tsx",
+      "errors": 152,
+      "warnings": 73,
+      "total": 225,
+      "count": 152
+    },
+    {
+      "file": "c:\\Users\\GAME\\elhammadi\\nexus-webapp\\src\\components\\charts\\TradingChart.tsx",
+      "errors": 152,
+      "warnings": 73,
+      "total": 225,
+      "count": 152
+    },
+    {
+      "file": "c:\\Users\\GAME\\elhammadi\\nexus-webapp\\src\\components\\charts\\indicators\\SMCIndicators.ts",
+      "errors": 10,
+      "warnings": 6,
+      "total": 16,
+      "count": 10
+    },
+    {
+      "file": "c:\\Users\\GAME\\elhammadi\\nexus-webapp\\src\\lib\\exchanges\\spot\\gemini.ts",
+      "errors": 10,
+      "warnings": 3,
+      "total": 13,
+      "count": 10
+    },
+    {
+      "file": "c:\\Users\\GAME\\elhammadi\\nexus-webapp\\src\\lib\\exchanges\\spot\\kraken.ts",
+      "errors": 9,
+      "warnings": 0,
+      "total": 9,
+      "count": 9
+    },
+    {
+      "file": "c:\\Users\\GAME\\elhammadi\\nexus-webapp\\src\\app\\chat\\ai-draw\\page.tsx",
+      "errors": 8,
+      "warnings": 6,
+      "total": 14,
+      "count": 8
+    },
+    {
+      "file": "c:\\Users\\GAME\\elhammadi\\nexus-webapp\\src\\lib\\exchanges\\ccxt-manager.ts",
+      "errors": 7,
+      "warnings": 0,
+      "total": 7,
+      "count": 7
+    },
+    {
+      "file": "c:\\Users\\GAME\\elhammadi\\nexus-webapp\\src\\lib\\exchanges\\futures\\htx-futures.ts",
+      "errors": 7,
+      "warnings": 0,
+      "total": 7,
+      "count": 7
+    },
+    {
+      "file": "c:\\Users\\GAME\\elhammadi\\nexus-webapp\\src\\lib\\exchanges\\spot\\cryptocom.ts",
+      "errors": 7,
+      "warnings": 0,
+      "total": 7,
+      "count": 7
+    },
+    {
+      "file": "c:\\Users\\GAME\\elhammadi\\nexus-webapp\\src\\lib\\exchanges\\spot\\htx.ts",
+      "errors": 7,
+      "warnings": 0,
+      "total": 7,
+      "count": 7
+    },
+    {
+      "file": "c:\\Users\\GAME\\elhammadi\\nexus-webapp\\src\\lib\\exchanges\\spot\\mexc.ts",
+      "errors": 7,
+      "warnings": 0,
+      "total": 7,
+      "count": 7
+    },
+    {
+      "file": "c:\\Users\\GAME\\elhammadi\\nexus-webapp\\src\\components\\charts\\SubIndicatorChart.backup.tsx",
+      "errors": 6,
+      "warnings": 6,
+      "total": 12,
+      "count": 6
+    },
+    {
+      "file": "c:\\Users\\GAME\\elhammadi\\nexus-webapp\\src\\components\\charts\\SubIndicatorChart.tsx",
+      "errors": 6,
+      "warnings": 6,
+      "total": 12,
+      "count": 6
+    },
+    {
+      "file": "c:\\Users\\GAME\\elhammadi\\nexus-webapp\\src\\lib\\exchanges\\futures\\bingx-futures.ts",
+      "errors": 6,
+      "warnings": 0,
+      "total": 6,
+      "count": 6
+    },
+    {
+      "file": "c:\\Users\\GAME\\elhammadi\\nexus-webapp\\src\\lib\\exchanges\\futures\\gateio-futures.ts",
+      "errors": 6,
+      "warnings": 0,
+      "total": 6,
+      "count": 6
+    },
+    {
+      "file": "c:\\Users\\GAME\\elhammadi\\nexus-webapp\\src\\lib\\exchanges\\futures\\kraken-futures.ts",
+      "errors": 6,
+      "warnings": 0,
+      "total": 6,
+      "count": 6
+    },
+    {
+      "file": "c:\\Users\\GAME\\elhammadi\\nexus-webapp\\src\\lib\\exchanges\\futures\\mexc-futures.ts",
+      "errors": 6,
+      "warnings": 0,
+      "total": 6,
+      "count": 6
+    },
+    {
+      "file": "c:\\Users\\GAME\\elhammadi\\nexus-webapp\\src\\lib\\exchanges\\futures\\woo-futures.ts",
+      "errors": 6,
+      "warnings": 0,
+      "total": 6,
+      "count": 6
+    },
+    {
+      "file": "c:\\Users\\GAME\\elhammadi\\nexus-webapp\\src\\lib\\exchanges\\spot\\bingx.ts",
+      "errors": 6,
+      "warnings": 0,
+      "total": 6,
+      "count": 6
+    },
+    {
+      "file": "c:\\Users\\GAME\\elhammadi\\nexus-webapp\\src\\lib\\exchanges\\spot\\coinbase.ts",
+      "errors": 6,
+      "warnings": 0,
+      "total": 6,
+      "count": 6
+    }
+  ]
+}

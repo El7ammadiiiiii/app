@@ -10,7 +10,7 @@
  * Expert Analyst Panel Component - لوحة المحلل الخبير
  * واجهة مستخدم متقدمة لعرض تحليل الذكاء الاصطناعي
  * 
- * @author Nexus Elite Team
+ * @author CCWAYS Team
  * @version 1.0.0
  * @locked true
  * @last-reviewed 2025-12-14

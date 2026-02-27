@@ -7,7 +7,7 @@
  * - Fakeout warning system
  * - Multi-timeframe validation
  * 
- * @author CCCWAYS Elite Trading System
+ * @author CCWAYS Elite Trading System
  * @version 2.0.0
  */
 

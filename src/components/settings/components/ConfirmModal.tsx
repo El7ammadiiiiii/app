@@ -6,7 +6,8 @@ import { AlertTriangle, AlertCircle, Info, X } from "lucide-react";
 import { cn } from "@/lib/utils";
 import type { ModalType } from "../types/settings";
 
-interface ConfirmModalProps {
+interface ConfirmModalProps
+{
   isOpen: boolean;
   onClose: () => void;
   onConfirm: () => void;
@@ -19,7 +20,7 @@ interface ConfirmModalProps {
   loading?: boolean;
 }
 
-export function ConfirmModal({
+export function ConfirmModal ( {
   isOpen,
   onClose,
   onConfirm,
@@ -30,8 +31,9 @@ export function ConfirmModal({
   cancelText = "إلغاء",
   requireInput,
   loading = false,
-}: ConfirmModalProps) {
-  const [inputValue, setInputValue] = React.useState("");
+}: ConfirmModalProps )
+{
+  const [ inputValue, setInputValue ] = React.useState( "" );
 
   const canConfirm = requireInput ? inputValue === requireInput : true;
 
@@ -42,127 +44,129 @@ export function ConfirmModal({
   };
 
   const iconColors = {
-    danger: "bg-destructive/10 text-destructive",
-    warning: "bg-secondary/10 text-secondary",
-    info: "bg-primary/10 text-primary",
+    danger: "bg-red-500/20 text-red-400",
+    warning: "bg-amber-500/20 text-amber-400",
+    info: "bg-emerald-500/20 text-emerald-400",
   };
 
   const buttonColors = {
-    danger: "bg-destructive text-destructive-foreground hover:bg-destructive/90",
-    warning: "bg-secondary text-secondary-foreground hover:bg-secondary/90",
-    info: "bg-primary text-primary-foreground hover:bg-primary/90",
+    danger: "bg-red-500/30 text-red-300 hover:bg-red-500/40 border border-red-500/30",
+    warning: "bg-amber-500/30 text-amber-300 hover:bg-amber-500/40 border border-amber-500/30",
+    info: "bg-emerald-500/30 text-emerald-300 hover:bg-emerald-500/40 border border-emerald-500/30",
   };
 
-  React.useEffect(() => {
-    if (!isOpen) setInputValue("");
-  }, [isOpen]);
+  React.useEffect( () =>
+  {
+    if ( !isOpen ) setInputValue( "" );
+  }, [ isOpen ] );
 
   return (
     <AnimatePresence>
-      {isOpen && (
+      { isOpen && (
         <>
-          {/* Overlay */}
+          {/* Overlay */ }
           <motion.div
-            initial={{ opacity: 0 }}
-            animate={{ opacity: 1 }}
-            exit={{ opacity: 0 }}
-            onClick={onClose}
-            className="fixed inset-0 bg-black/50 z-50"
+            initial={ { opacity: 0 } }
+            animate={ { opacity: 1 } }
+            exit={ { opacity: 0 } }
+            onClick={ onClose }
+            className="fixed inset-0 bg-black/40 backdrop-blur-sm z-50"
           />
 
-          {/* Modal */}
+          {/* Modal */ }
           <motion.div
-            initial={{ opacity: 0, scale: 0.95 }}
-            animate={{ opacity: 1, scale: 1 }}
-            exit={{ opacity: 0, scale: 0.95 }}
-            transition={{ duration: 0.2, ease: "easeOut" }}
+            initial={ { opacity: 0, scale: 0.95 } }
+            animate={ { opacity: 1, scale: 1 } }
+            exit={ { opacity: 0, scale: 0.95 } }
+            transition={ { duration: 0.2, ease: "easeOut" } }
             className="fixed inset-0 z-50 flex items-center justify-center p-4"
           >
             <div
-              className={cn(
-                "theme-card border border-border rounded-2xl p-6 w-full max-w-md",
-                "shadow-2xl"
-              )}
-              onClick={(e) => e.stopPropagation()}
+              className={ cn(
+                "rounded-2xl p-5 sm:p-6 w-full max-w-md relative",
+                "bg-[#1a3a36] border border-white/10",
+                "shadow-[0_8px_40px_rgba(0,0,0,0.5)]"
+              ) }
+              onClick={ ( e ) => e.stopPropagation() }
             >
-              {/* Close Button */}
+              {/* Close Button - Right side in RTL */ }
               <button
-                onClick={onClose}
-                className="absolute top-4 left-4 p-1 rounded-lg hover:bg-muted text-muted-foreground"
+                onClick={ onClose }
+                className="absolute top-4 right-4 p-1.5 rounded-lg hover:bg-white/10 text-white/60 hover:text-white/90 transition-colors"
               >
                 <X className="w-5 h-5" />
               </button>
 
-              {/* Icon */}
-              <div className={cn(
+              {/* Icon */ }
+              <div className={ cn(
                 "w-12 h-12 rounded-full mx-auto flex items-center justify-center",
-                iconColors[type]
-              )}>
-                {icons[type]}
+                iconColors[ type ]
+              ) }>
+                { icons[ type ] }
               </div>
 
-              {/* Title */}
-              <h2 className="text-xl font-bold text-foreground text-center mt-4">
-                {title}
+              {/* Title */ }
+              <h2 className="text-xl font-bold text-white/95 text-center mt-4">
+                { title }
               </h2>
 
-              {/* Description */}
-              <p className="text-muted-foreground text-center mt-2 leading-relaxed">
-                {description}
+              {/* Description */ }
+              <p className="text-white/60 text-center mt-2 leading-relaxed">
+                { description }
               </p>
 
-              {/* Required Input */}
-              {requireInput && (
+              {/* Required Input */ }
+              { requireInput && (
                 <div className="mt-4">
-                  <p className="text-sm text-muted-foreground text-center mb-2">
-                    اكتب <strong className="text-foreground">"{requireInput}"</strong> للتأكيد
+                  <p className="text-sm text-white/50 text-center mb-2">
+                    اكتب <strong className="text-white/90">"{ requireInput }"</strong> للتأكيد
                   </p>
                   <input
                     type="text"
-                    value={inputValue}
-                    onChange={(e) => setInputValue(e.target.value)}
-                    placeholder={requireInput}
-                    className={cn(
-                      "w-full px-3 py-2 bg-muted border border-border rounded-lg",
-                      "text-center text-foreground placeholder:text-muted-foreground",
-                      "focus:outline-none focus:ring-2 focus:ring-primary/50"
-                    )}
+                    value={ inputValue }
+                    onChange={ ( e ) => setInputValue( e.target.value ) }
+                    placeholder={ requireInput }
+                    className={ cn(
+                      "w-full px-3 py-2 bg-white/8 border border-white/10 rounded-lg",
+                      "text-center text-white/90 placeholder:text-white/40",
+                      "focus:outline-none focus:ring-2 focus:ring-teal-500/40"
+                    ) }
                     dir="ltr"
                   />
                 </div>
-              )}
+              ) }
 
-              {/* Actions */}
+              {/* Actions */ }
               <div className="flex gap-3 mt-6">
                 <button
-                  onClick={onClose}
-                  disabled={loading}
-                  className={cn(
+                  onClick={ onClose }
+                  disabled={ loading }
+                  className={ cn(
                     "flex-1 px-4 py-2.5 rounded-lg font-medium",
-                    "bg-muted text-foreground hover:bg-muted/80",
+                    "bg-white/10 text-white/90 hover:bg-white/15 border border-white/10",
                     "transition-colors",
                     loading && "opacity-50 cursor-not-allowed"
-                  )}
+                  ) }
                 >
-                  {cancelText}
+                  { cancelText }
                 </button>
                 <button
-                  onClick={onConfirm}
-                  disabled={!canConfirm || loading}
-                  className={cn(
+                  onClick={ onConfirm }
+                  disabled={ !canConfirm || loading }
+                  className={ cn(
                     "flex-1 px-4 py-2.5 rounded-lg font-medium",
-                    buttonColors[type],
+                    buttonColors[ type ],
                     "transition-colors",
-                    (!canConfirm || loading) && "opacity-50 cursor-not-allowed"
-                  )}
+                    ( !canConfirm || loading ) && "opacity-50 cursor-not-allowed"
+                  ) }
                 >
-                  {loading ? "جاري التنفيذ..." : confirmText}
+                  { loading ? "جاري التنفيذ..." : confirmText }
                 </button>
               </div>
             </div>
           </motion.div>
         </>
-      )}
+      ) }
     </AnimatePresence>
   );
 }

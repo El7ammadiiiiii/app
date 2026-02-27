@@ -353,8 +353,8 @@ export async function POST(req: NextRequest) {
         }),
       });
     } else if (provider === 'claude') {
-      // Claude API via CometAPI (Claude Opus 4.5)
-      providerName = 'Claude Opus 4.5';
+      // Claude API via CometAPI (Claude Opus 4.6)
+      providerName = 'Claude Opus 4.6';
       response = await fetch('https://api.cometapi.com/v1/messages', {
         method: 'POST',
         headers: {
@@ -363,7 +363,7 @@ export async function POST(req: NextRequest) {
           'anthropic-version': '2023-06-01',
         },
         body: JSON.stringify({
-          model: 'claude-opus-4-5-20251101',
+          model: 'claude-opus-4-6',
           max_tokens: 4000,
           messages: [
             { 

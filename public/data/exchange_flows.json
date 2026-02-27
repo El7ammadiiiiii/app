@@ -1,0 +1,219 @@
+{
+  "metadata": {
+    "chain_uid": "eip155:1",
+    "chain_name": "Ethereum",
+    "last_updated": "2026-02-07T04:02:41.772Z",
+    "last_block": 24402435,
+    "data_source": "Live RPC",
+    "tokens": [
+      "USDT",
+      "USDC"
+    ]
+  },
+  "exchanges": [
+    {
+      "name": "binance",
+      "inflow_24h": 164677150.39,
+      "outflow_24h": 623953959.98,
+      "net_flow_24h": -459276809.58
+    },
+    {
+      "name": "coinbase",
+      "inflow_24h": 258740438.69,
+      "outflow_24h": 259478069.33,
+      "net_flow_24h": -737630.64
+    },
+    {
+      "name": "okx",
+      "inflow_24h": 165523112.03,
+      "outflow_24h": 50533753.07,
+      "net_flow_24h": 114989358.96
+    },
+    {
+      "name": "kraken",
+      "inflow_24h": 20043295.27,
+      "outflow_24h": 55696121.08,
+      "net_flow_24h": -35652825.81
+    },
+    {
+      "name": "bybit",
+      "inflow_24h": 27359548.38,
+      "outflow_24h": 26065330.45,
+      "net_flow_24h": 1294217.93
+    },
+    {
+      "name": "bitstamp",
+      "inflow_24h": 6288290.2,
+      "outflow_24h": 3414764.48,
+      "net_flow_24h": 2873525.73
+    },
+    {
+      "name": "gemini",
+      "inflow_24h": 502711.8,
+      "outflow_24h": 1101505.56,
+      "net_flow_24h": -598793.76
+    },
+    {
+      "name": "cryptocom",
+      "inflow_24h": 3591480.52,
+      "outflow_24h": 6543867.42,
+      "net_flow_24h": -2952386.91
+    },
+    {
+      "name": "deribit",
+      "inflow_24h": 1295482.92,
+      "outflow_24h": 7705618.67,
+      "net_flow_24h": -6410135.75
+    },
+    {
+      "name": "phemex",
+      "inflow_24h": 0,
+      "outflow_24h": 2088975.7,
+      "net_flow_24h": -2088975.69
+    },
+    {
+      "name": "mexc",
+      "inflow_24h": 2498893.1,
+      "outflow_24h": 2577869.57,
+      "net_flow_24h": -78976.47
+    },
+    {
+      "name": "bitmart",
+      "inflow_24h": 21376.19,
+      "outflow_24h": 132116.01,
+      "net_flow_24h": -110739.82
+    },
+    {
+      "name": "coinex",
+      "inflow_24h": 216011.06,
+      "outflow_24h": 457000.54,
+      "net_flow_24h": -240989.48
+    },
+    {
+      "name": "digifinex",
+      "inflow_24h": 0,
+      "outflow_24h": 0,
+      "net_flow_24h": 0
+    },
+    {
+      "name": "pionex",
+      "inflow_24h": 300000,
+      "outflow_24h": 28054.49,
+      "net_flow_24h": 271945.51
+    },
+    {
+      "name": "coinstore",
+      "inflow_24h": 0,
+      "outflow_24h": 0,
+      "net_flow_24h": 0
+    },
+    {
+      "name": "upbit",
+      "inflow_24h": 0,
+      "outflow_24h": 0,
+      "net_flow_24h": 0
+    },
+    {
+      "name": "bitso",
+      "inflow_24h": 0.05,
+      "outflow_24h": 500000,
+      "net_flow_24h": -499999.95
+    },
+    {
+      "name": "indodax",
+      "inflow_24h": 0.02,
+      "outflow_24h": 486503,
+      "net_flow_24h": -486502.98
+    },
+    {
+      "name": "luno",
+      "inflow_24h": 273470.33,
+      "outflow_24h": 434145.14,
+      "net_flow_24h": -160674.81
+    },
+    {
+      "name": "valr",
+      "inflow_24h": 0,
+      "outflow_24h": 0,
+      "net_flow_24h": 0
+    },
+    {
+      "name": "bitbank",
+      "inflow_24h": 0,
+      "outflow_24h": 0,
+      "net_flow_24h": 0
+    },
+    {
+      "name": "cexio",
+      "inflow_24h": 0,
+      "outflow_24h": 1694.19,
+      "net_flow_24h": -1694.19
+    },
+    {
+      "name": "htx",
+      "inflow_24h": 327250757.35,
+      "outflow_24h": 3626569.42,
+      "net_flow_24h": 323624187.93
+    },
+    {
+      "name": "kucoin",
+      "inflow_24h": 2833017.24,
+      "outflow_24h": 2189224.46,
+      "net_flow_24h": 643792.78
+    },
+    {
+      "name": "gateio",
+      "inflow_24h": 0,
+      "outflow_24h": 0,
+      "net_flow_24h": 0
+    },
+    {
+      "name": "bitfinex",
+      "inflow_24h": 297154.12,
+      "outflow_24h": 3036230.01,
+      "net_flow_24h": -2739075.89
+    },
+    {
+      "name": "bittrex",
+      "inflow_24h": 0,
+      "outflow_24h": 0,
+      "net_flow_24h": 0
+    },
+    {
+      "name": "bingx",
+      "inflow_24h": 19014.22,
+      "outflow_24h": 11746.7,
+      "net_flow_24h": 7267.52
+    },
+    {
+      "name": "bitrue",
+      "inflow_24h": 0,
+      "outflow_24h": 0,
+      "net_flow_24h": 0
+    },
+    {
+      "name": "whitebit",
+      "inflow_24h": 0,
+      "outflow_24h": 0,
+      "net_flow_24h": 0
+    },
+    {
+      "name": "hashkey",
+      "inflow_24h": 0,
+      "outflow_24h": 0,
+      "net_flow_24h": 0
+    },
+    {
+      "name": "wintermute",
+      "inflow_24h": 1739619,
+      "outflow_24h": 0,
+      "net_flow_24h": 1739619
+    },
+    {
+      "name": "jump_trading",
+      "inflow_24h": 0,
+      "outflow_24h": 0,
+      "net_flow_24h": 0
+    }
+  ]
+}

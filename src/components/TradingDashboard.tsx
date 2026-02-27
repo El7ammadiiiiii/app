@@ -1,16 +1,16 @@
 /**
  * 📊 Trading Dashboard Component
- * Example usage of CCXT integration system
+ * Example usage of centralized exchange integration system
  */
 
 'use client';
 
 import { useState } from 'react';
 import { useTicker, useOrderBook, useOHLCV, useTrades } from '@/hooks/useExchangeData';
-import type { ExchangeId } from '@/lib/exchanges/types';
+import type { ExchangeId } from '@/types/exchanges';
 
 export default function TradingDashboard() {
-  const [exchange, setExchange] = useState<ExchangeId>('binance');
+  const [exchange, setExchange] = useState<ExchangeId>('bybit');
   const [symbol, setSymbol] = useState<string>('BTC/USDT');
 
   // Fetch data with auto-refresh
@@ -55,8 +55,6 @@ export default function TradingDashboard() {
             onChange={(e) => setExchange(e.target.value as ExchangeId)}
             className="px-4 py-2 border rounded-lg"
           >
-            <option value="binance">Binance Spot</option>
-            <option value="binance-usdm">Binance USDⓈ-M</option>
             <option value="bybit">Bybit Spot</option>
             <option value="bybit-linear">Bybit Linear</option>
             <option value="okx">OKX Spot</option>

@@ -1,6 +1,6 @@
 /**
  * ═══════════════════════════════════════════════════════════════
- * نظام الأصوات - CCCWAYS Projects System
+ * نظام الأصوات - CCWAYS Projects System
  * ═══════════════════════════════════════════════════════════════
  * 
  * مدير المؤثرات الصوتية للتطبيق
@@ -116,8 +116,8 @@ class SoundManager {
   constructor() {
     // استعادة الإعدادات من localStorage
     if (typeof window !== "undefined") {
-      const savedEnabled = localStorage.getItem("cccways-sound-enabled");
-      const savedVolume = localStorage.getItem("cccways-sound-volume");
+      const savedEnabled = localStorage.getItem("CCWAYS-sound-enabled");
+      const savedVolume = localStorage.getItem("CCWAYS-sound-volume");
       
       if (savedEnabled !== null) {
         this.enabled = savedEnabled === "true";
@@ -152,7 +152,7 @@ class SoundManager {
   setEnabled(enabled: boolean): void {
     this.enabled = enabled;
     if (typeof window !== "undefined") {
-      localStorage.setItem("cccways-sound-enabled", String(enabled));
+      localStorage.setItem("CCWAYS-sound-enabled", String(enabled));
     }
   }
 
@@ -169,7 +169,7 @@ class SoundManager {
   setVolume(volume: number): void {
     this.volume = Math.max(0, Math.min(1, volume));
     if (typeof window !== "undefined") {
-      localStorage.setItem("cccways-sound-volume", String(this.volume));
+      localStorage.setItem("CCWAYS-sound-volume", String(this.volume));
     }
   }
 

@@ -1,6 +1,10 @@
 {
-  "markdownlint.config": {
-    "default": false
-  },
-  "markdownlint.run": "onSave"
+  "default": true,
+  "MD013": false,
+  "MD022": false,
+  "MD031": false,
+  "MD032": false,
+  "MD040": false,
+  "MD051": false,
+  "MD060": false
 }

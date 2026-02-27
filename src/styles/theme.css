@@ -1,21 +1,22 @@
 /**
- * نظام الثيم المركزي لـ CCCWAYS
- * ============================
- * تغيير أي لون هنا = تغيير كامل الموقع
- * 
- * الهيكل:
- * 1. Base Colors - الألوان الأساسية (Teal, Slate, etc.)
- * 2. Semantic Colors - ألوان ذات معنى (bg, text, border)
- * 3. Component Colors - ألوان المكونات (btn, input, card)
- * 4. Chart Colors - ألوان الرسوم البيانية
- * 5. Light/Dark Mode - دعم الوضعين
+ * نظام الثيم لـ CCWAYS - الوضع الداكن فقط
+ * ==========================================
  */
 
-/* ===========================================
-   1. BASE COLORS - الألوان الأساسية
-   =========================================== */
 :root {
-  /* Teal - اللون الرئيسي */
+  /* === Header Layout === */
+  --header-height: 48px;
+
+  /* === Sidebar Layout === */
+  --sidebar-width: 260px;
+  --sidebar-rail-width: 68px;
+  --sidebar-transition: width 200ms ease;
+  --sidebar-bg: #264a46;
+  --sidebar-hover: rgba(255, 255, 255, 0.08);
+  --sidebar-active: rgba(255, 255, 255, 0.12);
+  --sidebar-border: rgba(255, 255, 255, 0.10);
+
+  /* === Base Colors === */
   --teal-50: #f0fdfa;
   --teal-100: #ccfbf1;
   --teal-200: #99f6e4;
@@ -28,7 +29,6 @@
   --teal-900: #134e4a;
   --teal-950: #042f2e;
 
-  /* Slate - الألوان المحايدة */
   --slate-50: #f8fafc;
   --slate-100: #f1f5f9;
   --slate-200: #e2e8f0;
@@ -37,11 +37,10 @@
   --slate-500: #64748b;
   --slate-600: #475569;
   --slate-700: #334155;
-  --slate-800: #1e293b;
-  --slate-900: #0f172a;
+  --slate-800: #1d2b28;
+  --slate-900: #264a46;
   --slate-950: #020617;
 
-  /* Status Colors - ألوان الحالة */
   --green-500: #22c55e;
   --green-600: #16a34a;
   --red-500: #ef4444;
@@ -50,236 +49,208 @@
   --yellow-600: #ca8a04;
   --blue-500: #3b82f6;
   --blue-600: #2563eb;
-}
 
-/* ===========================================
-   2. DARK MODE - الوضع الداكن (الافتراضي)
-   =========================================== */
-:root,
-[data-theme="dark"] {
-  /* === الخلفيات === */
-  --bg-base: #051014;           /* خلفية الصفحة الرئيسية */
-  --bg-surface: #081820;        /* الأسطح والبطاقات */
-  --bg-elevated: #0a2029;       /* العناصر المرتفعة */
-  --bg-overlay: rgba(5, 16, 20, 0.85); /* الـ overlays */
-  --bg-skeleton: rgba(100, 116, 139, 0.5); /* الـ skeleton loading */
-  
-  /* === Glass Effects - تأثيرات الزجاج === */
+  /* === Backgrounds === */
+  --bg-base: transparent;
+  --bg-surface: rgba(255, 255, 255, 0.10);
+  --bg-elevated: rgba(255, 255, 255, 0.14);
+  --bg-overlay: rgba(255, 255, 255, 0.22);
+  --bg-skeleton: rgba(100, 116, 139, 0.5);
+  --bg-gradient-card: linear-gradient(135deg, rgba(255, 255, 255, 0.20) 0%, rgba(255, 255, 255, 0.14) 50%, rgba(255, 255, 255, 0.18) 100%);
+
+  /* === Glass === */
   --glass-bg: rgba(255, 255, 255, 0.05);
   --glass-bg-hover: rgba(255, 255, 255, 0.08);
   --glass-border: rgba(255, 255, 255, 0.1);
   --glass-border-subtle: rgba(255, 255, 255, 0.06);
-  
-  /* === النصوص === */
-  --text-primary: #f8fafc;      /* النص الرئيسي */
-  --text-secondary: #cbd5e1;    /* النص الثانوي */
-  --text-muted: #64748b;        /* النص الخافت */
-  --text-accent: #2dd4bf;       /* النص المميز */
-  --text-inverse: #0f172a;      /* النص المعكوس */
-  
-  /* === الحدود === */
+
+  /* === Glass Lite (lighter + more opaque + stronger blur) === */
+  --glass-lite-bg: rgba(255, 255, 255, 0.10);
+  --glass-lite-bg-strong: rgba(255, 255, 255, 0.14);
+  --glass-lite-bg-hover: rgba(255, 255, 255, 0.16);
+  --glass-lite-border: rgba(255, 255, 255, 0.14);
+  --glass-lite-border-strong: rgba(255, 255, 255, 0.18);
+  --glass-lite-highlight: rgba(255, 255, 255, 0.10);
+  --glass-lite-blur: 40px;
+  --glass-lite-saturate: 160%;
+  --glass-lite-shadow: 0 24px 60px rgba(0, 0, 0, 0.55);
+  --glass-lite-shadow-tight: 0 14px 34px rgba(0, 0, 0, 0.45);
+
+  /* === Text === */
+  --text-primary: #f8fafc;
+  --text-secondary: #cbd5e1;
+  --text-muted: #64748b;
+  --text-accent: #2dd4bf;
+  --text-inverse: #264a46;
+
+  /* === Borders === */
   --border-default: rgba(255, 255, 255, 0.08);
   --border-subtle: rgba(255, 255, 255, 0.04);
   --border-accent: rgba(13, 148, 136, 0.4);
   --border-focus: rgba(13, 148, 136, 0.6);
-  
-  /* === اللون الرئيسي (Primary/Accent) === */
+
+  /* === Primary === */
   --color-primary: #0d9488;
   --color-primary-hover: #0f766e;
   --color-primary-light: rgba(13, 148, 136, 0.15);
   --color-primary-glow: rgba(13, 148, 136, 0.25);
-  
-  /* === الأزرار === */
+
+  /* === Buttons === */
   --btn-primary-bg: linear-gradient(135deg, var(--teal-600), var(--teal-700));
   --btn-primary-text: #ffffff;
   --btn-primary-border: var(--teal-500);
   --btn-primary-hover: linear-gradient(135deg, var(--teal-500), var(--teal-600));
-  
+
   --btn-secondary-bg: transparent;
   --btn-secondary-text: var(--text-secondary);
   --btn-secondary-border: var(--border-default);
   --btn-secondary-hover: rgba(255, 255, 255, 0.06);
-  
+
   --btn-ghost-bg: transparent;
   --btn-ghost-text: var(--text-muted);
   --btn-ghost-hover: rgba(255, 255, 255, 0.08);
-  
-  /* === الـ Inputs === */
+
+  /* === Inputs === */
   --input-bg: var(--bg-surface);
   --input-border: var(--border-default);
   --input-border-focus: var(--border-accent);
   --input-text: var(--text-primary);
   --input-placeholder: var(--text-muted);
-  
-  /* === البطاقات === */
+
+  /* === Cards === */
   --card-bg: var(--bg-surface);
   --card-border: var(--border-default);
   --card-shadow: 0 4px 20px rgba(0, 0, 0, 0.25);
-  
-  /* === القوائم المنسدلة === */
-  --dropdown-bg: var(--bg-elevated);
+
+  /* === Dropdown === */
+  --dropdown-bg: #365353;
   --dropdown-border: var(--border-default);
   --dropdown-shadow: 0 25px 60px rgba(0, 0, 0, 0.5);
   --dropdown-item-hover: rgba(255, 255, 255, 0.06);
-  
-  /* === الـ Header === */
-  --header-bg: rgba(5, 16, 20, 0.8);
+
+  /* === Header === */
+  --header-bg: rgba(255, 255, 255, 0.14);
   --header-border: var(--border-subtle);
-  
-  /* === الـ Sidebar === */
-  --sidebar-bg: var(--bg-surface);
+  --app-header-height: 64px;
+  --app-header-gap: 8px;
+
+  /* === Sidebar === */
+  --sidebar-bg: rgba(255, 255, 255, 0.12);
   --sidebar-border: var(--border-default);
   --sidebar-item-hover: rgba(255, 255, 255, 0.06);
   --sidebar-item-active: var(--color-primary-light);
-  
-  /* === الرسائل === */
+
+  /* === Messages === */
   --message-user-bg: linear-gradient(135deg, rgba(13, 148, 136, 0.18), rgba(13, 148, 136, 0.08));
   --message-user-border: rgba(13, 148, 136, 0.25);
   --message-assistant-bg: var(--bg-surface);
   --message-assistant-border: var(--border-default);
-  
-  /* === الـ Scrollbar === */
+
+  /* === Scrollbar === */
   --scrollbar-track: rgba(255, 255, 255, 0.05);
   --scrollbar-thumb: rgba(255, 255, 255, 0.15);
   --scrollbar-thumb-hover: rgba(255, 255, 255, 0.25);
-  
-  /* === Charts - الرسوم البيانية === */
-  --chart-up: #22c55e;          /* صعود - أخضر */
-  --chart-down: #ef4444;        /* هبوط - أحمر */
-  --chart-neutral: #64748b;     /* محايد - رمادي */
+
+  /* === Charts === */
+  --chart-up: #22c55e;
+  --chart-down: #ef4444;
+  --chart-neutral: #64748b;
   --chart-grid: rgba(255, 255, 255, 0.06);
   --chart-text: var(--text-muted);
   --chart-bg: var(--bg-surface);
-  
-  /* === Candlestick === */
+
   --candle-up-body: #22c55e;
   --candle-up-wick: #22c55e;
   --candle-down-body: #ef4444;
   --candle-down-wick: #ef4444;
-  
-  /* === Volume === */
+
   --volume-up: rgba(34, 197, 94, 0.5);
   --volume-down: rgba(239, 68, 68, 0.5);
-  
+
   /* === Indicators === */
-  --indicator-ma-fast: #3b82f6;   /* المتوسط السريع - أزرق */
-  --indicator-ma-slow: #f59e0b;   /* المتوسط البطيء - برتقالي */
-  --indicator-bb-upper: #8b5cf6;  /* Bollinger العلوي - بنفسجي */
-  --indicator-bb-lower: #8b5cf6;  /* Bollinger السفلي */
-  --indicator-bb-middle: #6366f1; /* Bollinger الأوسط */
-  --indicator-rsi: #ec4899;       /* RSI - وردي */
-  --indicator-macd: #06b6d4;      /* MACD - سماوي */
-  
+  --indicator-ma-fast: #3b82f6;
+  --indicator-ma-slow: #f59e0b;
+  --indicator-bb-upper: #8b5cf6;
+  --indicator-bb-lower: #8b5cf6;
+  --indicator-bb-middle: #6366f1;
+  --indicator-rsi: #ec4899;
+  --indicator-macd: #06b6d4;
+
   /* === Status === */
   --status-success: var(--green-500);
   --status-error: var(--red-500);
   --status-warning: var(--yellow-500);
   --status-info: var(--blue-500);
-  
+
   /* === Selection === */
   --selection-bg: rgba(13, 148, 136, 0.45);
   --selection-text: #ffffff;
+
+  /* === Unified Overlay System Variables === */
+  /* Backdrop should hide app content almost completely (user request: 99%) */
+  --overlay-backdrop: rgba(255, 255, 255, 0.28);
+
+  /* Overlay surfaces: solid dark background matching the main theme */
+  --overlay-bg: rgba(255, 255, 255, 0.20);
+  --overlay-border: rgba(255, 255, 255, 0.1);
+  --overlay-shadow-modal: 0 25px 60px rgba(0, 0, 0, 0.7);
+  --overlay-shadow-dropdown: 0 20px 40px rgba(0, 0, 0, 0.6);
+  --overlay-shadow-popover: 0 15px 35px rgba(0, 0, 0, 0.5);
 }
 
-/* ===========================================
-   3. LIGHT MODE - الوضع الفاتح
-   =========================================== */
-[data-theme="light"] {
-  /* === الخلفيات === */
-  --bg-base: #f8fafc;
-  --bg-surface: #ffffff;
-  --bg-elevated: #f1f5f9;
-  --bg-overlay: rgba(248, 250, 252, 0.9);
-  --bg-skeleton: rgba(148, 163, 184, 0.3);
-  
-  /* === Glass Effects - تأثيرات الزجاج === */
-  --glass-bg: rgba(0, 0, 0, 0.03);
-  --glass-bg-hover: rgba(0, 0, 0, 0.06);
-  --glass-border: rgba(0, 0, 0, 0.08);
-  --glass-border-subtle: rgba(0, 0, 0, 0.05);
-  
-  /* === النصوص === */
-  --text-primary: #0f172a;
-  --text-secondary: #334155;
-  --text-muted: #64748b;
-  --text-accent: #0d9488;
-  --text-inverse: #f8fafc;
-  
-  /* === الحدود === */
-  --border-default: rgba(0, 0, 0, 0.08);
-  --border-subtle: rgba(0, 0, 0, 0.04);
-  --border-accent: rgba(13, 148, 136, 0.4);
-  --border-focus: rgba(13, 148, 136, 0.6);
-  
-  /* === الأزرار === */
-  --btn-secondary-hover: rgba(0, 0, 0, 0.04);
-  --btn-ghost-hover: rgba(0, 0, 0, 0.06);
-  
-  /* === البطاقات === */
-  --card-shadow: 0 4px 20px rgba(0, 0, 0, 0.08);
-  
-  /* === القوائم المنسدلة === */
-  --dropdown-shadow: 0 25px 60px rgba(0, 0, 0, 0.15);
-  --dropdown-item-hover: rgba(0, 0, 0, 0.04);
-  
-  /* === الـ Header === */
-  --header-bg: rgba(248, 250, 252, 0.8);
-  
-  /* === الـ Sidebar === */
-  --sidebar-item-hover: rgba(0, 0, 0, 0.04);
-  
-  /* === الرسائل === */
-  --message-user-bg: linear-gradient(135deg, rgba(13, 148, 136, 0.12), rgba(13, 148, 136, 0.06));
-  --message-assistant-bg: var(--bg-elevated);
-  
-  /* === الـ Scrollbar === */
-  --scrollbar-track: rgba(0, 0, 0, 0.05);
-  --scrollbar-thumb: rgba(0, 0, 0, 0.15);
-  --scrollbar-thumb-hover: rgba(0, 0, 0, 0.25);
-  
-  /* === Charts === */
-  --chart-grid: rgba(0, 0, 0, 0.06);
-  
-  /* === Volume === */
-  --volume-up: rgba(34, 197, 94, 0.3);
-  --volume-down: rgba(239, 68, 68, 0.3);
+/* === Utility Classes === */
+.bg-base {
+  background-color: var(--bg-base);
 }
 
-/* ===========================================
-   4. UTILITY CLASSES - كلاسات المساعدة
-   =========================================== */
+.bg-surface {
+  background-color: var(--bg-surface);
+}
 
-/* --- الخلفيات --- */
-.bg-base { background-color: var(--bg-base); }
-.bg-surface { background-color: var(--bg-surface); }
-.bg-elevated { background-color: var(--bg-elevated); }
-.bg-overlay { background-color: var(--bg-overlay); }
-.bg-skeleton { background-color: var(--bg-skeleton); }
+.bg-elevated {
+  background-color: var(--bg-elevated);
+}
 
-/* --- النصوص --- */
-.text-primary { color: var(--text-primary); }
-.text-secondary { color: var(--text-secondary); }
-.text-muted { color: var(--text-muted); }
-.text-accent { color: var(--text-accent); }
+.text-primary {
+  color: var(--text-primary);
+}
 
-/* --- الحدود --- */
-.border-default { border-color: var(--border-default); }
-.border-subtle { border-color: var(--border-subtle); }
-.border-accent { border-color: var(--border-accent); }
+.text-secondary {
+  color: var(--text-secondary);
+}
 
-/* --- Glass Effects --- */
-.glass-bg { background-color: var(--glass-bg); }
-.glass-bg-hover:hover { background-color: var(--glass-bg-hover); }
-.glass-border { border-color: var(--glass-border); }
-.glass-border-subtle { border-color: var(--glass-border-subtle); }
+.text-muted {
+  color: var(--text-muted);
+}
 
-/* --- الأزرار --- */
+.text-accent {
+  color: var(--text-accent);
+}
+
+.border-default {
+  border-color: var(--border-default);
+}
+
+/* === Dropdown utilities (keep dark theme, consistent menu color) === */
+.dropdown-surface {
+  background-color: var(--dropdown-bg);
+}
+
+.dropdown-item-hover:hover {
+  background-color: var(--dropdown-item-hover);
+}
+
+.border-accent {
+  border-color: var(--border-accent);
+}
+
 .btn-primary {
   background: var(--btn-primary-bg);
   color: var(--btn-primary-text);
   border: 1px solid var(--btn-primary-border);
-  transition: all 0.2s ease;
+  transition: all 0.2s;
 }
+
 .btn-primary:hover {
   background: var(--btn-primary-hover);
 }
@@ -288,77 +259,65 @@
   background: var(--btn-secondary-bg);
   color: var(--btn-secondary-text);
   border: 1px solid var(--btn-secondary-border);
-  transition: all 0.2s ease;
+  transition: all 0.2s;
 }
+
 .btn-secondary:hover {
   background: var(--btn-secondary-hover);
 }
 
-.btn-ghost {
-  background: var(--btn-ghost-bg);
-  color: var(--btn-ghost-text);
-  border: none;
-  transition: all 0.2s ease;
-}
-.btn-ghost:hover {
-  background: var(--btn-ghost-hover);
-}
-
-/* --- الـ Inputs --- */
 .input-base {
-  background-color: var(--input-bg);
+  background: var(--input-bg);
   border: 1px solid var(--input-border);
   color: var(--input-text);
-  transition: border-color 0.2s ease, box-shadow 0.2s ease;
+  transition: all 0.2s;
 }
+
 .input-base::placeholder {
   color: var(--input-placeholder);
 }
+
 .input-base:focus {
   border-color: var(--input-border-focus);
   box-shadow: 0 0 0 3px var(--color-primary-light);
   outline: none;
 }
 
-/* --- البطاقات --- */
 .card-base {
-  background-color: var(--card-bg);
+  background: var(--card-bg);
   border: 1px solid var(--card-border);
   box-shadow: var(--card-shadow);
 }
 
-/* --- القوائم المنسدلة --- */
-.dropdown-base {
-  background-color: var(--dropdown-bg);
-  border: 1px solid var(--dropdown-border);
-  box-shadow: var(--dropdown-shadow);
+.chart-up {
+  color: var(--chart-up);
 }
 
-/* --- الرسائل --- */
-.message-user {
-  background: var(--message-user-bg);
-  border: 1px solid var(--message-user-border);
+.chart-down {
+  color: var(--chart-down);
 }
 
-.message-assistant {
-  background-color: var(--message-assistant-bg);
-  border: 1px solid var(--message-assistant-border);
+.status-success {
+  color: var(--status-success);
 }
 
-/* --- Charts --- */
-.chart-up { color: var(--chart-up); }
-.chart-down { color: var(--chart-down); }
-.chart-neutral { color: var(--chart-neutral); }
+.status-error {
+  color: var(--status-error);
+}
 
-/* --- Status --- */
-.status-success { color: var(--status-success); }
-.status-error { color: var(--status-error); }
-.status-warning { color: var(--status-warning); }
-.status-info { color: var(--status-info); }
+.status-warning {
+  color: var(--status-warning);
+}
 
-/* ===========================================
-   5. SCROLLBAR - شريط التمرير
-   =========================================== */
+.app-header-gap {
+  padding-top: var(--app-header-gap);
+}
+
+.app-overlay-gap {
+  padding-top: calc(var(--app-header-height) + var(--app-header-gap));
+}
+
+/* === Scrollbar === */
 .custom-scrollbar::-webkit-scrollbar {
   width: 6px;
   height: 6px;
@@ -378,42 +337,535 @@
   background: var(--scrollbar-thumb-hover);
 }
 
-/* Firefox */
-.custom-scrollbar {
-  scrollbar-width: thin;
-  scrollbar-color: var(--scrollbar-thumb) var(--scrollbar-track);
+@supports (scrollbar-color: #000 #fff) {
+  .custom-scrollbar {
+    scrollbar-color: var(--scrollbar-thumb) var(--scrollbar-track);
+  }
 }
 
-/* ===========================================
-   6. ANIMATIONS - الحركات
-   =========================================== */
+/* === Animations === */
 .shimmer {
-  position: relative;
-  overflow: hidden;
-  background: linear-gradient(
-    90deg, 
-    var(--bg-skeleton) 25%, 
-    rgba(255, 255, 255, 0.14) 37%, 
-    var(--bg-skeleton) 63%
-  );
-  background-size: 400% 100%;
-  animation: shimmer 1.2s ease-in-out infinite;
+  background: var(--bg-skeleton);
 }
 
-@keyframes shimmer {
-  0% { background-position: -200% 0; }
-  100% { background-position: 200% 0; }
+/* ═══════════════════════════════════════════════════════════════════════════════
+   Canvas Grid Layout — Gemini-style CSS Grid (replaces react-resizable-panels)
+   ═══════════════════════════════════════════════════════════════════════════════ */
+
+.canvas-grid-layout {
+  display: grid;
+  grid-template-columns: 1fr;
+  transition: grid-template-columns 0.4s cubic-bezier(0.2, 0, 0, 1.0);
 }
 
-/* ===========================================
-   7. SELECTION - التحديد
-   =========================================== */
+.canvas-grid-layout--active {
+  grid-template-columns: minmax(360px, 1fr) 6px minmax(0, 2fr);
+}
+
+.canvas-grid-layout--mobile {
+  grid-template-columns: 0fr 0fr 1fr;
+}
+
+/* Canvas open animation — Gemini-style scale + fade */
+@keyframes canvasOpen {
+  0% {
+    opacity: 0;
+    transform: scale(0.6) translateX(20px);
+  }
+  100% {
+    opacity: 1;
+    transform: scale(1) translateX(0);
+  }
+}
+
+@keyframes canvasClose {
+  0% {
+    opacity: 1;
+    transform: scale(1) translateX(0);
+  }
+  100% {
+    opacity: 0;
+    transform: scale(0.6) translateX(20px);
+  }
+}
+
+.canvas-panel-enter {
+  animation: canvasOpen 0.5s cubic-bezier(0.2, 0, 0, 1.0) forwards;
+  transform-origin: right center;
+}
+
+.canvas-panel-exit {
+  animation: canvasClose 0.4s cubic-bezier(0.2, 0, 0, 1.0) forwards;
+  transform-origin: right center;
+}
+
+/* Streaming shimmer border effect */
+@keyframes canvasShimmer {
+  0% {
+    border-color: rgba(45, 212, 191, 0.12);
+    box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.06), 0 14px 40px rgba(0, 0, 0, 0.45), -4px 0 20px rgba(0, 0, 0, 0.15);
+  }
+  50% {
+    border-color: rgba(45, 212, 191, 0.35);
+    box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.06), 0 14px 40px rgba(0, 0, 0, 0.45), -4px 0 30px rgba(45, 212, 191, 0.1);
+  }
+  100% {
+    border-color: rgba(45, 212, 191, 0.12);
+    box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.06), 0 14px 40px rgba(0, 0, 0, 0.45), -4px 0 20px rgba(0, 0, 0, 0.15);
+  }
+}
+
+.canvas-streaming {
+  animation: canvasShimmer 2s ease-in-out infinite;
+}
+
 ::selection {
-  background-color: var(--selection-bg);
+  background: var(--selection-bg);
   color: var(--selection-text);
 }
 
 ::-moz-selection {
-  background-color: var(--selection-bg);
+  background: var(--selection-bg);
   color: var(--selection-text);
+}
+
+/* ═══════════════════════════════════════════════════════════════════════════════
+   نظام القوالب الموحد - Unified Overlay System
+   ═══════════════════════════════════════════════════════════════════════════════ */
+
+/* === Backdrop (خلفية مغبشة تخفي المحتوى) === */
+.overlay-backdrop {
+  background: var(--overlay-backdrop);
+  -webkit-backdrop-filter: blur(var(--glass-lite-blur)) saturate(var(--glass-lite-saturate));
+  backdrop-filter: blur(var(--glass-lite-blur)) saturate(var(--glass-lite-saturate));
+}
+
+/* === Modal (النوافذ المنبثقة) === */
+.overlay-modal {
+  background: var(--bg-gradient-card);
+  -webkit-backdrop-filter: blur(var(--glass-lite-blur)) saturate(var(--glass-lite-saturate));
+  backdrop-filter: blur(var(--glass-lite-blur)) saturate(var(--glass-lite-saturate));
+  border: 1px solid var(--overlay-border);
+  box-shadow: var(--overlay-shadow-modal);
+}
+
+/* === Panel (اللوحات الجانبية) === */
+.overlay-panel {
+  background: var(--bg-gradient-card);
+  -webkit-backdrop-filter: blur(var(--glass-lite-blur)) saturate(var(--glass-lite-saturate));
+  backdrop-filter: blur(var(--glass-lite-blur)) saturate(var(--glass-lite-saturate));
+  border: 1px solid var(--overlay-border);
+  box-shadow: var(--overlay-shadow-modal);
+}
+
+/* === Dropdown (القوائم المنسدلة) === */
+.overlay-dropdown {
+  background: rgba(38, 74, 70, 0.90);
+  -webkit-backdrop-filter: blur(24px) saturate(180%);
+  backdrop-filter: blur(24px) saturate(180%);
+  border: 1px solid rgba(255, 255, 255, 0.10);
+  box-shadow: 0 8px 40px rgba(0, 0, 0, 0.4);
+}
+
+/* === Popover (النوافذ الصغيرة) === */
+.overlay-popover {
+  background: var(--bg-gradient-card);
+  -webkit-backdrop-filter: blur(var(--glass-lite-blur)) saturate(var(--glass-lite-saturate));
+  backdrop-filter: blur(var(--glass-lite-blur)) saturate(var(--glass-lite-saturate));
+  border: 1px solid var(--overlay-border);
+  box-shadow: var(--overlay-shadow-popover);
+}
+
+/* === Tooltip === */
+.overlay-tooltip {
+  background: var(--overlay-bg);
+  -webkit-backdrop-filter: blur(12px);
+  backdrop-filter: blur(12px);
+  border: 1px solid var(--overlay-border);
+  box-shadow: 0 8px 20px rgba(0, 0, 0, 0.4);
+}
+
+/* === Menu Items === */
+.overlay-item {
+  transition: background 0.15s ease;
+}
+
+.overlay-item:hover {
+  background: rgba(255, 255, 255, 0.06);
+}
+
+.overlay-item:active {
+  background: rgba(255, 255, 255, 0.1);
+}
+
+/* ═══════════════════════════════════════════════════════════════════════════════
+   Canvas Glass Frame — إطار زجاجي احترافي للكانفاس
+   ═══════════════════════════════════════════════════════════════════════════════ */
+
+.canvas-glass-frame {
+  background: rgba(255, 255, 255, 0.04);
+  -webkit-backdrop-filter: blur(40px) saturate(160%);
+  backdrop-filter: blur(40px) saturate(160%);
+  border-left: 1px solid rgba(45, 212, 191, 0.12);
+  border-top: 1px solid rgba(255, 255, 255, 0.06);
+  border-bottom: 1px solid rgba(255, 255, 255, 0.04);
+  border-right: none;
+  box-shadow:
+    inset 0 1px 0 rgba(255, 255, 255, 0.06),
+    0 14px 40px rgba(0, 0, 0, 0.45),
+    -4px 0 20px rgba(0, 0, 0, 0.15);
+  position: relative;
+}
+
+.canvas-glass-frame::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  border-radius: inherit;
+  pointer-events: none;
+  z-index: 0;
+  background: linear-gradient(
+    180deg,
+    rgba(45, 212, 191, 0.04) 0%,
+    transparent 30%,
+    transparent 70%,
+    rgba(45, 212, 191, 0.02) 100%
+  );
+}
+
+.canvas-glass-frame::after {
+  content: '';
+  position: absolute;
+  top: -1px;
+  left: -1px;
+  width: 60px;
+  height: 60px;
+  border-radius: 0 0 50% 0;
+  background: radial-gradient(
+    circle at top left,
+    rgba(45, 212, 191, 0.08) 0%,
+    transparent 70%
+  );
+  pointer-events: none;
+  z-index: 0;
+}
+
+/* Canvas separator — الخط الفاصل بين الشات والكانفاس */
+.canvas-separator {
+  background: rgba(45, 212, 191, 0.08);
+  transition: background 0.2s ease;
+  position: relative;
+}
+
+.canvas-separator:hover {
+  background: rgba(45, 212, 191, 0.25);
+}
+
+.canvas-separator:active {
+  background: rgba(45, 212, 191, 0.35);
+}
+
+.canvas-separator::after {
+  content: '';
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  width: 3px;
+  height: 32px;
+  border-radius: 2px;
+  background: rgba(45, 212, 191, 0.2);
+  transition: background 0.2s;
+}
+
+.canvas-separator:hover::after {
+  background: rgba(45, 212, 191, 0.4);
+}
+
+/* === Inputs داخل القوالب === */
+.overlay-input {
+  background: rgba(255, 255, 255, 0.08);
+  border: 1px solid rgba(255, 255, 255, 0.14);
+  color: #f8fafc;
+  transition: border-color 0.2s, background 0.2s;
+}
+
+.overlay-input::placeholder {
+  color: #64748b;
+}
+
+.overlay-input:focus {
+  border-color: rgba(13, 148, 136, 0.5);
+  background: rgba(255, 255, 255, 0.10);
+  outline: none;
+}
+
+/* ═══════════════════════════════════════════════════════════════════════════════
+   Glass Lite — reusable frosted surfaces (global)
+   ═══════════════════════════════════════════════════════════════════════════════ */
+
+.glass {
+  background: var(--bg-gradient-card);
+  -webkit-backdrop-filter: blur(12px);
+  backdrop-filter: blur(12px);
+  border: 1px solid var(--glass-border);
+  box-shadow: 0 8px 32px 0 rgba(0, 0, 0, 0.37);
+}
+
+.glass-lite {
+  background-color: var(--glass-lite-bg);
+  -webkit-backdrop-filter: blur(var(--glass-lite-blur)) saturate(var(--glass-lite-saturate));
+  backdrop-filter: blur(var(--glass-lite-blur)) saturate(var(--glass-lite-saturate));
+  border: 1px solid var(--glass-lite-border);
+  box-shadow: var(--glass-lite-shadow-tight);
+  color: var(--text-primary);
+}
+
+.glass-lite--strong {
+  background-color: var(--glass-lite-bg-strong);
+  border-color: var(--glass-lite-border-strong);
+  box-shadow: var(--glass-lite-shadow);
+}
+
+.glass-lite--sheen {
+  box-shadow: inset 0 1px 0 var(--glass-lite-highlight), var(--glass-lite-shadow-tight);
+}
+
+.glass-lite--interactive {
+  transition: background-color 160ms ease, border-color 160ms ease, box-shadow 160ms ease;
+}
+
+.glass-lite--interactive:hover {
+  background-color: var(--glass-lite-bg-hover);
+  border-color: var(--glass-lite-border-strong);
+}
+
+.glass-lite--interactive:focus-visible {
+  outline: none;
+  box-shadow:
+    var(--glass-lite-shadow-tight),
+    0 0 0 1px rgba(13, 148, 136, 0.35),
+    0 0 0 4px rgba(13, 148, 136, 0.18);
+}
+
+.glass-lite-input {
+  background-color: rgba(255, 255, 255, 0.08);
+  border: 1px solid rgba(255, 255, 255, 0.14);
+  color: var(--text-primary);
+}
+
+.glass-lite-input::placeholder {
+  color: var(--text-muted);
+}
+
+.glass-lite-input:focus {
+  outline: none;
+  background-color: rgba(255, 255, 255, 0.10);
+  border-color: rgba(13, 148, 136, 0.35);
+  box-shadow:
+    0 0 0 1px rgba(13, 148, 136, 0.35),
+    0 0 0 4px rgba(13, 148, 136, 0.18);
+}
+
+@supports not ((backdrop-filter: blur(1px)) or (-webkit-backdrop-filter: blur(1px))) {
+
+  .glass-lite,
+  .glass-lite--strong,
+  .overlay-modal,
+  .overlay-panel,
+  .overlay-dropdown,
+  .overlay-popover {
+    background-color: rgba(255, 255, 255, 0.18);
+  }
+}
+
+/* === Buttons داخل القوالب === */
+.overlay-btn-primary {
+  background: #f8fafc;
+  color: #264a46;
+  font-weight: 500;
+  transition: background 0.2s;
+}
+
+.overlay-btn-primary:hover {
+  background: #e2e8f0;
+}
+
+.overlay-btn-primary:disabled {
+  opacity: 0.4;
+  cursor: not-allowed;
+}
+
+.overlay-btn-secondary {
+  background: transparent;
+  border: 1px solid rgba(255, 255, 255, 0.15);
+  color: #cbd5e1;
+  transition: background 0.2s;
+}
+
+.overlay-btn-secondary:hover {
+  background: rgba(255, 255, 255, 0.06);
+}
+
+.overlay-btn-danger {
+  background: transparent;
+  border: 1px solid rgba(239, 68, 68, 0.3);
+  color: #f87171;
+  transition: background 0.2s;
+}
+
+.overlay-btn-danger:hover {
+  background: rgba(239, 68, 68, 0.1);
+}
+
+/* === Labels/Text === */
+.overlay-label {
+  color: #94a3b8;
+  font-size: 0.75rem;
+  font-weight: 500;
+}
+
+.overlay-text {
+  color: #f8fafc;
+}
+
+.overlay-text-secondary {
+  color: #cbd5e1;
+}
+
+.overlay-text-muted {
+  color: #64748b;
+}
+
+/* === Dividers === */
+.overlay-divider {
+  border-color: rgba(255, 255, 255, 0.08);
+}
+
+/* === Header داخل القوالب === */
+.overlay-header {
+  border-bottom: 1px solid rgba(255, 255, 255, 0.08);
+}
+
+/* === Footer داخل القوالب === */
+.overlay-footer {
+  border-top: 1px solid rgba(255, 255, 255, 0.08);
+}
+
+/* === Pair Template Utilities === */
+.pair-template {
+  background-color: var(--bg-surface);
+  border: 1px solid var(--border-default);
+  box-shadow: var(--card-shadow);
+  -webkit-backdrop-filter: blur(12px);
+  backdrop-filter: blur(12px);
+}
+
+.pair-template-header {
+  background-color: var(--color-primary-light);
+  border-bottom: 1px solid var(--border-subtle);
+}
+
+.pair-template-footer {
+  background-color: rgba(255, 255, 255, 0.06);
+  border-top: 1px solid var(--border-subtle);
+}
+
+.pair-template-chart {
+  background-color: var(--chart-bg);
+}
+
+
+
+
+/* === Gradient Utilities === */
+.bg-gradient-card {
+  background: var(--bg-gradient-card) !important;
+}
+
+/* === Card Component === */
+.card {
+  background: var(--bg-gradient-card);
+  border: 1px solid var(--overlay-border);
+  box-shadow: var(--card-shadow);
+  -webkit-backdrop-filter: blur(12px);
+  backdrop-filter: blur(12px);
+}
+
+/* ═══════════════════════════════════════════════════════════════════════════════
+   Glass Dropdown — قوائم منبثقة ضبابية قابلة لإعادة الاستخدام
+   ═══════════════════════════════════════════════════════════════════════════════ */
+
+/* زر القائمة المنبثقة - Dropdown trigger button */
+.glass-dropdown-trigger {
+  background: linear-gradient(135deg, #0D1C1C 0%, #134436 100%);
+  border: none;
+  color: #ffffff;
+  transition: all 0.2s ease;
+}
+
+.glass-dropdown-trigger:hover {
+  filter: brightness(1.1);
+}
+
+.glass-dropdown-trigger:focus {
+  outline: none;
+  box-shadow: 0 0 0 2px rgba(13, 68, 54, 0.4);
+}
+
+/* القائمة المنبثقة - Dropdown menu container */
+.glass-dropdown-menu {
+  background: rgba(255, 255, 255, 0.08);
+  -webkit-backdrop-filter: blur(40px);
+  backdrop-filter: blur(40px);
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  box-shadow: 0 8px 32px rgba(0, 0, 0, 0.4);
+  border-radius: 0.5rem;
+  overflow: hidden;
+}
+
+/* عنصر القائمة - Dropdown item */
+.glass-dropdown-item {
+  background: transparent;
+  color: #ffffff;
+  transition: background 0.2s ease;
+  -webkit-backdrop-filter: blur(10px);
+  backdrop-filter: blur(10px);
+}
+
+.glass-dropdown-item:hover {
+  background: rgba(255, 255, 255, 0.12);
+}
+
+.glass-dropdown-item--selected {
+  background: rgba(255, 255, 255, 0.15);
+  font-weight: 500;
+}
+
+/* تمرير داخل القائمة - Dropdown scroll area */
+.glass-dropdown-scroll {
+  max-height: 60vh;
+  overflow-y: auto;
+}
+
+/* Scrollbar styling for dropdown */
+.glass-dropdown-scroll::-webkit-scrollbar {
+  width: 6px;
+}
+
+.glass-dropdown-scroll::-webkit-scrollbar-track {
+  background: rgba(255, 255, 255, 0.05);
+  border-radius: 3px;
+}
+
+.glass-dropdown-scroll::-webkit-scrollbar-thumb {
+  background: rgba(255, 255, 255, 0.2);
+  border-radius: 3px;
+}
+
+.glass-dropdown-scroll::-webkit-scrollbar-thumb:hover {
+  background: rgba(255, 255, 255, 0.3);
 }

@@ -4,7 +4,7 @@
  * World-class pattern quality assessment using 15+ criteria
  * خوارزميات عبقرية لتقييم جودة الأنماط بدقة لا مثيل لها
  * 
- * @author CCCWAYS Elite Trading System
+ * @author CCWAYS Elite Trading System
  * @version 2.0.0
  */
 

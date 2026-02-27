@@ -29,7 +29,7 @@
  * - Theil-Sen robust regression
  * 
  * @version 3.0.0 Ultra-Precision Edition
- * @author CCCWays Trading Systems
+ * @author CCWAYS Trading Systems
  */
 
 import {

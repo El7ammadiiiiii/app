@@ -190,7 +190,7 @@ const liquidityPoolAbove: PatternDefinition = {
 ### 1. Check TypeScript compilation
 
 ```bash
-cd nexus-webapp
+cd ccways
 npm run build
 ```
 

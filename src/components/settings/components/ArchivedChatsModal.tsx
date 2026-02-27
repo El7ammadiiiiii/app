@@ -4,7 +4,7 @@ import * as React from "react";
 import { motion, AnimatePresence } from "framer-motion";
 import { X, Archive, RotateCcw, Trash2, MessageSquare, Search, Clock } from "lucide-react";
 import { cn } from "@/lib/utils";
-import { db } from "@/lib/firebase/client";
+import { db, ensureAnonymousAuth } from "@/lib/firebase/client";
 import { 
   collection, 
   query, 
@@ -38,27 +38,37 @@ export function ArchivedChatsModal({ isOpen, onClose, userId, onRestore }: Archi
   const [deletingId, setDeletingId] = React.useState<string | null>(null);
   const [restoringId, setRestoringId] = React.useState<string | null>(null);
 
-  // Fetch archived chats from Firebase
+  // Fetch archived chats from top-level conversations collection
   React.useEffect(() => {
     if (!isOpen) return;
 
     const fetchChats = async () => {
       setLoading(true);
       try {
-        if (db && userId) {
-          const chatsRef = collection(db, "users", userId, "archivedChats");
-          const q = query(chatsRef, orderBy("archivedAt", "desc"));
+        const uid = userId || (await ensureAnonymousAuth())?.uid;
+        if (db && uid) {
+          const convRef = collection(db, "conversations");
+          const q = query(
+            convRef,
+            where("userId", "==", uid),
+            where("isArchived", "==", true),
+            orderBy("updatedAt", "desc")
+          );
           const snapshot = await getDocs(q);
-          
-          const fetchedChats: ArchivedChat[] = snapshot.docs.map((doc) => ({
-            id: doc.id,
-            ...doc.data(),
-            archivedAt: doc.data().archivedAt?.toDate() || new Date(),
-          })) as ArchivedChat[];
-          
+
+          const fetchedChats: ArchivedChat[] = snapshot.docs.map((d) => {
+            const data = d.data();
+            return {
+              id: d.id,
+              title: data.title || "محادثة بدون عنوان",
+              messagesCount: data.messages?.length ?? 0,
+              archivedAt: data.updatedAt?.toDate?.() || new Date(),
+              previewText: data.messages?.[0]?.content?.slice(0, 80),
+            };
+          });
+
           setChats(fetchedChats);
         } else {
-          // Mock data for development - empty to match ChatGPT screenshot
           setChats([]);
         }
       } catch (error) {
@@ -72,12 +82,12 @@ export function ArchivedChatsModal({ isOpen, onClose, userId, onRestore }: Archi
     fetchChats();
   }, [isOpen, userId]);
 
-  // Delete an archived chat
+  // Delete an archived chat permanently
   const handleDelete = async (chatId: string) => {
     setDeletingId(chatId);
     try {
-      if (db && userId) {
-        await deleteDoc(doc(db, "users", userId, "archivedChats", chatId));
+      if (db) {
+        await deleteDoc(doc(db, "conversations", chatId));
       }
       setChats((prev) => prev.filter((chat) => chat.id !== chatId));
     } catch (error) {
@@ -87,14 +97,12 @@ export function ArchivedChatsModal({ isOpen, onClose, userId, onRestore }: Archi
     }
   };
 
-  // Restore an archived chat
+  // Restore an archived chat (set isArchived = false)
   const handleRestore = async (chatId: string) => {
     setRestoringId(chatId);
     try {
-      if (db && userId) {
-        // Move from archivedChats back to chats
-        // This would involve copying the data and deleting from archived
-        await deleteDoc(doc(db, "users", userId, "archivedChats", chatId));
+      if (db) {
+        await updateDoc(doc(db, "conversations", chatId), { isArchived: false });
       }
       setChats((prev) => prev.filter((chat) => chat.id !== chatId));
       onRestore?.(chatId);
@@ -126,7 +134,7 @@ export function ArchivedChatsModal({ isOpen, onClose, userId, onRestore }: Archi
           initial={{ opacity: 0 }}
           animate={{ opacity: 1 }}
           exit={{ opacity: 0 }}
-          className="fixed inset-0 z-50 flex items-center justify-center theme-bg p-4"
+          className="fixed inset-0 z-50 flex items-center justify-center bg-black/60 p-4"
           onClick={onClose}
         >
           <motion.div
@@ -134,7 +142,7 @@ export function ArchivedChatsModal({ isOpen, onClose, userId, onRestore }: Archi
             animate={{ scale: 1, opacity: 1 }}
             exit={{ scale: 0.95, opacity: 0 }}
             onClick={(e) => e.stopPropagation()}
-            className="w-full max-w-lg theme-card rounded-2xl border border-border shadow-2xl overflow-hidden"
+            className="w-full max-w-lg bg-[#1a3a36] rounded-2xl border border-white/10 shadow-2xl overflow-hidden"
           >
             {/* Header */}
             <div className="flex items-center justify-between p-4 border-b border-border">

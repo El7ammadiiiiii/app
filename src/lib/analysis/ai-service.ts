@@ -32,7 +32,7 @@ function getClient(): Anthropic {
   return client;
 }
 
-const MODEL = process.env.CLAUDE_MODEL || 'claude-sonnet-4-20250514';
+const MODEL = process.env.CLAUDE_MODEL || 'claude-sonnet-4-6';
 
 // ============================================
 // ENHANCED ANALYSIS TYPES

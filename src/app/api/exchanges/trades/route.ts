@@ -1,10 +1,9 @@
-/**
- * 💱 Trades API Route
- * GET /api/exchanges/trades?exchange=binance&symbol=BTC/USDT&limit=50
- */
-
 import { NextRequest, NextResponse } from 'next/server';
-import { ccxtManager, type ExchangeId, Priority } from '@/lib/exchanges';
+
+/**
+ * 🤝 Trades API Route - Updated to use direct fetch
+ * GET /api/exchanges/trades?exchange=bybit&symbol=BTCUSDT&limit=50
+ */
 
 export const runtime = 'nodejs';
 export const dynamic = 'force-dynamic';
@@ -12,52 +11,35 @@ export const dynamic = 'force-dynamic';
 export async function GET(request: NextRequest) {
   try {
     const { searchParams } = new URL(request.url);
-    
-    const exchange = searchParams.get('exchange') as ExchangeId;
+    const exchange = searchParams.get('exchange');
     const symbol = searchParams.get('symbol');
-    const sinceParam = searchParams.get('since');
-    const limitParam = searchParams.get('limit');
-    const priorityParam = searchParams.get('priority');
+    const limit = searchParams.get('limit') || '50';
 
-    // Validation
-    if (!exchange) {
+    if (!exchange || !symbol) {
       return NextResponse.json(
-        { error: 'Missing required parameter: exchange' },
+        { error: 'Missing required parameters: exchange and symbol' },
         { status: 400 }
       );
     }
 
-    if (!symbol) {
-      return NextResponse.json(
-        { error: 'Missing required parameter: symbol' },
-        { status: 400 }
-      );
+    let url = '';
+    if (exchange === 'bybit') {
+      url = `https://api.bybit.com/v5/market/recent-trade?category=spot&symbol=${symbol.replace('/', '')}&limit=${limit}`;
+    } else {
+      url = `https://api.bybit.com/v5/market/recent-trade?category=spot&symbol=${symbol.replace('/', '')}&limit=${limit}`;
     }
 
-    // Parse parameters
-    const since = sinceParam ? parseInt(sinceParam) : undefined;
-    const limit = limitParam ? parseInt(limitParam) : 50;
-    let priority: Priority = Priority.NORMAL;
-    if (priorityParam === 'high') priority = Priority.HIGH;
-    if (priorityParam === 'low') priority = Priority.LOW;
-
-    // Fetch trades
-    const result = await ccxtManager.fetchTrades(
-      exchange,
-      symbol,
-      since,
-      limit,
-      priority
-    );
-
-    if (!result.success) {
-      return NextResponse.json(
-        { error: result.error },
-        { status: 500 }
-      );
+    const response = await fetch(url);
+    if (!response.ok) {
+      throw new Error(`Exchange API responded with ${response.status}`);
     }
 
-    return NextResponse.json(result);
+    const data = await response.json();
+    return NextResponse.json({
+      success: true,
+      data,
+      timestamp: Date.now(),
+    });
   } catch (error) {
     console.error('Trades API Error:', error);
     return NextResponse.json(

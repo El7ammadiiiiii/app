@@ -129,6 +129,24 @@ const defaultSettings: SettingsState = {
   allowExternalPlugins: false,
   showPluginPermissions: true,
   
+  // Notifications — ChatGPT-style dropdown preferences
+  notifyResponses: 'all',
+  notifyTasks: 'all',
+  notifyRecommendations: 'important',
+  notifyUsage: 'off',
+
+  // Personalization
+  stylePreference: 'informal',
+  traitCreativity: 'medium',
+  traitDetail: 'balanced',
+  traitTone: 'neutral',
+  traitLength: 'medium',
+  preferredName: '',
+  occupation: '',
+  additionalInfo: '',
+  webSearchEnabled: true,
+  canvasEnabled: true,
+
   // Meta
   _lastSaved: null,
   _saveStatus: 'idle',
@@ -138,56 +156,28 @@ const defaultSettings: SettingsState = {
 // Section to Keys Mapping
 // ============================================
 const sectionKeys: Record<SettingsSectionId, (keyof SettingsState)[]> = {
-  account: [], // Account data is managed separately
-  subscription: [], // Subscription data is managed separately
-  privacy: [
-    'dataSharing', 'anonymousAnalytics', 'smartPersonalization',
-    'memoryEnabled', 'historyEnabled', 'historyRetention',
-    'temporaryChatMode', 'improveModelForAll'
-  ],
-  appearance: [
-    'theme', 'accentColor', 'fontSize', 'compactMode', 'animations', 'reducedMotion'
-  ],
-  colors: [], // Colors are managed via appearance or separately
-  language: [
-    'language', 'direction', 'dateFormat', 'timeFormat', 'calendar', 'timezone',
-    'autoCorrect', 'autoComplete', 'animatedTyping'
-  ],
-  voice: [
-    'voiceEnabled', 'selectedVoice', 'voiceSpeed', 'voicePitch',
-    'autoPlayResponse', 'pushToTalk', 'noiseCancellation',
-    'microphoneSensitivity', 'pauseBetweenSentences'
-  ],
-  assistants: [
-    'defaultAssistant', 'responseLength', 'responseTone', 'responseLanguage',
-    'customInstructions', 'showSources', 'askConfirmation', 'creativity',
-    'preferredAnalysis', 'favoriteCoins'
-  ],
-  integrations: [], // Integrations are managed separately
-  advanced: [
-    'developerMode', 'debugLogs', 'showElementIds', 'preloadData',
-    'compressImages', 'memoryLimit', 'experimentalFeatures', 'updateChannel',
-    'connectionTimeout', 'retryAttempts', 'useProxy', 'proxyUrl'
-  ],
-  files: [
-    'autoDeleteFiles', 'fileRetentionDays', 'excludeFavorites', 'compressUploads'
+  general: [
+    'theme', 'fontSize', 'language', 'direction',
   ],
   notifications: [
+    'notifyResponses', 'notifyTasks', 'notifyRecommendations', 'notifyUsage',
     'inAppNotifications', 'pushNotifications', 'emailNotifications',
-    'soundEnabled', 'vibrationEnabled', 'doNotDisturb', 'doNotDisturbStart',
-    'doNotDisturbEnd', 'dailyDigest', 'digestTime', 'notifyNewMessage',
-    'notifyPriceAlerts', 'notifySystemUpdates', 'notifyTips'
+    'soundEnabled',
   ],
-  plugins: [
-    'autoUpdatePlugins', 'allowExternalPlugins', 'showPluginPermissions'
+  personalization: [
+    'stylePreference', 'traitCreativity', 'traitDetail', 'traitTone', 'traitLength',
+    'preferredName', 'occupation', 'additionalInfo',
+    'customInstructions', 'memoryEnabled', 'webSearchEnabled', 'canvasEnabled',
+    'defaultAssistant', 'responseLength', 'responseTone', 'responseLanguage',
+    'showSources', 'askConfirmation', 'creativity',
   ],
-  'app-settings': [
-    'defaultPage', 'openLastConversation', 'startMinimized',
-    'hardwareAcceleration', 'lowPowerMode', 'quality', 'autoUpdate',
-    'notifyBeforeUpdate', 'highContrast', 'screenReader',
-    'swipeNavigation', 'landscapeMode'
+  apps: [], // Managed separately via integration store
+  'data-controls': [
+    'dataSharing', 'anonymousAnalytics', 'improveModelForAll',
+    'historyEnabled', 'historyRetention',
   ],
-  about: [], // About section has no settings
+  security: [], // Managed via Firebase Auth
+  account: [], // Account data managed separately via Firestore
 };
 
 // ============================================
@@ -295,7 +285,7 @@ export const useSettingsStore = create<SettingsStore>()(
       },
     }),
     {
-      name: 'cccways-settings',
+      name: 'CCWAYS-settings',
       partialize: (state) => {
         // Exclude meta fields from persistence
         const { _lastSaved, _saveStatus, ...rest } = state;

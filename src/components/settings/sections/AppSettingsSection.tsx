@@ -82,6 +82,9 @@ export function AppSettingsSection() {
             <div className="space-y-6">
               <SettingGroup title="بدء التشغيل">
                 <SettingSelect
+                  variant="cmdk"
+                  id="settings-app-default-page"
+                  modalTitle="الصفحة الافتراضية"
                   label="الصفحة الافتراضية"
                   description="ماذا يظهر عند فتح التطبيق"
                   value={defaultPage}
@@ -165,6 +168,9 @@ export function AppSettingsSection() {
                 </SettingCard>
 
                 <SettingSelect
+                  variant="cmdk"
+                  id="settings-app-quality"
+                  modalTitle="جودة العرض"
                   label="جودة العرض"
                   description="مستوى جودة الرسومات والتأثيرات"
                   value={quality}

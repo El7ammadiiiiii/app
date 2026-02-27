@@ -101,43 +101,43 @@ export function FilesSection() {
     <div className="space-y-6">
       {/* Storage Overview */}
       <SettingGroup title="نظرة عامة على التخزين">
-        <div className="p-6 rounded-xl bg-[var(--glass-bg)] backdrop-blur-xl border border-[var(--glass-border)]">
-          <div className="flex items-center gap-6">
-            <div className="relative w-24 h-24">
-              <svg className="w-full h-full -rotate-90">
+        <div className="p-4 sm:p-6 rounded-xl glass-lite glass-lite--sheen border border-[var(--glass-border)]">
+          <div className="flex flex-col sm:flex-row items-center gap-4 sm:gap-6">
+            <div className="relative w-20 h-20 sm:w-24 sm:h-24">
+              <svg className="w-full h-full -rotate-90" viewBox="0 0 100 100">
                 <circle
-                  cx="48"
-                  cy="48"
-                  r="40"
+                  cx="50"
+                  cy="50"
+                  r="42"
                   fill="none"
                   stroke="currentColor"
                   strokeWidth="8"
                   className="text-muted"
                 />
                 <motion.circle
-                  cx="48"
-                  cy="48"
-                  r="40"
+                  cx="50"
+                  cy="50"
+                  r="42"
                   fill="none"
                   stroke="currentColor"
                   strokeWidth="8"
-                  strokeDasharray={251.2}
-                  initial={{ strokeDashoffset: 251.2 }}
-                  animate={{ strokeDashoffset: 251.2 - (251.2 * usagePercent) / 100 }}
+                  strokeDasharray={263.9}
+                  initial={{ strokeDashoffset: 263.9 }}
+                  animate={{ strokeDashoffset: 263.9 - (263.9 * usagePercent) / 100 }}
                   transition={{ duration: 0.5 }}
                   className="text-primary"
                   strokeLinecap="round"
                 />
               </svg>
               <div className="absolute inset-0 flex flex-col items-center justify-center">
-                <span className="text-lg font-bold text-foreground">{usagePercent}%</span>
+                <span className="text-base sm:text-lg font-bold text-foreground">{usagePercent}%</span>
               </div>
             </div>
-            <div className="flex-1 space-y-3">
+            <div className="flex-1 w-full space-y-2.5 sm:space-y-3">
               <div>
                 <div className="flex items-center justify-between mb-1">
-                  <span className="text-sm text-foreground">المستندات</span>
-                  <span className="text-sm text-muted-foreground">120 MB</span>
+                  <span className="text-[12px] sm:text-sm text-foreground">المستندات</span>
+                  <span className="text-[12px] sm:text-sm text-muted-foreground">120 MB</span>
                 </div>
                 <div className="h-2 rounded-full bg-muted overflow-hidden">
                   <motion.div
@@ -150,8 +150,8 @@ export function FilesSection() {
               </div>
               <div>
                 <div className="flex items-center justify-between mb-1">
-                  <span className="text-sm text-foreground">الصور</span>
-                  <span className="text-sm text-muted-foreground">85 MB</span>
+                  <span className="text-[12px] sm:text-sm text-foreground">الصور</span>
+                  <span className="text-[12px] sm:text-sm text-muted-foreground">85 MB</span>
                 </div>
                 <div className="h-2 rounded-full bg-muted overflow-hidden">
                   <motion.div
@@ -164,8 +164,8 @@ export function FilesSection() {
               </div>
               <div>
                 <div className="flex items-center justify-between mb-1">
-                  <span className="text-sm text-foreground">أخرى</span>
-                  <span className="text-sm text-muted-foreground">40 MB</span>
+                  <span className="text-[12px] sm:text-sm text-foreground">أخرى</span>
+                  <span className="text-[12px] sm:text-sm text-muted-foreground">40 MB</span>
                 </div>
                 <div className="h-2 rounded-full bg-muted overflow-hidden">
                   <motion.div
@@ -178,7 +178,7 @@ export function FilesSection() {
               </div>
             </div>
           </div>
-          <p className="text-sm text-muted-foreground mt-4 text-center">
+          <p className="text-[12px] sm:text-sm text-muted-foreground mt-3 sm:mt-4 text-center">
             {usedStorage} MB مستخدم من {totalStorage} MB
           </p>
         </div>
@@ -215,6 +215,9 @@ export function FilesSection() {
             exit={{ opacity: 0, height: 0 }}
           >
             <SettingSelect
+              variant="cmdk"
+              id="settings-files-retention-days"
+              modalTitle="مدة الاحتفاظ بالملفات"
               label="مدة الاحتفاظ بالملفات"
               description="الملفات الأقدم ستُحذف تلقائياً"
               value={fileRetentionDays.toString()}
@@ -237,14 +240,14 @@ export function FilesSection() {
                 value={searchQuery}
                 onChange={(e) => setSearchQuery(e.target.value)}
                 placeholder="البحث في الملفات..."
-                className="w-full pr-10 pl-4 py-2 rounded-lg bg-muted border border-border
+                className="w-full pr-10 pl-4 py-2 rounded-lg glass-lite-input
                          text-foreground placeholder:text-muted-foreground
                          focus:outline-none focus:ring-2 focus:ring-primary focus:ring-offset-2"
               />
             </div>
-            <button className="flex items-center gap-2 px-4 py-2 rounded-lg bg-primary text-white transition-colors hover:brightness-90">
+            <button className="flex items-center gap-2 px-3 py-2 rounded-lg bg-primary text-white text-[12px] transition-colors hover:brightness-90">
               <Upload className="w-4 h-4" />
-              <span>رفع</span>
+              <span className="hidden sm:inline">رفع</span>
             </button>
           </div>
 
@@ -258,19 +261,19 @@ export function FilesSection() {
                   layout
                   initial={{ opacity: 0, y: 10 }}
                   animate={{ opacity: 1, y: 0 }}
-                  className="flex items-center gap-3 p-3 rounded-xl bg-[var(--glass-bg)] backdrop-blur-xl border border-[var(--glass-border)]
+                  className="flex items-center gap-3 p-2.5 sm:p-3 rounded-xl glass-lite border border-[var(--glass-border)]
                            hover:border-primary transition-all group"
                 >
-                  <div className="w-10 h-10 rounded-lg bg-muted flex items-center justify-center">
-                    <Icon className={`w-5 h-5 ${file.color}`} />
+                  <div className="w-9 h-9 sm:w-10 sm:h-10 rounded-lg bg-muted flex items-center justify-center">
+                    <Icon className={`w-4 h-4 sm:w-5 sm:h-5 ${file.color}`} />
                   </div>
                   <div className="flex-1 min-w-0">
-                    <h4 className="font-medium text-foreground truncate">{file.name}</h4>
-                    <p className="text-xs text-muted-foreground">
+                    <h4 className="font-medium text-foreground truncate text-[13px] sm:text-[14px]">{file.name}</h4>
+                    <p className="text-[11px] sm:text-xs text-muted-foreground">
                       {file.size} • {file.date}
                     </p>
                   </div>
-                  <div className="flex items-center gap-1 opacity-0 group-hover:opacity-100 transition-opacity">
+                  <div className="flex items-center gap-1 opacity-100 sm:opacity-0 sm:group-hover:opacity-100 transition-opacity">
                     <button className="p-2 rounded-lg hover:bg-muted transition-colors">
                       <Download className="w-4 h-4 text-muted-foreground" />
                     </button>

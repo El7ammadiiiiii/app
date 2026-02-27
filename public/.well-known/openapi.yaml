@@ -14,11 +14,11 @@ info:
     - Portfolio tracking and management
   version: 1.0.0
   contact:
-    email: support@cccways.com
-    url: https://nexus.cccways.com
+    email: support@ccways.com
+    url: https://nexus.ccways.com
 
 servers:
-  - url: https://nexus.cccways.com/api/v1
+  - url: https://nexus.ccways.com/api/v1
     description: Production server
 
 tags:
@@ -370,8 +370,8 @@ components:
       type: oauth2
       flows:
         authorizationCode:
-          authorizationUrl: https://nexus.cccways.com/api/auth/authorize
-          tokenUrl: https://nexus.cccways.com/api/auth/token
+          authorizationUrl: https://nexus.ccways.com/api/auth/authorize
+          tokenUrl: https://nexus.ccways.com/api/auth/token
           scopes:
             read: Read access to user data
             write: Write access to user data

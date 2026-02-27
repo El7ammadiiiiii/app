@@ -1,9 +1,12 @@
 "use client";
 
-import { useEffect, useRef, useState } from "react";
-import * as echarts from "echarts";
+import React, { useMemo } from "react";
+import ReactECharts from "echarts-for-react";
+import { ChartConfig } from "../../lib/ChartConfig";
+import { ChartContainer } from "./ChartContainer";
 
-interface SimpleChartProps {
+interface SimpleChartProps
+{
   data: {
     open: number[];
     high: number[];
@@ -12,106 +15,111 @@ interface SimpleChartProps {
     volume: number[];
     timestamp: number[];
   };
+  title?: string;
+  height?: number;
 }
 
-export function SimpleChart({ data }: SimpleChartProps) {
-  const chartRef = useRef<HTMLDivElement>(null);
-  const chartInstance = useRef<echarts.ECharts | null>(null);
-  const [mounted, setMounted] = useState(false);
+export function SimpleChart ( { data, title = "Market Overview", height = 500 }: SimpleChartProps )
+{
+  const chartOption = useMemo( () =>
+  {
+    if ( !data || data.close.length === 0 ) return {};
 
-  useEffect(() => {
-    setMounted(true);
-  }, []);
+    const timestamps = data.timestamp.map( ( t ) => new Date( t ).toLocaleDateString() );
+    const ohlcData = data.timestamp.map( ( _, i ) => [
+      data.open[ i ],
+      data.close[ i ],
+      data.low[ i ],
+      data.high[ i ],
+    ] );
 
-  useEffect(() => {
-    if (!mounted || !chartRef.current || !data || data.close.length === 0) return;
+    const colors = ChartConfig.COLORS_DARK;
 
-    if (!chartInstance.current) {
-      chartInstance.current = echarts.init(chartRef.current, "dark");
-    }
-
-    const chart = chartInstance.current;
-
-    const timestamps = data.timestamp.map((t) => new Date(t).toLocaleDateString());
-    const ohlcData = data.timestamp.map((_, i) => [
-      data.open[i],
-      data.close[i],
-      data.low[i],
-      data.high[i],
-    ]);
-
-    const option: echarts.EChartsOption = {
+    return {
       backgroundColor: 'transparent',
       animation: false,
       tooltip: {
         trigger: "axis",
-        axisPointer: { type: "cross" },
+        axisPointer: {
+          type: "cross",
+          label: {
+            backgroundColor: colors.textSecondary
+          }
+        },
+        backgroundColor: colors.background.includes( 'gradient' ) ? 'rgba(12, 14, 13, 0.95)' : colors.background,
+        borderColor: colors.border,
+        textStyle: {
+          color: colors.text
+        }
       },
       grid: {
-        left: 60,
-        right: 20,
-        top: 40,
-        bottom: 60,
+        left: '3%',
+        right: '3%',
+        top: '10%',
+        bottom: '15%',
+        containLabel: true
       },
       xAxis: {
         type: "category",
         data: timestamps,
-        axisLine: { lineStyle: { color: "#1a1a2e" } },
-        axisLabel: { color: "#888", fontSize: 10 },
+        axisLine: { lineStyle: { color: colors.border } },
+        axisLabel: { color: colors.textSecondary, fontSize: 10 },
       },
       yAxis: {
         type: "value",
         scale: true,
-        splitLine: { lineStyle: { color: "#1a1a2e" } },
-        axisLabel: { color: "#888" },
+        splitLine: { lineStyle: { color: colors.grid } },
+        axisLabel: { color: colors.textSecondary },
       },
       dataZoom: [
-        { type: "inside", start: 70, end: 100 },
-        { type: "slider", bottom: 10, height: 20 },
+        {
+          type: "inside",
+          start: 70,
+          end: 100
+        },
+        {
+          show: true,
+          type: "slider",
+          bottom: 10,
+          height: 20,
+          borderColor: colors.border,
+          textStyle: { color: colors.textSecondary }
+        },
       ],
       series: [
         {
+          name: title,
           type: "candlestick",
           data: ohlcData,
           itemStyle: {
-            color: "#00ff88",
-            color0: "#ff4444",
-            borderColor: "#00ff88",
-            borderColor0: "#ff4444",
+            color: colors.candleUp,
+            color0: colors.candleDown,
+            borderColor: colors.candleUp,
+            borderColor0: colors.candleDown,
           },
         },
       ],
     };
+  }, [ data, title ] );
 
-    chart.setOption(option);
-    chart.resize();
-
-    const handleResize = () => chart.resize();
-    window.addEventListener("resize", handleResize);
-
-    return () => {
-      window.removeEventListener("resize", handleResize);
-    };
-  }, [mounted, data]);
-
-  useEffect(() => {
-    return () => {
-      chartInstance.current?.dispose();
-    };
-  }, []);
-
-  if (!mounted) {
+  if ( !data || data.close.length === 0 )
+  {
     return (
-      <div className="h-[500px] flex items-center justify-center theme-card">
-        <div className="w-10 h-10 border-4 border-blue-500/30 border-t-blue-500 rounded-full animate-spin" />
-      </div>
+      <ChartContainer title={ title } height={ `${ height }px` }>
+        <div className="flex items-center justify-center h-full text-gray-500">
+          No data available
+        </div>
+      </ChartContainer>
     );
   }
 
   return (
-    <div
-      ref={chartRef}
-      style={{ height: "500px", width: "100%", background: 'linear-gradient(90deg, #030508, #0d3b3b)' }}
-    />
+    <ChartContainer title={ title } height={ `${ height }px` }>
+      <ReactECharts
+        option={ chartOption }
+        className="h-full w-full"
+        theme="dark"
+      />
+    </ChartContainer>
   );
 }

@@ -3,34 +3,39 @@
 import { useEffect, useRef, useState } from "react";
 import * as echarts from "echarts";
 
-export default function TestChartPage() {
-  const chartRef = useRef<HTMLDivElement>(null);
-  const [mounted, setMounted] = useState(false);
-  const [status, setStatus] = useState("initializing...");
+export default function TestChartPage ()
+{
+  const chartRef = useRef<HTMLDivElement>( null );
+  const [ mounted, setMounted ] = useState( false );
+  const [ status, setStatus ] = useState( "initializing..." );
 
-  useEffect(() => {
-    setMounted(true);
-    setStatus("mounted");
-  }, []);
+  useEffect( () =>
+  {
+    setMounted( true );
+    setStatus( "mounted" );
+  }, [] );
 
-  useEffect(() => {
-    if (!mounted || !chartRef.current) {
+  useEffect( () =>
+  {
+    if ( !mounted || !chartRef.current )
+    {
       return;
     }
 
-    setStatus("creating chart...");
+    setStatus( "creating chart..." );
 
-    try {
-      const chart = echarts.init(chartRef.current, "dark");
-      setStatus("chart initialized");
+    try
+    {
+      const chart = echarts.init( chartRef.current, "dark" );
+      setStatus( "chart initialized" );
 
       // Simple test data
       const testData = [
-        [100, 110, 95, 105],
-        [105, 115, 100, 112],
-        [112, 120, 108, 118],
-        [118, 125, 115, 122],
-        [122, 130, 118, 128],
+        [ 100, 110, 95, 105 ],
+        [ 105, 115, 100, 112 ],
+        [ 112, 120, 108, 118 ],
+        [ 118, 125, 115, 122 ],
+        [ 122, 130, 118, 128 ],
       ];
 
       const option: echarts.EChartsOption = {
@@ -42,7 +47,7 @@ export default function TestChartPage() {
         },
         xAxis: {
           type: "category",
-          data: ["Mon", "Tue", "Wed", "Thu", "Fri"],
+          data: [ "Mon", "Tue", "Wed", "Thu", "Fri" ],
         },
         yAxis: {
           type: "value",
@@ -62,31 +67,28 @@ export default function TestChartPage() {
         ],
       };
 
-      chart.setOption(option);
-      setStatus("chart rendered successfully!");
+      chart.setOption( option );
+      setStatus( "chart rendered successfully!" );
 
-      return () => {
+      return () =>
+      {
         chart.dispose();
       };
-    } catch (error) {
-      setStatus(`Error: ${error instanceof Error ? error.message : String(error)}`);
+    } catch ( error )
+    {
+      setStatus( `Error: ${ error instanceof Error ? error.message : String( error ) }` );
     }
-  }, [mounted]);
+  }, [ mounted ] );
 
   return (
     <div className="min-h-screen p-8 theme-bg">
       <h1 className="text-white text-2xl mb-4">ECharts Test Page</h1>
-      <p className="text-yellow-400 mb-4">Status: {status}</p>
-      <p className="text-white/60 mb-4">Mounted: {mounted ? "Yes" : "No"}</p>
-      
+      <p className="text-yellow-400 mb-4">Status: { status }</p>
+      <p className="text-white/60 mb-4">Mounted: { mounted ? "Yes" : "No" }</p>
+
       <div
-        ref={chartRef}
-        style={{ 
-          width: "100%", 
-          height: "500px", 
-          border: "2px solid #1a4a4d",
-          background: 'linear-gradient(90deg, #030508, #0d3b3b)'
-        }}
+        ref={ chartRef }
+        className="w-full h-[500px] border-2 border-[#1a4a4d] bg-[linear-gradient(90deg,_#030508,_#0d3b3b)]"
       />
     </div>
   );

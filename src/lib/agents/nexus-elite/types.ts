@@ -4,7 +4,7 @@
  * 
  * Types & Interfaces - التعريفات والواجهات
  * 
- * @author CCCWAYS Elite Trading System
+ * @author CCWAYS Elite Trading System
  * @version 1.0.0
  */
 
@@ -12,7 +12,8 @@
 // CORE DATA TYPES - أنواع البيانات الأساسية
 // ==========================================================
 
-export interface OHLCV {
+export interface OHLCV
+{
   timestamp: number;
   open: number;
   high: number;
@@ -21,7 +22,7 @@ export interface OHLCV {
   volume: number;
 }
 
-export type Timeframe = '15m' | '1h' | '4h' | '1d' | '3d' | '1w';
+export type Timeframe = '15m' | '1h' | '4h' | '1d' | '1w';
 
 export type TrendDirection = 'bullish' | 'bearish' | 'neutral';
 
@@ -33,7 +34,8 @@ export type MarketRegime = 'trending' | 'ranging' | 'volatile' | 'quiet';
 // INDICATOR TYPES - أنواع المؤشرات
 // ==========================================================
 
-export interface IndicatorState {
+export interface IndicatorState
+{
   value: number;
   previousValue: number;
   direction: TrendDirection;
@@ -46,7 +48,8 @@ export interface IndicatorState {
   strength: number; // 0-100
 }
 
-export interface VolumeAnalysis {
+export interface VolumeAnalysis
+{
   current: number;
   average: number;
   ratio: number; // current/average
@@ -57,12 +60,14 @@ export interface VolumeAnalysis {
   distribution: boolean;
 }
 
-export interface RSIState extends IndicatorState {
+export interface RSIState extends IndicatorState
+{
   zone: 'overbought' | 'neutral' | 'oversold';
   failureSwing: 'bullish' | 'bearish' | 'none';
 }
 
-export interface StochRSIState extends IndicatorState {
+export interface StochRSIState extends IndicatorState
+{
   k: number;
   d: number;
   kDirection: TrendDirection;
@@ -71,7 +76,8 @@ export interface StochRSIState extends IndicatorState {
   inExtremeZone: boolean;
 }
 
-export interface MACDState extends IndicatorState {
+export interface MACDState extends IndicatorState
+{
   macdLine: number;
   signalLine: number;
   histogram: number;
@@ -81,7 +87,8 @@ export interface MACDState extends IndicatorState {
   signalCross: 'bullish' | 'bearish' | 'none';
 }
 
-export interface OBVState extends IndicatorState {
+export interface OBVState extends IndicatorState
+{
   obv: number;
   obvSma: number;
   trend: TrendDirection;
@@ -89,7 +96,8 @@ export interface OBVState extends IndicatorState {
   breakout: boolean;
 }
 
-export interface ADXState extends IndicatorState {
+export interface ADXState extends IndicatorState
+{
   adx: number;
   plusDI: number;
   minusDI: number;
@@ -98,7 +106,8 @@ export interface ADXState extends IndicatorState {
   adxRising: boolean;
 }
 
-export interface ConnorsRSIState extends IndicatorState {
+export interface ConnorsRSIState extends IndicatorState
+{
   composite: number;
   rsiComponent: number;
   streakComponent: number;
@@ -106,14 +115,16 @@ export interface ConnorsRSIState extends IndicatorState {
   extremeReading: boolean;
 }
 
-export interface LaguerreRSIState extends IndicatorState {
+export interface LaguerreRSIState extends IndicatorState
+{
   lrsi: number;
   gamma: number;
   turningPoint: boolean;
   turningDirection: TrendDirection;
 }
 
-export interface FisherTransformState extends IndicatorState {
+export interface FisherTransformState extends IndicatorState
+{
   fisher: number;
   signal: number;
   crossover: 'bullish' | 'bearish' | 'none';
@@ -121,7 +132,8 @@ export interface FisherTransformState extends IndicatorState {
   reversalSignal: boolean;
 }
 
-export interface CyberCycleState extends IndicatorState {
+export interface CyberCycleState extends IndicatorState
+{
   cycle: number;
   trigger: number;
   phase: 'up' | 'down' | 'turning';
@@ -129,7 +141,8 @@ export interface CyberCycleState extends IndicatorState {
   leadingSignal: boolean;
 }
 
-export interface CVDState extends IndicatorState {
+export interface CVDState extends IndicatorState
+{
   delta: number;
   cumulativeDelta: number;
   deltaMA: number;
@@ -138,7 +151,8 @@ export interface CVDState extends IndicatorState {
   absorptionDetected: boolean;
 }
 
-export interface KlingerState extends IndicatorState {
+export interface KlingerState extends IndicatorState
+{
   oscillator: number;
   signal: number;
   volumeForce: number;
@@ -147,7 +161,8 @@ export interface KlingerState extends IndicatorState {
   accumulationPhase: boolean;
 }
 
-export interface MFIState extends IndicatorState {
+export interface MFIState extends IndicatorState
+{
   mfi: number;
   zone: 'overbought' | 'neutral' | 'oversold';
   moneyFlowRatio: number;
@@ -159,7 +174,8 @@ export interface MFIState extends IndicatorState {
 // AGGREGATED INDICATOR DATA - بيانات المؤشرات المجمعة
 // ==========================================================
 
-export interface AllIndicatorsState {
+export interface AllIndicatorsState
+{
   volume: VolumeAnalysis;
   rsi: RSIState;
   stochRsi: StochRSIState;
@@ -175,7 +191,8 @@ export interface AllIndicatorsState {
   mfi: MFIState;
 }
 
-export interface TimeframeIndicators {
+export interface TimeframeIndicators
+{
   timeframe: Timeframe;
   timestamp: number;
   price: {
@@ -193,7 +210,8 @@ export interface TimeframeIndicators {
 // SIGNAL TYPES - أنواع الإشارات
 // ==========================================================
 
-export interface ExtractedSignal {
+export interface ExtractedSignal
+{
   indicator: string;
   timeframe: Timeframe;
   signal: TrendDirection;
@@ -206,7 +224,8 @@ export interface ExtractedSignal {
   descriptionAr: string;
 }
 
-export interface DivergenceSignal {
+export interface DivergenceSignal
+{
   type: 'regular' | 'hidden';
   direction: 'bullish' | 'bearish';
   indicator: string;
@@ -217,7 +236,8 @@ export interface DivergenceSignal {
   confidence: number;
 }
 
-export interface MomentumShift {
+export interface MomentumShift
+{
   timeframe: Timeframe;
   previousMomentum: number;
   currentMomentum: number;
@@ -231,7 +251,8 @@ export interface MomentumShift {
 // FUSION MATRIX TYPES - أنواع مصفوفة الدمج
 // ==========================================================
 
-export interface IndicatorConfluence {
+export interface IndicatorConfluence
+{
   bullishCount: number;
   bearishCount: number;
   neutralCount: number;
@@ -241,7 +262,8 @@ export interface IndicatorConfluence {
   agreementRatio: number; // 0-1
 }
 
-export interface TimeframeConfluence {
+export interface TimeframeConfluence
+{
   bullishTimeframes: Timeframe[];
   bearishTimeframes: Timeframe[];
   neutralTimeframes: Timeframe[];
@@ -250,7 +272,8 @@ export interface TimeframeConfluence {
   dominantTrend: TrendDirection;
 }
 
-export interface CrossTimeframeAnalysis {
+export interface CrossTimeframeAnalysis
+{
   higherTimeframeBias: TrendDirection;
   lowerTimeframeTrigger: TrendDirection;
   alignment: boolean;
@@ -258,7 +281,8 @@ export interface CrossTimeframeAnalysis {
   entryQuality: 'excellent' | 'good' | 'fair' | 'poor';
 }
 
-export interface FusionMatrix {
+export interface FusionMatrix
+{
   indicatorConfluence: IndicatorConfluence;
   timeframeConfluence: TimeframeConfluence;
   crossAnalysis: CrossTimeframeAnalysis;
@@ -270,7 +294,8 @@ export interface FusionMatrix {
 // QUANTUM SCORING TYPES - أنواع التسجيل الكمي
 // ==========================================================
 
-export interface AdaptiveWeight {
+export interface AdaptiveWeight
+{
   indicator: string;
   baseWeight: number;
   regimeMultiplier: number;
@@ -278,13 +303,15 @@ export interface AdaptiveWeight {
   finalWeight: number;
 }
 
-export interface TimeframeWeight {
+export interface TimeframeWeight
+{
   timeframe: Timeframe;
   weight: number;
   importance: 'primary' | 'secondary' | 'confirmation';
 }
 
-export interface RegimeDetection {
+export interface RegimeDetection
+{
   currentRegime: MarketRegime;
   regimeStrength: number; // 0-100
   regimeAge: number; // bars since regime started
@@ -293,7 +320,8 @@ export interface RegimeDetection {
   trendStrength: number;
 }
 
-export interface QuantumScore {
+export interface QuantumScore
+{
   rawScore: number; // 0-100
   adjustedScore: number; // 0-100 after regime adjustment
   confidenceInterval: { low: number; high: number };
@@ -312,7 +340,7 @@ export interface QuantumScore {
 // HARMONIC PATTERN TYPES - أنواع أنماط هارمونيك
 // ==========================================================
 
-export type HarmonicPatternType = 
+export type HarmonicPatternType =
   | 'gartley'
   | 'butterfly'
   | 'bat'
@@ -322,7 +350,8 @@ export type HarmonicPatternType =
   | 'abcd'
   | 'three_drives';
 
-export interface HarmonicPattern {
+export interface HarmonicPattern
+{
   type: HarmonicPatternType;
   direction: 'bullish' | 'bearish';
   points: {
@@ -358,7 +387,8 @@ export interface HarmonicPattern {
 // DECISION ENGINE TYPES - أنواع محرك القرار
 // ==========================================================
 
-export interface TrendStrengthResult {
+export interface TrendStrengthResult
+{
   timeframe: Timeframe;
   bullishPercent: number; // 0-100
   bearishPercent: number; // 0-100
@@ -372,7 +402,8 @@ export interface TrendStrengthResult {
   }[];
 }
 
-export interface SignalDecision {
+export interface SignalDecision
+{
   action: 'strong_buy' | 'buy' | 'hold' | 'sell' | 'strong_sell';
   direction: TrendDirection;
   confidence: number; // 0-100
@@ -391,7 +422,8 @@ export interface SignalDecision {
   timestamp: number;
 }
 
-export interface TrendMatrix {
+export interface TrendMatrix
+{
   symbol: string;
   lastUpdate: number;
   price: {
@@ -414,7 +446,7 @@ export interface TrendMatrix {
 
 export type AlertPriority = 'critical' | 'high' | 'medium' | 'low';
 
-export type AlertType = 
+export type AlertType =
   | 'signal_generated'
   | 'pattern_detected'
   | 'divergence_found'
@@ -423,7 +455,8 @@ export type AlertType =
   | 'stop_loss_hit'
   | 'confluence_alert';
 
-export interface Alert {
+export interface Alert
+{
   id: string;
   type: AlertType;
   priority: AlertPriority;
@@ -439,7 +472,8 @@ export interface Alert {
   soundEnabled: boolean;
 }
 
-export interface AlertConfig {
+export interface AlertConfig
+{
   enabled: boolean;
   soundEnabled: boolean;
   pushEnabled: boolean;
@@ -454,7 +488,8 @@ export interface AlertConfig {
 // HISTORY & LEARNING TYPES - أنواع التاريخ والتعلم
 // ==========================================================
 
-export interface SignalOutcome {
+export interface SignalOutcome
+{
   signalId: string;
   signal: SignalDecision;
   timestamp: number;
@@ -470,7 +505,8 @@ export interface SignalOutcome {
   notes: string;
 }
 
-export interface IndicatorPerformance {
+export interface IndicatorPerformance
+{
   indicator: string;
   timeframe: Timeframe;
   totalSignals: number;
@@ -486,7 +522,8 @@ export interface IndicatorPerformance {
   worstConditions: MarketRegime[];
 }
 
-export interface LearningState {
+export interface LearningState
+{
   lastUpdate: number;
   totalSignals: number;
   indicatorPerformance: Map<string, IndicatorPerformance>;
@@ -502,10 +539,11 @@ export interface LearningState {
 // ENGINE CONFIGURATION - إعدادات المحرك
 // ==========================================================
 
-export interface NexusConfig {
+export interface NexusConfig
+{
   // Timeframes to analyze
   timeframes: Timeframe[];
-  
+
   // Indicator settings
   indicators: {
     rsiPeriod: number;
@@ -516,7 +554,7 @@ export interface NexusConfig {
     adxPeriod: number;
     obvSmaPeriod: number;
     mfiPeriod: number;
-    connorsRsiPeriods: [number, number, number];
+    connorsRsiPeriods: [ number, number, number ];
     laguerreGamma: number;
     fisherPeriod: number;
     cyberCycleAlpha: number;
@@ -525,7 +563,7 @@ export interface NexusConfig {
     klingerSlow: number;
     klingerSignal: number;
   };
-  
+
   // Scoring weights
   weights: {
     volume: number;
@@ -542,10 +580,10 @@ export interface NexusConfig {
     klinger: number;
     mfi: number;
   };
-  
+
   // Timeframe weights
   timeframeWeights: Record<Timeframe, number>;
-  
+
   // Signal thresholds
   thresholds: {
     strongBuyMin: number;
@@ -555,7 +593,7 @@ export interface NexusConfig {
     minConfidence: number;
     minConfluence: number;
   };
-  
+
   // Risk management
   risk: {
     maxPositionSize: number;
@@ -563,10 +601,10 @@ export interface NexusConfig {
     riskPerTrade: number;
     minRiskReward: number;
   };
-  
+
   // Alert settings
   alerts: AlertConfig;
-  
+
   // Learning settings
   learning: {
     enabled: boolean;
@@ -581,8 +619,8 @@ export interface NexusConfig {
 // ==========================================================
 
 export const DEFAULT_NEXUS_CONFIG: NexusConfig = {
-  timeframes: ['15m', '1h', '4h', '1d', '3d'],
-  
+  timeframes: [ '15m', '1h', '4h', '1d', '1w' ],
+
   indicators: {
     rsiPeriod: 14,
     stochRsiPeriod: 14,
@@ -592,7 +630,7 @@ export const DEFAULT_NEXUS_CONFIG: NexusConfig = {
     adxPeriod: 14,
     obvSmaPeriod: 20,
     mfiPeriod: 14,
-    connorsRsiPeriods: [3, 2, 100],
+    connorsRsiPeriods: [ 3, 2, 100 ],
     laguerreGamma: 0.8,
     fisherPeriod: 10,
     cyberCycleAlpha: 0.07,
@@ -601,7 +639,7 @@ export const DEFAULT_NEXUS_CONFIG: NexusConfig = {
     klingerSlow: 55,
     klingerSignal: 13,
   },
-  
+
   weights: {
     volume: 0.08,
     rsi: 0.09,
@@ -617,16 +655,15 @@ export const DEFAULT_NEXUS_CONFIG: NexusConfig = {
     klinger: 0.06,
     mfi: 0.06,
   },
-  
+
   timeframeWeights: {
     '15m': 0.10,
     '1h': 0.15,
     '4h': 0.20,
     '1d': 0.25,
-    '3d': 0.20,
-    '1w': 0.10,
+    '1w': 0.30,
   },
-  
+
   thresholds: {
     strongBuyMin: 80,
     buyMin: 60,
@@ -635,25 +672,25 @@ export const DEFAULT_NEXUS_CONFIG: NexusConfig = {
     minConfidence: 65,
     minConfluence: 55,
   },
-  
+
   risk: {
     maxPositionSize: 0.10, // 10% max
     defaultStopLossPercent: 0.02, // 2%
     riskPerTrade: 0.01, // 1%
     minRiskReward: 2.0,
   },
-  
+
   alerts: {
     enabled: true,
     soundEnabled: true,
     pushEnabled: false,
     minPriority: 'medium',
     minConfidence: 70,
-    enabledTypes: ['signal_generated', 'pattern_detected', 'divergence_found'],
+    enabledTypes: [ 'signal_generated', 'pattern_detected', 'divergence_found' ],
     symbols: 'all',
     timeframes: 'all',
   },
-  
+
   learning: {
     enabled: true,
     minSamplesForAdaptation: 30,
@@ -666,15 +703,17 @@ export const DEFAULT_NEXUS_CONFIG: NexusConfig = {
 // UTILITY TYPES - أنواع مساعدة
 // ==========================================================
 
-export type IndicatorName = keyof NexusConfig['weights'];
+export type IndicatorName = keyof NexusConfig[ 'weights' ];
 
-export interface MultiSymbolResult {
+export interface MultiSymbolResult
+{
   results: Map<string, TrendMatrix>;
   lastUpdate: number;
   processingTime: number;
 }
 
-export interface EngineStatus {
+export interface EngineStatus
+{
   isRunning: boolean;
   lastUpdate: number;
   symbolsMonitored: number;

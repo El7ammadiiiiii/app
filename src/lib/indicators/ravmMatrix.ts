@@ -6,7 +6,7 @@
  * Detects reversal signals using RSI + Geometric Engine + Volume Analysis
  */
 
-import { CandleData } from "@/components/charts/TradingChart";
+import type { CandleData } from "@/components/charts/types";
 
 // ============ TYPES ============
 

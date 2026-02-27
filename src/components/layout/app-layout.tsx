@@ -1,140 +1,244 @@
 "use client";
 
-import { useState, useEffect, useRef } from "react";
+import { useState, useEffect, useRef, useCallback } from "react";
+import useTimeout from '@/hooks/useTimeout';
 import { motion, AnimatePresence } from "framer-motion";
 import dynamic from "next/dynamic";
-import { usePathname } from "next/navigation";
-import { AlignLeft, AlignRight } from "lucide-react";
+import { usePathname, useRouter } from "next/navigation";
 import { cn } from "@/lib/utils";
-// Dynamic imports to prevent hydration errors
-const SidebarLeft = dynamic(() => import("./sidebar-left").then(mod => mod.SidebarLeft), { ssr: false });
-const SidebarRight = dynamic(() => import("./sidebar-right").then(mod => mod.SidebarRight), { ssr: false });
+import { useMediaQuery } from "@/hooks/useMediaQuery";
+const SidebarLeft = dynamic( () => import( "./sidebar-left" ).then( mod => mod.SidebarLeft ), { ssr: false } );
+const SidebarRight = dynamic( () => import( "./sidebar-right" ).then( mod => mod.SidebarRight ), { ssr: false } );
 import { SettingsView } from "@/components/settings";
-import { 
-  CreateProjectModal, 
-  ProjectSettings, 
-  QuickSwitcher 
-} from "@/components/projects";
-import { useProjectShortcuts } from "@/hooks/useProjectShortcuts";
 import { useMounted } from "@/hooks/use-mounted";
-
-// Dynamic import for background
-const CryptoBackground = dynamic(
-  () => import("@/components/ui/crypto-background").then((mod) => mod.CryptoBackground),
-  { ssr: false }
-);
+import { TopHeader, HEADER_HEIGHT } from "./top-header";
+import { useChatStore } from "@/store/chatStore";
 
 // Layout component for the main application
-interface AppLayoutProps {
+export type SidebarMode = "expanded" | "rail" | "hidden";
+
+interface AppLayoutProps
+{
   children?: React.ReactNode;
 }
 
-export function AppLayout({ children }: AppLayoutProps) {
-  const [leftSidebarOpen, setLeftSidebarOpen] = useState(true);
-  const [rightSidebarOpen, setRightSidebarOpen] = useState(true);
-  const [showSettings, setShowSettings] = useState(false);
-  const [isMobile, setIsMobile] = useState(false);
-  const [showTransition, setShowTransition] = useState(false);
+export function AppLayout ( { children }: AppLayoutProps )
+{
+  const [ sidebarMode, setSidebarMode ] = useState<SidebarMode>( "expanded" );
+  const [ rightSidebarOpen, setRightSidebarOpen ] = useState( true );
+  const [ showSettings, setShowSettings ] = useState( false );
+  const [ showTransition, setShowTransition ] = useState( false );
+  const [ layoutStateRestored, setLayoutStateRestored ] = useState( false );
+  // mobile sidebar overlay (only used on mobile/tablet)
+  const [ mobileSidebarOpen, setMobileSidebarOpen ] = useState( false );
   const mounted = useMounted();
   const pathname = usePathname();
-  const prevPathnameRef = useRef(pathname);
+  const router = useRouter();
+  const prevPathnameRef = useRef( pathname );
+  const { isMobile, isTablet, isDesktop } = useMediaQuery();
+  const { createChat, setActiveChat } = useChatStore();
 
-  // تفعيل اختصارات لوحة المفاتيح للمشاريع
-  useProjectShortcuts();
+  const SIDEBAR_MODE_KEY = "layout.sidebar.mode";
+  const RIGHT_SIDEBAR_STORAGE_KEY = "layout.sidebar.rightOpen";
 
-  // Track mount state - No longer needed, useMounted hook handles this
-  // useEffect(() => {
-  //   setMounted(true);
-  // }, []);
-
-  // Detect screen size
-  useEffect(() => {
-    const checkMobile = () => {
-      setIsMobile(window.innerWidth < 1024);
-      if (window.innerWidth < 1024) {
-        setLeftSidebarOpen(false);
-        setRightSidebarOpen(false);
-      } else {
-        setLeftSidebarOpen(true);
-        setRightSidebarOpen(true);
+  // Restore layout state from localStorage
+  useEffect( () =>
+  {
+    const readStoredBool = ( key: string, fallback: boolean ) =>
+    {
+      try
+      {
+        const raw = window.localStorage.getItem( key );
+        if ( raw === null ) return fallback;
+        return raw === "true" || raw === "1";
+      } catch
+      {
+        return fallback;
       }
     };
 
-    checkMobile();
-    window.addEventListener("resize", checkMobile);
-    return () => window.removeEventListener("resize", checkMobile);
-  }, []);
+    const initLayoutState = () =>
+    {
+      // Migrate old boolean key to new mode key
+      try
+      {
+        const oldKey = "layout.sidebar.leftOpen";
+        const oldVal = window.localStorage.getItem( oldKey );
+        const newVal = window.localStorage.getItem( SIDEBAR_MODE_KEY );
+        if ( oldVal !== null && newVal === null )
+        {
+          const mode: SidebarMode = oldVal === "true" || oldVal === "1" ? "expanded" : "rail";
+          window.localStorage.setItem( SIDEBAR_MODE_KEY, mode );
+          window.localStorage.removeItem( oldKey );
+        }
+      } catch {}
 
-  // Show a quick transition overlay only on route changes (not initial load)
-  useEffect(() => {
-    if (!mounted) return;
-    if (prevPathnameRef.current !== pathname) {
-      setShowTransition(true);
+      // Read sidebar mode
+      try
+      {
+        const stored = window.localStorage.getItem( SIDEBAR_MODE_KEY );
+        if ( stored === "expanded" || stored === "rail" )
+        {
+          setSidebarMode( stored );
+        } else
+        {
+          setSidebarMode( "expanded" );
+        }
+      } catch
+      {
+        setSidebarMode( "expanded" );
+      }
+
+      setRightSidebarOpen( readStoredBool( RIGHT_SIDEBAR_STORAGE_KEY, !( isMobile || isTablet ) ) );
+      setLayoutStateRestored( true );
+    };
+
+    initLayoutState();
+  }, [] ); // eslint-disable-line react-hooks/exhaustive-deps
+
+  // Persist sidebar mode
+  useEffect( () =>
+  {
+    if ( !layoutStateRestored ) return;
+    try { window.localStorage.setItem( SIDEBAR_MODE_KEY, sidebarMode ); } catch {}
+  }, [ sidebarMode, layoutStateRestored ] );
+
+  // Persist right sidebar
+  useEffect( () =>
+  {
+    if ( !layoutStateRestored ) return;
+    try { window.localStorage.setItem( RIGHT_SIDEBAR_STORAGE_KEY, String( rightSidebarOpen ) ); } catch {}
+  }, [ rightSidebarOpen, layoutStateRestored ] );
+
+  // Show quick transition overlay on route changes
+  useEffect( () =>
+  {
+    if ( !mounted ) return;
+    if ( prevPathnameRef.current !== pathname )
+    {
+      setShowTransition( true );
       prevPathnameRef.current = pathname;
-      const timer = setTimeout(() => setShowTransition(false), 420);
-      return () => clearTimeout(timer);
     }
-  }, [pathname, mounted]);
+  }, [ pathname, mounted ] );
 
-  // Calculate main content margins - improved for responsive design
-  const getMainContentStyle = () => {
-    if (isMobile) {
+  useTimeout( () => setShowTransition( false ), showTransition ? 420 : undefined, [ showTransition ] );
+
+  // Close mobile sidebar on route change
+  useEffect( () =>
+  {
+    setMobileSidebarOpen( false );
+  }, [ pathname ] );
+
+  // Keyboard shortcuts (desktop only)
+  useEffect( () =>
+  {
+    const handler = ( e: KeyboardEvent ) =>
+    {
+      // Ctrl+Shift+S → toggle sidebar
+      if ( e.ctrlKey && e.shiftKey && e.key === "S" )
+      {
+        e.preventDefault();
+        if ( isMobile || isTablet )
+        {
+          setMobileSidebarOpen( prev => !prev );
+        } else
+        {
+          setSidebarMode( prev => prev === "expanded" ? "rail" : "expanded" );
+        }
+      }
+      // Ctrl+K → focus search
+      if ( e.ctrlKey && e.key === "k" )
+      {
+        e.preventDefault();
+        if ( isMobile || isTablet )
+        {
+          setMobileSidebarOpen( true );
+        } else if ( sidebarMode === "rail" )
+        {
+          setSidebarMode( "expanded" );
+        }
+        // Focus is handled by sidebar component via ref
+        setTimeout( () =>
+        {
+          document.getElementById( "chat-search-input" )?.focus();
+        }, 300 );
+      }
+    };
+    window.addEventListener( "keydown", handler );
+    return () => window.removeEventListener( "keydown", handler );
+  }, [ isMobile, isTablet, sidebarMode ] );
+
+  // Calculate main content margins
+  const getMainContentStyle = useCallback( () =>
+  {
+    if ( isMobile || isTablet )
+    {
       return { marginRight: 0, marginLeft: 0 };
     }
     return {
-      marginRight: leftSidebarOpen ? 280 : 0,
-      marginLeft: 0, // The left sidebar (SidebarRight) is an overlay and does not push content.
+      marginRight: sidebarMode === "expanded" ? 260 : 68,
+      marginLeft: rightSidebarOpen ? 260 : 0,
     };
-  };
+  }, [ isMobile, isTablet, sidebarMode, rightSidebarOpen ] );
+
+  // Toggle handler for sidebar
+  const handleSidebarToggle = useCallback( () =>
+  {
+    if ( isMobile || isTablet )
+    {
+      setMobileSidebarOpen( prev => !prev );
+    } else
+    {
+      setSidebarMode( prev => prev === "expanded" ? "rail" : "expanded" );
+    }
+  }, [ isMobile, isTablet ] );
+
+  // New chat handler (for header button)
+  const handleNewChat = useCallback( () =>
+  {
+    const newChat = createChat( "محادثة جديدة" );
+    setActiveChat( newChat.id );
+    router.push( "/chat" );
+    if ( isMobile || isTablet ) setMobileSidebarOpen( false );
+  }, [ createChat, setActiveChat, router, isMobile, isTablet ] );
 
   return (
     <div className="relative min-h-screen overflow-x-hidden text-foreground">
-      {/* Transition overlay (Skeleton + Shimmer) */}
+      {/* Transition overlay (Skeleton + Shimmer) */ }
       <AnimatePresence>
-        {showTransition && (
+        { showTransition && (
           <motion.div
             key="page-transition"
-            initial={{ opacity: 0 }}
-            animate={{ opacity: 1 }}
-            exit={{ opacity: 0 }}
-            transition={{ duration: 0.2 }}
+            initial={ { opacity: 0 } }
+            animate={ { opacity: 1 } }
+            exit={ { opacity: 0 } }
+            transition={ { duration: 0.2 } }
             className="fixed inset-0 z-50 flex items-center justify-center theme-bg"
           >
             <div className="w-full max-w-6xl px-4">
               <div className="grid grid-cols-12 gap-4">
-                {/* Left sidebar skeleton */}
-                <div className="col-span-3 space-y-3">
-                  {[1,2,3,4,5].map((i) => (
-                    <div key={i} className="h-10 rounded-xl overflow-hidden bg-gray-600/50 shimmer" />
-                  ))}
+                <div className="col-span-3 space-y-3 hidden md:block">
+                  { [ 1, 2, 3, 4, 5 ].map( ( i ) => (
+                    <div key={ i } className="h-10 rounded-xl overflow-hidden bg-gray-600/50 shimmer" />
+                  ) ) }
                 </div>
-
-                {/* Main content skeleton */}
-                <div className="col-span-6 space-y-4">
+                <div className="col-span-12 md:col-span-6 space-y-4">
                   <div className="h-12 rounded-2xl bg-gray-600/50 shimmer" />
                   <div className="h-64 rounded-2xl bg-gray-600/50 shimmer" />
                   <div className="grid grid-cols-3 gap-3">
-                    {[1,2,3].map((i) => (
-                      <div key={i} className="h-20 rounded-xl bg-gray-600/50 shimmer" />
-                    ))}
-                  </div>
-                  <div className="space-y-3">
-                    {[1,2,3].map((i) => (
-                      <div key={i} className="h-12 rounded-xl bg-gray-600/50 shimmer" />
-                    ))}
+                    { [ 1, 2, 3 ].map( ( i ) => (
+                      <div key={ i } className="h-20 rounded-xl bg-gray-600/50 shimmer" />
+                    ) ) }
                   </div>
                 </div>
-
-                {/* Right sidebar skeleton */}
-                <div className="col-span-3 space-y-3">
-                  {[1,2,3,4].map((i) => (
-                    <div key={i} className="h-12 rounded-xl bg-gray-600/50 shimmer" />
-                  ))}
+                <div className="col-span-3 space-y-3 hidden md:block">
+                  { [ 1, 2, 3, 4 ].map( ( i ) => (
+                    <div key={ i } className="h-12 rounded-xl bg-gray-600/50 shimmer" />
+                  ) ) }
                 </div>
               </div>
             </div>
-
-            <style jsx global>{`
+            <style jsx global>{ `
               .shimmer {
                 position: relative;
                 overflow: hidden;
@@ -148,105 +252,82 @@ export function AppLayout({ children }: AppLayoutProps) {
               }
             `}</style>
           </motion.div>
-        )}
+        ) }
       </AnimatePresence>
-      {/* Background - Visible throughout the app */}
-      <div className="fixed inset-0 -z-20 theme-bg" />
-      <div className="fixed inset-0 -z-10 pointer-events-none">
-        <CryptoBackground opacity={0.06} />
-      </div>
 
-      {/* Header - Main top bar with CCCWAYS */}
-      <header className="fixed top-0 left-0 right-0 z-40 border-b border-white/[0.04] theme-header">
-        <div className="flex items-center justify-between px-6 py-4">
-          <div className="flex items-center gap-2">
-            <motion.button
-              whileHover={{ scale: 1.05 }}
-              whileTap={{ scale: 0.95 }}
-              onClick={() => setLeftSidebarOpen(!leftSidebarOpen)}
-              className="p-2.5 rounded-xl hover:bg-white/[0.08] text-gray-400 hover:text-white transition-colors border border-white/[0.08]"
-            >
-              <AlignLeft className={cn(
-                "w-5 h-5 transition-transform duration-300",
-                !leftSidebarOpen && "rotate-180"
-              )} />
-            </motion.button>
-          </div>
+      {/* ═══ Top Header Bar ═══ */ }
+      { mounted && (
+        <TopHeader
+          sidebarMode={ sidebarMode }
+          mobileSidebarOpen={ mobileSidebarOpen }
+          onToggleSidebar={ handleSidebarToggle }
+          rightSidebarOpen={ rightSidebarOpen }
+          onToggleRightSidebar={ () => setRightSidebarOpen( !rightSidebarOpen ) }
+          isMobile={ isMobile }
+          isTablet={ isTablet }
+          pathname={ pathname }
+          onNewChat={ handleNewChat }
+          showTransition={ showTransition }
+        />
+      ) }
 
-          {/* CCCWAYS Logo - Center */}
-          <motion.span
-            initial={{ opacity: 0, scale: 0.95 }}
-            animate={{ opacity: 1, scale: 1 }}
-            className="absolute left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2 text-xl font-bold tracking-[0.3em] text-gray-400"
-          >
-            CCCWAYS
-          </motion.span>
-
-          <div className="flex items-center gap-2">
-            <motion.button
-              whileHover={{ scale: 1.05 }}
-              whileTap={{ scale: 0.95 }}
-              onClick={() => setRightSidebarOpen(!rightSidebarOpen)}
-              className="p-2.5 rounded-xl hover:bg-white/[0.08] text-gray-400 hover:text-white transition-colors border border-white/[0.08]"
-            >
-              <AlignRight className={cn(
-                "w-5 h-5 transition-transform duration-300",
-                !rightSidebarOpen && "rotate-180"
-              )} />
-            </motion.button>
-          </div>
-        </div>
-      </header>
-
-      {/* Left Sidebar (Right in RTL) */}
-      <div className={cn(showTransition && "opacity-0 pointer-events-none")}>
-        {mounted && (
+      {/* Left Sidebar */ }
+      <div className={ cn( showTransition && "opacity-0 pointer-events-none" ) }>
+        { mounted && (
           <SidebarLeft
-            isOpen={leftSidebarOpen}
-            onToggle={() => setLeftSidebarOpen(!leftSidebarOpen)}
-            isMobile={isMobile}
-            onOpenSettings={() => setShowSettings(true)}
+            mode={ ( isMobile || isTablet ) ? ( mobileSidebarOpen ? "mobile-open" : "hidden" ) : sidebarMode }
+            onModeChange={ ( mode ) =>
+            {
+              if ( mode === "hidden" )
+              {
+                setMobileSidebarOpen( false );
+              } else if ( mode === "mobile-open" )
+              {
+                setMobileSidebarOpen( true );
+              } else
+              {
+                setSidebarMode( mode );
+              }
+            } }
+            onToggle={ handleSidebarToggle }
+            screenSize={ isMobile ? "mobile" : isTablet ? "tablet" : "desktop" }
+            onOpenSettings={ () => setShowSettings( true ) }
           />
-        )}
+        ) }
       </div>
 
-      {/* Right Sidebar (Left in RTL) */}
-      <div className={cn(showTransition && "opacity-0 pointer-events-none")}>
-        {mounted && (
+      {/* Right Sidebar */ }
+      <div className={ cn( showTransition && "opacity-0 pointer-events-none" ) }>
+        { mounted && (
           <SidebarRight
-            isOpen={rightSidebarOpen}
-            onToggle={() => setRightSidebarOpen(!rightSidebarOpen)}
-            isMobile={isMobile}
+            isOpen={ rightSidebarOpen }
+            onToggle={ () => setRightSidebarOpen( !rightSidebarOpen ) }
+            isMobile={ isMobile || isTablet }
           />
-        )}
+        ) }
       </div>
 
-      {/* Main Content - استخدام flex لضمان ظهور قالب الكتابة */}
+      {/* Main Content */ }
       <motion.main
-        className={cn(
-          "fixed inset-0 top-16 flex flex-col transition-all duration-300 z-30",
+        className={ cn(
+          "fixed inset-0 flex flex-col transition-all duration-300 z-30",
           showTransition && "opacity-0 pointer-events-none"
-        )}
-        animate={getMainContentStyle()}
-        transition={{ type: "spring", stiffness: 300, damping: 30 }}
+        ) }
+        style={ { top: HEADER_HEIGHT } }
+        animate={ getMainContentStyle() }
+        transition={ { type: "spring", stiffness: 300, damping: 30 } }
       >
-        {/* Chat or Page Content */}
         <div className="flex-1 min-h-0 flex flex-col overflow-y-auto overflow-x-hidden">
-          {children}
+          { children }
         </div>
       </motion.main>
 
-      {/* Settings Modal */}
+      {/* Settings Modal */ }
       <AnimatePresence>
-        {showSettings && (
-          <SettingsView onClose={() => setShowSettings(false)} />
-        )}
+        { showSettings && (
+          <SettingsView onClose={ () => setShowSettings( false ) } />
+        ) }
       </AnimatePresence>
-
-      {/* Project System Modals */}
-      <CreateProjectModal />
-      <ProjectSettings />
-      <QuickSwitcher />
     </div>
   );
 }

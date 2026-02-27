@@ -1,0 +1,867 @@
+{
+  "1": {
+    "key": "polkastarter",
+    "name": "Polkastarter",
+    "type": "IDO"
+  },
+  "2": {
+    "key": "bsc-pad",
+    "name": "BSCPad",
+    "type": "IDO"
+  },
+  "3": {
+    "key": "duck-starter",
+    "name": "DuckSTARTER",
+    "type": "IDO"
+  },
+  "4": {
+    "key": "poolz",
+    "name": "Poolz Finance",
+    "type": "IDO"
+  },
+  "5": {
+    "key": "paid-network",
+    "name": "PAID",
+    "type": "IDO"
+  },
+  "6": {
+    "key": "zee-do",
+    "name": "ZeroSwap",
+    "type": "IDO"
+  },
+  "7": {
+    "key": "we-starter",
+    "name": "WeStarter",
+    "type": "IDO"
+  },
+  "8": {
+    "key": "dao-maker",
+    "name": "DAO Maker",
+    "type": "IDO"
+  },
+  "9": {
+    "key": "bounce",
+    "name": "Bounce",
+    "type": "IDO"
+  },
+  "10": {
+    "key": "republic",
+    "name": "Republic",
+    "type": "ICO"
+  },
+  "11": {
+    "key": "zendit",
+    "name": "ZENDIT",
+    "type": "IDO"
+  },
+  "12": {
+    "key": "kick-pad",
+    "name": "KickPAD",
+    "type": "IDO"
+  },
+  "14": {
+    "key": "gnosis",
+    "name": "Gnosis Auction",
+    "type": "IDO"
+  },
+  "15": {
+    "key": "trust-swap",
+    "name": "TrustSwap",
+    "type": "IDO"
+  },
+  "16": {
+    "key": "cyber-fi",
+    "name": "CyberFi",
+    "type": "IDO"
+  },
+  "17": {
+    "key": "polkabridge",
+    "name": "Polkabridge",
+    "type": "IDO"
+  },
+  "18": {
+    "key": "lemonade",
+    "name": "Lemonade",
+    "type": "IDO"
+  },
+  "19": {
+    "key": "launchpool",
+    "name": "Launchpool",
+    "type": "IDO"
+  },
+  "20": {
+    "key": "a-2-dao",
+    "name": "A2DAO",
+    "type": "IDO"
+  },
+  "21": {
+    "key": "road-starter",
+    "name": "RoadStarter",
+    "type": "IDO"
+  },
+  "22": {
+    "key": "gen-pad",
+    "name": "GenPad ",
+    "type": "IDO"
+  },
+  "23": {
+    "key": "card-starter",
+    "name": "CardStarter",
+    "type": "IDO"
+  },
+  "24": {
+    "key": "red-kite",
+    "name": "Red Kite",
+    "type": "IDO"
+  },
+  "26": {
+    "key": "tron-pad",
+    "name": "TronPad",
+    "type": "IDO"
+  },
+  "27": {
+    "key": "scaleswap",
+    "name": "Scaleswap",
+    "type": "IDO"
+  },
+  "28": {
+    "key": "pancake-swap",
+    "name": "CAKE.PAD",
+    "type": "IDO"
+  },
+  "29": {
+    "key": "bscs",
+    "name": "BSCS",
+    "type": "IDO"
+  },
+  "45": {
+    "key": "bsclaunch",
+    "name": "BSClaunch",
+    "type": "IDO"
+  },
+  "46": {
+    "key": "seedify",
+    "name": "Seedify",
+    "type": "IDO"
+  },
+  "47": {
+    "key": "eth-pad",
+    "name": "ETHPad",
+    "type": "IDO"
+  },
+  "48": {
+    "key": "miso",
+    "name": "MISO",
+    "type": "IDO"
+  },
+  "49": {
+    "key": "trust-pad",
+    "name": "TrustPad",
+    "type": "IDO"
+  },
+  "51": {
+    "key": "starter",
+    "name": "Starter",
+    "type": "IDO"
+  },
+  "52": {
+    "key": "impossible-finance",
+    "name": "Impossible Finance",
+    "type": "IDO"
+  },
+  "53": {
+    "key": "convergence-finance",
+    "name": "Convergence Finance",
+    "type": "IDO"
+  },
+  "54": {
+    "key": "game-fi",
+    "name": "GameFi",
+    "type": "IDO"
+  },
+  "55": {
+    "key": "launch-zone",
+    "name": "LaunchZone",
+    "type": "IDO"
+  },
+  "56": {
+    "key": "solanium",
+    "name": "Solanium",
+    "type": "IDO"
+  },
+  "57": {
+    "key": "infinity-pad",
+    "name": "Infinity Pad",
+    "type": "IDO"
+  },
+  "58": {
+    "key": "occam-razer",
+    "name": "OccamRazer",
+    "type": "IDO"
+  },
+  "59": {
+    "key": "bull-perks",
+    "name": "BullPerks",
+    "type": "IDO"
+  },
+  "60": {
+    "key": "accele-raytor",
+    "name": "AcceleRaytor",
+    "type": "IDO"
+  },
+  "61": {
+    "key": "zelwin-finance",
+    "name": "Zelwin Finance",
+    "type": "IDO"
+  },
+  "62": {
+    "key": "lighthouse",
+    "name": "Lighthouse",
+    "type": "IDO"
+  },
+  "63": {
+    "key": "lightning",
+    "name": "Lightning",
+    "type": "IDO"
+  },
+  "65": {
+    "key": "vent-finance",
+    "name": "Vent Finance",
+    "type": "IDO"
+  },
+  "66": {
+    "key": "gamestarter",
+    "name": "Gamestarter",
+    "type": "IDO"
+  },
+  "67": {
+    "key": "chain-boost",
+    "name": "ChainBoost",
+    "type": "IDO"
+  },
+  "68": {
+    "key": "true-pnl",
+    "name": "TruePNL",
+    "type": "IDO"
+  },
+  "69": {
+    "key": "enjinstarter",
+    "name": "Enjinstarter",
+    "type": "IDO"
+  },
+  "70": {
+    "key": "avalaunch",
+    "name": "Avalaunch",
+    "type": "IDO"
+  },
+  "71": {
+    "key": "sol-razr",
+    "name": "RazrFi",
+    "type": "IDO"
+  },
+  "72": {
+    "key": "ava-xlauncher",
+    "name": "AvaXlauncher",
+    "type": "IDO"
+  },
+  "73": {
+    "key": "synapse-network",
+    "name": "Synapse Network",
+    "type": "IDO"
+  },
+  "74": {
+    "key": "moon-starter",
+    "name": "MoonStarter",
+    "type": "IDO"
+  },
+  "75": {
+    "key": "bin-starter",
+    "name": "BinStarter",
+    "type": "IDO"
+  },
+  "76": {
+    "key": "star-launch",
+    "name": "StarLaunch",
+    "type": "IDO"
+  },
+  "77": {
+    "key": "fire-starter",
+    "name": "FireStarter",
+    "type": "IDO"
+  },
+  "78": {
+    "key": "infinite-launch",
+    "name": "Infinite Launch",
+    "type": "IDO"
+  },
+  "79": {
+    "key": "future-starter",
+    "name": "FutureStarter",
+    "type": "IDO"
+  },
+  "80": {
+    "key": "krystal-go",
+    "name": "Krystal GO",
+    "type": "IDO"
+  },
+  "81": {
+    "key": "kommunitas",
+    "name": "Kommunitas",
+    "type": "IDO"
+  },
+  "82": {
+    "key": "roseon-finance",
+    "name": "Roseon Finance",
+    "type": "IDO"
+  },
+  "83": {
+    "key": "game-zone",
+    "name": "GameZone",
+    "type": "IDO"
+  },
+  "85": {
+    "key": "game-station",
+    "name": "GameStation",
+    "type": "IDO"
+  },
+  "86": {
+    "key": "koistarter",
+    "name": "Koistarter",
+    "type": "IDO"
+  },
+  "87": {
+    "key": "dao-launch",
+    "name": "DAOLaunch",
+    "type": "IDO"
+  },
+  "88": {
+    "key": "lua-starter",
+    "name": "LuaStarter",
+    "type": "IDO"
+  },
+  "90": {
+    "key": "peakdefi",
+    "name": "PEAKDEFI",
+    "type": "IDO"
+  },
+  "91": {
+    "key": "gagarin",
+    "name": "GAGARIN",
+    "type": "IDO"
+  },
+  "92": {
+    "key": "xlaunchpad",
+    "name": "xLaunchpad",
+    "type": "IDO"
+  },
+  "93": {
+    "key": "binance-launchpad",
+    "name": "Binance",
+    "type": "IEO"
+  },
+  "94": {
+    "key": "bybit-launchpad",
+    "name": "Bybit",
+    "type": "IEO"
+  },
+  "95": {
+    "key": "ftx-ieos",
+    "name": "FTX IEOs",
+    "type": "IEO"
+  },
+  "97": {
+    "key": "okx-jumpstart",
+    "name": "OKX Jumpstart",
+    "type": "IEO"
+  },
+  "98": {
+    "key": "kucoin-spotlight",
+    "name": "KuCoin Spotlight",
+    "type": "IEO"
+  },
+  "99": {
+    "key": "huobi-primelist",
+    "name": "HTX Primelist",
+    "type": "IEO"
+  },
+  "100": {
+    "key": "bitforex-turbo-starter",
+    "name": "Bitforex Turbo Starter",
+    "type": "IEO"
+  },
+  "101": {
+    "key": "mxc-launchpad",
+    "name": "MEXC",
+    "type": "IEO"
+  },
+  "102": {
+    "key": "gateio-startup",
+    "name": "Gate Launchpad",
+    "type": "IEO"
+  },
+  "103": {
+    "key": "digifinex-launchpad",
+    "name": "DigiFinex",
+    "type": "IEO"
+  },
+  "104": {
+    "key": "bitfinex",
+    "name": "Bitfinex",
+    "type": "IEO"
+  },
+  "105": {
+    "key": "bitmart-launchpad",
+    "name": "BitMart",
+    "type": "IEO"
+  },
+  "106": {
+    "key": "lbank",
+    "name": "Lbank",
+    "type": "IEO"
+  },
+  "107": {
+    "key": "bitmax",
+    "name": "AscendEX",
+    "type": "IEO"
+  },
+  "108": {
+    "key": "probit-ieo",
+    "name": "Probit IEO",
+    "type": "IEO"
+  },
+  "109": {
+    "key": "exmo",
+    "name": "EXMO",
+    "type": "IEO"
+  },
+  "110": {
+    "key": "poloniex-launchbase",
+    "name": "Poloniex LaunchBase",
+    "type": "IEO"
+  },
+  "111": {
+    "key": "balancer",
+    "name": "Balancer LBPs",
+    "type": "IDO"
+  },
+  "112": {
+    "key": "bittrex",
+    "name": "Bittrex",
+    "type": "IEO"
+  },
+  "113": {
+    "key": "zb",
+    "name": "ZB.COM",
+    "type": "IEO"
+  },
+  "114": {
+    "key": "oceanex",
+    "name": "OceanEx",
+    "type": "IEO"
+  },
+  "115": {
+    "key": "liquid",
+    "name": "Liquid",
+    "type": "IEO"
+  },
+  "118": {
+    "key": "bgogo",
+    "name": "Bgogo",
+    "type": "IEO"
+  },
+  "119": {
+    "key": "coinlist",
+    "name": "Coinlist",
+    "type": "ICO"
+  },
+  "120": {
+    "key": "tokensoft",
+    "name": "Tokensoft",
+    "type": "ICO"
+  },
+  "121": {
+    "key": "spin-starter",
+    "name": "Spintop",
+    "type": "IDO"
+  },
+  "122": {
+    "key": "uplift",
+    "name": "Uplift",
+    "type": "IDO"
+  },
+  "123": {
+    "key": "babylons",
+    "name": "Babylons",
+    "type": "IDO"
+  },
+  "124": {
+    "key": "kingdom-starter",
+    "name": "KingdomStarter",
+    "type": "IDO"
+  },
+  "125": {
+    "key": "we-pad",
+    "name": "WeWay",
+    "type": "IDO"
+  },
+  "126": {
+    "key": "spores-network",
+    "name": "Spores Network",
+    "type": "IDO"
+  },
+  "127": {
+    "key": "by-trade-launchpad",
+    "name": "ByTrade",
+    "type": "IEO"
+  },
+  "128": {
+    "key": "swiss-borg-launchpad",
+    "name": "SwissBorg",
+    "type": "ICO"
+  },
+  "129": {
+    "key": "catapult",
+    "name": "Catapult",
+    "type": "IDO"
+  },
+  "130": {
+    "key": "camelot",
+    "name": "Camelot",
+    "type": "IDO"
+  },
+  "131": {
+    "key": "bitget",
+    "name": "Bitget",
+    "type": "IEO"
+  },
+  "132": {
+    "key": "tork-pad",
+    "name": "TorkPad",
+    "type": "IDO"
+  },
+  "133": {
+    "key": "aptos-launch",
+    "name": "AptosLaunch",
+    "type": "IDO"
+  },
+  "134": {
+    "key": "bhero",
+    "name": "BHero",
+    "type": "IDO"
+  },
+  "135": {
+    "key": "step-launchpad",
+    "name": "StepLaunch",
+    "type": "IDO"
+  },
+  "136": {
+    "key": "iskra",
+    "name": "Iskra",
+    "type": "IDO"
+  },
+  "137": {
+    "key": "singularity-dao",
+    "name": "SingularityDAO",
+    "type": "IDO"
+  },
+  "138": {
+    "key": "chain-gpt-pad",
+    "name": "ChainGPT Pad",
+    "type": "IDO"
+  },
+  "139": {
+    "key": "finlaunch",
+    "name": "FinLaunch",
+    "type": "IDO"
+  },
+  "140": {
+    "key": "decubate",
+    "name": "Decubate",
+    "type": "IDO"
+  },
+  "141": {
+    "key": "aitech-pad",
+    "name": "AITECH PAD",
+    "type": "IDO"
+  },
+  "142": {
+    "key": "ape-terminal",
+    "name": "Coin Terminal",
+    "type": "IDO"
+  },
+  "143": {
+    "key": "fjord-foundry",
+    "name": "Fjord Foundry",
+    "type": "IDO"
+  },
+  "144": {
+    "key": "moon-app",
+    "name": "Moon App",
+    "type": "IDO"
+  },
+  "145": {
+    "key": "dex-check-pad",
+    "name": "DexCheck Pad",
+    "type": "IDO"
+  },
+  "147": {
+    "key": "brc-app",
+    "name": "BRC App",
+    "type": "IDO"
+  },
+  "148": {
+    "key": "finceptor",
+    "name": "Finceptor",
+    "type": "IDO"
+  },
+  "149": {
+    "key": "raiser",
+    "name": "Raiser",
+    "type": "IDO"
+  },
+  "150": {
+    "key": "dappad",
+    "name": "Dappad+",
+    "type": "IDO"
+  },
+  "151": {
+    "key": "moby",
+    "name": "MOBY",
+    "type": "IDO"
+  },
+  "152": {
+    "key": "oxbull",
+    "name": "Oxbull",
+    "type": "IDO"
+  },
+  "153": {
+    "key": "crypto-hub",
+    "name": "CryptoHub",
+    "type": "IDO"
+  },
+  "154": {
+    "key": "brc-starter",
+    "name": "BrightStart",
+    "type": "IDO"
+  },
+  "155": {
+    "key": "jupiter-lfg",
+    "name": "Jupiter LFG",
+    "type": "IDO"
+  },
+  "156": {
+    "key": "trailblaze",
+    "name": "Trailblaze",
+    "type": "IDO"
+  },
+  "157": {
+    "key": "peoples-alliance",
+    "name": "People’s Alliance",
+    "type": "IDO"
+  },
+  "158": {
+    "key": "sidus-pad",
+    "name": "SidusPad",
+    "type": "IDO"
+  },
+  "159": {
+    "key": "de-fi-accelerator",
+    "name": "De.Fi Accelerator",
+    "type": "IDO"
+  },
+  "160": {
+    "key": "octavia-ventures",
+    "name": "Octavia Ventures",
+    "type": "IDO"
+  },
+  "161": {
+    "key": "open-pad",
+    "name": "OpenPad",
+    "type": "IDO"
+  },
+  "162": {
+    "key": "elixir-launcher",
+    "name": "Elixir Games",
+    "type": "IDO"
+  },
+  "163": {
+    "key": "blast-up",
+    "name": "BlastUP",
+    "type": "IDO"
+  },
+  "164": {
+    "key": "ordify",
+    "name": "Ordify",
+    "type": "IDO"
+  },
+  "165": {
+    "key": "eclipse-fi",
+    "name": "Eclipse Fi",
+    "type": "IDO"
+  },
+  "166": {
+    "key": "unicorn-hunter",
+    "name": "Unicorn Hunter",
+    "type": "IDO"
+  },
+  "167": {
+    "key": "magic-square",
+    "name": "Magic Square",
+    "type": "IDO"
+  },
+  "168": {
+    "key": "eesee",
+    "name": "Eesee",
+    "type": "IDO"
+  },
+  "169": {
+    "key": "ixir",
+    "name": "IXIR",
+    "type": "IDO"
+  },
+  "172": {
+    "key": "degen-pad",
+    "name": "DegenPad",
+    "type": "IDO"
+  },
+  "173": {
+    "key": "trustfi",
+    "name": "TrustFi",
+    "type": "IDO"
+  },
+  "174": {
+    "key": "tenset",
+    "name": "Tenset",
+    "type": "IDO"
+  },
+  "175": {
+    "key": "bing-x",
+    "name": "BingX",
+    "type": "IEO"
+  },
+  "176": {
+    "key": "huostarter",
+    "name": "Huostarter",
+    "type": "IDO"
+  },
+  "177": {
+    "key": "gems",
+    "name": "Gems",
+    "type": "IDO"
+  },
+  "178": {
+    "key": "ronin",
+    "name": "Ronin",
+    "type": "IDO"
+  },
+  "179": {
+    "key": "catalyst",
+    "name": "Catalyst",
+    "type": "IDO"
+  },
+  "180": {
+    "key": "alpha-mind",
+    "name": "AlphaMind",
+    "type": "IDO"
+  },
+  "181": {
+    "key": "legion",
+    "name": "LEGION",
+    "type": "ICO"
+  },
+  "182": {
+    "key": "buidlpad",
+    "name": "Buidlpad",
+    "type": "ICO"
+  },
+  "183": {
+    "key": "echo",
+    "name": "Echo",
+    "type": "ICO"
+  },
+  "184": {
+    "key": "agentlauncher",
+    "name": "CVPad",
+    "type": "IDO"
+  },
+  "187": {
+    "key": "binance-wallet",
+    "name": "Binance Wallet",
+    "type": "IEO"
+  },
+  "192": {
+    "key": "fount",
+    "name": "Fount",
+    "type": "IDO"
+  },
+  "193": {
+    "key": "okx-wallet",
+    "name": "OKX Wallet",
+    "type": "IEO"
+  },
+  "194": {
+    "key": "byreal",
+    "name": "Byreal",
+    "type": "IDO"
+  },
+  "195": {
+    "key": "capital-launchpad",
+    "name": "Capital Launchpad",
+    "type": "IDO"
+  },
+  "196": {
+    "key": "token-fi",
+    "name": "TokenFi",
+    "type": "IDO"
+  },
+  "197": {
+    "key": "nozomi",
+    "name": "Nozomi",
+    "type": "ICO"
+  },
+  "198": {
+    "key": "kraken-launch",
+    "name": "Kraken Launch",
+    "type": "IEO"
+  },
+  "199": {
+    "key": "meta-dao",
+    "name": "MetaDAO",
+    "type": "IDO"
+  },
+  "203": {
+    "key": "dtf",
+    "name": "DTF (Decentralized Token Formation)",
+    "type": "IDO"
+  },
+  "204": {
+    "key": "coinbase",
+    "name": "Coinbase",
+    "type": "IEO"
+  },
+  "205": {
+    "key": "cookie-launchpad",
+    "name": "Cookie Launchpad",
+    "type": "ICO"
+  },
+  "206": {
+    "key": "curated",
+    "name": "CURATED",
+    "type": "IDO"
+  },
+  "207": {
+    "key": "castrum-pad",
+    "name": "Castrum Pad",
+    "type": "IDO"
+  },
+  "208": {
+    "key": "quick-swap",
+    "name": "QuickSwap",
+    "type": "IDO"
+  },
+  "209": {
+    "key": "uniswap-cca",
+    "name": "Uniswap CCA",
+    "type": "IDO"
+  }
+}

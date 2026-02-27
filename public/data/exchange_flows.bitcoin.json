@@ -1,0 +1,8 @@
+{
+  "metadata": {
+    "chain_uid": "bitcoin",
+    "deprecated": true,
+    "note": "Removed non-Ethereum output"
+  },
+  "exchanges": []
+}

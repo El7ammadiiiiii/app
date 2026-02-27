@@ -22,7 +22,6 @@ fastapi>=0.104.0
 uvicorn>=0.24.0
 
 # Data Fetching
-ccxt>=4.1.0
 aiohttp>=3.9.0
 requests>=2.31.0
 pycoingecko>=3.1.0

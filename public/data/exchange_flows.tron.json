@@ -1,0 +1,8 @@
+{
+  "metadata": {
+    "chain_uid": "tron",
+    "deprecated": true,
+    "note": "Removed non-Ethereum output"
+  },
+  "exchanges": []
+}

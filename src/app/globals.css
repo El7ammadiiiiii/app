@@ -1,10 +1,491 @@
 @import "tailwindcss";
 @import "../styles/theme.css";
+@import "../styles/my-card.css";
+@import "katex/dist/katex.min.css";
+@import "highlight.js/styles/github-dark.css";
+
+/* === Wave 2.2: Word-Fade Animation (ChatGPT-style) === */
+@keyframes wordFadeIn {
+  from { opacity: 0; transform: translateY(2px); }
+  to   { opacity: 1; transform: translateY(0); }
+}
+
+.word-fade {
+  display: inline;
+  animation: wordFadeIn 0.3s ease-out both;
+}
+
+/* === Sidebar Logo: Pulse-Glow Animation === */
+@keyframes pulse-glow {
+  0%, 100% { filter: drop-shadow(0 0 4px rgba(45,212,191,0.4)); opacity: 1; }
+  50%      { filter: drop-shadow(0 0 12px rgba(45,212,191,0.8)); opacity: 0.85; }
+}
+
+.animate-pulse-glow {
+  animation: pulse-glow 2.5s ease-in-out infinite;
+}
+
+/* === Wave 2.3: TipTap Rich Input Styles === */
+.tiptap-input .tiptap {
+  min-height: 40px;
+  max-height: 200px;
+  overflow-y: auto;
+}
+.tiptap-input .tiptap p {
+  margin: 0;
+}
+.tiptap-input .tiptap p.is-editor-empty:first-child::before {
+  content: attr(data-placeholder);
+  float: right;
+  color: hsl(var(--muted-foreground) / 0.5);
+  pointer-events: none;
+  height: 0;
+}
+.tiptap-input .tiptap code {
+  background: hsl(var(--muted) / 0.3);
+  border-radius: 0.25rem;
+  padding: 0.15em 0.35em;
+  font-size: 0.875em;
+  font-family: var(--font-ibm-plex-mono), monospace;
+}
+.tiptap-input .tiptap strong {
+  font-weight: 700;
+}
+.tiptap-input .tiptap em {
+  font-style: italic;
+}
+
+/* === Safe Area Utilities === */
+.safe-top {
+  padding-top: env(safe-area-inset-top, 0px);
+}
+.safe-bottom {
+  padding-bottom: env(safe-area-inset-bottom, 0px);
+}
+.safe-left {
+  padding-left: env(safe-area-inset-left, 0px);
+}
+.safe-right {
+  padding-right: env(safe-area-inset-right, 0px);
+}
+
+/* === Touch Targets === */
+.touch-target {
+  min-width: 44px;
+  min-height: 44px;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+}
 
 body {
-  background: var(--bg-base);
+  background: -webkit-linear-gradient(54deg, #264a46, #1d2b28, #183e3a, #1a3232, #141f1f);
+  background: linear-gradient(54deg, #264a46, #1d2b28, #183e3a, #1a3232, #141f1f);
+  background-attachment: fixed;
   color: var(--text-primary);
   font-family: var(--font-inter), sans-serif;
   min-height: 100vh;
 }
 
+/* When the pair page (trend-scanner/[pair]) is open as standalone, lock the app scroll.
+   This relies on the stable wrapper attribute found in the protected page file. */
+body:has(.trend-scanner-standalone[data-export-mode]) {
+  height: 100vh;
+  overflow: hidden;
+  overscroll-behavior: none;
+  touch-action: none;
+}
+
+/* =========================================================
+   Settings UI (mobile-first) — ChatGPT-like consistency
+   ========================================================= */
+
+:root {
+  --settings-row-height: 56px;
+  --settings-row-pad-inline: 16px;
+  --settings-row-pad-block: 12px;
+  --settings-row-gap: 16px;
+  --settings-row-title-size: 15px;
+  --settings-row-title-weight: 600;
+  --settings-row-desc-size: 12px;
+  --settings-row-desc-weight: 400;
+  --settings-row-text-gap: 4px;
+  --settings-group-pad-block: 16px;
+  --settings-group-pad-inline: 20px;
+  --overlay-backdrop: rgba(10, 15, 30, 0.85);
+  --chart-up: #22c55e;
+  --chart-down: #ef4444;
+  --chart-up-40: rgba(34, 197, 94, 0.4);
+  --chart-down-40: rgba(239, 68, 68, 0.4);
+  --app-bg: #264a46;
+  --panel-bg: #1d2b28;
+  --app-foreground: #ffffff;
+}
+
+.settings-group {
+  padding: var(--settings-group-pad-block) var(--settings-group-pad-inline);
+}
+
+.settings-group__rows {
+  margin-inline: calc(var(--settings-group-pad-inline) * -1);
+}
+
+.settings-row {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: var(--settings-row-gap);
+  min-height: var(--settings-row-height);
+  padding: var(--settings-row-pad-block) var(--settings-row-pad-inline);
+  border-bottom: 1px solid var(--border-subtle);
+}
+
+.settings-row:last-child {
+  border-bottom: 0;
+}
+
+/* RTL: reverse the flex visual order while keeping markup consistent */
+[dir="rtl"] .settings-row {
+  flex-direction: row-reverse;
+}
+
+.settings-row__icon {
+  width: 16px;
+  height: 16px;
+  opacity: 0.7;
+  color: var(--text-muted);
+  flex: 0 0 auto;
+}
+
+/* Use only for directional icons (chevrons/arrows) */
+[dir="rtl"] .settings-row__icon--mirror {
+  transform: scaleX(-1);
+}
+
+.settings-row__text {
+  display: flex;
+  flex-direction: column;
+  gap: var(--settings-row-text-gap);
+  min-width: 0;
+}
+
+.settings-row__title {
+  font-size: var(--settings-row-title-size);
+  font-weight: var(--settings-row-title-weight);
+  line-height: 1.2;
+  color: var(--text-primary);
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.settings-row__desc {
+  font-size: var(--settings-row-desc-size);
+  font-weight: var(--settings-row-desc-weight);
+  line-height: 1.3;
+  color: var(--text-secondary);
+  display: -webkit-box;
+  -webkit-box-orient: vertical;
+  overflow: hidden;
+  -webkit-line-clamp: 2;
+  line-clamp: 2;
+}
+
+.settings-row__control {
+  margin-inline-start: auto;
+  flex: 0 0 auto;
+}
+
+.settings-row--clickable {
+  cursor: pointer;
+  border-radius: 10px;
+}
+
+.settings-row--clickable:hover {
+  background: rgba(255, 255, 255, 0.04);
+}
+
+.settings-row--disabled {
+  opacity: 0.5;
+  cursor: not-allowed;
+}
+
+:host {
+  -webkit-text-size-adjust: 100%;
+  -moz-text-size-adjust: 100%;
+}
+
+/* Hide scrollbar for Chrome, Safari and Opera */
+.no-scrollbar::-webkit-scrollbar {
+  display: none;
+}
+
+/* Hide scrollbar for IE, Edge and Firefox */
+.no-scrollbar {
+  -ms-overflow-style: none;
+  /* IE and Edge */
+}
+
+/* Firefox-only scrollbar hiding */
+@supports (scrollbar-width: none) {
+  .no-scrollbar {
+    scrollbar-width: none;
+    /* Firefox */
+  }
+}
+
+/* Glass Panel Utility */
+.glass-panel {
+  background: rgba(255, 255, 255, 0.03);
+  -webkit-backdrop-filter: blur(12px);
+  backdrop-filter: blur(12px);
+  border: 1px solid rgba(255, 255, 255, 0.08);
+  border-radius: 24px;
+}
+
+/* Theme Header Utility */
+.theme-header {
+  background: rgba(255, 255, 255, 0.14);
+  -webkit-backdrop-filter: blur(8px);
+  backdrop-filter: blur(8px);
+}
+
+[data-nextjs-dialog-backdrop] {
+  -webkit-backdrop-filter: blur(10px);
+  backdrop-filter: blur(10px);
+}
+
+[data-nextjs-container-errors-pseudo-html-collapse='true'] .nextjs_container_errors__component-stack code {
+  -webkit-mask-image: linear-gradient(to bottom, rgba(0, 0, 0, 0) 0%, black 10%);
+  mask-image: linear-gradient(to bottom, rgba(0, 0, 0, 0) 0%, black 10%);
+}
+
+.dev-tools-indicator-item {
+  -webkit-user-select: none;
+  -moz-user-select: none;
+  -ms-user-select: none;
+  user-select: none;
+}
+
+[data-nextjs-call-stack-frame] {
+  -webkit-user-select: text;
+  -moz-user-select: text;
+  -ms-user-select: text;
+  user-select: text;
+  display: block;
+  box-sizing: border-box;
+  padding: 6px 8px;
+  border-radius: var(--rounded-lg);
+}
+
+/* Theme Sidebar Utility */
+.theme-sidebar {
+  background: #264a46;
+}
+
+/* Theme Surface Utility */
+.theme-surface {
+  background: rgba(255, 255, 255, 0.12);
+}
+
+/* Trend scanner pair page surface alignment (standalone page only, not embedded overlay) */
+.trend-scanner-standalone[data-export-mode] {
+  /* Fullscreen modal-like frame (no underlying page scroll; close via X). */
+  position: fixed !important;
+  inset: 0 !important;
+  z-index: 9999;
+  display: block !important;
+  width: 100vw;
+  height: 100vh;
+  overflow-y: auto !important;
+  overflow-x: hidden !important;
+
+  /* Outer background matches the main theme background (solid/opaque, no glass). */
+  background-color: #0b1414 !important;
+  background-image: linear-gradient(54deg, #264a46, #1d2b28, #183e3a, #1a3232, #141f1f) !important;
+  background-attachment: fixed;
+  border: 0;
+  border-radius: 0;
+  box-shadow: none;
+  -webkit-backdrop-filter: none;
+  backdrop-filter: none;
+
+  /* Inner surfaces should be lighter glass than the outer frame. */
+  --glass-lite-bg: rgba(255, 255, 255, 0.08);
+  --glass-lite-bg-strong: rgba(255, 255, 255, 0.12);
+  --glass-lite-border: rgba(255, 255, 255, 0.10);
+  --glass-lite-border-strong: rgba(255, 255, 255, 0.14);
+  --bg-gradient-card: transparent;
+
+  overscroll-behavior: contain;
+  -webkit-overflow-scrolling: touch;
+  touch-action: pan-y;
+  overflow-y: auto !important;
+  overflow-x: hidden !important;
+}
+
+/* Scrollbar styling for the export mode overlay to match user request for "sidebar" */
+.trend-scanner-standalone[data-export-mode]::-webkit-scrollbar {
+  width: 12px;
+  display: block;
+  /* Force display */
+}
+
+.trend-scanner-standalone[data-export-mode]::-webkit-scrollbar-track {
+  background: rgba(0, 0, 0, 0.3);
+  border-left: 1px solid rgba(255, 255, 255, 0.05);
+}
+
+.trend-scanner-standalone[data-export-mode]::-webkit-scrollbar-thumb {
+  background: rgba(255, 255, 255, 0.2);
+  border-radius: 6px;
+  border: 3px solid transparent;
+  background-clip: content-box;
+}
+
+.trend-scanner-standalone[data-export-mode]::-webkit-scrollbar-thumb:hover {
+  background: rgba(255, 255, 255, 0.4);
+  border: 3px solid transparent;
+  background-clip: content-box;
+}
+
+.trend-scanner-standalone[data-export-mode] .glass-lite,
+.trend-scanner-standalone[data-export-mode] .glass-lite--strong {
+  background: var(--glass-lite-bg) !important;
+  border-color: var(--glass-lite-border) !important;
+  box-shadow: var(--glass-lite-shadow-tight);
+}
+
+.trend-scanner-standalone[data-export-mode] .glass-lite--strong {
+  background: var(--glass-lite-bg-strong) !important;
+  border-color: var(--glass-lite-border-strong) !important;
+}
+
+.trend-scanner-standalone[data-export-mode] .theme-surface {
+  background: var(--glass-lite-bg) !important;
+  border: 1px solid var(--glass-lite-border) !important;
+}
+
+.trend-scanner-standalone[data-export-mode] .border-white\/10,
+.trend-scanner-standalone[data-export-mode] .border-white\/\[0\.08\],
+.trend-scanner-standalone[data-export-mode] .border-white\/\[0\.06\] {
+  border-color: var(--border-default) !important;
+}
+
+/* Ensure chart interactions don't scroll the overlay on touch devices */
+.trend-scanner-standalone[data-export-mode] .chart-interaction-surface {
+  touch-action: none;
+  overscroll-behavior: none;
+}
+
+/* Pair Template Chart: Match app background gradient */
+.pair-template-chart {
+  background: #223a37 !important;
+  padding: 0 !important;
+  border: none !important;
+  box-shadow: none !important;
+  backdrop-filter: none !important;
+}
+
+/* Indicator Chart Container: Match app background gradient */
+.indicator-chart-container {
+  background: #223a37;
+  box-shadow: 0 4px 16px rgba(0, 0, 0, 0.3);
+}
+
+/* Mobile: reduce padding/margins and keep charts within viewport */
+@media (max-width: 640px) {
+  .trend-scanner-standalone[data-export-mode] {
+    padding: 12px !important;
+  }
+
+  .trend-scanner-standalone[data-export-mode] .p-6 {
+    padding: 14px !important;
+  }
+
+  .trend-scanner-standalone[data-export-mode] .p-4 {
+    padding: 12px !important;
+  }
+
+  .trend-scanner-standalone[data-export-mode] .mb-8 {
+    margin-bottom: 14px !important;
+  }
+
+  .trend-scanner-standalone[data-export-mode] .space-y-4> :not([hidden])~ :not([hidden]) {
+    margin-top: 12px !important;
+  }
+
+  /* Clamp common chart heights used by the pair page */
+  .trend-scanner-standalone[data-export-mode] .chart-container-size-337px {
+    height: clamp(200px, 28vh, 337px) !important;
+  }
+
+  .trend-scanner-standalone[data-export-mode] .chart-container-size-450px {
+    height: clamp(200px, 28vh, 337px) !important;
+  }
+
+  .trend-scanner-standalone[data-export-mode] .chart-container-size-500px {
+    height: clamp(200px, 28vh, 337px) !important;
+  }
+}
+
+/* Sub-charts stack container - unbound height for page scrolling */
+.subcharts-stack {
+  width: 100%;
+  padding-right: 0;
+}
+
+/* Responsive Grid for Scanners */
+.scanner-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+  gap: 1rem;
+}
+
+/* Export Modes */
+.export-mode-pdf {
+  background: #ffffff !important;
+  color: #264a46 !important;
+}
+
+.export-mode-pdf .theme-header:not(.export-keep-colors),
+.export-mode-pdf .theme-card:not(.export-keep-colors),
+.export-mode-pdf .theme-surface:not(.export-keep-colors),
+.export-mode-pdf .glass-panel:not(.export-keep-colors) {
+  background: #ffffff !important;
+  color: #264a46 !important;
+  border-color: rgba(18, 28, 23, 0.15) !important;
+}
+
+.export-mode-pdf .text-white:not(.export-keep-colors),
+.export-mode-pdf .text-gray-200:not(.export-keep-colors),
+.export-mode-pdf .text-gray-300:not(.export-keep-colors),
+.export-mode-pdf .text-gray-400:not(.export-keep-colors),
+.export-mode-pdf .text-muted-foreground:not(.export-keep-colors) {
+  color: #264a46 !important;
+}
+
+.export-mode-pdf .export-keep-colors .text-white,
+.export-mode-pdf .export-keep-colors .text-gray-200,
+.export-mode-pdf .export-keep-colors .text-gray-300,
+.export-mode-pdf .export-keep-colors .text-gray-400,
+.export-mode-pdf .export-keep-colors .text-muted-foreground {
+  color: #ffffff !important;
+}
+
+.export-mode-pdf .border-white\/10:not(.export-keep-colors),
+.export-mode-pdf .border-white\/5:not(.export-keep-colors),
+.export-mode-pdf .border-white\/\[0\.08\]:not(.export-keep-colors),
+.export-mode-pdf .border-white\/\[0\.06\]:not(.export-keep-colors) {
+  border-color: rgba(15, 23, 42, 0.15) !important;
+}
+
+.export-mode-pdf .export-keep-colors {
+  color: #ffffff !important;
+}
+
+@media (max-width: 640px) {
+  .scanner-grid {
+    grid-template-columns: 1fr;
+  }
+}

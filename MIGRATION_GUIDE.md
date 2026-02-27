@@ -8,7 +8,8 @@ This guide shows you how to update your existing components to be fully responsi
 
 #### Example 1: Basic Page Layout
 
-**❌ Before (Fixed Width)**
+##### Before (Fixed Width)
+
 ```tsx
 export function MyPage() {
   return (
@@ -20,7 +21,8 @@ export function MyPage() {
 }
 ```
 
-**✅ After (Responsive)**
+##### After (Responsive)
+
 ```tsx
 import { ResponsiveContainer } from '@/components/layout';
 
@@ -38,7 +40,8 @@ export function MyPage() {
 
 #### Example 2: Grid of Cards
 
-**❌ Before (Fixed Columns)**
+##### Before (Fixed Columns)
+
 ```tsx
 export function CardGrid({ items }) {
   return (
@@ -53,9 +56,9 @@ export function CardGrid({ items }) {
 }
 ```
 
-**✅ After (Responsive)**
-```tsx
-import { ResponsiveGrid } from '@/components/layout';
+##### After (Responsive Grid)
+
+```tsx from '@/components/layout';
 
 export function CardGrid({ items }) {
   return (
@@ -70,7 +73,8 @@ export function CardGrid({ items }) {
 
 #### Example 3: Header with Logo and Nav
 
-**❌ Before (No Mobile Support)**
+##### Before (No Mobile Support)
+
 ```tsx
 export function Header() {
   return (
@@ -86,7 +90,8 @@ export function Header() {
 }
 ```
 
-**✅ After (Responsive with Mobile Menu)**
+##### After (Responsive with Mobile Menu)
+
 ```tsx
 import { ResponsiveNav, ResponsiveNavItem } from '@/components/layout';
 
@@ -105,7 +110,8 @@ export function Header() {
 
 #### Example 4: Hero Section
 
-**❌ Before (Side by Side)**
+##### Before (Side by Side)
+
 ```tsx
 export function Hero() {
   return (
@@ -123,7 +129,8 @@ export function Hero() {
 }
 ```
 
-**✅ After (Responsive Stack)**
+##### After (Responsive Stack)
+
 ```tsx
 import { ResponsiveContainer, ResponsiveStack } from '@/components/layout';
 
@@ -151,7 +158,8 @@ export function Hero() {
 
 #### Example 5: Dashboard Stats
 
-**❌ Before (Fixed 4 Columns)**
+##### Before (Fixed 4 Columns)
+
 ```tsx
 export function DashboardStats() {
   return (
@@ -165,7 +173,8 @@ export function DashboardStats() {
 }
 ```
 
-**✅ After (Responsive Columns)**
+##### After (Responsive Columns)
+
 ```tsx
 import { ResponsiveGrid } from '@/components/layout';
 
@@ -185,7 +194,8 @@ export function DashboardStats() {
 
 #### Example 6: Form Layout
 
-**❌ Before (No Touch Optimization)**
+##### Before (No Touch Optimization)
+
 ```tsx
 export function LoginForm() {
   return (
@@ -198,7 +208,8 @@ export function LoginForm() {
 }
 ```
 
-**✅ After (Touch-Optimized)**
+##### After (Touch-Optimized)
+
 ```tsx
 import { ResponsiveContainer, ResponsiveStack } from '@/components/layout';
 
@@ -234,7 +245,8 @@ export function LoginForm() {
 
 #### Example 7: Sidebar Layout
 
-**❌ Before (Always Side by Side)**
+##### Before (Always Side by Side)
+
 ```tsx
 export function PageWithSidebar() {
   return (
@@ -250,7 +262,8 @@ export function PageWithSidebar() {
 }
 ```
 
-**✅ After (Responsive)**
+##### After (Responsive Layout)
+
 ```tsx
 import { ResponsiveContainer, ResponsiveStack } from '@/components/layout';
 
@@ -274,7 +287,8 @@ export function PageWithSidebar() {
 
 #### Example 8: Product Card
 
-**❌ Before (Fixed Size)**
+##### Before (Fixed Size)
+
 ```tsx
 export function ProductCard({ product }) {
   return (
@@ -288,7 +302,8 @@ export function ProductCard({ product }) {
 }
 ```
 
-**✅ After (Responsive)**
+##### After (Responsive Card)
+
 ```tsx
 export function ProductCard({ product }) {
   return (

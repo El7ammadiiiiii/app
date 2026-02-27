@@ -15,8 +15,12 @@ import {
   Activity,
   Briefcase,
   Zap,
+  Globe,
+  AlertCircle,
 } from "lucide-react";
 import { cn } from "@/lib/utils";
+import { useExchangeStore } from "@/stores/exchangeStore";
+import { EXCHANGE_CONFIGS } from "@/constants/exchanges";
 
 type View = "dashboard" | "chat" | "markets" | "portfolio" | "strategies" | "settings";
 
@@ -107,6 +111,8 @@ interface LeftSidebarProps {
 export function LeftSidebar({ isOpen, onClose, activeView, onNavigate, onOpenSettings }: LeftSidebarProps) {
   const [expanded, setExpanded] = useState<string | null>("projects");
   const [search, setSearch] = useState("");
+  
+  const { activeExchange, setActiveExchange, exchangePriority } = useExchangeStore();
 
   const handleNavigation = (view: View) => {
     onNavigate(view);
@@ -139,11 +145,42 @@ export function LeftSidebar({ isOpen, onClose, activeView, onNavigate, onOpenSet
           <input
             type="text"
             placeholder="بحث سريع..."
+            aria-label="بحث سريع في القائمة"
             value={search}
             onChange={(e) => setSearch(e.target.value)}
             className="w-full h-9 pr-9 pl-3 rounded-lg bg-muted/50 border border-border text-sm 
                      placeholder:text-muted-foreground focus:outline-none focus:ring-2 focus:ring-primary/20"
           />
+        </div>
+      </div>
+
+      {/* Active Exchange Selector */}
+      <div className="px-3 pb-3">
+        <div className="p-3 rounded-xl bg-muted/30 border border-border">
+          <div className="flex items-center justify-between mb-2">
+            <span className="text-[10px] font-bold text-muted-foreground uppercase tracking-tighter">المنصة النشطة</span>
+            <div className="flex items-center gap-1">
+              <div className="w-1.5 h-1.5 rounded-full bg-green-500 animate-pulse" />
+              <span className="text-[10px] text-green-500 font-medium">متصل</span>
+            </div>
+          </div>
+          
+          <select 
+            value={activeExchange}
+            onChange={(e) => setActiveExchange(e.target.value as any)}
+            className="w-full bg-background border border-border rounded-lg px-2 py-1.5 text-xs font-bold text-foreground focus:outline-none focus:ring-2 focus:ring-primary/20"
+          >
+            {exchangePriority.map((id) => (
+              <option key={id} value={id}>
+                {EXCHANGE_CONFIGS[id]?.name || id}
+              </option>
+            ))}
+          </select>
+          
+          <div className="mt-2 flex items-center gap-2 text-[10px] text-muted-foreground">
+            <Globe className="w-3 h-3" />
+            <span>تزامن تلقائي مفعل</span>
+          </div>
         </div>
       </div>
 

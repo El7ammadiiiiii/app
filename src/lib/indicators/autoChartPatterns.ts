@@ -6,7 +6,7 @@
  * Detects: Channels, Wedges, Triangles (Expanding & Contracting)
  */
 
-import { CandleData } from "@/components/charts/TradingChart";
+import type { CandleData } from "@/components/charts/types";
 
 // ============ TYPES ============
 

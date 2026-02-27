@@ -118,7 +118,7 @@ export function ThemeSelector() {
               animate={{ opacity: 1, y: 0, scale: 1 }}
               exit={{ opacity: 0, y: -10, scale: 0.95 }}
               className="absolute top-full mt-2 right-0 z-50 min-w-[140px]
-                         theme-card border border-border rounded-xl shadow-lg
+                         overlay-dropdown rounded-xl
                          overflow-hidden"
             >
               {themeOrder.map((t) => {

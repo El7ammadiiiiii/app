@@ -1,24 +1,15 @@
 "use client";
 
 import * as React from "react";
-import { motion } from "framer-motion";
 import {
   User,
-  CreditCard,
-  Lock,
-  Palette,
-  Globe,
-  Mic,
-  Bot,
-  Link2,
   Settings,
-  FolderOpen,
   Bell,
-  Puzzle,
-  Smartphone,
-  Info,
-  Search,
-  ChevronLeft,
+  Sparkles,
+  Grid2X2,
+  ShieldCheck,
+  Lock,
+  X,
 } from "lucide-react";
 import { cn } from "@/lib/utils";
 import type { SettingsSectionId } from "./types/settings";
@@ -26,206 +17,113 @@ import type { SettingsSectionId } from "./types/settings";
 interface SettingsSidebarProps {
   activeSection: SettingsSectionId;
   onSectionChange: (section: SettingsSectionId) => void;
-  searchQuery: string;
-  onSearchChange: (query: string) => void;
   onClose?: () => void;
-  isMobile?: boolean;
 }
 
 interface SectionItem {
   id: SettingsSectionId;
   label: string;
   icon: React.ReactNode;
-  group?: string;
 }
 
 const sections: SectionItem[] = [
-  { id: "account", label: "الحساب", icon: <User className="w-5 h-5" />, group: "الحساب" },
-  { id: "subscription", label: "الاشتراك", icon: <CreditCard className="w-5 h-5" />, group: "الحساب" },
-  { id: "privacy", label: "الخصوصية", icon: <Lock className="w-5 h-5" />, group: "الحساب" },
-  
-  { id: "appearance", label: "المظهر", icon: <Palette className="w-5 h-5" />, group: "التخصيص" },
-  { id: "colors", label: "تخصيص الألوان", icon: <Palette className="w-5 h-5" />, group: "التخصيص" },
-  { id: "language", label: "اللغة", icon: <Globe className="w-5 h-5" />, group: "التخصيص" },
-  { id: "voice", label: "الصوت", icon: <Mic className="w-5 h-5" />, group: "التخصيص" },
-  
-  { id: "assistants", label: "المساعدات", icon: <Bot className="w-5 h-5" />, group: "الذكاء" },
-  { id: "integrations", label: "التكاملات", icon: <Link2 className="w-5 h-5" />, group: "الذكاء" },
-  { id: "plugins", label: "الإضافات", icon: <Puzzle className="w-5 h-5" />, group: "الذكاء" },
-  
-  { id: "files", label: "الملفات", icon: <FolderOpen className="w-5 h-5" />, group: "البيانات" },
-  { id: "notifications", label: "الإشعارات", icon: <Bell className="w-5 h-5" />, group: "البيانات" },
-  
-  { id: "advanced", label: "متقدم", icon: <Settings className="w-5 h-5" />, group: "النظام" },
-  { id: "app-settings", label: "التطبيق", icon: <Smartphone className="w-5 h-5" />, group: "النظام" },
-  { id: "about", label: "حول", icon: <Info className="w-5 h-5" />, group: "النظام" },
+  { id: "general", label: "عام", icon: <Settings className="w-[18px] h-[18px]" /> },
+  { id: "notifications", label: "الإشعارات", icon: <Bell className="w-[18px] h-[18px]" /> },
+  { id: "personalization", label: "تخصيص", icon: <Sparkles className="w-[18px] h-[18px]" /> },
+  { id: "apps", label: "التطبيقات", icon: <Grid2X2 className="w-[18px] h-[18px]" /> },
+  { id: "data-controls", label: "عناصر التحكم في البيانات", icon: <ShieldCheck className="w-[18px] h-[18px]" /> },
+  { id: "security", label: "الأمان", icon: <Lock className="w-[18px] h-[18px]" /> },
+  { id: "account", label: "الحساب", icon: <User className="w-[18px] h-[18px]" /> },
 ];
+
+/* ── Label lookup (for mobile header) ── */
+const sectionLabelMap = Object.fromEntries(sections.map((s) => [s.id, s.label]));
 
 export function SettingsSidebar({
   activeSection,
   onSectionChange,
-  searchQuery,
-  onSearchChange,
   onClose,
-  isMobile = false,
 }: SettingsSidebarProps) {
-  // Group sections
-  const groups = sections.reduce((acc, section) => {
-    const group = section.group || "أخرى";
-    if (!acc[group]) acc[group] = [];
-    acc[group].push(section);
-    return acc;
-  }, {} as Record<string, SectionItem[]>);
-
-  // Filter sections based on search
-  const filteredSections = searchQuery
-    ? sections.filter((s) =>
-        s.label.toLowerCase().includes(searchQuery.toLowerCase())
-      )
-    : null;
-
   return (
-    <div
-      className={cn(
-        "h-full flex flex-col border-l border-[var(--glass-border)] bg-[var(--glass-bg)] backdrop-blur-xl",
-        isMobile ? "w-full" : "w-[240px]"
-      )}
-      dir="rtl"
-    >
-      {/* Header */}
-      <div className="p-3 border-b border-[var(--glass-border)]">
-        <div className="flex items-center justify-between mb-3">
-          <h2 className="text-base font-bold text-foreground">الإعدادات</h2>
+    <>
+      {/* ═══════════════════════════════════════════════
+          DESKTOP / IPAD — Vertical sidebar (right side)
+          ═══════════════════════════════════════════════ */}
+      <div
+        className="hidden md:flex flex-col w-[210px] shrink-0 py-4 px-3 gap-1"
+        dir="rtl"
+      >
+        {/* Close button */}
+        {onClose && (
+          <div className="flex items-center justify-between px-2 pb-3">
+            <h2 className="text-sm font-semibold text-white/90">الإعدادات</h2>
+            <button
+              onClick={onClose}
+              className="p-1 rounded-lg hover:bg-white/10 text-white/50 hover:text-white/90 transition-colors"
+            >
+              <X className="w-4 h-4" />
+            </button>
+          </div>
+        )}
+
+        {/* Tab buttons */}
+        {sections.map((section) => (
+          <button
+            key={section.id}
+            onClick={() => onSectionChange(section.id)}
+            className={cn(
+              "flex items-center gap-3 w-full px-3 py-2.5 rounded-xl text-sm transition-all text-right",
+              activeSection === section.id
+                ? "bg-white/15 text-white/95 font-medium shadow-sm border border-white/15"
+                : "text-white/60 hover:bg-white/10 hover:text-white/80 border border-transparent"
+            )}
+          >
+            <span className="shrink-0 opacity-80">{section.icon}</span>
+            <span className="truncate">{section.label}</span>
+          </button>
+        ))}
+      </div>
+
+      {/* ═══════════════════════════════════════════════
+          MOBILE — Horizontal top bar (like ChatGPT phone)
+          ═══════════════════════════════════════════════ */}
+      <div className="md:hidden flex flex-col w-full shrink-0 z-10" dir="rtl">
+        {/* Header: active section title + close */}
+        <div className="flex items-center justify-between px-4 py-3">
+          <h2 className="text-base font-semibold text-white/90">
+            {sectionLabelMap[activeSection] ?? "الإعدادات"}
+          </h2>
           {onClose && (
             <button
               onClick={onClose}
-              className="p-1.5 rounded-lg hover:bg-muted text-muted-foreground"
+              className="p-1.5 rounded-full hover:bg-white/10 text-white/60 hover:text-white/90 transition-colors"
             >
-              <ChevronLeft className="w-4 h-4" />
+              <X className="w-4 h-4" />
             </button>
           )}
         </div>
-        
-        {/* Search */}
-        <div className="relative">
-          <Search className="absolute right-2.5 top-1/2 -translate-y-1/2 w-3.5 h-3.5 text-muted-foreground" />
-          <input
-            type="text"
-            value={searchQuery}
-            onChange={(e) => onSearchChange(e.target.value)}
-            placeholder="بحث في الإعدادات..."
-            className={cn(
-              "w-full pr-8 pl-2.5 py-1.5 bg-[var(--glass-bg)] border border-[var(--glass-border)] rounded-lg",
-              "text-xs text-foreground placeholder:text-muted-foreground",
-              "focus:outline-none focus:ring-2 focus:ring-primary/50"
-            )}
-          />
+
+        {/* Horizontal scrollable tab strip */}
+        <div className="px-3 pb-2.5 overflow-x-auto scrollbar-hide">
+          <div className="flex items-center gap-1.5 min-w-max">
+            {sections.map((section) => (
+              <button
+                key={section.id}
+                onClick={() => onSectionChange(section.id)}
+                className={cn(
+                  "flex items-center gap-1.5 px-3 py-1.5 rounded-full text-xs font-medium transition-all whitespace-nowrap",
+                  activeSection === section.id
+                    ? "bg-white/15 text-white/95 shadow-sm border border-white/15"
+                    : "bg-white/5 text-white/60 hover:bg-white/10 hover:text-white/80 border border-transparent"
+                )}
+              >
+                <span className="[&>svg]:w-3.5 [&>svg]:h-3.5">{section.icon}</span>
+                <span>{section.label}</span>
+              </button>
+            ))}
+          </div>
         </div>
       </div>
-
-      {/* Sections List */}
-      <div className="flex-1 overflow-y-auto p-2 space-y-3">
-        {filteredSections ? (
-          // Search Results
-          <div className="space-y-0.5">
-            {filteredSections.map((section, index) => (
-              <SectionButton
-                key={section.id}
-                section={section}
-                isActive={activeSection === section.id}
-                index={index}
-                onClick={() => {
-                  onSectionChange(section.id);
-                  if (isMobile) onClose?.();
-                }}
-              />
-            ))}
-            {filteredSections.length === 0 && (
-              <p className="text-xs text-muted-foreground text-center py-4">
-                لا توجد نتائج
-              </p>
-            )}
-          </div>
-        ) : (
-          // Grouped Sections with Stagger
-          Object.entries(groups).map(([groupName, groupSections], groupIndex) => (
-            <motion.div 
-              key={groupName}
-              initial={{ opacity: 0, y: 10 }}
-              animate={{ opacity: 1, y: 0 }}
-              transition={{ delay: groupIndex * 0.08 }}
-            >
-              <h3 className="text-[10px] font-semibold text-muted-foreground uppercase tracking-wider px-2.5 mb-1.5">
-                {groupName}
-              </h3>
-              <div className="space-y-0.5">
-                {groupSections.map((section, index) => (
-                  <SectionButton
-                    key={section.id}
-                    section={section}
-                    isActive={activeSection === section.id}
-                    index={groupIndex * 3 + index}
-                    onClick={() => {
-                      onSectionChange(section.id);
-                      if (isMobile) onClose?.();
-                    }}
-                  />
-                ))}
-              </div>
-            </motion.div>
-          ))
-        )}
-      </div>
-    </div>
-  );
-}
-
-// Section Button Component with Staggered Animation
-function SectionButton({
-  section,
-  isActive,
-  onClick,
-  index = 0,
-}: {
-  section: SectionItem;
-  isActive: boolean;
-  onClick: () => void;
-  index?: number;
-}) {
-  return (
-    <motion.button
-      onClick={onClick}
-      initial={{ opacity: 0, x: 20, filter: "blur(4px)" }}
-      animate={{ opacity: 1, x: 0, filter: "blur(0px)" }}
-      transition={{ 
-        delay: index * 0.03,
-        type: "spring",
-        stiffness: 400,
-        damping: 25
-      }}
-      className={cn(
-        "w-full flex items-center gap-2.5 px-2.5 py-2 rounded-lg text-xs sm:text-sm transition-colors",
-        "relative overflow-hidden",
-        isActive
-          ? "bg-primary/10 text-primary"
-          : "text-muted-foreground hover:text-foreground hover:bg-[var(--glass-bg)]"
-      )}
-      whileHover={{ x: -3, scale: 1.01 }}
-      whileTap={{ scale: 0.98 }}
-    >
-      {isActive && (
-        <motion.div
-          layoutId="activeSectionIndicator"
-          className="absolute right-0 top-0 bottom-0 w-0.5 bg-primary"
-          initial={false}
-          transition={{ type: "spring", stiffness: 500, damping: 30 }}
-        />
-      )}
-      <span className={cn(
-        "[&>svg]:w-4 [&>svg]:h-4",
-        isActive ? "text-primary" : ""
-      )}>{section.icon}</span>
-      <span className="font-medium">{section.label}</span>
-    </motion.button>
+    </>
   );
 }

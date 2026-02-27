@@ -2,23 +2,25 @@
 
 import * as React from "react";
 import { motion } from "framer-motion";
-import { 
-  Crown,
-  Check,
-  X,
-  CreditCard,
-  Download,
-  TrendingUp,
-  Zap,
-  MessageSquare,
-  Upload,
-  Clock,
-} from "lucide-react";
-import { 
-  SettingCard, 
-  SettingGroup,
-  SettingsTabs,
-} from "../components";
+import
+  {
+    Crown,
+    Check,
+    X,
+    CreditCard,
+    Download,
+    TrendingUp,
+    Zap,
+    MessageSquare,
+    Upload,
+    Clock,
+  } from "lucide-react";
+import
+  {
+    SettingCard,
+    SettingGroup,
+    SettingsTabs,
+  } from "../components";
 import { cn } from "@/lib/utils";
 
 // Mock subscription data
@@ -37,7 +39,7 @@ const mockSubscription: {
   plan: "pro",
   price: 19.99,
   billingCycle: "monthly",
-  nextBillingDate: new Date("2025-01-06"),
+  nextBillingDate: new Date( "2025-01-06" ),
   usage: {
     messages: 450,
     messagesLimit: 1000,
@@ -55,9 +57,9 @@ const mockPaymentMethod = {
 };
 
 const mockInvoices = [
-  { id: "1", date: new Date("2024-12-06"), amount: 19.99, status: "paid" as const },
-  { id: "2", date: new Date("2024-11-06"), amount: 19.99, status: "paid" as const },
-  { id: "3", date: new Date("2024-10-06"), amount: 19.99, status: "paid" as const },
+  { id: "1", date: new Date( "2024-12-06" ), amount: 19.99, status: "paid" as const },
+  { id: "2", date: new Date( "2024-11-06" ), amount: 19.99, status: "paid" as const },
+  { id: "3", date: new Date( "2024-10-06" ), amount: 19.99, status: "paid" as const },
 ];
 
 const plans = [
@@ -106,8 +108,9 @@ const plans = [
   },
 ];
 
-export function SubscriptionSection() {
-  const [activeTab, setActiveTab] = React.useState("plan");
+export function SubscriptionSection ()
+{
+  const [ activeTab, setActiveTab ] = React.useState( "plan" );
 
   const tabs = [
     { id: "plan", label: "الخطة الحالية" },
@@ -115,44 +118,44 @@ export function SubscriptionSection() {
     { id: "invoices", label: "الفواتير" },
   ];
 
-  const usagePercentage = (mockSubscription.usage.messages / mockSubscription.usage.messagesLimit) * 100;
-  const storagePercentage = (mockSubscription.usage.storage / mockSubscription.usage.storageLimit) * 100;
+  const usagePercentage = ( mockSubscription.usage.messages / mockSubscription.usage.messagesLimit ) * 100;
+  const storagePercentage = ( mockSubscription.usage.storage / mockSubscription.usage.storageLimit ) * 100;
 
   return (
     <div className="space-y-6">
-      {/* Current Plan Banner */}
+      {/* Current Plan Banner */ }
       <motion.div
-        initial={{ opacity: 0, y: 20 }}
-        animate={{ opacity: 1, y: 0 }}
+        initial={ { opacity: 0, y: 20 } }
+        animate={ { opacity: 1, y: 0 } }
         className="bg-[var(--glass-bg)] backdrop-blur-xl border border-primary rounded-2xl p-6 shadow-lg"
       >
         <div className="flex items-center justify-between">
           <div className="text-right">
             <div className="flex items-center gap-2 justify-end">
               <h2 className="text-2xl font-bold text-foreground">
-                خطة {plans.find(p => p.id === mockSubscription.plan)?.nameAr}
+                خطة { plans.find( p => p.id === mockSubscription.plan )?.nameAr }
               </h2>
               <Crown className="w-6 h-6 text-primary" />
             </div>
             <p className="text-primary text-xl font-bold mt-2">
-              ${mockSubscription.price}/شهر
+              ${ mockSubscription.price }/شهر
             </p>
             <p className="text-sm text-muted-foreground mt-1">
-              التجديد التالي: {mockSubscription.nextBillingDate.toLocaleDateString("ar")}
+              التجديد التالي: { mockSubscription.nextBillingDate.toLocaleDateString( "ar" ) }
             </p>
           </div>
-          
+
           <button className="px-6 py-2.5 bg-primary text-primary-foreground rounded-xl font-medium hover:brightness-90 transition-colors">
             ترقية الخطة
           </button>
         </div>
       </motion.div>
 
-      <SettingsTabs tabs={tabs} activeTab={activeTab} onTabChange={setActiveTab}>
-        {/* Plan Tab */}
-        {activeTab === "plan" && (
+      <SettingsTabs tabs={ tabs } activeTab={ activeTab } onTabChange={ setActiveTab }>
+        {/* Plan Tab */ }
+        { activeTab === "plan" && (
           <div className="space-y-6">
-            {/* Usage */}
+            {/* Usage */ }
             <SettingGroup title="الاستهلاك">
               <div className="bg-[var(--glass-bg)] backdrop-blur-xl border border-[var(--glass-border)] rounded-xl p-4 space-y-4">
                 <div>
@@ -162,19 +165,19 @@ export function SubscriptionSection() {
                       الرسائل
                     </span>
                     <span className="text-sm font-medium">
-                      {mockSubscription.usage.messages} / {mockSubscription.usage.messagesLimit}
+                      { mockSubscription.usage.messages } / { mockSubscription.usage.messagesLimit }
                     </span>
                   </div>
                   <div className="h-2 bg-muted rounded-full overflow-hidden">
                     <motion.div
-                      className={cn(
+                      className={ cn(
                         "h-full rounded-full",
-                        usagePercentage > 80 ? "bg-destructive" : 
-                        usagePercentage > 50 ? "bg-secondary" : "bg-primary"
-                      )}
-                      initial={{ width: 0 }}
-                      animate={{ width: `${usagePercentage}%` }}
-                      transition={{ duration: 0.5 }}
+                        usagePercentage > 80 ? "bg-destructive" :
+                          usagePercentage > 50 ? "bg-secondary" : "bg-primary"
+                      ) }
+                      initial={ { width: 0 } }
+                      animate={ { width: `${ usagePercentage }%` } }
+                      transition={ { duration: 0.5 } }
                     />
                   </div>
                 </div>
@@ -186,99 +189,99 @@ export function SubscriptionSection() {
                       التخزين
                     </span>
                     <span className="text-sm font-medium">
-                      {mockSubscription.usage.storage} GB / {mockSubscription.usage.storageLimit} GB
+                      { mockSubscription.usage.storage } GB / { mockSubscription.usage.storageLimit } GB
                     </span>
                   </div>
                   <div className="h-2 bg-muted rounded-full overflow-hidden">
                     <motion.div
-                      className={cn(
+                      className={ cn(
                         "h-full rounded-full",
-                        storagePercentage > 80 ? "bg-destructive" : 
-                        storagePercentage > 50 ? "bg-secondary" : "bg-primary"
-                      )}
-                      initial={{ width: 0 }}
-                      animate={{ width: `${storagePercentage}%` }}
-                      transition={{ duration: 0.5 }}
+                        storagePercentage > 80 ? "bg-destructive" :
+                          storagePercentage > 50 ? "bg-secondary" : "bg-primary"
+                      ) }
+                      initial={ { width: 0 } }
+                      animate={ { width: `${ storagePercentage }%` } }
+                      transition={ { duration: 0.5 } }
                     />
                   </div>
                 </div>
               </div>
             </SettingGroup>
 
-            {/* Plan Features */}
+            {/* Plan Features */ }
             <SettingGroup title="مميزات خطتك">
               <div className="grid gap-3">
-                {plans.find(p => p.id === mockSubscription.plan)?.features.map((feature, i) => (
-                  <div key={i} className="flex items-center gap-3 text-right">
-                    {feature.included ? (
+                { plans.find( p => p.id === mockSubscription.plan )?.features.map( ( feature, i ) => (
+                  <div key={ i } className="flex items-center gap-3 text-right">
+                    { feature.included ? (
                       <Check className="w-5 h-5 text-primary shrink-0" />
                     ) : (
                       <X className="w-5 h-5 text-muted-foreground shrink-0" />
-                    )}
-                    <span className={feature.included ? "text-foreground" : "text-muted-foreground"}>
-                      {feature.name}
+                    ) }
+                    <span className={ feature.included ? "text-foreground" : "text-muted-foreground" }>
+                      { feature.name }
                     </span>
                   </div>
-                ))}
+                ) ) }
               </div>
             </SettingGroup>
 
-            {/* Compare Plans */}
+            {/* Compare Plans */ }
             <SettingGroup title="مقارنة الخطط">
-              <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
-                {plans.map((plan) => (
+              <div className="grid grid-cols-3 gap-3">
+                { plans.map( ( plan ) => (
                   <motion.div
-                    key={plan.id}
-                    className={cn(
+                    key={ plan.id }
+                    className={ cn(
                       "bg-[var(--glass-bg)] backdrop-blur-xl border rounded-xl p-4 text-center relative",
                       plan.id === mockSubscription.plan
                         ? "border-primary ring-2 ring-primary"
                         : "border-[var(--glass-border)] hover:border-primary"
-                    )}
-                    whileHover={{ y: -2 }}
+                    ) }
+                    whileHover={ { y: -2 } }
                   >
-                    {plan.popular && (
-                      <span className="absolute -top-3 left-1/2 -translate-x-1/2 bg-primary text-primary-foreground text-xs px-2 py-0.5 rounded-full">
+                    { plan.popular && (
+                      <span className="absolute -top-3 left-1/2 -translate-x-1/2 bg-primary text-primary-foreground text-[10px] px-2 py-0.5 rounded-full whitespace-nowrap">
                         الأكثر شعبية
                       </span>
-                    )}
-                    {plan.id === mockSubscription.plan && (
-                      <span className="absolute -top-3 left-1/2 -translate-x-1/2 bg-secondary text-secondary-foreground text-xs px-2 py-0.5 rounded-full">
+                    ) }
+                    { plan.id === mockSubscription.plan && (
+                      <span className="absolute -top-3 left-1/2 -translate-x-1/2 bg-secondary text-secondary-foreground text-[10px] px-2 py-0.5 rounded-full whitespace-nowrap">
                         خطتك الحالية
                       </span>
-                    )}
-                    
-                    <h3 className="text-lg font-bold mt-2">{plan.nameAr}</h3>
-                    <p className="text-2xl font-bold text-primary mt-2">
-                      ${plan.price}
-                      <span className="text-sm text-muted-foreground font-normal">/شهر</span>
+                    ) }
+
+                    <h3 className="text-sm font-bold mt-2">{ plan.nameAr }</h3>
+                    <p className="text-base font-bold text-primary mt-2">
+                      ${ plan.price }
                     </p>
-                    
-                    {plan.id !== mockSubscription.plan && (
-                      <button className={cn(
-                        "w-full mt-4 py-2 rounded-lg font-medium text-sm transition-colors",
-                        plan.id === "enterprise" 
+                    <p className="text-[10px] text-muted-foreground">/شهر</p>
+
+                    { plan.id !== mockSubscription.plan && (
+                      <button className={ cn(
+                        "w-full mt-3 py-2 rounded-lg font-medium text-xs transition-colors",
+                        plan.id === "enterprise"
                           ? "bg-muted text-foreground hover:brightness-90"
                           : "bg-primary text-primary-foreground hover:brightness-90"
-                      )}>
-                        {plan.id === "enterprise" ? "تواصل معنا" : "ترقية"}
+                      ) }>
+                        { plan.id === "enterprise" ? "تواصل معنا" : "ترقية" }
                       </button>
-                    )}
+                    ) }
                   </motion.div>
-                ))}
+                ) ) }
               </div>
             </SettingGroup>
           </div>
-        )}
+        ) }
 
-        {/* Billing Tab */}
-        {activeTab === "billing" && (
+        {/* Billing Tab */ }
+        { activeTab === "billing" && (
           <div className="space-y-6">
             <SettingGroup title="وسيلة الدفع">
               <SettingCard
-                icon={<CreditCard className="w-5 h-5" />}
-                title={`${mockPaymentMethod.brand} •••• ${mockPaymentMethod.last4}`}
-                description={`تنتهي في ${mockPaymentMethod.expiryMonth}/${mockPaymentMethod.expiryYear}`}
+                icon={ <CreditCard className="w-5 h-5" /> }
+                title={ `${ mockPaymentMethod.brand } •••• ${ mockPaymentMethod.last4 }` }
+                description={ `تنتهي في ${ mockPaymentMethod.expiryMonth }/${ mockPaymentMethod.expiryYear }` }
               >
                 <div className="flex gap-2">
                   <button className="text-sm text-primary hover:underline">تعديل</button>
@@ -293,34 +296,36 @@ export function SubscriptionSection() {
 
             <SettingGroup title="دورة الفوترة">
               <div className="grid grid-cols-2 gap-3">
-                <button className={cn(
+                <button className={ cn(
                   "p-4 rounded-xl border text-center transition-colors",
                   mockSubscription.billingCycle === "monthly"
                     ? "border-primary bg-primary text-primary-foreground"
                     : "border-[var(--glass-border)] hover:border-primary"
-                )}>
-                  <span className="font-medium">شهري</span>
-                  <p className="text-sm text-muted-foreground mt-1">$19.99/شهر</p>
+                ) }>
+                  <span className="font-semibold text-sm">شهري</span>
+                  <p className="text-sm mt-2">$19.99</p>
+                  <p className="text-[10px] text-muted-foreground">/شهر</p>
                 </button>
-                <button className={cn(
+                <button className={ cn(
                   "p-4 rounded-xl border text-center transition-colors relative",
                   mockSubscription.billingCycle === "yearly"
                     ? "border-primary bg-primary text-primary-foreground"
                     : "border-[var(--glass-border)] hover:border-primary"
-                )}>
-                  <span className="absolute -top-2 left-1/2 -translate-x-1/2 bg-primary text-primary-foreground text-xs px-2 py-0.5 rounded-full">
+                ) }>
+                  <span className="absolute -top-2 left-1/2 -translate-x-1/2 bg-primary text-primary-foreground text-[10px] px-2 py-0.5 rounded-full whitespace-nowrap">
                     وفر 20%
                   </span>
-                  <span className="font-medium">سنوي</span>
-                  <p className="text-sm text-muted-foreground mt-1">$15.99/شهر</p>
+                  <span className="font-semibold text-sm">سنوي</span>
+                  <p className="text-sm mt-2">$15.99</p>
+                  <p className="text-[10px] text-muted-foreground">/شهر</p>
                 </button>
               </div>
             </SettingGroup>
           </div>
-        )}
+        ) }
 
-        {/* Invoices Tab */}
-        {activeTab === "invoices" && (
+        {/* Invoices Tab */ }
+        { activeTab === "invoices" && (
           <div className="space-y-6">
             <SettingGroup title="سجل الفواتير">
               <div className="bg-[var(--glass-bg)] backdrop-blur-xl border border-[var(--glass-border)] rounded-xl overflow-hidden">
@@ -334,18 +339,18 @@ export function SubscriptionSection() {
                     </tr>
                   </thead>
                   <tbody className="divide-y divide-border">
-                    {mockInvoices.map((invoice) => (
-                      <tr key={invoice.id} className="transition-colors hover:brightness-95">
-                        <td className="p-3 text-sm">{invoice.date.toLocaleDateString("ar")}</td>
-                        <td className="p-3 text-sm">${invoice.amount}</td>
+                    { mockInvoices.map( ( invoice ) => (
+                      <tr key={ invoice.id } className="transition-colors hover:brightness-95">
+                        <td className="p-3 text-sm">{ invoice.date.toLocaleDateString( "ar" ) }</td>
+                        <td className="p-3 text-sm">${ invoice.amount }</td>
                         <td className="p-3">
-                          <span className={cn(
+                          <span className={ cn(
                             "text-xs px-2 py-0.5 rounded-full",
-                            invoice.status === "paid" 
-                              ? "bg-primary text-primary-foreground" 
+                            invoice.status === "paid"
+                              ? "bg-primary text-primary-foreground"
                               : "bg-destructive text-destructive-foreground"
-                          )}>
-                            {invoice.status === "paid" ? "مدفوعة" : "معلقة"}
+                          ) }>
+                            { invoice.status === "paid" ? "مدفوعة" : "معلقة" }
                           </span>
                         </td>
                         <td className="p-3">
@@ -355,13 +360,13 @@ export function SubscriptionSection() {
                           </button>
                         </td>
                       </tr>
-                    ))}
+                    ) ) }
                   </tbody>
                 </table>
               </div>
             </SettingGroup>
           </div>
-        )}
+        ) }
       </SettingsTabs>
     </div>
   );

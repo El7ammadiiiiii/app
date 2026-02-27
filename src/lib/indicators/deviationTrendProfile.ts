@@ -9,7 +9,7 @@
  * - Trend change signals
  */
 
-import { CandleData } from "@/components/charts/TradingChart";
+import type { CandleData } from "@/components/charts/types";
 
 export interface DeviationLevel {
   price: number;

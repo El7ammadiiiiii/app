@@ -7,7 +7,7 @@
  * - Position sizing (fixed risk, Kelly criterion, volatility-based)
  * - Trade journal integration
  * 
- * @author CCCWAYS Elite Trading System
+ * @author CCWAYS Elite Trading System
  * @version 2.0.0
  */
 

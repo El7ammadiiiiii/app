@@ -10,7 +10,7 @@
  * - Crossover signals
  * - Extreme readings
  * 
- * @author CCCWAYS Elite Trading System
+ * @author CCWAYS Elite Trading System
  * @version 1.0.0
  */
 

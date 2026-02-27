@@ -1,69 +1,60 @@
-/**
- * 📈 OHLCV (Candlestick) API Route
- * GET /api/exchanges/ohlcv?exchange=binance&symbol=BTC/USDT&timeframe=1h&limit=100
- */
-
 import { NextRequest, NextResponse } from 'next/server';
-import { ccxtManager, type ExchangeId, Priority } from '@/lib/exchanges';
+
+/**
+ * 📈 OHLCV (Candlestick) API Route - Redirect to unified OHLCV API
+ * This route now acts as a proxy to the direct exchange API implementation
+ * to maintain backward compatibility after removing old providers.
+ */
 
 export const runtime = 'nodejs';
 export const dynamic = 'force-dynamic';
 
-export async function GET(request: NextRequest) {
-  try {
-    const { searchParams } = new URL(request.url);
-    
-    const exchange = searchParams.get('exchange') as ExchangeId;
-    const symbol = searchParams.get('symbol');
-    const timeframe = searchParams.get('timeframe') || '1h';
-    const sinceParam = searchParams.get('since');
-    const limitParam = searchParams.get('limit');
-    const priorityParam = searchParams.get('priority');
+export async function GET ( request: NextRequest )
+{
+  try
+  {
+    const { searchParams } = new URL( request.url );
 
-    // Validation
-    if (!exchange) {
+    // Extract parameters
+    const exchange = searchParams.get( 'exchange' );
+    const symbol = searchParams.get( 'symbol' );
+    const rawTimeframe = searchParams.get( 'timeframe' ) || '1h';
+    // Backward compatibility: legacy timeframe "3d" is treated as weekly ("1w")
+    const timeframe = rawTimeframe === '3d' || rawTimeframe === '3D' ? '1w' : rawTimeframe;
+    const limit = searchParams.get( 'limit' ) || '100';
+
+    if ( !exchange || !symbol )
+    {
       return NextResponse.json(
-        { error: 'Missing required parameter: exchange' },
+        { error: 'Missing required parameters: exchange and symbol' },
         { status: 400 }
       );
     }
 
-    if (!symbol) {
-      return NextResponse.json(
-        { error: 'Missing required parameter: symbol' },
-        { status: 400 }
-      );
-    }
-
-    // Parse parameters
-    const since = sinceParam ? parseInt(sinceParam) : undefined;
-    const limit = limitParam ? parseInt(limitParam) : 100;
-    let priority: Priority = Priority.NORMAL;
-    if (priorityParam === 'high') priority = Priority.HIGH;
-    if (priorityParam === 'low') priority = Priority.LOW;
-
-    // Fetch OHLCV
-    const result = await ccxtManager.fetchOHLCV(
+    // Construct the internal URL for the unified OHLCV API
+    // Note: The unified API uses 'interval' instead of 'timeframe'
+    const internalParams = new URLSearchParams( {
       exchange,
       symbol,
-      timeframe,
-      since,
-      limit,
-      priority
-    );
+      interval: timeframe,
+      limit
+    } );
 
-    if (!result.success) {
-      return NextResponse.json(
-        { error: result.error },
-        { status: 500 }
-      );
+    const baseUrl = request.nextUrl.origin;
+    const response = await fetch( `${ baseUrl }/api/ohlcv?${ internalParams.toString() }` );
+    if ( !response.ok )
+    {
+      const errorData = await response.json();
+      return NextResponse.json( errorData, { status: response.status } );
     }
 
-    return NextResponse.json(result);
-  } catch (error) {
-    console.error('OHLCV API Error:', error);
+    const data = await response.json();
+    return NextResponse.json( data );
+  } catch ( error )
+  {
+    console.error( 'Exchanges OHLCV API Error:', error );
     return NextResponse.json(
-      { error: (error as Error).message },
+      { error: ( error as Error ).message },
       { status: 500 }
     );
   }

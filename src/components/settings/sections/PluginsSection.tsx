@@ -91,7 +91,7 @@ export function PluginsSection() {
           </div>
 
           {/* Available Plugins Grid */}
-          <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
+          <div className="grid grid-cols-3 md:grid-cols-2 lg:grid-cols-3 gap-2 sm:gap-3">
             <AnimatePresence mode="popLayout">
               {filteredAvailable.map((plugin) => {
                 const Icon = plugin.icon;
@@ -102,29 +102,29 @@ export function PluginsSection() {
                     initial={{ opacity: 0, scale: 0.95 }}
                     animate={{ opacity: 1, scale: 1 }}
                     exit={{ opacity: 0, scale: 0.95 }}
-                    className="p-4 rounded-xl bg-[var(--glass-bg)] backdrop-blur-xl border border-[var(--glass-border)] hover:border-primary 
+                    className="p-2.5 sm:p-4 rounded-xl glass-lite glass-lite--interactive border border-[var(--glass-border)] hover:border-primary 
                              transition-all cursor-pointer group"
                   >
-                    <div className="flex items-start gap-3 mb-3">
-                      <div className={`w-10 h-10 rounded-xl ${plugin.color} flex items-center justify-center flex-shrink-0`}>
-                        <Icon className="w-5 h-5 text-white" />
+                    <div className="flex flex-col items-center text-center gap-2 mb-2 sm:flex-row sm:items-start sm:text-right sm:gap-3 sm:mb-3">
+                      <div className={`w-9 h-9 sm:w-10 sm:h-10 rounded-xl ${plugin.color} flex items-center justify-center flex-shrink-0`}>
+                        <Icon className="w-4 h-4 sm:w-5 sm:h-5 text-white" />
                       </div>
                       <div className="flex-1 min-w-0">
-                        <h4 className="font-medium text-foreground truncate">{plugin.name}</h4>
-                        <p className="text-xs text-muted-foreground line-clamp-2">{plugin.description}</p>
+                        <h4 className="font-medium text-foreground truncate text-[12px] sm:text-[14px]">{plugin.name}</h4>
+                        <p className="hidden sm:block text-xs text-muted-foreground line-clamp-2">{plugin.description}</p>
                       </div>
                     </div>
                     <div className="flex items-center justify-between">
-                      <div className="flex items-center gap-3 text-xs text-muted-foreground">
+                      <div className="hidden sm:flex items-center gap-3 text-xs text-muted-foreground">
                         <span className="flex items-center gap-1">
                           <Star className="w-3 h-3 text-yellow-500 fill-yellow-500" />
                           {plugin.rating}
                         </span>
                         <span>{plugin.downloads}</span>
                       </div>
-                      <button className="flex items-center gap-1.5 px-3 py-1.5 rounded-lg bg-primary text-white 
-                                       text-xs font-medium transition-colors hover:brightness-90
-                                       opacity-0 group-hover:opacity-100">
+                      <button className="flex items-center gap-1.5 px-2.5 py-1.5 sm:px-3 sm:py-1.5 rounded-lg bg-primary text-white 
+                                       text-[11px] sm:text-xs font-medium transition-colors hover:brightness-90
+                                       opacity-100 sm:opacity-0 sm:group-hover:opacity-100">
                         <Download className="w-3 h-3" />
                         <span>تثبيت</span>
                       </button>

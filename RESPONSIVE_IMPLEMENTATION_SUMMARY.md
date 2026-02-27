@@ -2,7 +2,7 @@
 
 ## Summary
 
-Your nexus-webapp website is now **fully responsive** and optimized for all devices:
+Your ccways website is now **fully responsive** and optimized for all devices:
 - 📱 Mobile phones (iPhone, Android)
 - 📱 Tablets (iPad, iPad Air, iPad Pro)
 - 💻 Laptops (MacBook, Windows laptops)
@@ -89,7 +89,7 @@ Live demonstration showing:
 ## File Locations
 
 ```
-nexus-webapp/
+ccways/
 ├── src/
 │   ├── app/
 │   │   ├── layout.tsx                    ← Viewport config
@@ -336,7 +336,7 @@ For mobile-specific interactions:
 
 ---
 
-## 🎉 Congratulations!
+## 🎉 Congratulations
 
 Your website is now fully responsive and works perfectly on:
 - ✅ All mobile phones (iOS & Android)

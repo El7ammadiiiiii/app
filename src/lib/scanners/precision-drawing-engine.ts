@@ -5,7 +5,7 @@
  * Millimeter-precision divergence line drawing with Bezier curves
  * Enhanced with lightweight-charts integration support
  * 
- * @author Nexus Elite Team
+ * @author CCWAYS Team
  * @version 3.0.0
  * @created 2025-12-14
  * @updated 2025-12-14

@@ -6,8 +6,8 @@
  * Shows how "hot" or "cold" the price is relative to highs/lows.
  */
 
-import { CandleData } from "@/components/charts/TradingChart";
-import { Time } from "lightweight-charts";
+import type { CandleData } from "@/components/charts/types";
+
 
 // ============ TYPES ============
 
@@ -38,7 +38,7 @@ export const defaultHeatMeterConfig: HeatMeterConfig = {
 };
 
 export interface HeatCandle {
-  timestamp: Time;
+  timestamp: number;
   open: number;
   high: number;
   low: number;
@@ -51,9 +51,9 @@ export interface ExtremeLevel {
   type: 'upper' | 'lower';
   price: number;
   startBar: number;
-  startTime: Time;
+  startTime: number;
   endBar: number;
-  endTime: Time;
+  endTime: number;
   count: number;
   color: string;
   opacity: number;
@@ -62,7 +62,7 @@ export interface ExtremeLevel {
 export interface HeatLabel {
   type: 'upper' | 'lower';
   bar: number;
-  timestamp: Time;
+  timestamp: number;
   price: number;
   heatPercent: number;
   color: string;
@@ -239,7 +239,7 @@ export function calculatePriceHeatMeter(
       // Close previous upper level if exists
       if (activeUpperLevel && i > 0) {
         activeUpperLevel.endBar = i - 1;
-        activeUpperLevel.endTime = data[i - 1].time;
+        activeUpperLevel.endTime = Number(data[i - 1].time);
         extremeLevels.push(activeUpperLevel);
       }
       
@@ -248,9 +248,9 @@ export function calculatePriceHeatMeter(
         type: 'upper',
         price: upper,
         startBar: i,
-        startTime: candle.time,
+        startTime: Number(candle.time),
         endBar: i,
-        endTime: candle.time,
+        endTime: Number(candle.time),
         count: 0,
         color: config.colors.hot,
         opacity: 1
@@ -277,7 +277,7 @@ export function calculatePriceHeatMeter(
       // Close previous lower level if exists
       if (activeLowerLevel && i > 0) {
         activeLowerLevel.endBar = i - 1;
-        activeLowerLevel.endTime = data[i - 1].time;
+        activeLowerLevel.endTime = Number(data[i - 1].time);
         extremeLevels.push(activeLowerLevel);
       }
       
@@ -286,9 +286,9 @@ export function calculatePriceHeatMeter(
         type: 'lower',
         price: lower,
         startBar: i,
-        startTime: candle.time,
+        startTime: Number(candle.time),
         endBar: i,
-        endTime: candle.time,
+        endTime: Number(candle.time),
         count: 0,
         color: config.colors.cold,
         opacity: 1
@@ -314,7 +314,7 @@ export function calculatePriceHeatMeter(
     
     // Add heat candle
     candles.push({
-      timestamp: candle.time,
+      timestamp: Number(candle.time),
       open: candle.open,
       high: candle.high,
       low: candle.low,
@@ -332,7 +332,7 @@ export function calculatePriceHeatMeter(
       labels.push({
         type: 'upper',
         bar: upperIndx,
-        timestamp: data[upperIndx]?.time || candle.time,
+        timestamp: Number(data[upperIndx]?.time ?? candle.time),
         price: upper,
         heatPercent: upperHeat,
         color: config.colors.hot
@@ -348,7 +348,7 @@ export function calculatePriceHeatMeter(
       labels.push({
         type: 'lower',
         bar: lowerIndx,
-        timestamp: data[lowerIndx]?.time || candle.time,
+        timestamp: Number(data[lowerIndx]?.time ?? candle.time),
         price: lower,
         heatPercent: lowerHeat,
         color: config.colors.cold

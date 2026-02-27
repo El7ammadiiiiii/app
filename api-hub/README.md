@@ -53,7 +53,7 @@ export OPENAI_API_KEY="sk-..."
 python main.py --mode api --port 8000
 ```
 
-**Access:** http://localhost:8000/docs
+**Access:** <http://localhost:8000/docs>
 
 **Key Features:**
 - 101+ blockchains supported
@@ -74,7 +74,7 @@ pip install -r requirements.txt
 python api.py
 ```
 
-**Access:** http://localhost:8001/docs
+**Access:** <http://localhost:8001/docs>
 
 **Key Features:**
 - 17+ technical indicators

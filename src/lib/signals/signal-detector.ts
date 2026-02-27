@@ -4,7 +4,7 @@
  */
 
 import { calculateRSI, calculateMACD, calculateSMA, calculateEMA, calculateSupertrend, calculateADX, type OHLCV } from "../indicators/technical";
-import { calculateStochRSI } from "../indicators/stochastic";
+import { calculateStochRSI } from "../analysis/engine";
 import { calculateOBVWithAnalysis } from "../indicators/obv";
 import { detectPatterns, CandleData } from "../indicators/candlestick-patterns";
 
@@ -175,28 +175,31 @@ export function detectAllSignals(data: OHLCVData): SignalSummary {
 
   // 4. Stochastic RSI Signals
   const stochRSI = calculateStochRSI(data.close);
-  if (stochRSI.k !== null) {
-    if (stochRSI.oversold) {
+  const stochK = stochRSI.k && stochRSI.k.length ? stochRSI.k[stochRSI.k.length - 1] : null;
+  if (stochK !== null && stochK !== undefined) {
+    const oversold = stochK < 10;
+    const overbought = stochK > 90;
+    if (oversold) {
       buySignals.push({
         id: "stochrsi_oversold",
         type: "buy",
         source: "Stochastic RSI",
         sourceAr: "ستوكاستيك RSI",
-        strength: stochRSI.k < 10 ? 3 : 2,
-        description: `Stochastic RSI oversold at ${stochRSI.k.toFixed(1)}`,
-        descriptionAr: `ستوكاستيك RSI في ذروة البيع عند ${stochRSI.k.toFixed(1)}`,
+        strength: stochK < 10 ? 3 : 2,
+        description: `Stochastic RSI oversold at ${stochK.toFixed(1)}`,
+        descriptionAr: `ستوكاستيك RSI في ذروة البيع عند ${stochK.toFixed(1)}`,
         timestamp: currentTime,
         price: currentPrice
       });
-    } else if (stochRSI.overbought) {
+    } else if (overbought) {
       sellSignals.push({
         id: "stochrsi_overbought",
         type: "sell",
         source: "Stochastic RSI",
         sourceAr: "ستوكاستيك RSI",
-        strength: stochRSI.k > 90 ? 3 : 2,
-        description: `Stochastic RSI overbought at ${stochRSI.k.toFixed(1)}`,
-        descriptionAr: `ستوكاستيك RSI في ذروة الشراء عند ${stochRSI.k.toFixed(1)}`,
+        strength: stochK > 90 ? 3 : 2,
+        description: `Stochastic RSI overbought at ${stochK.toFixed(1)}`,
+        descriptionAr: `ستوكاستيك RSI في ذروة الشراء عند ${stochK.toFixed(1)}`,
         timestamp: currentTime,
         price: currentPrice
       });

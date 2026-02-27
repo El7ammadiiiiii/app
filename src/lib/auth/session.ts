@@ -3,8 +3,8 @@ import { cookies } from "next/headers";
 import type { AuthProfile } from "@/types/auth";
 import { serverEnv } from "@/lib/env";
 
-const SESSION_COOKIE = "cccways_session";
-const REFRESH_COOKIE = "cccways_refresh";
+const SESSION_COOKIE = "CCWAYS_session";
+const REFRESH_COOKIE = "CCWAYS_refresh";
 
 export const createSession = async (profile: AuthProfile, refreshToken: string) => {
   const token = jwt.sign(profile, serverEnv.SESSION_SECRET, { expiresIn: "2h" });
@@ -54,16 +54,21 @@ export interface Session {
 
 export async function getServerSession(): Promise<Session | null> {
   const cookieStore = await cookies();
-  const sessionCookie = cookieStore.get("session");
+  const sessionCookie = cookieStore.get(SESSION_COOKIE);
 
   if (!sessionCookie?.value) {
     return null;
   }
 
   try {
-    // In production, verify the session token with Firebase Admin
-    const session = JSON.parse(sessionCookie.value);
-    return session;
+    const profile = jwt.verify(sessionCookie.value, serverEnv.SESSION_SECRET) as AuthProfile;
+    return {
+      user: {
+        uid: profile.googleUid,
+        email: profile.email,
+        name: profile.fullName,
+      }
+    };
   } catch {
     return null;
   }

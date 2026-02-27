@@ -1,0 +1,709 @@
+{
+    "version": "1.0.0",
+    "lastUpdated": "2026-01-31",
+    "totalChains": 77,
+    "chains": [
+        {
+            "chainUid": "eip155:1",
+            "name": "Ethereum",
+            "symbol": "ETH",
+            "decimals": 18,
+            "type": "layer1",
+            "enabled": true,
+            "label": "Ethereum (ETH)"
+        },
+        {
+            "chainUid": "eip155:56",
+            "name": "BNB Chain",
+            "symbol": "BNB",
+            "decimals": 18,
+            "type": "layer1",
+            "enabled": true,
+            "label": "BNB Chain (BNB)"
+        },
+        {
+            "chainUid": "eip155:43114",
+            "name": "Avalanche C-Chain",
+            "symbol": "AVAX",
+            "decimals": 18,
+            "type": "layer1",
+            "enabled": true,
+            "label": "Avalanche C-Chain (AVAX)"
+        },
+        {
+            "chainUid": "eip155:250",
+            "name": "Fantom",
+            "symbol": "FTM",
+            "decimals": 18,
+            "type": "layer1",
+            "enabled": true,
+            "label": "Fantom (FTM)"
+        },
+        {
+            "chainUid": "eip155:25",
+            "name": "Cronos",
+            "symbol": "CRO",
+            "decimals": 18,
+            "type": "layer1",
+            "enabled": true,
+            "label": "Cronos (CRO)"
+        },
+        {
+            "chainUid": "eip155:100",
+            "name": "Gnosis",
+            "symbol": "xDAI",
+            "decimals": 18,
+            "type": "layer1",
+            "enabled": true,
+            "label": "Gnosis (xDAI)"
+        },
+        {
+            "chainUid": "eip155:1284",
+            "name": "Moonbeam",
+            "symbol": "GLMR",
+            "decimals": 18,
+            "type": "layer1",
+            "enabled": true,
+            "label": "Moonbeam (GLMR)"
+        },
+        {
+            "chainUid": "eip155:1285",
+            "name": "Moonriver",
+            "symbol": "MOVR",
+            "decimals": 18,
+            "type": "layer1",
+            "enabled": true,
+            "label": "Moonriver (MOVR)"
+        },
+        {
+            "chainUid": "eip155:42220",
+            "name": "Celo",
+            "symbol": "CELO",
+            "decimals": 18,
+            "type": "layer1",
+            "enabled": true,
+            "label": "Celo (CELO)"
+        },
+        {
+            "chainUid": "eip155:122",
+            "name": "Fuse",
+            "symbol": "FUSE",
+            "decimals": 18,
+            "type": "layer1",
+            "enabled": true,
+            "label": "Fuse (FUSE)"
+        },
+        {
+            "chainUid": "eip155:1313161554",
+            "name": "Aurora",
+            "symbol": "ETH",
+            "decimals": 18,
+            "type": "layer1",
+            "enabled": true,
+            "label": "Aurora (ETH)"
+        },
+        {
+            "chainUid": "eip155:9001",
+            "name": "Evmos",
+            "symbol": "EVMOS",
+            "decimals": 18,
+            "type": "layer1",
+            "enabled": true,
+            "label": "Evmos (EVMOS)"
+        },
+        {
+            "chainUid": "eip155:7700",
+            "name": "Canto",
+            "symbol": "CANTO",
+            "decimals": 18,
+            "type": "layer1",
+            "enabled": true,
+            "label": "Canto (CANTO)"
+        },
+        {
+            "chainUid": "eip155:2222",
+            "name": "Kava EVM",
+            "symbol": "KAVA",
+            "decimals": 18,
+            "type": "layer1",
+            "enabled": true,
+            "label": "Kava EVM (KAVA)"
+        },
+        {
+            "chainUid": "eip155:40",
+            "name": "Telos EVM",
+            "symbol": "TLOS",
+            "decimals": 18,
+            "type": "layer1",
+            "enabled": true,
+            "label": "Telos EVM (TLOS)"
+        },
+        {
+            "chainUid": "eip155:57",
+            "name": "Syscoin",
+            "symbol": "SYS",
+            "decimals": 18,
+            "type": "layer1",
+            "enabled": true,
+            "label": "Syscoin (SYS)"
+        },
+        {
+            "chainUid": "eip155:30",
+            "name": "Rootstock",
+            "symbol": "RBTC",
+            "decimals": 18,
+            "type": "layer1",
+            "enabled": true,
+            "label": "Rootstock (RBTC)"
+        },
+        {
+            "chainUid": "eip155:20",
+            "name": "Elastos",
+            "symbol": "ELA",
+            "decimals": 18,
+            "type": "layer1",
+            "enabled": true,
+            "label": "Elastos (ELA)"
+        },
+        {
+            "chainUid": "eip155:1030",
+            "name": "Conflux eSpace",
+            "symbol": "CFX",
+            "decimals": 18,
+            "type": "layer1",
+            "enabled": true,
+            "label": "Conflux eSpace (CFX)"
+        },
+        {
+            "chainUid": "eip155:148",
+            "name": "Shimmer EVM",
+            "symbol": "SMR",
+            "decimals": 18,
+            "type": "layer1",
+            "enabled": true,
+            "label": "Shimmer EVM (SMR)"
+        },
+        {
+            "chainUid": "eip155:4689",
+            "name": "IoTeX",
+            "symbol": "IOTX",
+            "decimals": 18,
+            "type": "layer1",
+            "enabled": true,
+            "label": "IoTeX (IOTX)"
+        },
+        {
+            "chainUid": "eip155:14",
+            "name": "Flare",
+            "symbol": "FLR",
+            "decimals": 18,
+            "type": "layer1",
+            "enabled": true,
+            "label": "Flare (FLR)"
+        },
+        {
+            "chainUid": "eip155:8217",
+            "name": "Klaytn",
+            "symbol": "KLAY",
+            "decimals": 18,
+            "type": "layer1",
+            "enabled": true,
+            "label": "Klaytn (KLAY)"
+        },
+        {
+            "chainUid": "eip155:1111",
+            "name": "WEMIX",
+            "symbol": "WEMIX",
+            "decimals": 18,
+            "type": "layer1",
+            "enabled": true,
+            "label": "WEMIX (WEMIX)"
+        },
+        {
+            "chainUid": "eip155:248",
+            "name": "Oasys",
+            "symbol": "OAS",
+            "decimals": 18,
+            "type": "layer1",
+            "enabled": true,
+            "label": "Oasys (OAS)"
+        },
+        {
+            "chainUid": "eip155:137",
+            "name": "Polygon",
+            "symbol": "MATIC",
+            "decimals": 18,
+            "type": "layer2_optimistic",
+            "enabled": true,
+            "label": "Polygon (MATIC)"
+        },
+        {
+            "chainUid": "eip155:42161",
+            "name": "Arbitrum One",
+            "symbol": "ETH",
+            "decimals": 18,
+            "type": "layer2_optimistic",
+            "enabled": true,
+            "label": "Arbitrum One (ETH)"
+        },
+        {
+            "chainUid": "eip155:10",
+            "name": "Optimism",
+            "symbol": "ETH",
+            "decimals": 18,
+            "type": "layer2_optimistic",
+            "enabled": true,
+            "label": "Optimism (ETH)"
+        },
+        {
+            "chainUid": "eip155:8453",
+            "name": "Base",
+            "symbol": "ETH",
+            "decimals": 18,
+            "type": "layer2_optimistic",
+            "enabled": true,
+            "label": "Base (ETH)"
+        },
+        {
+            "chainUid": "eip155:59144",
+            "name": "Linea",
+            "symbol": "ETH",
+            "decimals": 18,
+            "type": "layer2_optimistic",
+            "enabled": true,
+            "label": "Linea (ETH)"
+        },
+        {
+            "chainUid": "eip155:534352",
+            "name": "Scroll",
+            "symbol": "ETH",
+            "decimals": 18,
+            "type": "layer2_optimistic",
+            "enabled": true,
+            "label": "Scroll (ETH)"
+        },
+        {
+            "chainUid": "eip155:81457",
+            "name": "Blast",
+            "symbol": "ETH",
+            "decimals": 18,
+            "type": "layer2_optimistic",
+            "enabled": true,
+            "label": "Blast (ETH)"
+        },
+        {
+            "chainUid": "eip155:5000",
+            "name": "Mantle",
+            "symbol": "MNT",
+            "decimals": 18,
+            "type": "layer2_optimistic",
+            "enabled": true,
+            "label": "Mantle (MNT)"
+        },
+        {
+            "chainUid": "eip155:34443",
+            "name": "Mode",
+            "symbol": "ETH",
+            "decimals": 18,
+            "type": "layer2_optimistic",
+            "enabled": true,
+            "label": "Mode (ETH)"
+        },
+        {
+            "chainUid": "eip155:7777777",
+            "name": "Zora",
+            "symbol": "ETH",
+            "decimals": 18,
+            "type": "layer2_optimistic",
+            "enabled": true,
+            "label": "Zora (ETH)"
+        },
+        {
+            "chainUid": "eip155:252",
+            "name": "Fraxtal",
+            "symbol": "frxETH",
+            "decimals": 18,
+            "type": "layer2_optimistic",
+            "enabled": true,
+            "label": "Fraxtal (frxETH)"
+        },
+        {
+            "chainUid": "eip155:169",
+            "name": "Manta Pacific",
+            "symbol": "ETH",
+            "decimals": 18,
+            "type": "layer2_optimistic",
+            "enabled": true,
+            "label": "Manta Pacific (ETH)"
+        },
+        {
+            "chainUid": "eip155:1088",
+            "name": "Metis",
+            "symbol": "METIS",
+            "decimals": 18,
+            "type": "layer2_optimistic",
+            "enabled": true,
+            "label": "Metis (METIS)"
+        },
+        {
+            "chainUid": "eip155:288",
+            "name": "Boba Network",
+            "symbol": "ETH",
+            "decimals": 18,
+            "type": "layer2_optimistic",
+            "enabled": true,
+            "label": "Boba Network (ETH)"
+        },
+        {
+            "chainUid": "eip155:42170",
+            "name": "Arbitrum Nova",
+            "symbol": "ETH",
+            "decimals": 18,
+            "type": "layer2_optimistic",
+            "enabled": true,
+            "label": "Arbitrum Nova (ETH)"
+        },
+        {
+            "chainUid": "eip155:204",
+            "name": "opBNB",
+            "symbol": "BNB",
+            "decimals": 18,
+            "type": "layer2_optimistic",
+            "enabled": true,
+            "label": "opBNB (BNB)"
+        },
+        {
+            "chainUid": "eip155:1135",
+            "name": "Lisk",
+            "symbol": "LSK",
+            "decimals": 18,
+            "type": "layer2_optimistic",
+            "enabled": true,
+            "label": "Lisk (LSK)"
+        },
+        {
+            "chainUid": "eip155:60808",
+            "name": "BOB",
+            "symbol": "ETH",
+            "decimals": 18,
+            "type": "layer2_optimistic",
+            "enabled": true,
+            "label": "BOB (ETH)"
+        },
+        {
+            "chainUid": "eip155:7560",
+            "name": "Cyber",
+            "symbol": "ETH",
+            "decimals": 18,
+            "type": "layer2_optimistic",
+            "enabled": true,
+            "label": "Cyber (ETH)"
+        },
+        {
+            "chainUid": "eip155:690",
+            "name": "Redstone",
+            "symbol": "ETH",
+            "decimals": 18,
+            "type": "layer2_optimistic",
+            "enabled": true,
+            "label": "Redstone (ETH)"
+        },
+        {
+            "chainUid": "eip155:185",
+            "name": "Mint",
+            "symbol": "ETH",
+            "decimals": 18,
+            "type": "layer2_optimistic",
+            "enabled": true,
+            "label": "Mint (ETH)"
+        },
+        {
+            "chainUid": "eip155:48900",
+            "name": "Zircuit",
+            "symbol": "ETH",
+            "decimals": 18,
+            "type": "layer2_optimistic",
+            "enabled": true,
+            "label": "Zircuit (ETH)"
+        },
+        {
+            "chainUid": "eip155:324",
+            "name": "zkSync Era",
+            "symbol": "ETH",
+            "decimals": 18,
+            "type": "layer2_zk",
+            "enabled": true,
+            "label": "zkSync Era (ETH)"
+        },
+        {
+            "chainUid": "eip155:1101",
+            "name": "Polygon zkEVM",
+            "symbol": "ETH",
+            "decimals": 18,
+            "type": "layer2_zk",
+            "enabled": true,
+            "label": "Polygon zkEVM (ETH)"
+        },
+        {
+            "chainUid": "eip155:167000",
+            "name": "Taiko",
+            "symbol": "ETH",
+            "decimals": 18,
+            "type": "layer2_zk",
+            "enabled": true,
+            "label": "Taiko (ETH)"
+        },
+        {
+            "chainUid": "eip155:42766",
+            "name": "ZKFair",
+            "symbol": "USDC",
+            "decimals": 18,
+            "type": "layer2_zk",
+            "enabled": true,
+            "label": "ZKFair (USDC)"
+        },
+        {
+            "chainUid": "eip155:196",
+            "name": "X Layer",
+            "symbol": "OKB",
+            "decimals": 18,
+            "type": "layer2_zk",
+            "enabled": true,
+            "label": "X Layer (OKB)"
+        },
+        {
+            "chainUid": "eip155:4200",
+            "name": "Merlin",
+            "symbol": "BTC",
+            "decimals": 18,
+            "type": "bitcoin_l2",
+            "enabled": true,
+            "label": "Merlin (BTC)"
+        },
+        {
+            "chainUid": "eip155:200901",
+            "name": "Bitlayer",
+            "symbol": "BTC",
+            "decimals": 18,
+            "type": "bitcoin_l2",
+            "enabled": true,
+            "label": "Bitlayer (BTC)"
+        },
+        {
+            "chainUid": "eip155:1116",
+            "name": "Core DAO",
+            "symbol": "CORE",
+            "decimals": 18,
+            "type": "bitcoin_l2",
+            "enabled": true,
+            "label": "Core DAO (CORE)"
+        },
+        {
+            "chainUid": "eip155:592",
+            "name": "Astar",
+            "symbol": "ASTR",
+            "decimals": 18,
+            "type": "app_chain",
+            "enabled": true,
+            "label": "Astar (ASTR)"
+        },
+        {
+            "chainUid": "eip155:336",
+            "name": "Shiden",
+            "symbol": "SDN",
+            "decimals": 18,
+            "type": "app_chain",
+            "enabled": true,
+            "label": "Shiden (SDN)"
+        },
+        {
+            "chainUid": "eip155:1329",
+            "name": "Sei",
+            "symbol": "SEI",
+            "decimals": 18,
+            "type": "app_chain",
+            "enabled": true,
+            "label": "Sei (SEI)"
+        },
+        {
+            "chainUid": "eip155:666666666",
+            "name": "Degen",
+            "symbol": "DEGEN",
+            "decimals": 18,
+            "type": "app_chain",
+            "enabled": true,
+            "label": "Degen (DEGEN)"
+        },
+        {
+            "chainUid": "eip155:245022934",
+            "name": "Neon EVM",
+            "symbol": "NEON",
+            "decimals": 18,
+            "type": "app_chain",
+            "enabled": true,
+            "label": "Neon EVM (NEON)"
+        },
+        {
+            "chainUid": "eip155:1666600000",
+            "name": "Harmony",
+            "symbol": "ONE",
+            "decimals": 18,
+            "type": "app_chain",
+            "enabled": true,
+            "label": "Harmony (ONE)"
+        },
+        {
+            "chainUid": "eip155:2020",
+            "name": "Ronin",
+            "symbol": "RON",
+            "decimals": 18,
+            "type": "app_chain",
+            "enabled": true,
+            "label": "Ronin (RON)"
+        },
+        {
+            "chainUid": "eip155:369",
+            "name": "PulseChain",
+            "symbol": "PLS",
+            "decimals": 18,
+            "type": "app_chain",
+            "enabled": true,
+            "label": "PulseChain (PLS)"
+        },
+        {
+            "chainUid": "bip122:000000000019d6689c085ae165831e93",
+            "name": "Bitcoin",
+            "symbol": "BTC",
+            "decimals": 8,
+            "type": "layer1",
+            "enabled": true,
+            "label": "Bitcoin (BTC)"
+        },
+        {
+            "chainUid": "non_evm:litecoin",
+            "name": "Litecoin",
+            "symbol": "LTC",
+            "decimals": 8,
+            "type": "non_evm",
+            "enabled": true,
+            "label": "Litecoin (LTC)"
+        },
+        {
+            "chainUid": "non_evm:dogecoin",
+            "name": "Dogecoin",
+            "symbol": "DOGE",
+            "decimals": 8,
+            "type": "non_evm",
+            "enabled": true,
+            "label": "Dogecoin (DOGE)"
+        },
+        {
+            "chainUid": "non_evm:tron",
+            "name": "Tron",
+            "symbol": "TRX",
+            "decimals": 6,
+            "type": "non_evm",
+            "enabled": true,
+            "label": "Tron (TRX)"
+        },
+        {
+            "chainUid": "non_evm:ton",
+            "name": "TON",
+            "symbol": "TON",
+            "decimals": 9,
+            "type": "non_evm",
+            "enabled": true,
+            "label": "TON (TON)"
+        },
+        {
+            "chainUid": "non_evm:xrp",
+            "name": "XRP Ledger",
+            "symbol": "XRP",
+            "decimals": 6,
+            "type": "non_evm",
+            "enabled": true,
+            "label": "XRP Ledger (XRP)"
+        },
+        {
+            "chainUid": "non_evm:near",
+            "name": "NEAR Protocol",
+            "symbol": "NEAR",
+            "decimals": 24,
+            "type": "non_evm",
+            "enabled": true,
+            "label": "NEAR Protocol (NEAR)"
+        },
+        {
+            "chainUid": "non_evm:algorand",
+            "name": "Algorand",
+            "symbol": "ALGO",
+            "decimals": 6,
+            "type": "non_evm",
+            "enabled": true,
+            "label": "Algorand (ALGO)"
+        },
+        {
+            "chainUid": "non_evm:aptos",
+            "name": "Aptos",
+            "symbol": "APT",
+            "decimals": 8,
+            "type": "non_evm",
+            "enabled": true,
+            "label": "Aptos (APT)"
+        },
+        {
+            "chainUid": "non_evm:sui",
+            "name": "Sui",
+            "symbol": "SUI",
+            "decimals": 9,
+            "type": "non_evm",
+            "enabled": true,
+            "label": "Sui (SUI)"
+        },
+        {
+            "chainUid": "non_evm:cosmos",
+            "name": "Cosmos Hub",
+            "symbol": "ATOM",
+            "decimals": 6,
+            "type": "non_evm",
+            "enabled": true,
+            "label": "Cosmos Hub (ATOM)"
+        },
+        {
+            "chainUid": "non_evm:flow",
+            "name": "Flow",
+            "symbol": "FLOW",
+            "decimals": 8,
+            "type": "non_evm",
+            "enabled": true,
+            "label": "Flow (FLOW)"
+        },
+        {
+            "chainUid": "non_evm:immutablex",
+            "name": "Immutable X",
+            "symbol": "IMX",
+            "decimals": 18,
+            "type": "non_evm",
+            "enabled": true,
+            "label": "Immutable X (IMX)"
+        },
+        {
+            "chainUid": "non_evm:starknet",
+            "name": "Starknet",
+            "symbol": "STRK",
+            "decimals": 18,
+            "type": "non_evm",
+            "enabled": true,
+            "label": "Starknet (STRK)"
+        },
+        {
+            "chainUid": "non_evm:solana",
+            "name": "Solana",
+            "symbol": "SOL",
+            "decimals": 9,
+            "type": "non_evm",
+            "enabled": true,
+            "label": "Solana (SOL)"
+        }
+    ]
+}

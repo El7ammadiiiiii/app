@@ -1,25 +1,22 @@
 "use client";
 
 import * as React from "react";
+import useTimeout from '@/hooks/useTimeout';
 import { motion } from "framer-motion";
 import { 
   Mic,
   Volume2,
   Play,
   Pause,
-  Settings2,
-  AudioWaveform,
-  Languages,
 } from "lucide-react";
 import { 
   SettingCard, 
   SettingToggle, 
-  SettingSelect,
   SettingGroup,
-  SettingSlider,
 } from "../components";
 import { useSettingsStore } from "../store/settingsStore";
 import type { VoiceOption } from "../types/settings";
+import { cn } from "@/lib/utils";
 
 const voiceOptions = [
   { id: "breeze" as VoiceOption, name: "نوفا", type: "أنثى", lang: "عربي" },
@@ -30,20 +27,12 @@ const voiceOptions = [
   { id: "sage" as VoiceOption, name: "أونكس", type: "ذكر", lang: "عربي" },
 ];
 
-const inputModeOptions = [
-  { value: "true", label: "اضغط للتحدث" },
-  { value: "false", label: "اكتشاف الصوت التلقائي" },
-];
-
 export function VoiceModeSection() {
   const {
     selectedVoice,
-    voiceSpeed,
-    voicePitch,
     voiceEnabled,
     pushToTalk,
     autoPlayResponse,
-    noiseCancellation,
     updateSetting,
   } = useSettingsStore();
 
@@ -54,94 +43,29 @@ export function VoiceModeSection() {
       setPlayingVoice(null);
     } else {
       setPlayingVoice(voiceId);
-      // محاكاة انتهاء التشغيل
-      setTimeout(() => setPlayingVoice(null), 2000);
     }
   };
 
+  useTimeout(() => setPlayingVoice(null), playingVoice ? 2000 : undefined, [playingVoice]);
+
   return (
     <div className="space-y-6">
-      {/* Voice Selection */}
-      <SettingGroup title="اختيار الصوت">
-        <div className="grid grid-cols-2 sm:grid-cols-3 gap-3">
-          {voiceOptions.map((voice) => (
-              <motion.button
-                key={voice.id}
-                onClick={() => updateSetting("selectedVoice", voice.id)}
-                className={`
-                  relative p-4 rounded-xl border-2 transition-all text-right
-                  ${selectedVoice === voice.id
-                    ? "border-primary bg-primary text-primary-foreground"
-                    : "border-[var(--glass-border)] bg-[var(--glass-bg)] backdrop-blur-xl hover:border-primary"
-                  }
-                `}
-              whileHover={{ scale: 1.02 }}
-              whileTap={{ scale: 0.98 }}
-            >
-              <div className="flex items-center justify-between mb-2">
-                <button
-                  onClick={(e) => {
-                    e.stopPropagation();
-                    handlePlayVoice(voice.id);
-                  }}
-                  className="p-1.5 rounded-full bg-muted transition-colors hover:brightness-90"
-                >
-                  {playingVoice === voice.id ? (
-                    <Pause className="w-3.5 h-3.5 text-primary" />
-                  ) : (
-                    <Play className="w-3.5 h-3.5" />
-                  )}
-                </button>
-                <div className="w-8 h-8 rounded-full bg-gradient-to-br from-primary to-primary/60 flex items-center justify-center">
-                  <Volume2 className="w-4 h-4 text-white" />
-                </div>
-              </div>
-              <h4 className="font-medium text-foreground">{voice.name}</h4>
-              <p className="text-xs text-muted-foreground">
-                {voice.type} • {voice.lang}
-              </p>
-              {selectedVoice === voice.id && (
-                <motion.div
-                  layoutId="voice-selected"
-                  className="absolute inset-0 border-2 border-primary rounded-xl"
-                  initial={false}
-                  transition={{ type: "spring", stiffness: 500, damping: 30 }}
-                />
-              )}
-            </motion.button>
-          ))}
-        </div>
-      </SettingGroup>
-
-      {/* Voice Settings */}
       <SettingGroup title="إعدادات الصوت">
-        <SettingSlider
-          label="سرعة الكلام"
-          description="تحكم في سرعة نطق الردود"
-          value={voiceSpeed}
-          min={0.5}
-          max={2}
-          step={0.1}
-          onValueChange={(v) => updateSetting("voiceSpeed", v)}
-        />
-
-        <SettingSlider
-          label="درجة الصوت"
-          description="تحكم في حدة الصوت"
-          value={voicePitch}
-          min={0.5}
-          max={1.5}
-          step={0.1}
-          onValueChange={(v) => updateSetting("voicePitch", v)}
-        />
-      </SettingGroup>
-
-      {/* Microphone Settings */}
-      <SettingGroup title="إعدادات الميكروفون">
         <SettingCard
-          icon={<Mic className="w-5 h-5" />}
+          icon={<Mic />}
+          title="تفعيل الصوت"
+          description="تمكين التفاعل الصوتي مع المساعد"
+        >
+          <SettingToggle
+            checked={voiceEnabled}
+            onCheckedChange={(v) => updateSetting("voiceEnabled", v)}
+          />
+        </SettingCard>
+
+        <SettingCard
+          icon={<Mic />}
           title="اضغط للتحدث"
-          description="تفعيل الميكروفون بالضغط فقط"
+          description="الضغط باستمرار للتحدث بدلاً من الاكتشاف التلقائي"
         >
           <SettingToggle
             checked={pushToTalk}
@@ -150,40 +74,77 @@ export function VoiceModeSection() {
         </SettingCard>
 
         <SettingCard
-          icon={<AudioWaveform className="w-5 h-5" />}
-          title="تقليل الضوضاء"
-          description="تحسين جودة الصوت بإزالة الضوضاء الخلفية"
-        >
-          <SettingToggle
-            checked={noiseCancellation}
-            onCheckedChange={(v) => updateSetting("noiseCancellation", v)}
-          />
-        </SettingCard>
-      </SettingGroup>
-
-      {/* Conversation */}
-      <SettingGroup title="المحادثة">
-        <SettingCard
-          icon={<Volume2 className="w-5 h-5" />}
-          title="تشغيل الردود تلقائياً"
-          description="نطق ردود المساعد تلقائياً"
+          icon={<Volume2 />}
+          title="تشغيل تلقائي"
+          description="قراءة الردود صوتياً تلقائياً"
         >
           <SettingToggle
             checked={autoPlayResponse}
             onCheckedChange={(v) => updateSetting("autoPlayResponse", v)}
           />
         </SettingCard>
+      </SettingGroup>
 
-        <SettingCard
-          icon={<Languages className="w-5 h-5" />}
-          title="الصوت مفعّل"
-          description="تفعيل الوضع الصوتي"
-        >
-          <SettingToggle
-            checked={voiceEnabled}
-            onCheckedChange={(v) => updateSetting("voiceEnabled", v)}
-          />
-        </SettingCard>
+      <SettingGroup title="اختيار الصوت">
+        <div className="grid grid-cols-3 sm:grid-cols-3 gap-2">
+          {voiceOptions.map((voice) => (
+            <motion.div
+              key={voice.id}
+              role="button"
+              tabIndex={0}
+              onClick={() => updateSetting("selectedVoice", voice.id)}
+              onKeyDown={(e) => {
+                if (e.key === "Enter" || e.key === " ") {
+                  e.preventDefault();
+                  updateSetting("selectedVoice", voice.id);
+                }
+              }}
+              className={cn(
+                "relative p-2.5 sm:p-3 rounded-lg border transition-all text-right group",
+                selectedVoice === voice.id
+                  ? "border-primary bg-primary/10"
+                  : "border-border/40 glass-lite hover:border-primary/50"
+              )}
+              whileHover={{ scale: 1.02 }}
+              whileTap={{ scale: 0.98 }}
+            >
+              <div className="flex items-center justify-between mb-1.5">
+                <button
+                  type="button"
+                  onClick={(e) => {
+                    e.stopPropagation();
+                    handlePlayVoice(voice.id);
+                  }}
+                  className={cn(
+                    "p-1.5 rounded-full transition-colors",
+                    playingVoice === voice.id 
+                      ? "bg-primary text-primary-foreground" 
+                      : "bg-white/10 hover:bg-primary/20"
+                  )}
+                >
+                  {playingVoice === voice.id ? (
+                    <Pause className="w-3 h-3" />
+                  ) : (
+                    <Play className="w-3 h-3" />
+                  )}
+                </button>
+                <div className={cn(
+                  "w-6 h-6 rounded-full flex items-center justify-center",
+                  selectedVoice === voice.id ? "bg-primary text-primary-foreground" : "bg-muted text-muted-foreground"
+                )}>
+                  <Volume2 className="w-3.5 h-3.5" />
+                </div>
+              </div>
+              <h4 className={cn(
+                "text-[11px] sm:text-xs font-medium",
+                selectedVoice === voice.id ? "text-primary" : "text-foreground"
+              )}>{voice.name}</h4>
+              <p className="text-[10px] text-muted-foreground mt-0.5 leading-tight">
+                {voice.type} • {voice.lang}
+              </p>
+            </motion.div>
+          ))}
+        </div>
       </SettingGroup>
     </div>
   );

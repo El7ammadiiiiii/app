@@ -307,7 +307,7 @@ export class OrderBookAnalyzer {
  */
 export async function fetchOrderBook(
   symbol: string,
-  exchange: string = 'binance',
+  exchange: string = 'bybit',
   limit: number = 100
 ): Promise<OrderBookData> {
   const response = await fetch(

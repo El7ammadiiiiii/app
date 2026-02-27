@@ -10,7 +10,7 @@ const featurePills = [
   "تحكم متعدد الأطر الزمنية",
   "حماية قرارات التداول",
   "تتبع السيولة الذكية",
-  "وصول إلى شبكة CCCWAYS",
+  "وصول إلى شبكة CCWAYS",
 ];
 
 const assuranceBullets = [
@@ -96,7 +96,7 @@ export const LoginHero = () => {
       <div className="relative z-10 mx-auto flex min-h-screen w-full max-w-6xl flex-col gap-8 px-6 py-10 lg:px-12">
         <header className="flex flex-col gap-3 text-right sm:flex-row sm:items-center sm:justify-between">
           <div>
-            <p className="text-sm uppercase tracking-[0.3em] text-amber-300">CCCWAYS NEXUS</p>
+            <p className="text-sm uppercase tracking-[0.3em] text-amber-300">CCWAYS</p>
             <h1 className="font-serif text-3xl text-white md:text-4xl">Alt Season Black Intelligence Grid</h1>
           </div>
           <div className="flex flex-wrap gap-2 text-xs text-neutral-200">
@@ -120,7 +120,7 @@ export const LoginHero = () => {
               </h2>
               <p className="text-lg text-neutral-200">
                 ندير حسابك عبر بروتوكول OAuth 2.0 الرسمي، ثم نربط بياناتك بخدمة Firestore لإصدار التنبيهات، إدارة الجلسة،
-                وتسليم توصيات CCCWAYS في وقت قياسي.
+                وتسليم توصيات CCWAYS في وقت قياسي.
               </p>
             </div>
 
@@ -200,7 +200,7 @@ export const LoginHero = () => {
                     disabled
                     type="email"
                     className="mt-2 w-full rounded-2xl border border-white/10 bg-black/40 px-4 py-3 text-white placeholder:text-neutral-500"
-                    placeholder="soon@cccways.ai"
+                    placeholder="soon@CCWAYS.ai"
                   />
                 </label>
                 <label className="block text-right text-sm text-neutral-300">
@@ -216,7 +216,7 @@ export const LoginHero = () => {
             </div>
 
             <p className="text-xs leading-6 text-neutral-400">
-              بالاستمرار، أنت تمنح CCCWAYS الإذن للوصول إلى عنوان بريدك الإلكتروني واسمك وصورتك الشخصية. لا نقوم بمشاركة بياناتك
+              بالاستمرار، أنت تمنح CCWAYS الإذن للوصول إلى عنوان بريدك الإلكتروني واسمك وصورتك الشخصية. لا نقوم بمشاركة بياناتك
               مع أطراف ثالثة، ويمكنك إلغاء التفويض من لوحة Google Security في أي وقت.
             </p>
 

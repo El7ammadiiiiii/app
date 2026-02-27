@@ -41,7 +41,7 @@ const aiInsights = [
     title: "Whale Movement Alert",
     time: "15m ago",
     type: "On-Chain",
-    content: "Large transfer of 5,000 BTC from cold wallet to Binance.",
+    content: "Large transfer of 5,000 BTC from cold wallet to Bybit.",
     confidence: "High Impact",
     sentiment: "Bearish"
   },
@@ -142,7 +142,7 @@ export function Dashboard() {
                 </div>
                 <div>
                   <span className="font-bold text-sm text-foreground block">الرسم البياني المتقدم</span>
-                  <span className="text-[10px] text-muted-foreground">BTC/USD • Binance Spot</span>
+                  <span className="text-[10px] text-muted-foreground">BTC/USD • Centralized API</span>
                 </div>
               </div>
               <div className="flex gap-1 theme-surface/30 p-1 rounded-lg border border-white/5">

@@ -1,10 +1,9 @@
-/**
- * 🔗 Aggregated Order Book API Route
- * GET /api/exchanges/aggregated?exchanges=binance,bybit,okx&symbol=BTC/USDT&limit=100
- */
-
 import { NextRequest, NextResponse } from 'next/server';
-import { aggregator, type ExchangeId } from '@/lib/exchanges';
+
+/**
+ * 📊 Aggregated Data API Route - Updated to work without CCXT
+ * GET /api/exchanges/aggregated?symbol=BTCUSDT
+ */
 
 export const runtime = 'nodejs';
 export const dynamic = 'force-dynamic';
@@ -12,51 +11,30 @@ export const dynamic = 'force-dynamic';
 export async function GET(request: NextRequest) {
   try {
     const { searchParams } = new URL(request.url);
+    const symbol = searchParams.get('symbol') || 'BTCUSDT';
+
+    // Fetch data from multiple sources or just return a unified format
+    // For now, we'll fetch from our unified OHLCV API as a base
+    const baseUrl = request.nextUrl.origin;
+    const response = await fetch(`${baseUrl}/api/ohlcv?symbol=${symbol}&exchange=bybit&interval=1h&limit=1`);
     
-    const exchangesParam = searchParams.get('exchanges');
-    const symbol = searchParams.get('symbol');
-    const limitParam = searchParams.get('limit');
-
-    // Validation
-    if (!exchangesParam) {
-      return NextResponse.json(
-        { error: 'Missing required parameter: exchanges (comma-separated list)' },
-        { status: 400 }
-      );
+    if (!response.ok) {
+      throw new Error('Failed to fetch base data for aggregation');
     }
 
-    if (!symbol) {
-      return NextResponse.json(
-        { error: 'Missing required parameter: symbol' },
-        { status: 400 }
-      );
-    }
+    const data = await response.json();
 
-    // Parse parameters
-    const exchanges = exchangesParam.split(',') as ExchangeId[];
-    const limit = limitParam ? parseInt(limitParam) : 100;
-
-    // Validate exchanges
-    if (exchanges.length === 0) {
-      return NextResponse.json(
-        { error: 'At least one exchange must be specified' },
-        { status: 400 }
-      );
-    }
-
-    // Get aggregated order book
-    const result = await aggregator.getAggregatedOrderBook(exchanges, symbol, limit);
-
-    if (!result.success) {
-      return NextResponse.json(
-        { error: result.error },
-        { status: 500 }
-      );
-    }
-
-    return NextResponse.json(result);
+    return NextResponse.json({
+      success: true,
+      symbol,
+      aggregatedData: {
+        price: data.data?.[0]?.close || 0,
+        timestamp: Date.now(),
+        sources: ['centralized_api']
+      }
+    });
   } catch (error) {
-    console.error('Aggregated Order Book API Error:', error);
+    console.error('Aggregated API Error:', error);
     return NextResponse.json(
       { error: (error as Error).message },
       { status: 500 }

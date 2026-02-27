@@ -6,9 +6,17 @@
  * Uses pivot point analysis and trend line validation.
  */
 
-import { CandleData } from "@/components/charts/TradingChart";
-
 // ============ TYPES ============
+
+/** Candle data — same shape as @/components/charts/types CandleData but self-contained */
+export interface CandleData {
+  time: number;
+  open: number;
+  high: number;
+  low: number;
+  close: number;
+  volume?: number;
+}
 
 export interface ZigZagPivot {
   price: number;
@@ -131,7 +139,7 @@ const lightThemeColors = [
 /**
  * Calculate ZigZag pivots
  */
-function calculateZigZag(data: CandleData[], length: number): ZigZagPivot[] {
+export function calculateZigZag(data: CandleData[], length: number): ZigZagPivot[] {
   const pivots: ZigZagPivot[] = [];
   if (data.length < length * 2) return pivots;
   
@@ -234,7 +242,7 @@ function calculateZigZag(data: CandleData[], length: number): ZigZagPivot[] {
 /**
  * Calculate angle of a line in degrees
  */
-function calculateAngle(data: CandleData[], startBar: number, startPrice: number, endBar: number, endPrice: number): number {
+export function calculateAngle(data: CandleData[], startBar: number, startPrice: number, endBar: number, endPrice: number): number {
   if (startBar === endBar) return 0;
   
   // Calculate average true range for normalization
@@ -266,7 +274,7 @@ function calculateAngle(data: CandleData[], startBar: number, startPrice: number
 /**
  * Get price at a specific bar on a line
  */
-function getLinePrice(x1: number, y1: number, x2: number, y2: number, targetX: number): number {
+export function getLinePrice(x1: number, y1: number, x2: number, y2: number, targetX: number): number {
   if (x2 === x1) return y1;
   const slope = (y2 - y1) / (x2 - x1);
   return y1 + slope * (targetX - x1);

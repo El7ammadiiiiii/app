@@ -94,9 +94,10 @@ export async function GET(request: NextRequest) {
   }
 
   try {
-    // Fetch OHLCV data from Binance
+    // Fetch OHLCV data from Centralized API
+    // Use internal API to prioritize Bybit/Coinbase and handle fallbacks
     const response = await fetch(
-      `https://api.binance.com/api/v3/klines?symbol=${symbol}&interval=${timeframe}&limit=200`
+      `${new URL(request.url).origin}/api/ohlcv?symbol=${symbol}&interval=${timeframe}&limit=200&exchange=bybit`
     );
 
     if (!response.ok) {

@@ -153,7 +153,7 @@ Each detected wedge now includes:
 
 ## Files Modified
 
-- `nexus-webapp/src/lib/indicators/chart-patterns.ts` (primary changes)
+- `ccways/src/lib/indicators/chart-patterns.ts` (primary changes)
   - Added: `calculateATRSeries()`
   - Added: `findLocalExtremaAdvanced()`
   - Added: `robustLinearRegressionRANSAC()`

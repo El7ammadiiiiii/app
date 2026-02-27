@@ -3,7 +3,7 @@
  * Converted from Pine Script v5
  */
 
-import { CandleData } from "@/components/charts/TradingChart";
+import type { CandleData } from "@/components/charts/types";
 
 export interface SupportResistanceConfig {
   resistanceLine: boolean;

@@ -8,7 +8,7 @@
  * - Timing Box analysis based on Kijun-Sen flat breakouts
  */
 
-import { CandleData } from "@/components/charts/TradingChart";
+import type { CandleData } from "@/components/charts/types";
 
 export interface IchimokuPourSamadiConfig {
   // Logical Settings

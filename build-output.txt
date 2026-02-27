@@ -1,0 +1,96 @@
+[baseline-browser-mapping] The data in this module is over two months old.  To ensure accurate Baseline data, please update: `npm i baseline-browser-mapping@latest -D`
+   Γû▓ Next.js 16.0.8 (Turbopack)
+   - Environments: .env.local, .env
+   - Experiments (use with caution):
+     ┬╖ optimizePackageImports
+
+   Creating an optimized production build ...
+[baseline-browser-mapping] The data in this module is over two months old.  To ensure accurate Baseline data, please update: `npm i baseline-browser-mapping@latest -D`
+ Γ£ô Compiled successfully in 16.2s
+   Skipping validation of types
+   Collecting page data using 11 workers ...
+[baseline-browser-mapping] The data in this module is over two months old.  To ensure accurate Baseline data, please update: `npm i baseline-browser-mapping@latest -D`
+[baseline-browser-mapping] The data in this module is over two months old.  To ensure accurate Baseline data, please update: `npm i baseline-browser-mapping@latest -D`
+[baseline-browser-mapping] The data in this module is over two months old.  To ensure accurate Baseline data, please update: `npm i baseline-browser-mapping@latest -D`
+[baseline-browser-mapping] The data in this module is over two months old.  To ensure accurate Baseline data, please update: `npm i baseline-browser-mapping@latest -D`
+[baseline-browser-mapping] The data in this module is over two months old.  To ensure accurate Baseline data, please update: `npm i baseline-browser-mapping@latest -D`
+[baseline-browser-mapping] The data in this module is over two months old.  To ensure accurate Baseline data, please update: `npm i baseline-browser-mapping@latest -D`
+[baseline-browser-mapping] The data in this module is over two months old.  To ensure accurate Baseline data, please update: `npm i baseline-browser-mapping@latest -D`
+[baseline-browser-mapping] The data in this module is over two months old.  To ensure accurate Baseline data, please update: `npm i baseline-browser-mapping@latest -D`
+[baseline-browser-mapping] The data in this module is over two months old.  To ensure accurate Baseline data, please update: `npm i baseline-browser-mapping@latest -D`
+[baseline-browser-mapping] The data in this module is over two months old.  To ensure accurate Baseline data, please update: `npm i baseline-browser-mapping@latest -D`
+[baseline-browser-mapping] The data in this module is over two months old.  To ensure accurate Baseline data, please update: `npm i baseline-browser-mapping@latest -D`
+   Generating static pages using 11 workers (0/40) ...
+[baseline-browser-mapping] The data in this module is over two months old.  To ensure accurate Baseline data, please update: `npm i baseline-browser-mapping@latest -D`
+[baseline-browser-mapping] The data in this module is over two months old.  To ensure accurate Baseline data, please update: `npm i baseline-browser-mapping@latest -D`
+   Generating static pages using 11 workers (10/40) 
+   Generating static pages using 11 workers (20/40) 
+   Generating static pages using 11 workers (30/40) 
+ Γ£ô Generating static pages using 11 workers (40/40) in 1312.1ms
+   Finalizing page optimization ...
+
+Route (app)
+Γöî Γùï /
+Γö£ Γùï /_not-found
+Γö£ ╞Æ /api/ai-chart-analysis
+Γö£ ╞Æ /api/analysis
+Γö£ ╞Æ /api/auth/google/callback
+Γö£ ╞Æ /api/auth/google/refresh
+Γö£ ╞Æ /api/auth/google/start
+Γö£ ╞Æ /api/auth/logout
+Γö£ ╞Æ /api/canvas/edit
+Γö£ ╞Æ /api/cex
+Γö£ ╞Æ /api/chat/thinking
+Γö£ ╞Æ /api/chat/unified
+Γö£ ╞Æ /api/coingecko
+Γö£ ╞Æ /api/cryptorank
+Γö£ ╞Æ /api/exchanges/aggregated
+Γö£ ╞Æ /api/exchanges/markets
+Γö£ ╞Æ /api/exchanges/ohlcv
+Γö£ ╞Æ /api/exchanges/orderbook
+Γö£ ╞Æ /api/exchanges/ticker
+Γö£ ╞Æ /api/exchanges/trades
+Γö£ ╞Æ /api/gemini/image
+Γö£ ╞Æ /api/integrations/[provider]/callback
+Γö£ ╞Æ /api/integrations/[provider]/disconnect
+Γö£ ╞Æ /api/integrations/[provider]/start
+Γö£ ╞Æ /api/integrations/status
+Γö£ ╞Æ /api/integrations/webhooks
+Γö£ ╞Æ /api/levels
+Γö£ ╞Æ /api/news
+Γö£ ╞Æ /api/ohlcv
+Γö£ ╞Æ /api/onchain/chains
+Γö£ ╞Æ /api/onchain/trace/build
+Γö£ ╞Æ /api/onchain/trace/edge
+Γö£ ╞Æ /api/onchain/trace/expand
+Γö£ ╞Æ /api/onchain/trace/node
+Γö£ ╞Æ /api/orderbook
+Γö£ ╞Æ /api/patterns/scan
+Γö£ ╞Æ /api/patterns/ts-scan
+Γö£ ╞Æ /api/veo/generate
+Γö£ ╞Æ /api/veo/status/[operationName]
+Γö£ ╞Æ /api/whales
+Γö£ Γùï /charts-demo
+Γö£ Γùï /chat
+Γö£ Γùï /chat/cexs-inflow-outflow
+Γö£ Γùï /chat/ChainTracker
+Γö£ Γùï /chat/divergence-scanner
+Γö£ Γùï /chat/levels
+Γö£ Γùï /chat/news
+Γö£ Γùï /chat/pattern
+Γö£ Γùï /chat/token-sales
+Γö£ ╞Æ /chat/token-sales/[id]
+Γö£ Γùï /chat/trend-scanner
+Γö£ ╞Æ /chat/trend-scanner/[pair]
+Γö£ Γùï /chat/trend-scanner/favorites
+Γö£ Γùï /chat/volume-scanner
+Γö£ ╞Æ /chat/whales
+Γö£ ╞Æ /favorites/[id]
+Γö£ Γùï /login
+Γö£ Γùï /responsive-demo
+Γöö Γùï /test-chart
+
+
+Γùï  (Static)   prerendered as static content
+╞Æ  (Dynamic)  server-rendered on demand
+

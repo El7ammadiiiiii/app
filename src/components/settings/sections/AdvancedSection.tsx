@@ -3,8 +3,6 @@
 import * as React from "react";
 import { motion } from "framer-motion";
 import { 
-  Code,
-  Bug,
   Cpu,
   Database,
   Zap,
@@ -12,7 +10,6 @@ import {
   RefreshCw,
   Trash2,
   Download,
-  Terminal,
   FlaskConical,
   Network,
 } from "lucide-react";
@@ -43,8 +40,6 @@ const proxyOptions = [
 
 export function AdvancedSection() {
   const {
-    developerMode,
-    debugLogs,
     preloadData,
     compressImages,
     memoryLimit,
@@ -59,40 +54,7 @@ export function AdvancedSection() {
 
   return (
     <div className="space-y-6">
-      {/* Developer Tools */}
-      <SettingGroup title="أدوات المطور">
-        <SettingCard
-          icon={<Code className="w-5 h-5" />}
-          title="وضع المطور"
-          description="إظهار أدوات تطوير إضافية ومعلومات تقنية"
-        >
-          <SettingToggle
-            checked={developerMode}
-            onCheckedChange={(v) => updateSetting("developerMode", v)}
-          />
-        </SettingCard>
 
-        <SettingCard
-          icon={<Bug className="w-5 h-5" />}
-          title="سجلات التصحيح"
-          description="تسجيل معلومات مفصلة للمساعدة في حل المشاكل"
-        >
-          <SettingToggle
-            checked={debugLogs}
-            onCheckedChange={(v) => updateSetting("debugLogs", v)}
-          />
-        </SettingCard>
-
-          <SettingCard
-            icon={<Terminal className="w-5 h-5" />}
-            title="وحدة التحكم"
-            description="فتح وحدة تحكم المطور"
-          >
-            <button className="px-4 py-1.5 rounded-lg bg-muted text-foreground text-sm font-medium transition-colors hover:brightness-90">
-              فتح
-            </button>
-          </SettingCard>
-      </SettingGroup>
 
       {/* Performance */}
       <SettingGroup title="الأداء">
@@ -119,6 +81,9 @@ export function AdvancedSection() {
         </SettingCard>
 
         <SettingSelect
+          variant="cmdk"
+          id="settings-advanced-memory-limit"
+          modalTitle="حد الذاكرة"
           label="حد الذاكرة"
           description="الحد الأقصى لاستخدام الذاكرة"
           value={memoryLimit}
@@ -154,6 +119,9 @@ export function AdvancedSection() {
       {/* Updates */}
       <SettingGroup title="التحديثات">
         <SettingSelect
+          variant="cmdk"
+          id="settings-advanced-update-channel"
+          modalTitle="قناة التحديث"
           label="قناة التحديث"
           description="اختر نوع التحديثات التي تريد تلقيها"
           value={updateChannel}

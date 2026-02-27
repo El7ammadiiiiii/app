@@ -14,6 +14,7 @@ import {
 import { SettingGroup } from "../components";
 import { useIntegrationStore, Integration, IntegrationCategory } from "@/store/integrationStore";
 import { ProviderType } from "@/lib/auth/providers/base";
+import useTimeout from '@/hooks/useTimeout';
 import { useSearchParams } from "next/navigation";
 
 export function IntegrationsSection() {
@@ -33,6 +34,10 @@ export function IntegrationsSection() {
   const [successMessage, setSuccessMessage] = React.useState<string | null>(null);
   const [errorMessage, setErrorMessage] = React.useState<string | null>(null);
 
+  // Auto-clear messages
+  useTimeout(() => setSuccessMessage(null), successMessage ? 5000 : undefined, [successMessage]);
+  useTimeout(() => setErrorMessage(null), errorMessage ? 5000 : undefined, [errorMessage]);
+
   // Handle OAuth callback success/error
   React.useEffect(() => {
     if (!searchParams) return;
@@ -42,11 +47,9 @@ export function IntegrationsSection() {
 
     if (success) {
       setSuccessMessage(`تم ربط ${success} بنجاح!`);
-      setTimeout(() => setSuccessMessage(null), 5000);
     }
     if (error) {
       setErrorMessage(`فشل الربط: ${error}`);
-      setTimeout(() => setErrorMessage(null), 5000);
     }
   }, [searchParams]);
 
@@ -189,7 +192,7 @@ export function IntegrationsSection() {
             <Loader2 className="w-8 h-8 animate-spin text-primary" />
           </div>
         ) : (
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
+          <div className="grid grid-cols-3 md:grid-cols-2 lg:grid-cols-3 gap-2 sm:gap-4">
             <AnimatePresence mode="popLayout">
               {filteredIntegrations.map((integration) => (
                 <IntegrationCard
@@ -248,10 +251,11 @@ function IntegrationCard({ integration, onConnect, onDisconnect }: IntegrationCa
       animate={{ opacity: 1, scale: 1 }}
       exit={{ opacity: 0, scale: 0.95 }}
       className={`
-        relative p-4 rounded-xl border transition-all
+        relative rounded-xl border transition-all
+        p-2.5 sm:p-4
         ${isConnected
           ? "bg-green-500/5 border-green-500/20"
-          : "glass-panel border-[var(--glass-border-subtle)] hover:border-primary/30"
+          : "glass-lite glass-lite--interactive border-[var(--glass-border-subtle)] hover:border-primary/30"
         }
       `}
     >
@@ -263,13 +267,17 @@ function IntegrationCard({ integration, onConnect, onDisconnect }: IntegrationCa
       )}
 
       {/* Header */}
-      <div className="flex items-start gap-3 mb-3">
-        <div className={`w-12 h-12 rounded-xl ${integration.color} flex items-center justify-center text-2xl`}>
+      <div className="flex flex-col items-center text-center gap-2 mb-2 sm:flex-row sm:items-start sm:text-right sm:gap-3 sm:mb-3">
+        <div
+          className={
+            `w-10 h-10 sm:w-12 sm:h-12 rounded-xl ${integration.color} flex items-center justify-center text-[20px] sm:text-2xl`
+          }
+        >
           {integration.icon}
         </div>
         <div className="flex-1 min-w-0">
           <div className="flex items-center gap-2">
-            <h4 className="font-semibold text-foreground truncate">
+            <h4 className="font-semibold text-foreground truncate text-[13px] sm:text-[15px]">
               {integration.name}
             </h4>
             {isConnected && (
@@ -278,7 +286,7 @@ function IntegrationCard({ integration, onConnect, onDisconnect }: IntegrationCa
               </span>
             )}
           </div>
-          <p className="text-sm text-muted-foreground truncate">
+          <p className="hidden sm:block text-sm text-muted-foreground truncate">
             {integration.nameAr}
           </p>
         </div>
@@ -286,7 +294,7 @@ function IntegrationCard({ integration, onConnect, onDisconnect }: IntegrationCa
 
       {/* Profile Info (if connected) */}
       {isConnected && integration.profile && (
-        <div className="mb-3 p-2 rounded-lg bg-accent/50 text-xs text-muted-foreground">
+        <div className="hidden sm:block mb-3 p-2 rounded-lg bg-accent/50 text-xs text-muted-foreground">
           {/* @ts-expect-error - dynamic profile fields */}
           {integration.profile.name || integration.profile.username || integration.profile.email || "متصل بنجاح"}
         </div>
@@ -294,7 +302,7 @@ function IntegrationCard({ integration, onConnect, onDisconnect }: IntegrationCa
 
       {/* Error */}
       {error && (
-        <div className="mb-3 p-2 rounded-lg bg-red-500/10 text-xs text-red-500">
+        <div className="mb-2 sm:mb-3 p-2 rounded-lg bg-red-500/10 text-[11px] sm:text-xs text-red-500">
           {error}
         </div>
       )}
@@ -306,7 +314,7 @@ function IntegrationCard({ integration, onConnect, onDisconnect }: IntegrationCa
             <button
               onClick={onDisconnect}
               disabled={isLoading}
-              className="flex-1 px-4 py-2 rounded-lg text-sm font-medium border border-destructive text-destructive hover:bg-destructive hover:text-white transition-colors disabled:opacity-50"
+              className="flex-1 px-2.5 py-1.5 sm:px-4 sm:py-2 rounded-lg text-[12px] sm:text-sm font-medium border border-destructive text-destructive hover:bg-destructive hover:text-white transition-colors disabled:opacity-50"
             >
               فصل
             </button>
@@ -326,7 +334,7 @@ function IntegrationCard({ integration, onConnect, onDisconnect }: IntegrationCa
                   const url = urls[integration.provider];
                   if (url) window.open(url, "_blank");
                 }}
-                className="p-2 rounded-lg border border-border text-muted-foreground hover:bg-accent transition-colors"
+                className="hidden sm:inline-flex p-2 rounded-lg border border-border text-muted-foreground hover:bg-accent transition-colors"
               >
                 <ExternalLink className="w-4 h-4" />
               </button>
@@ -336,7 +344,7 @@ function IntegrationCard({ integration, onConnect, onDisconnect }: IntegrationCa
           <button
             onClick={onConnect}
             disabled={isLoading}
-            className="flex-1 px-4 py-2 rounded-lg text-sm font-medium bg-primary text-white hover:brightness-90 transition-all disabled:opacity-50"
+            className="flex-1 px-2.5 py-1.5 sm:px-4 sm:py-2 rounded-lg text-[12px] sm:text-sm font-medium bg-primary text-white hover:brightness-90 transition-all disabled:opacity-50"
           >
             ربط
           </button>
@@ -345,7 +353,7 @@ function IntegrationCard({ integration, onConnect, onDisconnect }: IntegrationCa
 
       {/* Connected time */}
       {isConnected && integration.connectedAt && (
-        <p className="mt-2 text-xs text-muted-foreground text-center">
+        <p className="hidden sm:block mt-2 text-xs text-muted-foreground text-center">
           متصل منذ {formatDate(integration.connectedAt)}
         </p>
       )}

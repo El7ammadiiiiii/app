@@ -1,0 +1,7178 @@
+{
+  "johnson-johnson-xstock": {
+    "slug": "johnson-johnson-xstock",
+    "name": "Johnson & Johnson xStock",
+    "symbol": "JNJX",
+    "faqs": [],
+    "crawledAt": "2026-02-15T19:10:50.585Z"
+  },
+  "goldman-sachs-xstock": {
+    "slug": "goldman-sachs-xstock",
+    "name": "Goldman Sachs xStock",
+    "symbol": "GSX",
+    "faqs": [],
+    "crawledAt": "2026-02-15T19:10:50.591Z"
+  },
+  "bitcoin-cats": {
+    "slug": "bitcoin-cats",
+    "name": "Bitcoin Cats",
+    "symbol": "1CAT",
+    "faqs": [],
+    "crawledAt": "2026-02-15T19:10:50.593Z"
+  },
+  "paws": {
+    "slug": "paws",
+    "name": "PAWS",
+    "symbol": "PAWS",
+    "faqs": [],
+    "crawledAt": "2026-02-15T19:10:50.596Z"
+  },
+  "defive": {
+    "slug": "defive",
+    "name": "DeFive",
+    "symbol": "FIVE",
+    "faqs": [],
+    "crawledAt": "2026-02-15T19:10:50.599Z"
+  },
+  "bagwork": {
+    "slug": "bagwork",
+    "name": "Bagwork",
+    "symbol": "BAGWORK",
+    "faqs": [],
+    "crawledAt": "2026-02-15T19:10:50.602Z"
+  },
+  "gamezone": {
+    "slug": "gamezone",
+    "name": "GameZone",
+    "symbol": "GZONE",
+    "faqs": [],
+    "crawledAt": "2026-02-15T19:10:50.604Z"
+  },
+  "factor": {
+    "slug": "factor",
+    "name": "Factor",
+    "symbol": "FCTR",
+    "faqs": [],
+    "crawledAt": "2026-02-15T19:10:50.606Z"
+  },
+  "gamegpt": {
+    "slug": "gamegpt",
+    "name": "GameGPT",
+    "symbol": "DUEL",
+    "faqs": [],
+    "crawledAt": "2026-02-15T19:10:50.609Z"
+  },
+  "ai-slop": {
+    "slug": "ai-slop",
+    "name": "AI Slop",
+    "symbol": "AISLOP",
+    "faqs": [],
+    "crawledAt": "2026-02-15T19:10:50.611Z"
+  },
+  "salvor": {
+    "slug": "salvor",
+    "name": "Salvor",
+    "symbol": "ART",
+    "faqs": [],
+    "crawledAt": "2026-02-15T19:10:54.309Z"
+  },
+  "cryptoboomcoin-official": {
+    "slug": "cryptoboomcoin-official",
+    "name": "CryptoBoomCoin Official",
+    "symbol": "CBC",
+    "faqs": [],
+    "crawledAt": "2026-02-15T19:10:54.311Z"
+  },
+  "exmo-coin": {
+    "slug": "exmo-coin",
+    "name": "EXMO Coin",
+    "symbol": "EXM",
+    "faqs": [],
+    "crawledAt": "2026-02-15T19:10:54.311Z",
+    "error": "HTTP 500"
+  },
+  "follow-token": {
+    "slug": "follow-token",
+    "name": "Alpha Impact",
+    "symbol": "FOLO",
+    "faqs": [],
+    "crawledAt": "2026-02-15T19:10:54.314Z"
+  },
+  "disclaimercoin": {
+    "slug": "disclaimercoin",
+    "name": "DisclaimerCoin",
+    "symbol": "DONT",
+    "faqs": [],
+    "crawledAt": "2026-02-15T19:10:54.316Z"
+  },
+  "developer-camp": {
+    "slug": "developer-camp",
+    "name": "Developer Camp",
+    "symbol": "DEVELOPER",
+    "faqs": [],
+    "crawledAt": "2026-02-15T19:10:54.319Z"
+  },
+  "nuco-cloud": {
+    "slug": "nuco-cloud",
+    "name": "nuco.cloud",
+    "symbol": "NCDT",
+    "faqs": [],
+    "crawledAt": "2026-02-15T19:10:54.329Z"
+  },
+  "pinkmoon": {
+    "slug": "pinkmoon",
+    "name": "PinkMoon",
+    "symbol": "PINKM",
+    "faqs": [],
+    "crawledAt": "2026-02-15T19:10:54.331Z"
+  },
+  "bomber-coin": {
+    "slug": "bomber-coin",
+    "name": "Bomb Crypto (BNB)",
+    "symbol": "BCOIN",
+    "faqs": [],
+    "crawledAt": "2026-02-15T19:10:54.333Z"
+  },
+  "polkafoundry": {
+    "slug": "polkafoundry",
+    "name": "Red Kite",
+    "symbol": "PKF",
+    "faqs": [],
+    "crawledAt": "2026-02-15T19:10:54.335Z"
+  },
+  "fishing-frenzy": {
+    "slug": "fishing-frenzy",
+    "name": "Fishing Frenzy",
+    "symbol": "FISH",
+    "faqs": [],
+    "crawledAt": "2026-02-15T19:10:58.176Z"
+  },
+  "utopian-contributor-coin": {
+    "slug": "utopian-contributor-coin",
+    "name": "Utopian Contributor Coin",
+    "symbol": "UTCC",
+    "faqs": [],
+    "crawledAt": "2026-02-15T19:10:58.178Z"
+  },
+  "sentre": {
+    "slug": "sentre",
+    "name": "Sentre",
+    "symbol": "SNTR",
+    "faqs": [],
+    "crawledAt": "2026-02-15T19:10:58.180Z"
+  },
+  "matchain": {
+    "slug": "matchain",
+    "name": "Matchain",
+    "symbol": "MAT",
+    "faqs": [],
+    "crawledAt": "2026-02-15T19:10:58.182Z"
+  },
+  "ghiblicz": {
+    "slug": "ghiblicz",
+    "name": "GhibliCZ",
+    "symbol": "GHIBLI",
+    "faqs": [],
+    "crawledAt": "2026-02-15T19:10:58.184Z"
+  },
+  "youwho": {
+    "slug": "youwho",
+    "name": "Youwho",
+    "symbol": "YOU",
+    "faqs": [],
+    "crawledAt": "2026-02-15T19:10:58.186Z"
+  },
+  "x402guard": {
+    "slug": "x402guard",
+    "name": "x402guard",
+    "symbol": "X40G",
+    "faqs": [],
+    "crawledAt": "2026-02-15T19:10:58.190Z"
+  },
+  "domi": {
+    "slug": "domi",
+    "name": "Domi",
+    "symbol": "DOMI",
+    "faqs": [],
+    "crawledAt": "2026-02-15T19:10:58.192Z"
+  },
+  "trog": {
+    "slug": "trog",
+    "name": "Trog",
+    "symbol": "TROG",
+    "faqs": [],
+    "crawledAt": "2026-02-15T19:10:58.193Z"
+  },
+  "jpmorgan-chase-xstock": {
+    "slug": "jpmorgan-chase-xstock",
+    "name": "JPMorgan Chase xStock",
+    "symbol": "JPMX",
+    "faqs": [],
+    "crawledAt": "2026-02-15T19:10:58.196Z"
+  },
+  "applovin-xstock": {
+    "slug": "applovin-xstock",
+    "name": "AppLovin xStock",
+    "symbol": "APPX",
+    "faqs": [],
+    "crawledAt": "2026-02-15T19:11:06.000Z"
+  },
+  "whine-coin": {
+    "slug": "whine-coin",
+    "name": "Whine Coin",
+    "symbol": "WHINE",
+    "faqs": [],
+    "crawledAt": "2026-02-15T19:11:06.002Z"
+  },
+  "toto-2": {
+    "slug": "toto-2",
+    "name": "TOTO",
+    "symbol": "TOTO",
+    "faqs": [],
+    "crawledAt": "2026-02-15T19:11:06.002Z",
+    "error": "HTTP 500"
+  },
+  "peng": {
+    "slug": "peng",
+    "name": "Peng",
+    "symbol": "PENG",
+    "faqs": [],
+    "crawledAt": "2026-02-15T19:11:06.004Z"
+  },
+  "astroport-fi": {
+    "slug": "astroport-fi",
+    "name": "Astroport",
+    "symbol": "ASTRO",
+    "faqs": [],
+    "crawledAt": "2026-02-15T19:11:06.006Z"
+  },
+  "basilisk": {
+    "slug": "basilisk",
+    "name": "Basilisk",
+    "symbol": "BSX",
+    "faqs": [],
+    "crawledAt": "2026-02-15T19:11:06.011Z"
+  },
+  "yaku": {
+    "slug": "yaku",
+    "name": "Yaku",
+    "symbol": "YAKU",
+    "faqs": [],
+    "crawledAt": "2026-02-15T19:11:06.013Z"
+  },
+  "strike-3": {
+    "slug": "strike-3",
+    "name": "STRIKE",
+    "symbol": "STRIKE",
+    "faqs": [],
+    "crawledAt": "2026-02-15T19:11:06.013Z",
+    "error": "HTTP 500"
+  },
+  "higher": {
+    "slug": "higher",
+    "name": "higher",
+    "symbol": "HIGHER",
+    "faqs": [],
+    "crawledAt": "2026-02-15T19:11:06.015Z"
+  },
+  "luna-inu": {
+    "slug": "luna-inu",
+    "name": "Luna Inu",
+    "symbol": "LINU",
+    "faqs": [],
+    "crawledAt": "2026-02-15T19:11:06.016Z"
+  },
+  "whales-market": {
+    "slug": "whales-market",
+    "name": "Whales Market",
+    "symbol": "WHALES",
+    "faqs": [],
+    "crawledAt": "2026-02-15T19:11:09.958Z"
+  },
+  "alt-town": {
+    "slug": "alt-town",
+    "name": "Alt.town",
+    "symbol": "TOWN",
+    "faqs": [],
+    "crawledAt": "2026-02-15T19:11:09.960Z"
+  },
+  "gorilla-3": {
+    "slug": "gorilla-3",
+    "name": "Gorilla",
+    "symbol": "GORILLA",
+    "faqs": [],
+    "crawledAt": "2026-02-15T19:11:09.960Z",
+    "error": "HTTP 500"
+  },
+  "accelerando": {
+    "slug": "accelerando",
+    "name": "Accelerando",
+    "symbol": "ACCELERANDO",
+    "faqs": [],
+    "crawledAt": "2026-02-15T19:11:09.962Z"
+  },
+  "chihuahua-token": {
+    "slug": "chihuahua-token",
+    "name": "Chihuahua Chain",
+    "symbol": "HUAHUA",
+    "faqs": [],
+    "crawledAt": "2026-02-15T19:11:09.964Z"
+  },
+  "doyr": {
+    "slug": "doyr",
+    "name": "DOYR",
+    "symbol": "DOYR",
+    "faqs": [],
+    "crawledAt": "2026-02-15T19:11:09.966Z"
+  },
+  "acquire-fi": {
+    "slug": "acquire-fi",
+    "name": "Acquire.Fi",
+    "symbol": "ACQ",
+    "faqs": [],
+    "crawledAt": "2026-02-15T19:11:09.968Z"
+  },
+  "birbstrategy": {
+    "slug": "birbstrategy",
+    "name": "BirbStrategy",
+    "symbol": "BIRBSTR",
+    "faqs": [],
+    "crawledAt": "2026-02-15T19:11:09.971Z"
+  },
+  "volt-2": {
+    "slug": "volt-2",
+    "name": "VOLT",
+    "symbol": "XVM",
+    "faqs": [],
+    "crawledAt": "2026-02-15T19:11:09.974Z"
+  },
+  "pepe-0x69-on-base": {
+    "slug": "pepe-0x69-on-base",
+    "name": "PEPE 0x69 ON BASE",
+    "symbol": "PEPE",
+    "faqs": [],
+    "crawledAt": "2026-02-15T19:11:09.977Z"
+  },
+  "eva-ai": {
+    "slug": "eva-ai",
+    "name": "eVa-ai",
+    "symbol": "$EVA",
+    "faqs": [],
+    "crawledAt": "2026-02-15T19:11:12.619Z"
+  },
+  "buckazoids": {
+    "slug": "buckazoids",
+    "name": "Buckazoids",
+    "symbol": "BUCKAZOIDS",
+    "faqs": [],
+    "crawledAt": "2026-02-15T19:11:12.621Z"
+  },
+  "love-you-my-dear-see-you-tomorrow": {
+    "slug": "love-you-my-dear-see-you-tomorrow",
+    "name": "爱你老己 明天见 (Love you, my dear. See you tomorrow.)",
+    "symbol": "爱你老己",
+    "faqs": [],
+    "crawledAt": "2026-02-15T19:11:12.623Z"
+  },
+  "bitrecs": {
+    "slug": "bitrecs",
+    "name": "Bitrecs",
+    "symbol": "SN122",
+    "faqs": [],
+    "crawledAt": "2026-02-15T19:11:12.625Z"
+  },
+  "zeal": {
+    "slug": "zeal",
+    "name": "ZEAL",
+    "symbol": "ZEAL",
+    "faqs": [],
+    "crawledAt": "2026-02-15T19:11:12.627Z"
+  },
+  "pepemusk": {
+    "slug": "pepemusk",
+    "name": "PepeMusk",
+    "symbol": "PEPEMUSK",
+    "faqs": [],
+    "crawledAt": "2026-02-15T19:11:12.628Z"
+  },
+  "moomoo-token": {
+    "slug": "moomoo-token",
+    "name": "MooMoo Token",
+    "symbol": "MOO",
+    "faqs": [],
+    "crawledAt": "2026-02-15T19:11:12.630Z"
+  },
+  "nomnom": {
+    "slug": "nomnom",
+    "name": "nomnom",
+    "symbol": "NOMNOM",
+    "faqs": [],
+    "crawledAt": "2026-02-15T19:11:12.632Z"
+  },
+  "nakamigo": {
+    "slug": "nakamigo",
+    "name": "Nakamigo",
+    "symbol": "MEEGSTR",
+    "faqs": [],
+    "crawledAt": "2026-02-15T19:11:12.634Z"
+  },
+  "epep-2": {
+    "slug": "epep-2",
+    "name": "EPEP",
+    "symbol": "EPEP",
+    "faqs": [],
+    "crawledAt": "2026-02-15T19:11:12.634Z",
+    "error": "HTTP 500"
+  },
+  "xana": {
+    "slug": "xana",
+    "name": "XANA",
+    "symbol": "XETA",
+    "faqs": [],
+    "crawledAt": "2026-02-15T19:11:16.392Z"
+  },
+  "libra-incentix": {
+    "slug": "libra-incentix",
+    "name": "Libra Incentix",
+    "symbol": "LIXX",
+    "faqs": [],
+    "crawledAt": "2026-02-15T19:11:16.394Z"
+  },
+  "vesta-finance": {
+    "slug": "vesta-finance",
+    "name": "Vesta Finance",
+    "symbol": "VSTA",
+    "faqs": [],
+    "crawledAt": "2026-02-15T19:11:16.396Z"
+  },
+  "scallop": {
+    "slug": "scallop",
+    "name": "Scallop",
+    "symbol": "SCLP",
+    "faqs": [],
+    "crawledAt": "2026-02-15T19:11:16.397Z"
+  },
+  "conocophillips-ondo-tokenized-stocks": {
+    "slug": "conocophillips-ondo-tokenized-stocks",
+    "name": "ConocoPhillips (Ondo Tokenized Stock)",
+    "symbol": "COPON",
+    "faqs": [],
+    "crawledAt": "2026-02-15T19:11:16.397Z",
+    "error": "HTTP 500"
+  },
+  "johnny-suede": {
+    "slug": "johnny-suede",
+    "name": "Johnny Suede",
+    "symbol": "SUEDE",
+    "faqs": [],
+    "crawledAt": "2026-02-15T19:11:16.397Z",
+    "error": "HTTP 500"
+  },
+  "kween": {
+    "slug": "kween",
+    "name": "KWEEN",
+    "symbol": "KWEEN",
+    "faqs": [],
+    "crawledAt": "2026-02-15T19:11:16.399Z"
+  },
+  "visa-xstock": {
+    "slug": "visa-xstock",
+    "name": "Visa xStock",
+    "symbol": "VX",
+    "faqs": [],
+    "crawledAt": "2026-02-15T19:11:16.401Z"
+  },
+  "zap": {
+    "slug": "zap",
+    "name": "Zap",
+    "symbol": "ZAP",
+    "faqs": [],
+    "crawledAt": "2026-02-15T19:11:16.403Z"
+  },
+  "tastenft": {
+    "slug": "tastenft",
+    "name": "TasteNFT",
+    "symbol": "TASTE",
+    "faqs": [],
+    "crawledAt": "2026-02-15T19:11:16.406Z"
+  },
+  "liquity-bold": {
+    "slug": "liquity-bold",
+    "name": "Legacy BOLD",
+    "symbol": "BOLD",
+    "faqs": [],
+    "crawledAt": "2026-02-15T19:11:19.502Z"
+  },
+  "bubb": {
+    "slug": "bubb",
+    "name": "Bubb",
+    "symbol": "BUBB",
+    "faqs": [],
+    "crawledAt": "2026-02-15T19:11:19.506Z"
+  },
+  "usd-wink": {
+    "slug": "usd-wink",
+    "name": "USD WINK",
+    "symbol": "USDW",
+    "faqs": [],
+    "crawledAt": "2026-02-15T19:11:19.508Z"
+  },
+  "gcoin": {
+    "slug": "gcoin",
+    "name": "GCoin",
+    "symbol": "GC",
+    "faqs": [],
+    "crawledAt": "2026-02-15T19:11:19.509Z"
+  },
+  "boba-oppa": {
+    "slug": "boba-oppa",
+    "name": "Boba Oppa",
+    "symbol": "BOBAOPPA",
+    "faqs": [],
+    "crawledAt": "2026-02-15T19:11:19.511Z"
+  },
+  "pepsico-xstock": {
+    "slug": "pepsico-xstock",
+    "name": "PepsiCo xStock",
+    "symbol": "PEPX",
+    "faqs": [],
+    "crawledAt": "2026-02-15T19:11:19.513Z"
+  },
+  "get-rich-or-die-trying": {
+    "slug": "get-rich-or-die-trying",
+    "name": "Get Rich or Die Trying",
+    "symbol": "GRODT",
+    "faqs": [],
+    "crawledAt": "2026-02-15T19:11:19.515Z"
+  },
+  "jpeg-d": {
+    "slug": "jpeg-d",
+    "name": "JPEG'd (OLD)",
+    "symbol": "JPEG",
+    "faqs": [],
+    "crawledAt": "2026-02-15T19:11:19.517Z"
+  },
+  "wom-token": {
+    "slug": "wom-token",
+    "name": "WOM Protocol",
+    "symbol": "WOM",
+    "faqs": [],
+    "crawledAt": "2026-02-15T19:11:19.517Z",
+    "error": "HTTP 500"
+  },
+  "revox": {
+    "slug": "revox",
+    "name": "REVOX",
+    "symbol": "REX",
+    "faqs": [],
+    "crawledAt": "2026-02-15T19:11:19.519Z"
+  },
+  "bag-on-bonk": {
+    "slug": "bag-on-bonk",
+    "name": "Bag on Bonk",
+    "symbol": "BAG",
+    "faqs": [],
+    "crawledAt": "2026-02-15T19:11:23.266Z"
+  },
+  "oobe-protocol": {
+    "slug": "oobe-protocol",
+    "name": "OOBE Protocol",
+    "symbol": "OOBE",
+    "faqs": [],
+    "crawledAt": "2026-02-15T19:11:23.268Z"
+  },
+  "x2y2": {
+    "slug": "x2y2",
+    "name": "X2Y2",
+    "symbol": "X2Y2",
+    "faqs": [],
+    "crawledAt": "2026-02-15T19:11:23.271Z"
+  },
+  "kabila": {
+    "slug": "kabila",
+    "name": "Kabila",
+    "symbol": "KBL",
+    "faqs": [],
+    "crawledAt": "2026-02-15T19:11:23.273Z"
+  },
+  "wam": {
+    "slug": "wam",
+    "name": "Wam",
+    "symbol": "WAM",
+    "faqs": [],
+    "crawledAt": "2026-02-15T19:11:23.276Z"
+  },
+  "spurdo-3": {
+    "slug": "spurdo-3",
+    "name": "SPURDO",
+    "symbol": "SPURDO",
+    "faqs": [],
+    "crawledAt": "2026-02-15T19:11:23.278Z"
+  },
+  "buz-economy": {
+    "slug": "buz-economy",
+    "name": "Buz Economy",
+    "symbol": "BUZ",
+    "faqs": [],
+    "crawledAt": "2026-02-15T19:11:23.280Z"
+  },
+  "stable-3": {
+    "slug": "stable-3",
+    "name": "STABLE",
+    "symbol": "STABLE",
+    "faqs": [],
+    "crawledAt": "2026-02-15T19:11:23.280Z",
+    "error": "HTTP 500"
+  },
+  "sidex": {
+    "slug": "sidex",
+    "name": "Sidex",
+    "symbol": "SIDEX",
+    "faqs": [],
+    "crawledAt": "2026-02-15T19:11:23.283Z"
+  },
+  "coincreate": {
+    "slug": "coincreate",
+    "name": "CoinCreate",
+    "symbol": "CREA",
+    "faqs": [],
+    "crawledAt": "2026-02-15T19:11:23.286Z"
+  },
+  "obsidian-2": {
+    "slug": "obsidian-2",
+    "name": "Obsidian",
+    "symbol": "OBS",
+    "faqs": [],
+    "crawledAt": "2026-02-15T19:11:26.316Z",
+    "error": "HTTP 500"
+  },
+  "creatordao": {
+    "slug": "creatordao",
+    "name": "CreatorDAO",
+    "symbol": "CREATOR",
+    "faqs": [],
+    "crawledAt": "2026-02-15T19:11:26.318Z"
+  },
+  "ouroboros-2": {
+    "slug": "ouroboros-2",
+    "name": "Ouroboros",
+    "symbol": "ORX",
+    "faqs": [],
+    "crawledAt": "2026-02-15T19:11:26.320Z"
+  },
+  "strategic-bitcoin-reserve": {
+    "slug": "strategic-bitcoin-reserve",
+    "name": "Strategic Bitcoin Reserve",
+    "symbol": "SBR",
+    "faqs": [],
+    "crawledAt": "2026-02-15T19:11:26.323Z"
+  },
+  "analog": {
+    "slug": "analog",
+    "name": "Analog",
+    "symbol": "ANLOG",
+    "faqs": [],
+    "crawledAt": "2026-02-15T19:11:26.325Z"
+  },
+  "burrow": {
+    "slug": "burrow",
+    "name": "Burrow",
+    "symbol": "BRRR",
+    "faqs": [],
+    "crawledAt": "2026-02-15T19:11:26.327Z"
+  },
+  "wall-street-memes": {
+    "slug": "wall-street-memes",
+    "name": "Wall Street Memes",
+    "symbol": "WSM",
+    "faqs": [],
+    "crawledAt": "2026-02-15T19:11:26.329Z"
+  },
+  "scamcoin": {
+    "slug": "scamcoin",
+    "name": "Scamcoin",
+    "symbol": "SCAM",
+    "faqs": [],
+    "crawledAt": "2026-02-15T19:11:26.331Z"
+  },
+  "bondly": {
+    "slug": "bondly",
+    "name": "Forj",
+    "symbol": "BONDLY",
+    "faqs": [],
+    "crawledAt": "2026-02-15T19:11:26.333Z"
+  },
+  "quiverx": {
+    "slug": "quiverx",
+    "name": "QuiverX",
+    "symbol": "QRX",
+    "faqs": [],
+    "crawledAt": "2026-02-15T19:11:26.335Z"
+  },
+  "usdfi": {
+    "slug": "usdfi",
+    "name": "USDFI",
+    "symbol": "USDFI",
+    "faqs": [],
+    "crawledAt": "2026-02-15T19:11:31.074Z"
+  },
+  "ethlend": {
+    "slug": "ethlend",
+    "name": "Aave [OLD]",
+    "symbol": "LEND",
+    "faqs": [],
+    "crawledAt": "2026-02-15T19:11:31.074Z",
+    "error": "HTTP 500"
+  },
+  "kromatika": {
+    "slug": "kromatika",
+    "name": "Kromatika",
+    "symbol": "KROM",
+    "faqs": [],
+    "crawledAt": "2026-02-15T19:11:31.076Z"
+  },
+  "revomon-2": {
+    "slug": "revomon-2",
+    "name": "Revomon",
+    "symbol": "REVO",
+    "faqs": [],
+    "crawledAt": "2026-02-15T19:11:31.076Z",
+    "error": "HTTP 500"
+  },
+  "step-finance": {
+    "slug": "step-finance",
+    "name": "Step Finance",
+    "symbol": "STEP",
+    "faqs": [],
+    "crawledAt": "2026-02-15T19:11:31.078Z"
+  },
+  "comcast-xstock": {
+    "slug": "comcast-xstock",
+    "name": "Comcast xStock",
+    "symbol": "CMCSAX",
+    "faqs": [],
+    "crawledAt": "2026-02-15T19:11:31.080Z"
+  },
+  "bitmine-immersion-technologies-ondo-tokenized-stocks": {
+    "slug": "bitmine-immersion-technologies-ondo-tokenized-stocks",
+    "name": "BitMine Immersion Technologies (Ondo Tokenized Stock)",
+    "symbol": "BMNRON",
+    "faqs": [],
+    "crawledAt": "2026-02-15T19:11:31.080Z",
+    "error": "HTTP 500"
+  },
+  "aston-martin-cognizant-fan-token": {
+    "slug": "aston-martin-cognizant-fan-token",
+    "name": "Aston Martin Cognizant Fan Token",
+    "symbol": "AM",
+    "faqs": [],
+    "crawledAt": "2026-02-15T19:11:31.081Z"
+  },
+  "plotx": {
+    "slug": "plotx",
+    "name": "PlotX",
+    "symbol": "PLOT",
+    "faqs": [],
+    "crawledAt": "2026-02-15T19:11:31.083Z"
+  },
+  "pine": {
+    "slug": "pine",
+    "name": "Pine",
+    "symbol": "PINE",
+    "faqs": [],
+    "crawledAt": "2026-02-15T19:11:31.086Z"
+  },
+  "webchain": {
+    "slug": "webchain",
+    "name": "MintMe.com Coin",
+    "symbol": "MINTME",
+    "faqs": [],
+    "crawledAt": "2026-02-15T19:11:34.171Z",
+    "error": "HTTP 500"
+  },
+  "tajir-tech-hub": {
+    "slug": "tajir-tech-hub",
+    "name": "Tajir Tech Hub",
+    "symbol": "TJRM",
+    "faqs": [],
+    "crawledAt": "2026-02-15T19:11:34.174Z"
+  },
+  "microvisionchain": {
+    "slug": "microvisionchain",
+    "name": "MicrovisionChain",
+    "symbol": "SPACE",
+    "faqs": [],
+    "crawledAt": "2026-02-15T19:11:34.176Z"
+  },
+  "chronoeffector": {
+    "slug": "chronoeffector",
+    "name": "Chronoeffector",
+    "symbol": "CHRONOEFFE",
+    "faqs": [],
+    "crawledAt": "2026-02-15T19:11:34.178Z"
+  },
+  "suncat": {
+    "slug": "suncat",
+    "name": "Suncat",
+    "symbol": "SUNCAT",
+    "faqs": [],
+    "crawledAt": "2026-02-15T19:11:34.180Z"
+  },
+  "revuto": {
+    "slug": "revuto",
+    "name": "Revuto",
+    "symbol": "REVU",
+    "faqs": [],
+    "crawledAt": "2026-02-15T19:11:34.182Z"
+  },
+  "skull-of-pepe-token": {
+    "slug": "skull-of-pepe-token",
+    "name": "Skull of Pepe Token",
+    "symbol": "SKOP",
+    "faqs": [],
+    "crawledAt": "2026-02-15T19:11:34.184Z"
+  },
+  "tokenclub": {
+    "slug": "tokenclub",
+    "name": "TokenClub",
+    "symbol": "TCT",
+    "faqs": [],
+    "crawledAt": "2026-02-15T19:11:34.187Z"
+  },
+  "revv": {
+    "slug": "revv",
+    "name": "REVV",
+    "symbol": "REVV",
+    "faqs": [],
+    "crawledAt": "2026-02-15T19:11:34.191Z"
+  },
+  "treat-token": {
+    "slug": "treat-token",
+    "name": "Treat Token",
+    "symbol": "TREAT",
+    "faqs": [],
+    "crawledAt": "2026-02-15T19:11:34.192Z"
+  },
+  "k9-finance-dao": {
+    "slug": "k9-finance-dao",
+    "name": "K9 Finance DAO",
+    "symbol": "KNINE",
+    "faqs": [],
+    "crawledAt": "2026-02-15T19:11:37.649Z"
+  },
+  "sudoswap": {
+    "slug": "sudoswap",
+    "name": "sudoswap",
+    "symbol": "SUDO",
+    "faqs": [],
+    "crawledAt": "2026-02-15T19:11:37.651Z"
+  },
+  "bretter-brett": {
+    "slug": "bretter-brett",
+    "name": "Bretter Brett",
+    "symbol": "BRETT",
+    "faqs": [],
+    "crawledAt": "2026-02-15T19:11:37.654Z"
+  },
+  "neurahub": {
+    "slug": "neurahub",
+    "name": "Neurahub",
+    "symbol": "NEURA",
+    "faqs": [],
+    "crawledAt": "2026-02-15T19:11:37.656Z"
+  },
+  "dogeverse": {
+    "slug": "dogeverse",
+    "name": "DogeVerse",
+    "symbol": "DOGEVERSE",
+    "faqs": [],
+    "crawledAt": "2026-02-15T19:11:37.658Z"
+  },
+  "nobiko-coin": {
+    "slug": "nobiko-coin",
+    "name": "Nobiko Coin",
+    "symbol": "LONG",
+    "faqs": [],
+    "crawledAt": "2026-02-15T19:11:37.659Z"
+  },
+  "tradetomato": {
+    "slug": "tradetomato",
+    "name": "Tradetomato",
+    "symbol": "TTM",
+    "faqs": [],
+    "crawledAt": "2026-02-15T19:11:37.661Z"
+  },
+  "aura-2": {
+    "slug": "aura-2",
+    "name": "Aura",
+    "symbol": "AURA",
+    "faqs": [],
+    "crawledAt": "2026-02-15T19:11:37.661Z",
+    "error": "HTTP 500"
+  },
+  "libre": {
+    "slug": "libre",
+    "name": "Libre",
+    "symbol": "LIBRE",
+    "faqs": [],
+    "crawledAt": "2026-02-15T19:11:37.663Z"
+  },
+  "troy": {
+    "slug": "troy",
+    "name": "TROY",
+    "symbol": "TROY",
+    "faqs": [],
+    "crawledAt": "2026-02-15T19:11:37.663Z",
+    "error": "HTTP 500"
+  },
+  "vee": {
+    "slug": "vee",
+    "name": "VEE",
+    "symbol": "VEE",
+    "faqs": [],
+    "crawledAt": "2026-02-15T19:11:40.664Z"
+  },
+  "heeeheee": {
+    "slug": "heeeheee",
+    "name": "HeeeHeee",
+    "symbol": "HEEHEE",
+    "faqs": [],
+    "crawledAt": "2026-02-15T19:11:40.665Z"
+  },
+  "kittenfinance": {
+    "slug": "kittenfinance",
+    "name": "KittenFinance",
+    "symbol": "KIF",
+    "faqs": [],
+    "crawledAt": "2026-02-15T19:11:40.667Z"
+  },
+  "quantumcoin-2-2": {
+    "slug": "quantumcoin-2-2",
+    "name": "QuantumCoin",
+    "symbol": "QE",
+    "faqs": [],
+    "crawledAt": "2026-02-15T19:11:40.667Z",
+    "error": "HTTP 500"
+  },
+  "whale-intel": {
+    "slug": "whale-intel",
+    "name": "Whale Intel",
+    "symbol": "WINT",
+    "faqs": [],
+    "crawledAt": "2026-02-15T19:11:40.670Z"
+  },
+  "crowdswap": {
+    "slug": "crowdswap",
+    "name": "CrowdSwap",
+    "symbol": "CROWD",
+    "faqs": [],
+    "crawledAt": "2026-02-15T19:11:40.672Z"
+  },
+  "tia": {
+    "slug": "celestia",
+    "name": "Tiamonds [OLD]",
+    "symbol": "TIA",
+    "faqs": [],
+    "crawledAt": "2026-02-15T19:11:40.672Z",
+    "error": "HTTP 500"
+  },
+  "louie": {
+    "slug": "louie",
+    "name": "Louie",
+    "symbol": "LOUIE",
+    "faqs": [],
+    "crawledAt": "2026-02-15T19:11:40.673Z"
+  },
+  "mantra-usd": {
+    "slug": "mantra-usd",
+    "name": "MANTRA USD",
+    "symbol": "MANTRAUSD",
+    "faqs": [],
+    "crawledAt": "2026-02-15T19:11:40.675Z"
+  },
+  "now-coin": {
+    "slug": "now-coin",
+    "name": "Now Coin",
+    "symbol": "NOW",
+    "faqs": [],
+    "crawledAt": "2026-02-15T19:11:40.677Z"
+  },
+  "bananacat": {
+    "slug": "bananacat",
+    "name": "BananaCat",
+    "symbol": "BCAT",
+    "faqs": [],
+    "crawledAt": "2026-02-15T19:11:43.679Z"
+  },
+  "genius": {
+    "slug": "genius",
+    "name": "Genius",
+    "symbol": "GENI",
+    "faqs": [],
+    "crawledAt": "2026-02-15T19:11:43.681Z"
+  },
+  "qstar": {
+    "slug": "qstar",
+    "name": "QSTAR",
+    "symbol": "Q*",
+    "faqs": [],
+    "crawledAt": "2026-02-15T19:11:43.681Z",
+    "error": "HTTP 500"
+  },
+  "prxvt-by-virtuals": {
+    "slug": "prxvt-by-virtuals",
+    "name": "PRXVT by Virtuals",
+    "symbol": "PRXVT",
+    "faqs": [],
+    "crawledAt": "2026-02-15T19:11:43.683Z"
+  },
+  "edexa": {
+    "slug": "edexa",
+    "name": "edeXa",
+    "symbol": "EDX",
+    "faqs": [],
+    "crawledAt": "2026-02-15T19:11:43.685Z"
+  },
+  "outlaw-crypto-games": {
+    "slug": "outlaw-crypto-games",
+    "name": "OUTLAW Crypto Games",
+    "symbol": "OUTLAW",
+    "faqs": [],
+    "crawledAt": "2026-02-15T19:11:43.688Z"
+  },
+  "cyberdoge-3": {
+    "slug": "cyberdoge-3",
+    "name": "Cyberdoge",
+    "symbol": "CDOGE",
+    "faqs": [],
+    "crawledAt": "2026-02-15T19:11:43.688Z",
+    "error": "HTTP 500"
+  },
+  "baby-pepe-3": {
+    "slug": "baby-pepe-3",
+    "name": "Baby Pepe",
+    "symbol": "BABYPEPE",
+    "faqs": [],
+    "crawledAt": "2026-02-15T19:11:43.688Z",
+    "error": "HTTP 500"
+  },
+  "bozo-hybrid": {
+    "slug": "bozo-hybrid",
+    "name": "Bozo Benk",
+    "symbol": "BOZO",
+    "faqs": [],
+    "crawledAt": "2026-02-15T19:11:43.689Z"
+  },
+  "sphynx-labs-bae5b42e-5e37-4607-8691-b56d3a5f344c": {
+    "slug": "sphynx-labs-bae5b42e-5e37-4607-8691-b56d3a5f344c",
+    "name": "Sphynx Labs",
+    "symbol": "SPHYNX",
+    "faqs": [],
+    "crawledAt": "2026-02-15T19:11:43.690Z",
+    "error": "HTTP 500"
+  },
+  "riot-platforms-ondo-tokenized-stock": {
+    "slug": "riot-platforms-ondo-tokenized-stock",
+    "name": "Riot Platforms (Ondo Tokenized Stock)",
+    "symbol": "RIOTON",
+    "faqs": [],
+    "crawledAt": "2026-02-15T19:11:50.710Z"
+  },
+  "shifu": {
+    "slug": "shifu",
+    "name": "Shifu",
+    "symbol": "SHIFU",
+    "faqs": [],
+    "crawledAt": "2026-02-15T19:11:50.713Z"
+  },
+  "delphinus-lab": {
+    "slug": "delphinus-lab",
+    "name": "ZKWASM",
+    "symbol": "ZKWASM",
+    "faqs": [],
+    "crawledAt": "2026-02-15T19:11:50.715Z"
+  },
+  "the-real-landwolf": {
+    "slug": "the-real-landwolf",
+    "name": "LandWolf",
+    "symbol": "WOLF",
+    "faqs": [],
+    "crawledAt": "2026-02-15T19:11:50.719Z"
+  },
+  "hush": {
+    "slug": "hush",
+    "name": "Hush",
+    "symbol": "HUSH",
+    "faqs": [],
+    "crawledAt": "2026-02-15T19:11:50.725Z"
+  },
+  "zara-ai": {
+    "slug": "zara-ai",
+    "name": "ZARA AI",
+    "symbol": "ZARA",
+    "faqs": [],
+    "crawledAt": "2026-02-15T19:11:50.728Z"
+  },
+  "catownkimono": {
+    "slug": "catownkimono",
+    "name": "catownkimono",
+    "symbol": "COK",
+    "faqs": [],
+    "crawledAt": "2026-02-15T19:11:50.730Z"
+  },
+  "pecunity": {
+    "slug": "pecunity",
+    "name": "Pecunity",
+    "symbol": "PEC",
+    "faqs": [],
+    "crawledAt": "2026-02-15T19:11:50.732Z"
+  },
+  "depay": {
+    "slug": "depay",
+    "name": "DePay",
+    "symbol": "DEPAY",
+    "faqs": [],
+    "crawledAt": "2026-02-15T19:11:50.736Z"
+  },
+  "zbit-ordinals": {
+    "slug": "zbit-ordinals",
+    "name": "ZBIT•BLUE•BITCOIN",
+    "symbol": "ZBIT",
+    "faqs": [],
+    "crawledAt": "2026-02-15T19:11:50.739Z"
+  },
+  "pepe-trump": {
+    "slug": "pepe-trump",
+    "name": "Pepe Trump",
+    "symbol": "PTRUMP",
+    "faqs": [],
+    "crawledAt": "2026-02-15T19:11:54.062Z"
+  },
+  "xraders": {
+    "slug": "xraders",
+    "name": "Xraders",
+    "symbol": "XR",
+    "faqs": [],
+    "crawledAt": "2026-02-15T19:11:54.064Z"
+  },
+  "bware-infra": {
+    "slug": "bware-infra",
+    "name": "Bware",
+    "symbol": "INFRA",
+    "faqs": [],
+    "crawledAt": "2026-02-15T19:11:54.067Z"
+  },
+  "dasha": {
+    "slug": "dasha",
+    "name": "Dasha",
+    "symbol": "VVAIFU",
+    "faqs": [],
+    "crawledAt": "2026-02-15T19:11:54.070Z"
+  },
+  "deri-protocol": {
+    "slug": "deri-protocol",
+    "name": "Deri Protocol",
+    "symbol": "DERI",
+    "faqs": [],
+    "crawledAt": "2026-02-15T19:11:54.073Z"
+  },
+  "ritestream": {
+    "slug": "ritestream",
+    "name": "ritestream",
+    "symbol": "RITE",
+    "faqs": [],
+    "crawledAt": "2026-02-15T19:11:54.076Z"
+  },
+  "bob": {
+    "slug": "bob",
+    "name": "BOB",
+    "symbol": "BOB",
+    "faqs": [],
+    "crawledAt": "2026-02-15T19:11:54.083Z"
+  },
+  "messy-virgo": {
+    "slug": "messy-virgo",
+    "name": "Messy Virgo",
+    "symbol": "MESSY",
+    "faqs": [],
+    "crawledAt": "2026-02-15T19:11:54.086Z"
+  },
+  "memento-mori": {
+    "slug": "memento-mori",
+    "name": "MEMENTO•MORI (Runes)",
+    "symbol": "MORI",
+    "faqs": [],
+    "crawledAt": "2026-02-15T19:11:54.086Z",
+    "error": "HTTP 500"
+  },
+  "unit0": {
+    "slug": "unit0",
+    "name": "Unit0",
+    "symbol": "UNIT0",
+    "faqs": [],
+    "crawledAt": "2026-02-15T19:11:54.088Z"
+  },
+  "wassie": {
+    "slug": "wassie",
+    "name": "WASSIE",
+    "symbol": "WASSIE",
+    "faqs": [],
+    "crawledAt": "2026-02-15T19:11:57.157Z"
+  },
+  "xwin-finance": {
+    "slug": "xwin-finance",
+    "name": "xWIN Finance",
+    "symbol": "XWIN",
+    "faqs": [],
+    "crawledAt": "2026-02-15T19:11:57.160Z"
+  },
+  "robotaxi": {
+    "slug": "robotaxi",
+    "name": "Robotaxi",
+    "symbol": "TAXI",
+    "faqs": [],
+    "crawledAt": "2026-02-15T19:11:57.163Z"
+  },
+  "rage-protocol": {
+    "slug": "rage-protocol",
+    "name": "Rage Protocol",
+    "symbol": "RAGE",
+    "faqs": [],
+    "crawledAt": "2026-02-15T19:11:57.164Z"
+  },
+  "eastworld": {
+    "slug": "eastworld",
+    "name": "Bitsota",
+    "symbol": "SN94",
+    "faqs": [],
+    "crawledAt": "2026-02-15T19:11:57.166Z"
+  },
+  "tron-bull-coin": {
+    "slug": "tron-bull-coin",
+    "name": "Tron Bull Coin",
+    "symbol": "TBULL",
+    "faqs": [],
+    "crawledAt": "2026-02-15T19:11:57.169Z"
+  },
+  "dog-4": {
+    "slug": "dog-4",
+    "name": "DOG",
+    "symbol": "DOG",
+    "faqs": [],
+    "crawledAt": "2026-02-15T19:11:57.169Z",
+    "error": "HTTP 500"
+  },
+  "machines-cash": {
+    "slug": "machines-cash",
+    "name": "Machines-cash",
+    "symbol": "MACHINES",
+    "faqs": [],
+    "crawledAt": "2026-02-15T19:11:57.172Z"
+  },
+  "alongside-crypto-market-index": {
+    "slug": "alongside-crypto-market-index",
+    "name": "Alongside Crypto Market Index",
+    "symbol": "AMKT",
+    "faqs": [],
+    "crawledAt": "2026-02-15T19:11:57.174Z"
+  },
+  "doggo-3": {
+    "slug": "doggo-3",
+    "name": "Doggo",
+    "symbol": "DOGGO",
+    "faqs": [],
+    "crawledAt": "2026-02-15T19:11:57.174Z",
+    "error": "HTTP 500"
+  },
+  "president-platy": {
+    "slug": "president-platy",
+    "name": "President PLATY",
+    "symbol": "PLATY",
+    "faqs": [],
+    "crawledAt": "2026-02-15T19:12:00.496Z"
+  },
+  "clever-token": {
+    "slug": "clever-token",
+    "name": "CLever",
+    "symbol": "CLEV",
+    "faqs": [],
+    "crawledAt": "2026-02-15T19:12:00.498Z"
+  },
+  "the-root-network": {
+    "slug": "the-root-network",
+    "name": "The Root Network",
+    "symbol": "ROOT",
+    "faqs": [],
+    "crawledAt": "2026-02-15T19:12:00.500Z"
+  },
+  "aipad": {
+    "slug": "aipad",
+    "name": "AIPad",
+    "symbol": "AIPAD",
+    "faqs": [],
+    "crawledAt": "2026-02-15T19:12:00.503Z"
+  },
+  "typeai": {
+    "slug": "typeai",
+    "name": "TypeAI",
+    "symbol": "TYPE",
+    "faqs": [],
+    "crawledAt": "2026-02-15T19:12:00.505Z"
+  },
+  "garlicoin": {
+    "slug": "garlicoin",
+    "name": "Garlicoin",
+    "symbol": "GRLC",
+    "faqs": [],
+    "crawledAt": "2026-02-15T19:12:00.507Z"
+  },
+  "lattice-token": {
+    "slug": "lattice-token",
+    "name": "Lattice",
+    "symbol": "LTX",
+    "faqs": [],
+    "crawledAt": "2026-02-15T19:12:00.509Z"
+  },
+  "token-metrics-ai": {
+    "slug": "token-metrics-ai",
+    "name": "Token Metrics AI",
+    "symbol": "TMAI",
+    "faqs": [],
+    "crawledAt": "2026-02-15T19:12:00.511Z"
+  },
+  "mattlefun": {
+    "slug": "mattlefun",
+    "name": "MattleFun",
+    "symbol": "MATTLE",
+    "faqs": [],
+    "crawledAt": "2026-02-15T19:12:00.523Z"
+  },
+  "googles": {
+    "slug": "googles",
+    "name": "GOGGLES",
+    "symbol": "GOGLZ",
+    "faqs": [],
+    "crawledAt": "2026-02-15T19:12:00.524Z"
+  },
+  "unlockprotocoltoken": {
+    "slug": "unlockprotocoltoken",
+    "name": "UnlockProtocolToken",
+    "symbol": "UP",
+    "faqs": [],
+    "crawledAt": "2026-02-15T19:12:03.496Z"
+  },
+  "gny": {
+    "slug": "gny",
+    "name": "GNY",
+    "symbol": "GNY",
+    "faqs": [],
+    "crawledAt": "2026-02-15T19:12:03.499Z"
+  },
+  "opus-cash": {
+    "slug": "opus-cash",
+    "name": "Opus CASH",
+    "symbol": "CASH",
+    "faqs": [],
+    "crawledAt": "2026-02-15T19:12:03.504Z"
+  },
+  "swapr": {
+    "slug": "swapr",
+    "name": "Swapr",
+    "symbol": "SWPR",
+    "faqs": [],
+    "crawledAt": "2026-02-15T19:12:03.506Z"
+  },
+  "bzedge": {
+    "slug": "bzedge",
+    "name": "BeeZee",
+    "symbol": "BZE",
+    "faqs": [],
+    "crawledAt": "2026-02-15T19:12:03.508Z"
+  },
+  "csp-dao-network": {
+    "slug": "csp-dao-network",
+    "name": "Kinetic Kollective",
+    "symbol": "NEBO",
+    "faqs": [],
+    "crawledAt": "2026-02-15T19:12:03.509Z"
+  },
+  "poscidondao-token": {
+    "slug": "poscidondao-token",
+    "name": "PoSciDonDAO Token",
+    "symbol": "SCI",
+    "faqs": [],
+    "crawledAt": "2026-02-15T19:12:03.509Z",
+    "error": "HTTP 500"
+  },
+  "jarvis-reward-token": {
+    "slug": "jarvis-reward-token",
+    "name": "Jarvis Reward",
+    "symbol": "JRT",
+    "faqs": [],
+    "crawledAt": "2026-02-15T19:12:03.509Z",
+    "error": "HTTP 500"
+  },
+  "solid-usd-sousd": {
+    "slug": "solid-usd-sousd",
+    "name": "Solid USD (soUSD)",
+    "symbol": "SOUSD",
+    "faqs": [],
+    "crawledAt": "2026-02-15T19:12:03.511Z"
+  },
+  "nailong": {
+    "slug": "nailong",
+    "name": "Nailong",
+    "symbol": "NAILONG",
+    "faqs": [],
+    "crawledAt": "2026-02-15T19:12:03.513Z"
+  },
+  "safemoon-inu": {
+    "slug": "safemoon-inu",
+    "name": "SafeMoon Inu",
+    "symbol": "SMI",
+    "faqs": [],
+    "crawledAt": "2026-02-15T19:12:06.775Z"
+  },
+  "omax-token": {
+    "slug": "omax-token",
+    "name": "Omax",
+    "symbol": "OMAX",
+    "faqs": [],
+    "crawledAt": "2026-02-15T19:12:06.777Z"
+  },
+  "retail-dao": {
+    "slug": "retail-dao",
+    "name": "Retail DAO",
+    "symbol": "RETAIL",
+    "faqs": [],
+    "crawledAt": "2026-02-15T19:12:06.779Z"
+  },
+  "redacted-2": {
+    "slug": "redacted-2",
+    "name": "Redacted",
+    "symbol": "RDAC",
+    "faqs": [],
+    "crawledAt": "2026-02-15T19:12:06.779Z",
+    "error": "HTTP 500"
+  },
+  "loky-by-virtuals": {
+    "slug": "loky-by-virtuals",
+    "name": "Loky by Virtuals",
+    "symbol": "LOKY",
+    "faqs": [],
+    "crawledAt": "2026-02-15T19:12:06.781Z"
+  },
+  "black-dragon": {
+    "slug": "black-dragon",
+    "name": "Black Dragon",
+    "symbol": "BLACKDRAGON",
+    "faqs": [],
+    "crawledAt": "2026-02-15T19:12:06.783Z"
+  },
+  "transhuman-coin": {
+    "slug": "transhuman-coin",
+    "name": "Transhuman Coin",
+    "symbol": "THC",
+    "faqs": [],
+    "crawledAt": "2026-02-15T19:12:06.786Z"
+  },
+  "fat-cat": {
+    "slug": "fat-cat",
+    "name": "FAT CAT",
+    "symbol": "FATCAT",
+    "faqs": [],
+    "crawledAt": "2026-02-15T19:12:06.788Z"
+  },
+  "playzap": {
+    "slug": "playzap",
+    "name": "PlayZap",
+    "symbol": "PZP",
+    "faqs": [],
+    "crawledAt": "2026-02-15T19:12:06.791Z"
+  },
+  "ucx": {
+    "slug": "ucx",
+    "name": "UCX",
+    "symbol": "UCX",
+    "faqs": [],
+    "crawledAt": "2026-02-15T19:12:06.793Z"
+  },
+  "caterpillar": {
+    "slug": "caterpillar",
+    "name": "CATERPILLAR",
+    "symbol": "CPL",
+    "faqs": [],
+    "crawledAt": "2026-02-15T19:12:09.491Z"
+  },
+  "sugarverse": {
+    "slug": "sugarverse",
+    "name": "Sugarverse",
+    "symbol": "CNDY",
+    "faqs": [],
+    "crawledAt": "2026-02-15T19:12:09.493Z"
+  },
+  "iona-by-virtuals": {
+    "slug": "iona-by-virtuals",
+    "name": "Iona by Virtuals",
+    "symbol": "IONA",
+    "faqs": [],
+    "crawledAt": "2026-02-15T19:12:09.495Z"
+  },
+  "donut-2": {
+    "slug": "donut-2",
+    "name": "Donut",
+    "symbol": "DONUT",
+    "faqs": [],
+    "crawledAt": "2026-02-15T19:12:09.495Z",
+    "error": "HTTP 500"
+  },
+  "signata": {
+    "slug": "signata",
+    "name": "Signata",
+    "symbol": "SATA",
+    "faqs": [],
+    "crawledAt": "2026-02-15T19:12:09.497Z"
+  },
+  "satoshai": {
+    "slug": "satoshai",
+    "name": "SatoshAI",
+    "symbol": "SAI",
+    "faqs": [],
+    "crawledAt": "2026-02-15T19:12:09.499Z"
+  },
+  "internet-of-intelligence": {
+    "slug": "internet-of-intelligence",
+    "name": "Internet of Intelligence",
+    "symbol": "SN108",
+    "faqs": [],
+    "crawledAt": "2026-02-15T19:12:09.501Z"
+  },
+  "stellaswap": {
+    "slug": "stellaswap",
+    "name": "StellaSwap",
+    "symbol": "STELLA",
+    "faqs": [],
+    "crawledAt": "2026-02-15T19:12:09.501Z",
+    "error": "HTTP 500"
+  },
+  "headstarter": {
+    "slug": "headstarter",
+    "name": "HeadStarter",
+    "symbol": "HST",
+    "faqs": [],
+    "crawledAt": "2026-02-15T19:12:09.504Z"
+  },
+  "flaunchy": {
+    "slug": "flaunchy",
+    "name": "Flaunchy",
+    "symbol": "FLNCHY",
+    "faqs": [],
+    "crawledAt": "2026-02-15T19:12:09.506Z"
+  },
+  "weed-token": {
+    "slug": "weed-token",
+    "name": "WEED Token",
+    "symbol": "WEED",
+    "faqs": [],
+    "crawledAt": "2026-02-15T19:12:12.518Z"
+  },
+  "terracoin": {
+    "slug": "terracoin",
+    "name": "Terracoin",
+    "symbol": "TRC",
+    "faqs": [],
+    "crawledAt": "2026-02-15T19:12:12.521Z"
+  },
+  "pirb": {
+    "slug": "pirb",
+    "name": "PIRB",
+    "symbol": "PIRB",
+    "faqs": [],
+    "crawledAt": "2026-02-15T19:12:12.523Z"
+  },
+  "honeywell-xstock": {
+    "slug": "honeywell-xstock",
+    "name": "Honeywell xStock",
+    "symbol": "HONX",
+    "faqs": [],
+    "crawledAt": "2026-02-15T19:12:12.525Z"
+  },
+  "condo": {
+    "slug": "condo",
+    "name": "CONDO",
+    "symbol": "CONDO",
+    "faqs": [],
+    "crawledAt": "2026-02-15T19:12:12.527Z"
+  },
+  "meld": {
+    "slug": "meld",
+    "name": "MELD [OLD]",
+    "symbol": "MELD",
+    "faqs": [],
+    "crawledAt": "2026-02-15T19:12:12.529Z"
+  },
+  "holoride": {
+    "slug": "holoride",
+    "name": "holoride",
+    "symbol": "RIDE",
+    "faqs": [],
+    "crawledAt": "2026-02-15T19:12:12.531Z"
+  },
+  "multiverse-capital": {
+    "slug": "multiverse-capital",
+    "name": "Multiverse Capital",
+    "symbol": "MVC",
+    "faqs": [],
+    "crawledAt": "2026-02-15T19:12:12.533Z"
+  },
+  "sancho": {
+    "slug": "sancho",
+    "name": "Sancho",
+    "symbol": "SANCHO",
+    "faqs": [],
+    "crawledAt": "2026-02-15T19:12:12.535Z"
+  },
+  "kokok-the-roach": {
+    "slug": "kokok-the-roach",
+    "name": "KoKoK The Roach",
+    "symbol": "KOKOK",
+    "faqs": [],
+    "crawledAt": "2026-02-15T19:12:12.539Z"
+  },
+  "idriss": {
+    "slug": "idriss",
+    "name": "IDRISS",
+    "symbol": "IDRISS",
+    "faqs": [],
+    "crawledAt": "2026-02-15T19:12:15.248Z"
+  },
+  "just-memecoin": {
+    "slug": "just-memecoin",
+    "name": "just memecoin",
+    "symbol": "MEMECOIN",
+    "faqs": [],
+    "crawledAt": "2026-02-15T19:12:15.250Z"
+  },
+  "xswap-treasure": {
+    "slug": "xswap-treasure",
+    "name": "XSwap Treasure",
+    "symbol": "XTT",
+    "faqs": [],
+    "crawledAt": "2026-02-15T19:12:15.252Z"
+  },
+  "blockchain-certified-data-token": {
+    "slug": "blockchain-certified-data-token",
+    "name": "EvidenZ",
+    "symbol": "BCDT",
+    "faqs": [],
+    "crawledAt": "2026-02-15T19:12:15.252Z",
+    "error": "HTTP 500"
+  },
+  "edge-matrix-computing": {
+    "slug": "edge-matrix-computing",
+    "name": "Edge Matrix Computing",
+    "symbol": "EMC",
+    "faqs": [],
+    "crawledAt": "2026-02-15T19:12:15.254Z"
+  },
+  "blockchain-bets": {
+    "slug": "blockchain-bets",
+    "name": "Blockchain Bets",
+    "symbol": "BCB",
+    "faqs": [],
+    "crawledAt": "2026-02-15T19:12:15.256Z"
+  },
+  "bird-dog": {
+    "slug": "bird-dog",
+    "name": "Bird Dog",
+    "symbol": "BIRDDOG",
+    "faqs": [],
+    "crawledAt": "2026-02-15T19:12:15.258Z"
+  },
+  "moolahverse": {
+    "slug": "moolahverse",
+    "name": "Moolahverse",
+    "symbol": "MLH",
+    "faqs": [],
+    "crawledAt": "2026-02-15T19:12:15.259Z"
+  },
+  "maple": {
+    "slug": "maple",
+    "name": "Maple",
+    "symbol": "MPL",
+    "faqs": [],
+    "crawledAt": "2026-02-15T19:12:15.259Z",
+    "error": "HTTP 500"
+  },
+  "scamfari": {
+    "slug": "scamfari",
+    "name": "ScamFari",
+    "symbol": "SCM",
+    "faqs": [],
+    "crawledAt": "2026-02-15T19:12:15.261Z"
+  },
+  "virgen": {
+    "slug": "virgen",
+    "name": "Virgen",
+    "symbol": "VIRGEN",
+    "faqs": [],
+    "crawledAt": "2026-02-15T19:12:18.307Z"
+  },
+  "k21": {
+    "slug": "k21",
+    "name": "K21",
+    "symbol": "K21",
+    "faqs": [],
+    "crawledAt": "2026-02-15T19:12:18.309Z"
+  },
+  "karbo": {
+    "slug": "karbo",
+    "name": "Karbo",
+    "symbol": "KRB",
+    "faqs": [],
+    "crawledAt": "2026-02-15T19:12:18.311Z"
+  },
+  "roaring-kitty-solana": {
+    "slug": "roaring-kitty-solana",
+    "name": "Roaring Kitty",
+    "symbol": "KITTY",
+    "faqs": [],
+    "crawledAt": "2026-02-15T19:12:18.311Z",
+    "error": "HTTP 500"
+  },
+  "starheroes": {
+    "slug": "starheroes",
+    "name": "StarHeroes",
+    "symbol": "STAR",
+    "faqs": [],
+    "crawledAt": "2026-02-15T19:12:18.315Z"
+  },
+  "trencher-broadcasting-company": {
+    "slug": "trencher-broadcasting-company",
+    "name": "Trencher Broadcasting Company",
+    "symbol": "TBC",
+    "faqs": [],
+    "crawledAt": "2026-02-15T19:12:18.318Z"
+  },
+  "divo": {
+    "slug": "divo",
+    "name": "Divo",
+    "symbol": "DVO",
+    "faqs": [],
+    "crawledAt": "2026-02-15T19:12:18.321Z"
+  },
+  "tdoge": {
+    "slug": "tdoge",
+    "name": "τDoge",
+    "symbol": "TDOGE",
+    "faqs": [],
+    "crawledAt": "2026-02-15T19:12:18.321Z",
+    "error": "HTTP 500"
+  },
+  "retarded-rat": {
+    "slug": "retarded-rat",
+    "name": "Radtarded Rat",
+    "symbol": "RAD",
+    "faqs": [],
+    "crawledAt": "2026-02-15T19:12:18.323Z"
+  },
+  "h2": {
+    "slug": "h2",
+    "name": "H2 Finance",
+    "symbol": "$H2",
+    "faqs": [],
+    "crawledAt": "2026-02-15T19:12:18.326Z"
+  },
+  "avaocado-dao": {
+    "slug": "avaocado-dao",
+    "name": "Avocado DAO",
+    "symbol": "AVG",
+    "faqs": [],
+    "crawledAt": "2026-02-15T19:12:21.164Z",
+    "error": "HTTP 500"
+  },
+  "zendawg": {
+    "slug": "zendawg",
+    "name": "ZENDAWG",
+    "symbol": "ZEN",
+    "faqs": [],
+    "crawledAt": "2026-02-15T19:12:21.166Z"
+  },
+  "dtrxbt-by-virtuals": {
+    "slug": "dtrxbt-by-virtuals",
+    "name": "DTRXBT by Virtuals",
+    "symbol": "DTRXBT",
+    "faqs": [],
+    "crawledAt": "2026-02-15T19:12:21.169Z"
+  },
+  "doomer-on-base-cto": {
+    "slug": "doomer-on-base-cto",
+    "name": "DOOMER",
+    "symbol": "DOOMER",
+    "faqs": [],
+    "crawledAt": "2026-02-15T19:12:21.171Z"
+  },
+  "reflect-base": {
+    "slug": "reflect-base",
+    "name": "Reflect",
+    "symbol": "RFL",
+    "faqs": [],
+    "crawledAt": "2026-02-15T19:12:21.171Z",
+    "error": "HTTP 500"
+  },
+  "deathstr": {
+    "slug": "deathstr",
+    "name": "DeathSTR",
+    "symbol": "DEATHSTR",
+    "faqs": [],
+    "crawledAt": "2026-02-15T19:12:21.173Z"
+  },
+  "times": {
+    "slug": "times",
+    "name": "TIMES",
+    "symbol": "$TIMES",
+    "faqs": [],
+    "crawledAt": "2026-02-15T19:12:21.175Z"
+  },
+  "acolyte-by-virtuals": {
+    "slug": "acolyte-by-virtuals",
+    "name": "Acolyt",
+    "symbol": "ACOLYT",
+    "faqs": [],
+    "crawledAt": "2026-02-15T19:12:21.175Z",
+    "error": "HTTP 500"
+  },
+  "cheems": {
+    "slug": "cheems",
+    "name": "Cheems",
+    "symbol": "CHEEMS",
+    "faqs": [],
+    "crawledAt": "2026-02-15T19:12:21.177Z"
+  },
+  "lucrar": {
+    "slug": "lucrar",
+    "name": "Lucrar",
+    "symbol": "LCR",
+    "faqs": [],
+    "crawledAt": "2026-02-15T19:12:21.179Z"
+  },
+  "metaarena": {
+    "slug": "metaarena",
+    "name": "MetaArena",
+    "symbol": "TIMI",
+    "faqs": [],
+    "crawledAt": "2026-02-15T19:12:24.842Z"
+  },
+  "trust-me-bros-by-virtuals": {
+    "slug": "trust-me-bros-by-virtuals",
+    "name": "$TRUST ME BROs by Virtuals",
+    "symbol": "TRUST",
+    "faqs": [],
+    "crawledAt": "2026-02-15T19:12:24.844Z"
+  },
+  "dogemoon": {
+    "slug": "dogemoon",
+    "name": "Dogemoon",
+    "symbol": "DOGEMOON",
+    "faqs": [],
+    "crawledAt": "2026-02-15T19:12:24.845Z"
+  },
+  "masa-finance": {
+    "slug": "masa-finance",
+    "name": "Masa",
+    "symbol": "MASA",
+    "faqs": [],
+    "crawledAt": "2026-02-15T19:12:24.845Z",
+    "error": "HTTP 500"
+  },
+  "italian-brainrot": {
+    "slug": "italian-brainrot",
+    "name": "Italian Brainrot",
+    "symbol": "ITALIANROT",
+    "faqs": [],
+    "crawledAt": "2026-02-15T19:12:24.847Z"
+  },
+  "stability": {
+    "slug": "stability",
+    "name": "Stability",
+    "symbol": "STBL",
+    "faqs": [],
+    "crawledAt": "2026-02-15T19:12:24.849Z"
+  },
+  "bitcos-pro": {
+    "slug": "bitcos-pro",
+    "name": "Bitcos Pro",
+    "symbol": "BOS",
+    "faqs": [],
+    "crawledAt": "2026-02-15T19:12:24.852Z"
+  },
+  "etarn": {
+    "slug": "etarn",
+    "name": "Etarn",
+    "symbol": "ETAN",
+    "faqs": [],
+    "crawledAt": "2026-02-15T19:12:24.854Z"
+  },
+  "ego-ego": {
+    "slug": "ego-ego",
+    "name": "Ego Ego",
+    "symbol": "EGO",
+    "faqs": [],
+    "crawledAt": "2026-02-15T19:12:24.856Z"
+  },
+  "merck-xstock": {
+    "slug": "merck-xstock",
+    "name": "Merck xStock",
+    "symbol": "MRKX",
+    "faqs": [],
+    "crawledAt": "2026-02-15T19:12:24.857Z"
+  },
+  "doppel": {
+    "slug": "doppel",
+    "name": "Doppel",
+    "symbol": "DOPPEL",
+    "faqs": [],
+    "crawledAt": "2026-02-15T19:12:28.116Z"
+  },
+  "roost": {
+    "slug": "roost",
+    "name": "Roost",
+    "symbol": "ROOST",
+    "faqs": [],
+    "crawledAt": "2026-02-15T19:12:28.118Z"
+  },
+  "shiba-doge-burn": {
+    "slug": "shiba-doge-burn",
+    "name": "BURN",
+    "symbol": "BURN",
+    "faqs": [],
+    "crawledAt": "2026-02-15T19:12:28.120Z"
+  },
+  "openfabric": {
+    "slug": "openfabric",
+    "name": "Openfabric AI",
+    "symbol": "OFN",
+    "faqs": [],
+    "crawledAt": "2026-02-15T19:12:28.122Z"
+  },
+  "wifi": {
+    "slug": "wifi",
+    "name": "WiFi Map",
+    "symbol": "WIFI",
+    "faqs": [],
+    "crawledAt": "2026-02-15T19:12:28.124Z"
+  },
+  "bifi": {
+    "slug": "bifi",
+    "name": "BiFi",
+    "symbol": "BIFI",
+    "faqs": [],
+    "crawledAt": "2026-02-15T19:12:28.126Z"
+  },
+  "big-data-protocol": {
+    "slug": "big-data-protocol",
+    "name": "Big Data Protocol",
+    "symbol": "BDP",
+    "faqs": [],
+    "crawledAt": "2026-02-15T19:12:28.128Z"
+  },
+  "apwine": {
+    "slug": "apwine",
+    "name": "Spectra [OLD]",
+    "symbol": "APW",
+    "faqs": [],
+    "crawledAt": "2026-02-15T19:12:28.130Z"
+  },
+  "catgpt": {
+    "slug": "catgpt",
+    "name": "CatGPT",
+    "symbol": "CATGPT",
+    "faqs": [],
+    "crawledAt": "2026-02-15T19:12:28.132Z"
+  },
+  "stohn-coin": {
+    "slug": "stohn-coin",
+    "name": "Stohn Coin",
+    "symbol": "SOH",
+    "faqs": [],
+    "crawledAt": "2026-02-15T19:12:28.135Z"
+  },
+  "oro-2": {
+    "slug": "oro-2",
+    "name": "ORO",
+    "symbol": "ORO",
+    "faqs": [],
+    "crawledAt": "2026-02-15T19:12:30.734Z",
+    "error": "HTTP 500"
+  },
+  "superseed": {
+    "slug": "superseed",
+    "name": "Superseed",
+    "symbol": "SUPR",
+    "faqs": [],
+    "crawledAt": "2026-02-15T19:12:30.736Z"
+  },
+  "icb-network": {
+    "slug": "icb-network",
+    "name": "ICB Network",
+    "symbol": "ICBX",
+    "faqs": [],
+    "crawledAt": "2026-02-15T19:12:30.738Z"
+  },
+  "ferma": {
+    "slug": "ferma",
+    "name": "Ferma",
+    "symbol": "FERMA",
+    "faqs": [],
+    "crawledAt": "2026-02-15T19:12:30.739Z"
+  },
+  "ryo": {
+    "slug": "ryo",
+    "name": "Ryo Currency",
+    "symbol": "RYO",
+    "faqs": [],
+    "crawledAt": "2026-02-15T19:12:30.739Z",
+    "error": "HTTP 500"
+  },
+  "uxd-stablecoin": {
+    "slug": "uxd-stablecoin",
+    "name": "UXD Stablecoin",
+    "symbol": "UXD",
+    "faqs": [],
+    "crawledAt": "2026-02-15T19:12:30.739Z",
+    "error": "HTTP 500"
+  },
+  "enidog": {
+    "slug": "enidog",
+    "name": "ENIDOG",
+    "symbol": "ENIDOG",
+    "faqs": [],
+    "crawledAt": "2026-02-15T19:12:30.741Z"
+  },
+  "kingdomx": {
+    "slug": "kingdomx",
+    "name": "KingdomX",
+    "symbol": "KT",
+    "faqs": [],
+    "crawledAt": "2026-02-15T19:12:30.743Z"
+  },
+  "otherdeedstrategy": {
+    "slug": "otherdeedstrategy",
+    "name": "OtherdeedStrategy",
+    "symbol": "DEEDSTR",
+    "faqs": [],
+    "crawledAt": "2026-02-15T19:12:30.744Z"
+  },
+  "arkadiko-protocol": {
+    "slug": "arkadiko-protocol",
+    "name": "Arkadiko",
+    "symbol": "DIKO",
+    "faqs": [],
+    "crawledAt": "2026-02-15T19:12:30.744Z",
+    "error": "HTTP 500"
+  },
+  "meebitstrategy": {
+    "slug": "meebitstrategy",
+    "name": "MeebitStrategy",
+    "symbol": "MEEBSTR",
+    "faqs": [],
+    "crawledAt": "2026-02-15T19:12:33.793Z"
+  },
+  "starsmint": {
+    "slug": "starsmint",
+    "name": "StarsMint",
+    "symbol": "STARS",
+    "faqs": [],
+    "crawledAt": "2026-02-15T19:12:33.795Z"
+  },
+  "honest-mining": {
+    "slug": "honest-mining",
+    "name": "Honest",
+    "symbol": "HNST",
+    "faqs": [],
+    "crawledAt": "2026-02-15T19:12:33.795Z",
+    "error": "HTTP 500"
+  },
+  "libertai": {
+    "slug": "libertai",
+    "name": "LibertAI",
+    "symbol": "LTAI",
+    "faqs": [],
+    "crawledAt": "2026-02-15T19:12:33.797Z"
+  },
+  "the-rug-game": {
+    "slug": "the-rug-game",
+    "name": "The Rug Game",
+    "symbol": "TRG",
+    "faqs": [],
+    "crawledAt": "2026-02-15T19:12:33.800Z"
+  },
+  "tanssi": {
+    "slug": "tanssi",
+    "name": "Tanssi",
+    "symbol": "TANSSI",
+    "faqs": [],
+    "crawledAt": "2026-02-15T19:12:33.802Z"
+  },
+  "linkhash": {
+    "slug": "linkhash",
+    "name": "LinkHash",
+    "symbol": "LHX",
+    "faqs": [],
+    "crawledAt": "2026-02-15T19:12:33.804Z"
+  },
+  "abbvie-xstock": {
+    "slug": "abbvie-xstock",
+    "name": "AbbVie xStock",
+    "symbol": "ABBVX",
+    "faqs": [],
+    "crawledAt": "2026-02-15T19:12:33.806Z"
+  },
+  "fragmetric": {
+    "slug": "fragmetric",
+    "name": "Fragmetric",
+    "symbol": "FRAG",
+    "faqs": [],
+    "crawledAt": "2026-02-15T19:12:33.808Z"
+  },
+  "party-3": {
+    "slug": "party-3",
+    "name": "Party",
+    "symbol": "PARTY",
+    "faqs": [],
+    "crawledAt": "2026-02-15T19:12:33.808Z",
+    "error": "HTTP 500"
+  },
+  "blockasset": {
+    "slug": "blockasset",
+    "name": "Blockasset",
+    "symbol": "BLOCK",
+    "faqs": [],
+    "crawledAt": "2026-02-15T19:12:37.817Z"
+  },
+  "spore": {
+    "slug": "spore",
+    "name": "Spore",
+    "symbol": "SPORE",
+    "faqs": [],
+    "crawledAt": "2026-02-15T19:12:37.819Z"
+  },
+  "marvell-xstock": {
+    "slug": "marvell-xstock",
+    "name": "Marvell xStock",
+    "symbol": "MRVLX",
+    "faqs": [],
+    "crawledAt": "2026-02-15T19:12:37.820Z"
+  },
+  "milkyway-2": {
+    "slug": "milkyway-2",
+    "name": "MilkyWay",
+    "symbol": "MILK",
+    "faqs": [],
+    "crawledAt": "2026-02-15T19:12:37.820Z",
+    "error": "HTTP 500"
+  },
+  "distribute-ai": {
+    "slug": "distribute-ai",
+    "name": "Distribute.ai",
+    "symbol": "DIS",
+    "faqs": [],
+    "crawledAt": "2026-02-15T19:12:37.822Z"
+  },
+  "versagames": {
+    "slug": "versagames",
+    "name": "VersaGames",
+    "symbol": "VERSA",
+    "faqs": [],
+    "crawledAt": "2026-02-15T19:12:37.824Z"
+  },
+  "kona": {
+    "slug": "kona",
+    "name": "KONA",
+    "symbol": "KONA",
+    "faqs": [],
+    "crawledAt": "2026-02-15T19:12:37.826Z"
+  },
+  "biorbank": {
+    "slug": "biorbank",
+    "name": "BiorLabs",
+    "symbol": "BYB",
+    "faqs": [],
+    "crawledAt": "2026-02-15T19:12:37.827Z"
+  },
+  "seiyan": {
+    "slug": "seiyan",
+    "name": "SEIYAN",
+    "symbol": "SEIYAN",
+    "faqs": [],
+    "crawledAt": "2026-02-15T19:12:37.829Z"
+  },
+  "eurocoinpay": {
+    "slug": "eurocoinpay",
+    "name": "EurocoinToken",
+    "symbol": "ECTE",
+    "faqs": [],
+    "crawledAt": "2026-02-15T19:12:37.829Z",
+    "error": "HTTP 500"
+  },
+  "glorious-looking": {
+    "slug": "glorious-looking",
+    "name": "Glorious Looking",
+    "symbol": "GLG",
+    "faqs": [],
+    "crawledAt": "2026-02-15T19:12:40.778Z"
+  },
+  "egypt-cat": {
+    "slug": "egypt-cat",
+    "name": "Egypt Cat",
+    "symbol": "SPHYNX",
+    "faqs": [],
+    "crawledAt": "2026-02-15T19:12:40.780Z"
+  },
+  "klima-dao-2": {
+    "slug": "klima-dao-2",
+    "name": "Klima Protocol K2",
+    "symbol": "K2",
+    "faqs": [],
+    "crawledAt": "2026-02-15T19:12:40.780Z",
+    "error": "HTTP 500"
+  },
+  "liora-nuclear-beam": {
+    "slug": "liora-nuclear-beam",
+    "name": "Liora Nuclear Beam",
+    "symbol": "$BEAM",
+    "faqs": [],
+    "crawledAt": "2026-02-15T19:12:40.782Z"
+  },
+  "preme-token": {
+    "slug": "preme-token",
+    "name": "PREME Token",
+    "symbol": "PREME",
+    "faqs": [],
+    "crawledAt": "2026-02-15T19:12:40.784Z"
+  },
+  "tokero-levelup-token": {
+    "slug": "tokero-levelup-token",
+    "name": "TOKERO",
+    "symbol": "TOKERO",
+    "faqs": [],
+    "crawledAt": "2026-02-15T19:12:40.787Z"
+  },
+  "forty-two-dao-token": {
+    "slug": "forty-two-dao-token",
+    "name": "Forty Two DAO Token",
+    "symbol": "FTD",
+    "faqs": [],
+    "crawledAt": "2026-02-15T19:12:40.789Z"
+  },
+  "exeedme-2": {
+    "slug": "exeedme-2",
+    "name": "Exeedme",
+    "symbol": "XED",
+    "faqs": [],
+    "crawledAt": "2026-02-15T19:12:40.789Z",
+    "error": "HTTP 500"
+  },
+  "bank-of-america-xstock": {
+    "slug": "bank-of-america-xstock",
+    "name": "Bank of America xStock",
+    "symbol": "BACX",
+    "faqs": [],
+    "crawledAt": "2026-02-15T19:12:40.791Z"
+  },
+  "taonado": {
+    "slug": "taonado",
+    "name": "taonado",
+    "symbol": "SN113",
+    "faqs": [],
+    "crawledAt": "2026-02-15T19:12:40.792Z"
+  },
+  "octo-gaming": {
+    "slug": "octo-gaming",
+    "name": "Octokn",
+    "symbol": "OTK",
+    "faqs": [],
+    "crawledAt": "2026-02-15T19:12:43.786Z"
+  },
+  "long-3": {
+    "slug": "long-3",
+    "name": "Long",
+    "symbol": "LONG",
+    "faqs": [],
+    "crawledAt": "2026-02-15T19:12:43.786Z",
+    "error": "HTTP 500"
+  },
+  "hatchypocket": {
+    "slug": "hatchypocket",
+    "name": "HatchyPocket",
+    "symbol": "HATCHY",
+    "faqs": [],
+    "crawledAt": "2026-02-15T19:12:43.787Z"
+  },
+  "talisman": {
+    "slug": "talisman",
+    "name": "Talisman",
+    "symbol": "SEEK",
+    "faqs": [],
+    "crawledAt": "2026-02-15T19:12:43.789Z"
+  },
+  "deepfakeai": {
+    "slug": "deepfakeai",
+    "name": "DeepFakeAI",
+    "symbol": "FAKEAI",
+    "faqs": [],
+    "crawledAt": "2026-02-15T19:12:43.791Z"
+  },
+  "favolo": {
+    "slug": "favolo",
+    "name": "Favolo",
+    "symbol": "FAV",
+    "faqs": [],
+    "crawledAt": "2026-02-15T19:12:43.793Z"
+  },
+  "fan-token": {
+    "slug": "fan-token",
+    "name": "Film.io",
+    "symbol": "FAN",
+    "faqs": [],
+    "crawledAt": "2026-02-15T19:12:43.794Z"
+  },
+  "water-coin": {
+    "slug": "water-coin",
+    "name": "WATER Coin",
+    "symbol": "WATER",
+    "faqs": [],
+    "crawledAt": "2026-02-15T19:12:43.796Z"
+  },
+  "giveth": {
+    "slug": "giveth",
+    "name": "Giveth",
+    "symbol": "GIV",
+    "faqs": [],
+    "crawledAt": "2026-02-15T19:12:43.798Z"
+  },
+  "molt-bunker": {
+    "slug": "molt-bunker",
+    "name": "MOLT BUNKER",
+    "symbol": "BUNKER",
+    "faqs": [],
+    "crawledAt": "2026-02-15T19:12:43.802Z"
+  },
+  "babykitty": {
+    "slug": "babykitty",
+    "name": "BabyKitty",
+    "symbol": "BABYKITTY",
+    "faqs": [],
+    "crawledAt": "2026-02-15T19:12:46.801Z"
+  },
+  "justanegg-2": {
+    "slug": "justanegg-2",
+    "name": "JustAnEgg",
+    "symbol": "EGG",
+    "faqs": [],
+    "crawledAt": "2026-02-15T19:12:46.803Z"
+  },
+  "hyperlauncher": {
+    "slug": "hyperlauncher",
+    "name": "Hyperlauncher",
+    "symbol": "LAUNCH",
+    "faqs": [],
+    "crawledAt": "2026-02-15T19:12:46.805Z"
+  },
+  "decimated": {
+    "slug": "decimated",
+    "name": "Decimated",
+    "symbol": "DIO",
+    "faqs": [],
+    "crawledAt": "2026-02-15T19:12:46.807Z"
+  },
+  "unite-2": {
+    "slug": "unite-2",
+    "name": "Unite",
+    "symbol": "UNITE",
+    "faqs": [],
+    "crawledAt": "2026-02-15T19:12:46.807Z",
+    "error": "HTTP 500"
+  },
+  "dotmoovs": {
+    "slug": "dotmoovs",
+    "name": "dotmoovs",
+    "symbol": "MOOV",
+    "faqs": [],
+    "crawledAt": "2026-02-15T19:12:46.808Z"
+  },
+  "claude-memory": {
+    "slug": "claude-memory",
+    "name": "Claude Memory",
+    "symbol": "CMEM",
+    "faqs": [],
+    "crawledAt": "2026-02-15T19:12:46.810Z"
+  },
+  "wifedoge": {
+    "slug": "wifedoge",
+    "name": "Wifedoge",
+    "symbol": "WIFEDOGE",
+    "faqs": [],
+    "crawledAt": "2026-02-15T19:12:46.812Z"
+  },
+  "bnbxbt": {
+    "slug": "bnbxbt",
+    "name": "BNBXBT",
+    "symbol": "BNBXBT",
+    "faqs": [],
+    "crawledAt": "2026-02-15T19:12:46.814Z"
+  },
+  "gasspas": {
+    "slug": "gasspas",
+    "name": "Gasspas",
+    "symbol": "GASS",
+    "faqs": [],
+    "crawledAt": "2026-02-15T19:12:46.816Z"
+  },
+  "joss-money": {
+    "slug": "joss-money",
+    "name": "Joss Money",
+    "symbol": "JMONEY",
+    "faqs": [],
+    "crawledAt": "2026-02-15T19:12:49.439Z"
+  },
+  "besc-money": {
+    "slug": "besc-money",
+    "name": "BESC MONEY",
+    "symbol": "MONEY",
+    "faqs": [],
+    "crawledAt": "2026-02-15T19:12:49.441Z"
+  },
+  "secure-legion": {
+    "slug": "secure-legion",
+    "name": "Secure Legion",
+    "symbol": "SECURE",
+    "faqs": [],
+    "crawledAt": "2026-02-15T19:12:49.446Z"
+  },
+  "zirodelta": {
+    "slug": "zirodelta",
+    "name": "Zirodelta",
+    "symbol": "ZDLT",
+    "faqs": [],
+    "crawledAt": "2026-02-15T19:12:49.449Z"
+  },
+  "pumapay": {
+    "slug": "pumapay",
+    "name": "PumaPay",
+    "symbol": "PMA",
+    "faqs": [],
+    "crawledAt": "2026-02-15T19:12:49.452Z"
+  },
+  "bloktopia": {
+    "slug": "bloktopia",
+    "name": "Bloktopia",
+    "symbol": "BLOK",
+    "faqs": [],
+    "crawledAt": "2026-02-15T19:12:49.455Z"
+  },
+  "rari-governance-token": {
+    "slug": "rari-governance-token",
+    "name": "Rari Governance",
+    "symbol": "RGT",
+    "faqs": [],
+    "crawledAt": "2026-02-15T19:12:49.455Z",
+    "error": "HTTP 500"
+  },
+  "token": {
+    "slug": "token",
+    "name": "Token.com",
+    "symbol": "TOKEN",
+    "faqs": [],
+    "crawledAt": "2026-02-15T19:12:49.457Z"
+  },
+  "sorry": {
+    "slug": "sorry",
+    "name": "Sorry",
+    "symbol": "SRY",
+    "faqs": [],
+    "crawledAt": "2026-02-15T19:12:49.460Z"
+  },
+  "skibidi-toilet-2": {
+    "slug": "skibidi-toilet-2",
+    "name": "Skibidi Toilet",
+    "symbol": "SKBDI",
+    "faqs": [],
+    "crawledAt": "2026-02-15T19:12:49.460Z",
+    "error": "HTTP 500"
+  },
+  "pepe-sol": {
+    "slug": "pepe-sol",
+    "name": "Pepe on SOL",
+    "symbol": "PEPE",
+    "faqs": [],
+    "crawledAt": "2026-02-15T19:12:52.566Z"
+  },
+  "strong": {
+    "slug": "strong",
+    "name": "Strong",
+    "symbol": "STRONG",
+    "faqs": [],
+    "crawledAt": "2026-02-15T19:12:52.568Z"
+  },
+  "shed": {
+    "slug": "shed",
+    "name": "SHED",
+    "symbol": "SHED",
+    "faqs": [],
+    "crawledAt": "2026-02-15T19:12:52.570Z"
+  },
+  "omnicat": {
+    "slug": "omnicat",
+    "name": "OmniCat",
+    "symbol": "OMNI",
+    "faqs": [],
+    "crawledAt": "2026-02-15T19:12:52.572Z"
+  },
+  "amc": {
+    "slug": "amc",
+    "name": "AMC",
+    "symbol": "AMC",
+    "faqs": [],
+    "crawledAt": "2026-02-15T19:12:52.574Z"
+  },
+  "bizzy-by-virtuals": {
+    "slug": "bizzy-by-virtuals",
+    "name": "Bizzy by Virtuals",
+    "symbol": "BIZ",
+    "faqs": [],
+    "crawledAt": "2026-02-15T19:12:52.575Z"
+  },
+  "nounspace": {
+    "slug": "nounspace",
+    "name": "nounspace",
+    "symbol": "$SPACE",
+    "faqs": [],
+    "crawledAt": "2026-02-15T19:12:52.577Z"
+  },
+  "wombat-exchange": {
+    "slug": "wombat-exchange",
+    "name": "Wombat Exchange",
+    "symbol": "WOM",
+    "faqs": [],
+    "crawledAt": "2026-02-15T19:12:52.579Z"
+  },
+  "hana-by-virtuals": {
+    "slug": "hana-by-virtuals",
+    "name": "Hana by Virtuals",
+    "symbol": "HANA",
+    "faqs": [],
+    "crawledAt": "2026-02-15T19:12:52.581Z"
+  },
+  "wanaka-farm": {
+    "slug": "wanaka-farm",
+    "name": "Wanaka Farm",
+    "symbol": "WANA",
+    "faqs": [],
+    "crawledAt": "2026-02-15T19:12:52.584Z"
+  },
+  "walmart-xstock": {
+    "slug": "walmart-xstock",
+    "name": "Walmart xStock",
+    "symbol": "WMTX",
+    "faqs": [],
+    "crawledAt": "2026-02-15T19:12:56.547Z"
+  },
+  "astrolescent": {
+    "slug": "astrolescent",
+    "name": "Astrolescent",
+    "symbol": "ASTRL",
+    "faqs": [],
+    "crawledAt": "2026-02-15T19:12:56.549Z"
+  },
+  "tutut-coin": {
+    "slug": "tutut-coin",
+    "name": "TUTUT COIN",
+    "symbol": "TUTC",
+    "faqs": [],
+    "crawledAt": "2026-02-15T19:12:56.551Z"
+  },
+  "rogue-ai": {
+    "slug": "rogue-ai",
+    "name": "Rogue AI",
+    "symbol": "RAI",
+    "faqs": [],
+    "crawledAt": "2026-02-15T19:12:56.553Z"
+  },
+  "sharpei": {
+    "slug": "sharpei",
+    "name": "SHARPEI",
+    "symbol": "SHAR",
+    "faqs": [],
+    "crawledAt": "2026-02-15T19:12:56.555Z"
+  },
+  "chainge-finance": {
+    "slug": "chainge-finance",
+    "name": "Chainge",
+    "symbol": "XCHNG",
+    "faqs": [],
+    "crawledAt": "2026-02-15T19:12:56.556Z"
+  },
+  "moonedge": {
+    "slug": "moonedge",
+    "name": "MoonEdge",
+    "symbol": "MOONED",
+    "faqs": [],
+    "crawledAt": "2026-02-15T19:12:56.558Z"
+  },
+  "pandapump": {
+    "slug": "pandapump",
+    "name": "PandaPump",
+    "symbol": "PPUMP",
+    "faqs": [],
+    "crawledAt": "2026-02-15T19:12:56.560Z"
+  },
+  "smartcredit-token": {
+    "slug": "smartcredit-token",
+    "name": "SmartCredit",
+    "symbol": "SMARTCREDIT",
+    "faqs": [],
+    "crawledAt": "2026-02-15T19:12:56.560Z",
+    "error": "HTTP 500"
+  },
+  "the-first-meme": {
+    "slug": "the-first-meme",
+    "name": "The First Meme",
+    "symbol": "FIRST",
+    "faqs": [],
+    "crawledAt": "2026-02-15T19:12:56.563Z"
+  },
+  "epiko": {
+    "slug": "epiko",
+    "name": "Epiko",
+    "symbol": "EPIKO",
+    "faqs": [],
+    "crawledAt": "2026-02-15T19:12:59.874Z"
+  },
+  "bonsai-coin": {
+    "slug": "bonsai-coin",
+    "name": "Bonsai Coin",
+    "symbol": "BONSAICOIN",
+    "faqs": [],
+    "crawledAt": "2026-02-15T19:12:59.876Z"
+  },
+  "olyn-by-virtuals": {
+    "slug": "olyn-by-virtuals",
+    "name": "Olyn by Virtuals",
+    "symbol": "OLYN",
+    "faqs": [],
+    "crawledAt": "2026-02-15T19:12:59.878Z"
+  },
+  "coinbarpay": {
+    "slug": "coinbarpay",
+    "name": "CoinbarPay",
+    "symbol": "CBPAY",
+    "faqs": [],
+    "crawledAt": "2026-02-15T19:12:59.879Z"
+  },
+  "valor-2": {
+    "slug": "valor-2",
+    "name": "VALOR",
+    "symbol": "VALOR",
+    "faqs": [],
+    "crawledAt": "2026-02-15T19:12:59.879Z",
+    "error": "HTTP 500"
+  },
+  "roba": {
+    "slug": "roba",
+    "name": "ROBA",
+    "symbol": "ROBA",
+    "faqs": [],
+    "crawledAt": "2026-02-15T19:12:59.881Z"
+  },
+  "in-the-meme-time": {
+    "slug": "in-the-meme-time",
+    "name": "In The MEME Time",
+    "symbol": "ITMT",
+    "faqs": [],
+    "crawledAt": "2026-02-15T19:12:59.885Z"
+  },
+  "idexo-token": {
+    "slug": "idexo-token",
+    "name": "Idexo",
+    "symbol": "IDO",
+    "faqs": [],
+    "crawledAt": "2026-02-15T19:12:59.888Z"
+  },
+  "young-peezy-aka-pepe": {
+    "slug": "young-peezy-aka-pepe",
+    "name": "Young Peezy AKA Pepe",
+    "symbol": "PEEZY",
+    "faqs": [],
+    "crawledAt": "2026-02-15T19:12:59.890Z"
+  },
+  "fyni-ai": {
+    "slug": "fyni-ai",
+    "name": "Fyni AI by Virtuals",
+    "symbol": "FYNI",
+    "faqs": [],
+    "crawledAt": "2026-02-15T19:12:59.890Z",
+    "error": "HTTP 500"
+  },
+  "binamon": {
+    "slug": "binamon",
+    "name": "Binamon",
+    "symbol": "BMON",
+    "faqs": [],
+    "crawledAt": "2026-02-15T19:13:02.984Z"
+  },
+  "momo-the-cat": {
+    "slug": "momo-the-cat",
+    "name": "momo the cat",
+    "symbol": "MOMO",
+    "faqs": [],
+    "crawledAt": "2026-02-15T19:13:02.986Z"
+  },
+  "what-do-you-meme": {
+    "slug": "what-do-you-meme",
+    "name": "Web3 Whales",
+    "symbol": "W3W",
+    "faqs": [],
+    "crawledAt": "2026-02-15T19:13:02.988Z"
+  },
+  "rich-milli-coin": {
+    "slug": "rich-milli-coin",
+    "name": "Rich Milli Coin",
+    "symbol": "RMC",
+    "faqs": [],
+    "crawledAt": "2026-02-15T19:13:02.990Z"
+  },
+  "kasta": {
+    "slug": "kasta",
+    "name": "Kasta",
+    "symbol": "KASTA",
+    "faqs": [],
+    "crawledAt": "2026-02-15T19:13:02.993Z"
+  },
+  "ttcoin": {
+    "slug": "ttcoin",
+    "name": "TTcoin",
+    "symbol": "TC",
+    "faqs": [],
+    "crawledAt": "2026-02-15T19:13:02.995Z"
+  },
+  "gameswift": {
+    "slug": "gameswift",
+    "name": "GameSwift",
+    "symbol": "GSWIFT",
+    "faqs": [],
+    "crawledAt": "2026-02-15T19:13:02.997Z"
+  },
+  "unistake": {
+    "slug": "unistake",
+    "name": "Unistake",
+    "symbol": "UNISTAKE",
+    "faqs": [],
+    "crawledAt": "2026-02-15T19:13:02.999Z"
+  },
+  "purefi": {
+    "slug": "purefi",
+    "name": "PureFi",
+    "symbol": "UFI",
+    "faqs": [],
+    "crawledAt": "2026-02-15T19:13:03.002Z"
+  },
+  "a-t-m-by-basevol": {
+    "slug": "a-t-m-by-basevol",
+    "name": "A.T.M. by BaseVol",
+    "symbol": "ATM",
+    "faqs": [],
+    "crawledAt": "2026-02-15T19:13:03.003Z"
+  },
+  "tether-eurt": {
+    "slug": "tether-eurt",
+    "name": "Euro Tether",
+    "symbol": "EURT",
+    "faqs": [],
+    "crawledAt": "2026-02-15T19:13:05.952Z",
+    "error": "HTTP 500"
+  },
+  "reinforced-ai": {
+    "slug": "reinforced-ai",
+    "name": "ReinforcedAI",
+    "symbol": "SN92",
+    "faqs": [],
+    "crawledAt": "2026-02-15T19:13:05.952Z",
+    "error": "HTTP 500"
+  },
+  "x-2": {
+    "slug": "x-2",
+    "name": "X",
+    "symbol": "X",
+    "faqs": [],
+    "crawledAt": "2026-02-15T19:13:05.952Z",
+    "error": "HTTP 500"
+  },
+  "banana": {
+    "slug": "banana",
+    "name": "Banana",
+    "symbol": "BANANA",
+    "faqs": [],
+    "crawledAt": "2026-02-15T19:13:05.954Z"
+  },
+  "ttaj": {
+    "slug": "ttaj",
+    "name": "TTAJ",
+    "symbol": "TTAJ",
+    "faqs": [],
+    "crawledAt": "2026-02-15T19:13:05.956Z"
+  },
+  "stray-dog": {
+    "slug": "stray-dog",
+    "name": "Stray Dog",
+    "symbol": "STRAYDOG",
+    "faqs": [],
+    "crawledAt": "2026-02-15T19:13:05.957Z"
+  },
+  "silo-finance": {
+    "slug": "silo-finance",
+    "name": "Silo Finance [OLD]",
+    "symbol": "SILO",
+    "faqs": [],
+    "crawledAt": "2026-02-15T19:13:05.959Z"
+  },
+  "gamestop-ondo-tokenized-stock": {
+    "slug": "gamestop-ondo-tokenized-stock",
+    "name": "GameStop (Ondo Tokenized Stock)",
+    "symbol": "GMEON",
+    "faqs": [],
+    "crawledAt": "2026-02-15T19:13:05.961Z"
+  },
+  "just-a-shitcoin": {
+    "slug": "just-a-shitcoin",
+    "name": "just a shitcoin",
+    "symbol": "SHITCOIN",
+    "faqs": [],
+    "crawledAt": "2026-02-15T19:13:05.962Z"
+  },
+  "soqubit": {
+    "slug": "soqubit",
+    "name": "SoQuBit",
+    "symbol": "PSOQ",
+    "faqs": [],
+    "crawledAt": "2026-02-15T19:13:05.965Z"
+  },
+  "trakx": {
+    "slug": "trakx",
+    "name": "Trakx",
+    "symbol": "TRKX",
+    "faqs": [],
+    "crawledAt": "2026-02-15T19:13:08.993Z"
+  },
+  "uptop": {
+    "slug": "uptop",
+    "name": "UpTop",
+    "symbol": "UPTOP",
+    "faqs": [],
+    "crawledAt": "2026-02-15T19:13:08.996Z"
+  },
+  "rivalz-network": {
+    "slug": "rivalz-network",
+    "name": "Rivalz Network",
+    "symbol": "RIZ",
+    "faqs": [],
+    "crawledAt": "2026-02-15T19:13:09.000Z"
+  },
+  "redfox-labs-2": {
+    "slug": "redfox-labs-2",
+    "name": "RFOX",
+    "symbol": "RFOX",
+    "faqs": [],
+    "crawledAt": "2026-02-15T19:13:09.000Z",
+    "error": "HTTP 500"
+  },
+  "coinbuck": {
+    "slug": "coinbuck",
+    "name": "CoinBuck",
+    "symbol": "BUCK",
+    "faqs": [],
+    "crawledAt": "2026-02-15T19:13:09.002Z"
+  },
+  "opium": {
+    "slug": "opium",
+    "name": "Opium",
+    "symbol": "OPIUM",
+    "faqs": [],
+    "crawledAt": "2026-02-15T19:13:09.005Z"
+  },
+  "jooce-memecoin-index": {
+    "slug": "jooce-memecoin-index",
+    "name": "JOOCE Memecoin Index",
+    "symbol": "JMX",
+    "faqs": [],
+    "crawledAt": "2026-02-15T19:13:09.008Z"
+  },
+  "exit-liquidity": {
+    "slug": "exit-liquidity",
+    "name": "Exit Liquidity",
+    "symbol": "RETAIL",
+    "faqs": [],
+    "crawledAt": "2026-02-15T19:13:09.010Z"
+  },
+  "osol": {
+    "slug": "osol",
+    "name": "OSOL",
+    "symbol": "OSOL",
+    "faqs": [],
+    "crawledAt": "2026-02-15T19:13:09.012Z"
+  },
+  "tiwicat": {
+    "slug": "tiwicat",
+    "name": "TIWICAT",
+    "symbol": "TWC",
+    "faqs": [],
+    "crawledAt": "2026-02-15T19:13:09.014Z"
+  },
+  "flip": {
+    "slug": "flip",
+    "name": "FLIP",
+    "symbol": "FLIP",
+    "faqs": [],
+    "crawledAt": "2026-02-15T19:13:12.081Z"
+  },
+  "d1ckgpt": {
+    "slug": "d1ckgpt",
+    "name": "D1ckGPT",
+    "symbol": "DICK",
+    "faqs": [],
+    "crawledAt": "2026-02-15T19:13:12.084Z"
+  },
+  "eli5a": {
+    "slug": "eli5a",
+    "name": "Eli5a",
+    "symbol": "ELI5A",
+    "faqs": [],
+    "crawledAt": "2026-02-15T19:13:12.086Z"
+  },
+  "kasper": {
+    "slug": "kasper",
+    "name": "Kasper",
+    "symbol": "KASPER",
+    "faqs": [],
+    "crawledAt": "2026-02-15T19:13:12.088Z"
+  },
+  "opcat-2": {
+    "slug": "opcat-2",
+    "name": "OPCAT",
+    "symbol": "OPCAT",
+    "faqs": [],
+    "crawledAt": "2026-02-15T19:13:12.088Z",
+    "error": "HTTP 500"
+  },
+  "navigator-by-metawin": {
+    "slug": "navigator-by-metawin",
+    "name": "Navigator by MetaWin",
+    "symbol": "NAVI",
+    "faqs": [],
+    "crawledAt": "2026-02-15T19:13:12.090Z"
+  },
+  "latoken": {
+    "slug": "latoken",
+    "name": "LA",
+    "symbol": "LA",
+    "faqs": [],
+    "crawledAt": "2026-02-15T19:13:12.092Z"
+  },
+  "mcpepe-s": {
+    "slug": "mcpepe-s",
+    "name": "McPepe's",
+    "symbol": "PEPES",
+    "faqs": [],
+    "crawledAt": "2026-02-15T19:13:12.095Z"
+  },
+  "waye-ai": {
+    "slug": "waye-ai",
+    "name": "WAYE.ai",
+    "symbol": "WAYE",
+    "faqs": [],
+    "crawledAt": "2026-02-15T19:13:12.097Z"
+  },
+  "pchain": {
+    "slug": "pchain",
+    "name": "Plian",
+    "symbol": "PI",
+    "faqs": [],
+    "crawledAt": "2026-02-15T19:13:12.100Z"
+  },
+  "degen-zoo": {
+    "slug": "degen-zoo",
+    "name": "Degen Zoo",
+    "symbol": "DZOO",
+    "faqs": [],
+    "crawledAt": "2026-02-15T19:13:15.028Z"
+  },
+  "mine-blue": {
+    "slug": "mine-blue",
+    "name": "Mine Blue",
+    "symbol": "MB",
+    "faqs": [],
+    "crawledAt": "2026-02-15T19:13:15.030Z"
+  },
+  "sympson-ai": {
+    "slug": "sympson-ai",
+    "name": "Sympson by Virtuals",
+    "symbol": "$SYMP",
+    "faqs": [],
+    "crawledAt": "2026-02-15T19:13:15.033Z"
+  },
+  "metamars-2": {
+    "slug": "metamars-2",
+    "name": "Metamars",
+    "symbol": "MARS",
+    "faqs": [],
+    "crawledAt": "2026-02-15T19:13:15.033Z",
+    "error": "HTTP 500"
+  },
+  "emerge": {
+    "slug": "emerge",
+    "name": "Emerge",
+    "symbol": "EMERGE",
+    "faqs": [],
+    "crawledAt": "2026-02-15T19:13:15.035Z"
+  },
+  "market-making-pro": {
+    "slug": "market-making-pro",
+    "name": "Market Making Pro",
+    "symbol": "MMPRO",
+    "faqs": [],
+    "crawledAt": "2026-02-15T19:13:15.037Z"
+  },
+  "mendi-finance": {
+    "slug": "mendi-finance",
+    "name": "Mendi Finance",
+    "symbol": "MENDI",
+    "faqs": [],
+    "crawledAt": "2026-02-15T19:13:15.040Z"
+  },
+  "nest-credit-vault": {
+    "slug": "nest-credit-vault",
+    "name": "Nest Credit Vault",
+    "symbol": "NCREDIT",
+    "faqs": [],
+    "crawledAt": "2026-02-15T19:13:15.042Z"
+  },
+  "baby-broccoli": {
+    "slug": "baby-broccoli",
+    "name": "Baby Broccoli",
+    "symbol": "BABYBROCCOLI",
+    "faqs": [],
+    "crawledAt": "2026-02-15T19:13:15.044Z"
+  },
+  "angel-twin": {
+    "slug": "angel-twin",
+    "name": "ANGL TOKEN",
+    "symbol": "ANGL",
+    "faqs": [],
+    "crawledAt": "2026-02-15T19:13:15.046Z"
+  },
+  "trader": {
+    "slug": "trader",
+    "name": "Trader",
+    "symbol": "TDE",
+    "faqs": [],
+    "crawledAt": "2026-02-15T19:13:18.124Z"
+  },
+  "cigol": {
+    "slug": "cigol",
+    "name": "cigoL",
+    "symbol": "CIGOL",
+    "faqs": [],
+    "crawledAt": "2026-02-15T19:13:18.126Z"
+  },
+  "asterion": {
+    "slug": "asterion",
+    "name": "ASTERION",
+    "symbol": "ASTER",
+    "faqs": [],
+    "crawledAt": "2026-02-15T19:13:18.129Z"
+  },
+  "script-network": {
+    "slug": "script-network",
+    "name": "Script Network",
+    "symbol": "SCPT",
+    "faqs": [],
+    "crawledAt": "2026-02-15T19:13:18.131Z"
+  },
+  "fatcat-2": {
+    "slug": "fatcat-2",
+    "name": "FATCAT",
+    "symbol": "$FATCAT",
+    "faqs": [],
+    "crawledAt": "2026-02-15T19:13:18.131Z",
+    "error": "HTTP 500"
+  },
+  "international-business-machines-xstock": {
+    "slug": "international-business-machines-xstock",
+    "name": "International Business Machines xStock",
+    "symbol": "IBMX",
+    "faqs": [],
+    "crawledAt": "2026-02-15T19:13:18.134Z"
+  },
+  "tor": {
+    "slug": "tor",
+    "name": "TOR",
+    "symbol": "TOR",
+    "faqs": [],
+    "crawledAt": "2026-02-15T19:13:18.136Z"
+  },
+  "meridian-2": {
+    "slug": "meridian-2",
+    "name": "Meridian",
+    "symbol": "MRDN",
+    "faqs": [],
+    "crawledAt": "2026-02-15T19:13:18.136Z",
+    "error": "HTTP 500"
+  },
+  "dice": {
+    "slug": "dice",
+    "name": "DICE",
+    "symbol": "$DICE",
+    "faqs": [],
+    "crawledAt": "2026-02-15T19:13:18.138Z"
+  },
+  "benddao": {
+    "slug": "benddao",
+    "name": "BendDAO",
+    "symbol": "BEND",
+    "faqs": [],
+    "crawledAt": "2026-02-15T19:13:18.139Z"
+  },
+  "bnktothefuture": {
+    "slug": "bnktothefuture",
+    "name": "BnkToTheFuture",
+    "symbol": "BFT",
+    "faqs": [],
+    "crawledAt": "2026-02-15T19:13:20.796Z"
+  },
+  "aria": {
+    "slug": "aria",
+    "name": "Aria",
+    "symbol": "ARIA",
+    "faqs": [],
+    "crawledAt": "2026-02-15T19:13:20.798Z"
+  },
+  "simd": {
+    "slug": "simd",
+    "name": "SIMD",
+    "symbol": "SIMD",
+    "faqs": [],
+    "crawledAt": "2026-02-15T19:13:20.800Z"
+  },
+  "atehun": {
+    "slug": "atehun",
+    "name": "ATEHUN",
+    "symbol": "ATEHUN",
+    "faqs": [],
+    "crawledAt": "2026-02-15T19:13:20.802Z"
+  },
+  "nutcoin-meme": {
+    "slug": "nutcoin-meme",
+    "name": "NutCoin",
+    "symbol": "NUT",
+    "faqs": [],
+    "crawledAt": "2026-02-15T19:13:20.802Z",
+    "error": "HTTP 500"
+  },
+  "idena": {
+    "slug": "idena",
+    "name": "Idena",
+    "symbol": "IDNA",
+    "faqs": [],
+    "crawledAt": "2026-02-15T19:13:20.803Z"
+  },
+  "veronica": {
+    "slug": "veronica",
+    "name": "VERONICA by Virtuals",
+    "symbol": "VERONICA",
+    "faqs": [],
+    "crawledAt": "2026-02-15T19:13:20.803Z",
+    "error": "HTTP 500"
+  },
+  "kilroy-was-here": {
+    "slug": "kilroy-was-here",
+    "name": "Kilroy was here",
+    "symbol": "KILROY",
+    "faqs": [],
+    "crawledAt": "2026-02-15T19:13:20.805Z"
+  },
+  "punk-auction": {
+    "slug": "punk-auction",
+    "name": "Punk Auction",
+    "symbol": "PAST",
+    "faqs": [],
+    "crawledAt": "2026-02-15T19:13:20.807Z"
+  },
+  "coral-finance": {
+    "slug": "coral-finance",
+    "name": "Coral Finance",
+    "symbol": "CORL",
+    "faqs": [],
+    "crawledAt": "2026-02-15T19:13:20.809Z"
+  },
+  "alpaca-finance": {
+    "slug": "alpaca-finance",
+    "name": "Alpaca Finance",
+    "symbol": "ALPACA",
+    "faqs": [],
+    "crawledAt": "2026-02-15T19:13:23.459Z"
+  },
+  "bitcoinz": {
+    "slug": "bitcoinz",
+    "name": "BitcoinZ",
+    "symbol": "BTCZ",
+    "faqs": [],
+    "crawledAt": "2026-02-15T19:13:23.460Z"
+  },
+  "somesing": {
+    "slug": "somesing",
+    "name": "SOMESING",
+    "symbol": "SSG",
+    "faqs": [],
+    "crawledAt": "2026-02-15T19:13:23.462Z"
+  },
+  "plus": {
+    "slug": "plus",
+    "name": "PLUS",
+    "symbol": "PLUS",
+    "faqs": [],
+    "crawledAt": "2026-02-15T19:13:23.464Z"
+  },
+  "beamcat": {
+    "slug": "beamcat",
+    "name": "BEAMCAT",
+    "symbol": "BCAT",
+    "faqs": [],
+    "crawledAt": "2026-02-15T19:13:23.466Z"
+  },
+  "minor-shareholder": {
+    "slug": "minor-shareholder",
+    "name": "小股东 (Minor Shareholder)",
+    "symbol": "小股东",
+    "faqs": [],
+    "crawledAt": "2026-02-15T19:13:23.468Z"
+  },
+  "shibacoin": {
+    "slug": "shibacoin",
+    "name": "ShibaCoin",
+    "symbol": "SHIC",
+    "faqs": [],
+    "crawledAt": "2026-02-15T19:13:23.470Z"
+  },
+  "planetwatch": {
+    "slug": "planetwatch",
+    "name": "PlanetWatch",
+    "symbol": "PLANETS",
+    "faqs": [],
+    "crawledAt": "2026-02-15T19:13:23.472Z"
+  },
+  "terminus-2": {
+    "slug": "terminus-2",
+    "name": "Terminus",
+    "symbol": "TERMINUS",
+    "faqs": [],
+    "crawledAt": "2026-02-15T19:13:23.472Z",
+    "error": "HTTP 500"
+  },
+  "laugh": {
+    "slug": "laugh",
+    "name": "Laugh",
+    "symbol": "LAUGH",
+    "faqs": [],
+    "crawledAt": "2026-02-15T19:13:23.474Z"
+  },
+  "based-coin": {
+    "slug": "based-coin",
+    "name": "Based Coin",
+    "symbol": "BASED",
+    "faqs": [],
+    "crawledAt": "2026-02-15T19:13:26.243Z"
+  },
+  "polkadex": {
+    "slug": "polkadex",
+    "name": "Polkadex",
+    "symbol": "PDEX",
+    "faqs": [],
+    "crawledAt": "2026-02-15T19:13:26.245Z"
+  },
+  "stobox-token": {
+    "slug": "stobox-token",
+    "name": "Stobox Token",
+    "symbol": "STBU",
+    "faqs": [],
+    "crawledAt": "2026-02-15T19:13:26.247Z"
+  },
+  "hydra-3": {
+    "slug": "hydra-3",
+    "name": "HYDRA",
+    "symbol": "HYDRA",
+    "faqs": [],
+    "crawledAt": "2026-02-15T19:13:26.247Z",
+    "error": "HTTP 500"
+  },
+  "bnb-frog-inu": {
+    "slug": "bnb-frog-inu",
+    "name": "BNB Frog Inu",
+    "symbol": "BNBFROG",
+    "faqs": [],
+    "crawledAt": "2026-02-15T19:13:26.249Z"
+  },
+  "okayeg": {
+    "slug": "okayeg",
+    "name": "Okayeg",
+    "symbol": "OKAYEG",
+    "faqs": [],
+    "crawledAt": "2026-02-15T19:13:26.251Z"
+  },
+  "primelayer": {
+    "slug": "primelayer",
+    "name": "PrimeLayer",
+    "symbol": "PRML",
+    "faqs": [],
+    "crawledAt": "2026-02-15T19:13:26.253Z"
+  },
+  "sofi-technologies-ondo-tokenized-stock": {
+    "slug": "sofi-technologies-ondo-tokenized-stock",
+    "name": "SoFi Technologies (Ondo Tokenized Stock)",
+    "symbol": "SOFION",
+    "faqs": [],
+    "crawledAt": "2026-02-15T19:13:26.255Z"
+  },
+  "gala-music": {
+    "slug": "gala-music",
+    "name": "Gala Music",
+    "symbol": "MUSIC",
+    "faqs": [],
+    "crawledAt": "2026-02-15T19:13:26.256Z"
+  },
+  "full-sail": {
+    "slug": "full-sail",
+    "name": "Full Sail",
+    "symbol": "SAIL",
+    "faqs": [],
+    "crawledAt": "2026-02-15T19:13:26.258Z"
+  },
+  "gekko-ai": {
+    "slug": "gekko-ai",
+    "name": "Gekko AI by Virtuals",
+    "symbol": "GEKKO",
+    "faqs": [],
+    "crawledAt": "2026-02-15T19:13:29.267Z"
+  },
+  "business-coin": {
+    "slug": "business-coin",
+    "name": "Business Coin",
+    "symbol": "BUSINESS",
+    "faqs": [],
+    "crawledAt": "2026-02-15T19:13:29.268Z"
+  },
+  "pepe-in-a-memes-world": {
+    "slug": "pepe-in-a-memes-world",
+    "name": "pepe in a memes world",
+    "symbol": "PEW",
+    "faqs": [],
+    "crawledAt": "2026-02-15T19:13:29.270Z"
+  },
+  "lsd-2": {
+    "slug": "lsd-2",
+    "name": "LSD",
+    "symbol": "LSD",
+    "faqs": [],
+    "crawledAt": "2026-02-15T19:13:29.270Z",
+    "error": "HTTP 500"
+  },
+  "ebusd-stablecoin": {
+    "slug": "ebusd-stablecoin",
+    "name": "ebUSD Stablecoin",
+    "symbol": "EBUSD",
+    "faqs": [],
+    "crawledAt": "2026-02-15T19:13:29.272Z"
+  },
+  "bitvault-signal": {
+    "slug": "bitvault-signal",
+    "name": "BitVault Signal",
+    "symbol": "$BV7X",
+    "faqs": [],
+    "crawledAt": "2026-02-15T19:13:29.274Z"
+  },
+  "buy-the-hat": {
+    "slug": "buy-the-hat",
+    "name": "BUY THE HAT",
+    "symbol": "BTH",
+    "faqs": [],
+    "crawledAt": "2026-02-15T19:13:29.275Z"
+  },
+  "sophiaverse": {
+    "slug": "sophiaverse",
+    "name": "SophiaVerse",
+    "symbol": "SOPH",
+    "faqs": [],
+    "crawledAt": "2026-02-15T19:13:29.277Z"
+  },
+  "bored-2": {
+    "slug": "bored-2",
+    "name": "BORED",
+    "symbol": "BORED",
+    "faqs": [],
+    "crawledAt": "2026-02-15T19:13:29.277Z",
+    "error": "HTTP 500"
+  },
+  "pepo": {
+    "slug": "pepo",
+    "name": "PEPO",
+    "symbol": "PEPO",
+    "faqs": [],
+    "crawledAt": "2026-02-15T19:13:29.279Z"
+  },
+  "starcoin": {
+    "slug": "starcoin",
+    "name": "Starcoin",
+    "symbol": "STC",
+    "faqs": [],
+    "crawledAt": "2026-02-15T19:13:32.269Z"
+  },
+  "moon-app": {
+    "slug": "moon-app",
+    "name": "RWAX",
+    "symbol": "APP",
+    "faqs": [],
+    "crawledAt": "2026-02-15T19:13:32.271Z"
+  },
+  "usdtez": {
+    "slug": "usdtez",
+    "name": "USDtez",
+    "symbol": "USDTZ",
+    "faqs": [],
+    "crawledAt": "2026-02-15T19:13:32.272Z"
+  },
+  "nav": {
+    "slug": "nav",
+    "name": "NAV",
+    "symbol": "NAV",
+    "faqs": [],
+    "crawledAt": "2026-02-15T19:13:32.274Z"
+  },
+  "catgirl": {
+    "slug": "catgirl",
+    "name": "Catgirl",
+    "symbol": "CATGIRL",
+    "faqs": [],
+    "crawledAt": "2026-02-15T19:13:32.276Z"
+  },
+  "velvet-unicorn-by-virtuals": {
+    "slug": "velvet-unicorn-by-virtuals",
+    "name": "Velvet Unicorn by Virtuals",
+    "symbol": "VU",
+    "faqs": [],
+    "crawledAt": "2026-02-15T19:13:32.278Z"
+  },
+  "arcana-token": {
+    "slug": "arcana-token",
+    "name": "Arcana Network",
+    "symbol": "XAR",
+    "faqs": [],
+    "crawledAt": "2026-02-15T19:13:32.278Z",
+    "error": "HTTP 500"
+  },
+  "crowdstrike-xstock": {
+    "slug": "crowdstrike-xstock",
+    "name": "CrowdStrike xStock",
+    "symbol": "CRWDX",
+    "faqs": [],
+    "crawledAt": "2026-02-15T19:13:32.279Z"
+  },
+  "the-martian-dog": {
+    "slug": "the-martian-dog",
+    "name": "The Martian Dog",
+    "symbol": "MARVIN",
+    "faqs": [],
+    "crawledAt": "2026-02-15T19:13:32.282Z"
+  },
+  "apix-2": {
+    "slug": "apix-2",
+    "name": "APIX",
+    "symbol": "APIX",
+    "faqs": [],
+    "crawledAt": "2026-02-15T19:13:32.282Z",
+    "error": "HTTP 500"
+  },
+  "wolfsafepoorpeople": {
+    "slug": "wolfsafepoorpeople",
+    "name": "WolfSafePoorPeople",
+    "symbol": "WSPP",
+    "faqs": [],
+    "crawledAt": "2026-02-15T19:13:34.922Z"
+  },
+  "milady-wif-hat": {
+    "slug": "milady-wif-hat",
+    "name": "Milady Wif Hat",
+    "symbol": "LADYF",
+    "faqs": [],
+    "crawledAt": "2026-02-15T19:13:34.924Z"
+  },
+  "firechicken": {
+    "slug": "firechicken",
+    "name": "FireChicken",
+    "symbol": "FCKN",
+    "faqs": [],
+    "crawledAt": "2026-02-15T19:13:34.926Z"
+  },
+  "the-virtua-kolect": {
+    "slug": "the-virtua-kolect",
+    "name": "Virtua",
+    "symbol": "TVK",
+    "faqs": [],
+    "crawledAt": "2026-02-15T19:13:34.928Z"
+  },
+  "hubble": {
+    "slug": "hubble",
+    "name": "Hubble",
+    "symbol": "HBB",
+    "faqs": [],
+    "crawledAt": "2026-02-15T19:13:34.928Z",
+    "error": "HTTP 500"
+  },
+  "woman-yelling-at-cat": {
+    "slug": "woman-yelling-at-cat",
+    "name": "Woman Yelling At Cat",
+    "symbol": "WYAC",
+    "faqs": [],
+    "crawledAt": "2026-02-15T19:13:34.930Z"
+  },
+  "smilee": {
+    "slug": "smilee",
+    "name": "Smilee",
+    "symbol": "SMILEE",
+    "faqs": [],
+    "crawledAt": "2026-02-15T19:13:34.932Z"
+  },
+  "apex-ai": {
+    "slug": "apex-ai",
+    "name": "Apex AI",
+    "symbol": "APEX",
+    "faqs": [],
+    "crawledAt": "2026-02-15T19:13:38.046Z"
+  },
+  "bent-finance": {
+    "slug": "bent-finance",
+    "name": "Bent Finance",
+    "symbol": "BENT",
+    "faqs": [],
+    "crawledAt": "2026-02-15T19:13:34.936Z"
+  },
+  "butlerliquid": {
+    "slug": "butlerliquid",
+    "name": "ButlerLiquid",
+    "symbol": "BL",
+    "faqs": [],
+    "crawledAt": "2026-02-15T19:13:34.938Z"
+  },
+  "miss-ai": {
+    "slug": "miss-ai",
+    "name": "Miss AI",
+    "symbol": "MSAI",
+    "faqs": [],
+    "crawledAt": "2026-02-15T19:13:38.020Z"
+  },
+  "ivendpay": {
+    "slug": "ivendpay",
+    "name": "IVPAY",
+    "symbol": "IVPAY",
+    "faqs": [],
+    "crawledAt": "2026-02-15T19:13:38.024Z"
+  },
+  "okbet": {
+    "slug": "okbet",
+    "name": "okbet",
+    "symbol": "OK",
+    "faqs": [],
+    "crawledAt": "2026-02-15T19:13:38.028Z"
+  },
+  "leek": {
+    "slug": "leek",
+    "name": "LEEK",
+    "symbol": "LEEK",
+    "faqs": [],
+    "crawledAt": "2026-02-15T19:13:38.032Z"
+  },
+  "donut": {
+    "slug": "donut",
+    "name": "Donut",
+    "symbol": "DONUT",
+    "faqs": [],
+    "crawledAt": "2026-02-15T19:13:38.035Z"
+  },
+  "lendle": {
+    "slug": "lendle",
+    "name": "Lendle",
+    "symbol": "LEND",
+    "faqs": [],
+    "crawledAt": "2026-02-15T19:13:38.039Z"
+  },
+  "pentagon-pizza-watch": {
+    "slug": "pentagon-pizza-watch",
+    "name": "Pentagon Pizza Watch",
+    "symbol": "PPW",
+    "faqs": [],
+    "crawledAt": "2026-02-15T19:13:38.042Z"
+  },
+  "solaris-ai-2": {
+    "slug": "solaris-ai-2",
+    "name": "Solaris AI",
+    "symbol": "SOLARIS",
+    "faqs": [],
+    "crawledAt": "2026-02-15T19:13:38.046Z",
+    "error": "HTTP 500"
+  },
+  "alpie": {
+    "slug": "alpie",
+    "name": "Alpie",
+    "symbol": "PIE",
+    "faqs": [],
+    "crawledAt": "2026-02-15T19:13:38.050Z"
+  },
+  "retake-tv": {
+    "slug": "retake-tv",
+    "name": "RETAKE.TV",
+    "symbol": "RETAKE",
+    "faqs": [],
+    "crawledAt": "2026-02-15T19:13:41.283Z"
+  },
+  "muse-2": {
+    "slug": "muse-2",
+    "name": "Muse DAO",
+    "symbol": "MUSE",
+    "faqs": [],
+    "crawledAt": "2026-02-15T19:13:41.283Z",
+    "error": "HTTP 500"
+  },
+  "seedworld": {
+    "slug": "seedworld",
+    "name": "Seedworld",
+    "symbol": "SWORLD",
+    "faqs": [],
+    "crawledAt": "2026-02-15T19:13:41.285Z"
+  },
+  "kryptokrona": {
+    "slug": "kryptokrona",
+    "name": "Kryptokrona",
+    "symbol": "XKR",
+    "faqs": [],
+    "crawledAt": "2026-02-15T19:13:41.287Z"
+  },
+  "playermon": {
+    "slug": "playermon",
+    "name": "Playermon",
+    "symbol": "PYM",
+    "faqs": [],
+    "crawledAt": "2026-02-15T19:13:41.288Z"
+  },
+  "productclank": {
+    "slug": "productclank",
+    "name": "ProductClank",
+    "symbol": "$PRO",
+    "faqs": [],
+    "crawledAt": "2026-02-15T19:13:41.290Z"
+  },
+  "pepeinatux": {
+    "slug": "pepeinatux",
+    "name": "Pepeinatux",
+    "symbol": "$INA",
+    "faqs": [],
+    "crawledAt": "2026-02-15T19:13:41.292Z"
+  },
+  "toilet-dust": {
+    "slug": "toilet-dust",
+    "name": "Toilet Dust",
+    "symbol": "TOILET",
+    "faqs": [],
+    "crawledAt": "2026-02-15T19:13:41.294Z"
+  },
+  "rektstrategy": {
+    "slug": "rektstrategy",
+    "name": "RektStrategy",
+    "symbol": "REKTSTR",
+    "faqs": [],
+    "crawledAt": "2026-02-15T19:13:41.295Z"
+  },
+  "fsn": {
+    "slug": "fsn",
+    "name": "FUSION",
+    "symbol": "FSN",
+    "faqs": [],
+    "crawledAt": "2026-02-15T19:13:41.295Z",
+    "error": "HTTP 500"
+  },
+  "checkstrategy": {
+    "slug": "checkstrategy",
+    "name": "CheckStrategy",
+    "symbol": "CHKSTR",
+    "faqs": [],
+    "crawledAt": "2026-02-15T19:13:44.421Z"
+  },
+  "grai": {
+    "slug": "grai",
+    "name": "Grai",
+    "symbol": "GRAI",
+    "faqs": [],
+    "crawledAt": "2026-02-15T19:13:44.423Z"
+  },
+  "clankermon": {
+    "slug": "clankermon",
+    "name": "Clankermon",
+    "symbol": "CLANKERMON",
+    "faqs": [],
+    "crawledAt": "2026-02-15T19:13:44.425Z"
+  },
+  "laika-ai": {
+    "slug": "laika-ai",
+    "name": "Laika AI",
+    "symbol": "LKI",
+    "faqs": [],
+    "crawledAt": "2026-02-15T19:13:44.427Z"
+  },
+  "the-giraffes": {
+    "slug": "the-giraffes",
+    "name": "The Giraffes",
+    "symbol": "GIRAFFES",
+    "faqs": [],
+    "crawledAt": "2026-02-15T19:13:44.429Z"
+  },
+  "international-meme-fund": {
+    "slug": "international-meme-fund",
+    "name": "International Meme Fund",
+    "symbol": "IMF",
+    "faqs": [],
+    "crawledAt": "2026-02-15T19:13:44.432Z"
+  },
+  "music-by-virtuals": {
+    "slug": "music-by-virtuals",
+    "name": "Music by Virtuals",
+    "symbol": "MUSIC",
+    "faqs": [],
+    "crawledAt": "2026-02-15T19:13:44.434Z"
+  },
+  "chain4energy": {
+    "slug": "chain4energy",
+    "name": "Chain4Energy",
+    "symbol": "C4E",
+    "faqs": [],
+    "crawledAt": "2026-02-15T19:13:44.436Z"
+  },
+  "cisco-xstock": {
+    "slug": "cisco-xstock",
+    "name": "Cisco xStock",
+    "symbol": "CSCOX",
+    "faqs": [],
+    "crawledAt": "2026-02-15T19:13:44.438Z"
+  },
+  "catcoin-eth": {
+    "slug": "catcoin-eth",
+    "name": "Catcoin (ETH)",
+    "symbol": "CAT",
+    "faqs": [],
+    "crawledAt": "2026-02-15T19:13:44.440Z"
+  },
+  "polypad": {
+    "slug": "polypad",
+    "name": "PolyPad",
+    "symbol": "POLYPAD",
+    "faqs": [],
+    "crawledAt": "2026-02-15T19:13:47.732Z"
+  },
+  "replicat-one-by-virtuals": {
+    "slug": "replicat-one-by-virtuals",
+    "name": "Replicat-One by Virtuals",
+    "symbol": "RCAT",
+    "faqs": [],
+    "crawledAt": "2026-02-15T19:13:47.734Z"
+  },
+  "pepoclown": {
+    "slug": "pepoclown",
+    "name": "Pepoclown",
+    "symbol": "HONK",
+    "faqs": [],
+    "crawledAt": "2026-02-15T19:13:47.736Z"
+  },
+  "sexy-animalcoin": {
+    "slug": "sexy-animalcoin",
+    "name": "SEXY ANIMALCOIN",
+    "symbol": "ANIMAL",
+    "faqs": [],
+    "crawledAt": "2026-02-15T19:13:47.737Z"
+  },
+  "feed-the-world": {
+    "slug": "feed-the-world",
+    "name": "Feed The World",
+    "symbol": "FW",
+    "faqs": [],
+    "crawledAt": "2026-02-15T19:13:47.739Z"
+  },
+  "valhalla-index": {
+    "slug": "valhalla-index",
+    "name": "Odin Liquidity Network",
+    "symbol": "ODIN",
+    "faqs": [],
+    "crawledAt": "2026-02-15T19:13:47.741Z"
+  },
+  "ashswap": {
+    "slug": "ashswap",
+    "name": "AshSwap",
+    "symbol": "ASH",
+    "faqs": [],
+    "crawledAt": "2026-02-15T19:13:47.742Z"
+  },
+  "ara": {
+    "slug": "ara",
+    "name": "ARA",
+    "symbol": "ARA",
+    "faqs": [],
+    "crawledAt": "2026-02-15T19:13:47.744Z"
+  },
+  "huhu-cat": {
+    "slug": "huhu-cat",
+    "name": "Huhu Cat",
+    "symbol": "HUHU",
+    "faqs": [],
+    "crawledAt": "2026-02-15T19:13:47.746Z"
+  },
+  "tn100x": {
+    "slug": "tn100x",
+    "name": "TN100x",
+    "symbol": "TN100X",
+    "faqs": [],
+    "crawledAt": "2026-02-15T19:13:47.748Z"
+  },
+  "belgian-malinois": {
+    "slug": "belgian-malinois",
+    "name": "Belgian Malinois",
+    "symbol": "BELG",
+    "faqs": [],
+    "crawledAt": "2026-02-15T19:13:50.794Z"
+  },
+  "walken": {
+    "slug": "walken",
+    "name": "Walken",
+    "symbol": "WLKN",
+    "faqs": [],
+    "crawledAt": "2026-02-15T19:13:50.797Z"
+  },
+  "latina-language-model": {
+    "slug": "latina-language-model",
+    "name": "Latina Language Model",
+    "symbol": "LLM",
+    "faqs": [],
+    "crawledAt": "2026-02-15T19:13:50.799Z"
+  },
+  "dex-game": {
+    "slug": "dex-game",
+    "name": "DexGame",
+    "symbol": "DXGM",
+    "faqs": [],
+    "crawledAt": "2026-02-15T19:13:50.800Z"
+  },
+  "xprtl": {
+    "slug": "xprtl",
+    "name": "XPRTL",
+    "symbol": "PRTL",
+    "faqs": [],
+    "crawledAt": "2026-02-15T19:13:50.802Z"
+  },
+  "landwolf-on-avax": {
+    "slug": "landwolf-on-avax",
+    "name": "Landwolf on AVAX",
+    "symbol": "WOLF",
+    "faqs": [],
+    "crawledAt": "2026-02-15T19:13:50.804Z"
+  },
+  "squigglestrategy": {
+    "slug": "squigglestrategy",
+    "name": "SquiggleStrategy",
+    "symbol": "SQUIGSTR",
+    "faqs": [],
+    "crawledAt": "2026-02-15T19:13:50.805Z"
+  },
+  "dragonz": {
+    "slug": "dragonz",
+    "name": "DRAGONZ",
+    "symbol": "DRAGONZ",
+    "faqs": [],
+    "crawledAt": "2026-02-15T19:13:50.807Z"
+  },
+  "the-official-42-coin": {
+    "slug": "the-official-42-coin",
+    "name": "The Official 42 Coin",
+    "symbol": "42",
+    "faqs": [],
+    "crawledAt": "2026-02-15T19:13:50.809Z"
+  },
+  "play-2": {
+    "slug": "play-2",
+    "name": "PLAY",
+    "symbol": "PLAY",
+    "faqs": [],
+    "crawledAt": "2026-02-15T19:13:50.809Z",
+    "error": "HTTP 500"
+  },
+  "dickstrategy": {
+    "slug": "dickstrategy",
+    "name": "DickStrategy",
+    "symbol": "DICKSTR",
+    "faqs": [],
+    "crawledAt": "2026-02-15T19:13:53.837Z"
+  },
+  "hyperstitions": {
+    "slug": "hyperstitions",
+    "name": "HYPERSTITIONS",
+    "symbol": "HST",
+    "faqs": [],
+    "crawledAt": "2026-02-15T19:13:53.838Z"
+  },
+  "hord": {
+    "slug": "hord",
+    "name": "Hord",
+    "symbol": "HORD",
+    "faqs": [],
+    "crawledAt": "2026-02-15T19:13:53.838Z",
+    "error": "HTTP 500"
+  },
+  "qubecv-ai": {
+    "slug": "qubecv-ai",
+    "name": "QubeCV AI",
+    "symbol": "QCV",
+    "faqs": [],
+    "crawledAt": "2026-02-15T19:13:53.840Z"
+  },
+  "chinese-doge-wow": {
+    "slug": "chinese-doge-wow",
+    "name": "Chinese Doge Wow",
+    "symbol": "CHIDO",
+    "faqs": [],
+    "crawledAt": "2026-02-15T19:13:53.843Z"
+  },
+  "deotc": {
+    "slug": "deotc",
+    "name": "deOTC",
+    "symbol": "DOTC",
+    "faqs": [],
+    "crawledAt": "2026-02-15T19:13:53.844Z"
+  },
+  "hmx": {
+    "slug": "hmx",
+    "name": "HMX",
+    "symbol": "HMX",
+    "faqs": [],
+    "crawledAt": "2026-02-15T19:13:53.847Z"
+  },
+  "solmail": {
+    "slug": "solmail",
+    "name": "SolMail",
+    "symbol": "MAIL",
+    "faqs": [],
+    "crawledAt": "2026-02-15T19:13:53.850Z"
+  },
+  "xpowermine-com-apow-2": {
+    "slug": "xpowermine-com-apow-2",
+    "name": "XPowermine.com APOW",
+    "symbol": "APOW",
+    "faqs": [],
+    "crawledAt": "2026-02-15T19:13:53.850Z",
+    "error": "HTTP 500"
+  },
+  "acryptos": {
+    "slug": "acryptos",
+    "name": "ACryptoS [OLD]",
+    "symbol": "ACS",
+    "faqs": [],
+    "crawledAt": "2026-02-15T19:13:53.850Z",
+    "error": "HTTP 500"
+  },
+  "dlmm": {
+    "slug": "dlmm",
+    "name": "DLMM",
+    "symbol": "DLMM",
+    "faqs": [],
+    "crawledAt": "2026-02-15T19:13:56.973Z"
+  },
+  "aion": {
+    "slug": "aion",
+    "name": "Aion",
+    "symbol": "AION",
+    "faqs": [],
+    "crawledAt": "2026-02-15T19:13:56.975Z"
+  },
+  "prisma-mkusd": {
+    "slug": "prisma-mkusd",
+    "name": "Prisma mkUSD",
+    "symbol": "MKUSD",
+    "faqs": [],
+    "crawledAt": "2026-02-15T19:13:56.977Z"
+  },
+  "desk": {
+    "slug": "desk",
+    "name": "DESK",
+    "symbol": "DESK",
+    "faqs": [],
+    "crawledAt": "2026-02-15T19:13:56.979Z"
+  },
+  "cocktailbar": {
+    "slug": "cocktailbar",
+    "name": "The Cocktailbar",
+    "symbol": "COC",
+    "faqs": [],
+    "crawledAt": "2026-02-15T19:13:56.979Z",
+    "error": "HTTP 500"
+  },
+  "robonomics-network": {
+    "slug": "robonomics-network",
+    "name": "Robonomics Network",
+    "symbol": "XRT",
+    "faqs": [],
+    "crawledAt": "2026-02-15T19:13:56.982Z"
+  },
+  "pakcoin": {
+    "slug": "pakcoin",
+    "name": "Pakcoin",
+    "symbol": "PAK",
+    "faqs": [],
+    "crawledAt": "2026-02-15T19:13:56.984Z"
+  },
+  "savanna-survival": {
+    "slug": "savanna-survival",
+    "name": "Savanna Survival",
+    "symbol": "SVSA",
+    "faqs": [],
+    "crawledAt": "2026-02-15T19:13:56.985Z"
+  },
+  "darwinia-commitment-token": {
+    "slug": "darwinia-commitment-token",
+    "name": "Darwinia Commitment",
+    "symbol": "KTON",
+    "faqs": [],
+    "crawledAt": "2026-02-15T19:13:56.987Z"
+  },
+  "selfiedogcoin": {
+    "slug": "selfiedogcoin",
+    "name": "SelfieDogCoin",
+    "symbol": "SELFIE",
+    "faqs": [],
+    "crawledAt": "2026-02-15T19:13:56.989Z"
+  },
+  "lumoz": {
+    "slug": "lumoz",
+    "name": "Lumoz",
+    "symbol": "MOZ",
+    "faqs": [],
+    "crawledAt": "2026-02-15T19:13:59.823Z"
+  },
+  "pepe-2": {
+    "slug": "pepe-2",
+    "name": "The Original Pepe",
+    "symbol": "PEPE",
+    "faqs": [],
+    "crawledAt": "2026-02-15T19:13:59.823Z",
+    "error": "HTTP 500"
+  },
+  "timeswap": {
+    "slug": "timeswap",
+    "name": "Timeswap",
+    "symbol": "TIME",
+    "faqs": [],
+    "crawledAt": "2026-02-15T19:13:59.825Z"
+  },
+  "oracle-of-preferences-zk-by-virtuals": {
+    "slug": "oracle-of-preferences-zk-by-virtuals",
+    "name": "Oracle of Preferences ZK by Virtuals",
+    "symbol": "OOPZ",
+    "faqs": [],
+    "crawledAt": "2026-02-15T19:13:59.826Z"
+  },
+  "book-of-miggles": {
+    "slug": "book-of-miggles",
+    "name": "Book of Miggles",
+    "symbol": "BOMI",
+    "faqs": [],
+    "crawledAt": "2026-02-15T19:13:59.828Z"
+  },
+  "polka-city": {
+    "slug": "polka-city",
+    "name": "Polkacity",
+    "symbol": "POLC",
+    "faqs": [],
+    "crawledAt": "2026-02-15T19:13:59.831Z"
+  },
+  "solforge-fusion": {
+    "slug": "solforge-fusion",
+    "name": "SolForge Fusion",
+    "symbol": "SFG",
+    "faqs": [],
+    "crawledAt": "2026-02-15T19:13:59.832Z"
+  },
+  "chirp-token": {
+    "slug": "chirp-token",
+    "name": "Chirp Token",
+    "symbol": "CHIRP",
+    "faqs": [],
+    "crawledAt": "2026-02-15T19:13:59.834Z"
+  },
+  "black-mirror": {
+    "slug": "black-mirror",
+    "name": "Black Mirror",
+    "symbol": "MIRROR",
+    "faqs": [],
+    "crawledAt": "2026-02-15T19:13:59.836Z"
+  },
+  "goose-finance": {
+    "slug": "goose-finance",
+    "name": "Goose Finance",
+    "symbol": "EGG",
+    "faqs": [],
+    "crawledAt": "2026-02-15T19:13:59.838Z"
+  },
+  "agent-yp-by-virtuals": {
+    "slug": "agent-yp-by-virtuals",
+    "name": "Agent YP by Virtuals",
+    "symbol": "AIYP",
+    "faqs": [],
+    "crawledAt": "2026-02-15T19:14:02.808Z"
+  },
+  "hunter": {
+    "slug": "hunter",
+    "name": "Hunter Token",
+    "symbol": "HNTR",
+    "faqs": [],
+    "crawledAt": "2026-02-15T19:14:02.808Z",
+    "error": "HTTP 500"
+  },
+  "goodcryptox": {
+    "slug": "goodcryptox",
+    "name": "goodcryptoX",
+    "symbol": "GOOD",
+    "faqs": [],
+    "crawledAt": "2026-02-15T19:14:02.810Z"
+  },
+  "blue-protocol": {
+    "slug": "blue-protocol",
+    "name": "Blue Protocol",
+    "symbol": "BLUE",
+    "faqs": [],
+    "crawledAt": "2026-02-15T19:14:02.813Z"
+  },
+  "athena-by-virtuals": {
+    "slug": "athena-by-virtuals",
+    "name": "Athena by Virtuals",
+    "symbol": "ATHENA",
+    "faqs": [],
+    "crawledAt": "2026-02-15T19:14:02.815Z"
+  },
+  "director-lucien": {
+    "slug": "director-lucien",
+    "name": "Director Lucien",
+    "symbol": "LUCIEN",
+    "faqs": [],
+    "crawledAt": "2026-02-15T19:14:02.816Z"
+  },
+  "cashaa": {
+    "slug": "cashaa",
+    "name": "Cashaa",
+    "symbol": "CAS",
+    "faqs": [],
+    "crawledAt": "2026-02-15T19:14:02.818Z"
+  },
+  "emercoin": {
+    "slug": "emercoin",
+    "name": "EmerCoin",
+    "symbol": "EMC",
+    "faqs": [],
+    "crawledAt": "2026-02-15T19:14:02.820Z"
+  },
+  "cortex": {
+    "slug": "cortex",
+    "name": "Cortex",
+    "symbol": "CTXC",
+    "faqs": [],
+    "crawledAt": "2026-02-15T19:14:02.822Z"
+  },
+  "conceal": {
+    "slug": "conceal",
+    "name": "Conceal",
+    "symbol": "CCX",
+    "faqs": [],
+    "crawledAt": "2026-02-15T19:14:02.824Z"
+  },
+  "cheese-3": {
+    "slug": "cheese-3",
+    "name": "Cheese",
+    "symbol": "CHEESE",
+    "faqs": [],
+    "crawledAt": "2026-02-15T19:14:05.589Z",
+    "error": "HTTP 500"
+  },
+  "kccpad": {
+    "slug": "kccpad",
+    "name": "KCCPad",
+    "symbol": "KCCPAD",
+    "faqs": [],
+    "crawledAt": "2026-02-15T19:14:05.591Z"
+  },
+  "linde-xstock": {
+    "slug": "linde-xstock",
+    "name": "Linde xStock",
+    "symbol": "LINX",
+    "faqs": [],
+    "crawledAt": "2026-02-15T19:14:05.592Z"
+  },
+  "degen-ai": {
+    "slug": "degen-ai",
+    "name": "Degen AI by Virtuals",
+    "symbol": "DGENAI",
+    "faqs": [],
+    "crawledAt": "2026-02-15T19:14:05.594Z"
+  },
+  "dolr-ai": {
+    "slug": "dolr-ai",
+    "name": "DOLR AI",
+    "symbol": "DOLR",
+    "faqs": [],
+    "crawledAt": "2026-02-15T19:14:05.597Z"
+  },
+  "all-your-base-2": {
+    "slug": "all-your-base-2",
+    "name": "All Your Base",
+    "symbol": "AYB",
+    "faqs": [],
+    "crawledAt": "2026-02-15T19:14:05.597Z",
+    "error": "HTTP 500"
+  },
+  "starship": {
+    "slug": "starship",
+    "name": "StarShip",
+    "symbol": "STARSHIP",
+    "faqs": [],
+    "crawledAt": "2026-02-15T19:14:05.600Z"
+  },
+  "mio": {
+    "slug": "mio",
+    "name": "MIO",
+    "symbol": "MIO",
+    "faqs": [],
+    "crawledAt": "2026-02-15T19:14:05.601Z"
+  },
+  "legia-warsaw-fan-token": {
+    "slug": "legia-warsaw-fan-token",
+    "name": "Legia Warsaw Fan Token",
+    "symbol": "LEG",
+    "faqs": [],
+    "crawledAt": "2026-02-15T19:14:05.603Z"
+  },
+  "0xmonk": {
+    "slug": "0xmonk",
+    "name": "0xMonk by Virtuals",
+    "symbol": "MONK",
+    "faqs": [],
+    "crawledAt": "2026-02-15T19:14:05.605Z"
+  },
+  "rifampicin": {
+    "slug": "rifampicin",
+    "name": "Rifampicin",
+    "symbol": "$RIF",
+    "faqs": [],
+    "crawledAt": "2026-02-15T19:14:08.548Z"
+  },
+  "broccoli-4": {
+    "slug": "broccoli-4",
+    "name": "Broccoli",
+    "symbol": "BROCCOLI",
+    "faqs": [],
+    "crawledAt": "2026-02-15T19:14:08.550Z"
+  },
+  "anita-ai": {
+    "slug": "anita-ai",
+    "name": "Anita AI",
+    "symbol": "ANITA",
+    "faqs": [],
+    "crawledAt": "2026-02-15T19:14:08.552Z"
+  },
+  "lif3-lshare": {
+    "slug": "lif3-lshare",
+    "name": "LIF3 LSHARE (OLD)",
+    "symbol": "LSHARE",
+    "faqs": [],
+    "crawledAt": "2026-02-15T19:14:08.554Z"
+  },
+  "defiplaza": {
+    "slug": "defiplaza",
+    "name": "DefiPlaza",
+    "symbol": "DFP2",
+    "faqs": [],
+    "crawledAt": "2026-02-15T19:14:08.556Z"
+  },
+  "jarvis-2": {
+    "slug": "jarvis-2",
+    "name": "Jarvis",
+    "symbol": "JARVIS",
+    "faqs": [],
+    "crawledAt": "2026-02-15T19:14:08.557Z"
+  },
+  "gemach": {
+    "slug": "gemach",
+    "name": "Gemach",
+    "symbol": "GMAC",
+    "faqs": [],
+    "crawledAt": "2026-02-15T19:14:08.559Z"
+  },
+  "commune-ai": {
+    "slug": "commune-ai",
+    "name": "Commune AI",
+    "symbol": "COMAI",
+    "faqs": [],
+    "crawledAt": "2026-02-15T19:14:08.561Z"
+  },
+  "mara-holdings-ondo-tokenized-stock": {
+    "slug": "mara-holdings-ondo-tokenized-stock",
+    "name": "MARA Holdings (Ondo Tokenized Stock)",
+    "symbol": "MARAON",
+    "faqs": [],
+    "crawledAt": "2026-02-15T19:14:08.564Z"
+  },
+  "grind": {
+    "slug": "grind",
+    "name": "GRIND",
+    "symbol": "GRIND",
+    "faqs": [],
+    "crawledAt": "2026-02-15T19:14:08.566Z"
+  },
+  "oracle-4": {
+    "slug": "oracle-4",
+    "name": "oracle",
+    "symbol": "ORACLE",
+    "faqs": [],
+    "crawledAt": "2026-02-15T19:14:11.606Z",
+    "error": "HTTP 500"
+  },
+  "baby-neiro-2": {
+    "slug": "baby-neiro-2",
+    "name": "Baby Neiro",
+    "symbol": "BABYNEIRO",
+    "faqs": [],
+    "crawledAt": "2026-02-15T19:14:11.606Z",
+    "error": "HTTP 500"
+  },
+  "hyperfy": {
+    "slug": "hyperfy",
+    "name": "Hyperfy",
+    "symbol": "HYPER",
+    "faqs": [],
+    "crawledAt": "2026-02-15T19:14:11.609Z"
+  },
+  "arbus": {
+    "slug": "arbus",
+    "name": "Arbus",
+    "symbol": "ARBUS",
+    "faqs": [],
+    "crawledAt": "2026-02-15T19:14:11.611Z"
+  },
+  "turbousd-unstablecoin": {
+    "slug": "turbousd-unstablecoin",
+    "name": "TurboUSD Unstablecoin",
+    "symbol": "₸USD",
+    "faqs": [],
+    "crawledAt": "2026-02-15T19:14:11.614Z"
+  },
+  "openzk-network": {
+    "slug": "openzk-network",
+    "name": "OpenZK Network",
+    "symbol": "OZK",
+    "faqs": [],
+    "crawledAt": "2026-02-15T19:14:11.616Z"
+  },
+  "decentralized-runes": {
+    "slug": "decentralized-runes",
+    "name": "DECENTRALIZED (Runes)",
+    "symbol": "DEC",
+    "faqs": [],
+    "crawledAt": "2026-02-15T19:14:11.618Z"
+  },
+  "tsotchke": {
+    "slug": "tsotchke",
+    "name": "Tsotchke",
+    "symbol": "TSOTCHKE",
+    "faqs": [],
+    "crawledAt": "2026-02-15T19:14:11.620Z"
+  },
+  "psol": {
+    "slug": "psol",
+    "name": "pSOL",
+    "symbol": "PSOL",
+    "faqs": [],
+    "crawledAt": "2026-02-15T19:14:11.623Z"
+  },
+  "thecat": {
+    "slug": "thecat",
+    "name": "TheCat",
+    "symbol": "THECAT",
+    "faqs": [],
+    "crawledAt": "2026-02-15T19:14:11.625Z"
+  },
+  "elk-finance": {
+    "slug": "elk-finance",
+    "name": "Elk Finance",
+    "symbol": "ELK",
+    "faqs": [],
+    "crawledAt": "2026-02-15T19:14:14.522Z",
+    "error": "HTTP 500"
+  },
+  "smol-pep": {
+    "slug": "smol-pep",
+    "name": "smol pep",
+    "symbol": "PEP",
+    "faqs": [],
+    "crawledAt": "2026-02-15T19:14:14.524Z"
+  },
+  "99-bitcoins": {
+    "slug": "99-bitcoins",
+    "name": "99 Bitcoins",
+    "symbol": "99BTC",
+    "faqs": [],
+    "crawledAt": "2026-02-15T19:14:14.526Z"
+  },
+  "gamer": {
+    "slug": "gamer",
+    "name": "GAMER",
+    "symbol": "GMR",
+    "faqs": [],
+    "crawledAt": "2026-02-15T19:14:14.529Z"
+  },
+  "flyte-ai": {
+    "slug": "flyte-ai",
+    "name": "Flyte AI",
+    "symbol": "FLYTE",
+    "faqs": [],
+    "crawledAt": "2026-02-15T19:14:14.531Z"
+  },
+  "changer": {
+    "slug": "changer",
+    "name": "Changer",
+    "symbol": "CNG",
+    "faqs": [],
+    "crawledAt": "2026-02-15T19:14:14.533Z"
+  },
+  "precipitate-ai": {
+    "slug": "precipitate-ai",
+    "name": "Precipitate.ai",
+    "symbol": "RAIN",
+    "faqs": [],
+    "crawledAt": "2026-02-15T19:14:14.534Z"
+  },
+  "figma-ord-shs-ondo-tokenized-stock": {
+    "slug": "figma-ord-shs-ondo-tokenized-stock",
+    "name": "Figma Ord Shs (Ondo Tokenized Stock)",
+    "symbol": "FIGON",
+    "faqs": [],
+    "crawledAt": "2026-02-15T19:14:14.536Z"
+  },
+  "blockmind": {
+    "slug": "blockmind",
+    "name": "BlockMind",
+    "symbol": "BMIND",
+    "faqs": [],
+    "crawledAt": "2026-02-15T19:14:14.538Z"
+  },
+  "dark-frontiers": {
+    "slug": "dark-frontiers",
+    "name": "Dark Frontiers",
+    "symbol": "DARK",
+    "faqs": [],
+    "crawledAt": "2026-02-15T19:14:14.540Z"
+  },
+  "pulsebitcoin-pulsechain": {
+    "slug": "pulsebitcoin-pulsechain",
+    "name": "PulseBitcoin (PulseChain)",
+    "symbol": "PLSB",
+    "faqs": [],
+    "crawledAt": "2026-02-15T19:14:17.759Z"
+  },
+  "flying-avocado-cat": {
+    "slug": "flying-avocado-cat",
+    "name": "Flying Avocado Cat",
+    "symbol": "FAC",
+    "faqs": [],
+    "crawledAt": "2026-02-15T19:14:17.762Z"
+  },
+  "salesforce-xstock": {
+    "slug": "salesforce-xstock",
+    "name": "Salesforce xStock",
+    "symbol": "CRMX",
+    "faqs": [],
+    "crawledAt": "2026-02-15T19:14:17.764Z"
+  },
+  "wojak-3": {
+    "slug": "wojak-3",
+    "name": "Wojak",
+    "symbol": "WOJAK",
+    "faqs": [],
+    "crawledAt": "2026-02-15T19:14:17.764Z",
+    "error": "HTTP 500"
+  },
+  "xcad-network": {
+    "slug": "xcad-network",
+    "name": "XCAD Network",
+    "symbol": "XCAD",
+    "faqs": [],
+    "crawledAt": "2026-02-15T19:14:17.766Z"
+  },
+  "xdefi": {
+    "slug": "xdefi",
+    "name": "XDEFI",
+    "symbol": "XDEFI",
+    "faqs": [],
+    "crawledAt": "2026-02-15T19:14:17.766Z",
+    "error": "HTTP 500"
+  },
+  "bai-stablecoin": {
+    "slug": "bai-stablecoin",
+    "name": "BAI Stablecoin",
+    "symbol": "BAI",
+    "faqs": [],
+    "crawledAt": "2026-02-15T19:14:17.768Z"
+  },
+  "darkstar": {
+    "slug": "darkstar",
+    "name": "DarkStar",
+    "symbol": "DARKSTAR",
+    "faqs": [],
+    "crawledAt": "2026-02-15T19:14:17.770Z"
+  },
+  "perq": {
+    "slug": "perq",
+    "name": "PERQ",
+    "symbol": "PERQ",
+    "faqs": [],
+    "crawledAt": "2026-02-15T19:14:17.772Z"
+  },
+  "danaher-xstock": {
+    "slug": "danaher-xstock",
+    "name": "Danaher xStock",
+    "symbol": "DHRX",
+    "faqs": [],
+    "crawledAt": "2026-02-15T19:14:17.774Z"
+  },
+  "yoshi-exchange": {
+    "slug": "yoshi-exchange",
+    "name": "Yoshi.exchange",
+    "symbol": "YOSHI",
+    "faqs": [],
+    "crawledAt": "2026-02-15T19:14:20.874Z"
+  },
+  "planz": {
+    "slug": "planz",
+    "name": "PLANZ",
+    "symbol": "Z",
+    "faqs": [],
+    "crawledAt": "2026-02-15T19:14:20.876Z"
+  },
+  "nervenetwork": {
+    "slug": "nervenetwork",
+    "name": "NerveNetwork",
+    "symbol": "NVT",
+    "faqs": [],
+    "crawledAt": "2026-02-15T19:14:20.879Z"
+  },
+  "harambe-ai": {
+    "slug": "harambe-ai",
+    "name": "Harambe AI",
+    "symbol": "HARAMBEAI",
+    "faqs": [],
+    "crawledAt": "2026-02-15T19:14:20.881Z"
+  },
+  "gogopool": {
+    "slug": "gogopool",
+    "name": "GoGoPool",
+    "symbol": "GGP",
+    "faqs": [],
+    "crawledAt": "2026-02-15T19:14:20.883Z"
+  },
+  "celo-real-creal": {
+    "slug": "celo-real-creal",
+    "name": "Mento Brazilian Real",
+    "symbol": "BRLM",
+    "faqs": [],
+    "crawledAt": "2026-02-15T19:14:20.886Z"
+  },
+  "tokenos-ai": {
+    "slug": "tokenos-ai",
+    "name": "TokenOS AI",
+    "symbol": "TOS",
+    "faqs": [],
+    "crawledAt": "2026-02-15T19:14:20.887Z"
+  },
+  "satori-network": {
+    "slug": "satori-network",
+    "name": "Satori Network",
+    "symbol": "SATORI",
+    "faqs": [],
+    "crawledAt": "2026-02-15T19:14:20.889Z"
+  },
+  "raven-protocol": {
+    "slug": "raven-protocol",
+    "name": "Raven Protocol",
+    "symbol": "RAVEN",
+    "faqs": [],
+    "crawledAt": "2026-02-15T19:14:20.892Z"
+  },
+  "pacmoon": {
+    "slug": "pacmoon",
+    "name": "PacMoon",
+    "symbol": "PAC",
+    "faqs": [],
+    "crawledAt": "2026-02-15T19:14:20.893Z"
+  },
+  "rocketfi": {
+    "slug": "rocketfi",
+    "name": "RocketFi",
+    "symbol": "ROCKETFI",
+    "faqs": [],
+    "crawledAt": "2026-02-15T19:14:23.781Z"
+  },
+  "whatever": {
+    "slug": "whatever",
+    "name": "whatever",
+    "symbol": "WHATEVER",
+    "faqs": [],
+    "crawledAt": "2026-02-15T19:14:23.783Z"
+  },
+  "etica": {
+    "slug": "etica",
+    "name": "Etica",
+    "symbol": "ETI",
+    "faqs": [],
+    "crawledAt": "2026-02-15T19:14:23.785Z"
+  },
+  "assisterr-ai": {
+    "slug": "assisterr-ai",
+    "name": "Assisterr AI",
+    "symbol": "ASRR",
+    "faqs": [],
+    "crawledAt": "2026-02-15T19:14:23.786Z"
+  },
+  "fight": {
+    "slug": "fight",
+    "name": "FIGHT",
+    "symbol": "FIGHT",
+    "faqs": [],
+    "crawledAt": "2026-02-15T19:14:23.789Z"
+  },
+  "cliza": {
+    "slug": "cliza",
+    "name": "cliza",
+    "symbol": "CLIZA",
+    "faqs": [],
+    "crawledAt": "2026-02-15T19:14:23.790Z"
+  },
+  "duna-ai": {
+    "slug": "duna-ai",
+    "name": "DUNA AI",
+    "symbol": "DUNA",
+    "faqs": [],
+    "crawledAt": "2026-02-15T19:14:23.792Z"
+  },
+  "betrmint": {
+    "slug": "betrmint",
+    "name": "BETRMINT",
+    "symbol": "BETR",
+    "faqs": [],
+    "crawledAt": "2026-02-15T19:14:23.794Z"
+  },
+  "pollen-2": {
+    "slug": "pollen-2",
+    "name": "Pollen",
+    "symbol": "POLLEN",
+    "faqs": [],
+    "crawledAt": "2026-02-15T19:14:23.794Z",
+    "error": "HTTP 500"
+  },
+  "ai-factory": {
+    "slug": "ai-factory",
+    "name": "AI Factory",
+    "symbol": "SN80",
+    "faqs": [],
+    "crawledAt": "2026-02-15T19:14:23.797Z"
+  },
+  "dog-wif-nuchucks": {
+    "slug": "dog-wif-nuchucks",
+    "name": "Dog Wif Nunchucks",
+    "symbol": "NINJA",
+    "faqs": [],
+    "crawledAt": "2026-02-15T19:14:26.802Z"
+  },
+  "w3gg": {
+    "slug": "w3gg",
+    "name": "W3GG",
+    "symbol": "W3GG",
+    "faqs": [],
+    "crawledAt": "2026-02-15T19:14:26.804Z"
+  },
+  "lukas-token": {
+    "slug": "lukas-token",
+    "name": "Lukas Token",
+    "symbol": "LUKAS",
+    "faqs": [],
+    "crawledAt": "2026-02-15T19:14:26.805Z"
+  },
+  "lootbot": {
+    "slug": "lootbot",
+    "name": "LootBot",
+    "symbol": "LOOT",
+    "faqs": [],
+    "crawledAt": "2026-02-15T19:14:26.807Z"
+  },
+  "digital-oil-memecoin": {
+    "slug": "digital-oil-memecoin",
+    "name": "Digital Oil Memecoin",
+    "symbol": "OIL",
+    "faqs": [],
+    "crawledAt": "2026-02-15T19:14:26.809Z"
+  },
+  "silver-rstock": {
+    "slug": "silver-rstock",
+    "name": "Silver rStock",
+    "symbol": "SLVR",
+    "faqs": [],
+    "crawledAt": "2026-02-15T19:14:26.811Z"
+  },
+  "11am": {
+    "slug": "11am",
+    "name": "11am",
+    "symbol": "11AM",
+    "faqs": [],
+    "crawledAt": "2026-02-15T19:14:26.813Z"
+  },
+  "boom-2": {
+    "slug": "boom-2",
+    "name": "Boom",
+    "symbol": "BOOM",
+    "faqs": [],
+    "crawledAt": "2026-02-15T19:14:26.813Z",
+    "error": "HTTP 500"
+  },
+  "planck": {
+    "slug": "planck",
+    "name": "Planck",
+    "symbol": "PLANCK",
+    "faqs": [],
+    "crawledAt": "2026-02-15T19:14:26.815Z"
+  },
+  "starly-the-star-guide": {
+    "slug": "starly-the-star-guide",
+    "name": "Starly the $STAR™ Guide",
+    "symbol": "$STAR",
+    "faqs": [],
+    "crawledAt": "2026-02-15T19:14:26.817Z"
+  },
+  "lunr-token": {
+    "slug": "lunr-token",
+    "name": "LunarCrush",
+    "symbol": "LUNR",
+    "faqs": [],
+    "crawledAt": "2026-02-15T19:14:30.003Z"
+  },
+  "zaro-coin": {
+    "slug": "zaro-coin",
+    "name": "ZARO Coin",
+    "symbol": "ZARO",
+    "faqs": [],
+    "crawledAt": "2026-02-15T19:14:30.005Z"
+  },
+  "pandacoin": {
+    "slug": "pandacoin",
+    "name": "Pandacoin",
+    "symbol": "PND",
+    "faqs": [],
+    "crawledAt": "2026-02-15T19:14:30.007Z"
+  },
+  "oooo": {
+    "slug": "oooo",
+    "name": "oooo",
+    "symbol": "OOOO",
+    "faqs": [],
+    "crawledAt": "2026-02-15T19:14:30.011Z"
+  },
+  "agent-virtual-machine": {
+    "slug": "agent-virtual-machine",
+    "name": "Agent Virtual Machine",
+    "symbol": "AVM",
+    "faqs": [],
+    "crawledAt": "2026-02-15T19:14:30.014Z"
+  },
+  "supercycle-real": {
+    "slug": "supercycle-real",
+    "name": "supercycle(real)",
+    "symbol": "SUPERCYCLE",
+    "faqs": [],
+    "crawledAt": "2026-02-15T19:14:30.016Z"
+  },
+  "gunda": {
+    "slug": "gunda",
+    "name": "Gunda",
+    "symbol": "GUNDA",
+    "faqs": [],
+    "crawledAt": "2026-02-15T19:14:30.018Z"
+  },
+  "pippin-s-friend": {
+    "slug": "polkadot",
+    "name": "Pippin's Friend",
+    "symbol": "DOT",
+    "faqs": [
+      {
+        "question": "What is Polkadot?",
+        "answer": "Polkadot is a decentralized blockchain platform designed to enable different blockchains, known as \"parachains,\" to interoperate within a single network. It aims to enhance scalability and communication across blockchains. Built using the Substrate framework, Polkadot's central component is the Relay Chain, which takes care of security and consensus for the entire network. This network uses a Nominated Proof-of-Stake (NPoS) consensus mechanism, which involves token holders nominating validators to produce new blocks and verify transactions. By supporting cross-chain transfers of any type of data or asset, Polkadot enables a truly interconnected range of blockchain ecosystems. This project was first conceptualized by Dr. Gavin Wood, a co-founder of Ethereum, and launched to create a user-controlled internet.",
+        "id": "06821158-52fe-423f-93e7-4cfce21e7747"
+      },
+      {
+        "question": "What is the history of Polkadot?",
+        "answer": "",
+        "id": "f5c294fe-0910-48b8-990f-a3ba55d8bb0b"
+      },
+      {
+        "question": "Can I stake Polkadot to earn rewards?",
+        "answer": "",
+        "id": "66879b33-75dd-4223-a6ef-9dece149df44"
+      },
+      {
+        "question": "Has Polkadot experienced any hacks, exploits or outages?",
+        "answer": "The Polkadot project itself has not suffered any notable native protocol or network hacks, exploits, or outages in which a significant amount of money was lost during the specified time frame. However, in October 2024, the parachain of Parallel Finance, part of the Polkadot ecosystem, was exploited, leading to a significant theft of over 312,185 DOT and 126,837 USDT. This incident did not affect the core Polkadot protocol but highlighted vulnerabilities within the specific parachain (source: Messari Research 2024-12-15).",
+        "id": "f2e45e69-088f-4099-a615-92b6c7c29efb"
+      },
+      {
+        "question": "Is Polkadot safe? How is it secured?",
+        "answer": "",
+        "id": "ec4c9a82-e102-447e-ac6b-0dba1d5ed774"
+      }
+    ],
+    "crawledAt": "2026-02-15T19:14:44.393Z"
+  },
+  "turbo-win": {
+    "slug": "turbo-win",
+    "name": "TURBO.WIN",
+    "symbol": "TURBO",
+    "faqs": [],
+    "crawledAt": "2026-02-15T19:14:30.024Z"
+  },
+  "caterpillar-ondo-tokenized-stock": {
+    "slug": "caterpillar-ondo-tokenized-stock",
+    "name": "Caterpillar (Ondo Tokenized Stock)",
+    "symbol": "CATON",
+    "faqs": [],
+    "crawledAt": "2026-02-15T19:14:30.026Z"
+  },
+  "ledgity-token": {
+    "slug": "ledgity-token",
+    "name": "Ledgity Token",
+    "symbol": "LDY",
+    "faqs": [],
+    "crawledAt": "2026-02-15T19:14:33.083Z",
+    "error": "HTTP 500"
+  },
+  "landx-governance-token": {
+    "slug": "landx-governance-token",
+    "name": "LandX Governance Token",
+    "symbol": "LNDX",
+    "faqs": [],
+    "crawledAt": "2026-02-15T19:14:33.084Z"
+  },
+  "accel-finance-coin": {
+    "slug": "accel-finance-coin",
+    "name": "Accel Finance Coin",
+    "symbol": "AFC",
+    "faqs": [],
+    "crawledAt": "2026-02-15T19:14:33.086Z"
+  },
+  "bombie": {
+    "slug": "bombie",
+    "name": "Bombie",
+    "symbol": "BOMB",
+    "faqs": [],
+    "crawledAt": "2026-02-15T19:14:33.088Z"
+  },
+  "larissa-blockchain": {
+    "slug": "larissa-blockchain",
+    "name": "Larissa Blockchain",
+    "symbol": "LRS",
+    "faqs": [],
+    "crawledAt": "2026-02-15T19:14:33.090Z"
+  },
+  "zkfair": {
+    "slug": "zkfair",
+    "name": "ZKFair",
+    "symbol": "ZKF",
+    "faqs": [],
+    "crawledAt": "2026-02-15T19:14:33.092Z"
+  },
+  "solana-spaces": {
+    "slug": "solana-spaces",
+    "name": "Solana Spaces",
+    "symbol": "STORE",
+    "faqs": [],
+    "crawledAt": "2026-02-15T19:14:33.095Z"
+  },
+  "flying-ketamine-horse": {
+    "slug": "flying-ketamine-horse",
+    "name": "Flying Ketamine Horse",
+    "symbol": "FKH",
+    "faqs": [],
+    "crawledAt": "2026-02-15T19:14:33.097Z"
+  },
+  "toadzstrategy": {
+    "slug": "toadzstrategy",
+    "name": "ToadzStrategy",
+    "symbol": "TOADSTR",
+    "faqs": [],
+    "crawledAt": "2026-02-15T19:14:33.099Z"
+  },
+  "whistle-privacy-focused-utility-and-cult": {
+    "slug": "whistle-privacy-focused-utility-and-cult",
+    "name": "WHISTLE - Privacy Focused Utility and Cult",
+    "symbol": "WHISTLE",
+    "faqs": [],
+    "crawledAt": "2026-02-15T19:14:33.102Z"
+  },
+  "pawthereum-2": {
+    "slug": "pawthereum-2",
+    "name": "Pawthereum",
+    "symbol": "PAWTH",
+    "faqs": [],
+    "crawledAt": "2026-02-15T19:14:36.025Z",
+    "error": "HTTP 500"
+  },
+  "hund": {
+    "slug": "hund",
+    "name": "Hund",
+    "symbol": "HUND",
+    "faqs": [],
+    "crawledAt": "2026-02-15T19:14:36.028Z"
+  },
+  "alaska-gold-rush": {
+    "slug": "alaska-gold-rush",
+    "name": "Alaska Gold Rush",
+    "symbol": "CARAT",
+    "faqs": [],
+    "crawledAt": "2026-02-15T19:14:36.030Z"
+  },
+  "space-nation-oikos": {
+    "slug": "space-nation-oikos",
+    "name": "Space Nation Oikos",
+    "symbol": "OIK",
+    "faqs": [],
+    "crawledAt": "2026-02-15T19:14:36.032Z"
+  },
+  "catcoin-3": {
+    "slug": "catcoin-3",
+    "name": "Catcoin",
+    "symbol": "CATCOIN",
+    "faqs": [],
+    "crawledAt": "2026-02-15T19:14:36.032Z",
+    "error": "HTTP 500"
+  },
+  "usdfc": {
+    "slug": "usdfc",
+    "name": "USDFC",
+    "symbol": "USDFC",
+    "faqs": [],
+    "crawledAt": "2026-02-15T19:14:36.033Z"
+  },
+  "wifejak": {
+    "slug": "wifejak",
+    "name": "Wifejak",
+    "symbol": "WIFE",
+    "faqs": [],
+    "crawledAt": "2026-02-15T19:14:36.035Z"
+  },
+  "wisdomise": {
+    "slug": "wisdomise",
+    "name": "Wisdomise AI",
+    "symbol": "WSDM",
+    "faqs": [],
+    "crawledAt": "2026-02-15T19:14:36.037Z"
+  },
+  "gifto": {
+    "slug": "gifto",
+    "name": "Gifto",
+    "symbol": "GFT",
+    "faqs": [],
+    "crawledAt": "2026-02-15T19:14:36.039Z"
+  },
+  "make-cro-great-again": {
+    "slug": "make-cro-great-again",
+    "name": "Make CRO Great Again",
+    "symbol": "MCGA",
+    "faqs": [],
+    "crawledAt": "2026-02-15T19:14:36.040Z"
+  },
+  "priceless-2": {
+    "slug": "priceless-2",
+    "name": "priceless",
+    "symbol": "PRICELESS",
+    "faqs": [],
+    "crawledAt": "2026-02-15T19:14:38.671Z",
+    "error": "HTTP 500"
+  },
+  "infinite-money-glitch": {
+    "slug": "infinite-money-glitch",
+    "name": "Infinite Money Glitch",
+    "symbol": "IMG",
+    "faqs": [],
+    "crawledAt": "2026-02-15T19:14:38.673Z"
+  },
+  "i-r-i-s": {
+    "slug": "i-r-i-s",
+    "name": "I.R.I.S",
+    "symbol": "IRIS",
+    "faqs": [],
+    "crawledAt": "2026-02-15T19:14:38.673Z",
+    "error": "HTTP 500"
+  },
+  "ella": {
+    "slug": "ella",
+    "name": "ELLA",
+    "symbol": "ELLA",
+    "faqs": [],
+    "crawledAt": "2026-02-15T19:14:38.674Z"
+  },
+  "infinity-rocket-token": {
+    "slug": "infinity-rocket-token",
+    "name": "Infinity Rocket",
+    "symbol": "IRT",
+    "faqs": [],
+    "crawledAt": "2026-02-15T19:14:38.676Z"
+  },
+  "strategic-solana-reserve": {
+    "slug": "strategic-solana-reserve",
+    "name": "Strategic Super Reserve",
+    "symbol": "SSR",
+    "faqs": [],
+    "crawledAt": "2026-02-15T19:14:38.679Z"
+  },
+  "hypurrstrategy": {
+    "slug": "hypurrstrategy",
+    "name": "HypurrStrategy",
+    "symbol": "HYPSTR",
+    "faqs": [],
+    "crawledAt": "2026-02-15T19:14:38.681Z"
+  },
+  "monetha": {
+    "slug": "monetha",
+    "name": "Monetha",
+    "symbol": "MTH",
+    "faqs": [],
+    "crawledAt": "2026-02-15T19:14:38.683Z"
+  },
+  "soulguy": {
+    "slug": "soulguy",
+    "name": "SOULGUY",
+    "symbol": "SOULGUY",
+    "faqs": [],
+    "crawledAt": "2026-02-15T19:14:38.684Z"
+  },
+  "santa-3": {
+    "slug": "santa-3",
+    "name": "Santa",
+    "symbol": "SANTA",
+    "faqs": [],
+    "crawledAt": "2026-02-15T19:14:38.686Z"
+  },
+  "basedd-house": {
+    "slug": "basedd-house",
+    "name": "BASEDD House",
+    "symbol": "BASEDD",
+    "faqs": [],
+    "crawledAt": "2026-02-15T19:14:41.341Z"
+  },
+  "hefe": {
+    "slug": "hefe",
+    "name": "HEFE",
+    "symbol": "HEFE",
+    "faqs": [],
+    "crawledAt": "2026-02-15T19:14:41.344Z"
+  },
+  "sora-validator-token": {
+    "slug": "sora-validator-token",
+    "name": "Sora Validator",
+    "symbol": "VAL",
+    "faqs": [],
+    "crawledAt": "2026-02-15T19:14:41.344Z",
+    "error": "HTTP 500"
+  },
+  "forgotten-playland": {
+    "slug": "forgotten-playland",
+    "name": "Forgotten Playland",
+    "symbol": "FP",
+    "faqs": [],
+    "crawledAt": "2026-02-15T19:14:41.347Z"
+  },
+  "ufc-fan-token": {
+    "slug": "ufc-fan-token",
+    "name": "UFC Fan Token",
+    "symbol": "UFC",
+    "faqs": [],
+    "crawledAt": "2026-02-15T19:14:41.348Z"
+  },
+  "dragon-coin-2": {
+    "slug": "dragon-coin-2",
+    "name": "Dragon Coin",
+    "symbol": "$DGN",
+    "faqs": [],
+    "crawledAt": "2026-02-15T19:14:41.348Z",
+    "error": "HTTP 500"
+  },
+  "alldomains-name-service": {
+    "slug": "alldomains-name-service",
+    "name": "AllDomains Name Service",
+    "symbol": "ADNS",
+    "faqs": [],
+    "crawledAt": "2026-02-15T19:14:41.350Z"
+  },
+  "saiko-hamster": {
+    "slug": "saiko-hamster",
+    "name": "SAIKO•HAMSTER",
+    "symbol": "$SAIKO",
+    "faqs": [],
+    "crawledAt": "2026-02-15T19:14:41.352Z"
+  },
+  "yuki-2": {
+    "slug": "yuki-2",
+    "name": "yuki",
+    "symbol": "YUKI",
+    "faqs": [],
+    "crawledAt": "2026-02-15T19:14:41.352Z",
+    "error": "HTTP 500"
+  },
+  "shibaai": {
+    "slug": "shibaai",
+    "name": "SHIBAAI",
+    "symbol": "SHIBAAI",
+    "faqs": [],
+    "crawledAt": "2026-02-15T19:14:41.354Z"
+  },
+  "fine": {
+    "slug": "fine",
+    "name": "FINE",
+    "symbol": "FINE",
+    "faqs": [],
+    "crawledAt": "2026-02-15T19:14:44.389Z"
+  },
+  "metaq": {
+    "slug": "metaq",
+    "name": "MetaQ",
+    "symbol": "METAQ",
+    "faqs": [],
+    "crawledAt": "2026-02-15T19:14:44.396Z"
+  },
+  "koban": {
+    "slug": "koban",
+    "name": "KOBAN",
+    "symbol": "KOBAN",
+    "faqs": [],
+    "crawledAt": "2026-02-15T19:14:44.398Z"
+  },
+  "tanuki-wisdom-runes": {
+    "slug": "tanuki-wisdom-runes",
+    "name": "TANUKI•WISDOM (Runes)",
+    "symbol": "🦝",
+    "faqs": [],
+    "crawledAt": "2026-02-15T19:14:44.399Z"
+  },
+  "fly-2": {
+    "slug": "fly-2",
+    "name": "Fly",
+    "symbol": "FLY",
+    "faqs": [],
+    "crawledAt": "2026-02-15T19:14:44.399Z",
+    "error": "HTTP 500"
+  },
+  "horizon-protocol": {
+    "slug": "horizon-protocol",
+    "name": "Xpanse",
+    "symbol": "HZN",
+    "faqs": [],
+    "crawledAt": "2026-02-15T19:14:44.401Z"
+  },
+  "kimbo": {
+    "slug": "kimbo",
+    "name": "Kimbo",
+    "symbol": "KIMBO",
+    "faqs": [],
+    "crawledAt": "2026-02-15T19:14:44.403Z"
+  },
+  "equalizer-on-sonic": {
+    "slug": "equalizer-on-sonic",
+    "name": "Equalizer on Sonic",
+    "symbol": "EQUAL",
+    "faqs": [],
+    "crawledAt": "2026-02-15T19:14:44.405Z"
+  },
+  "elur-coin": {
+    "slug": "elur-coin",
+    "name": "eLur-coin",
+    "symbol": "ELURC",
+    "faqs": [],
+    "crawledAt": "2026-02-15T19:14:44.406Z"
+  },
+  "passage": {
+    "slug": "passage",
+    "name": "Passage",
+    "symbol": "PASG",
+    "faqs": [],
+    "crawledAt": "2026-02-15T19:14:47.303Z"
+  },
+  "bismuth": {
+    "slug": "bismuth",
+    "name": "Bismuth",
+    "symbol": "BIS",
+    "faqs": [],
+    "crawledAt": "2026-02-15T19:14:47.305Z"
+  },
+  "channels": {
+    "slug": "channels",
+    "name": "Channels",
+    "symbol": "CAN",
+    "faqs": [],
+    "crawledAt": "2026-02-15T19:14:47.305Z",
+    "error": "HTTP 500"
+  },
+  "defi-land": {
+    "slug": "defi-land",
+    "name": "DeFi Land",
+    "symbol": "DFL",
+    "faqs": [],
+    "crawledAt": "2026-02-15T19:14:47.307Z"
+  },
+  "yona": {
+    "slug": "yona",
+    "name": "Yona",
+    "symbol": "YONA",
+    "faqs": [],
+    "crawledAt": "2026-02-15T19:14:47.309Z"
+  },
+  "s-c-corinthians-fan-token": {
+    "slug": "s-c-corinthians-fan-token",
+    "name": "S.C. Corinthians Fan Token",
+    "symbol": "SCCP",
+    "faqs": [],
+    "crawledAt": "2026-02-15T19:14:47.311Z"
+  },
+  "spacebucks": {
+    "slug": "spacebucks",
+    "name": "Spacebucks",
+    "symbol": "SBX",
+    "faqs": [],
+    "crawledAt": "2026-02-15T19:14:47.315Z"
+  },
+  "checkdot": {
+    "slug": "checkdot",
+    "name": "CheckDot",
+    "symbol": "CDT",
+    "faqs": [],
+    "crawledAt": "2026-02-15T19:14:47.320Z"
+  },
+  "zmine": {
+    "slug": "zmine",
+    "name": "ZMINE",
+    "symbol": "ZMN",
+    "faqs": [],
+    "crawledAt": "2026-02-15T19:14:47.322Z"
+  },
+  "elyfi": {
+    "slug": "elyfi",
+    "name": "ELYFI",
+    "symbol": "ELFI",
+    "faqs": [],
+    "crawledAt": "2026-02-15T19:14:47.324Z"
+  },
+  "celuvplay": {
+    "slug": "celuvplay",
+    "name": "CeluvPlay",
+    "symbol": "CELB",
+    "faqs": [],
+    "crawledAt": "2026-02-15T19:14:50.525Z"
+  },
+  "gui-inu": {
+    "slug": "gui-inu",
+    "name": "Gui Inu",
+    "symbol": "GUI",
+    "faqs": [],
+    "crawledAt": "2026-02-15T19:14:50.527Z"
+  },
+  "bkokfi": {
+    "slug": "bkokfi",
+    "name": "BKOKFi",
+    "symbol": "BKOK",
+    "faqs": [],
+    "crawledAt": "2026-02-15T19:14:50.529Z"
+  },
+  "bnboflegends": {
+    "slug": "bnboflegends",
+    "name": "BNBOFLEGENDS",
+    "symbol": "BOL",
+    "faqs": [],
+    "crawledAt": "2026-02-15T19:14:50.531Z"
+  },
+  "noisegpt": {
+    "slug": "noisegpt",
+    "name": "enqAI",
+    "symbol": "ENQAI",
+    "faqs": [],
+    "crawledAt": "2026-02-15T19:14:50.533Z"
+  },
+  "instaclaw": {
+    "slug": "instaclaw",
+    "name": "Instaclaw",
+    "symbol": "INSTACLAW",
+    "faqs": [],
+    "crawledAt": "2026-02-15T19:14:50.535Z"
+  },
+  "rowan-coin": {
+    "slug": "rowan-coin",
+    "name": "Rowan Coin",
+    "symbol": "RWN",
+    "faqs": [],
+    "crawledAt": "2026-02-15T19:14:50.536Z"
+  },
+  "dr-emma-sage": {
+    "slug": "dr-emma-sage",
+    "name": "Dr Emma Sage",
+    "symbol": "EMMA",
+    "faqs": [],
+    "crawledAt": "2026-02-15T19:14:50.539Z"
+  },
+  "basisos-by-virtuals": {
+    "slug": "basisos-by-virtuals",
+    "name": "BasisOS by Virtuals",
+    "symbol": "BIOS",
+    "faqs": [],
+    "crawledAt": "2026-02-15T19:14:50.539Z",
+    "error": "HTTP 500"
+  },
+  "dogc": {
+    "slug": "dogc",
+    "name": "DOGC",
+    "symbol": "DOGC",
+    "faqs": [],
+    "crawledAt": "2026-02-15T19:14:50.541Z"
+  },
+  "abbott-xstock": {
+    "slug": "abbott-xstock",
+    "name": "Abbott xStock",
+    "symbol": "ABTX",
+    "faqs": [],
+    "crawledAt": "2026-02-15T19:14:53.690Z"
+  },
+  "itheum": {
+    "slug": "itheum",
+    "name": "Itheum",
+    "symbol": "ITHEUM",
+    "faqs": [],
+    "crawledAt": "2026-02-15T19:14:53.692Z"
+  },
+  "selfclaw": {
+    "slug": "selfclaw",
+    "name": "SelfClaw",
+    "symbol": "SELFCLAW",
+    "faqs": [],
+    "crawledAt": "2026-02-15T19:14:53.694Z"
+  },
+  "hudi": {
+    "slug": "hudi",
+    "name": "Hudi",
+    "symbol": "HUDI",
+    "faqs": [],
+    "crawledAt": "2026-02-15T19:14:53.696Z"
+  },
+  "globiance-exchange": {
+    "slug": "globiance-exchange",
+    "name": "Globiance Exchange",
+    "symbol": "GBEX",
+    "faqs": [],
+    "crawledAt": "2026-02-15T19:14:53.696Z",
+    "error": "HTTP 500"
+  },
+  "kuro-2": {
+    "slug": "kuro-2",
+    "name": "KURO",
+    "symbol": "KURO",
+    "faqs": [],
+    "crawledAt": "2026-02-15T19:14:53.698Z"
+  },
+  "agentaigo": {
+    "slug": "agentaigo",
+    "name": "AgentAlgo",
+    "symbol": "AGENT",
+    "faqs": [],
+    "crawledAt": "2026-02-15T19:14:53.700Z"
+  },
+  "interport-token": {
+    "slug": "interport-token",
+    "name": "Interport Token",
+    "symbol": "ITP",
+    "faqs": [],
+    "crawledAt": "2026-02-15T19:14:53.702Z"
+  },
+  "fuego": {
+    "slug": "fuego",
+    "name": "FUEGO",
+    "symbol": "FUEGO",
+    "faqs": [],
+    "crawledAt": "2026-02-15T19:14:53.703Z"
+  },
+  "paint-swap": {
+    "slug": "paint-swap",
+    "name": "Paintswap",
+    "symbol": "BRUSH",
+    "faqs": [],
+    "crawledAt": "2026-02-15T19:14:53.705Z"
+  },
+  "hapi": {
+    "slug": "hapi",
+    "name": "HAPI",
+    "symbol": "HAPI",
+    "faqs": [],
+    "crawledAt": "2026-02-15T19:14:56.740Z"
+  },
+  "the-lion": {
+    "slug": "the-lion",
+    "name": "The Lion",
+    "symbol": "LION",
+    "faqs": [],
+    "crawledAt": "2026-02-15T19:14:56.742Z"
+  },
+  "youtopia": {
+    "slug": "youtopia",
+    "name": "YOUTOPIA",
+    "symbol": "YTP",
+    "faqs": [],
+    "crawledAt": "2026-02-15T19:14:56.745Z"
+  },
+  "ait-protocol": {
+    "slug": "ait-protocol",
+    "name": "AIT Protocol",
+    "symbol": "AIT",
+    "faqs": [],
+    "crawledAt": "2026-02-15T19:14:56.747Z"
+  },
+  "moto-2": {
+    "slug": "moto-2",
+    "name": "MOTO",
+    "symbol": "MOTO",
+    "faqs": [],
+    "crawledAt": "2026-02-15T19:14:56.748Z"
+  },
+  "bombcrypto-coin": {
+    "slug": "bombcrypto-coin",
+    "name": "Bomb Crypto (POL)",
+    "symbol": "BCOIN",
+    "faqs": [],
+    "crawledAt": "2026-02-15T19:14:56.750Z"
+  },
+  "flippy": {
+    "slug": "flippy",
+    "name": "Flippy",
+    "symbol": "FLIPPY",
+    "faqs": [],
+    "crawledAt": "2026-02-15T19:14:56.752Z"
+  },
+  "mastercard-xstock": {
+    "slug": "mastercard-xstock",
+    "name": "Mastercard xStock",
+    "symbol": "MAX",
+    "faqs": [],
+    "crawledAt": "2026-02-15T19:14:56.754Z"
+  },
+  "b20": {
+    "slug": "b20",
+    "name": "B20",
+    "symbol": "B20",
+    "faqs": [],
+    "crawledAt": "2026-02-15T19:14:56.755Z"
+  },
+  "nitefeeder": {
+    "slug": "nitefeeder",
+    "name": "Nitefeeder",
+    "symbol": "NITEFEEDER",
+    "faqs": [],
+    "crawledAt": "2026-02-15T19:14:56.757Z"
+  },
+  "iq50": {
+    "slug": "iq50",
+    "name": "IQ50",
+    "symbol": "IQ50",
+    "faqs": [],
+    "crawledAt": "2026-02-15T19:14:59.423Z"
+  },
+  "dec-token": {
+    "slug": "dec-token",
+    "name": "DEC Token",
+    "symbol": "DECT",
+    "faqs": [],
+    "crawledAt": "2026-02-15T19:14:59.424Z"
+  },
+  "christ-is-king": {
+    "slug": "christ-is-king",
+    "name": "Christ Is King",
+    "symbol": "CIK",
+    "faqs": [],
+    "crawledAt": "2026-02-15T19:14:59.427Z"
+  },
+  "scada": {
+    "slug": "scada",
+    "name": "SCADA",
+    "symbol": "SCADA",
+    "faqs": [],
+    "crawledAt": "2026-02-15T19:14:59.429Z"
+  },
+  "einsteinium": {
+    "slug": "einsteinium",
+    "name": "Einsteinium",
+    "symbol": "EMC2",
+    "faqs": [],
+    "crawledAt": "2026-02-15T19:14:59.431Z"
+  },
+  "hyperbot": {
+    "slug": "hyperbot",
+    "name": "Hyperbot",
+    "symbol": "BOT",
+    "faqs": [],
+    "crawledAt": "2026-02-15T19:14:59.432Z"
+  },
+  "elderglade": {
+    "slug": "elderglade",
+    "name": "Elderglade",
+    "symbol": "ELDE",
+    "faqs": [],
+    "crawledAt": "2026-02-15T19:14:59.434Z"
+  },
+  "netvrk": {
+    "slug": "netvrk",
+    "name": "Netvrk",
+    "symbol": "NETVR",
+    "faqs": [],
+    "crawledAt": "2026-02-15T19:14:59.436Z"
+  },
+  "kommunitas-2": {
+    "slug": "kommunitas-2",
+    "name": "Kommunitas",
+    "symbol": "KOM",
+    "faqs": [],
+    "crawledAt": "2026-02-15T19:14:59.438Z"
+  },
+  "blackcoin-2": {
+    "slug": "blackcoin-2",
+    "name": "BlackCoin",
+    "symbol": "BLACKCOIN",
+    "faqs": [],
+    "crawledAt": "2026-02-15T19:14:59.438Z",
+    "error": "HTTP 500"
+  },
+  "captn-trench": {
+    "slug": "captn-trench",
+    "name": "Captn Trench",
+    "symbol": "CPT",
+    "faqs": [],
+    "crawledAt": "2026-02-15T19:15:02.501Z"
+  },
+  "pepe-token": {
+    "slug": "pepe-token",
+    "name": "Pepe Community",
+    "symbol": "PEPE",
+    "faqs": [],
+    "crawledAt": "2026-02-15T19:15:02.502Z"
+  },
+  "dypius": {
+    "slug": "dypius",
+    "name": "Dypius",
+    "symbol": "DYP",
+    "faqs": [],
+    "crawledAt": "2026-02-15T19:15:02.504Z"
+  },
+  "the-life-of-a-chud": {
+    "slug": "the-life-of-a-chud",
+    "name": "The Life of a Chud",
+    "symbol": "CHUD",
+    "faqs": [],
+    "crawledAt": "2026-02-15T19:15:02.506Z"
+  },
+  "xzk": {
+    "slug": "xzk",
+    "name": "Expand",
+    "symbol": "XZK",
+    "faqs": [],
+    "crawledAt": "2026-02-15T19:15:02.507Z"
+  },
+  "sheesha-finance": {
+    "slug": "sheesha-finance",
+    "name": "Sheesha Finance (BEP20)",
+    "symbol": "SHEESHA",
+    "faqs": [],
+    "crawledAt": "2026-02-15T19:15:02.510Z"
+  },
+  "shisa": {
+    "slug": "shisa",
+    "name": "SHISA",
+    "symbol": "SHISA",
+    "faqs": [],
+    "crawledAt": "2026-02-15T19:15:02.513Z"
+  },
+  "tao-inu": {
+    "slug": "tao-inu",
+    "name": "TAO INU",
+    "symbol": "TAONU",
+    "faqs": [],
+    "crawledAt": "2026-02-15T19:15:02.515Z"
+  },
+  "crypto-rug-muncher": {
+    "slug": "crypto-rug-muncher",
+    "name": "Crypto Rug Muncher",
+    "symbol": "CRM",
+    "faqs": [],
+    "crawledAt": "2026-02-15T19:15:02.516Z"
+  },
+  "apeironnft": {
+    "slug": "apeironnft",
+    "name": "Apeiron",
+    "symbol": "APRS",
+    "faqs": [],
+    "crawledAt": "2026-02-15T19:15:02.516Z",
+    "error": "HTTP 500"
+  },
+  "sroomai-dao": {
+    "slug": "sroomai-dao",
+    "name": "SroomAI DAO",
+    "symbol": "SHR0",
+    "faqs": [],
+    "crawledAt": "2026-02-15T19:15:05.525Z"
+  },
+  "strawberry-in-bloom": {
+    "slug": "strawberry-in-bloom",
+    "name": "Strawberry In Bloom",
+    "symbol": "BERRY",
+    "faqs": [],
+    "crawledAt": "2026-02-15T19:15:05.528Z"
+  },
+  "heroes-of-nft": {
+    "slug": "heroes-of-nft",
+    "name": "Heroes of NFT",
+    "symbol": "HON",
+    "faqs": [],
+    "crawledAt": "2026-02-15T19:15:05.530Z"
+  },
+  "bucky-2": {
+    "slug": "bucky-2",
+    "name": "Bucky",
+    "symbol": "BUCKY",
+    "faqs": [],
+    "crawledAt": "2026-02-15T19:15:05.530Z",
+    "error": "HTTP 500"
+  },
+  "wave-swap": {
+    "slug": "wave-swap",
+    "name": "Wave Swap",
+    "symbol": "WAVE",
+    "faqs": [],
+    "crawledAt": "2026-02-15T19:15:05.531Z"
+  },
+  "nyan-cat-2": {
+    "slug": "nyan-cat-2",
+    "name": "Nyan Cat",
+    "symbol": "NYAN",
+    "faqs": [],
+    "crawledAt": "2026-02-15T19:15:05.531Z",
+    "error": "HTTP 500"
+  },
+  "croak_on_linea": {
+    "slug": "croak_on_linea",
+    "name": "Croak",
+    "symbol": "$CROAK",
+    "faqs": [],
+    "crawledAt": "2026-02-15T19:15:05.531Z",
+    "error": "HTTP 500"
+  },
+  "choise": {
+    "slug": "choise",
+    "name": "Choise.ai",
+    "symbol": "CHO",
+    "faqs": [],
+    "crawledAt": "2026-02-15T19:15:05.533Z"
+  },
+  "crotch": {
+    "slug": "crotch",
+    "name": "CROTCH",
+    "symbol": "CROTCH",
+    "faqs": [],
+    "crawledAt": "2026-02-15T19:15:05.535Z"
+  },
+  "pstake-finance": {
+    "slug": "pstake-finance",
+    "name": "pSTAKE Finance",
+    "symbol": "PSTAKE",
+    "faqs": [],
+    "crawledAt": "2026-02-15T19:15:05.537Z"
+  },
+  "shibacorgi": {
+    "slug": "shibacorgi",
+    "name": "ShibaCorgi",
+    "symbol": "SHICO",
+    "faqs": [],
+    "crawledAt": "2026-02-15T19:15:08.247Z"
+  },
+  "hedgefi": {
+    "slug": "hedgefi",
+    "name": "HedgeFi",
+    "symbol": "HEDGE",
+    "faqs": [],
+    "crawledAt": "2026-02-15T19:15:08.249Z"
+  },
+  "pizabrc": {
+    "slug": "pizabrc",
+    "name": "PIZA (Ordinals)",
+    "symbol": "PIZA",
+    "faqs": [],
+    "crawledAt": "2026-02-15T19:15:08.251Z"
+  },
+  "cyi-by-virtuals": {
+    "slug": "cyi-by-virtuals",
+    "name": "CYI by Virtuals",
+    "symbol": "CYI",
+    "faqs": [],
+    "crawledAt": "2026-02-15T19:15:08.253Z"
+  },
+  "bomb": {
+    "slug": "bomb",
+    "name": "BOMB",
+    "symbol": "BOMB",
+    "faqs": [],
+    "crawledAt": "2026-02-15T19:15:08.253Z",
+    "error": "HTTP 500"
+  },
+  "karura": {
+    "slug": "karura",
+    "name": "Karura",
+    "symbol": "KAR",
+    "faqs": [],
+    "crawledAt": "2026-02-15T19:15:08.255Z"
+  },
+  "kibble": {
+    "slug": "kibble",
+    "name": "Kibble",
+    "symbol": "KIBBLE",
+    "faqs": [],
+    "crawledAt": "2026-02-15T19:15:08.258Z"
+  },
+  "litecoin-mascot": {
+    "slug": "litecoin-mascot",
+    "name": "Litecoin Mascot",
+    "symbol": "LESTER",
+    "faqs": [],
+    "crawledAt": "2026-02-15T19:15:08.260Z"
+  },
+  "hasbulla-s-cat": {
+    "slug": "hasbulla-s-cat",
+    "name": "Hasbulla's Cat",
+    "symbol": "BARSIK",
+    "faqs": [],
+    "crawledAt": "2026-02-15T19:15:08.262Z"
+  },
+  "hypr": {
+    "slug": "hypr",
+    "name": "Hypr",
+    "symbol": "HYPR",
+    "faqs": [],
+    "crawledAt": "2026-02-15T19:15:08.264Z"
+  },
+  "bitcoin-base": {
+    "slug": "bitcoin-base",
+    "name": "Bitcoin Base",
+    "symbol": "BTC",
+    "faqs": [],
+    "crawledAt": "2026-02-15T19:15:11.466Z"
+  },
+  "labs": {
+    "slug": "labs",
+    "name": "LABS",
+    "symbol": "LABS",
+    "faqs": [],
+    "crawledAt": "2026-02-15T19:15:11.468Z"
+  },
+  "aixcb-by-virtuals": {
+    "slug": "aixcb-by-virtuals",
+    "name": "aixCB by Virtuals",
+    "symbol": "AIXCB",
+    "faqs": [],
+    "crawledAt": "2026-02-15T19:15:11.468Z",
+    "error": "HTTP 500"
+  },
+  "mamabull": {
+    "slug": "mamabull",
+    "name": "MamaBull",
+    "symbol": "MAMA",
+    "faqs": [],
+    "crawledAt": "2026-02-15T19:15:11.470Z"
+  },
+  "arbidoge": {
+    "slug": "arbidoge",
+    "name": "ArbiDoge",
+    "symbol": "ADOGE",
+    "faqs": [],
+    "crawledAt": "2026-02-15T19:15:11.472Z"
+  },
+  "elmoerc": {
+    "slug": "elmoerc",
+    "name": "Elmo",
+    "symbol": "ELMO",
+    "faqs": [],
+    "crawledAt": "2026-02-15T19:15:11.475Z"
+  },
+  "evolve-pro": {
+    "slug": "evolve-pro",
+    "name": "Evolve PRO",
+    "symbol": "EVOP",
+    "faqs": [],
+    "crawledAt": "2026-02-15T19:15:11.478Z"
+  },
+  "carlo": {
+    "slug": "carlo",
+    "name": "Carlo",
+    "symbol": "CARLO",
+    "faqs": [],
+    "crawledAt": "2026-02-15T19:15:11.482Z"
+  },
+  "meow-5": {
+    "slug": "meow-5",
+    "name": "Meow",
+    "symbol": "MEOW",
+    "faqs": [],
+    "crawledAt": "2026-02-15T19:15:11.482Z",
+    "error": "HTTP 500"
+  },
+  "moby": {
+    "slug": "moby",
+    "name": "Moby",
+    "symbol": "MOBY",
+    "faqs": [],
+    "crawledAt": "2026-02-15T19:15:11.484Z"
+  },
+  "burncoin-2": {
+    "slug": "burncoin-2",
+    "name": "Burncoin",
+    "symbol": "BURN",
+    "faqs": [],
+    "crawledAt": "2026-02-15T19:15:14.472Z"
+  },
+  "hokkaido-inu": {
+    "slug": "hokkaido-inu",
+    "name": "Hokkaidu Inu",
+    "symbol": "$HOKK",
+    "faqs": [],
+    "crawledAt": "2026-02-15T19:15:14.472Z",
+    "error": "HTTP 500"
+  },
+  "v1-punk-strategic-reserve": {
+    "slug": "v1-punk-strategic-reserve",
+    "name": "V1 Punk Strategic Reserve",
+    "symbol": "PUNKSR",
+    "faqs": [],
+    "crawledAt": "2026-02-15T19:15:14.474Z"
+  },
+  "white-monkey": {
+    "slug": "white-monkey",
+    "name": "White Monkey",
+    "symbol": "WM",
+    "faqs": [],
+    "crawledAt": "2026-02-15T19:15:14.477Z"
+  },
+  "umee": {
+    "slug": "umee",
+    "name": "UX Chain",
+    "symbol": "UX",
+    "faqs": [],
+    "crawledAt": "2026-02-15T19:15:14.480Z"
+  },
+  "hedera-swiss-franc": {
+    "slug": "hedera-swiss-franc",
+    "name": "Hedera Swiss Franc",
+    "symbol": "HCHF",
+    "faqs": [],
+    "crawledAt": "2026-02-15T19:15:14.482Z"
+  },
+  "possum": {
+    "slug": "possum",
+    "name": "Possum",
+    "symbol": "PSM",
+    "faqs": [],
+    "crawledAt": "2026-02-15T19:15:14.484Z"
+  },
+  "agent-ted": {
+    "slug": "agent-ted",
+    "name": "Agent Ted",
+    "symbol": "TED",
+    "faqs": [],
+    "crawledAt": "2026-02-15T19:15:14.485Z"
+  },
+  "chirper-ai": {
+    "slug": "chirper-ai",
+    "name": "Chirper AI",
+    "symbol": "CHIRP",
+    "faqs": [],
+    "crawledAt": "2026-02-15T19:15:14.487Z"
+  },
+  "the-winkyverse": {
+    "slug": "the-winkyverse",
+    "name": "Winkies",
+    "symbol": "WNK",
+    "faqs": [],
+    "crawledAt": "2026-02-15T19:15:14.487Z",
+    "error": "HTTP 500"
+  },
+  "eliza": {
+    "slug": "eliza",
+    "name": "Eliza",
+    "symbol": "ELIZA",
+    "faqs": [],
+    "crawledAt": "2026-02-15T19:15:17.537Z"
+  },
+  "nft-maker": {
+    "slug": "nft-maker",
+    "name": "NMKR",
+    "symbol": "$NMKR",
+    "faqs": [],
+    "crawledAt": "2026-02-15T19:15:17.537Z",
+    "error": "HTTP 500"
+  },
+  "shitzu": {
+    "slug": "shitzu",
+    "name": "Shitzu",
+    "symbol": "SHITZU",
+    "faqs": [],
+    "crawledAt": "2026-02-15T19:15:17.539Z"
+  },
+  "stream-szn": {
+    "slug": "stream-szn",
+    "name": "Stream SZN",
+    "symbol": "STRSZN",
+    "faqs": [],
+    "crawledAt": "2026-02-15T19:15:17.541Z"
+  },
+  "kolin-2": {
+    "slug": "kolin-2",
+    "name": "Kolin",
+    "symbol": "KOLIN",
+    "faqs": [],
+    "crawledAt": "2026-02-15T19:15:17.541Z",
+    "error": "HTTP 500"
+  },
+  "sharplink-gaming-inc-ondo-tokenized-stock": {
+    "slug": "sharplink-gaming-inc-ondo-tokenized-stock",
+    "name": "SharpLink Gaming, Inc (Ondo Tokenized Stock)",
+    "symbol": "SBETON",
+    "faqs": [],
+    "crawledAt": "2026-02-15T19:15:17.544Z"
+  },
+  "salamanca": {
+    "slug": "salamanca",
+    "name": "Salamanca",
+    "symbol": "DON",
+    "faqs": [],
+    "crawledAt": "2026-02-15T19:15:17.547Z"
+  },
+  "bitshiba": {
+    "slug": "bitshiba",
+    "name": "BitShiba",
+    "symbol": "SHIBA",
+    "faqs": [],
+    "crawledAt": "2026-02-15T19:15:17.549Z"
+  },
+  "monko": {
+    "slug": "monko",
+    "name": "Monko",
+    "symbol": "MONKO",
+    "faqs": [],
+    "crawledAt": "2026-02-15T19:15:17.551Z"
+  },
+  "pepesol": {
+    "slug": "pepesol",
+    "name": "PepeSol",
+    "symbol": "PEPE",
+    "faqs": [],
+    "crawledAt": "2026-02-15T19:15:17.553Z"
+  },
+  "chuck": {
+    "slug": "chuck",
+    "name": "Chuck",
+    "symbol": "CHUCK",
+    "faqs": [],
+    "crawledAt": "2026-02-15T19:15:20.734Z"
+  },
+  "gobstrategy": {
+    "slug": "gobstrategy",
+    "name": "GobStrategy",
+    "symbol": "GOBSTR",
+    "faqs": [],
+    "crawledAt": "2026-02-15T19:15:20.735Z"
+  },
+  "soul-scanner": {
+    "slug": "soul-scanner",
+    "name": "Soul Scanner",
+    "symbol": "SOUL",
+    "faqs": [],
+    "crawledAt": "2026-02-15T19:15:20.737Z"
+  },
+  "wild-goat-coin-2": {
+    "slug": "wild-goat-coin-2",
+    "name": "Wild Goat Coin",
+    "symbol": "WGC",
+    "faqs": [],
+    "crawledAt": "2026-02-15T19:15:20.737Z",
+    "error": "HTTP 500"
+  },
+  "ikun": {
+    "slug": "ikun",
+    "name": "IKUN",
+    "symbol": "IKUN",
+    "faqs": [],
+    "crawledAt": "2026-02-15T19:15:20.739Z"
+  },
+  "applovin-ondo-tokenized-stock": {
+    "slug": "applovin-ondo-tokenized-stock",
+    "name": "AppLovin (Ondo Tokenized Stock)",
+    "symbol": "APPON",
+    "faqs": [],
+    "crawledAt": "2026-02-15T19:15:20.741Z"
+  },
+  "harrypotterobamapacman8inu": {
+    "slug": "xrp-ledger",
+    "name": "HarryPotterObamaPacMan8Inu",
+    "symbol": "XRP",
+    "faqs": [
+      {
+        "question": "What is XRP Ledger?",
+        "answer": "",
+        "id": "7b3b0613-e593-45a8-a708-b501ec24697c"
+      },
+      {
+        "question": "What is the history of XRP Ledger?",
+        "answer": "",
+        "id": "d9399886-3a94-4f5d-887b-3045c84a00a5"
+      },
+      {
+        "question": "Can I stake XRP Ledger to earn rewards?",
+        "answer": "No, you cannot stake any tokens in this project. The XRP Ledger does not natively support staking of tokens.",
+        "id": "25512df3-646c-49ab-a272-83e79faa48d2"
+      },
+      {
+        "question": "Is XRP Ledger safe? How is it secured?",
+        "answer": "",
+        "id": "44d3ca65-4e43-4511-986a-029777b4bbd9"
+      },
+      {
+        "question": "Has XRP Ledger been audited?",
+        "answer": "I couldn't find specific detailed audit information for the XRP Ledger, such as the names of auditors or exact dates of the audits. However, major blockchain projects like XRP Ledger often undergo various security and code audits by reputable firms to ensure reliability and security. For the most up-to-date and specific audit information, you might consider checking the official XRP Ledger or Ripple websites, or related public disclosures from Ripple.",
+        "id": "1bb0ba44-37cd-4201-8898-06b937d6431b"
+      }
+    ],
+    "crawledAt": "2026-02-15T19:15:20.745Z"
+  },
+  "gradient-protocol": {
+    "slug": "gradient-protocol",
+    "name": "Gradient Protocol",
+    "symbol": "GDT",
+    "faqs": [],
+    "crawledAt": "2026-02-15T19:15:20.746Z"
+  },
+  "auro-usda": {
+    "slug": "auro-usda",
+    "name": "AURO USDA",
+    "symbol": "USDA",
+    "faqs": [],
+    "crawledAt": "2026-02-15T19:15:20.748Z"
+  },
+  "duckcoin": {
+    "slug": "duckcoin",
+    "name": "DuckCoin",
+    "symbol": "DUCK",
+    "faqs": [],
+    "crawledAt": "2026-02-15T19:15:20.750Z"
+  },
+  "argentine-peso": {
+    "slug": "argentine-peso",
+    "name": "Argentine Peso",
+    "symbol": "WARS",
+    "faqs": [],
+    "crawledAt": "2026-02-15T19:15:23.917Z"
+  },
+  "morpheus-labs": {
+    "slug": "morpheus-labs",
+    "name": "Morpheus Infrastructure Node",
+    "symbol": "MIND",
+    "faqs": [],
+    "crawledAt": "2026-02-15T19:15:23.919Z"
+  },
+  "bazed-games": {
+    "slug": "bazed-games",
+    "name": "Bazed Games",
+    "symbol": "BAZED",
+    "faqs": [],
+    "crawledAt": "2026-02-15T19:15:23.921Z"
+  },
+  "mint-club": {
+    "slug": "mint-club",
+    "name": "Mint Club V1",
+    "symbol": "MINT",
+    "faqs": [],
+    "crawledAt": "2026-02-15T19:15:23.923Z"
+  },
+  "mindfak-by-matt-furie": {
+    "slug": "mindfak-by-matt-furie",
+    "name": "Mindfak By Matt Furie",
+    "symbol": "MINDFAK",
+    "faqs": [],
+    "crawledAt": "2026-02-15T19:15:23.925Z"
+  },
+  "lympid": {
+    "slug": "lympid",
+    "name": "Lympid",
+    "symbol": "LYP",
+    "faqs": [],
+    "crawledAt": "2026-02-15T19:15:23.927Z"
+  },
+  "shroom": {
+    "slug": "shroom",
+    "name": "Shroom",
+    "symbol": "SHROOM",
+    "faqs": [],
+    "crawledAt": "2026-02-15T19:15:23.929Z"
+  },
+  "sunwukong": {
+    "slug": "sunwukong",
+    "name": "SunWukong",
+    "symbol": "SUNWUKONG",
+    "faqs": [],
+    "crawledAt": "2026-02-15T19:15:23.931Z"
+  },
+  "y": {
+    "slug": "y",
+    "name": "Ÿ",
+    "symbol": "YAI",
+    "faqs": [],
+    "crawledAt": "2026-02-15T19:15:23.931Z",
+    "error": "HTTP 500"
+  },
+  "accenture-xstock": {
+    "slug": "accenture-xstock",
+    "name": "Accenture xStock",
+    "symbol": "ACNX",
+    "faqs": [],
+    "crawledAt": "2026-02-15T19:15:23.933Z"
+  },
+  "dexie-bucks": {
+    "slug": "dexie-bucks",
+    "name": "dexie bucks",
+    "symbol": "DBX",
+    "faqs": [],
+    "crawledAt": "2026-02-15T19:15:27.003Z"
+  },
+  "body-scan-ai": {
+    "slug": "body-scan-ai",
+    "name": "Body Scan AI",
+    "symbol": "SCANAI",
+    "faqs": [],
+    "crawledAt": "2026-02-15T19:15:27.005Z"
+  },
+  "orbitt-pro": {
+    "slug": "orbitt-pro",
+    "name": "Orbitt Token",
+    "symbol": "ORBT",
+    "faqs": [],
+    "crawledAt": "2026-02-15T19:15:27.007Z"
+  },
+  "torum": {
+    "slug": "torum",
+    "name": "Torum",
+    "symbol": "XTM",
+    "faqs": [],
+    "crawledAt": "2026-02-15T19:15:27.010Z"
+  },
+  "beeper-coin": {
+    "slug": "beeper-coin",
+    "name": "Beeper Coin",
+    "symbol": "BEEPER",
+    "faqs": [],
+    "crawledAt": "2026-02-15T19:15:27.012Z"
+  },
+  "gram-ecosystem": {
+    "slug": "gram-ecosystem",
+    "name": "GRAM Ecosystem",
+    "symbol": "GRAMPUS",
+    "faqs": [],
+    "crawledAt": "2026-02-15T19:15:27.014Z"
+  },
+  "satoshivm": {
+    "slug": "satoshivm",
+    "name": "SatoshiVM",
+    "symbol": "SAVM",
+    "faqs": [],
+    "crawledAt": "2026-02-15T19:15:27.016Z"
+  },
+  "meowcoin": {
+    "slug": "meowcoin",
+    "name": "Meowcoin",
+    "symbol": "MEWC",
+    "faqs": [],
+    "crawledAt": "2026-02-15T19:15:27.018Z"
+  },
+  "zeusshield": {
+    "slug": "zeusshield",
+    "name": "Zeusshield",
+    "symbol": "ZSC",
+    "faqs": [],
+    "crawledAt": "2026-02-15T19:15:27.020Z"
+  },
+  "baby-bnb": {
+    "slug": "baby-bnb",
+    "name": "Baby BNB",
+    "symbol": "BABYBNB",
+    "faqs": [],
+    "crawledAt": "2026-02-15T19:15:27.022Z"
+  },
+  "baseshake": {
+    "slug": "baseshake",
+    "name": "BaseShake",
+    "symbol": "BASESHAKE",
+    "faqs": [],
+    "crawledAt": "2026-02-15T19:15:29.710Z"
+  },
+  "karum": {
+    "slug": "karum",
+    "name": "Karum",
+    "symbol": "KARUM",
+    "faqs": [],
+    "crawledAt": "2026-02-15T19:15:29.712Z"
+  },
+  "teafi-token": {
+    "slug": "teafi-token",
+    "name": "TeaFi Token",
+    "symbol": "TEA",
+    "faqs": [],
+    "crawledAt": "2026-02-15T19:15:29.713Z"
+  },
+  "ton-cats-jetton": {
+    "slug": "ton-cats-jetton",
+    "name": "TON Cats Jetton",
+    "symbol": "CATS",
+    "faqs": [],
+    "crawledAt": "2026-02-15T19:15:29.715Z"
+  },
+  "sad-hamster": {
+    "slug": "sad-hamster",
+    "name": "SAD HAMSTER",
+    "symbol": "HAMMY",
+    "faqs": [],
+    "crawledAt": "2026-02-15T19:15:29.717Z"
+  },
+  "apm-coin": {
+    "slug": "apm-coin",
+    "name": "apM",
+    "symbol": "APM",
+    "faqs": [],
+    "crawledAt": "2026-02-15T19:15:29.718Z"
+  },
+  "bunkercoin": {
+    "slug": "bunkercoin",
+    "name": "BunkerCoin",
+    "symbol": "BUNKER",
+    "faqs": [],
+    "crawledAt": "2026-02-15T19:15:29.720Z"
+  },
+  "onigiri-kitty": {
+    "slug": "onigiri-kitty",
+    "name": "Onigiri Kitty",
+    "symbol": "OKY",
+    "faqs": [],
+    "crawledAt": "2026-02-15T19:15:29.722Z"
+  },
+  "litusd": {
+    "slug": "litusd",
+    "name": "litUSD",
+    "symbol": "LITUSD",
+    "faqs": [],
+    "crawledAt": "2026-02-15T19:15:29.724Z"
+  },
+  "kitten-wif-hat": {
+    "slug": "kitten-wif-hat",
+    "name": "Kitten Wif Hat",
+    "symbol": "KWIF",
+    "faqs": [],
+    "crawledAt": "2026-02-15T19:15:29.727Z"
+  },
+  "bear-bull": {
+    "slug": "bear-bull",
+    "name": "Bear Bull",
+    "symbol": "BRB",
+    "faqs": [],
+    "crawledAt": "2026-02-15T19:15:33.501Z"
+  },
+  "vanguard-value-etf-ondo-tokenized": {
+    "slug": "vanguard-value-etf-ondo-tokenized",
+    "name": "Vanguard Value ETF (Ondo Tokenized)",
+    "symbol": "VTVON",
+    "faqs": [],
+    "crawledAt": "2026-02-15T19:15:33.502Z"
+  },
+  "merit-circle": {
+    "slug": "merit-circle",
+    "name": "Merit Circle",
+    "symbol": "MC",
+    "faqs": [],
+    "crawledAt": "2026-02-15T19:15:33.504Z"
+  },
+  "ixo": {
+    "slug": "ixo",
+    "name": "IXO",
+    "symbol": "IXO",
+    "faqs": [],
+    "crawledAt": "2026-02-15T19:15:33.506Z"
+  },
+  "eris-arbitrage-luna": {
+    "slug": "eris-arbitrage-luna",
+    "name": "ERIS Arbitrage LUNA",
+    "symbol": "ARBLUNA",
+    "faqs": [],
+    "crawledAt": "2026-02-15T19:15:33.509Z"
+  },
+  "limitless": {
+    "slug": "limitless",
+    "name": "LIMITLESS",
+    "symbol": "LIMITLESS",
+    "faqs": [],
+    "crawledAt": "2026-02-15T19:15:33.511Z"
+  },
+  "moonft": {
+    "slug": "moonft",
+    "name": "Moonft",
+    "symbol": "MTC",
+    "faqs": [],
+    "crawledAt": "2026-02-15T19:15:33.512Z"
+  },
+  "akropolis": {
+    "slug": "akropolis",
+    "name": "Kaon",
+    "symbol": "KAON",
+    "faqs": [],
+    "crawledAt": "2026-02-15T19:15:33.514Z"
+  },
+  "peg": {
+    "slug": "peg",
+    "name": "Hyperstable",
+    "symbol": "PEG",
+    "faqs": [],
+    "crawledAt": "2026-02-15T19:15:33.516Z"
+  },
+  "envida": {
+    "slug": "envida",
+    "name": "EnviDa",
+    "symbol": "EDAT",
+    "faqs": [],
+    "crawledAt": "2026-02-15T19:15:33.520Z"
+  },
+  "kommunitas": {
+    "slug": "kommunitas",
+    "name": "Kommunitas [OLD]",
+    "symbol": "KOM",
+    "faqs": [],
+    "crawledAt": "2026-02-15T19:15:36.294Z"
+  },
+  "rabbitswap-2": {
+    "slug": "rabbitswap-2",
+    "name": "RabbitSwap",
+    "symbol": "RABBIT",
+    "faqs": [],
+    "crawledAt": "2026-02-15T19:15:36.294Z",
+    "error": "HTTP 500"
+  },
+  "gold-10": {
+    "slug": "gold-10",
+    "name": "Gold",
+    "symbol": "GOLD",
+    "faqs": [],
+    "crawledAt": "2026-02-15T19:15:36.294Z",
+    "error": "HTTP 500"
+  },
+  "galapagos-token": {
+    "slug": "galapagos-token",
+    "name": "Galapagos Token",
+    "symbol": "0.000001",
+    "faqs": [],
+    "crawledAt": "2026-02-15T19:15:36.295Z"
+  },
+  "meridian-mst": {
+    "slug": "meridian-mst",
+    "name": "Meridian MST",
+    "symbol": "MST",
+    "faqs": [],
+    "crawledAt": "2026-02-15T19:15:36.297Z"
+  },
+  "spintria": {
+    "slug": "spintria",
+    "name": "Spintria",
+    "symbol": "SP",
+    "faqs": [],
+    "crawledAt": "2026-02-15T19:15:36.299Z"
+  },
+  "inbred-cat": {
+    "slug": "inbred-cat",
+    "name": "Inbred Cat",
+    "symbol": "INBRED",
+    "faqs": [],
+    "crawledAt": "2026-02-15T19:15:36.301Z"
+  },
+  "hanchain": {
+    "slug": "hanchain",
+    "name": "HanChain",
+    "symbol": "HAN",
+    "faqs": [],
+    "crawledAt": "2026-02-15T19:15:36.303Z"
+  },
+  "null-matrix": {
+    "slug": "null-matrix",
+    "name": "NULL MATRIX",
+    "symbol": "NULL",
+    "faqs": [],
+    "crawledAt": "2026-02-15T19:15:36.306Z"
+  },
+  "cryptohog": {
+    "slug": "cryptohog",
+    "name": "CryptoHog",
+    "symbol": "HOGSCOIN",
+    "faqs": [],
+    "crawledAt": "2026-02-15T19:15:36.308Z"
+  },
+  "dtec-token": {
+    "slug": "dtec-token",
+    "name": "Dtec token",
+    "symbol": "DTEC",
+    "faqs": [],
+    "crawledAt": "2026-02-15T19:15:39.412Z"
+  },
+  "ecoin-finance": {
+    "slug": "ecoin-finance",
+    "name": "Ecoin Finance",
+    "symbol": "ECOIN",
+    "faqs": [],
+    "crawledAt": "2026-02-15T19:15:39.414Z"
+  },
+  "daboo": {
+    "slug": "daboo",
+    "name": "Daboo",
+    "symbol": "DABOO",
+    "faqs": [],
+    "crawledAt": "2026-02-15T19:15:39.416Z"
+  },
+  "defrogs": {
+    "slug": "defrogs",
+    "name": "DeFrogs",
+    "symbol": "DEFROGS",
+    "faqs": [],
+    "crawledAt": "2026-02-15T19:15:39.418Z"
+  },
+  "trash-coin": {
+    "slug": "trash-coin",
+    "name": "Trash Coin",
+    "symbol": "TRASH",
+    "faqs": [],
+    "crawledAt": "2026-02-15T19:15:39.419Z"
+  },
+  "axiom": {
+    "slug": "axiom",
+    "name": "Axiom",
+    "symbol": "AXIOM",
+    "faqs": [],
+    "crawledAt": "2026-02-15T19:15:39.421Z"
+  },
+  "apescreener": {
+    "slug": "apescreener",
+    "name": "ApeScreener",
+    "symbol": "APES",
+    "faqs": [],
+    "crawledAt": "2026-02-15T19:15:39.423Z"
+  },
+  "trip-com-group-ondo-tokenized-stock": {
+    "slug": "trip-com-group-ondo-tokenized-stock",
+    "name": "Trip.com Group (Ondo Tokenized Stock)",
+    "symbol": "TCOMON",
+    "faqs": [],
+    "crawledAt": "2026-02-15T19:15:39.425Z"
+  },
+  "pancake-hunny": {
+    "slug": "pancake-hunny",
+    "name": "Hunny Finance",
+    "symbol": "HUNNY",
+    "faqs": [],
+    "crawledAt": "2026-02-15T19:15:39.425Z",
+    "error": "HTTP 500"
+  },
+  "nakamotostrategy": {
+    "slug": "nakamotostrategy",
+    "name": "NakamotoStrategy",
+    "symbol": "NAKASTR",
+    "faqs": [],
+    "crawledAt": "2026-02-15T19:15:39.427Z"
+  },
+  "tardi": {
+    "slug": "tardi",
+    "name": "Tardi",
+    "symbol": "TARDI",
+    "faqs": [],
+    "crawledAt": "2026-02-15T19:15:42.405Z"
+  },
+  "tigres-fan-token": {
+    "slug": "tigres-fan-token",
+    "name": "Tigres Fan Token",
+    "symbol": "TIGRES",
+    "faqs": [],
+    "crawledAt": "2026-02-15T19:15:42.407Z"
+  },
+  "cronus-2": {
+    "slug": "cronus-2",
+    "name": "CRONUS",
+    "symbol": "CRONUS",
+    "faqs": [],
+    "crawledAt": "2026-02-15T19:15:42.407Z",
+    "error": "HTTP 500"
+  },
+  "surf-2": {
+    "slug": "surf-2",
+    "name": "Surf",
+    "symbol": "SURF",
+    "faqs": [],
+    "crawledAt": "2026-02-15T19:15:42.407Z",
+    "error": "HTTP 500"
+  },
+  "the-black-whale": {
+    "slug": "the-black-whale",
+    "name": "The Black Whale",
+    "symbol": "BLACKWHALE",
+    "faqs": [],
+    "crawledAt": "2026-02-15T19:15:42.410Z"
+  },
+  "yield-app": {
+    "slug": "yield-app",
+    "name": "Yield App",
+    "symbol": "YLD",
+    "faqs": [],
+    "crawledAt": "2026-02-15T19:15:42.412Z"
+  },
+  "kabosu-erc20": {
+    "slug": "kabosu-erc20",
+    "name": "Kabosu ERC20",
+    "symbol": "KABOSU",
+    "faqs": [],
+    "crawledAt": "2026-02-15T19:15:42.414Z"
+  },
+  "divvy-bet": {
+    "slug": "divvy-bet",
+    "name": "Divvy.bet",
+    "symbol": "DVY",
+    "faqs": [],
+    "crawledAt": "2026-02-15T19:15:42.415Z"
+  },
+  "dmail-network": {
+    "slug": "dmail-network",
+    "name": "Dmail Network",
+    "symbol": "DMAIL",
+    "faqs": [],
+    "crawledAt": "2026-02-15T19:15:42.417Z"
+  },
+  "gemo": {
+    "slug": "gemo",
+    "name": "Gemo",
+    "symbol": "GEMO",
+    "faqs": [],
+    "crawledAt": "2026-02-15T19:15:42.419Z"
+  },
+  "bepro-network": {
+    "slug": "bepro-network",
+    "name": "LayerX",
+    "symbol": "LX",
+    "faqs": [],
+    "crawledAt": "2026-02-15T19:15:45.601Z"
+  },
+  "crowns": {
+    "slug": "crowns",
+    "name": "Seascape Crowns",
+    "symbol": "CWS",
+    "faqs": [],
+    "crawledAt": "2026-02-15T19:15:45.602Z"
+  },
+  "100xdarren": {
+    "slug": "100xdarren",
+    "name": "100xDarren",
+    "symbol": "100X",
+    "faqs": [],
+    "crawledAt": "2026-02-15T19:15:45.605Z"
+  },
+  "superdapp": {
+    "slug": "superdapp",
+    "name": "SuperDapp",
+    "symbol": "SUPR",
+    "faqs": [],
+    "crawledAt": "2026-02-15T19:15:45.608Z"
+  },
+  "sturdy": {
+    "slug": "sturdy",
+    "name": "Sturdy",
+    "symbol": "STRDY",
+    "faqs": [],
+    "crawledAt": "2026-02-15T19:15:45.610Z"
+  },
+  "america-party-4": {
+    "slug": "america-party-4",
+    "name": "America Party",
+    "symbol": "AP",
+    "faqs": [],
+    "crawledAt": "2026-02-15T19:15:45.610Z",
+    "error": "HTTP 500"
+  },
+  "cairo-finance-cairo-bank": {
+    "slug": "cairo-finance-cairo-bank",
+    "name": "Cairo Bank",
+    "symbol": "CBANK",
+    "faqs": [],
+    "crawledAt": "2026-02-15T19:15:45.610Z",
+    "error": "HTTP 500"
+  },
+  "gummy": {
+    "slug": "gummy",
+    "name": "GUMMY",
+    "symbol": "GUMMY",
+    "faqs": [],
+    "crawledAt": "2026-02-15T19:15:45.612Z"
+  },
+  "ripio-credit-network": {
+    "slug": "ripio-credit-network",
+    "name": "Ripio Credit Network",
+    "symbol": "RCN",
+    "faqs": [],
+    "crawledAt": "2026-02-15T19:15:45.614Z"
+  },
+  "super-anon": {
+    "slug": "super-anon",
+    "name": "Anon",
+    "symbol": "ANON",
+    "faqs": [],
+    "crawledAt": "2026-02-15T19:15:45.616Z"
+  },
+  "zaia-by-virtuals": {
+    "slug": "zaia-by-virtuals",
+    "name": "Zaia by Virtuals",
+    "symbol": "ZAIA",
+    "faqs": [],
+    "crawledAt": "2026-02-15T19:15:48.634Z"
+  },
+  "aga-token": {
+    "slug": "aga-token",
+    "name": "AGA",
+    "symbol": "AGA",
+    "faqs": [],
+    "crawledAt": "2026-02-15T19:15:48.636Z"
+  },
+  "usual-eur": {
+    "slug": "usual-eur",
+    "name": "Usual EUR",
+    "symbol": "EUR0",
+    "faqs": [],
+    "crawledAt": "2026-02-15T19:15:48.638Z"
+  },
+  "kudai": {
+    "slug": "kudai",
+    "name": "Kudai",
+    "symbol": "KUDAI",
+    "faqs": [],
+    "crawledAt": "2026-02-15T19:15:48.640Z"
+  },
+  "insightx": {
+    "slug": "insightx",
+    "name": "InsightX",
+    "symbol": "INX",
+    "faqs": [],
+    "crawledAt": "2026-02-15T19:15:48.642Z"
+  },
+  "sidekick": {
+    "slug": "sidekick",
+    "name": "Sidekick",
+    "symbol": "K",
+    "faqs": [],
+    "crawledAt": "2026-02-15T19:15:48.644Z"
+  },
+  "open-stablecoin-index": {
+    "slug": "open-stablecoin-index",
+    "name": "Open Stablecoin Index",
+    "symbol": "OPEN",
+    "faqs": [],
+    "crawledAt": "2026-02-15T19:15:48.646Z"
+  },
+  "-12": {
+    "slug": "-12",
+    "name": "BOSS",
+    "symbol": "老板",
+    "faqs": [],
+    "crawledAt": "2026-02-15T19:15:48.646Z",
+    "error": "HTTP 500"
+  },
+  "unlend-finance": {
+    "slug": "unlend-finance",
+    "name": "UniLend Finance",
+    "symbol": "UFT",
+    "faqs": [],
+    "crawledAt": "2026-02-15T19:15:48.646Z",
+    "error": "HTTP 500"
+  },
+  "memes-ai": {
+    "slug": "memes-ai",
+    "name": "Memes AI",
+    "symbol": "MEMESAI",
+    "faqs": [],
+    "crawledAt": "2026-02-15T19:15:48.648Z"
+  },
+  "rhetor": {
+    "slug": "rhetor",
+    "name": "Rhetor",
+    "symbol": "RT",
+    "faqs": [],
+    "crawledAt": "2026-02-15T19:15:51.386Z"
+  },
+  "matic-dai-stablecoin": {
+    "slug": "matic-dai-stablecoin",
+    "name": "Matic DAI Stablecoin",
+    "symbol": "DAI-MATIC",
+    "faqs": [],
+    "crawledAt": "2026-02-15T19:15:51.388Z"
+  },
+  "redacted": {
+    "slug": "redacted",
+    "name": "Redacted",
+    "symbol": "BTRFLY",
+    "faqs": [],
+    "crawledAt": "2026-02-15T19:15:51.388Z",
+    "error": "HTTP 500"
+  },
+  "modern-innovation-network-token": {
+    "slug": "modern-innovation-network-token",
+    "name": "Modern Innovation Network Token",
+    "symbol": "MINX",
+    "faqs": [],
+    "crawledAt": "2026-02-15T19:15:51.390Z"
+  },
+  "taggr": {
+    "slug": "taggr",
+    "name": "TAGGR",
+    "symbol": "TAGGR",
+    "faqs": [],
+    "crawledAt": "2026-02-15T19:15:51.392Z"
+  },
+  "wall-street-shiba": {
+    "slug": "wall-street-shiba",
+    "name": "Wall Street Shiba",
+    "symbol": "STIBA",
+    "faqs": [],
+    "crawledAt": "2026-02-15T19:15:51.395Z"
+  },
+  "neiro": {
+    "slug": "neiro",
+    "name": "Neiro",
+    "symbol": "NEIRO",
+    "faqs": [],
+    "crawledAt": "2026-02-15T19:15:51.395Z",
+    "error": "HTTP 500"
+  },
+  "topgoal": {
+    "slug": "topgoal",
+    "name": "TopGoal",
+    "symbol": "GOAL",
+    "faqs": [],
+    "crawledAt": "2026-02-15T19:15:51.397Z"
+  },
+  "rusk-token": {
+    "slug": "rusk-token",
+    "name": "Rusk Token",
+    "symbol": "RUSK",
+    "faqs": [],
+    "crawledAt": "2026-02-15T19:15:51.399Z"
+  },
+  "costco-hot-dog": {
+    "slug": "costco-hot-dog",
+    "name": "Cost Hot Dog",
+    "symbol": "COST",
+    "faqs": [],
+    "crawledAt": "2026-02-15T19:15:51.399Z",
+    "error": "HTTP 500"
+  },
+  "natus-vincere-fan-token": {
+    "slug": "natus-vincere-fan-token",
+    "name": "Natus Vincere Fan Token",
+    "symbol": "NAVI",
+    "faqs": [],
+    "crawledAt": "2026-02-15T19:15:54.223Z"
+  },
+  "morse-2": {
+    "slug": "morse-2",
+    "name": "MORSE",
+    "symbol": "MORSE",
+    "faqs": [],
+    "crawledAt": "2026-02-15T19:15:54.223Z",
+    "error": "HTTP 500"
+  },
+  "mystery-2": {
+    "slug": "mystery-2",
+    "name": "Mystery",
+    "symbol": "MYSTERY",
+    "faqs": [],
+    "crawledAt": "2026-02-15T19:15:54.225Z"
+  },
+  "coffee-2": {
+    "slug": "coffee-2",
+    "name": "COFFEE",
+    "symbol": "COFE",
+    "faqs": [],
+    "crawledAt": "2026-02-15T19:15:54.225Z",
+    "error": "HTTP 500"
+  },
+  "floki-ceo": {
+    "slug": "floki-ceo",
+    "name": "FLOKI CEO",
+    "symbol": "FLOKICEO",
+    "faqs": [],
+    "crawledAt": "2026-02-15T19:15:54.228Z"
+  },
+  "drpepe-ai": {
+    "slug": "drpepe-ai",
+    "name": "DrPepe.ai",
+    "symbol": "BRYAN",
+    "faqs": [],
+    "crawledAt": "2026-02-15T19:15:54.230Z"
+  },
+  "last-click": {
+    "slug": "last-click",
+    "name": "Last Click",
+    "symbol": "LASTCLICK",
+    "faqs": [],
+    "crawledAt": "2026-02-15T19:15:54.234Z"
+  },
+  "game-meteor-coin": {
+    "slug": "game-meteor-coin",
+    "name": "Game Meteor Coin",
+    "symbol": "GMTO",
+    "faqs": [],
+    "crawledAt": "2026-02-15T19:15:54.236Z"
+  },
+  "unique-network": {
+    "slug": "unique-network",
+    "name": "Unique Network",
+    "symbol": "UNQ",
+    "faqs": [],
+    "crawledAt": "2026-02-15T19:15:54.238Z"
+  },
+  "archimedes": {
+    "slug": "archimedes",
+    "name": "Archimedes Finance",
+    "symbol": "ARCH",
+    "faqs": [],
+    "crawledAt": "2026-02-15T19:15:54.240Z"
+  },
+  "coldstack": {
+    "slug": "coldstack",
+    "name": "Coldstack",
+    "symbol": "CLS",
+    "faqs": [],
+    "crawledAt": "2026-02-15T19:15:57.332Z"
+  },
+  "max-on-eth": {
+    "slug": "max-on-eth",
+    "name": "Max on ETH",
+    "symbol": "MAXETH",
+    "faqs": [],
+    "crawledAt": "2026-02-15T19:15:57.334Z"
+  },
+  "gblue": {
+    "slug": "gblue",
+    "name": "gBLUE",
+    "symbol": "GBLUE",
+    "faqs": [],
+    "crawledAt": "2026-02-15T19:15:57.336Z"
+  },
+  "glorp": {
+    "slug": "glorp",
+    "name": "Glorp",
+    "symbol": "GLORP",
+    "faqs": [],
+    "crawledAt": "2026-02-15T19:15:57.337Z"
+  },
+  "weedcoin": {
+    "slug": "weedcoin",
+    "name": "Weedcoin",
+    "symbol": "WEEDCOIN",
+    "faqs": [],
+    "crawledAt": "2026-02-15T19:15:57.339Z"
+  },
+  "asym": {
+    "slug": "asym",
+    "name": "ASYM",
+    "symbol": "ASYM",
+    "faqs": [],
+    "crawledAt": "2026-02-15T19:15:57.341Z"
+  },
+  "diemlibre": {
+    "slug": "diemlibre",
+    "name": "DiemLibre",
+    "symbol": "DLB",
+    "faqs": [],
+    "crawledAt": "2026-02-15T19:15:57.344Z"
+  },
+  "diversified-usd": {
+    "slug": "diversified-usd",
+    "name": "Diversified USD",
+    "symbol": "DFIUSD",
+    "faqs": [],
+    "crawledAt": "2026-02-15T19:15:57.345Z"
+  },
+  "orbit-3": {
+    "slug": "orbit-3",
+    "name": "ORBIT",
+    "symbol": "GRIFT",
+    "faqs": [],
+    "crawledAt": "2026-02-15T19:15:57.345Z",
+    "error": "HTTP 500"
+  },
+  "popdog": {
+    "slug": "popdog",
+    "name": "POPDOG",
+    "symbol": "POPDOG",
+    "faqs": [],
+    "crawledAt": "2026-02-15T19:15:57.347Z"
+  },
+  "biden-coin": {
+    "slug": "biden-coin",
+    "name": "Biden Coin",
+    "symbol": "BIDEN",
+    "faqs": [],
+    "crawledAt": "2026-02-15T19:16:00.083Z"
+  },
+  "clawcloudx": {
+    "slug": "clawcloudx",
+    "name": "ClawCloudX",
+    "symbol": "CLOUDX",
+    "faqs": [],
+    "crawledAt": "2026-02-15T19:16:00.085Z"
+  },
+  "xgame": {
+    "slug": "xgame",
+    "name": "XGame",
+    "symbol": "XGAME",
+    "faqs": [],
+    "crawledAt": "2026-02-15T19:16:00.086Z"
+  },
+  "mitch": {
+    "slug": "mitch",
+    "name": "MITCH",
+    "symbol": "IDRAWLINE",
+    "faqs": [],
+    "crawledAt": "2026-02-15T19:16:00.086Z",
+    "error": "HTTP 500"
+  },
+  "linda-2": {
+    "slug": "linda-2",
+    "name": "Linda",
+    "symbol": "LINDA",
+    "faqs": [],
+    "crawledAt": "2026-02-15T19:16:00.086Z",
+    "error": "HTTP 500"
+  },
+  "fartgirl": {
+    "slug": "fartgirl",
+    "name": "FARTGIRL",
+    "symbol": "FARTGIRL",
+    "faqs": [],
+    "crawledAt": "2026-02-15T19:16:00.088Z"
+  },
+  "camelcorn": {
+    "slug": "camelcorn",
+    "name": "Camelcorn",
+    "symbol": "CANELCORN",
+    "faqs": [],
+    "crawledAt": "2026-02-15T19:16:00.091Z"
+  },
+  "capminal": {
+    "slug": "capminal",
+    "name": "Capminal",
+    "symbol": "CAP",
+    "faqs": [],
+    "crawledAt": "2026-02-15T19:16:00.093Z"
+  },
+  "amaterasu": {
+    "slug": "amaterasu",
+    "name": "Amaterasu",
+    "symbol": "AMA",
+    "faqs": [],
+    "crawledAt": "2026-02-15T19:16:00.095Z"
+  },
+  "marvin-inu-2": {
+    "slug": "marvin-inu-2",
+    "name": "Marvin Inu",
+    "symbol": "MARVIN",
+    "faqs": [],
+    "crawledAt": "2026-02-15T19:16:00.095Z",
+    "error": "HTTP 500"
+  },
+  "bugo": {
+    "slug": "bugo",
+    "name": "BUGO",
+    "symbol": "BUGO",
+    "faqs": [],
+    "crawledAt": "2026-02-15T19:16:02.865Z"
+  },
+  "green-satoshi-token-bsc": {
+    "slug": "green-satoshi-token-bsc",
+    "name": "STEPN Green Satoshi Token on BSC",
+    "symbol": "GST-BSC",
+    "faqs": [],
+    "crawledAt": "2026-02-15T19:16:02.867Z"
+  },
+  "razor-network": {
+    "slug": "razor-network",
+    "name": "Razor Network",
+    "symbol": "RAZOR",
+    "faqs": [],
+    "crawledAt": "2026-02-15T19:16:02.867Z",
+    "error": "HTTP 500"
+  },
+  "provenance-fact-check": {
+    "slug": "provenance-fact-check",
+    "name": "Provenance Fact-check",
+    "symbol": "PROV",
+    "faqs": [],
+    "crawledAt": "2026-02-15T19:16:02.868Z"
+  },
+  "kip": {
+    "slug": "kip",
+    "name": "KIP",
+    "symbol": "KIP",
+    "faqs": [],
+    "crawledAt": "2026-02-15T19:16:02.870Z"
+  },
+  "dash-2-trade": {
+    "slug": "dash-2-trade",
+    "name": "Dash 2 Trade",
+    "symbol": "D2T",
+    "faqs": [],
+    "crawledAt": "2026-02-15T19:16:02.872Z"
+  },
+  "bald-2": {
+    "slug": "bald-2",
+    "name": "BALD",
+    "symbol": "BALD",
+    "faqs": [],
+    "crawledAt": "2026-02-15T19:16:02.872Z",
+    "error": "HTTP 500"
+  },
+  "inu-inu": {
+    "slug": "inu-inu",
+    "name": "Inu Inu",
+    "symbol": "INUINU",
+    "faqs": [],
+    "crawledAt": "2026-02-15T19:16:02.874Z"
+  },
+  "ppkas": {
+    "slug": "ppkas",
+    "name": "PPKAS",
+    "symbol": "PPKAS",
+    "faqs": [],
+    "crawledAt": "2026-02-15T19:16:02.876Z"
+  },
+  "gap-tooth-lizard": {
+    "slug": "gap-tooth-lizard",
+    "name": "Gap Tooth Lizard",
+    "symbol": "$GAPPY",
+    "faqs": [],
+    "crawledAt": "2026-02-15T19:16:02.879Z"
+  },
+  "hex-orange-address": {
+    "slug": "hex-orange-address",
+    "name": "Hex Orange Address",
+    "symbol": "HOA",
+    "faqs": [],
+    "crawledAt": "2026-02-15T19:16:05.887Z"
+  },
+  "nodecoin": {
+    "slug": "nodecoin",
+    "name": "Nodepay",
+    "symbol": "NC",
+    "faqs": [],
+    "crawledAt": "2026-02-15T19:16:05.888Z"
+  },
+  "metal-3": {
+    "slug": "metal-3",
+    "name": "METAL",
+    "symbol": "METAL",
+    "faqs": [],
+    "crawledAt": "2026-02-15T19:16:05.889Z",
+    "error": "HTTP 500"
+  },
+  "cronos-army": {
+    "slug": "cronos-army",
+    "name": "Cronos Army",
+    "symbol": "CA",
+    "faqs": [],
+    "crawledAt": "2026-02-15T19:16:05.891Z"
+  },
+  "tenx": {
+    "slug": "tenx",
+    "name": "TenX",
+    "symbol": "PAY",
+    "faqs": [],
+    "crawledAt": "2026-02-15T19:16:05.893Z"
+  },
+  "shibaken-finance": {
+    "slug": "shibaken-finance",
+    "name": "Shibaken Finance",
+    "symbol": "SHIBAKEN",
+    "faqs": [],
+    "crawledAt": "2026-02-15T19:16:05.895Z"
+  },
+  "beedog": {
+    "slug": "beedog",
+    "name": "蜜蜂狗（Beedog)",
+    "symbol": "蜜蜂狗",
+    "faqs": [],
+    "crawledAt": "2026-02-15T19:16:05.897Z"
+  },
+  "professional-fighters-league-fan-token": {
+    "slug": "professional-fighters-league-fan-token",
+    "name": "Professional Fighters League Fan Token",
+    "symbol": "PFL",
+    "faqs": [],
+    "crawledAt": "2026-02-15T19:16:05.899Z"
+  },
+  "beni": {
+    "slug": "beni",
+    "name": "Beni",
+    "symbol": "BENI",
+    "faqs": [],
+    "crawledAt": "2026-02-15T19:16:05.900Z"
+  },
+  "gotm": {
+    "slug": "gotm",
+    "name": "GOTM",
+    "symbol": "GOTM",
+    "faqs": [],
+    "crawledAt": "2026-02-15T19:16:05.902Z"
+  }
+}

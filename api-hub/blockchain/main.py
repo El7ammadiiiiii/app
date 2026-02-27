@@ -8,6 +8,7 @@ Multi-Agent Blockchain Data System with FastAPI server and CLI interface
 import asyncio
 import json
 import logging
+import os
 import sys
 from pathlib import Path
 from typing import Optional
@@ -22,12 +23,22 @@ sys.path.insert(0, str(Path(__file__).parent))
 
 from config import API_KEYS, SETTINGS, SYSTEM_SUMMARY
 from orchestrator import Orchestrator
+from routes.onchain import router as onchain_router
+from routes.ccways import router as ccways_router
 
 # Configure logging
-logging.basicConfig(
-    level=getattr(logging, SETTINGS.LOG_LEVEL),
-    format=SETTINGS.LOG_FORMAT,
-)
+_log_level = getattr(logging, SETTINGS.LOG_LEVEL, logging.INFO)
+try:
+    logging.basicConfig(
+        level=_log_level,
+        format=SETTINGS.LOG_FORMAT,
+        force=True,
+    )
+except TypeError:  # Python < 3.8
+    logging.basicConfig(
+        level=_log_level,
+        format=SETTINGS.LOG_FORMAT,
+    )
 logger = logging.getLogger(__name__)
 
 
@@ -51,6 +62,9 @@ app.add_middleware(
     allow_methods=["*"],
     allow_headers=["*"],
 )
+
+app.include_router(onchain_router)
+app.include_router(ccways_router)
 
 # Global orchestrator instance
 orchestrator: Optional[Orchestrator] = None
@@ -134,15 +148,23 @@ class APIResponse(BaseModel):
 async def startup_event():
     """Initialize orchestrator on startup"""
     global orchestrator
-    orchestrator = Orchestrator(API_KEYS.ANTHROPIC_API_KEY)
-    await orchestrator.initialize()
-    
-    # TODO: Register all agents here
-    # from providers.bitcoin import BitcoinAgent
-    # orchestrator.register_agent("bitcoin", BitcoinAgent(...))
-    
-    logger.info("🚀 Omnichain API started")
-    print(SYSTEM_SUMMARY)
+    enable_orchestrator = os.getenv("ORCHESTRATOR_ENABLED", "0").strip().lower() in {"1", "true", "yes", "on"}
+    if API_KEYS.ANTHROPIC_API_KEY and enable_orchestrator:
+        orchestrator = Orchestrator(API_KEYS.ANTHROPIC_API_KEY)
+        await orchestrator.initialize()
+
+        # TODO: Register all agents here
+        # from providers.bitcoin import BitcoinAgent
+        # orchestrator.register_agent("bitcoin", BitcoinAgent(...))
+
+        logger.info("🚀 Omnichain API started")
+        print(SYSTEM_SUMMARY)
+    else:
+        orchestrator = None
+        if not API_KEYS.ANTHROPIC_API_KEY:
+            logger.warning("⚠️ ANTHROPIC_API_KEY missing; orchestrator disabled. Onchain routes still available.")
+        else:
+            logger.warning("⚠️ ORCHESTRATOR_ENABLED is false; orchestrator disabled. Onchain routes still available.")
 
 
 @app.on_event("shutdown")
@@ -531,14 +553,19 @@ def main():
     if args.mode == "cli":
         asyncio.run(cli_mode())
     else:
-        print(f"\n🚀 Starting Omnichain API at http://{args.host}:{args.port}")
-        print(f"📚 Docs available at http://{args.host}:{args.port}/docs\n")
+        print(f"\nStarting Omnichain API at http://{args.host}:{args.port}")
+        print(f"Docs available at http://{args.host}:{args.port}/docs\n")
+
+        access_log_enabled = os.getenv("UVICORN_ACCESS_LOG", "0").strip().lower() in {"1", "true", "yes", "on"}
+        uvicorn_log_level = os.getenv("UVICORN_LOG_LEVEL", SETTINGS.LOG_LEVEL).strip().lower()
         
         uvicorn.run(
             "main:app",
             host=args.host,
             port=args.port,
             reload=args.reload,
+            log_level=uvicorn_log_level,
+            access_log=access_log_enabled,
         )
 
 

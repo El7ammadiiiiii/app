@@ -43,6 +43,8 @@ export function AssistantsSection() {
       {/* Response Style */}
       <SettingGroup title="أسلوب الاستجابة">
         <SettingSelect
+          id="settings-assistants-response-length"
+          variant="cmdk"
           label="طول الردود"
           description="مستوى التفصيل في ردود المساعد"
           value={responseLength}
@@ -51,6 +53,8 @@ export function AssistantsSection() {
         />
 
         <SettingSelect
+          id="settings-assistants-response-tone"
+          variant="cmdk"
           label="نبرة الرد"
           description="أسلوب التواصل"
           value={responseTone}

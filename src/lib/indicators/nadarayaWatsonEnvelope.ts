@@ -6,7 +6,7 @@
  * Provides smooth adaptive bands with crossover signals
  */
 
-import { CandleData } from "@/components/charts/TradingChart";
+import type { CandleData } from "@/components/charts/types";
 
 export interface NadarayaWatsonConfig {
   bandwidth: number;

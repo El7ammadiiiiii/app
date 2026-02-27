@@ -5,148 +5,52 @@
  * لوحة تحكم المؤشرات مع إمكانية التفعيل/التعطيل
  */
 
-import { useState, useCallback } from "react";
+import { useState, useCallback, useEffect, useRef } from "react";
+import { createPortal } from "react-dom";
 import { motion, AnimatePresence } from "framer-motion";
 
-export interface IndicatorSettings {
+export interface IndicatorSettings
+{
   // المؤشرات الأساسية
   supertrend: boolean;
   bollingerBands: boolean;
-  
+
   // المتوسطات المتحركة البسيطة
   sma10: boolean;
   sma25: boolean;
   sma50: boolean;
   sma100: boolean;
   sma200: boolean;
-  
+
   // المتوسطات المتحركة الأسية
   ema10: boolean;
   ema25: boolean;
   ema50: boolean;
   ema100: boolean;
   ema200: boolean;
-  
+
   // خطوط الاتجاه
   trendlines: boolean;
   horizontalLevels: boolean;
   fibonacciRetracements: boolean;
   verticalResistance: boolean;
   verticalSupport: boolean;
-  
-  // أنماط صعودية
-  ascendingChannel: boolean;
-  ascendingTriangle: boolean;
-  bullFlag: boolean;
-  bullPennant: boolean;
-  continuationFallingWedge: boolean;
-  descendingBroadeningWedge: boolean;
-  reversalFallingWedge: boolean;
-  
-  // أنماط هبوطية
-  ascendingBroadeningWedge: boolean;
-  bearFlag: boolean;
-  bearPennant: boolean;
-  continuationRisingWedge: boolean;
-  descendingChannel: boolean;
-  descendingTriangle: boolean;
-  reversalRisingWedge: boolean;
-  
-  // أنماط محايدة
-  symmetricalTriangle: boolean;
-  
-  // ==========================================
-  // 🏆 أنماط Ultra-Precision (دقة الميلي)
-  // ==========================================
-  ultraAscendingTriangle: boolean;      // مثلث صاعد فائق الدقة
-  ultraDescendingTriangle: boolean;     // مثلث هابط فائق الدقة
-  ultraSymmetricalTriangle: boolean;    // مثلث متماثل فائق الدقة
-  ultraRisingWedge: boolean;            // وتد صاعد فائق الدقة
-  ultraFallingWedge: boolean;           // وتد هابط فائق الدقة
-  ultraSymmetricalBroadening: boolean;  // توسع متماثل فائق الدقة
-  ultraBroadeningBottom: boolean;       // قاع متوسع فائق الدقة
-  ultraBroadeningTop: boolean;          // قمة متوسعة فائق الدقة
-  ultraAscendingBroadeningRA: boolean;  // توسع صاعد قائم الزاوية
-  ultraDescendingBroadeningRA: boolean; // توسع هابط قائم الزاوية
-  ultraAscendingChannel: boolean;       // قناة صاعدة فائقة الدقة
-  ultraDescendingChannel: boolean;      // قناة هابطة فائقة الدقة
-  ultraBullFlag: boolean;               // علم صاعد فائق الدقة
-  ultraBearFlag: boolean;               // علم هابط فائق الدقة
-  
-  // ==========================================
-  // أنماط كلاسيكية متقدمة (Advanced Classic Patterns)
-  // ==========================================
-  headAndShoulders: boolean;         // الرأس والكتفين
-  inverseHeadAndShoulders: boolean;  // الرأس والكتفين المقلوب
-  doubleTop: boolean;                // القمة المزدوجة
-  doubleBottom: boolean;             // القاع المزدوج
-  tripleTop: boolean;                // القمة الثلاثية
-  tripleBottom: boolean;             // القاع الثلاثي
-  cupAndHandle: boolean;             // الكوب والمقبض
-  invertedCupAndHandle: boolean;     // الكوب والمقبض المقلوب
-  rectangle: boolean;                // المستطيل
-  
+
   // ==========================================
   // كشف الاختراقات (Breakout Detection)
   // ==========================================
   breakoutDetection: boolean;        // كشف الاختراقات
   rangeBreakout: boolean;            // اختراق النطاق
   volumeSurgeBreakout: boolean;      // اختراق بحجم قوي
-  
+
   // ==========================================
   // مناطق التلاقي (Confluence Zones)
   // ==========================================
   confluenceZones: boolean;          // مناطق التلاقي
   fibonacciConfluence: boolean;      // تلاقي فيبوناتشي
   pivotPointConfluence: boolean;     // تلاقي نقاط الارتكاز
-  
-  // ==========================================
-  // إدارة المخاطر (Risk Management)
-  // ==========================================
-  riskRewardZones: boolean;          // مناطق المخاطرة/العائد
-  patternQualityScore: boolean;      // تقييم جودة الأنماط
-  
-  // ==========================================
-  // 🎯 AI Lab - Harmonic Patterns (الأنماط التوافقية)
-  // ==========================================
-  gartleyPattern: boolean;
-  butterflyPattern: boolean;
-  batPattern: boolean;
-  crabPattern: boolean;
-  sharkPattern: boolean;
-  cypherPattern: boolean;
-  abcdPattern: boolean;
-  threeDriversPattern: boolean;
-  fiveZeroPattern: boolean;
-  deepCrabPattern: boolean;
-  alternativeBatPattern: boolean;
-  
-  // ==========================================
-  // 🎯 AI Lab - Candlestick Patterns (أنماط الشموع)
-  // ==========================================
-  dojiPattern: boolean;
-  hammerPattern: boolean;
-  invertedHammerPattern: boolean;
-  engulfingPattern: boolean;
-  morningStar: boolean;
-  eveningStar: boolean;
-  piercingLine: boolean;
-  darkCloudCover: boolean;
-  threeWhiteSoldiers: boolean;
-  threeBlackCrows: boolean;
-  spinningTop: boolean;
-  marubozu: boolean;
-  haramiPattern: boolean;
-  tweezerPattern: boolean;
-  shootingStarPattern: boolean;
-  hangingManPattern: boolean;
-  dragonFlyDojiPattern: boolean;
-  
-  // ==========================================
-  // 🌊 Wolfe Wave Pattern
-  // ==========================================
-  wolfeWavePattern: boolean;
-  
+
+
   // Ehlers DSP المؤشرات المتقدمة
   superSmoother: boolean;
   instantaneousTrendline: boolean;
@@ -154,11 +58,11 @@ export interface IndicatorSettings {
   mama: boolean;
   frama: boolean;
   cyberCycle: boolean;
-  
+
   // Advanced RSI أنواع RSI المتقدمة
   connorsRsi: boolean;
   laguerreRsi: boolean;
-  
+
   // Elite Advanced Indicators - المؤشرات المتقدمة النخبوية
   ichimoku: boolean;           // سحابة إيشيموكو
   atrBands: boolean;           // نطاقات ATR الديناميكية
@@ -175,7 +79,7 @@ export interface IndicatorSettings {
   choppiness: boolean;         // Choppiness Index
   trix: boolean;               // TRIX
   awesomeOsc: boolean;         // Awesome Oscillator
-  
+
   // Smart Money Concepts
   orderBlocks: boolean;
   fairValueGaps: boolean;
@@ -183,15 +87,14 @@ export interface IndicatorSettings {
   liquidityZones: boolean;
   wyckoffEvents: boolean;
   breakerBlocks: boolean;
-  liquiditySweeps: boolean; // كشف السيولة
-  
+
   // Advanced Volume تحليل الحجم المتقدم
   vwap: boolean;
   volumeProfile: boolean;
   cvd: boolean;
   klinger: boolean;
   mfi: boolean;
-  
+
   // الرسوم البيانية الافتراضية
   volume: boolean;
   rsi: boolean;
@@ -199,7 +102,7 @@ export interface IndicatorSettings {
   macd: boolean;
   obv: boolean;
   adx: boolean;
-  
+
   // ==========================================
   // 🎛️ AI AGENTS - مفاتيح التحكم الرئيسية
   // ==========================================
@@ -214,7 +117,7 @@ const defaultSettings: IndicatorSettings = {
   bollingerBands: false,
   sma10: false,
   sma25: false,
-  sma50: true,
+  sma50: false,
   sma100: false,
   sma200: false,
   ema10: false,
@@ -227,46 +130,6 @@ const defaultSettings: IndicatorSettings = {
   fibonacciRetracements: false,
   verticalResistance: false,
   verticalSupport: false,
-  ascendingChannel: true,
-  ascendingTriangle: true,
-  bullFlag: true,
-  bullPennant: true,
-  continuationFallingWedge: true,
-  descendingBroadeningWedge: true,
-  reversalFallingWedge: true,
-  ascendingBroadeningWedge: true,
-  bearFlag: true,
-  bearPennant: true,
-  continuationRisingWedge: true,
-  descendingChannel: true,
-  descendingTriangle: true,
-  reversalRisingWedge: true,
-  symmetricalTriangle: true,
-  // 🏆 Ultra-Precision Patterns - أنماط فائقة الدقة
-  ultraAscendingTriangle: false,
-  ultraDescendingTriangle: false,
-  ultraSymmetricalTriangle: false,
-  ultraRisingWedge: false,
-  ultraFallingWedge: false,
-  ultraSymmetricalBroadening: false,
-  ultraBroadeningBottom: false,
-  ultraBroadeningTop: false,
-  ultraAscendingBroadeningRA: false,
-  ultraDescendingBroadeningRA: false,
-  ultraAscendingChannel: true,  // enabled for testing
-  ultraDescendingChannel: true, // enabled for testing
-  ultraBullFlag: true,          // enabled for testing
-  ultraBearFlag: true,          // enabled for testing
-  // Advanced Classic Patterns - الأنماط الكلاسيكية المتقدمة
-  headAndShoulders: false,
-  inverseHeadAndShoulders: false,
-  doubleTop: false,
-  doubleBottom: false,
-  tripleTop: false,
-  tripleBottom: false,
-  cupAndHandle: false,
-  invertedCupAndHandle: false,
-  rectangle: false,
   // Breakout Detection - كشف الاختراقات
   breakoutDetection: false,
   rangeBreakout: false,
@@ -275,41 +138,6 @@ const defaultSettings: IndicatorSettings = {
   confluenceZones: false,
   fibonacciConfluence: false,
   pivotPointConfluence: false,
-  // Risk Management - إدارة المخاطر
-  riskRewardZones: false,
-  patternQualityScore: false,
-  // 🎯 AI Lab - Harmonic Patterns
-  gartleyPattern: false,
-  butterflyPattern: false,
-  batPattern: false,
-  crabPattern: false,
-  sharkPattern: false,
-  cypherPattern: false,
-  abcdPattern: false,
-  threeDriversPattern: false,
-  fiveZeroPattern: false,
-  deepCrabPattern: false,
-  alternativeBatPattern: false,
-  // AI Lab - Candlestick Patterns
-  dojiPattern: false,
-  hammerPattern: false,
-  invertedHammerPattern: false,
-  engulfingPattern: false,
-  morningStar: false,
-  eveningStar: false,
-  piercingLine: false,
-  darkCloudCover: false,
-  threeWhiteSoldiers: false,
-  threeBlackCrows: false,
-  spinningTop: false,
-  marubozu: false,
-  haramiPattern: false,
-  tweezerPattern: false,
-  shootingStarPattern: false,
-  hangingManPattern: false,
-  dragonFlyDojiPattern: false,
-  // Wolfe Wave
-  wolfeWavePattern: false,
   // Ehlers DSP
   superSmoother: false,
   instantaneousTrendline: false,
@@ -343,7 +171,6 @@ const defaultSettings: IndicatorSettings = {
   liquidityZones: false,
   wyckoffEvents: false,
   breakerBlocks: false,
-  liquiditySweeps: false,
   // Advanced Volume
   vwap: false,
   volumeProfile: false,
@@ -358,19 +185,21 @@ const defaultSettings: IndicatorSettings = {
   obv: false,
   adx: false,
   // 🎛️ AI Agents - تفعيل واحد فقط لتجنب التداخل
-  agent1UltraPrecision: true,     // ✅ Agent 1 مفعل افتراضياً
-  agent2ClassicPatterns: false,    // Agent 2 معطل
-  agent3GeometricPatterns: false,  // Agent 3 معطل
-  agent4ContinuationPatterns: false, // Agent 4 معطل
+  agent1UltraPrecision: false,     // ❌ معطل افتراضياً
+  agent2ClassicPatterns: false,    // ❌ معطل افتراضياً
+  agent3GeometricPatterns: false,  // ❌ معطل افتراضياً
+  agent4ContinuationPatterns: false, // ❌ معطل افتراضياً
 };
 
-interface IndicatorPanelProps {
+interface IndicatorPanelProps
+{
   settings: IndicatorSettings;
-  onSettingsChange: (settings: IndicatorSettings) => void;
+  onSettingsChange: ( settings: IndicatorSettings ) => void;
   onSave?: () => void;
 }
 
-interface IndicatorGroup {
+interface IndicatorGroup
+{
   title: string;
   titleAr: string;
   color?: string;
@@ -439,87 +268,6 @@ const indicatorGroups: IndicatorGroup[] = [
     ],
   },
   {
-    title: "Bullish Patterns",
-    titleAr: "الأنماط الصعودية",
-    color: "#22c55e",
-    items: [
-      { key: "ascendingChannel", label: "Ascending Channel", labelAr: "القناة الصاعدة" },
-      { key: "ascendingTriangle", label: "Ascending Triangle", labelAr: "المثلث الصاعد" },
-      { key: "bullFlag", label: "Bull Flag", labelAr: "علم الثور" },
-      { key: "bullPennant", label: "Bull Pennant", labelAr: "راية الثور" },
-      { key: "continuationFallingWedge", label: "Continuation Falling Wedge", labelAr: "وتد هابط استمراري" },
-      { key: "descendingBroadeningWedge", label: "Descending Broadening Wedge", labelAr: "وتد متسع هابط" },
-      { key: "reversalFallingWedge", label: "Reversal Falling Wedge", labelAr: "وتد هابط انعكاسي" },
-    ],
-  },
-  {
-    title: "Bearish Patterns",
-    titleAr: "الأنماط الهبوطية",
-    color: "#ef4444",
-    items: [
-      { key: "ascendingBroadeningWedge", label: "Ascending Broadening Wedge", labelAr: "وتد متسع صاعد" },
-      { key: "bearFlag", label: "Bear Flag", labelAr: "علم الدب" },
-      { key: "bearPennant", label: "Bear Pennant", labelAr: "راية الدب" },
-      { key: "continuationRisingWedge", label: "Continuation Rising Wedge", labelAr: "وتد صاعد استمراري" },
-      { key: "descendingChannel", label: "Descending Channel", labelAr: "القناة الهابطة" },
-      { key: "descendingTriangle", label: "Descending Triangle", labelAr: "المثلث الهابط" },
-      { key: "reversalRisingWedge", label: "Reversal Rising Wedge", labelAr: "وتد صاعد انعكاسي" },
-    ],
-  },
-  {
-    title: "Neutral Patterns",
-    titleAr: "الأنماط المحايدة",
-    color: "#eab308",
-    items: [
-      { key: "symmetricalTriangle", label: "Symmetrical Triangle", labelAr: "المثلث المتماثل" },
-    ],
-  },
-  {
-    title: "🏆 Ultra-Precision Patterns",
-    titleAr: "🏆 أنماط Ultra-Precision (دقة الميلي)",
-    color: "#FFD700",
-    items: [
-      { key: "ultraAscendingTriangle", label: "🔺 Ascending Triangle", labelAr: "🔺 مثلث صاعد فائق الدقة", color: "#22c55e" },
-      { key: "ultraDescendingTriangle", label: "🔻 Descending Triangle", labelAr: "🔻 مثلث هابط فائق الدقة", color: "#ef4444" },
-      { key: "ultraSymmetricalTriangle", label: "◇ Symmetrical Triangle", labelAr: "◇ مثلث متماثل فائق الدقة", color: "#eab308" },
-      { key: "ultraRisingWedge", label: "📈 Rising Wedge", labelAr: "📈 وتد صاعد فائق الدقة", color: "#f97316" },
-      { key: "ultraFallingWedge", label: "📉 Falling Wedge", labelAr: "📉 وتد هابط فائق الدقة", color: "#10b981" },
-      { key: "ultraSymmetricalBroadening", label: "📢 Symmetrical Broadening", labelAr: "📢 توسع متماثل (ميغافون)", color: "#8b5cf6" },
-      { key: "ultraBroadeningBottom", label: "⬆️ Broadening Bottom", labelAr: "⬆️ قاع متوسع", color: "#06b6d4" },
-      { key: "ultraBroadeningTop", label: "⬇️ Broadening Top", labelAr: "⬇️ قمة متوسعة", color: "#ec4899" },
-      { key: "ultraAscendingBroadeningRA", label: "↗️ Ascending Broadening RA", labelAr: "↗️ توسع صاعد قائم الزاوية", color: "#14b8a6" },
-      { key: "ultraDescendingBroadeningRA", label: "↘️ Descending Broadening RA", labelAr: "↘️ توسع هابط قائم الزاوية", color: "#f43f5e" },
-    ],
-  },
-  {
-    title: "Experimental Accurate Indicators",
-    titleAr: "مؤشرات تجريبية دقيقة",
-    color: "#00e676",
-    items: [
-      { key: "ultraAscendingChannel", label: "Ultra Ascending Channel", labelAr: "قناة صاعدة دقيقة", color: "#00e676" },
-      { key: "ultraDescendingChannel", label: "Ultra Descending Channel", labelAr: "قناة هابطة دقيقة", color: "#ff1744" },
-      { key: "ultraBullFlag", label: "Ultra Bull Flag", labelAr: "علم ثور دقيق", color: "#00e676" },
-      { key: "ultraBearFlag", label: "Ultra Bear Flag", labelAr: "علم دب دقيق", color: "#ff1744" },
-      { key: "liquiditySweeps", label: "Liquidity Sweeps", labelAr: "كشف السيولة (Sweeps)", color: "#f59e0b" },
-    ],
-  },
-  {
-    title: "Classic Reversal Patterns",
-    titleAr: "أنماط الانعكاس الكلاسيكية ⭐",
-    color: "#06b6d4",
-    items: [
-      { key: "headAndShoulders", label: "Head & Shoulders", labelAr: "الرأس والكتفين", color: "#ef4444" },
-      { key: "inverseHeadAndShoulders", label: "Inverse H&S", labelAr: "الرأس والكتفين المقلوب", color: "#22c55e" },
-      { key: "doubleTop", label: "Double Top", labelAr: "القمة المزدوجة (M)", color: "#f97316" },
-      { key: "doubleBottom", label: "Double Bottom", labelAr: "القاع المزدوج (W)", color: "#10b981" },
-      { key: "tripleTop", label: "Triple Top", labelAr: "القمة الثلاثية", color: "#dc2626" },
-      { key: "tripleBottom", label: "Triple Bottom", labelAr: "القاع الثلاثي", color: "#059669" },
-      { key: "cupAndHandle", label: "Cup & Handle", labelAr: "الكوب والمقبض ☕", color: "#8b5cf6" },
-      { key: "invertedCupAndHandle", label: "Inverted Cup & Handle", labelAr: "الكوب المقلوب", color: "#6366f1" },
-      { key: "rectangle", label: "Rectangle/Range", labelAr: "المستطيل/النطاق", color: "#64748b" },
-    ],
-  },
-  {
     title: "Breakout Detection",
     titleAr: "كشف الاختراقات 🚀",
     color: "#f59e0b",
@@ -574,261 +322,283 @@ const indicatorGroups: IndicatorGroup[] = [
       { key: "breakerBlocks", label: "Breaker Blocks", labelAr: "كتل الكسر", color: "#042f2e" },
     ],
   },
-  // ==========================================
-  // 🎯 AI Lab - أنماط الذكاء الاصطناعي (تجريبية)
-  // ==========================================
-  {
-    title: "🎯 AI Lab - Harmonic Patterns",
-    titleAr: "🎯 مختبر الذكاء - الأنماط التوافقية",
-    color: "#9333ea",
-    items: [
-      { key: "gartleyPattern", label: "Gartley Pattern", labelAr: "نموذج جارتلي", color: "#a855f7" },
-      { key: "butterflyPattern", label: "Butterfly Pattern", labelAr: "نموذج الفراشة", color: "#8b5cf6" },
-      { key: "batPattern", label: "Bat Pattern", labelAr: "نموذج الخفاش", color: "#7c3aed" },
-      { key: "crabPattern", label: "Crab Pattern", labelAr: "نموذج السلطعون", color: "#6d28d9" },
-      { key: "sharkPattern", label: "Shark Pattern", labelAr: "نموذج القرش", color: "#5b21b6" },
-      { key: "cypherPattern", label: "Cypher Pattern", labelAr: "نموذج سايفر", color: "#4c1d95" },
-      { key: "abcdPattern", label: "ABCD Pattern", labelAr: "نموذج ABCD", color: "#c084fc" },
-      { key: "threeDriversPattern", label: "Three Drives", labelAr: "الثلاث قمم/قيعان", color: "#a78bfa" },
-      { key: "fiveZeroPattern", label: "5-0 Pattern", labelAr: "نموذج 5-0", color: "#818cf8" },
-      { key: "deepCrabPattern", label: "Deep Crab", labelAr: "السلطعون العميق", color: "#6366f1" },
-      { key: "alternativeBatPattern", label: "Alt Bat Pattern", labelAr: "الخفاش البديل", color: "#4f46e5" },
-    ],
-  },
-  {
-    title: "🎯 AI Lab - Candlestick Patterns",
-    titleAr: "🎯 مختبر الذكاء - أنماط الشموع",
-    color: "#f97316",
-    items: [
-      { key: "dojiPattern", label: "Doji", labelAr: "الدوجي", color: "#fb923c" },
-      { key: "hammerPattern", label: "Hammer", labelAr: "المطرقة", color: "#22c55e" },
-      { key: "invertedHammerPattern", label: "Inverted Hammer", labelAr: "المطرقة المقلوبة", color: "#4ade80" },
-      { key: "engulfingPattern", label: "Engulfing", labelAr: "الابتلاع", color: "#f59e0b" },
-      { key: "morningStar", label: "Morning Star", labelAr: "نجمة الصباح", color: "#84cc16" },
-      { key: "eveningStar", label: "Evening Star", labelAr: "نجمة المساء", color: "#ef4444" },
-      { key: "piercingLine", label: "Piercing Line", labelAr: "خط الاختراق", color: "#10b981" },
-      { key: "darkCloudCover", label: "Dark Cloud Cover", labelAr: "الغطاء السحابي", color: "#dc2626" },
-      { key: "threeWhiteSoldiers", label: "3 White Soldiers", labelAr: "ثلاثة جنود بيض", color: "#059669" },
-      { key: "threeBlackCrows", label: "3 Black Crows", labelAr: "ثلاثة غربان سود", color: "#b91c1c" },
-      { key: "spinningTop", label: "Spinning Top", labelAr: "القمة الدوارة", color: "#eab308" },
-      { key: "marubozu", label: "Marubozu", labelAr: "ماروبوزو", color: "#14b8a6" },
-      { key: "haramiPattern", label: "Harami", labelAr: "الحرامي", color: "#0ea5e9" },
-      { key: "tweezerPattern", label: "Tweezers", labelAr: "الملقط", color: "#8b5cf6" },
-      { key: "shootingStarPattern", label: "Shooting Star", labelAr: "النجم الساقط", color: "#f43f5e" },
-      { key: "hangingManPattern", label: "Hanging Man", labelAr: "الرجل المشنوق", color: "#e11d48" },
-      { key: "dragonFlyDojiPattern", label: "Dragonfly Doji", labelAr: "دوجي اليعسوب", color: "#06b6d4" },
-    ],
-  },
-  {
-    title: "🌊 Wolfe Wave Pattern",
-    titleAr: "🌊 نموذج وولف ويف",
-    color: "#06b6d4",
-    items: [
-      { key: "wolfeWavePattern", label: "Wolfe Wave", labelAr: "موجة وولف", color: "#0891b2" },
-    ],
-  },
 ];
 
-export function IndicatorPanel({ settings, onSettingsChange, onSave }: IndicatorPanelProps) {
-  const [isOpen, setIsOpen] = useState(false);
+const COLOR_CLASS_MAP: Record<string, { text: string; bg: string }> = {
+  '#8b5cf6': { text: 'text-[#8b5cf6]', bg: 'bg-[#8b5cf6]' },
+  '#00e676': { text: 'text-[#00e676]', bg: 'bg-[#00e676]' },
+  '#06b6d4': { text: 'text-[#06b6d4]', bg: 'bg-[#06b6d4]' },
+  '#f59e0b': { text: 'text-[#f59e0b]', bg: 'bg-[#f59e0b]' },
+  '#ec4899': { text: 'text-[#ec4899]', bg: 'bg-[#ec4899]' },
+  '#22c55e': { text: 'text-[#22c55e]', bg: 'bg-[#22c55e]' },
+  '#3b82f6': { text: 'text-[#3b82f6]', bg: 'bg-[#3b82f6]' },
+  '#ef4444': { text: 'text-[#ef4444]', bg: 'bg-[#ef4444]' },
+  '#f97316': { text: 'text-[#f97316]', bg: 'bg-[#f97316]' },
+  '#eab308': { text: 'text-[#eab308]', bg: 'bg-[#eab308]' },
+  '#10b981': { text: 'text-[#10b981]', bg: 'bg-[#10b981]' },
+  '#FFD700': { text: 'text-[#FFD700]', bg: 'bg-[#FFD700]' },
+  '#ff1744': { text: 'text-[#ff1744]', bg: 'bg-[#ff1744]' },
+  '#dc2626': { text: 'text-[#dc2626]', bg: 'bg-[#dc2626]' },
+  '#059669': { text: 'text-[#059669]', bg: 'bg-[#059669]' },
+  '#6366f1': { text: 'text-[#6366f1]', bg: 'bg-[#6366f1]' },
+  '#64748b': { text: 'text-[#64748b]', bg: 'bg-[#64748b]' },
+  '#db2777': { text: 'text-[#db2777]', bg: 'bg-[#db2777]' },
+  '#be185d': { text: 'text-[#be185d]', bg: 'bg-[#be185d]' },
+  '#059669': { text: 'text-[#059669]', bg: 'bg-[#059669]' },
+  '#4c1d95': { text: 'text-[#4c1d95]', bg: 'bg-[#4c1d95]' },
+  '#c084fc': { text: 'text-[#c084fc]', bg: 'bg-[#c084fc]' },
+  '#a78bfa': { text: 'text-[#a78bfa]', bg: 'bg-[#a78bfa]' },
+  '#818cf8': { text: 'text-[#818cf8]', bg: 'bg-[#818cf8]' },
+  '#4f46e5': { text: 'text-[#4f46e5]', bg: 'bg-[#4f46e5]' },
+  '#fb923c': { text: 'text-[#fb923c]', bg: 'bg-[#fb923c]' },
+  '#4ade80': { text: 'text-[#4ade80]', bg: 'bg-[#4ade80]' },
+  '#84cc16': { text: 'text-[#84cc16]', bg: 'bg-[#84cc16]' },
+  '#b91c1c': { text: 'text-[#b91c1c]', bg: 'bg-[#b91c1c]' },
+  '#14b8a6': { text: 'text-[#14b8a6]', bg: 'bg-[#14b8a6]' },
+  '#0ea5e9': { text: 'text-[#0ea5e9]', bg: 'bg-[#0ea5e9]' },
+  '#f43f5e': { text: 'text-[#f43f5e]', bg: 'bg-[#f43f5e]' },
+  '#e11d48': { text: 'text-[#e11d48]', bg: 'bg-[#e11d48]' },
+  '#0891b2': { text: 'text-[#0891b2]', bg: 'bg-[#0891b2]' },
+  '#a855f7': { text: 'text-[#a855f7]', bg: 'bg-[#a855f7]' },
+  '#7c3aed': { text: 'text-[#7c3aed]', bg: 'bg-[#7c3aed]' },
+  '#6d28d9': { text: 'text-[#6d28d9]', bg: 'bg-[#6d28d9]' },
+  '#5b21b6': { text: 'text-[#5b21b6]', bg: 'bg-[#5b21b6]' },
+  '#9333ea': { text: 'text-[#9333ea]', bg: 'bg-[#9333ea]' },
+  '#f97316': { text: 'text-[#f97316]', bg: 'bg-[#f97316]' },
+};
 
-  const toggleIndicator = useCallback((key: keyof IndicatorSettings) => {
-    onSettingsChange({
+export function IndicatorPanel ( { settings, onSettingsChange, onSave }: IndicatorPanelProps )
+{
+  const [ isOpen, setIsOpen ] = useState( false );
+  const buttonRef = useRef<HTMLButtonElement>( null );
+  const [ position, setPosition ] = useState( { top: 0, right: 16 } );
+
+  useEffect( () =>
+  {
+    if ( isOpen && buttonRef.current )
+    {
+      const rect = buttonRef.current.getBoundingClientRect();
+      setPosition( {
+        top: rect.bottom + 6,
+        right: window.innerWidth - rect.right
+      } );
+    }
+  }, [ isOpen ] );
+
+  const toggleIndicator = useCallback( ( key: keyof IndicatorSettings ) =>
+  {
+    onSettingsChange( {
       ...settings,
-      [key]: !settings[key],
-    });
-  }, [settings, onSettingsChange]);
+      [ key ]: !settings[ key ],
+    } );
+  }, [ settings, onSettingsChange ] );
 
-  const handleSave = () => {
+  const handleSave = () =>
+  {
     // حفظ الإعدادات في localStorage
-    if (typeof window !== "undefined") {
-      localStorage.setItem("indicatorSettings_v7", JSON.stringify(settings)); // v7 - all patterns
+    if ( typeof window !== "undefined" )
+    {
+      localStorage.setItem( "indicatorSettings_v8", JSON.stringify( settings ) ); // v8 - display patterns removed
     }
     onSave?.();
-    setIsOpen(false);
+    setIsOpen( false );
   };
 
   return (
-    <div className="relative">
-      {/* Display Button */}
+    <>
+      {/* Display Button */ }
       <motion.button
-        onClick={() => setIsOpen(!isOpen)}
-        className="flex items-center gap-2 px-3 py-2 bg-primary/20 hover:bg-primary/30 border border-primary/40 rounded-lg text-primary text-sm font-medium transition-colors"
-        whileHover={{ scale: 1.02 }}
-        whileTap={{ scale: 0.98 }}
+        ref={ buttonRef }
+        onClick={ () => setIsOpen( !isOpen ) }
+        className="flex items-center gap-1.5 px-3 py-1.5 bg-white/5 hover:bg-white/10 backdrop-blur-md border border-white/20 rounded-lg text-white/90 hover:text-white text-xs font-medium transition-all shadow-lg"
+        style={ { backdropFilter: 'blur(12px)', background: 'rgba(255, 255, 255, 0.08)' } }
+        whileHover={ { scale: 1.02 } }
+        whileTap={ { scale: 0.98 } }
       >
         <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-          <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 6V4m0 2a2 2 0 100 4m0-4a2 2 0 110 4m-6 8a2 2 0 100-4m0 4a2 2 0 110-4m0 4v2m0-6V4m6 6v10m6-2a2 2 0 100-4m0 4a2 2 0 110-4m0 4v2m0-6V4" />
+          <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={ 2 } d="M12 6V4m0 2a2 2 0 100 4m0-4a2 2 0 110 4m-6 8a2 2 0 100-4m0 4a2 2 0 110-4m0 4v2m0-6V4m6 6v10m6-2a2 2 0 100-4m0 4a2 2 0 110-4m0 4v2m0-6V4" />
         </svg>
         Display
       </motion.button>
 
-      {/* Panel Dropdown */}
-      <AnimatePresence>
-        {isOpen && (
-          <>
-            {/* Backdrop */}
+      {/* Panel Dropdown */ }
+      { isOpen && typeof document !== 'undefined' && createPortal(
+        <>
+          {/* Backdrop - خلفية غير شفافة */ }
+          <motion.div
+            initial={ { opacity: 0 } }
+            animate={ { opacity: 1 } }
+            exit={ { opacity: 0 } }
+            className="fixed inset-0 bg-black/60 backdrop-blur-sm"
+            style={ { zIndex: 9999998 } }
+            onClick={ () => setIsOpen( false ) }
+          />
+          <AnimatePresence mode="wait">
+            {/* Panel */ }
             <motion.div
-              initial={{ opacity: 0 }}
-              animate={{ opacity: 1 }}
-              exit={{ opacity: 0 }}
-              className="fixed inset-0 z-40"
-              onClick={() => setIsOpen(false)}
-            />
-            
-            {/* Panel */}
-            <motion.div
-              initial={{ opacity: 0, y: -10, scale: 0.95 }}
-              animate={{ opacity: 1, y: 0, scale: 1 }}
-              exit={{ opacity: 0, y: -10, scale: 0.95 }}
-              transition={{ type: "spring", stiffness: 300, damping: 30 }}
-              className="absolute top-full right-0 mt-2 z-[100] w-72 border border-white/10 rounded-xl shadow-2xl flex flex-col theme-card"
-              style={{ maxHeight: 'calc(100vh - 200px)' }}
+              initial={ { opacity: 0, y: -8, scale: 0.96 } }
+              animate={ { opacity: 1, y: 0, scale: 1 } }
+              exit={ { opacity: 0, y: -8, scale: 0.96 } }
+              transition={ { type: "spring", stiffness: 350, damping: 25 } }
+              className="fixed w-64 border border-white/10 rounded-xl shadow-2xl flex flex-col overflow-hidden"
+              style={ {
+                zIndex: 9999999,
+                top: position.top,
+                right: position.right,
+                maxHeight: 'min(450px, 80vh)',
+                backgroundColor: '#264a46'
+              } }
             >
-              {/* Header */}
-              <div className="flex-shrink-0 border-b border-white/10 px-4 py-3 flex items-center justify-between theme-header">
+              {/* Header */ }
+              <div className="flex-shrink-0 border-b border-white/10 px-4 py-3 flex items-center justify-between">
                 <h3 className="text-primary font-semibold text-sm">Indicators</h3>
                 <button
                   type="button"
                   aria-label="Close indicators panel"
-                  onClick={() => setIsOpen(false)}
+                  onClick={ () => setIsOpen( false ) }
                   className="text-white/50 hover:text-white transition-colors"
                 >
                   <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M6 18L18 6M6 6l12 12" />
+                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={ 2 } d="M6 18L18 6M6 6l12 12" />
                   </svg>
                 </button>
               </div>
 
-              {/* Scrollable Content */}
-              <div 
-                className="flex-1 overflow-y-auto px-3 py-2"
-                style={{ minHeight: 0 }}
-              >
-                {indicatorGroups.length === 0 ? (
+              {/* Scrollable Content */ }
+              <div className="flex-1 overflow-y-auto px-3 py-2 min-h-0">
+                { indicatorGroups.length === 0 ? (
                   <p className="text-white/50 text-sm text-center py-4">No indicators available</p>
                 ) : (
-                  indicatorGroups.map((group) => (
-                    <div key={group.title} className="mb-3">
-                      <h4 
-                        className="text-xs font-bold uppercase tracking-wider mb-2 pb-1 border-b border-white/10"
-                        style={{ color: group.color || "#22d3ee" }}
+                  indicatorGroups.map( ( group ) => (
+                    <div key={ group.title } className="mb-3">
+                      <h4
+                        className={ `text-xs font-bold uppercase tracking-wider mb-2 pb-1 border-b border-white/10 ${ COLOR_CLASS_MAP[ group.color || '' ]?.text || 'text-cyan-400' }` }
                       >
-                        {group.titleAr}
+                        { group.title }
                       </h4>
                       <div className="flex flex-col">
-                        {group.items.map((item) => {
-                          const isChecked = settings[item.key];
+                        { group.items.map( ( item ) =>
+                        {
+                          const isChecked = settings[ item.key ];
                           return (
                             <div
-                              key={item.key}
-                              onClick={() => toggleIndicator(item.key)}
+                              key={ item.key }
+                              onClick={ () => toggleIndicator( item.key ) }
                               className="flex items-center gap-3 py-1.5 px-2 rounded hover:bg-white/5 cursor-pointer select-none"
                               role="checkbox"
-                              aria-checked={isChecked}
-                              tabIndex={0}
-                              onKeyDown={(e) => {
-                                if (e.key === 'Enter' || e.key === ' ') {
+                              aria-checked={ isChecked ? "true" : "false" }
+                              tabIndex={ 0 }
+                              onKeyDown={ ( e ) =>
+                              {
+                                if ( e.key === 'Enter' || e.key === ' ' )
+                                {
                                   e.preventDefault();
-                                  toggleIndicator(item.key);
+                                  toggleIndicator( item.key );
                                 }
-                              }}
+                              } }
                             >
-                              {/* Color dot on left */}
-                              {item.color && (
-                                <div 
-                                  className="w-2 h-2 rounded-full flex-shrink-0"
-                                  style={{ backgroundColor: item.color }}
+                              {/* Color dot on left */ }
+                              { item.color && (
+                                <div
+                                  className={ `w-2 h-2 rounded-full flex-shrink-0 ${ COLOR_CLASS_MAP[ item.color ]?.bg || 'bg-cyan-400' }` }
                                 />
-                              )}
-                              
-                              {/* Label */}
-                              <span 
-                                className="text-sm flex-1 min-w-0 truncate"
-                                style={{ 
-                                  color: isChecked ? "#fff" : "#9ca3af"
-                                }}
+                              ) }
+
+                              {/* Label */ }
+                              <span
+                                className={ `text-sm flex-1 min-w-0 truncate ${ isChecked ? 'text-white' : 'text-gray-400' }` }
                               >
-                                {item.labelAr}
+                                { item.label }
                               </span>
-                              
-                              {/* Checkbox on right */}
+
+                              {/* Checkbox on right */ }
                               <div
-                                className={`w-5 h-5 rounded border-2 flex items-center justify-center flex-shrink-0 ${
-                                  isChecked
-                                    ? "border-primary bg-primary"
-                                    : "border-white/30"
-                                }`}
+                                className={ `w-5 h-5 rounded border-2 flex items-center justify-center flex-shrink-0 ${ isChecked
+                                  ? "border-primary bg-primary"
+                                  : "border-white/30"
+                                  }` }
                               >
-                                {isChecked && (
+                                { isChecked && (
                                   <svg className="w-3 h-3 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={3} d="M5 13l4 4L19 7" />
+                                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={ 3 } d="M5 13l4 4L19 7" />
                                   </svg>
-                                )}
+                                ) }
                               </div>
                             </div>
                           );
-                        })}
+                        } ) }
                       </div>
                     </div>
-                  ))
-                )}
+                  ) )
+                ) }
               </div>
 
-              {/* Footer - Save Button */}
+              {/* Footer - Save Button */ }
               <div className="flex-shrink-0 border-t border-white/10 px-4 py-3 theme-header">
                 <motion.button
-                  onClick={handleSave}
+                  onClick={ handleSave }
                   className="w-full flex items-center justify-center gap-2 py-2.5 bg-primary hover:bg-primary/90 rounded-lg text-white font-medium text-sm transition-colors"
-                  whileHover={{ scale: 1.01 }}
-                  whileTap={{ scale: 0.99 }}
+                  whileHover={ { scale: 1.01 } }
+                  whileTap={ { scale: 0.99 } }
                 >
                   <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M8 7H5a2 2 0 00-2 2v9a2 2 0 002 2h14a2 2 0 002-2V9a2 2 0 00-2-2h-3m-1 4l-3 3m0 0l-3-3m3 3V4" />
+                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={ 2 } d="M8 7H5a2 2 0 00-2 2v9a2 2 0 002 2h14a2 2 0 002-2V9a2 2 0 00-2-2h-3m-1 4l-3 3m0 0l-3-3m3 3V4" />
                   </svg>
                   Save config
                 </motion.button>
               </div>
             </motion.div>
-          </>
-        )}
-      </AnimatePresence>
-    </div>
+          </AnimatePresence>
+        </>,
+        document.body
+      ) }
+    </>
   );
 }
 
 // Hook to manage indicator settings with localStorage persistence
-export function useIndicatorSettings() {
-  const [settings, setSettings] = useState<IndicatorSettings>(() => {
-    if (typeof window !== "undefined") {
-      const saved = localStorage.getItem("indicatorSettings_v7"); // v7 - all patterns
-      if (saved) {
-        try {
-          return { ...defaultSettings, ...JSON.parse(saved) };
-        } catch {
+export function useIndicatorSettings ()
+{
+  const [ settings, setSettings ] = useState<IndicatorSettings>( () =>
+  {
+    if ( typeof window !== "undefined" )
+    {
+      const saved = localStorage.getItem( "indicatorSettings_v8" ); // v8 - display patterns removed
+      if ( saved )
+      {
+        try
+        {
+          return { ...defaultSettings, ...JSON.parse( saved ) };
+        } catch
+        {
           return defaultSettings;
         }
       }
     }
     return defaultSettings;
-  });
+  } );
 
-  const updateSettings = useCallback((newSettings: IndicatorSettings) => {
-    setSettings(newSettings);
-  }, []);
+  const updateSettings = useCallback( ( newSettings: IndicatorSettings ) =>
+  {
+    setSettings( newSettings );
+  }, [] );
 
-  const saveSettings = useCallback(() => {
-    if (typeof window !== "undefined") {
-      localStorage.setItem("indicatorSettings_v7", JSON.stringify(settings)); // v7 - all patterns
+  const saveSettings = useCallback( () =>
+  {
+    if ( typeof window !== "undefined" )
+    {
+      localStorage.setItem( "indicatorSettings_v8", JSON.stringify( settings ) ); // v8 - display patterns removed
     }
-  }, [settings]);
+  }, [ settings ] );
 
-  const resetSettings = useCallback(() => {
-    setSettings(defaultSettings);
-    if (typeof window !== "undefined") {
-      localStorage.removeItem("indicatorSettings_v2");
+  const resetSettings = useCallback( () =>
+  {
+    setSettings( defaultSettings );
+    if ( typeof window !== "undefined" )
+    {
+      localStorage.removeItem( "indicatorSettings_v8" );
     }
-  }, []);
+  }, [] );
 
   return {
     settings,

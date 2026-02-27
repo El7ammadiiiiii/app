@@ -1,12 +1,12 @@
 "use client";
 
 import React, { useState } from 'react';
+import useTimeout from '@/hooks/useTimeout';
 import { motion, AnimatePresence } from 'framer-motion';
 import { 
   X, 
   Archive, 
   Search, 
-  Filter,
   Loader2,
   AlertCircle,
   MessageSquare,
@@ -21,7 +21,7 @@ import {
 } from 'lucide-react';
 import { useArchive } from '@/hooks/useArchive';
 import { ArchivedChatCard } from './ArchivedChatCard';
-import { ArchivedMessage, ArchiveFilterBy } from '@/types/archive';
+import { ArchiveFilterBy } from '@/types/archive';
 import { cn } from '@/lib/utils';
 
 interface ArchivePanelProps {
@@ -78,9 +78,11 @@ export function ArchivePanel({ isOpen, onClose, userId, onInsertToChat }: Archiv
       setConfirmDelete(null);
     } else {
       setConfirmDelete(chatId);
-      setTimeout(() => setConfirmDelete(null), 3000);
     }
   };
+
+  // Auto-clear confirm delete
+  useTimeout(() => setConfirmDelete(null), confirmDelete ? 3000 : undefined, [confirmDelete]);
 
   // Format date
   const formatMessageDate = (date: Date): string => {
@@ -113,7 +115,7 @@ export function ArchivePanel({ isOpen, onClose, userId, onInsertToChat }: Archiv
             animate={{ opacity: 1 }}
             exit={{ opacity: 0 }}
             onClick={onClose}
-            className="fixed inset-0 bg-black/60 backdrop-blur-sm z-40"
+            className="fixed inset-0 overlay-backdrop z-40"
           />
 
           {/* Panel */}
@@ -122,11 +124,11 @@ export function ArchivePanel({ isOpen, onClose, userId, onInsertToChat }: Archiv
             animate={{ opacity: 1, x: 0 }}
             exit={{ opacity: 0, x: 400 }}
             transition={{ type: "spring", damping: 25, stiffness: 300 }}
-            className="fixed left-0 top-0 bottom-0 w-full max-w-2xl theme-card 
-                       border-r border-border z-50 flex flex-col overflow-hidden shadow-2xl"
+            className="fixed left-0 top-0 bottom-0 w-full max-w-2xl overlay-panel
+                       z-50 flex flex-col overflow-hidden shadow-2xl"
           >
             {/* Header */}
-            <div className="flex items-center justify-between px-6 py-4 border-b border-border theme-card">
+            <div className="flex items-center justify-between px-6 py-4 overlay-header">
               <div className="flex items-center gap-3">
                 <div className="w-10 h-10 rounded-xl bg-gradient-to-br from-amber-500 to-orange-500 
                                flex items-center justify-center">
@@ -143,14 +145,14 @@ export function ArchivePanel({ isOpen, onClose, userId, onInsertToChat }: Archiv
                 <button
                   onClick={refresh}
                   disabled={isLoading}
-                  className="p-2 rounded-lg hover:bg-muted transition-colors"
+                  className="p-2 rounded-lg hover:bg-white/10 transition-colors"
                   title="تحديث"
                 >
                   <Loader2 className={cn("w-5 h-5 text-muted-foreground", isLoading && "animate-spin")} />
                 </button>
                 <button
                   onClick={onClose}
-                  className="p-2 rounded-lg hover:bg-muted transition-colors"
+                  className="p-2 rounded-lg hover:bg-white/10 transition-colors"
                 >
                   <X className="w-5 h-5 text-muted-foreground" />
                 </button>
@@ -167,7 +169,7 @@ export function ArchivePanel({ isOpen, onClose, userId, onInsertToChat }: Archiv
                   value={searchQuery}
                   onChange={(e) => handleSearch(e.target.value)}
                   placeholder="ابحث في الأرشيف..."
-                  className="w-full pr-10 pl-4 py-2.5 rounded-xl bg-muted border border-border 
+                  className="w-full pr-10 pl-4 py-2.5 rounded-xl glass-lite-input
                            text-sm text-foreground placeholder:text-muted-foreground
                            focus:outline-none focus:border-primary/50 focus:ring-2 focus:ring-primary/20"
                   dir="rtl"

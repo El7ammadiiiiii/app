@@ -6,9 +6,9 @@
  * واجهة متقدمة لتصفية نتائج البحث
  * Advanced filtering interface for scan results
  * 
- * @author Nexus Elite Team
- * @version 2.0.0
- * @created 2025-12-14
+ * @author CCWAYS Team
+ * @version 2.1.0
+ * @created 2026-01-19
  */
 
 import React, { useState, useCallback } from 'react';
@@ -46,7 +46,7 @@ export const DEFAULT_FILTER_STATE: FilterState = {
   indicators: ['RSI', 'MACD', 'OBV'],
   types: ['strong', 'medium', 'weak', 'hidden'],
   directions: ['bullish', 'bearish'],
-  exchanges: ['binance'],
+  exchanges: ['bybit', 'coinbase'],
   pairs: DEFAULT_PAIRS.slice(0, 20),
   timeframes: DEFAULT_TIMEFRAMES,
   minScore: 60,
@@ -77,12 +77,12 @@ export function DivergenceFilters({
   favoritesCount
 }: DivergenceFiltersProps) {
   const [expandedSections, setExpandedSections] = useState<Record<string, boolean>>({
-    indicators: true,
-    types: true,
-    directions: true,
+    indicators: false,
+    types: false,
+    directions: false,
     exchanges: false,
     pairs: false,
-    timeframes: true
+    timeframes: false
   });
 
   // Toggle section expansion
@@ -130,43 +130,21 @@ export function DivergenceFilters({
   }, [updateFilter]);
 
   return (
-    <div className="rounded-xl overflow-hidden border border-white/[0.08]" style={{ background: 'rgba(0, 22, 46, 0.5)' }}>
-      {/* Header */}
-      <div className="px-4 py-3 border-b border-white/[0.08] flex items-center justify-between">
+    <div className="rounded-xl overflow-hidden bg-transparent">
+      {/* Header - Hidden in mobile dropdown as it has its own header */}
+      <div className="hidden lg:flex px-4 py-3 border-b border-white/[0.08] items-center justify-between">
         <h3 className="text-sm font-semibold text-white">
           الفلاتر
         </h3>
         <div className="flex items-center gap-2 text-xs text-gray-400">
-          <span>{resultsCount} نتيجة</span>
           {favoritesCount > 0 && (
             <span className="text-yellow-500">★ {favoritesCount}</span>
           )}
         </div>
       </div>
 
-      {/* Scan Controls */}
-      <div className="p-3 border-b border-white/[0.08]">
-        <button
-          onClick={isScanning ? onStopScan : onStartScan}
-          className={`w-full py-2.5 rounded-lg font-medium text-sm transition-all ${
-            isScanning
-              ? 'bg-red-500/20 text-red-400 hover:bg-red-500/30 border border-red-500/50'
-              : 'bg-cyan-500/20 text-cyan-400 hover:bg-cyan-500/30 border border-cyan-500/50'
-          }`}
-        >
-          {isScanning ? (
-            <span className="flex items-center justify-center gap-2">
-              <span className="w-4 h-4 border-2 border-red-400/30 border-t-red-400 rounded-full animate-spin" />
-              إيقاف الفحص
-            </span>
-          ) : (
-            'بدء الفحص'
-          )}
-        </button>
-      </div>
-
       {/* Filter Sections */}
-      <div className="max-h-[calc(100vh-300px)] overflow-y-auto">
+      <div className="lg:max-h-[calc(100vh-300px)] overflow-y-auto">
         
         {/* Indicators */}
         <FilterSection
@@ -331,12 +309,14 @@ export function DivergenceFilters({
         <div className="p-3 border-t border-white/[0.08]">
           <label className="flex items-center gap-2 cursor-pointer">
             <input
+              id="favorites-only-checkbox"
+              name="favorites-only"
               type="checkbox"
               checked={filters.showFavoritesOnly}
               onChange={(e) => updateFilter('showFavoritesOnly', e.target.checked)}
               className="w-4 h-4 rounded border-gray-600 bg-white/[0.08] text-yellow-500 focus:ring-yellow-500/50"
             />
-            <span className="text-sm text-gray-300">المفضلة فقط</span>
+            <span className="text-sm text-gray-300">المنفذة فقط</span>
             {favoritesCount > 0 && (
               <span className="text-xs text-yellow-500">({favoritesCount})</span>
             )}

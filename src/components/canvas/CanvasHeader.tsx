@@ -1,118 +1,252 @@
-import { useState } from 'react';
-import { useCanvasStore } from '@/store/canvasStore';
-import { ChevronLeft, ChevronRight, X, Copy, Check, Share2, Link as LinkIcon } from 'lucide-react';
-import { cn } from '@/lib/utils';
+import { useState, useEffect, useCallback } from 'react';
+import useTimeout from '@/hooks/useTimeout';
+import { useCanvasStore, CANVAS_TYPE_META } from '@/store/canvasStore';
+import { ChevronLeft, ChevronRight, X, Copy, Check, Download, ArrowRight, Share2, Link2 } from 'lucide-react';
 import { Button } from '@/components/ui/button';
+import { ExportMenu } from './ExportMenu';
+import { useCollaborativeCanvas } from '@/hooks/useCollaborativeCanvas';
+import { CollabPresenceAvatars } from './CollabPresenceAvatars';
 
-export function CanvasHeader() {
-  const { title, versions, currentVersionIndex, setVersion, closeCanvas } = useCanvasStore();
-  const currentVersion = versions[currentVersionIndex];
-  
-  const [isShareOpen, setIsShareOpen] = useState(false);
-  const [copied, setCopied] = useState(false);
-  const [linkCopied, setLinkCopied] = useState(false);
+export function CanvasHeader ()
+{
+  const { title, type, versions, currentVersionIndex, setVersion, closeCanvas, isStreaming } = useCanvasStore();
+  const currentVersion = versions[ currentVersionIndex ];
+  const meta = CANVAS_TYPE_META[ type ];
 
-  const handleCopyContent = async () => {
-    if (currentVersion?.content) {
-      await navigator.clipboard.writeText(currentVersion.content);
-      setCopied(true);
-      setTimeout(() => setCopied(false), 2000);
+  const [ isExportOpen, setIsExportOpen ] = useState( false );
+  const [ copied, setCopied ] = useState( false );
+  const [ showCloseConfirm, setShowCloseConfirm ] = useState( false );
+  const [ shareUrl, setShareUrl ] = useState<string | null>( null );
+  const [ isPublishing, setIsPublishing ] = useState( false );
+
+  // Wave 6.5: Collaborative editing presence
+  const { peers, isConnected } = useCollaborativeCanvas();
+
+  // Track unsaved changes — compare current content to last saved
+  const activeArtifactId = useCanvasStore( s => s.activeArtifactId );
+  const artifacts = useCanvasStore( s => s.artifacts );
+  const savedContent = artifacts.find( a => a.id === activeArtifactId )?.content || '';
+  const currentContent = currentVersion?.content || '';
+  const isDirty = currentContent !== savedContent && currentContent.length > 0;
+
+  const handleCopyContent = async () =>
+  {
+    if ( currentVersion?.content )
+    {
+      await navigator.clipboard.writeText( currentVersion.content );
+      setCopied( true );
     }
   };
+  useTimeout( () => setCopied( false ), copied ? 2000 : undefined, [ copied ] );
 
-  // Generate a simulated public link
-  const shareUrl = `https://nexus.ai/share/${title.toLowerCase().replace(/\s+/g, '-')}-${currentVersion?.version || 1}`;
+  // Close with unsaved changes check
+  const handleClose = useCallback( () =>
+  {
+    if ( isDirty && !isStreaming )
+    {
+      setShowCloseConfirm( true );
+    } else
+    {
+      closeCanvas();
+    }
+  }, [ isDirty, isStreaming, closeCanvas ] );
 
-  const handleCopyLink = async () => {
-    await navigator.clipboard.writeText(shareUrl);
-    setLinkCopied(true);
-    setTimeout(() => setLinkCopied(false), 2000);
-  };
+  // Wave 5.4: Publish & Share handler
+  const handlePublish = useCallback( async () =>
+  {
+    if ( !currentContent || isPublishing ) return;
+    setIsPublishing( true );
+    try
+    {
+      const res = await fetch( '/api/canvas/publish', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify( { title, type, language: 'markdown', content: currentContent } ),
+      } );
+      const data = await res.json();
+      if ( data.url )
+      {
+        const fullUrl = `${ window.location.origin }${ data.url }`;
+        setShareUrl( fullUrl );
+        await navigator.clipboard.writeText( fullUrl );
+      }
+    } catch ( e )
+    {
+      console.error( 'Publish failed:', e );
+    }
+    setIsPublishing( false );
+  }, [ currentContent, isPublishing, title, type ] );
+
+  // Keyboard shortcuts: Escape to close, Ctrl+S to copy
+  useEffect( () =>
+  {
+    const handleKeyDown = ( e: KeyboardEvent ) =>
+    {
+      // Escape — close canvas
+      if ( e.key === 'Escape' )
+      {
+        e.preventDefault();
+        handleClose();
+      }
+      // Ctrl+S / Cmd+S — copy content (prevent browser save)
+      if ( ( e.ctrlKey || e.metaKey ) && e.key === 's' )
+      {
+        e.preventDefault();
+        handleCopyContent();
+      }
+    };
+    window.addEventListener( 'keydown', handleKeyDown );
+    return () => window.removeEventListener( 'keydown', handleKeyDown );
+  }, [ handleClose ] );
 
   return (
     <>
-      <div className="flex items-center justify-between p-3 border-b border-border bg-background/95 backdrop-blur supports-[backdrop-filter]:bg-background/60 h-14">
+      <div role="toolbar" aria-label="شريط أدوات اللوحة" className="flex items-center justify-between p-3 h-14 border-b border-white/[0.06] glass-lite glass-lite--sheen relative z-10">
         <div className="flex items-center gap-4">
           <div className="flex flex-col">
-            <h2 className="font-semibold text-sm">{title}</h2>
-            {currentVersion && (
-              <span className="text-[10px] text-muted-foreground">
-                {new Date(currentVersion.timestamp).toLocaleTimeString()}
+            <div className="flex items-center gap-2">
+              <h2 className="font-semibold text-sm">{ title }</h2>
+              <span
+                className="text-[10px] font-semibold px-2 py-0.5 rounded-md border"
+                style={ {
+                  color: meta?.color || '#2dd4bf',
+                  borderColor: `${ meta?.color || '#2dd4bf' }30`,
+                  backgroundColor: `${ meta?.color || '#2dd4bf' }10`,
+                } }
+              >
+                { meta?.label || type }
               </span>
-            )}
-          </div>
-          
-          {versions.length > 0 && (
-            <div className="flex items-center gap-1 bg-muted/50 rounded-lg p-0.5 border border-border/50">
-               <button 
-                 disabled={currentVersionIndex >= versions.length - 1} 
-                 onClick={() => setVersion(currentVersionIndex + 1)}
-                 className="p-1 hover:bg-background rounded-md disabled:opacity-30 transition-colors"
-               >
-                 <ChevronRight className="w-3.5 h-3.5" />
-               </button>
-               <span className="text-[11px] font-mono px-2 min-w-[2rem] text-center">
-                 v{currentVersion?.version}
-               </span>
-               <button 
-                 disabled={currentVersionIndex <= 0} 
-                 onClick={() => setVersion(currentVersionIndex - 1)}
-                 className="p-1 hover:bg-background rounded-md disabled:opacity-30 transition-colors"
-               >
-                 <ChevronLeft className="w-3.5 h-3.5" />
-               </button>
             </div>
-          )}
+            { currentVersion && (
+              <span className="text-[10px] text-muted-foreground">
+                { new Date( currentVersion.timestamp ).toLocaleTimeString() }
+              </span>
+            ) }
+          </div>
+
+          { versions.length > 0 && (
+            <div className="flex items-center gap-1 rounded-lg p-0.5 glass-lite glass-lite--sheen">
+              <button
+                disabled={ currentVersionIndex >= versions.length - 1 }
+                onClick={ () => setVersion( currentVersionIndex + 1 ) }
+                className="p-1 hover:bg-white/10 rounded-md disabled:opacity-30 transition-colors"
+                aria-label="الإصدار السابق"
+              >
+                <ChevronRight className="w-3.5 h-3.5" />
+              </button>
+              <span className="text-[11px] font-mono px-2 min-w-[2rem] text-center">
+                v{ currentVersion?.version }
+              </span>
+              <button
+                disabled={ currentVersionIndex <= 0 }
+                onClick={ () => setVersion( currentVersionIndex - 1 ) }
+                className="p-1 hover:bg-white/10 rounded-md disabled:opacity-30 transition-colors"
+                aria-label="الإصدار التالي"
+              >
+                <ChevronLeft className="w-3.5 h-3.5" />
+              </button>
+            </div>
+          ) }
         </div>
-        
+
         <div className="flex items-center gap-2">
-          <button 
-            onClick={() => setIsShareOpen(true)}
-            className="p-2 hover:bg-muted rounded-lg transition-colors text-muted-foreground hover:text-foreground"
-            title="Share"
+          {/* Wave 6.5: Collab presence avatars */}
+          <CollabPresenceAvatars peers={ peers } isConnected={ isConnected } />
+
+          {/* Mobile: back to chat button */}
+          <button
+            onClick={ handleClose }
+            className="p-2 hover:bg-muted rounded-lg transition-colors text-muted-foreground hover:text-foreground md:hidden"
+            title="العودة للشات"
           >
-            <Share2 className="w-4 h-4" />
+            <ArrowRight className="w-4 h-4" />
           </button>
-          <button onClick={closeCanvas} className="p-2 hover:bg-destructive/10 hover:text-destructive rounded-lg transition-colors">
+
+          {/* Wave 5.4: Share / Publish */}
+          <button
+            onClick={ handlePublish }
+            disabled={ isPublishing || !currentContent }
+            className="p-2 hover:bg-muted rounded-lg transition-colors text-muted-foreground hover:text-foreground disabled:opacity-30"
+            title={ shareUrl ? 'تم النسخ!' : 'مشاركة' }
+          >
+            { shareUrl ? <Link2 className="w-4 h-4 text-teal-400" /> : <Share2 className="w-4 h-4" /> }
+          </button>
+
+          {/* Export */}
+          <div className="relative">
+            <button
+              onClick={ () => setIsExportOpen( !isExportOpen ) }
+              className="p-2 hover:bg-muted rounded-lg transition-colors text-muted-foreground hover:text-foreground"
+              title="تصدير"
+            >
+              <Download className="w-4 h-4" />
+            </button>
+            { isExportOpen && (
+              <>
+                <div
+                  className="fixed inset-0 z-40"
+                  onClick={ () => setIsExportOpen( false ) }
+                />
+                <ExportMenu onClose={ () => setIsExportOpen( false ) } />
+              </>
+            ) }
+          </div>
+
+          {/* Copy Content */}
+          <button
+            onClick={ handleCopyContent }
+            className="p-2 hover:bg-muted rounded-lg transition-colors text-muted-foreground hover:text-foreground"
+            title="نسخ المحتوى (Ctrl+S)"
+          >
+            { copied ? <Check className="w-4 h-4 text-green-400" /> : <Copy className="w-4 h-4" /> }
+          </button>
+
+          {/* Close */}
+          <button onClick={ handleClose } aria-label="إغلاق اللوحة" className="p-2 hover:bg-destructive/10 hover:text-destructive rounded-lg transition-colors">
             <X className="w-4 h-4" />
           </button>
         </div>
       </div>
 
-      {isShareOpen && (
-        <div className="fixed inset-0 z-50 flex items-center justify-center bg-black/50 backdrop-blur-sm p-4">
-          <div className="w-full max-w-md bg-background border border-border rounded-xl shadow-2xl p-6 space-y-6 animate-in fade-in zoom-in-95 duration-200">
-            <div className="flex items-center justify-between">
-              <h3 className="text-lg font-semibold">Share Canvas</h3>
-              <button onClick={() => setIsShareOpen(false)} className="p-1 hover:bg-muted rounded-md transition-colors">
-                <X className="w-4 h-4" />
-              </button>
+      {/* Unsaved Changes Confirmation */}
+      { showCloseConfirm && (
+        <div className="fixed inset-0 z-50 flex items-center justify-center overlay-backdrop p-4">
+          <div className="w-full max-w-sm overlay-modal rounded-xl shadow-2xl p-6 space-y-4 animate-in fade-in zoom-in-95 duration-200">
+            <h3 className="text-base font-semibold text-center">هل تريد حفظ التغييرات؟</h3>
+            <p className="text-sm text-muted-foreground text-center">
+              لديك تغييرات غير محفوظة في هذا الـ Canvas
+            </p>
+            <div className="flex gap-2">
+              <Button
+                variant="outline"
+                className="flex-1"
+                onClick={ () => { setShowCloseConfirm( false ); closeCanvas( true ); } }
+              >
+                إغلاق بدون حفظ
+              </Button>
+              <Button
+                className="flex-1 bg-teal-600 hover:bg-teal-500"
+                onClick={ () => {
+                  setShowCloseConfirm( false );
+                  // Explicitly save current content before closing
+                  if ( activeArtifactId && currentContent ) {
+                    useCanvasStore.getState().updateArtifact( activeArtifactId, currentContent );
+                  }
+                  closeCanvas();
+                } }
+              >
+                حفظ وإغلاق
+              </Button>
             </div>
-
-            <div className="space-y-4">
-              <div className="space-y-2">
-                <label className="text-sm font-medium text-muted-foreground">Public Link</label>
-                <div className="flex gap-2">
-                  <div className="flex-1 h-9 px-3 py-1 rounded-md border border-input bg-muted/50 text-sm flex items-center text-muted-foreground truncate select-all">
-                    {shareUrl}
-                  </div>
-                  <Button size="sm" variant="outline" onClick={handleCopyLink} className="shrink-0">
-                    {linkCopied ? <Check className="w-3.5 h-3.5 mr-1.5" /> : <LinkIcon className="w-3.5 h-3.5 mr-1.5" />}
-                    {linkCopied ? 'Copied' : 'Copy'}
-                  </Button>
-                </div>
-              </div>
-
-              <div className="pt-2 border-t border-border">
-                 <Button className="w-full" onClick={handleCopyContent}>
-                    {copied ? <Check className="w-4 h-4 mr-2" /> : <Copy className="w-4 h-4 mr-2" />}
-                    {copied ? 'Content Copied' : 'Copy Content to Clipboard'}
-                 </Button>
-              </div>
-            </div>
+            <button
+              onClick={ () => setShowCloseConfirm( false ) }
+              className="w-full text-sm text-muted-foreground hover:text-foreground transition-colors text-center"
+            >
+              إلغاء
+            </button>
           </div>
         </div>
-      )}
+      ) }
     </>
   );
 }

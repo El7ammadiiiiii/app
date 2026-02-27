@@ -7,5 +7,6 @@ export default function AppSectionLayout({
 }: {
   children: React.ReactNode;
 }) {
+  // Layout wrapper for chat section
   return <AppLayout>{children}</AppLayout>;
 }

@@ -441,5 +441,6 @@ curl http://localhost:8000/health
 
 ---
 
-**Documentation:** http://localhost:8000/docs  
+**Documentation:** <http://localhost:8000/docs>
+
 **Support:** Create issue in repository

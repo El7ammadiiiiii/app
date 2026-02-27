@@ -6,7 +6,7 @@
  * sequential candle patterns and volume.
  */
 
-import { CandleData } from "@/components/charts/TradingChart";
+import type { CandleData } from "@/components/charts/types";
 
 export interface PsychologicalZone {
   startTime: number;

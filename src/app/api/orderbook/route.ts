@@ -4,13 +4,12 @@ import { NextRequest, NextResponse } from "next/server";
  * Multi-Exchange Order Book API
  * واجهة برمجة تطبيقات دفتر الأوامر من منصات متعددة
  * 
- * Supported: Binance, Bybit, MEXC, Coinbase, KuCoin, OKX,
+ * Supported: Bybit, MEXC, Coinbase, KuCoin, OKX,
  *            Bitget, BingX, Phemex, HTX, Gate.io, Crypto.com, Kraken
  */
 
 // Exchange API URLs
 const EXCHANGE_APIS = {
-  binance: "https://api.binance.com/api/v3",
   bybit: "https://api.bybit.com/v5",
   mexc: "https://api.mexc.com/api/v3",
   coinbase: "https://api.exchange.coinbase.com",
@@ -30,7 +29,6 @@ function formatSymbol(symbol: string, exchange: string): string {
   const base = symbol.replace("USDT", "");
   switch (exchange) {
     case "bybit":
-    case "binance":
     case "mexc":
     case "bingx":
       return symbol; // BTCUSDT
@@ -75,30 +73,6 @@ const CACHE_DURATION = 5 * 1000; // 5 seconds for order book
 // ============================================================================
 // FETCH FUNCTIONS FOR EACH EXCHANGE
 // ============================================================================
-
-async function fetchBinanceOrderBook(
-  symbol: string,
-  limit: number
-): Promise<OrderBookData> {
-  const url = `${EXCHANGE_APIS.binance}/depth?symbol=${symbol}&limit=${limit}`;
-  const response = await fetch(url);
-  const data = await response.json();
-
-  return {
-    symbol,
-    exchange: "binance",
-    timestamp: Date.now(),
-    bids: data.bids?.map((b: [string, string]) => ({
-      price: parseFloat(b[0]),
-      quantity: parseFloat(b[1])
-    })) || [],
-    asks: data.asks?.map((a: [string, string]) => ({
-      price: parseFloat(a[0]),
-      quantity: parseFloat(a[1])
-    })) || [],
-    lastUpdateId: data.lastUpdateId
-  };
-}
 
 async function fetchBybitOrderBook(
   symbol: string,
@@ -398,7 +372,7 @@ export async function GET(request: NextRequest) {
     
     const symbol = searchParams.get("symbol")?.toUpperCase() || "BTCUSDT";
     const limit = Math.min(parseInt(searchParams.get("limit") || "100"), 500);
-    const exchange = (searchParams.get("exchange") || "binance").toLowerCase();
+    const exchange = (searchParams.get("exchange") || "bybit").toLowerCase();
     
     if (!Object.keys(EXCHANGE_APIS).includes(exchange)) {
       return NextResponse.json(
@@ -419,9 +393,6 @@ export async function GET(request: NextRequest) {
 
     // Fetch from appropriate exchange
     switch (exchange) {
-      case "binance":
-        orderBook = await fetchBinanceOrderBook(formattedSymbol, limit);
-        break;
       case "bybit":
         orderBook = await fetchBybitOrderBook(formattedSymbol, limit);
         break;

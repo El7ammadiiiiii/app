@@ -10,7 +10,7 @@
  * - Linear regression on 5 segment extremes
  */
 
-import { CandleData } from "@/components/charts/TradingChart";
+import type { CandleData } from "@/components/charts/types";
 
 export interface TrendLineMethodsConfig {
   // Method 1: Pivot Span

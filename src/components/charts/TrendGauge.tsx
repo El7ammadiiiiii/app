@@ -3,7 +3,39 @@
 import { motion } from "framer-motion";
 import { useMemo } from "react";
 
-interface TrendGaugeProps {
+const WIDTH_CLASSES = [
+  "w-0",
+  "w-[5%]",
+  "w-[10%]",
+  "w-[15%]",
+  "w-[20%]",
+  "w-[25%]",
+  "w-[30%]",
+  "w-[35%]",
+  "w-[40%]",
+  "w-[45%]",
+  "w-[50%]",
+  "w-[55%]",
+  "w-[60%]",
+  "w-[65%]",
+  "w-[70%]",
+  "w-[75%]",
+  "w-[80%]",
+  "w-[85%]",
+  "w-[90%]",
+  "w-[95%]",
+  "w-full",
+];
+
+const getWidthClass = ( percent: number ) =>
+{
+  const clamped = Math.min( 100, Math.max( 0, percent ) );
+  const index = Math.min( 20, Math.max( 0, Math.round( clamped / 5 ) ) );
+  return WIDTH_CLASSES[ index ];
+};
+
+interface TrendGaugeProps
+{
   bullishPercent: number; // 0-100
   bearishPercent: number; // 0-100
   size?: "sm" | "md" | "lg";
@@ -15,28 +47,31 @@ interface TrendGaugeProps {
  * TrendGauge Component
  * مكون مقياس الاتجاه - يعرض نسبة الصعود والهبوط
  */
-export function TrendGauge({
+export function TrendGauge ( {
   bullishPercent,
   bearishPercent,
   size = "md",
   showLabels = true,
   animated = true,
-}: TrendGaugeProps) {
-  const sizeConfig = useMemo(() => {
-    switch (size) {
+}: TrendGaugeProps )
+{
+  const sizeConfig = useMemo( () =>
+  {
+    switch ( size )
+    {
       case "sm":
-        return { height: 6, gap: 1, fontSize: "text-xs" };
+        return { heightClass: "h-1.5", gapClass: "gap-[1px]", fontSize: "text-xs" };
       case "lg":
-        return { height: 12, gap: 2, fontSize: "text-base" };
+        return { heightClass: "h-3", gapClass: "gap-0.5", fontSize: "text-base" };
       default:
-        return { height: 8, gap: 1.5, fontSize: "text-sm" };
+        return { heightClass: "h-2", gapClass: "gap-[1.5px]", fontSize: "text-sm" };
     }
-  }, [size]);
+  }, [ size ] );
 
   // Normalize percentages
   const total = bullishPercent + bearishPercent;
-  const normalizedBullish = total > 0 ? (bullishPercent / total) * 100 : 50;
-  const normalizedBearish = total > 0 ? (bearishPercent / total) * 100 : 50;
+  const normalizedBullish = total > 0 ? ( bullishPercent / total ) * 100 : 50;
+  const normalizedBearish = total > 0 ? ( bearishPercent / total ) * 100 : 50;
 
   // Determine dominant trend
   const dominantTrend = normalizedBullish > normalizedBearish ? "bullish" : normalizedBearish > normalizedBullish ? "bearish" : "neutral";
@@ -45,59 +80,55 @@ export function TrendGauge({
 
   return (
     <div className="flex flex-col w-full">
-      {showLabels && (
-        <div className={`flex justify-between mb-1 ${sizeConfig.fontSize}`}>
+      { showLabels && (
+        <div className={ `flex justify-between mb-1 ${ sizeConfig.fontSize }` }>
           <span className="text-[#186d48] font-medium">
-            {normalizedBullish.toFixed(0)}%
+            { normalizedBullish.toFixed( 0 ) }%
           </span>
           <span className="text-[#a9203e] font-medium">
-            {normalizedBearish.toFixed(0)}%
+            { normalizedBearish.toFixed( 0 ) }%
           </span>
         </div>
-      )}
-      
-      <div 
-        className="flex w-full rounded-full overflow-hidden bg-gray-300 dark:bg-gray-700"
-        style={{ height: sizeConfig.height, gap: sizeConfig.gap }}
+      ) }
+
+      <div
+        className={ `flex w-full rounded-full overflow-hidden bg-gray-300 dark:bg-gray-700 ${ sizeConfig.heightClass } ${ sizeConfig.gapClass }` }
       >
-        {/* Bullish Bar */}
+        {/* Bullish Bar */ }
         <BarComponent
-          className="bg-gradient-to-r from-[#186d48] to-[#1a7d52] rounded-l-full"
-          style={{ width: `${normalizedBullish}%` }}
-          {...(animated && {
+          className={ `bg-gradient-to-r from-[#186d48] to-[#1a7d52] rounded-l-full ${ getWidthClass( normalizedBullish ) }` }
+          { ...( animated && {
             initial: { width: 0 },
-            animate: { width: `${normalizedBullish}%` },
+            animate: { width: `${ normalizedBullish }%` },
             transition: { duration: 0.8, ease: "easeOut" }
-          })}
+          } ) }
         />
-        
-        {/* Bearish Bar */}
+
+        {/* Bearish Bar */ }
         <BarComponent
-          className="bg-gradient-to-r from-[#a9203e] to-[#c02848] rounded-r-full"
-          style={{ width: `${normalizedBearish}%` }}
-          {...(animated && {
+          className={ `bg-gradient-to-r from-[#a9203e] to-[#c02848] rounded-r-full ${ getWidthClass( normalizedBearish ) }` }
+          { ...( animated && {
             initial: { width: 0 },
-            animate: { width: `${normalizedBearish}%` },
+            animate: { width: `${ normalizedBearish }%` },
             transition: { duration: 0.8, ease: "easeOut", delay: 0.1 }
-          })}
+          } ) }
         />
       </div>
-      
-      {showLabels && (
-        <div className={`flex justify-center mt-1 ${sizeConfig.fontSize}`}>
-          <span className={`font-bold ${
-            dominantTrend === "bullish" 
-              ? "text-[#186d48]" 
-              : dominantTrend === "bearish" 
-                ? "text-[#a9203e]" 
+
+      { showLabels && (
+        <div className={ `flex justify-center mt-1 ${ sizeConfig.fontSize }` }>
+          <span className={ `font-bold ${ dominantTrend === "bullish"
+              ? "text-[#186d48]"
+              : dominantTrend === "bearish"
+                ? "text-[#a9203e]"
                 : "text-black/60 dark:text-gray-400"
-          }`}>
-            {dominantTrend === "bullish" && "صعودي 📈"}
-            {dominantTrend === "bearish" && "هبوطي 📉"}
-            {dominantTrend === "neutral" && "محايد ⚖️"}
+            }` }>
+            { dominantTrend === "bullish" && "صعودي 📈" }
+            { dominantTrend === "bearish" && "هبوطي 📉" }
+            { dominantTrend === "neutral" && "محايد ⚖️" }
           </span>
         </div>
-      )}
+      ) }
     </div>
   );
 }
@@ -105,36 +136,36 @@ export function TrendGauge({
 /**
  * TrendGaugeCompact - نسخة مضغوطة للجداول
  */
-export function TrendGaugeCompact({
+export function TrendGaugeCompact ( {
   bullishPercent,
   bearishPercent,
 }: {
   bullishPercent: number;
   bearishPercent: number;
-}) {
+} )
+{
   const total = bullishPercent + bearishPercent;
-  const normalizedBullish = total > 0 ? (bullishPercent / total) * 100 : 50;
-  
+  const normalizedBullish = total > 0 ? ( bullishPercent / total ) * 100 : 50;
+
   return (
     <div className="flex items-center gap-2 min-w-[120px]">
       <div className="flex w-full h-2 rounded-full overflow-hidden bg-gray-300 dark:bg-gray-700">
         <motion.div
-          className="bg-[#186d48]"
-          initial={{ width: 0 }}
-          animate={{ width: `${normalizedBullish}%` }}
-          transition={{ duration: 0.5 }}
+          className={ `bg-[#186d48] ${ getWidthClass( normalizedBullish ) }` }
+          initial={ { width: 0 } }
+          animate={ { width: `${ normalizedBullish }%` } }
+          transition={ { duration: 0.5 } }
         />
         <motion.div
-          className="bg-[#a9203e]"
-          initial={{ width: 0 }}
-          animate={{ width: `${100 - normalizedBullish}%` }}
-          transition={{ duration: 0.5, delay: 0.05 }}
+          className={ `bg-[#a9203e] ${ getWidthClass( 100 - normalizedBullish ) }` }
+          initial={ { width: 0 } }
+          animate={ { width: `${ 100 - normalizedBullish }%` } }
+          transition={ { duration: 0.5, delay: 0.05 } }
         />
       </div>
-      <span className={`text-xs font-bold min-w-[40px] text-right ${
-        normalizedBullish >= 50 ? "text-[#186d48]" : "text-[#a9203e]"
-      }`}>
-        {normalizedBullish.toFixed(0)}%
+      <span className={ `text-xs font-bold min-w-[40px] text-right ${ normalizedBullish >= 50 ? "text-[#186d48]" : "text-[#a9203e]"
+        }` }>
+        { normalizedBullish.toFixed( 0 ) }%
       </span>
     </div>
   );
@@ -143,7 +174,7 @@ export function TrendGaugeCompact({
 /**
  * MultiTimeframeTrendGauge - مقياس متعدد الأطر الزمنية
  */
-export function MultiTimeframeTrendGauge({
+export function MultiTimeframeTrendGauge ( {
   timeframes,
 }: {
   timeframes: {
@@ -151,22 +182,23 @@ export function MultiTimeframeTrendGauge({
     bullish: number;
     bearish: number;
   }[];
-}) {
+} )
+{
   return (
     <div className="flex flex-col gap-2 w-full">
-      {timeframes.map((tf, idx) => (
-        <div key={idx} className="flex items-center gap-3">
+      { timeframes.map( ( tf, idx ) => (
+        <div key={ idx } className="flex items-center gap-3">
           <span className="text-xs text-black/60 dark:text-gray-400 w-12 text-right">
-            {tf.label}
+            { tf.label }
           </span>
           <div className="flex-1">
             <TrendGaugeCompact
-              bullishPercent={tf.bullish}
-              bearishPercent={tf.bearish}
+              bullishPercent={ tf.bullish }
+              bearishPercent={ tf.bearish }
             />
           </div>
         </div>
-      ))}
+      ) ) }
     </div>
   );
 }
@@ -174,7 +206,7 @@ export function MultiTimeframeTrendGauge({
 /**
  * IndicatorSignalBadge - شارة إشارة المؤشر
  */
-export function IndicatorSignalBadge({
+export function IndicatorSignalBadge ( {
   signal,
   strength,
   indicatorName,
@@ -182,9 +214,12 @@ export function IndicatorSignalBadge({
   signal: "bullish" | "bearish" | "neutral";
   strength: number;
   indicatorName: string;
-}) {
-  const getSignalConfig = () => {
-    switch (signal) {
+} )
+{
+  const getSignalConfig = () =>
+  {
+    switch ( signal )
+    {
       case "bullish":
         return {
           bg: "bg-[#186d48]/20",
@@ -213,19 +248,19 @@ export function IndicatorSignalBadge({
 
   return (
     <motion.div
-      initial={{ scale: 0.8, opacity: 0 }}
-      animate={{ scale: 1, opacity: 1 }}
-      className={`
+      initial={ { scale: 0.8, opacity: 0 } }
+      animate={ { scale: 1, opacity: 1 } }
+      className={ `
         inline-flex items-center gap-1 px-2 py-1 rounded-full
-        ${config.bg} border ${config.border}
+        ${ config.bg } border ${ config.border }
       `}
     >
-      <span className={`text-xs font-bold ${config.text}`}>
-        {config.icon}
+      <span className={ `text-xs font-bold ${ config.text }` }>
+        { config.icon }
       </span>
-      <span className="text-xs text-black/70 dark:text-gray-300">{indicatorName}</span>
-      <span className={`text-xs font-bold ${config.text}`}>
-        {strength.toFixed(0)}%
+      <span className="text-xs text-black/70 dark:text-gray-300">{ indicatorName }</span>
+      <span className={ `text-xs font-bold ${ config.text }` }>
+        { strength.toFixed( 0 ) }%
       </span>
     </motion.div>
   );
@@ -234,7 +269,7 @@ export function IndicatorSignalBadge({
 /**
  * TrendSummaryCard - بطاقة ملخص الاتجاه
  */
-export function TrendSummaryCard({
+export function TrendSummaryCard ( {
   symbol,
   bullishScore,
   bearishScore,
@@ -248,38 +283,39 @@ export function TrendSummaryCard({
     signal: "bullish" | "bearish" | "neutral";
     strength: number;
   }[];
-}) {
+} )
+{
   const overallTrend = bullishScore > bearishScore ? "صعودي" : bullishScore < bearishScore ? "هبوطي" : "محايد";
   const trendColor = bullishScore > bearishScore ? "text-[#186d48]" : bullishScore < bearishScore ? "text-[#a9203e]" : "text-black/60 dark:text-gray-400";
 
   return (
     <motion.div
-      initial={{ opacity: 0, y: 20 }}
-      animate={{ opacity: 1, y: 0 }}
+      initial={ { opacity: 0, y: 20 } }
+      animate={ { opacity: 1, y: 0 } }
       className="bg-gray-100 dark:bg-gray-900/50 border border-gray-300 dark:border-gray-700 rounded-xl p-4"
     >
       <div className="flex justify-between items-center mb-4">
-        <h3 className="text-lg font-bold text-black dark:text-white">{symbol}</h3>
-        <span className={`text-xl font-bold ${trendColor}`}>
-          {overallTrend}
+        <h3 className="text-lg font-bold text-black dark:text-white">{ symbol }</h3>
+        <span className={ `text-xl font-bold ${ trendColor }` }>
+          { overallTrend }
         </span>
       </div>
 
       <TrendGauge
-        bullishPercent={bullishScore}
-        bearishPercent={bearishScore}
+        bullishPercent={ bullishScore }
+        bearishPercent={ bearishScore }
         size="lg"
       />
 
       <div className="mt-4 flex flex-wrap gap-2">
-        {indicators.map((ind, idx) => (
+        { indicators.map( ( ind, idx ) => (
           <IndicatorSignalBadge
-            key={idx}
-            signal={ind.signal}
-            strength={ind.strength}
-            indicatorName={ind.name}
+            key={ idx }
+            signal={ ind.signal }
+            strength={ ind.strength }
+            indicatorName={ ind.name }
           />
-        ))}
+        ) ) }
       </div>
     </motion.div>
   );

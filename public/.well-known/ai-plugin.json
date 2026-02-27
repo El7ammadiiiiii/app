@@ -6,9 +6,9 @@
   "description_for_model": "Nexus is an advanced cryptocurrency trading platform that provides on-chain analytics, AI-powered insights, whale tracking, sentiment analysis, and automated trading signals. Use this plugin to get real-time crypto data, analyze blockchain metrics, track whale movements, and receive trading recommendations.",
   "auth": {
     "type": "oauth",
-    "client_url": "https://nexus.cccways.com/api/auth/authorize",
+    "client_url": "https://nexus.ccways.com/api/auth/authorize",
     "scope": "read write trading",
-    "authorization_url": "https://nexus.cccways.com/api/auth/token",
+    "authorization_url": "https://nexus.ccways.com/api/auth/token",
     "authorization_content_type": "application/x-www-form-urlencoded",
     "verification_tokens": {
       "openai": ""
@@ -16,9 +16,9 @@
   },
   "api": {
     "type": "openapi",
-    "url": "https://nexus.cccways.com/.well-known/openapi.yaml"
+    "url": "https://nexus.ccways.com/.well-known/openapi.yaml"
   },
-  "logo_url": "https://nexus.cccways.com/logo.png",
-  "contact_email": "support@cccways.com",
-  "legal_info_url": "https://nexus.cccways.com/legal"
+  "logo_url": "https://nexus.ccways.com/logo.png",
+  "contact_email": "support@ccways.com",
+  "legal_info_url": "https://nexus.ccways.com/legal"
 }

@@ -18,7 +18,7 @@
  * 12. Klinger Oscillator
  * 13. MFI (Money Flow Index)
  * 
- * @author CCCWAYS Elite Trading System
+ * @author CCWAYS Elite Trading System
  * @version 1.0.0
  */
 
@@ -598,7 +598,7 @@ export function calculateConnorsRSI(
       percentRank.push(50);
     } else {
       const change = closes[i] - closes[i - 1];
-      const slice = [];
+      const slice: number[] = [];
       for (let j = i - rankPeriod; j < i; j++) {
         slice.push(closes[j + 1] - closes[j]);
       }

@@ -1,6 +1,5 @@
 "use client";
 
-import dynamic from "next/dynamic";
 import Link from "next/link";
 import { motion } from "framer-motion";
 import { ThemeToggle } from "@/components/ui/theme-toggle";
@@ -15,17 +14,9 @@ import {
   Sparkles
 } from "lucide-react";
 
-// Dynamic import for Three.js background to avoid SSR issues
-const CryptoBackground = dynamic(
-  () => import("@/components/ui/crypto-background").then(mod => mod.CryptoBackground),
-  { ssr: false }
-);
-
 export default function Home() {
   return (
     <div className="relative min-h-screen overflow-x-hidden">
-      {/* Animated Background - 6% opacity as requested */}
-      <CryptoBackground opacity={0.06} />
       
       {/* Main Content - z-20 to ensure visibility above backgrounds */}
       <div className="relative z-20">
@@ -42,7 +33,7 @@ export default function Home() {
                 <div className="w-10 h-10 rounded-full bg-gradient-to-br from-accent-primary to-accent-secondary flex items-center justify-center">
                   <span className="text-white font-serif font-bold text-lg">C</span>
                 </div>
-                <span className="font-serif text-2xl font-bold text-glow">CCCWAYS</span>
+                <span className="font-serif text-2xl font-bold text-glow">CCWAYS</span>
               </motion.div>
               
               {/* Theme Toggle */}
@@ -213,7 +204,7 @@ export default function Home() {
         <footer className="surface mt-20 py-8 lg:py-12">
           <div className="max-w-7xl mx-auto px-4 lg:px-8 text-center">
             <p className="text-foreground-muted text-sm">
-              © 2024 CCCWAYS. جميع الحقوق محفوظة.
+              © 2024 CCWAYS. جميع الحقوق محفوظة.
             </p>
           </div>
         </footer>

@@ -2,9 +2,13 @@
 
 import { useState, useEffect, useCallback } from "react";
 import { AnimatePresence, motion } from "framer-motion";
-import { Menu, X, Settings, MessageSquare, LayoutDashboard, TrendingUp, Wallet, Zap, ChevronLeft } from "lucide-react";
+import { Menu, X, Settings, MessageSquare, LayoutDashboard, TrendingUp, Wallet, Zap, ChevronLeft, Play, ShieldCheck, Loader2 } from "lucide-react";
 import { LeftSidebar } from "./left-sidebar";
 import { RightSidebar } from "./right-sidebar";
+import { ExchangeHealthMonitor } from "./ExchangeHealthMonitor";
+import { useExchangeStore } from "@/stores/exchangeStore";
+import { EXCHANGE_CONFIGS } from "@/constants/exchanges";
+import { usePatternScanner } from "@/contexts/PatternScannerContext";
 import { ChatArea } from "./chat-area";
 import { Dashboard } from "./dashboard";
 import { MarketsView } from "./markets-view";
@@ -84,11 +88,14 @@ export function AppShell() {
 
   const isMobile = screenSize === "mobile";
   const isDesktop = screenSize === "desktop";
+  
+  const { activeExchange, setActiveExchange, exchangePriority } = useExchangeStore();
+  const { startGlobalScan, isScanning } = usePatternScanner();
 
   return (
     <div className="h-screen w-screen theme-surface flex flex-col overflow-hidden" dir="rtl">
       {/* ===== الهيدر الرئيسي ===== */}
-      <header className="h-14 min-h-[56px] flex items-center justify-between px-3 sm:px-4 border-b border-border theme-card/80 backdrop-blur-sm z-40 shrink-0">
+      <header className="h-14 min-h-[56px] flex items-center justify-between px-3 sm:px-4 bg-background/60 backdrop-blur-xl z-40 shrink-0">
         {/* الجانب الأيمن - القائمة والشعار */}
         <div className="flex items-center gap-2 sm:gap-3">
           {/* زر القائمة اليمنى */}
@@ -107,14 +114,53 @@ export function AppShell() {
             <div className="w-8 h-8 rounded-lg bg-gradient-to-br from-primary to-primary/70 flex items-center justify-center shadow-lg shadow-primary/20">
               <span className="text-primary-foreground font-bold text-sm">C</span>
             </div>
-            <span className="font-bold text-foreground hidden sm:block">CCCWAYS</span>
+            <span className="font-bold text-foreground hidden sm:block">CCWAYS</span>
           </div>
         </div>
 
-        {/* الوسط - التنقل السريع (على التابلت والديسكتوب) */}
+        {/* الوسط - التنقل السريع واختيار المنصة */}
         {!isMobile && (
-          <nav className="hidden sm:flex items-center gap-1 bg-muted/50 rounded-xl p-1">
-            {navItems.slice(0, 4).map((item) => {
+          <div className="hidden sm:flex items-center gap-4">
+            {/* Exchange Selector Dropdown */}
+            <div className="flex items-center gap-2 px-3 py-1.5 rounded-xl bg-muted/50 border border-border">
+              <ShieldCheck className="w-4 h-4 text-primary" />
+              <select 
+                value={activeExchange}
+                onChange={(e) => setActiveExchange(e.target.value as any)}
+                className="bg-transparent border-none text-xs font-bold text-foreground focus:outline-none cursor-pointer"
+              >
+                {exchangePriority.map((id) => (
+                  <option key={id} value={id} className="bg-background">
+                    {EXCHANGE_CONFIGS[id]?.name || id}
+                  </option>
+                ))}
+              </select>
+              
+              <div className="w-px h-4 bg-border mx-1" />
+              
+              <button 
+                onClick={startGlobalScan}
+                disabled={isScanning}
+                className={cn(
+                  "flex items-center gap-1.5 px-2 py-1 rounded-lg transition-all",
+                  isScanning 
+                    ? "bg-muted text-muted-foreground cursor-not-allowed" 
+                    : "bg-primary/10 text-primary hover:bg-primary/20"
+                )}
+              >
+                {isScanning ? (
+                  <Loader2 className="w-3 h-3 animate-spin" />
+                ) : (
+                  <Play className="w-3 h-3 fill-current" />
+                )}
+                <span className="text-[10px] font-bold">
+                  {isScanning ? "جاري المسح..." : "بدء المسح"}
+                </span>
+              </button>
+            </div>
+
+            <nav className="flex items-center gap-1 bg-muted/50 rounded-xl p-1">
+              {navItems.slice(0, 4).map((item) => {
               const Icon = item.icon;
               const isActive = activeView === item.id;
               return (
@@ -132,8 +178,9 @@ export function AppShell() {
                   <span className="hidden lg:inline">{item.label}</span>
                 </button>
               );
-            })}
-          </nav>
+              })}
+            </nav>
+          </div>
         )}
 
         {/* الجانب الأيسر - الإعدادات ومعلومات المستخدم */}
@@ -168,7 +215,7 @@ export function AppShell() {
           <div className="flex items-center gap-3">
             <div className="text-left hidden sm:block">
               <p className="text-sm font-semibold text-foreground leading-tight">Ahmed Ali</p>
-              <p className="text-[11px] text-muted-foreground">ahmed@cccways.com</p>
+              <p className="text-[11px] text-muted-foreground">ahmed@ccways.com</p>
             </div>
             <div className="w-9 h-9 rounded-full bg-gradient-to-br from-purple-500 to-pink-500 flex items-center justify-center text-white font-bold text-sm shadow-lg">
               A
@@ -209,7 +256,7 @@ export function AppShell() {
                 animate={{ opacity: 1 }}
                 exit={{ opacity: 0 }}
                 onClick={() => setLeftSidebarOpen(false)}
-                className="fixed inset-0 bg-black/50 backdrop-blur-sm z-40"
+                className="fixed inset-0 overlay-backdrop z-40"
               />
               {/* Sidebar */}
               <motion.aside
@@ -217,13 +264,13 @@ export function AppShell() {
                 animate={{ x: 0 }}
                 exit={{ x: "100%" }}
                 transition={{ type: "spring", damping: 25, stiffness: 300 }}
-                className="fixed top-0 right-0 h-full w-[280px] max-w-[85vw] theme-card border-l border-border z-50 shadow-2xl overflow-y-auto"
+                className="fixed top-0 right-0 h-full w-[280px] max-w-[85vw] overlay-panel z-50 shadow-2xl overflow-y-auto"
               >
-                <div className="flex items-center justify-between p-4 border-b border-border sticky top-0 theme-card z-10">
+                <div className="flex items-center justify-between p-4 sticky top-0 overlay-header z-10">
                   <span className="font-bold text-foreground">القائمة</span>
                   <button
                     onClick={() => setLeftSidebarOpen(false)}
-                    className="p-2 rounded-lg hover:bg-muted"
+                    className="p-2 rounded-lg hover:bg-white/10"
                   >
                     <X className="w-5 h-5" />
                   </button>
@@ -242,6 +289,7 @@ export function AppShell() {
 
         {/* === المحتوى الرئيسي === */}
         <main className="flex-1 min-w-0 overflow-hidden theme-surface">
+          <ExchangeHealthMonitor />
           <AnimatePresence mode="wait">
             <motion.div
               key={activeView}
@@ -293,7 +341,7 @@ export function AppShell() {
                 animate={{ opacity: 1 }}
                 exit={{ opacity: 0 }}
                 onClick={() => setRightSidebarOpen(false)}
-                className="fixed inset-0 bg-black/50 backdrop-blur-sm z-40"
+                className="fixed inset-0 overlay-backdrop z-40"
               />
               {/* Sidebar */}
               <motion.aside
@@ -301,13 +349,13 @@ export function AppShell() {
                 animate={{ x: 0 }}
                 exit={{ x: "-100%" }}
                 transition={{ type: "spring", damping: 25, stiffness: 300 }}
-                className="fixed top-0 left-0 h-full w-[300px] max-w-[85vw] theme-card border-r border-border z-50 shadow-2xl overflow-y-auto"
+                className="fixed top-0 left-0 h-full w-[300px] max-w-[85vw] overlay-panel z-50 shadow-2xl overflow-y-auto"
               >
-                <div className="flex items-center justify-between p-4 border-b border-border sticky top-0 theme-card z-10">
+                <div className="flex items-center justify-between p-4 sticky top-0 overlay-header z-10">
                   <span className="font-bold text-foreground">أدوات التحليل</span>
                   <button
                     onClick={() => setRightSidebarOpen(false)}
-                    className="p-2 rounded-lg hover:bg-muted"
+                    className="p-2 rounded-lg hover:bg-white/10"
                   >
                     <X className="w-5 h-5" />
                   </button>
@@ -321,7 +369,7 @@ export function AppShell() {
 
       {/* ===== شريط التنقل السفلي (موبايل فقط) ===== */}
       {isMobile && (
-        <nav className="h-16 min-h-[64px] flex items-center justify-around px-2 border-t border-border theme-card/95 backdrop-blur-sm shrink-0">
+        <nav className="h-16 min-h-[64px] flex items-center justify-around px-2 border-t border-[var(--overlay-border)] glass-lite glass-lite--sheen shrink-0">
           {navItems.map((item) => {
             const Icon = item.icon;
             const isActive = activeView === item.id;

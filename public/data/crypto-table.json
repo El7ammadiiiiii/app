@@ -1,0 +1,190 @@
+[
+  {
+    "id": "bitcoin",
+    "name": "Bitcoin",
+    "symbol": "BTC",
+    "logo_id": "da7c4c63-e438-49cd-850b-d347c46b2120",
+    "category": "Cryptocurrency",
+    "sector": "Cryptocurrency",
+    "sectors_v2": [
+      "Networks"
+    ],
+    "sub_sectors_v2": [
+      "Layer-1"
+    ],
+    "price": 68959.50830675248,
+    "priceChange": -28.882957108448547,
+    "rank": 0,
+    "pageViews": 667907
+  },
+  {
+    "id": "solana",
+    "name": "Solana",
+    "symbol": "SOL",
+    "logo_id": "e6ba3a04-08a6-41ab-9bf5-10280a65fb45",
+    "category": "Networks",
+    "sector": "Smart Contract Platform",
+    "sectors_v2": [
+      "Networks"
+    ],
+    "sub_sectors_v2": [
+      "Layer-1"
+    ],
+    "price": 85.01666398044149,
+    "priceChange": 0,
+    "rank": 7,
+    "pageViews": 228155
+  },
+  {
+    "id": "ethereum",
+    "name": "Ethereum",
+    "symbol": "ETH",
+    "logo_id": "04704f89-e583-4e61-a7ca-4fee2ba073e6",
+    "category": "Networks",
+    "sector": "Smart Contract Platform",
+    "sectors_v2": [
+      "Networks"
+    ],
+    "sub_sectors_v2": [
+      "Layer-1"
+    ],
+    "price": 2054.5064617478006,
+    "priceChange": 0,
+    "rank": 2,
+    "pageViews": 211584
+  },
+  {
+    "id": "cardano",
+    "name": "Cardano",
+    "symbol": "ADA",
+    "logo_id": "f8a3a27b-4ca9-43ef-b677-0cd13084ad4c",
+    "category": "Networks",
+    "sector": "Smart Contract Platform",
+    "sectors_v2": [
+      "Networks"
+    ],
+    "sub_sectors_v2": [
+      "Layer-1"
+    ],
+    "price": 0,
+    "priceChange": 0,
+    "rank": 0,
+    "pageViews": 98474
+  },
+  {
+    "id": "xrp-ledger",
+    "name": "XRP\nLedger",
+    "symbol": "XRP",
+    "logo_id": "a8c488ea-6d3d-4a47-9a00-bf8ca073bbe5",
+    "category": "Financial Services",
+    "sector": "Payments",
+    "sectors_v2": [
+      "Networks",
+      "CeFi"
+    ],
+    "sub_sectors_v2": [
+      "Layer-1",
+      "Centralized Payments"
+    ],
+    "price": 1.4133119778110361,
+    "priceChange": 0,
+    "rank": 4,
+    "pageViews": 86845
+  },
+  {
+    "id": "avalanche",
+    "name": "Avalanche",
+    "symbol": "AVAX",
+    "logo_id": "39e0c6d7-99d6-455a-8e6a-4415b11bba5d",
+    "category": "Networks",
+    "sector": "Layer-0",
+    "sectors_v2": [
+      "Networks"
+    ],
+    "sub_sectors_v2": [
+      "Layer-0"
+    ],
+    "price": 0,
+    "priceChange": 0,
+    "rank": 0,
+    "pageViews": 50960
+  },
+  {
+    "id": "chainlink",
+    "name": "Chainlink",
+    "symbol": "LINK",
+    "logo_id": "169b9b9f-e819-400a-a7eb-5e3187bf89c5",
+    "category": "Data",
+    "sector": "Oracles",
+    "sectors_v2": [
+      "DePIN",
+      "AI",
+      "Blockchain Infrastructure"
+    ],
+    "sub_sectors_v2": [
+      "Oracles",
+      "AI\nInfrastructure",
+      "DePIN Compute"
+    ],
+    "price": 0,
+    "priceChange": 0,
+    "rank": 0,
+    "pageViews": 49336
+  },
+  {
+    "id": "sui",
+    "name": "Sui",
+    "symbol": "SUI",
+    "logo_id": "d62481eb-a344-4107-8ad1-7229285f4ff7",
+    "category": "Networks",
+    "sector": "Smart\nContract Platform",
+    "sectors_v2": [
+      "Networks"
+    ],
+    "sub_sectors_v2": [
+      "Layer-1"
+    ],
+    "price": 0,
+    "priceChange": 0,
+    "rank": 0,
+    "pageViews": 48410
+  },
+  {
+    "id": "dogecoin",
+    "name": "Dogecoin",
+    "symbol": "DOGE",
+    "logo_id": "bcfc1df9-b30f-43ea-a12c-be4de706e270",
+    "category": "Cryptocurrency",
+    "sector": "Cryptocurrency",
+    "sectors_v2": [
+      "Meme"
+    ],
+    "sub_sectors_v2": [
+      "Dog-Themed\nCoins"
+    ],
+    "price": 0,
+    "priceChange": 0,
+    "rank": 0,
+    "pageViews": 40343
+  },
+  {
+    "id": "near-protocol",
+    "name": "NEAR Protocol",
+    "symbol": "NEAR",
+    "logo_id": "f4558126-2618-4608-be22-badc8345ce0e",
+    "category": "Networks",
+    "sector": "Smart Contract Platform",
+    "sectors_v2": [
+      "Networks",
+      "Others"
+    ],
+    "sub_sectors_v2": [
+      "SEC Alleged Securities",
+      "Layer-1"
+    ],
+    "price": 0,
+    "priceChange": 0,
+    "rank": 0,
+    "pageViews": 36862
+  }
+]

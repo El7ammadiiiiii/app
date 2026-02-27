@@ -1,4 +1,4 @@
-// Settings Types for CCCWAYS Platform
+// Settings Types for CCWAYS Platform
 
 // ============================================
 // Theme & Appearance Types
@@ -10,7 +10,7 @@ export type AccentColor = 'green' | 'blue' | 'purple' | 'pink' | 'orange' | 'red
 // ============================================
 // Language & Localization Types
 // ============================================
-export type Language = 'ar' | 'en' | 'fr';
+export type Language = string;
 export type TextDirection = 'rtl' | 'ltr' | 'auto';
 export type TimeFormat = '12h' | '24h';
 export type DateFormat = 'DD/MM/YYYY' | 'MM/DD/YYYY' | 'YYYY-MM-DD';
@@ -46,10 +46,19 @@ export type BillingCycle = 'monthly' | 'yearly';
 export type VoiceOption = 'breeze' | 'ember' | 'sol' | 'cove' | 'aurora' | 'sage';
 
 // ============================================
-// Section IDs
+// Section IDs (7 tabs — ChatGPT-style)
 // ============================================
 export type SettingsSectionId = 
-  | 'account'
+  | 'general'
+  | 'notifications'
+  | 'personalization'
+  | 'apps'
+  | 'data-controls'
+  | 'security'
+  | 'account';
+
+// Legacy section IDs kept for migration compatibility
+export type LegacySettingsSectionId =
   | 'subscription'
   | 'privacy'
   | 'appearance'
@@ -60,7 +69,6 @@ export type SettingsSectionId =
   | 'integrations'
   | 'advanced'
   | 'files'
-  | 'notifications'
   | 'plugins'
   | 'app-settings'
   | 'about';
@@ -338,6 +346,24 @@ export interface SettingsState {
   allowExternalPlugins: boolean;
   showPluginPermissions: boolean;
   
+  // Notifications — ChatGPT-style dropdown preferences
+  notifyResponses: 'all' | 'important' | 'off';
+  notifyTasks: 'all' | 'important' | 'off';
+  notifyRecommendations: 'all' | 'important' | 'off';
+  notifyUsage: 'all' | 'important' | 'off';
+
+  // Personalization
+  stylePreference: 'formal' | 'informal' | 'technical' | 'simple';
+  traitCreativity: 'low' | 'medium' | 'high';
+  traitDetail: 'concise' | 'balanced' | 'detailed';
+  traitTone: 'neutral' | 'warm' | 'professional';
+  traitLength: 'short' | 'medium' | 'long';
+  preferredName: string;
+  occupation: string;
+  additionalInfo: string;
+  webSearchEnabled: boolean;
+  canvasEnabled: boolean;
+
   // Meta
   _lastSaved: Date | null;
   _saveStatus: SaveStatus;

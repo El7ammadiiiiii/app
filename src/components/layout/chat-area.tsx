@@ -2,11 +2,8 @@
 
 import { useState, useRef, useEffect } from "react";
 import { motion, AnimatePresence } from "framer-motion";
-import {
-  Send,
-  Mic,
-  MicOff,
-  PhoneCall,
+import
+{
   Share2,
   Star,
   RefreshCw,
@@ -14,32 +11,65 @@ import {
   Maximize2,
   Minimize2,
   Bot,
-  Sparkles,
+  Copy,
+  Reply,
   GraduationCap,
   Search,
-  Plus,
-  Camera,
-  Paperclip,
   Activity,
   Database,
   Code2,
   X,
+  Download,
+  Paperclip,
+  Folder,
+  Plus,
+  MoreHorizontal,
+  Pin,
+  Archive,
+  Flag,
+  FolderInput,
 } from "lucide-react";
 import { cn } from "@/lib/utils";
 import { useCanvasParser } from "@/hooks/useCanvasParser";
+import { useAutoCanvasDetector } from "@/hooks/useAutoCanvasDetector";
 import { useCanvasStore, CanvasType } from "@/store/canvasStore";
-import { useProjectStore } from "@/store/projectStore";
-import { ProjectHeader } from "@/components/projects";
+import { CanvasEntryChip } from "@/components/canvas/CanvasEntryChip";
+import { useChatStore } from "@/store/chatStore";
+import { useFavoritesStore } from "@/store/favoritesStore";
+import { ShareModal } from "@/components/share/ShareModal";
+import { ConfirmModal } from "@/components/settings";
 import { useSound } from "@/lib/sounds";
 import { useMounted } from "@/hooks/use-mounted";
-// Project types imported from store
+import { toPng } from "html-to-image";
+// Chat types imported from store
 import { DeepResearchPanel } from "@/components/deep-research";
 import { WebSearchPanel } from "@/components/web-search";
+import { ChatInputBox } from "@/components/chat/ChatInputBox";
+import { createOCRSystemMessage, type OCRContext } from "@/services/ocrService";
+import { getCanvasSystemPrompt } from "@/config/canvasSystemPrompts";
+// Thinking System
+import { ThinkingDisplay } from "@/components/thinking";
+import { useThinkingStore } from "@/store/thinkingStore";
+import { ThinkingLevel, type ChatbotModel } from "@/types/thinking";
+import { type ChatMode, type ThinkingDepth, analyzeQueryComplexity } from "@/config/modelModeConfig";
+import { AltraPipelineView } from "@/components/chat/AltraPipelineView";
+import { useAltraStore } from "@/stores/altraStore";
+
+// ── Wave 1: Markdown rendering (now handled in VirtualizedMessageList) ──
+// CSS for katex + highlight.js imported in globals.css
+
+// ── Wave 2: Streaming Markdown with word-fade ──
+import { StreamingMarkdown } from "@/components/chat/StreamingMarkdown";
+import { useTokenSmoother } from "@/hooks/useTokenSmoother";
+
+// ── Wave 4.3: Virtualized message list ──
+import { VirtualizedMessageList } from "@/components/chat/VirtualizedMessageList";
 
 // Message interface is defined in projectStore
 type MessageRole = "user" | "assistant";
 
-interface DemoMessage {
+interface DemoMessage
+{
   id: string;
   role: MessageRole;
   content: string;
@@ -48,318 +78,955 @@ interface DemoMessage {
 
 const DEMO_MESSAGES: DemoMessage[] = [
   {
-    id: "1",
+    id: "demo-msg-1",
     role: "user" as MessageRole,
     content: "مرحباً، أريد تحليلاً لسوق العملات الرقمية اليوم.",
     timestamp: Date.now() - 100000,
   },
   {
-    id: "2",
+    id: "demo-msg-2",
     role: "assistant" as MessageRole,
     content: "أهلاً بك! بالتأكيد. يشهد السوق اليوم تقلبات ملحوظة مع اتجاه عام للصعود في العملات الرئيسية.\n\n**أبرز النقاط:**\n- **Bitcoin (BTC):** يتداول فوق مستوى 65,000$ مع دعم قوي.\n- **Ethereum (ETH):** يظهر إشارات إيجابية بعد التحديث الأخير.\n\nهل تود التركيز على عملة محددة؟",
     timestamp: Date.now() - 80000,
   },
   {
-    id: "3",
+    id: "demo-msg-3",
     role: "user" as MessageRole,
     content: "نعم، ماذا عن Solana؟",
     timestamp: Date.now() - 60000,
   },
   {
-    id: "4",
+    id: "demo-msg-4",
     role: "assistant" as MessageRole,
     content: "عملة **Solana (SOL)** تظهر أداءً ممتازاً:\n\n1. **السعر الحالي:** 145$\n2. **حجم التداول:** مرتفع بنسبة 15% عن الأمس.\n3. **المؤشرات الفنية:** مؤشر RSI يشير إلى منطقة شراء قوية.\n\nأنصح بمراقبة مستوى المقاومة عند 150$.",
     timestamp: Date.now() - 40000,
   }
 ];
 
-interface ChatAreaProps {
+interface ChatAreaProps
+{
   activeAgent: "general" | "institute";
-  onAgentChange: (agent: "general" | "institute") => void;
+  onAgentChange: ( agent: "general" | "institute" ) => void;
 }
 
-export function ChatArea({ }: ChatAreaProps) {
-  const [message, setMessage] = useState("");
-  const [isRecording, setIsRecording] = useState(false);
-  const [showPlusMenu, setShowPlusMenu] = useState(false);
-  const [isAgentMenuOpen, setIsAgentMenuOpen] = useState(false);
-  const [isTopMenuOpen, setIsTopMenuOpen] = useState(false);
-  const topMenuRef = useRef<HTMLDivElement>(null);
-  const [isReportOpen, setIsReportOpen] = useState(false);
-  const [reportText, setReportText] = useState("");
-  const [reportConsent, setReportConsent] = useState(false);
-  const [isDeepResearchOpen, setIsDeepResearchOpen] = useState(false);
-  const [isWebSearchOpen, setIsWebSearchOpen] = useState(false);
-  const overlayActive = showPlusMenu || isAgentMenuOpen;
-  const inputRef = useRef<HTMLTextAreaElement>(null);
-  const plusMenuRef = useRef<HTMLDivElement>(null);
-  const agentMenuRef = useRef<HTMLDivElement>(null);
-  const plusButtonRef = useRef<HTMLButtonElement>(null);
-  const agentButtonRef = useRef<HTMLButtonElement>(null);
+export function ChatArea ( { }: ChatAreaProps )
+{
+  const [ showPlusMenu, setShowPlusMenu ] = useState( false );
+  const [ isAgentMenuOpen, setIsAgentMenuOpen ] = useState( false );
+  const [ isTopMenuOpen, setIsTopMenuOpen ] = useState( false );
+  const topMenuRef = useRef<HTMLDivElement>( null );
+  const [ isReportOpen, setIsReportOpen ] = useState( false );
+  const [ reportText, setReportText ] = useState( "" );
+  const [ reportConsent, setReportConsent ] = useState( false );
+  const [ isDeepResearchOpen, setIsDeepResearchOpen ] = useState( false );
+  const [ isWebSearchOpen, setIsWebSearchOpen ] = useState( false );
+  const [ shareModal, setShareModal ] = useState<{ isOpen: boolean; text: string; url?: string }>( { isOpen: false, text: "" } );
+  const [ showMoreMenu, setShowMoreMenu ] = useState( false );
+  const [ showDeleteConfirm, setShowDeleteConfirm ] = useState( false );
+  const [ moveModalOpen, setMoveModalOpen ] = useState( false );
+  const moreMenuRef = useRef<HTMLDivElement>( null );
+  const overlayActive = showPlusMenu || isAgentMenuOpen || showMoreMenu;
+  const plusMenuRef = useRef<HTMLDivElement>( null );
+  const agentMenuRef = useRef<HTMLDivElement>( null );
+  const plusButtonRef = useRef<HTMLButtonElement>( null );
+  const agentButtonRef = useRef<HTMLButtonElement>( null );
+  const messagesEndRef = useRef<HTMLDivElement>( null );
   const mounted = useMounted();
 
-  // Project Store Integration
+  // Favorites Store
+  const { pages, addItemToPage, addPage } = useFavoritesStore();
+  const [ activeFavoriteMsgId, setActiveFavoriteMsgId ] = useState<string | null>( null );
+
+  // Chat Store Integration
   const {
-    getActiveProject,
+    chats,
     getActiveChat,
     addMessage,
     updateMessage,
+    updateChat,
     createChat,
-    createProject,
     setActiveChat,
     deleteChat,
-    activeProjectId,
     activeChatId,
-    projects,
-    closeCreateModal,
-    closeQuickSwitcher,
-    closeSettings,
-  } = useProjectStore();
-  
-  // Canvas Parser Integration
-  const { processChunk, chatContent } = useCanvasParser();
-  const [streamingMessageId, setStreamingMessageId] = useState<string | null>(null);
+    pinChat,
+    archiveChat,
+  } = useChatStore();
 
-  // Sync chatContent to store
-  useEffect(() => {
-    if (streamingMessageId && activeChatId) {
-      updateMessage(activeChatId, streamingMessageId, { content: chatContent });
+  // Canvas Parser Integration
+  const { processChunk, chatContent, reset: resetCanvasParser, currentArtifactId } = useCanvasParser();
+  const { checkAndOpen: checkAutoCanvas } = useAutoCanvasDetector();
+  const [ streamingMessageId, setStreamingMessageId ] = useState<string | null>( null );
+  const [ isEditingCanvas, setIsEditingCanvas ] = useState( false );
+
+  // ── Wave 2.1: Token Smoother for streaming pacing ──
+  const { displayedText, feedText, finishStream, reset: resetSmoother } = useTokenSmoother();
+
+  // Sync chatContent to store + feed token smoother
+  useEffect( () =>
+  {
+    if ( streamingMessageId && activeChatId )
+    {
+      updateMessage( activeChatId, streamingMessageId, { content: chatContent } );
+      feedText( chatContent );
     }
-  }, [chatContent, streamingMessageId, activeChatId, updateMessage]);
+  }, [ chatContent, streamingMessageId, activeChatId, updateMessage, feedText ] );
 
   const { playSound } = useSound();
-  const { 
-    openCanvas, 
-    closeCanvas, 
-    isOpen: isCanvasOpen,
-    isModeActive,
-    activeModeType,
-    enableMode,
-    disableMode
-  } = useCanvasStore();
 
-  const activeProject = getActiveProject();
-  const activeChat = getActiveChat();
+  // Thinking System State
+  const [ selectedChatbotModel, setSelectedChatbotModel ] = useState<ChatbotModel>( 'Gemini 2.5' );
+  const [ activeTools, setActiveTools ] = useState<string[]>( [] );
+  const [ currentMode, setCurrentMode ] = useState<ChatMode>( "normal chat" );
+  const { startSession, addStep, completeSession } = useThinkingStore();
+
+  const shouldShowThinkingForMode = ( mode: ChatMode ) =>
+  {
+    return mode !== "normal chat";
+  };
+
+  const shouldShowReferencesForMode = ( mode: ChatMode ) =>
+  {
+    return [ "thinking", "deep research", "agent", "cways altra" ].includes( mode );
+  };
+
+  const getDefaultReferencesForMode = ( mode: ChatMode ) =>
+  {
+    if ( !shouldShowReferencesForMode( mode ) ) return [];
+    return [];
+  };
+
+  // ═══ Unified: map auto ThinkingDepth → visual ThinkingLevel ═══
+  const depthToThinkingLevel = ( depth: ThinkingDepth ): ThinkingLevel =>
+  {
+    switch ( depth )
+    {
+      case "min": return ThinkingLevel.MINIMAL;
+      case "standard": return ThinkingLevel.LOW;
+      case "extended": return ThinkingLevel.MEDIUM;
+      case "max": return ThinkingLevel.HIGH;
+      default: return ThinkingLevel.MEDIUM;
+    }
+  };
+
+  const getModeThinkingPlan = ( mode: ChatMode, task: string ) =>
+  {
+    const autoDepth = analyzeQueryComplexity( task, mode );
+    const level = depthToThinkingLevel( autoDepth );
+
+    // Normal chat skips visual thinking animation
+    if ( mode === "normal chat" )
+    {
+      return { levels: [ level ], runThinking: false };
+    }
+
+    // High-complexity tasks get a two-phase animation (HIGH → MEDIUM)
+    if ( level === ThinkingLevel.HIGH && ( mode === "agent" || mode === "coder" || mode === "deep research" ) )
+    {
+      return { levels: [ ThinkingLevel.HIGH, ThinkingLevel.MEDIUM ], runThinking: true };
+    }
+
+    return { levels: [ level ], runThinking: true };
+  };
+
+  const openCanvas = useCanvasStore( s => s.openCanvas );
+  const closeCanvas = useCanvasStore( s => s.closeCanvas );
+  const isCanvasOpen = useCanvasStore( s => s.isOpen );
+  const isModeActive = useCanvasStore( s => s.isModeActive );
+  const activeModeType = useCanvasStore( s => s.activeModeType );
+  const enableMode = useCanvasStore( s => s.enableMode );
+  const disableMode = useCanvasStore( s => s.disableMode );
+  const openArtifact = useCanvasStore( s => s.openArtifact );
+
+  // استخدم الرسائل من المحادثة النشطة
+  const activeChat = useChatStore( state => state.chats.find( c => c.id === state.activeChatId ) ) || null;
 
   const conversationLink =
     typeof window !== "undefined" && activeChatId
-      ? `${window.location.origin}/chat/${activeChatId}`
+      ? `${ window.location.origin }/chat/${ activeChatId }`
       : activeChatId
-      ? `/chat/${activeChatId}`
-      : "";
+        ? `/chat/${ activeChatId }`
+        : "";
 
-  useEffect(() => {
-    const handleClickOutside = (event: MouseEvent) => {
-      const target = event.target as Node;
+  // Listen for Canvas inline edit submissions from CanvasInlineEditToolbar
+  useEffect( () =>
+  {
+    const handleInlineEditSubmit = ( event: Event ) =>
+    {
+      const customEvent = event as CustomEvent<{ prompt: string; text: string }>;
+      const { prompt: editPrompt, text: selectedText } = customEvent.detail;
 
-      if (showPlusMenu && !plusMenuRef.current?.contains(target) && !plusButtonRef.current?.contains(target)) {
-        setShowPlusMenu(false);
-      }
-
-      if (isAgentMenuOpen && !agentMenuRef.current?.contains(target) && !agentButtonRef.current?.contains(target)) {
-        setIsAgentMenuOpen(false);
-      }
-
-      if (isTopMenuOpen && topMenuRef.current && !topMenuRef.current.contains(target)) {
-        setIsTopMenuOpen(false);
+      if ( editPrompt && selectedText && activeChatId )
+      {
+        handleCanvasEditRequest( activeChatId, editPrompt, selectedText );
       }
     };
 
-    document.addEventListener("mousedown", handleClickOutside);
-    return () => document.removeEventListener("mousedown", handleClickOutside);
-  }, [showPlusMenu, isAgentMenuOpen, isTopMenuOpen]);
+    window.addEventListener( 'canvas:inline-edit-submit', handleInlineEditSubmit );
+    return () =>
+    {
+      window.removeEventListener( 'canvas:inline-edit-submit', handleInlineEditSubmit );
+    };
+  }, [ activeChatId ] );
 
-  // استخدم الرسائل من المحادثة النشطة في Zustand أو الرسائل التجريبية
-  const messages = activeChat?.messages?.length ? activeChat.messages : DEMO_MESSAGES;
+  useEffect( () =>
+  {
+    const handleClickOutside = ( event: MouseEvent ) =>
+    {
+      const target = event.target as Node;
 
-  const handleSend = () => {
-    if (!message.trim()) return;
-    
+      if ( showPlusMenu && !plusMenuRef.current?.contains( target ) && !plusButtonRef.current?.contains( target ) )
+      {
+        setShowPlusMenu( false );
+      }
+
+      if ( isAgentMenuOpen && !agentMenuRef.current?.contains( target ) && !agentButtonRef.current?.contains( target ) )
+      {
+        setIsAgentMenuOpen( false );
+      }
+
+      if ( isTopMenuOpen && topMenuRef.current && !topMenuRef.current.contains( target ) )
+      {
+        setIsTopMenuOpen( false );
+      }
+
+      if ( showMoreMenu && moreMenuRef.current && !moreMenuRef.current.contains( target ) )
+      {
+        setShowMoreMenu( false );
+      }
+    };
+
+    document.addEventListener( "mousedown", handleClickOutside );
+    return () => document.removeEventListener( "mousedown", handleClickOutside );
+  }, [ showPlusMenu, isAgentMenuOpen, isTopMenuOpen, showMoreMenu ] );
+
+  // Listen to header bar button events (share + more)
+  useEffect( () =>
+  {
+    const onHeaderShare = () =>
+    {
+      setShareModal( { isOpen: true, text: "شاهد هذه المحادثة على CCCWAYS" } );
+    };
+    const onHeaderMore = () =>
+    {
+      setShowMoreMenu( prev => !prev );
+    };
+
+    window.addEventListener( "header:share", onHeaderShare );
+    window.addEventListener( "header:more", onHeaderMore );
+    return () =>
+    {
+      window.removeEventListener( "header:share", onHeaderShare );
+      window.removeEventListener( "header:more", onHeaderMore );
+    };
+  }, [] );
+
+  // Wave 7.3: Listen for text-selection popover actions
+  useEffect( () =>
+  {
+    const onSelectionAction = ( event: Event ) =>
+    {
+      const { actionId, selectedText } = ( event as CustomEvent ).detail as { actionId: string; selectedText: string };
+      if ( !selectedText ) return;
+
+      const prompts: Record<string, string> = {
+        explain: `اشرح لي هذا النص بشكل مبسط:\n\n"${ selectedText }"`,
+        translate: `ترجم هذا النص إلى الإنجليزية:\n\n"${ selectedText }"`,
+        quote: `> ${ selectedText }`,
+        search: `ابحث عن مزيد من المعلومات حول:\n\n"${ selectedText }"`,
+      };
+
+      const prompt = prompts[ actionId ];
+      if ( prompt )
+      {
+        if ( actionId === 'quote' )
+        {
+          navigator.clipboard.writeText( prompt );
+          playSound( 'click' );
+        } else
+        {
+          handleSend( prompt );
+        }
+      }
+    };
+
+    window.addEventListener( 'chat:selection-action', onSelectionAction );
+    return () => window.removeEventListener( 'chat:selection-action', onSelectionAction );
+  }, [] );
+
+  // استخدم الرسائل من المحادثة النشطة (بدون fallback ديمو تلقائي)
+  const messages = activeChat?.messages ?? [];
+
+  // Wave 4.3: Auto-scroll is now handled inside VirtualizedMessageList
+
+  const ensureActiveChatId = () =>
+  {
+    // Read the freshest store state to avoid stale props
+    let chatId = useChatStore.getState().activeChatId;
+    if ( chatId ) return chatId;
+
+    const newChat = createChat( "محادثة جديدة" );
+    setActiveChat( newChat.id );
+    return newChat.id;
+  };
+
+  const sendUnifiedChatMessage = async ( messageId: string, opts?: { model?: any; mode?: any; thinkingDepth?: ThinkingDepth } ) =>
+  {
+    try
+    {
+      const state = useChatStore.getState();
+      const chat = state.getActiveChat();
+      const model = ( opts?.model ?? 'gemini3 pro' );
+      const mode = ( opts?.mode ?? 'normal chat' ) as ChatMode;
+
+      // Build messages with canvas system prompt injected
+      const canvasSystemPrompt = getCanvasSystemPrompt( mode );
+      const rawMessages = ( chat?.messages ?? [] )
+        .filter( ( m: any ) => m?.content && m.content !== '...' )
+        .map( ( m: any ) => ( {
+          role: m.role,
+          content: m.content,
+        } ) );
+
+      // Inject canvas system prompt as the first system message
+      // + inject active canvas context for follow-up awareness
+      const canvasState = useCanvasStore.getState();
+      const activeCanvasContext = canvasState.isOpen && canvasState.activeArtifactId
+        ? `\n\n## Active Canvas Context\nالمستخدم يعمل حالياً على Canvas بعنوان '${ canvasState.title }' من نوع ${ canvasState.type }.
+الـ identifier هو: "${ canvasState.activeArtifactId }"
+إذا أراد المستخدم تعديل هذا الـ Canvas، استخدم command="update" identifier="${ canvasState.activeArtifactId }".
+إذا أراد شيئاً جديداً، استخدم command="create".
+المحتوى الحالي:\n\n${ ( canvasState.versions[ canvasState.currentVersionIndex ]?.content || '' ).slice( 0, 4000 ) }`
+        : '';
+
+      const payloadMessages = [
+        { role: 'system' as const, content: canvasSystemPrompt + activeCanvasContext },
+        ...rawMessages,
+      ];
+
+      const response = await fetch( '/api/chat/unified', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify( {
+          model,
+          mode,
+          messages: payloadMessages,
+          stream: true,
+          ...( opts?.thinkingDepth && { thinkingDepth: opts.thinkingDepth } ),
+        } ),
+      } );
+
+      if ( !response.ok )
+      {
+        const errText = await response.text();
+        throw new Error( `Chat API failed (${ response.status }): ${ errText }` );
+      }
+
+      // B.2: Wave 7.2 — Typed block-event SSE streaming
+      const reader = response.body?.getReader();
+      if ( reader )
+      {
+        const decoder = new TextDecoder();
+        let sseBuffer = '';
+
+        while ( true )
+        {
+          const { done, value } = await reader.read();
+          if ( done ) break;
+
+          sseBuffer += decoder.decode( value, { stream: true } );
+          const lines = sseBuffer.split( '\n' );
+          sseBuffer = lines.pop() || '';
+
+          for ( const line of lines )
+          {
+            if ( line.startsWith( 'data: ' ) )
+            {
+              const data = line.slice( 6 );
+              if ( data === '[DONE]' ) continue;
+
+              try
+              {
+                const parsed = JSON.parse( data );
+
+                // ── Wave 7.2: typed block-event dispatch ──
+                if ( parsed.type && typeof parsed.data === 'object' )
+                {
+                  switch ( parsed.type )
+                  {
+                    case 'text_delta':
+                      processChunk( parsed.data.content ?? '' );
+                      break;
+                    case 'thinking_delta':
+                      // Feed thinking content (can be displayed separately later)
+                      processChunk( parsed.data.content ?? '' );
+                      break;
+                    case 'tool_call_start':
+                    case 'tool_call_delta':
+                      // Tool calls — logged for now, GenUI will consume in 7.4
+                      console.debug( `[SSE] ${ parsed.type }:`, parsed.data );
+                      break;
+                    case 'canvas_action':
+                      // Canvas commands via block events
+                      processChunk( parsed.data.content ?? '' );
+                      break;
+                    case 'error':
+                      console.error( '[SSE] Stream error:', parsed.data.message );
+                      processChunk( `⚠️ ${ parsed.data.message }` );
+                      break;
+                    case 'message_start':
+                    case 'message_done':
+                      // Lifecycle events — no text action needed
+                      break;
+                  }
+                  continue;
+                }
+
+                // ── Legacy fallback: raw provider format ──
+                const chunkText = parsed?.content ?? parsed?.choices?.[ 0 ]?.delta?.content ?? '';
+                if ( chunkText )
+                {
+                  processChunk( chunkText );
+                }
+              } catch
+              {
+                // Non-JSON line — might be raw text, pass it through
+                if ( data.trim() )
+                {
+                  processChunk( data );
+                }
+              }
+            }
+          }
+        }
+      }
+      else
+      {
+        // Fallback: no reader available, read as JSON
+        const data: any = await response.json();
+        const assistantText = data?.content ?? data?.text ?? data?.message ?? '';
+        if ( assistantText )
+        {
+          processChunk( assistantText );
+        } else
+        {
+          processChunk( 'عذراً، لم يصل نص الرد من المزوّد.' );
+        }
+      }
+
+        // Auto-canvas fallback: if parser didn't detect XML tags, check thresholds
+        setTimeout( () =>
+        {
+          if ( !currentArtifactId.current )
+          {
+            // Use chatContent from parser as the full text for auto-detection
+            const fullText = chatContent || '';
+            const artifactId = checkAutoCanvas( fullText, messageId );
+            if ( artifactId && activeChatId )
+            {
+              updateMessage( activeChatId, messageId, {
+                metadata: { canvasArtifactId: artifactId },
+              } );
+            }
+          } else if ( currentArtifactId.current && activeChatId )
+          {
+            updateMessage( activeChatId, messageId, {
+              metadata: { canvasArtifactId: currentArtifactId.current },
+            } );
+          }
+        }, 100 );
+
+    } catch ( error )
+    {
+      console.error( 'Unified chat error:', error );
+      processChunk( '\n\nعذراً، حدث خطأ أثناء الاتصال بالمزوّد. تحقق من إعداد المفاتيح في السيرفر.' );
+    } finally
+    {
+      setStreamingMessageId( null );
+      finishStream();
+      // Wave 3.1: Final Firestore sync after streaming completes
+      if ( activeChatId )
+      {
+        const finalChat = useChatStore.getState().chats.find( c => c.id === activeChatId );
+        if ( finalChat )
+        {
+          import( "@/lib/services/firestoreChatService" ).then( ( { FirestoreChatService } ) =>
+          {
+            FirestoreChatService.saveChat( finalChat );
+          } );
+        }
+      }
+    }
+  };
+
+  const handleSend = ( inputMessage?: string, options?: { ocrContext?: OCRContext, model?: any, mode?: any } ) =>
+  {
+    const messageToSend = inputMessage || "";
+    if ( !messageToSend.trim() ) return;
+
+    // === AUTO DEPTH: compute thinking depth from message complexity ===
+    const selectedModeEarly = ( options?.mode as ChatMode ) || "normal chat";
+    const autoThinkingDepth = analyzeQueryComplexity( messageToSend.trim(), selectedModeEarly );
+
     // Disable canvas mode when sending
-    if (isModeActive) {
+    if ( isModeActive )
+    {
       disableMode();
     }
 
-    if (activeChatId) {
+    // Ensure there is an active chat to write into
+    const ensuredChatId = ensureActiveChatId();
+    if ( ensuredChatId )
+    {
+      // Auto-name chat if it's the first message
+      const latestChat = useChatStore.getState().getActiveChat();
+      if ( latestChat && latestChat.messages.length === 0 )
+      {
+        const newTitle = messageToSend.trim().slice( 0, 30 );
+        updateChat( ensuredChatId, { title: newTitle } );
+      }
+
+      // Add OCR system message if context exists
+      if ( options?.ocrContext )
+      {
+        const ocrSystemMessage = createOCRSystemMessage( options.ocrContext );
+        addMessage( ensuredChatId, {
+          role: "system" as any,
+          content: ocrSystemMessage,
+        } );
+      }
+
       // Add user message
-      addMessage(activeChatId, {
+      addMessage( ensuredChatId, {
         role: "user",
-        content: message.trim(),
-      });
-      
+        content: messageToSend.trim(),
+      } );
+
+      // === NEW MODE-BASED LOGIC ===
+      const selectedMode = ( options?.mode as ChatMode ) || "normal chat";
+      setCurrentMode( selectedMode );
+
       // Add placeholder assistant message
-      const assistantMsg = addMessage(activeChatId, {
+      const assistantMsg = addMessage( ensuredChatId, {
         role: "assistant",
         content: "...",
-      });
-      setStreamingMessageId(assistantMsg.id);
-      
-      // Check if this is a demo request or if Canvas mode was active
-      const isDemo = message.toLowerCase().includes("canvas") || 
-                    message.toLowerCase().includes("code") || 
-                    isModeActive;
+        metadata: {
+          model: options?.model,
+          reasoning: selectedMode,
+          sources: getDefaultReferencesForMode( selectedMode ),
+        },
+      } );
 
-      // Simulate streaming with XML for Canvas (Only for demo/testing)
-      const demoXML = isDemo ? `حسناً، سأقوم بإنشاء مكون React لك في الـ Canvas.
+      // Reset parser state for this assistant message
+      resetCanvasParser();
+      resetSmoother();
+      setStreamingMessageId( assistantMsg.id );
 
-<canvas_action>
-<type>${activeModeType}</type>
-<language>typescript</language>
-<title>UserProfile.tsx</title>
-<content>
-import React from 'react';
+      const thinkingPlan = getModeThinkingPlan( selectedMode, messageToSend.trim() );
+      const runThinkingSequence = async () =>
+      {
+        if ( !thinkingPlan.runThinking ) return;
 
-interface UserProfileProps {
-  name: string;
-  role: string;
-}
+        startSession( assistantMsg.id, selectedChatbotModel, thinkingPlan.levels[ 0 ], messageToSend.trim() );
 
-export const UserProfile: React.FC<UserProfileProps> = ({ name, role }) => {
-  return (
-    <div className="p-4 border rounded-lg shadow-sm bg-white dark:bg-slate-800">
-      <h2 className="text-xl font-bold text-primary">{name}</h2>
-      <p className="text-gray-500 dark:text-gray-400">{role}</p>
-    </div>
-  );
-};
-</content>
-</canvas_action>
-
-هذا هو المكون المطلوب. يمكنك رؤيته الآن في الشاشة الجانبية.` : `هذا رد تجريبي. لتجربة نظام Canvas، اختر الأداة من القائمة أو اكتب "canvas" في رسالتك.`;
-
-      let i = 0;
-      const interval = setInterval(() => {
-        const chunk = demoXML.slice(i, i + 5);
-        processChunk(chunk);
-        i += 5;
-        if (i >= demoXML.length) {
-          clearInterval(interval);
-          setStreamingMessageId(null);
+        for ( let i = 0; i < thinkingPlan.levels.length; i++ )
+        {
+          const level = thinkingPlan.levels[ i ];
+          const isLast = i === thinkingPlan.levels.length - 1;
+          await startThinkingStream( assistantMsg.id, messageToSend.trim(), level, {
+            skipComplete: !isLast,
+            mode: selectedMode,
+            depth: autoThinkingDepth,
+          } );
         }
-      }, 30);
-      
-      playSound("click");
+      };
+
+      void runThinkingSequence();
+
+      // Handle based on selected mode
+      if ( selectedMode === "thinking" )
+      {
+        // Thinking Mode - عرض خطوات التفكير
+        sendUnifiedChatMessage( assistantMsg.id, { model: options?.model, mode: selectedMode, thinkingDepth: autoThinkingDepth } );
+      }
+      else if ( selectedMode === "deep research" )
+      {
+        // Deep Research Mode — Canvas-native: النموذج يفتح canvas DEEP_RESEARCH تلقائيًا عبر XML tags
+        sendUnifiedChatMessage( assistantMsg.id, { model: options?.model, mode: selectedMode, thinkingDepth: autoThinkingDepth } );
+      }
+      else if ( selectedMode === "cways altra" )
+      {
+        // ALTRA Mode - محرك استدلال متقدم
+        handleOpenAltra();
+        sendUnifiedChatMessage( assistantMsg.id, { model: options?.model, mode: selectedMode, thinkingDepth: autoThinkingDepth } );
+      }
+      else
+      {
+        // Normal Chat, Agent, Coder modes
+        sendUnifiedChatMessage( assistantMsg.id, { model: options?.model, mode: selectedMode, thinkingDepth: autoThinkingDepth } );
+      }
+
+      playSound( "click" );
     }
-    
-    setMessage("");
-    setShowPlusMenu(false);
-    setIsAgentMenuOpen(false);
+
+    setShowPlusMenu( false );
+    setIsAgentMenuOpen( false );
   };
 
   // Handle inserting deep research results into chat
-  const handleInsertResearch = (content: string) => {
-    if (activeChatId) {
+  const handleInsertResearch = ( content: string, researchData?: any ) =>
+  {
+    if ( activeChatId )
+    {
+      const citations = researchData?.result?.citations || researchData?.citations || [];
+      const sources = citations
+        .map( ( c: any ) =>
+        {
+          const title = c?.title || '';
+          const url = c?.url || '';
+          if ( title && url ) return `${ title } — ${ url }`;
+          return title || url;
+        } )
+        .filter( Boolean );
+
       // Add research result as assistant message
-      addMessage(activeChatId, {
+      addMessage( activeChatId, {
         role: "assistant",
         content: content,
-      });
-      playSound("click");
+        metadata: {
+          reasoning: "deep research",
+          sources,
+        },
+      } );
+      playSound( "click" );
     }
   };
 
   // Handle inserting web search results into chat
-  const handleInsertWebSearch = (content: string) => {
-    if (activeChatId) {
-      addMessage(activeChatId, {
+  const handleInsertWebSearch = ( content: string, meta?: { sources?: string[] } ) =>
+  {
+    if ( activeChatId )
+    {
+      addMessage( activeChatId, {
         role: "assistant",
         content: content,
-      });
-      playSound("click");
+        metadata: {
+          reasoning: "deep research",
+          sources: meta?.sources || [],
+        },
+      } );
+      playSound( "click" );
     }
+  };
+
+  // Start thinking stream via API — mode-aware
+  const startThinkingStream = async ( messageId: string, query: string, level: ThinkingLevel, options?: { skipComplete?: boolean; mode?: string; depth?: string } ) =>
+  {
+    try
+    {
+      const response = await fetch( '/api/chat/thinking', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify( { messageId, query, level, mode: options?.mode, depth: options?.depth } ),
+      } );
+
+      if ( !response.body ) return;
+
+      const reader = response.body.getReader();
+      const decoder = new TextDecoder();
+
+      while ( true )
+      {
+        const { done, value } = await reader.read();
+        if ( done ) break;
+
+        const chunk = decoder.decode( value );
+        const lines = chunk.split( '\n' ).filter( line => line.trim().startsWith( 'data:' ) );
+
+        for ( const line of lines )
+        {
+          const data = JSON.parse( line.replace( 'data: ', '' ) );
+
+          if ( data.type === 'step' && data.data.step )
+          {
+            const { phase, content, duration } = data.data.step;
+            addStep( messageId, phase, content, duration );
+          } else if ( data.type === 'complete' )
+          {
+            if ( !options?.skipComplete )
+            {
+              completeSession( messageId );
+            }
+          }
+        }
+      }
+    } catch ( error )
+    {
+      console.error( 'Thinking stream error:', error );
+    }
+  };
+
+  // Activate Agent mode
+  const handleActivateAgent = ( agentType: AgentType ) =>
+  {
+    setActiveAgentType( agentType );
+    setActiveToolType( null );
+    playSound( 'click' );
+  };
+
+  // Activate Tool mode (Research/Search)
+  const handleActivateTool = ( toolType: ToolType ) =>
+  {
+    setActiveToolType( toolType );
+    setActiveAgentType( null );
+    playSound( 'click' );
+  };
+
+  // Handle opening Research with search&think mode
+  const handleOpenResearch = () =>
+  {
+    handleActivateTool( ToolType.RESEARCH );
+    setIsDeepResearchOpen( true );
+  };
+
+  // Handle opening Search with search&think mode
+  const handleOpenSearch = () =>
+  {
+    handleActivateTool( ToolType.SEARCH );
+    setIsWebSearchOpen( true );
+  };
+
+  // Handle opening ALTRA mode
+  const handleOpenAltra = () =>
+  {
+    const altraStore = useAltraStore.getState();
+    altraStore.openPanel();
   };
 
   // Toggle Canvas Mode - تفعيل/إيقاف وضع Canvas (Gemini Style)
-  const handleToggleCanvasMode = (type: CanvasType = 'CODE') => {
-    if (isModeActive && activeModeType === type) {
+  const handleToggleCanvasMode = ( type: CanvasType = 'CODE' ) =>
+  {
+    if ( isModeActive && activeModeType === type )
+    {
       disableMode();
-    } else {
-      enableMode(type);
+    } else
+    {
+      enableMode( type );
     }
-    setShowPlusMenu(false);
-    playSound('click');
+    setShowPlusMenu( false );
+    playSound( 'click' );
   };
 
   // Handle edit request from canvas message
-  const handleCanvasEditRequest = (_messageId: string, _editPrompt: string, _selectedText?: string) => {
-    // Here you would call your AI API to edit the canvas content
-    // For now, this is a placeholder
-    
-  };
+  const handleCanvasEditRequest = async ( messageId: string, editPrompt: string, selectedText?: string ) =>
+  {
+    if ( !activeChatId ) return;
 
-  const handleKeyDown = (e: React.KeyboardEvent) => {
-    if (e.key === "Enter" && !e.shiftKey) {
-      e.preventDefault();
-      handleSend();
+    setIsEditingCanvas( true );
+    const { content, language, id: canvasId, selectedModel } = useCanvasStore.getState();
+
+    try
+    {
+      const response = await fetch( '/api/canvas/edit', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify( {
+          canvasId: canvasId || 'temp',
+          currentContent: content,
+          selectedText,
+          editPrompt,
+          model: selectedModel || 'gemini-2.0-flash-exp'
+        } )
+      } );
+
+      if ( !response.ok ) throw new Error( 'Canvas edit failed' );
+
+      const reader = response.body?.getReader();
+      const decoder = new TextDecoder();
+      let editedContent = '';
+
+      if ( reader )
+      {
+        while ( true )
+        {
+          const { done, value } = await reader.read();
+          if ( done ) break;
+
+          const chunk = decoder.decode( value, { stream: true } );
+          const lines = chunk.split( '\n' );
+
+          for ( const line of lines )
+          {
+            if ( line.startsWith( 'data: ' ) )
+            {
+              const data = line.slice( 6 );
+              if ( data === '[DONE]' ) continue;
+
+              try
+              {
+                const parsed = JSON.parse( data );
+                if ( parsed.content )
+                {
+                  editedContent += parsed.content;
+                  // Update canvas in real-time
+                  useCanvasStore.getState().updateContent( editedContent );
+                }
+              } catch ( e )
+              {
+                console.error( 'Failed to parse SSE:', e );
+              }
+            }
+          }
+        }
+      }
+
+      // Add version to history
+      useCanvasStore.getState().addVersion( {
+        content: editedContent,
+        timestamp: Date.now(),
+        version: useCanvasStore.getState().versions.length + 1
+      } );
+
+      playSound( 'success' );
+    } catch ( error )
+    {
+      console.error( 'Canvas edit error:', error );
+      playSound( 'error' );
+    } finally
+    {
+      setIsEditingCanvas( false );
     }
+
   };
 
   // Create new chat
-  const _handleCreateChat = () => {
+  const _handleCreateChat = () =>
+  {
     // Close any open modals
     closeCreateModal();
     closeQuickSwitcher();
     closeSettings();
-    setIsTopMenuOpen(false);
-    setShowPlusMenu(false);
+    setIsTopMenuOpen( false );
+    setShowPlusMenu( false );
 
-    if (activeProjectId) {
-      const newChat = createChat(activeProjectId, "محادثة جديدة");
-      setActiveChat(newChat.id);
-      playSound("click");
-    }
+    const newChat = createChat( "محادثة جديدة" );
+    setActiveChat( newChat.id );
+    playSound( "click" );
   };
 
   // Delete current chat
-  const _handleDeleteChat = () => {
-    if (!activeChatId) return;
-    deleteChat(activeChatId);
-    setActiveChat(null);
-    setIsTopMenuOpen(false);
+  const _handleDeleteChat = () =>
+  {
+    if ( !activeChatId ) return;
+    deleteChat( activeChatId );
+    setActiveChat( null );
+    setIsTopMenuOpen( false );
   };
 
   // Share chat to social media
-  const _shareCurrentChat = (channel: "whatsapp" | "email" | "twitter" | "instagram") => {
-    if (!activeChatId || !conversationLink) return;
-    const text = `مشاركة محادثة #${activeChatId}`;
+  const _shareCurrentChat = ( channel: "whatsapp" | "email" | "twitter" | "instagram" ) =>
+  {
+    if ( !activeChatId || !conversationLink ) return;
+    const text = `مشاركة محادثة #${ activeChatId }`;
 
-    const openWindow = (url: string) => {
-      if (typeof window !== "undefined") {
-        window.open(url, "_blank", "noopener,noreferrer");
+    const openWindow = ( url: string ) =>
+    {
+      if ( typeof window !== "undefined" )
+      {
+        window.open( url, "_blank", "noopener,noreferrer" );
       }
     };
 
-    switch (channel) {
+    switch ( channel )
+    {
       case "whatsapp":
-        openWindow(`https://wa.me/?text=${encodeURIComponent(`${text}\n${conversationLink}`)}`);
+        openWindow( `https://wa.me/?text=${ encodeURIComponent( `${ text }\n${ conversationLink }` ) }` );
         break;
       case "email":
-        openWindow(`mailto:?subject=${encodeURIComponent(text)}&body=${encodeURIComponent(conversationLink)}`);
+        openWindow( `mailto:?subject=${ encodeURIComponent( text ) }&body=${ encodeURIComponent( conversationLink ) }` );
         break;
       case "twitter":
-        openWindow(`https://twitter.com/intent/tweet?text=${encodeURIComponent(`${text} ${conversationLink}`)}`);
+        openWindow( `https://twitter.com/intent/tweet?text=${ encodeURIComponent( `${ text } ${ conversationLink }` ) }` );
         break;
       case "instagram":
-        openWindow(`https://www.instagram.com/?url=${encodeURIComponent(conversationLink)}`);
+        openWindow( `https://www.instagram.com/?url=${ encodeURIComponent( conversationLink ) }` );
         break;
       default:
         break;
     }
-    setIsTopMenuOpen(false);
+    setIsTopMenuOpen( false );
   };
 
-  const handleReportSubmit = () => {
-    if (!reportText.trim() || !reportConsent) return;
-    
-    setReportText("");
-    setReportConsent(false);
-    setIsReportOpen(false);
-    setIsTopMenuOpen(false);
+  const handleSaveAsImage = async ( messageId: string ) =>
+  {
+    const element = document.getElementById( `msg-content-${ messageId }` );
+    if ( !element ) return;
+
+    try
+    {
+      const dataUrl = await toPng( element, {
+        backgroundColor: '#1a1a1a', // Dark background for better visibility
+        style: {
+          padding: '20px',
+          borderRadius: '12px',
+        }
+      } );
+
+      const link = document.createElement( 'a' );
+      link.download = `cccways-chat-${ messageId.slice( 0, 8 ) }.png`;
+      link.href = dataUrl;
+      link.click();
+      playSound( "click" );
+    } catch ( err )
+    {
+      console.error( 'Failed to save image:', err );
+    }
   };
 
-  const _closeCanvasMenu = () => {};
+  const handleDeleteMessage = ( messageId: string ) =>
+  {
+    if ( !activeChatId || !activeChat ) return;
+    const newMessages = activeChat.messages.filter( m => m.id !== messageId );
+    updateChat( activeChatId, { messages: newMessages } );
+    playSound( "click" );
+  };
 
-  if (!mounted) {
+  const handleLengthen = ( content: string ) =>
+  {
+    handleSend( `أعد كتابة هذا النص بشكل مطول وأكثر تفصيلاً:\n\n"${ content }"` );
+  };
+
+  const handleShorten = ( content: string ) =>
+  {
+    handleSend( `لخص هذا النص واجعله أقصر:\n\n"${ content }"` );
+  };
+
+  const handleRegenerate = ( content: string ) =>
+  {
+    handleSend( `أعد صياغة هذا النص بشكل أفضل:\n\n"${ content }"` );
+  };
+
+  const handleReply = ( content: string ) =>
+  {
+    // For now, we'll just copy to clipboard with a quote, 
+    // as full reply integration requires ChatInputBox refactoring
+    navigator.clipboard.writeText( `> ${ content }\n\n` );
+    playSound( "click" );
+  };
+
+  const handleReportSubmit = () =>
+  {
+    if ( !reportText.trim() || !reportConsent ) return;
+
+    setReportText( "" );
+    setReportConsent( false );
+    setIsReportOpen( false );
+    setIsTopMenuOpen( false );
+  };
+
+  const _closeCanvasMenu = () => { };
+
+  if ( !mounted )
+  {
     return (
       <div className="flex items-center justify-center h-full">
         <p className="text-gray-500 text-lg">Loading chat...</p>
@@ -368,26 +1035,116 @@ export const UserProfile: React.FC<UserProfileProps> = ({ name, role }) => {
   }
 
   return (
-    <div className="flex flex-col h-full relative chat-container min-h-0">
-      {/* Project Header أعلى منطقة الرسائل */}
-      {activeProject && (
-        <ProjectHeader />
-      )}
-
-      {/* Report dialog - Refined */}
+    <div className="flex flex-col h-full relative">
+      {/* More Menu Dropdown — triggered from header */ }
       <AnimatePresence>
-        {isReportOpen && (
+        { showMoreMenu && (
+          <div
+            className="fixed inset-0 z-[60]"
+            onClick={ () => setShowMoreMenu( false ) }
+          >
+            <motion.div
+              initial={ { opacity: 0, scale: 0.95, y: -5 } }
+              animate={ { opacity: 1, scale: 1, y: 0 } }
+              exit={ { opacity: 0, scale: 0.95, y: -5 } }
+              transition={ { duration: 0.15 } }
+              onClick={ ( e ) => e.stopPropagation() }
+              className="fixed left-3 top-[52px] z-[61] overlay-dropdown rounded-xl p-1 min-w-[200px] shadow-2xl"
+            >
+                  {/* Move to Project */ }
+                  <button
+                    onClick={ () =>
+                    {
+                      setMoveModalOpen( true );
+                      setShowMoreMenu( false );
+                    } }
+                    className="w-full flex items-center gap-2.5 px-3 py-2 text-[13px] overlay-text overlay-item rounded-lg"
+                  >
+                    <FolderInput className="w-4 h-4" />
+                    <span>نقل إلى مشروع</span>
+                  </button>
+
+                  {/* Pin Chat */ }
+                  <button
+                    onClick={ () =>
+                    {
+                      if ( activeChatId )
+                      {
+                        pinChat( activeChatId );
+                        playSound( "click" );
+                      }
+                      setShowMoreMenu( false );
+                    } }
+                    className="w-full flex items-center gap-2.5 px-3 py-2 text-[13px] overlay-text overlay-item rounded-lg"
+                  >
+                    <Pin className="w-4 h-4" />
+                    <span>{ activeChat?.isPinned ? "إلغاء التثبيت" : "تثبيت الدردشة" }</span>
+                  </button>
+
+                  {/* Archive */ }
+                  <button
+                    onClick={ () =>
+                    {
+                      if ( activeChatId )
+                      {
+                        archiveChat( activeChatId );
+                        setActiveChat( null );
+                        playSound( "click" );
+                      }
+                      setShowMoreMenu( false );
+                    } }
+                    className="w-full flex items-center gap-2.5 px-3 py-2 text-[13px] overlay-text overlay-item rounded-lg"
+                  >
+                    <Archive className="w-4 h-4" />
+                    <span>{ activeChat?.isArchived ? "إلغاء الأرشفة" : "أرشفة" }</span>
+                  </button>
+
+                  <div className="overlay-divider h-px my-1 mx-2" />
+
+                  {/* Report */ }
+                  <button
+                    onClick={ () =>
+                    {
+                      setIsReportOpen( true );
+                      setShowMoreMenu( false );
+                    } }
+                    className="w-full flex items-center gap-2.5 px-3 py-2 text-[13px] overlay-text overlay-item rounded-lg"
+                  >
+                    <Flag className="w-4 h-4" />
+                    <span>إبلاغ</span>
+                  </button>
+
+                  {/* Delete */ }
+                  <button
+                    onClick={ () =>
+                    {
+                      setShowDeleteConfirm( true );
+                      setShowMoreMenu( false );
+                    } }
+                    className="w-full flex items-center gap-2.5 px-3 py-2 text-[13px] text-red-400 hover:bg-red-500/10 rounded-lg transition-colors"
+                  >
+                    <Trash2 className="w-4 h-4" />
+                    <span>حذف</span>
+                  </button>
+            </motion.div>
+          </div>
+        ) }
+      </AnimatePresence>
+
+      {/* Report dialog - Refined */ }
+      <AnimatePresence>
+        { isReportOpen && (
           <motion.div
-            initial={{ opacity: 0 }}
-            animate={{ opacity: 1 }}
-            exit={{ opacity: 0 }}
+            initial={ { opacity: 0 } }
+            animate={ { opacity: 1 } }
+            exit={ { opacity: 0 } }
             className="fixed inset-0 z-50 flex items-center justify-center px-4 theme-bg"
           >
             <motion.div
-              initial={{ scale: 0.96, opacity: 0, y: 10 }}
-              animate={{ scale: 1, opacity: 1, y: 0 }}
-              exit={{ scale: 0.96, opacity: 0, y: 10 }}
-              transition={{ duration: 0.2 }}
+              initial={ { scale: 0.96, opacity: 0, y: 10 } }
+              animate={ { scale: 1, opacity: 1, y: 0 } }
+              exit={ { scale: 0.96, opacity: 0, y: 10 } }
+              transition={ { duration: 0.2 } }
               className="w-full max-w-lg rounded-3xl border border-white/[0.08] shadow-2xl shadow-[0_25px_60px_rgba(0,0,0,0.5)] p-5 space-y-4 theme-card"
             >
               <div className="flex items-center justify-between">
@@ -395,327 +1152,151 @@ export const UserProfile: React.FC<UserProfileProps> = ({ name, role }) => {
                   <div className="text-base font-semibold">الإبلاغ عن مشكلة</div>
                   <p className="text-xs text-muted-foreground/70 mt-0.5">سيتم إرفاق رابط المحادثة وبيانات حسابك تلقائياً</p>
                 </div>
-                <button onClick={() => setIsReportOpen(false)} className="p-2 rounded-2xl hover:bg-muted/60 dark:hover:bg-white/[0.06] text-muted-foreground hover:text-foreground transition-colors">✕</button>
+                <button onClick={ () => setIsReportOpen( false ) } className="p-2 rounded-2xl hover:bg-muted/60 dark:hover:bg-white/[0.06] text-muted-foreground hover:text-foreground transition-colors">✕</button>
               </div>
 
-              <div className="text-sm text-muted-foreground">رابط المحادثة: <span className="text-primary break-all">{conversationLink || "غير متوفر"}</span></div>
+              <div className="text-sm text-muted-foreground">رابط المحادثة: <span className="text-primary break-all">{ conversationLink || "غير متوفر" }</span></div>
 
               <textarea
-                value={reportText}
-                onChange={(e) => setReportText(e.target.value)}
-                rows={4}
+                value={ reportText }
+                onChange={ ( e ) => setReportText( e.target.value ) }
+                rows={ 4 }
                 className="w-full rounded-2xl border border-border/50 dark:border-white/[0.08] bg-muted/30 dark:bg-white/[0.03] p-3.5 text-sm leading-relaxed placeholder:text-muted-foreground/50 focus:outline-none focus:ring-2 focus:ring-primary/30 focus:border-primary/30 transition-all resize-none"
                 placeholder="اكتب الشكوى بالتفصيل..."
               />
 
               <label className="flex items-center gap-2.5 text-[13px] text-muted-foreground cursor-pointer select-none">
-                <input type="checkbox" checked={reportConsent} onChange={(e) => setReportConsent(e.target.checked)} className="w-4 h-4 rounded border-border accent-primary" />
+                <input
+                  id="report-consent-checkbox"
+                  name="report-consent"
+                  type="checkbox"
+                  checked={ reportConsent }
+                  onChange={ ( e ) => setReportConsent( e.target.checked ) }
+                  className="w-4 h-4 rounded border-border accent-primary"
+                />
                 أوافق على أن يطّلع مسؤول النظام على محتوى المحادثة للتحقق
               </label>
 
               <div className="flex justify-end gap-2 pt-1">
-                <button onClick={() => setIsReportOpen(false)} className="btn-professional ghost px-4 py-2.5 rounded-2xl border border-border/50 dark:border-white/[0.08] text-[13px] font-medium hover:bg-muted/60 dark:hover:bg-white/[0.06] transition-colors">إلغاء</button>
+                <button onClick={ () => setIsReportOpen( false ) } className="btn-professional ghost px-4 py-2.5 rounded-2xl border border-border/50 dark:border-white/[0.08] text-[13px] font-medium hover:bg-muted/60 dark:hover:bg-white/[0.06] transition-colors">إلغاء</button>
                 <button
-                  onClick={handleReportSubmit}
-                  disabled={!reportText.trim() || !reportConsent}
-                  className={cn(
+                  onClick={ handleReportSubmit }
+                  disabled={ !reportText.trim() || !reportConsent }
+                  className={ cn(
                     "btn-professional solid px-5 py-2.5 rounded-2xl text-[13px] font-semibold transition-all",
                     reportText.trim() && reportConsent
                       ? "bg-gradient-to-r from-primary to-primary/90 text-primary-foreground hover:shadow-lg hover:shadow-primary/20 hover:-translate-y-0.5"
                       : "bg-muted text-muted-foreground cursor-not-allowed opacity-60"
-                  )}
+                  ) }
                 >
                   إرسال البلاغ
                 </button>
               </div>
             </motion.div>
           </motion.div>
-        )}
+        ) }
       </AnimatePresence>
 
-      {/* Messages Area - Refined */}
-      <div className="flex-1 min-h-0 overflow-y-auto p-5 space-y-6 custom-scrollbar">
-        {messages.length === 0 ? (
-          <div className="flex items-center justify-center h-full">
-            <p className="text-gray-500 text-lg">ابدأ محادثة جديدة...</p>
-          </div>
-        ) : (
-          messages.map((msg) => (
-          <motion.div
-            key={msg.id}
-            initial={{ opacity: 0, y: 16 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.3, ease: [0.25, 0.46, 0.45, 0.94] }}
-            className={cn(
-              "flex gap-4 max-w-3xl mx-auto group",
-              msg.role === "user" ? "flex-row-reverse" : "flex-row"
-            )}
-          >
-            <div className={cn("flex flex-col max-w-[85%]", msg.role === "user" ? "items-end" : "items-start")}> 
-              {/* Message Content */}
-              <div
-                className={cn(
-                  "px-5 py-3.5 rounded-3xl text-[15px] leading-relaxed shadow-sm whitespace-pre-wrap",
-                  msg.role === "user"
-                    ? "bg-primary text-primary-foreground rounded-br-lg"
-                    : "bg-white/[0.05] backdrop-blur-xl border border-white/[0.1] text-foreground rounded-3xl"
-                )}
-              >
-                {msg.content}
-              </div>
-
-                  {/* Actions - Refined */}
-                  <div className={cn(
-                    "flex items-center gap-0.5 mt-2.5 px-1 opacity-0 group-hover:opacity-100 transition-opacity duration-200",
-                    msg.role === "user" ? "flex-row-reverse" : "flex-row"
-                  )}>
-                    {msg.role === "assistant" && (
-                      <div className="flex items-center gap-0.5">
-                        <button className="flex items-center gap-1.5 px-2.5 py-1.5 rounded-lg hover:bg-muted/60 dark:hover:bg-white/[0.06] text-muted-foreground/70 hover:text-primary transition-all text-[11px] font-medium" title="طلب صياغة أطول">
-                          <Maximize2 className="w-4 h-4" />
-                          <span>أطول</span>
-                        </button>
-                        <button className="flex items-center gap-1 px-2 py-1.5 rounded-lg hover:bg-muted dark:hover:bg-white/10 text-muted-foreground hover:text-primary transition-colors text-[12px] font-semibold" title="طلب صياغة مختصرة">
-                          <Minimize2 className="w-4 h-4" />
-                          <span>أقصر</span>
-                        </button>
-                      </div>
-                    )}
-                    <button className="p-1.5 rounded-lg hover:bg-muted/60 dark:hover:bg-white/[0.06] text-muted-foreground/70 hover:text-amber-400 transition-all" title="مفضلة">
-                      <Star className="w-3.5 h-3.5" />
-                    </button>
-                    {msg.role === "assistant" && (
-                      <button className="p-1.5 rounded-lg hover:bg-muted/60 dark:hover:bg-white/[0.06] text-muted-foreground/70 hover:text-foreground transition-all" title="إعادة توليد">
-                        <RefreshCw className="w-3.5 h-3.5" />
-                      </button>
-                    )}
-                    <button className="p-1.5 rounded-lg hover:bg-muted/60 dark:hover:bg-white/[0.06] text-muted-foreground/70 hover:text-foreground transition-all" title="مشاركة">
-                      <Share2 className="w-3.5 h-3.5" />
-                    </button>
-                    <button className="p-1.5 rounded-lg hover:bg-muted/60 dark:hover:bg-white/[0.06] text-muted-foreground/70 hover:text-destructive transition-all" title="حذف">
-                      <Trash2 className="w-3.5 h-3.5" />
-                    </button>
-                  </div>
-            </div>
-          </motion.div>
-        ))
-      )}
+      {/* Messages Area - Wave 4.3: Virtualized */ }
+      <div className={ cn(
+        "flex-1 min-h-0",
+        "pt-1"
+      ) }>
+        <VirtualizedMessageList
+          messages={ messages }
+          currentMode={ currentMode }
+          streamingMessageId={ streamingMessageId }
+          displayedText={ displayedText }
+          isCanvasOpen={ isCanvasOpen }
+          activeFavoriteMsgId={ activeFavoriteMsgId }
+          setActiveFavoriteMsgId={ setActiveFavoriteMsgId }
+          pages={ pages }
+          addItemToPage={ addItemToPage }
+          addPage={ addPage }
+          playSound={ playSound }
+          openArtifact={ openArtifact }
+          handleLengthen={ handleLengthen }
+          handleShorten={ handleShorten }
+          handleSaveAsImage={ handleSaveAsImage }
+          handleRegenerate={ handleRegenerate }
+          handleReply={ handleReply }
+          handleDeleteMessage={ handleDeleteMessage }
+          setShareModal={ setShareModal }
+          shouldShowThinkingForMode={ shouldShowThinkingForMode }
+          shouldShowReferencesForMode={ shouldShowReferencesForMode }
+        />
       </div>
 
-      {/* Input Area - Professional - Fixed at bottom */}
+      {/* Input Area - New ChatInputBox Component */ }
       <div className="input-container mt-auto z-40 shrink-0">
-        <div className="w-full">
-          <div
-            className={cn(
-              "relative flex flex-col px-5 pt-5 pb-14 min-h-[140px] rounded-t-2xl border-t transition-all duration-300 bg-gradient-to-b from-white/[0.08] via-[#081820]/95 to-[#081820] backdrop-blur-2xl animate-shimmer",
-              overlayActive
-                ? "shadow-[0_-4px_20px_rgba(0,0,0,0.08)] border-white/[0.15]"
-                : isModeActive 
-                  ? "border-primary/40 shadow-[0_0_30px_rgba(13,148,136,0.1)]"
-                  : "border-white/[0.08] hover:border-white/[0.12] focus-within:border-primary/30 focus-within:shadow-[0_0_30px_rgba(13,148,136,0.15)]"
-            )}
-          >
-
-            {/* Overlays */}
-            <AnimatePresence>
-              {showPlusMenu && (
-                <motion.div
-                  key="plus-menu"
-                  initial={{ opacity: 0, y: 10 }}
-                  animate={{ opacity: 1, y: 0 }}
-                  exit={{ opacity: 0, y: 10 }}
-                  transition={{ duration: 0.2, ease: [0.25, 0.46, 0.45, 0.94] }}
-                  drag="y"
-                  dragElastic={{ top: 0, bottom: 0.22 }}
-                  dragMomentum={false}
-                  onDragEnd={(_, info) => {
-                    if (info.offset.y > 40) setShowPlusMenu(false);
-                  }}
-                  ref={plusMenuRef}
-                  className="absolute inset-0 rounded-t-2xl border-t border-white/[0.15] shadow-[0_-4px_20px_rgba(0,0,0,0.08)] text-foreground z-50 p-6 flex items-center justify-center bg-gradient-to-b from-white/[0.08] via-[#081820]/95 to-[#081820] backdrop-blur-2xl animate-shimmer"
-                >
-                  <div className="flex items-center justify-center gap-3 w-full">
-                    {[
-                      { icon: Camera, label: "الكاميرا", action: () => {} },
-                      { icon: Sparkles, label: "بحث تفصيلي", action: () => { setIsDeepResearchOpen(true); setShowPlusMenu(false); } },
-                      { icon: Search, label: "البحث في الويب", action: () => { setIsWebSearchOpen(true); setShowPlusMenu(false); } },
-                      { icon: Paperclip, label: "إرفاق ملف", action: () => {} },
-                      { icon: Code2, label: "Canvas", action: () => { handleToggleCanvasMode('CODE'); setShowPlusMenu(false); } },
-                    ].map((item) => (
-                      <button
-                        key={item.label}
-                        onClick={item.action}
-                        className="flex flex-col items-center gap-2.5 px-4 py-3.5 rounded-3xl bg-muted/50 dark:bg-white/[0.04] border border-border/30 dark:border-white/[0.06] hover:border-primary/40 dark:hover:border-primary/30 hover:bg-muted/70 dark:hover:bg-white/[0.08] transition-all text-foreground group"
-                      >
-                        <item.icon className="w-5 h-5 text-foreground/70 group-hover:text-primary transition-colors" />
-                        <span className="text-[11px] font-medium text-muted-foreground group-hover:text-foreground/80 transition-colors">{item.label}</span>
-                      </button>
-                    ))}
-                  </div>
-                </motion.div>
-              )}
-</AnimatePresence>
-<AnimatePresence>
-  {isAgentMenuOpen && (
-                <motion.div
-                  key="agent-menu"
-                  initial={{ opacity: 0, y: 10 }}
-                  animate={{ opacity: 1, y: 0 }}
-                  exit={{ opacity: 0, y: 10 }}
-                  transition={{ duration: 0.2, ease: [0.25, 0.46, 0.45, 0.94] }}
-                  drag="y"
-                  dragConstraints={{ top: 0, bottom: 140 }}
-                  dragElastic={{ top: 0, bottom: 0.22 }}
-                  dragMomentum={false}
-                  onDragEnd={(_, info) => {
-                    if (info.offset.y > 40) setIsAgentMenuOpen(false);
-                  }}
-                  ref={agentMenuRef}
-                  className="absolute inset-0 rounded-t-2xl border-t border-white/[0.15] shadow-[0_-4px_20px_rgba(0,0,0,0.08)] text-foreground z-50 p-6 flex items-center justify-center bg-gradient-to-b from-white/[0.08] via-[#081820]/95 to-[#081820] backdrop-blur-2xl animate-shimmer"
-                >
-                  <div className="flex flex-wrap items-center justify-center gap-2.5 w-full max-w-3xl">
-                    {[
-                      { label: "الأيجنت العام", icon: Bot },
-                      { label: "أيجنت التحليل الأساسي والأون تشين", icon: Database },
-                      { label: "أيجنت التحليل الفني", icon: Activity },
-                      { label: "معهد CCCWAYS التعليمي", icon: GraduationCap },
-                    ].map((item) => (
-                      <button
-                        key={item.label}
-                        className="flex items-center gap-2.5 px-3.5 py-2.5 rounded-2xl bg-muted dark:bg-white/[0.05] border border-border dark:border-white/[0.08] hover:border-primary/40 hover:bg-muted/80 dark:hover:bg-white/[0.1] text-foreground transition-colors shadow-sm"
-                        onClick={() => setIsAgentMenuOpen(false)}
-                      >
-                        <item.icon className="w-5 h-5 text-primary" />
-                        <span className="text-sm font-semibold text-foreground">{item.label}</span>
-                      </button>
-                    ))}
-                  </div>
-                </motion.div>
-              )}
-            </AnimatePresence>
-
-            {!overlayActive && (
-              <>
-                {/* Input Field - Refined */}
-                <textarea
-                  dir="rtl"
-                  ref={inputRef}
-                  value={message}
-                  onChange={(e) => {
-                    setMessage(e.target.value);
-                    e.target.style.height = 'auto';
-                    e.target.style.height = `${Math.min(e.target.scrollHeight, 240)}px`;
-                  }}
-                  onKeyDown={handleKeyDown}
-                  placeholder={isModeActive ? "صف ما تريد إنشاءه في Canvas..." : "إسأل cccways"}
-                  rows={3}
-                  className={cn(
-                    "w-full flex-1 min-h-[100px] max-h-[240px] py-3.5 px-4 bg-transparent border-none outline-none focus:outline-none focus:ring-0 focus-visible:outline-none appearance-none resize-none custom-scrollbar placeholder:text-muted-foreground/50 text-[15px] leading-[1.7] text-right placeholder:text-right text-foreground/90 font-normal transition-all",
-                    isModeActive && "border-primary/20 bg-primary/[0.02]"
-                  )}
-                  style={{ height: "auto" }}
-                />
-
-                {/* Bottom actions pinned - Refined */}
-                <div className="absolute inset-x-5 bottom-4 flex items-center justify-between">
-                  <div className="flex items-center gap-1.5">
-                    <button
-                      ref={plusButtonRef}
-                      onClick={() => setShowPlusMenu((v) => !v)}
-                      className="p-2.5 rounded-xl hover:bg-muted/60 dark:hover:bg-white/[0.06] text-muted-foreground/70 hover:text-foreground transition-all"
-                      title="المزيد"
-                    >
-                      <Plus className="w-5 h-5" />
-                    </button>
-
-                    <button
-                      ref={agentButtonRef}
-                      onClick={() => {
-                        setIsAgentMenuOpen((v) => !v);
-                        setShowPlusMenu(false);
-                      }}
-                      className="px-3.5 py-2 rounded-xl bg-muted/50 dark:bg-white/[0.04] border border-border/30 dark:border-white/[0.06] hover:border-primary/40 dark:hover:border-primary/30 text-[13px] font-medium text-foreground/80 hover:text-foreground transition-all"
-                    >
-                      agent
-                    </button>
-                    
-                    {/* Canvas Mode Badge - Gemini Style */}
-                    <AnimatePresence>
-                      {isModeActive && (
-                        <motion.div
-                          initial={{ opacity: 0, scale: 0.9 }}
-                          animate={{ opacity: 1, scale: 1 }}
-                          exit={{ opacity: 0, scale: 0.9 }}
-                          className="flex items-center gap-1.5 px-3 py-2 rounded-xl bg-primary/10 border border-primary/20 text-primary"
-                        >
-                          <Code2 className="w-4 h-4" />
-                          <span className="text-[13px] font-medium">
-                            Canvas
-                          </span>
-                          <button 
-                            onClick={() => disableMode()}
-                            className="ml-1 -mr-1 p-0.5 hover:bg-primary/20 rounded-full transition-colors"
-                          >
-                            <X className="w-3.5 h-3.5" />
-                          </button>
-                        </motion.div>
-                      )}
-                    </AnimatePresence>
-                  </div>
-
-                  <div className="flex items-center gap-1.5">
-                    <button
-                      onClick={() => setIsRecording(!isRecording)}
-                      className={cn(
-                        "p-2.5 rounded-xl transition-all duration-200",
-                        isRecording
-                          ? "bg-destructive text-destructive-foreground animate-pulse shadow-lg shadow-destructive/30"
-                          : "hover:bg-muted/60 dark:hover:bg-white/[0.06] text-muted-foreground/70 hover:text-foreground"
-                      )}
-                      title="تحويل الصوت لنص"
-                    >
-                      {isRecording ? <MicOff className="w-5 h-5" /> : <Mic className="w-5 h-5" />}
-                    </button>
-
-                    {!message.trim() && (
-                      <button
-                        className="p-2.5 rounded-xl hover:bg-muted/60 dark:hover:bg-white/[0.06] text-muted-foreground/70 hover:text-foreground transition-all"
-                        title="مكالمة مع الأيجنت"
-                      >
-                        <PhoneCall className="w-5 h-5" />
-                      </button>
-                    )}
-
-                    {message.trim() && (
-                      <button
-                        onClick={handleSend}
-                        className="p-2.5 rounded-xl transition-all duration-200 bg-gradient-to-r from-primary to-primary/90 text-primary-foreground shadow-lg shadow-primary/25 hover:shadow-xl hover:shadow-primary/35 hover:-translate-y-0.5 active:translate-y-0"
-                      >
-                        <Send className="w-5 h-5" />
-                      </button>
-                    )}
-                  </div>
-                </div>
-              </>
-            )}
-          </div>
-
-        </div>
+        <ChatInputBox
+          onSend={ handleSend }
+          onToggleMode={ () => handleToggleCanvasMode( 'CODE' ) }
+          onOpenDeepResearch={ handleOpenResearch }
+          onOpenWebSearch={ handleOpenSearch }
+          onOpenAltra={ handleOpenAltra }
+        />
       </div>
 
-      {/* Deep Research Panel */}
+      {/* Deep Research Panel */ }
       <DeepResearchPanel
-        isOpen={isDeepResearchOpen}
-        onClose={() => setIsDeepResearchOpen(false)}
-        onInsertToChat={handleInsertResearch}
+        isOpen={ isDeepResearchOpen }
+        onClose={ () =>
+        {
+          setIsDeepResearchOpen( false );
+          if ( activeToolType === ToolType.RESEARCH )
+          {
+            setActiveToolType( null );
+          }
+        } }
+        onInsertToChat={ handleInsertResearch }
         userId="anonymous"
       />
 
-      {/* Web Search Panel */}
+      {/* Web Search Panel */ }
       <WebSearchPanel
-        isOpen={isWebSearchOpen}
-        onClose={() => setIsWebSearchOpen(false)}
-        onInsertToChat={handleInsertWebSearch}
+        isOpen={ isWebSearchOpen }
+        onClose={ () =>
+        {
+          setIsWebSearchOpen( false );
+          if ( activeToolType === ToolType.SEARCH )
+          {
+            setActiveToolType( null );
+          }
+        } }
+        onInsertToChat={ handleInsertWebSearch }
+      />
+
+      {/* ALTRA Pipeline Panel */ }
+      <AltraPipelineView />
+
+      {/* Share Modal */ }
+      <ShareModal
+        isOpen={ shareModal.isOpen }
+        onClose={ () => setShareModal( { ...shareModal, isOpen: false } ) }
+        shareText={ shareModal.text }
+        shareUrl={ shareModal.url }
+      />
+
+      {/* Delete Confirmation Modal */ }
+      <ConfirmModal
+        isOpen={ showDeleteConfirm }
+        onClose={ () => setShowDeleteConfirm( false ) }
+        onConfirm={ () =>
+        {
+          if ( activeChatId )
+          {
+            deleteChat( activeChatId );
+            setActiveChat( null );
+            playSound( "click" );
+          }
+          setShowDeleteConfirm( false );
+        } }
+        title="حذف المحادثة"
+        message="هل أنت متأكد من حذف هذه المحادثة؟ لا يمكن التراجع عن هذا الإجراء."
+        confirmText="حذف"
+        cancelText="إلغاء"
+        variant="danger"
       />
     </div>
   );

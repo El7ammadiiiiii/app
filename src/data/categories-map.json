@@ -1,0 +1,50 @@
+{
+  "4": {
+    "key": "blockchain-service",
+    "name": "Blockchain Service"
+  },
+  "21": {
+    "key": "gamefi",
+    "name": "GameFi"
+  },
+  "36": {
+    "key": "social",
+    "name": "Social"
+  },
+  "37": {
+    "key": "stablecoin",
+    "name": "Stablecoin"
+  },
+  "38": {
+    "key": "currency",
+    "name": "Currency"
+  },
+  "44": {
+    "key": "blockchain-infrastructure",
+    "name": "Blockchain Infrastructure"
+  },
+  "54": {
+    "key": "defi",
+    "name": "DeFi"
+  },
+  "56": {
+    "key": "non-fungible-tokens-nft",
+    "name": "NFT"
+  },
+  "59": {
+    "key": "meme",
+    "name": "Meme"
+  },
+  "63": {
+    "key": "ce-fi",
+    "name": "CeFi"
+  },
+  "65": {
+    "key": "chain",
+    "name": "Chain"
+  },
+  "66": {
+    "key": "tokenizedassets",
+    "name": "Tokenized Assets"
+  }
+}

@@ -6,7 +6,7 @@
  * based on market structure (HH, HL, LH, LL patterns)
  */
 
-import { CandleData } from "@/components/charts/TradingChart";
+import type { CandleData } from "@/components/charts/types";
 
 export interface SRLevel {
   price: number;

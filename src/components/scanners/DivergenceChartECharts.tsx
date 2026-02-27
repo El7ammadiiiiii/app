@@ -11,7 +11,7 @@
  * - Smooth animations
  * - Professional dark theme (#131722)
  * 
- * @author Nexus Elite Team
+ * @author CCWAYS Team
  * @version 2.0.0
  */
 
@@ -24,7 +24,7 @@ import * as echarts from 'echarts/core';
 import { CanvasRenderer } from 'echarts/renderers';
 
 // Register ECharts components
-echarts.use([
+echarts.use( [
   GraphicComponent,
   GridComponent,
   TooltipComponent,
@@ -33,9 +33,10 @@ echarts.use([
   CandlestickChart,
   LineChart,
   CanvasRenderer
-]);
+] );
 
-interface DivergenceChartProps {
+interface DivergenceChartProps
+{
   candles: OHLCV[];
   divergence: DivergenceResult;
   indicatorValues: number[];
@@ -44,23 +45,28 @@ interface DivergenceChartProps {
   className?: string;
 }
 
-export function DivergenceChartECharts({
+export function DivergenceChartECharts ( {
   candles,
   divergence,
   indicatorValues,
   width = '100%',
   height = 400,
   className = ''
-}: DivergenceChartProps) {
+}: DivergenceChartProps )
+{
 
-  const option = useMemo(() => {
+  const sizeClass = `divergence-echarts-size-${ String( width ).replace( /[^a-z0-9]/gi, '' ) }-${ String( height ).replace( /[^a-z0-9]/gi, '' ) }`;
+
+  const option = useMemo( () =>
+  {
     // Format data for ECharts
     // ECharts Candlestick data: [open, close, low, high]
-    const data0 = candles.map(item => [item.open, item.close, item.low, item.high]);
-    const categoryData = candles.map(item => {
-      const date = new Date(item.timestamp);
-      return `${date.getHours()}:${date.getMinutes().toString().padStart(2, '0')}`;
-    });
+    const data0 = candles.map( item => [ item.open, item.close, item.low, item.high ] );
+    const categoryData = candles.map( item =>
+    {
+      const date = new Date( item.timestamp );
+      return `${ date.getHours() }:${ date.getMinutes().toString().padStart( 2, '0' ) }`;
+    } );
 
     // Colors
     const upColor = '#008040';
@@ -74,11 +80,11 @@ export function DivergenceChartECharts({
 
     // Calculate Divergence Lines
     // Price Chart Line
-    const priceStartValue = divergence.startPoint.isHigh ? candles[divergence.startPoint.index].high : candles[divergence.startPoint.index].low;
-    const priceEndValue = divergence.endPoint.isHigh ? candles[divergence.endPoint.index].high : candles[divergence.endPoint.index].low;
+    const priceStartValue = divergence.startPoint.isHigh ? candles[ divergence.startPoint.index ].high : candles[ divergence.startPoint.index ].low;
+    const priceEndValue = divergence.endPoint.isHigh ? candles[ divergence.endPoint.index ].high : candles[ divergence.endPoint.index ].low;
 
     const priceMarkLine = {
-      symbol: ['none', 'arrow'],
+      symbol: [ 'none', 'arrow' ],
       symbolSize: 10,
       label: { show: false },
       lineStyle: {
@@ -88,8 +94,8 @@ export function DivergenceChartECharts({
       },
       data: [
         [
-          { coord: [divergence.startPoint.index, priceStartValue] },
-          { coord: [divergence.endPoint.index, priceEndValue] }
+          { coord: [ divergence.startPoint.index, priceStartValue ] },
+          { coord: [ divergence.endPoint.index, priceEndValue ] }
         ]
       ]
     };
@@ -97,7 +103,7 @@ export function DivergenceChartECharts({
     // Indicator Chart Line
     // Use indicatorPeakIndex for accurate placement on the indicator line
     const indicatorMarkLine = {
-      symbol: ['none', 'arrow'],
+      symbol: [ 'none', 'arrow' ],
       symbolSize: 10,
       label: { show: false },
       lineStyle: {
@@ -107,8 +113,8 @@ export function DivergenceChartECharts({
       },
       data: [
         [
-          { coord: [divergence.startPoint.indicatorPeakIndex, divergence.startPoint.indicatorValue] },
-          { coord: [divergence.endPoint.indicatorPeakIndex, divergence.endPoint.indicatorValue] }
+          { coord: [ divergence.startPoint.indicatorPeakIndex, divergence.startPoint.indicatorValue ] },
+          { coord: [ divergence.endPoint.indicatorPeakIndex, divergence.endPoint.indicatorValue ] }
         ]
       ]
     };
@@ -197,13 +203,13 @@ export function DivergenceChartECharts({
       dataZoom: [
         {
           type: 'inside',
-          xAxisIndex: [0, 1],
+          xAxisIndex: [ 0, 1 ],
           start: 0,
           end: 100
         },
         {
           show: false, // Hide slider
-          xAxisIndex: [0, 1],
+          xAxisIndex: [ 0, 1 ],
           type: 'slider',
           top: '95%',
           start: 0,
@@ -236,50 +242,51 @@ export function DivergenceChartECharts({
             color: '#2196f3' // Default indicator color
           },
           areaStyle: {
-            color: new echarts.graphic.LinearGradient(0, 0, 0, 1, [
+            color: new echarts.graphic.LinearGradient( 0, 0, 0, 1, [
               { offset: 0, color: 'rgba(33, 150, 243, 0.5)' },
               { offset: 1, color: 'rgba(33, 150, 243, 0.0)' }
-            ])
+            ] )
           },
           markLine: indicatorMarkLine
         }
       ]
     };
-  }, [candles, divergence, indicatorValues]);
+  }, [ candles, divergence, indicatorValues ] );
 
   return (
-    <div className={`flex flex-col gap-1 ${className}`}>
+    <div className={ `flex flex-col gap-1 ${ className }` }>
       <div className="relative rounded-lg overflow-hidden border border-[#1a4a4d]">
+        <style>{ `.${ sizeClass }{width:${ typeof width === 'number' ? `${ width }px` : width };height:${ typeof height === 'number' ? `${ height }px` : height };}` }</style>
         <ReactEChartsCore
-          echarts={echarts}
-          option={option} 
-          style={{ height: height, width: width }}
+          echarts={ echarts }
+          option={ option }
+          className={ sizeClass }
           theme="dark"
         />
-        
-        {/* Chart Label */}
+
+        {/* Chart Label */ }
         <div className="absolute top-2 left-2 px-2 py-1 rounded text-xs text-white/80 backdrop-blur-sm pointer-events-none theme-surface">
-          {divergence.symbol} • {divergence.timeframe}
+          { divergence.symbol } • { divergence.timeframe }
         </div>
 
-        {/* Indicator Label */}
+        {/* Indicator Label */ }
         <div className="absolute top-[70%] left-2 px-2 py-1 rounded text-xs text-white/80 backdrop-blur-sm pointer-events-none theme-surface">
-          {divergence.indicator}
+          { divergence.indicator }
         </div>
       </div>
 
-      {/* Chart Info Footer */}
+      {/* Chart Info Footer */ }
       <div className="flex items-center justify-between text-xs px-2 py-1.5 border border-[#1a4a4d] rounded-lg mt-1 theme-surface">
         <span className="text-gray-500">
-          Type: <span className={`font-semibold ${divergence.direction === 'bullish' ? 'text-green-400' : 'text-red-400'}`}>
-            {divergence.type.toUpperCase()}
+          Type: <span className={ `font-semibold ${ divergence.direction === 'bullish' ? 'text-green-400' : 'text-red-400' }` }>
+            { divergence.type.toUpperCase() }
           </span>
         </span>
         <span className="text-gray-500">
-          Score: <span className="font-semibold text-cyan-400">{divergence.score.toFixed(0)}</span>
+          Score: <span className="font-semibold text-cyan-400">{ divergence.score.toFixed( 0 ) }</span>
         </span>
         <span className="text-gray-500">
-          Confidence: <span className="font-semibold text-amber-400">{divergence.confidence.toFixed(0)}%</span>
+          Confidence: <span className="font-semibold text-amber-400">{ divergence.confidence.toFixed( 0 ) }%</span>
         </span>
       </div>
     </div>

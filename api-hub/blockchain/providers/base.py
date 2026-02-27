@@ -9,15 +9,24 @@ import aiohttp
 import json
 import time
 import logging
+import os
 from abc import ABC, abstractmethod
 from dataclasses import dataclass, field
 from pathlib import Path
 from typing import Any, Dict, List, Optional, Union
 from functools import wraps
-
-# Configure logging
-logging.basicConfig(level=logging.INFO)
 logger = logging.getLogger(__name__)
+
+
+_TRACE_VERBOSE = os.getenv("TRACE_VERBOSE", "0").strip().lower() in {"1", "true", "yes", "on"}
+
+
+def _trace_log(message: str) -> None:
+    """Log verbose lifecycle messages only when TRACE_VERBOSE=1."""
+    if _TRACE_VERBOSE:
+        logger.info(message)
+    else:
+        logger.debug(message)
 
 
 # ═══════════════════════════════════════════════════════════════════════════════
@@ -191,17 +200,40 @@ class BaseClient(ABC):
     async def initialize(self) -> None:
         """Initialize HTTP session"""
         if not self._initialized:
+            import socket
+            import ssl
+            
+            # Create SSL context that doesn't verify certificates (temporary fix)
+            ssl_context = ssl.create_default_context()
+            ssl_context.check_hostname = False
+            ssl_context.verify_mode = ssl.CERT_NONE
+            
+            # Try using system resolver instead of aiodns
             connector = aiohttp.TCPConnector(
                 limit=100,
                 limit_per_host=30,
                 keepalive_timeout=30,
+                family=socket.AF_INET,  # Force IPv4
+                use_dns_cache=False,  # Disable DNS cache
+                ssl=ssl_context,
+                force_close=False,
+                enable_cleanup_closed=True
             )
+            
+            # Increase timeout
+            timeout = aiohttp.ClientTimeout(
+                total=60,
+                connect=30,
+                sock_connect=30,
+                sock_read=30
+            )
+            
             self._session = aiohttp.ClientSession(
                 connector=connector,
-                timeout=aiohttp.ClientTimeout(total=self.timeout),
+                timeout=timeout,
             )
             self._initialized = True
-            logger.info(f"Initialized client for {self.base_url}")
+            _trace_log(f"Initialized client for {self.base_url}")
     
     async def close(self) -> None:
         """Close HTTP session"""
@@ -209,7 +241,7 @@ class BaseClient(ABC):
             await self._session.close()
             self._session = None
             self._initialized = False
-            logger.info(f"Closed client for {self.base_url}")
+            _trace_log(f"Closed client for {self.base_url}")
     
     async def __aenter__(self):
         await self.initialize()
@@ -224,6 +256,11 @@ class BaseClient(ABC):
             "Content-Type": "application/json",
             "Accept": "application/json",
         }
+        
+        # إذا كان base_url يحتوي على IP، أضف Host header
+        if self.base_url and "217.79.243.34" in self.base_url:
+            headers["Host"] = "api.etherscan.io"
+        
         if self.api_key:
             headers["Authorization"] = f"Bearer {self.api_key}"
         return headers
@@ -380,7 +417,7 @@ Include relevant metrics and comparisons when available."""
         try:
             from openai import AsyncOpenAI
             self._client = AsyncOpenAI(api_key=self.api_key)
-            logger.info(f"Initialized agent: {self.name}")
+            _trace_log(f"Initialized agent: {self.name}")
         except ImportError:
             raise ImportError("openai package required. Install with: pip install openai")
     
@@ -389,7 +426,7 @@ Include relevant metrics and comparisons when available."""
         if self._data_client:
             await self._data_client.close()
         self._client = None
-        logger.info(f"Closed agent: {self.name}")
+        _trace_log(f"Closed agent: {self.name}")
     
     async def __aenter__(self):
         await self.initialize()

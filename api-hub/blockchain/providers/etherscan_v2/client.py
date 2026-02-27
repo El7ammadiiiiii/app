@@ -27,7 +27,7 @@ class EtherscanV2Client(BaseClient):
     URL format: https://api.etherscan.io/v2/api?chainid={CHAIN_ID}&...
     """
     
-    BASE_URL = "https://api.etherscan.io/v2/api"
+    BASE_URL = "https://217.79.243.34/v2/api"  # Using IP directly to bypass DNS
     
     def __init__(
         self,
@@ -51,8 +51,11 @@ class EtherscanV2Client(BaseClient):
         self._api_key = api_key
     
     def _get_headers(self) -> Dict[str, str]:
-        """Override - Etherscan uses query params for auth"""
-        return {"Accept": "application/json"}
+        """Override - Etherscan uses query params for auth. Add Host header for IP connection"""
+        return {
+            "Accept": "application/json",
+            "Host": "api.etherscan.io"  # Required when using IP address
+        }
     
     async def _request_v2(
         self,

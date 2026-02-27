@@ -10,7 +10,7 @@ export type ProviderType =
   | 'alpaca'
   | 'discord'
   | 'twitter'
-  | 'binance'
+  | 'centralized'
   | 'bybit'
   | 'mexc'
   | 'coinbase'

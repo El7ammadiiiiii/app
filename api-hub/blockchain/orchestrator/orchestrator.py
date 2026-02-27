@@ -28,7 +28,7 @@ CHAIN_ALIASES: Dict[str, str] = {
     "eth": "ethereum", "ethereum": "ethereum", "إيثريوم": "ethereum",
     
     # Layer 1
-    "bnb": "bnb_chain", "bsc": "bnb_chain", "binance": "bnb_chain",
+    "bnb": "bnb_chain", "bsc": "bnb_chain",
     "avax": "avalanche", "avalanche": "avalanche",
     "ftm": "fantom", "fantom": "fantom",
     "cro": "cronos", "cronos": "cronos",

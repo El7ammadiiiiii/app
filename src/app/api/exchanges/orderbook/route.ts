@@ -1,10 +1,9 @@
-/**
- * 📖 Order Book API Route
- * GET /api/exchanges/orderbook?exchange=binance&symbol=BTC/USDT&limit=100
- */
-
 import { NextRequest, NextResponse } from 'next/server';
-import { ccxtManager, type ExchangeId, Priority } from '@/lib/exchanges';
+
+/**
+ * 📊 Orderbook API Route - Updated to use direct fetch
+ * GET /api/exchanges/orderbook?exchange=bybit&symbol=BTCUSDT&limit=20
+ */
 
 export const runtime = 'nodejs';
 export const dynamic = 'force-dynamic';
@@ -12,46 +11,37 @@ export const dynamic = 'force-dynamic';
 export async function GET(request: NextRequest) {
   try {
     const { searchParams } = new URL(request.url);
-    
-    const exchange = searchParams.get('exchange') as ExchangeId;
+    const exchange = searchParams.get('exchange');
     const symbol = searchParams.get('symbol');
-    const limitParam = searchParams.get('limit');
-    const priorityParam = searchParams.get('priority');
+    const limit = searchParams.get('limit') || '20';
 
-    // Validation
-    if (!exchange) {
+    if (!exchange || !symbol) {
       return NextResponse.json(
-        { error: 'Missing required parameter: exchange' },
+        { error: 'Missing required parameters: exchange and symbol' },
         { status: 400 }
       );
     }
 
-    if (!symbol) {
-      return NextResponse.json(
-        { error: 'Missing required parameter: symbol' },
-        { status: 400 }
-      );
+    let url = '';
+    if (exchange === 'bybit') {
+      url = `https://api.bybit.com/v5/market/orderbook?category=spot&symbol=${symbol.replace('/', '')}&limit=${limit}`;
+    } else {
+      url = `https://api.bybit.com/v5/market/orderbook?category=spot&symbol=${symbol.replace('/', '')}&limit=${limit}`;
     }
 
-    // Parse parameters
-    const limit = limitParam ? parseInt(limitParam) : 100;
-    let priority: Priority = Priority.NORMAL;
-    if (priorityParam === 'high') priority = Priority.HIGH;
-    if (priorityParam === 'low') priority = Priority.LOW;
-
-    // Fetch order book
-    const result = await ccxtManager.fetchOrderBook(exchange, symbol, limit, priority);
-
-    if (!result.success) {
-      return NextResponse.json(
-        { error: result.error },
-        { status: 500 }
-      );
+    const response = await fetch(url);
+    if (!response.ok) {
+      throw new Error(`Exchange API responded with ${response.status}`);
     }
 
-    return NextResponse.json(result);
+    const data = await response.json();
+    return NextResponse.json({
+      success: true,
+      data,
+      timestamp: Date.now(),
+    });
   } catch (error) {
-    console.error('Order Book API Error:', error);
+    console.error('Orderbook API Error:', error);
     return NextResponse.json(
       { error: (error as Error).message },
       { status: 500 }

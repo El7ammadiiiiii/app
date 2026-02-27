@@ -68,10 +68,10 @@ function FavoriteRow({
       <td className="py-4 px-4 text-right">
         {priceData ? (
           <div className="text-foreground font-mono text-sm">
-            ${priceData.price.toLocaleString(undefined, { 
+            ${priceData.price?.toLocaleString(undefined, { 
               minimumFractionDigits: 2, 
-              maximumFractionDigits: priceData.price < 1 ? 6 : 2 
-            })}
+              maximumFractionDigits: (priceData.price || 0) < 1 ? 6 : 2 
+            }) || "0.00"}
           </div>
         ) : (
           <div className="w-20 h-4 bg-white/5 rounded animate-pulse" />

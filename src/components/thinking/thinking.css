@@ -1,0 +1,218 @@
+/**
+ * ═══════════════════════════════════════════════════════════════════════════════
+ * THINKING STYLES - Gemini-Inspired Design
+ * ═══════════════════════════════════════════════════════════════════════════════
+ */
+
+.thinking-container {
+  width: 100%;
+  margin-bottom: 1rem;
+}
+
+/* Header */
+.thinking-header {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  padding: 0.625rem 1rem;
+  border-radius: 0.75rem;
+  background: linear-gradient(to right, rgb(6 182 212 / 0.1), rgb(20 184 166 / 0.1), rgb(6 182 212 / 0.1));
+  border: 1px solid rgb(6 182 212 / 0.2);
+  cursor: pointer;
+  user-select: none;
+  transition: all 0.2s;
+}
+
+.thinking-header:hover {
+  background: linear-gradient(to right, rgb(6 182 212 / 0.15), rgb(20 184 166 / 0.15), rgb(6 182 212 / 0.15));
+  border-color: rgb(6 182 212 / 0.3);
+}
+
+.thinking-header-content {
+  flex: 1;
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+}
+
+.thinking-header-text {
+  font-size: 0.875rem;
+  font-weight: 500;
+  color: rgb(103 232 249);
+}
+
+.thinking-toggle-btn {
+  background: none;
+  border: none;
+  cursor: pointer;
+  padding: 0.25rem 0.5rem;
+  display: flex;
+  align-items: center;
+}
+
+.thinking-toggle-text {
+  font-size: 0.75rem;
+  font-weight: 500;
+  color: rgb(34 211 238);
+}
+
+/* Summary Panel */
+.thinking-summary {
+  margin-top: 0.5rem;
+  padding: 1rem;
+  border-radius: 0.75rem;
+  background: rgb(255 255 255 / 0.03);
+  backdrop-filter: blur(12px);
+  border: 1px solid rgb(255 255 255 / 0.08);
+}
+
+.thinking-summary>*+* {
+  margin-top: 0.75rem;
+}
+
+.thinking-summary.collapsed {
+  display: none;
+}
+
+/* Step Item */
+.thinking-step {
+  display: flex;
+  align-items: flex-start;
+  gap: 0.5rem;
+  padding: 0.75rem;
+  border-radius: 0.5rem;
+  background: rgb(255 255 255 / 0.02);
+  border: 1px solid rgb(255 255 255 / 0.05);
+  transition: all 0.2s;
+  animation: thinking-step-fade-in 0.3s ease-out;
+}
+
+@keyframes thinking-step-fade-in {
+  from {
+    opacity: 0;
+    transform: translateY(8px);
+  }
+
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.thinking-step:hover {
+  background: rgb(255 255 255 / 0.04);
+  border-color: rgb(255 255 255 / 0.08);
+}
+
+.thinking-step-content {
+  flex: 1;
+}
+
+.thinking-step-phase {
+  font-size: 0.75rem;
+  font-weight: 500;
+  color: rgb(34 211 238);
+  margin-bottom: 0.25rem;
+}
+
+.thinking-step-text {
+  font-size: 0.875rem;
+  color: rgb(255 255 255 / 0.8);
+  line-height: 1.625;
+}
+
+.thinking-step-duration {
+  font-size: 0.75rem;
+  color: rgb(163 163 163);
+  margin-top: 0.25rem;
+}
+
+/* Progress Indicator */
+.thinking-progress {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  margin-top: 0.5rem;
+}
+
+.thinking-progress-bar {
+  flex: 1;
+  height: 0.25rem;
+  background: rgb(255 255 255 / 0.05);
+  border-radius: 9999px;
+  overflow: hidden;
+}
+
+.thinking-progress-fill {
+  height: 100%;
+  background: linear-gradient(to right, rgb(6 182 212), rgb(20 184 166));
+  transition: all 0.3s;
+  animation: thinking-progress-pulse 2s ease-in-out infinite;
+}
+
+@keyframes thinking-progress-pulse {
+
+  0%,
+  100% {
+    opacity: 1;
+  }
+
+  50% {
+    opacity: 0.6;
+  }
+}
+
+.thinking-progress-text {
+  font-size: 0.75rem;
+  color: rgb(163 163 163);
+}
+
+/* Complete State */
+.thinking-complete {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  padding: 0.75rem;
+  border-radius: 0.5rem;
+  background: linear-gradient(to right, rgb(34 197 94 / 0.1), rgb(16 185 129 / 0.1));
+  border: 1px solid rgb(34 197 94 / 0.2);
+}
+
+.thinking-complete-text {
+  font-size: 0.875rem;
+  font-weight: 500;
+  color: rgb(134 239 172);
+}
+
+.thinking-complete-count {
+  font-size: 0.75rem;
+  color: rgb(134 239 172);
+}
+
+/* Error State */
+.thinking-error {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  padding: 0.75rem;
+  border-radius: 0.5rem;
+  background: linear-gradient(to right, rgb(239 68 68 / 0.1), rgb(244 63 94 / 0.1));
+  border: 1px solid rgb(239 68 68 / 0.2);
+}
+
+.thinking-error-text {
+  font-size: 0.875rem;
+  font-weight: 500;
+  color: rgb(252 165 165);
+}
+
+/* Dark Mode Enhancements */
+@media (prefers-color-scheme: dark) {
+  .thinking-header {
+    box-shadow: 0 4px 16px rgba(6, 182, 212, 0.1);
+  }
+
+  .thinking-summary {
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.2);
+  }
+}

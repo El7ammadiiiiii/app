@@ -1,890 +1,986 @@
 "use client";
 
-import { useState, useEffect, useRef } from "react";
-import { motion, AnimatePresence, Variants } from "framer-motion";
-import { useTheme } from "next-themes";
-import {
-  User,
+import { useState, useEffect, useRef, useCallback } from "react";
+import useTimeout from '@/hooks/useTimeout';
+import { motion, AnimatePresence } from "framer-motion";
+import
+{
   Star,
-  Bookmark,
-  FolderKanban,
   GraduationCap,
   MessageSquare,
   ChevronDown,
-  ChevronLeft,
   Plus,
   Crown,
-  Sparkles,
-  History,
   Search,
-  Menu,
-  X,
   Settings,
   LogOut,
-  Moon,
-  Sun,
-  Monitor,
   Pin,
   MoreHorizontal,
   Archive,
   Award,
-  Command,
-  Coffee,
-  Flower2,
-  Eclipse,
   Trash2,
   Share2,
   Edit3,
+  Folder,
+  PenLine,
+  PanelRightOpen,
+  PanelRightClose,
+  X,
+  FolderPlus,
 } from "lucide-react";
 import { cn } from "@/lib/utils";
+import { useRouter, usePathname } from "next/navigation";
+import { useChatStore } from "@/store/chatStore";
 import { useProjectStore } from "@/store/projectStore";
-import { PROJECT_COLORS } from "@/types/project";
-import { ProjectCard, ProjectChatList } from "@/components/projects";
+import { useFavoritesStore } from "@/store/favoritesStore";
 import { useSound } from "@/lib/sounds";
+import { useBodyScrollLock } from "@/hooks/useBodyScrollLock";
 import { ArchivePanel } from "@/components/archive";
 import { ShareModal } from "@/components/share";
+import { groupChatsByDate } from "@/lib/chatUtils";
+import InfinityLogoSvg from "@/components/ui/InfinityLogoSvg";
+import type { SidebarMode } from "./app-layout";
+import { HEADER_HEIGHT } from "./top-header";
 
 // Types
-interface ShareState {
+interface ShareState
+{
   isOpen: boolean;
   id: string;
   title: string;
   type: "chat" | "project";
 }
 
-interface SidebarItem {
-  id: string;
-  label: string;
-  icon: React.ReactNode;
-  badge?: number;
-  children?: { id: string; label: string; icon?: React.ReactNode }[];
-}
-
-interface SidebarLeftProps {
-  isOpen: boolean;
+interface SidebarLeftProps
+{
+  mode: SidebarMode | "mobile-open" | "hidden";
+  onModeChange: ( mode: SidebarMode | "mobile-open" | "hidden" ) => void;
   onToggle: () => void;
-  isMobile?: boolean;
+  screenSize: "mobile" | "tablet" | "desktop";
   onOpenSettings?: () => void;
 }
 
-export function SidebarLeft({ isOpen, onToggle, isMobile = false, onOpenSettings }: SidebarLeftProps) {
-  const [expandedItems, setExpandedItems] = useState<string[]>(["projects", "conversations"]);
-  const [searchQuery, setSearchQuery] = useState("");
-  const [isArchiveOpen, setIsArchiveOpen] = useState(false);
-  const [openMenuId, setOpenMenuId] = useState<string | null>(null);
-  const [editingId, setEditingId] = useState<string | null>(null);
-  const [editingName, setEditingName] = useState("");
-  const [shareModal, setShareModal] = useState<ShareState>({ isOpen: false, id: "", title: "", type: "chat" });
-  const sidebarRef = useRef<HTMLDivElement>(null);
-  const { resolvedTheme } = useTheme();
+// ═══════════════════════════════════════════════════════════════
+// Main Component
+// ═══════════════════════════════════════════════════════════════
+export function SidebarLeft ( { mode, onModeChange, onToggle, screenSize, onOpenSettings }: SidebarLeftProps )
+{
+  const [ expandedItems, setExpandedItems ] = useState<string[]>( [ "conversations" ] );
+  const [ searchQuery, setSearchQuery ] = useState( "" );
+  const [ isArchiveOpen, setIsArchiveOpen ] = useState( false );
+  const [ openMenuId, setOpenMenuId ] = useState<string | null>( null );
+  const [ editingId, setEditingId ] = useState<string | null>( null );
+  const [ editingName, setEditingName ] = useState( "" );
+  const [ shareModal, setShareModal ] = useState<ShareState>( { isOpen: false, id: "", title: "", type: "chat" } );
+  const [ showCreateProject, setShowCreateProject ] = useState( false );
+  const sidebarRef = useRef<HTMLDivElement>( null );
+  const router = useRouter();
+  const pathname = usePathname();
   const { playSound } = useSound();
 
-  // Close menu when clicking anywhere
-  useEffect(() => {
-    const handleClickOutside = () => {
-      if (openMenuId) {
-        setOpenMenuId(null);
-      }
-    };
-    // Use click instead of mousedown to close on any click
-    document.addEventListener("click", handleClickOutside);
-    return () => document.removeEventListener("click", handleClickOutside);
-  }, [openMenuId]);
+  // Stores
+  const { pages, addPage, removePage } = useFavoritesStore();
+  const [ isAddingFavoritePage, setIsAddingFavoritePage ] = useState( false );
+  const [ newFavoritePageName, setNewFavoritePageName ] = useState( "" );
 
-  // Close the entire sidebar when user clicks anywhere outside it (desktop & mobile)
-  useEffect(() => {
-    const handleGlobalClick = (event: MouseEvent) => {
-      if (!isOpen) return;
-      const target = event.target as Node;
-      if (sidebarRef.current && !sidebarRef.current.contains(target)) {
-        onToggle();
-      }
-    };
-
-    document.addEventListener("click", handleGlobalClick);
-    return () => document.removeEventListener("click", handleGlobalClick);
-  }, [isOpen, onToggle]);
-
-  // Project Store
   const {
-    projects,
-    activeProjectId,
-    setActiveProject,
-    getFilteredProjects,
-    getPinnedProjects,
-    openCreateModal,
-    closeCreateModal,
-    openQuickSwitcher,
-    closeQuickSwitcher,
-    getProjectChats,
-    createProject,
-    closeSettings,
-    deleteProject,
-    updateProject,
-    archiveProject,
-  } = useProjectStore();
+    chats: allChats,
+    activeChatId,
+    setActiveChat,
+    createChat,
+    updateChat,
+    deleteChat,
+    archiveChat,
+    pinChat,
+  } = useChatStore();
 
-  const filteredProjects = getFilteredProjects();
-  const pinnedProjects = getPinnedProjects();
-  const activeProject = projects.find(p => p.id === activeProjectId);
+  const { projects } = useProjectStore();
 
-  const toggleExpand = (id: string) => {
-    setExpandedItems((prev) =>
-      prev.includes(id) ? prev.filter((item) => item !== id) : [...prev, id]
+  // Lock body scroll on mobile when sidebar is open
+  const isMobileOpen = mode === "mobile-open";
+  useBodyScrollLock( isMobileOpen );
+
+  // Swipe to close (mobile only)
+  const touchStartX = useRef( 0 );
+  const handleTouchStart = ( e: React.TouchEvent ) =>
+  {
+    touchStartX.current = e.touches[ 0 ].clientX;
+  };
+  const handleTouchEnd = ( e: React.TouchEvent ) =>
+  {
+    const deltaX = e.changedTouches[ 0 ].clientX - touchStartX.current;
+    // In RTL, swipe right = close (positive deltaX)
+    if ( deltaX > 80 )
+    {
+      onModeChange( "hidden" );
+    }
+  };
+
+  // Auto-focus new favorite input
+  useTimeout( () =>
+  {
+    document.getElementById( "new-fav-input" )?.focus();
+  }, isAddingFavoritePage ? 100 : undefined, [ isAddingFavoritePage ] );
+
+  // Close menu when clicking anywhere
+  useEffect( () =>
+  {
+    if ( !openMenuId ) return;
+    const handleClick = () => setOpenMenuId( null );
+    document.addEventListener( "click", handleClick );
+    return () => document.removeEventListener( "click", handleClick );
+  }, [ openMenuId ] );
+
+  const toggleExpand = ( id: string ) =>
+  {
+    setExpandedItems( prev =>
+      prev.includes( id ) ? prev.filter( item => item !== id ) : [ ...prev, id ]
     );
   };
 
-  // Get all chats for conversations list
-  const allChats = useProjectStore((state) => state.chats);
-  const createChat = useProjectStore((state) => state.createChat);
-  const setActiveChat = useProjectStore((state) => state.setActiveChat);
-  const activeChatId = useProjectStore((state) => state.activeChatId);
-  const deleteChat = useProjectStore((state) => state.deleteChat);
-  const updateChat = useProjectStore((state) => state.updateChat);
-
   // Menu actions
-  const handleDeleteProject = (projectId: string) => {
-    deleteProject(projectId);
-    setOpenMenuId(null);
-    playSound("click");
+  const handleDeleteChat = ( chatId: string ) =>
+  {
+    deleteChat( chatId );
+    setOpenMenuId( null );
+    playSound( "click" );
   };
 
-  const handleArchiveProject = (projectId: string) => {
-    archiveProject(projectId);
-    setOpenMenuId(null);
-    playSound("click");
+  const handleRenameChat = ( chatId: string, newTitle: string ) =>
+  {
+    updateChat( chatId, { title: newTitle } );
+    setEditingId( null );
+    setEditingName( "" );
+    playSound( "click" );
   };
 
-  const handleRenameProject = (projectId: string, newName: string) => {
-    updateProject(projectId, { name: newName });
-    setEditingId(null);
-    setEditingName("");
-    playSound("click");
+  const handleArchiveChat = ( chatId: string ) =>
+  {
+    archiveChat( chatId );
+    setOpenMenuId( null );
+    playSound( "click" );
   };
 
-  const handleDeleteChat = (chatId: string) => {
-    deleteChat(chatId);
-    setOpenMenuId(null);
-    playSound("click");
+  const handleShare = ( id: string, title: string, type: "chat" | "project" ) =>
+  {
+    setShareModal( { isOpen: true, id, title, type } );
+    setOpenMenuId( null );
+    playSound( "click" );
   };
 
-  const handleRenameChat = (chatId: string, newTitle: string) => {
-    updateChat(chatId, { title: newTitle });
-    setEditingId(null);
-    setEditingName("");
-    playSound("click");
-  };
+  const handleNewChat = useCallback( () =>
+  {
+    setIsArchiveOpen( false );
+    const newChat = createChat( "محادثة جديدة" );
+    setActiveChat( newChat.id );
+    if ( screenSize !== "desktop" ) onModeChange( "hidden" );
+    playSound( "click" );
+  }, [ createChat, setActiveChat, screenSize, onModeChange, playSound ] );
 
-  const handleShare = (id: string, title: string, type: "chat" | "project") => {
-    setShareModal({
-      isOpen: true,
-      id,
-      title,
-      type,
-    });
-    setOpenMenuId(null);
-    playSound("click");
-  };
-
-  // Static sidebar items (non-project items)
-  const staticItems: SidebarItem[] = [
+  // Keyboard shortcut: Ctrl+Shift+O for new chat
+  useEffect( () =>
+  {
+    const handler = ( e: KeyboardEvent ) =>
     {
-      id: "favorites",
-      label: "المفضلة",
-      icon: <Star className="w-5 h-5" />,
-      badge: projects.filter(p => p.isFavorite).length || undefined,
-    },
-    {
-      id: "institute",
-      label: "معهد CCCWAYS",
-      icon: <GraduationCap className="w-5 h-5" />,
-      children: [
-        { id: "edu-chats", label: "المحادثات التعليمية" },
-        { id: "certificates", label: "شهاداتي" },
-      ],
-    },
-  ];
+      if ( e.ctrlKey && e.shiftKey && e.key === "O" )
+      {
+        e.preventDefault();
+        handleNewChat();
+      }
+    };
+    window.addEventListener( "keydown", handler );
+    return () => window.removeEventListener( "keydown", handler );
+  }, [ handleNewChat ] );
 
-  // Handle new chat creation
-  const handleNewChat = () => {
-    // Close any open modals
-    closeCreateModal();
-    closeQuickSwitcher();
-    closeSettings();
-    setIsArchiveOpen(false);
-    
-    // Create a new chat in the active project or first project
-    let targetProjectId = activeProjectId || projects[0]?.id;
-    
-    // If no project exists, create a default one
-    if (!targetProjectId) {
-      const defaultProject = createProject({
-        name: "محادثاتي",
-        description: "محادثات عامة مع المساعد الذكي",
-        color: "turquoise",
-        emoji: "💬",
-      });
-      targetProjectId = defaultProject.id;
-    }
-    
-    const newChat = createChat(targetProjectId, "محادثة جديدة");
-    setActiveChat(newChat.id);
-    
-    // Close sidebar on mobile
-    if (isMobile && onToggle) {
-      onToggle();
-    }
-    
-    playSound("click");
-  };
+  // Chat groups
+  const filteredChats = allChats.filter( chat =>
+    !chat.isArchived &&
+    ( !searchQuery || chat.title.toLowerCase().includes( searchQuery.toLowerCase() ) )
+  );
+  const chatGroups = groupChatsByDate( filteredChats );
 
-  const sidebarVariants: Variants = {
-    open: {
-      width: isMobile ? 280 : 280,
-      opacity: 1,
-      x: 0,
-      transition: { type: "spring", stiffness: 400, damping: 35 },
-    },
-    closed: {
-      width: 0,
-      opacity: 0,
-      x: 280,
-      transition: { type: "spring", stiffness: 400, damping: 35 },
-    },
-  };
+  const isExpanded = mode === "expanded" || mode === "mobile-open";
+  const isRail = mode === "rail";
 
+  // Hidden — render nothing
+  if ( mode === "hidden" ) return (
+    <>
+      <ArchivePanel isOpen={ isArchiveOpen } onClose={ () => setIsArchiveOpen( false ) } userId="anonymous" />
+      <ShareModal
+        isOpen={ shareModal.isOpen }
+        onClose={ () => setShareModal( { isOpen: false, id: "", title: "", type: "chat" } ) }
+        title={ shareModal.type === "chat" ? "مشاركة المحادثة" : "مشاركة المشروع" }
+        shareUrl={ `https://ccways.com/share/${ shareModal.type }/${ shareModal.id }` }
+        shareText={ shareModal.title }
+        type={ shareModal.type }
+      />
+    </>
+  );
+
+  // ─────────────────────────── RAIL MODE (68px, desktop only) ───────────────────────────
+  if ( isRail )
+  {
+    return (
+      <>
+        <aside
+          className="fixed right-0 z-50 flex flex-col items-center py-3 gap-1
+                     bg-[#264a46] border-l border-white/10 shadow-[0_0_40px_rgba(0,0,0,0.3)]"
+          style={ { width: 68, top: HEADER_HEIGHT, height: `calc(100vh - ${HEADER_HEIGHT}px)` } }
+        >
+          {/* Logo */ }
+          <div className="w-10 h-10 rounded-xl bg-[#1a3633] 
+                         flex items-center justify-center shadow-lg mb-1
+                         select-none cursor-default">
+            <InfinityLogoSvg size={ 28 } />
+          </div>
+
+          <div className="w-6 h-px bg-white/10 my-1" />
+
+          {/* New chat */ }
+          <button
+            onClick={ handleNewChat }
+            className="w-10 h-10 rounded-xl flex items-center justify-center text-white/60 hover:text-white 
+                       hover:bg-white/[0.08] transition-colors touch-target"
+            title="دردشة جديدة (Ctrl+Shift+O)"
+          >
+            <PenLine className="w-[18px] h-[18px]" />
+          </button>
+
+          {/* Search */ }
+          <button
+            onClick={ () =>
+            {
+              onModeChange( "expanded" );
+              setTimeout( () => document.getElementById( "chat-search-input" )?.focus(), 300 );
+            } }
+            className="w-10 h-10 rounded-xl flex items-center justify-center text-white/60 hover:text-white 
+                       hover:bg-white/[0.08] transition-colors touch-target"
+            title="البحث (Ctrl+K)"
+          >
+            <Search className="w-[18px] h-[18px]" />
+          </button>
+
+          {/* Spacer */ }
+          <div className="flex-1" />
+
+          {/* Settings */ }
+          <button
+            onClick={ onOpenSettings }
+            className="w-10 h-10 rounded-xl flex items-center justify-center text-white/40 hover:text-white 
+                       hover:bg-white/[0.08] transition-colors touch-target"
+            title="الإعدادات"
+          >
+            <Settings className="w-[18px] h-[18px]" />
+          </button>
+
+          {/* Avatar */ }
+          <div className="w-9 h-9 rounded-xl bg-gradient-to-br from-emerald-500 via-teal-500 to-cyan-500 
+                         flex items-center justify-center text-white text-sm font-bold shadow-lg 
+                         shadow-emerald-500/25 ring-2 ring-white/10 cursor-pointer mb-1"
+            title="Ahmed Ali"
+          >
+            A
+          </div>
+        </aside>
+
+        <ArchivePanel isOpen={ isArchiveOpen } onClose={ () => setIsArchiveOpen( false ) } userId="anonymous" />
+        <ShareModal
+          isOpen={ shareModal.isOpen }
+          onClose={ () => setShareModal( { isOpen: false, id: "", title: "", type: "chat" } ) }
+          title={ shareModal.type === "chat" ? "مشاركة المحادثة" : "مشاركة المشروع" }
+          shareUrl={ `https://ccways.com/share/${ shareModal.type }/${ shareModal.id }` }
+          shareText={ shareModal.title }
+          type={ shareModal.type }
+        />
+      </>
+    );
+  }
+
+  // ─────────────────────── EXPANDED / MOBILE-OPEN MODE ───────────────────────
   return (
     <>
-      {/* Mobile Overlay */}
+      {/* Mobile Overlay Backdrop */ }
       <AnimatePresence>
-        {isMobile && isOpen && (
+        { isMobileOpen && (
           <motion.div
-            initial={{ opacity: 0 }}
-            animate={{ opacity: 1 }}
-            exit={{ opacity: 0 }}
-            className="fixed inset-0 z-40 lg:hidden bg-black/60 backdrop-blur-sm"
-            onClick={onToggle}
+            initial={ { opacity: 0 } }
+            animate={ { opacity: 1 } }
+            exit={ { opacity: 0 } }
+            className="fixed inset-0 z-40 bg-black/60 backdrop-blur-sm"
+            onClick={ () => onModeChange( "hidden" ) }
           />
-        )}
+        ) }
       </AnimatePresence>
 
-      {/* Sidebar */}
+      {/* Sidebar */ }
       <motion.aside
-        ref={sidebarRef}
-        variants={sidebarVariants}
-        initial={false}
-        animate={isOpen ? "open" : "closed"}
-        className={cn(
-          "fixed right-0 z-50",
-          "flex flex-col",
-          "sidebar-professional",
-          "bg-white/5 backdrop-blur-xl border-l border-white/10",
-          "shadow-[-4px_0_32px_rgba(0,0,0,0.4)]",
-          // Mobile: full height from top, Desktop: below header
-          isMobile ? "top-0 h-full bg-[#051014] border-l-0" : "top-[65px] h-[calc(100vh-65px)]"
-        )}
+        ref={ sidebarRef }
+        initial={ false }
+        style={ isMobileOpen ? undefined : { top: HEADER_HEIGHT, height: `calc(100vh - ${HEADER_HEIGHT}px)` } }
+        animate={ {
+          width: isMobileOpen ? Math.min( window.innerWidth * 0.85, 320 ) : 260,
+          x: 0,
+          opacity: 1,
+        } }
+        transition={ { type: "spring", stiffness: 400, damping: 35 } }
+        onTouchStart={ isMobileOpen ? handleTouchStart : undefined }
+        onTouchEnd={ isMobileOpen ? handleTouchEnd : undefined }
+        className={ cn(
+          "fixed right-0 z-50 flex flex-col",
+          "bg-[#264a46] border-l border-white/10",
+          "shadow-[0_0_60px_rgba(0,0,0,0.5)]",
+          isMobileOpen ? "top-0 h-full safe-top" : ""
+        ) }
       >
-        {/* Header - Refined */}
-        <div className="flex items-center justify-between p-5 border-b border-border/20 dark:border-white/[0.04]">
-          <AnimatePresence mode="wait">
-            {isOpen && (
-              <motion.div
-                initial={{ opacity: 0, x: 10 }}
-                animate={{ opacity: 1, x: 0 }}
-                exit={{ opacity: 0, x: 10 }}
-                transition={{ duration: 0.2 }}
-                className="flex items-center gap-2.5"
-              >
-                <div className="w-8 h-8 rounded-xl bg-gradient-to-br from-primary/20 to-primary/5 dark:from-primary/15 dark:to-primary/5 flex items-center justify-center ring-1 ring-primary/10">
-                  <Crown className="w-4 h-4 text-primary" />
-                </div>
-                <span className="font-semibold text-sm tracking-wide text-foreground">CCCWAYS</span>
-              </motion.div>
-            )}
-          </AnimatePresence>
-
-          <motion.button
-            whileHover={{ scale: 1.05 }}
-            whileTap={{ scale: 0.95 }}
-            onClick={onToggle}
-            className="p-2 rounded-xl hover:bg-muted/60 dark:hover:bg-white/[0.06] text-muted-foreground hover:text-foreground transition-all duration-200"
+        {/* ═════ Header ═════ */ }
+        <div className="px-3 pt-3 pb-2 flex items-center gap-2">
+          {/* Collapse / Close button */ }
+          <button
+            onClick={ () =>
+            {
+              if ( isMobileOpen ) onModeChange( "hidden" );
+              else onModeChange( "rail" );
+            } }
+            className="w-9 h-9 rounded-xl flex items-center justify-center text-white/60 hover:text-white 
+                       hover:bg-white/[0.08] transition-colors touch-target shrink-0"
+            title={ isMobileOpen ? "إغلاق" : "طي القائمة" }
           >
-            <X className="w-4.5 h-4.5" />
-          </motion.button>
+            { isMobileOpen ? <X className="w-5 h-5" /> : <PanelRightClose className="w-5 h-5" /> }
+          </button>
+
+          {/* Animated Logo */ }
+          <div className="flex items-center select-none">
+            <InfinityLogoSvg size={ 32 } className="animate-pulse-glow" />
+          </div>
+
+          <div className="flex-1" />
+
+          {/* New chat */ }
+          <button
+            onClick={ handleNewChat }
+            className="w-9 h-9 rounded-xl flex items-center justify-center text-white/60 hover:text-white 
+                       hover:bg-white/[0.08] transition-colors touch-target"
+            title="دردشة جديدة (Ctrl+Shift+O)"
+          >
+            <PenLine className="w-[18px] h-[18px]" />
+          </button>
         </div>
 
-        {/* New Chat Button - Professional */}
-        <div className="px-3 py-3">
-          <motion.button
-            onClick={handleNewChat}
-            className="w-full flex items-center justify-center gap-2 py-2.5 px-4 rounded-xl
-                     bg-gradient-to-r from-primary/10 to-primary/5 dark:from-primary/15 dark:to-primary/5
-                     border border-primary/20 dark:border-primary/15
-                     hover:from-primary/15 hover:to-primary/10 dark:hover:from-primary/20 dark:hover:to-primary/10
-                     text-primary font-medium transition-all duration-300 text-sm
-                     shadow-sm shadow-primary/5"
-            whileHover={{ scale: 1.01, y: -1 }}
-            whileTap={{ scale: 0.98 }}
-          >
-            <Plus className="w-4 h-4" />
-            <span>دردشة جديدة</span>
-          </motion.button>
-        </div>
+        <div className="mx-3 h-px bg-white/10" />
 
-        {/* Search - Refined */}
+        {/* ═════ Search ═════ */ }
         <div className="px-3 py-2">
           <div className="relative group">
-            <Search className="absolute right-3 top-1/2 -translate-y-1/2 w-4 h-4 text-muted-foreground/50 group-focus-within:text-primary/70 transition-colors" />
+            <Search className="absolute right-3 top-1/2 -translate-y-1/2 w-4 h-4 text-white/40" />
             <input
+              id="chat-search-input"
+              name="chat-search"
               type="text"
-              placeholder="البحث في الدردشات..."
-              value={searchQuery}
-              onChange={(e) => setSearchQuery(e.target.value)}
-              className="w-full pl-3 pr-9 py-2 rounded-xl 
-                       bg-muted/20 dark:bg-white/[0.03] 
-                       border border-border/30 dark:border-white/[0.06] 
-                       text-sm text-foreground 
-                       focus:outline-none focus:border-primary/30 focus:bg-muted/30 dark:focus:bg-white/[0.05]
-                       placeholder:text-muted-foreground/40 
-                       transition-all duration-200"
+              placeholder="البحث... (Ctrl+K)"
+              aria-label="البحث في الدردشات"
+              value={ searchQuery }
+              onChange={ ( e ) => setSearchQuery( e.target.value ) }
+              className="w-full pl-3 pr-9 py-2 rounded-lg 
+                       bg-white/5 border border-white/10
+                       text-sm text-white/90
+                       focus:outline-none focus:border-white/20
+                       placeholder:text-white/40 
+                       transition-all"
             />
           </div>
         </div>
 
-        {/* Divider */}
-        <div className="mx-3 h-px bg-gradient-to-r from-transparent via-border/40 to-transparent dark:via-white/[0.06]" />
+        {/* ═════ Navigation Sections ═════ */ }
+        <div className="flex-1 overflow-y-auto py-2 px-3 space-y-3 custom-scrollbar">
 
-        {/* Navigation - Professional */}
-        <div className="flex-1 overflow-y-auto py-3 px-2.5 space-y-1 custom-scrollbar">
-          
-          {/* 1. Section: المشروعات */}
-          <div className="section-header flex items-center justify-between px-2 py-2 mb-1">
-            <span className="section-title text-[0.6875rem] font-semibold uppercase tracking-wider text-muted-foreground/60">المشروعات</span>
-            <motion.button
-              onClick={() => {
-                openCreateModal();
-                playSound("click");
-              }}
-              className="p-1 rounded-lg hover:bg-muted/60 dark:hover:bg-white/[0.06] text-muted-foreground/50 hover:text-primary transition-colors"
-              whileHover={{ scale: 1.1 }}
-              whileTap={{ scale: 0.9 }}
-            >
-              <Plus className="w-3.5 h-3.5" />
-            </motion.button>
-          </div>
-
-          {/* Projects List */}
-          <div className="space-y-0.5">
-            {projects.filter(p => !p.isArchived).length === 0 ? (
-              <div className="text-center py-4 text-muted-foreground/50">
-                <p className="text-xs">لا توجد مشروعات</p>
-              </div>
-            ) : (
-              projects
-                .filter(p => !p.isArchived)
-                .map((project) => (
-                  <div key={project.id} className="relative group">
-                    {editingId === `project-${project.id}` ? (
-                      <div className="flex items-center gap-2 py-2 px-3">
-                        <span className="text-base">{project.emoji || "📁"}</span>
-                        <input
-                          type="text"
-                          value={editingName}
-                          onChange={(e) => setEditingName(e.target.value)}
-                          onKeyDown={(e) => {
-                            if (e.key === "Enter") handleRenameProject(project.id, editingName);
-                            if (e.key === "Escape") { setEditingId(null); setEditingName(""); }
-                          }}
-                          onBlur={() => handleRenameProject(project.id, editingName)}
-                          className="flex-1 bg-muted/30 dark:bg-white/[0.05] border border-border/50 dark:border-white/[0.08] rounded-lg px-2.5 py-1 text-sm focus:outline-none focus:border-primary/40"
-                          autoFocus
-                        />
-                      </div>
-                    ) : (
-                      <motion.button
-                        onClick={() => {
-                          setActiveProject(project.id);
-                          if (isMobile && onToggle) onToggle();
-                        }}
-                        className={cn(
-                          "w-full flex items-center gap-2.5 py-2 px-3 rounded-xl text-sm transition-all duration-200 text-right",
-                          activeProjectId === project.id
-                            ? "bg-primary/8 dark:bg-primary/12 text-foreground border border-primary/15 dark:border-primary/20 shadow-sm"
-                            : "text-muted-foreground hover:bg-muted/50 dark:hover:bg-white/[0.04] hover:text-foreground border border-transparent"
-                        )}
-                      >
-                        <span className="text-base">{project.emoji || "📁"}</span>
-                        <span className="truncate flex-1 font-medium">{project.name}</span>
-                        <motion.div
-                          onClick={(e) => {
-                            e.stopPropagation();
-                            setOpenMenuId(openMenuId === `project-${project.id}` ? null : `project-${project.id}`);
-                          }}
-                          className="p-1.5 rounded-lg opacity-0 group-hover:opacity-100 hover:bg-muted/60 dark:hover:bg-white/[0.08] transition-all"
-                        >
-                          <MoreHorizontal className="w-3.5 h-3.5" />
-                        </motion.div>
-                      </motion.button>
-                    )}
-                    
-                    {/* Dropdown Menu - Refined */}
-                    <AnimatePresence>
-                      {openMenuId === `project-${project.id}` && (
-                        <motion.div
-                          initial={{ opacity: 0, scale: 0.96, y: -4 }}
-                          animate={{ opacity: 1, scale: 1, y: 0 }}
-                          exit={{ opacity: 0, scale: 0.96, y: -4 }}
-                          transition={{ duration: 0.15 }}
-                          className="dropdown-refined absolute left-0 top-full mt-1.5 z-50 border border-white/[0.08] rounded-xl shadow-lg shadow-[0_12px_40px_rgba(0,0,0,0.45)] p-1 min-w-[160px] theme-dropdown"
-                        >
-                          <button
-                            onClick={() => {
-                              setEditingId(`project-${project.id}`);
-                              setEditingName(project.name);
-                              setOpenMenuId(null);
-                            }}
-                            className="dropdown-item w-full flex items-center gap-2.5 px-3 py-2 text-[13px] text-muted-foreground hover:bg-muted/60 dark:hover:bg-white/[0.06] hover:text-foreground rounded-lg transition-colors"
-                          >
-                            <Edit3 className="w-3.5 h-3.5" />
-                            <span>إعادة تسمية</span>
-                          </button>
-                          <button
-                            onClick={() => handleShare(project.id, project.name, "project")}
-                            className="dropdown-item w-full flex items-center gap-2.5 px-3 py-2 text-[13px] text-muted-foreground hover:bg-muted/60 dark:hover:bg-white/[0.06] hover:text-foreground rounded-lg transition-colors"
-                          >
-                            <Share2 className="w-3.5 h-3.5" />
-                            <span>مشاركة</span>
-                          </button>
-                          <button
-                            onClick={() => handleArchiveProject(project.id)}
-                            className="dropdown-item w-full flex items-center gap-2.5 px-3 py-2 text-[13px] text-muted-foreground hover:bg-muted/60 dark:hover:bg-white/[0.06] hover:text-foreground rounded-lg transition-colors"
-                          >
-                            <Archive className="w-3.5 h-3.5" />
-                            <span>أرشفة</span>
-                          </button>
-                          <div className="dropdown-divider h-px bg-border/40 dark:bg-white/[0.06] my-1 mx-2" />
-                          <button
-                            onClick={() => handleDeleteProject(project.id)}
-                            className="dropdown-item w-full flex items-center gap-2.5 px-3 py-2 text-[13px] text-red-500 hover:bg-red-500/10 rounded-lg transition-colors"
-                          >
-                            <Trash2 className="w-3.5 h-3.5" />
-                            <span>حذف</span>
-                          </button>
-                        </motion.div>
-                      )}
-                    </AnimatePresence>
-                  </div>
-                ))
-            )}
-          </div>
-
-          {/* Divider */}
-          <div className="my-4 mx-1 h-px bg-gradient-to-r from-transparent via-border/30 to-transparent dark:via-white/[0.05]" />
-
-          {/* 2. المفضلة */}
-          <motion.button
-            onClick={() => toggleExpand("favorites")}
-            className="w-full flex items-center gap-2.5 py-2 px-3 rounded-xl text-sm text-muted-foreground hover:bg-muted/50 dark:hover:bg-white/[0.04] hover:text-foreground transition-all duration-200"
+          {/* ─── محادثة جديدة Quick Link ─── */ }
+          <button
+            onClick={ () => { handleNewChat(); if ( isMobileOpen ) onModeChange( "hidden" ); } }
+            className="w-full flex items-center gap-2.5 py-2 px-3 rounded-lg text-sm text-white/80 hover:bg-white/[0.06] transition-colors"
           >
-            <Star className="w-4 h-4 opacity-50" />
-            <span className="font-medium">المفضلة</span>
-            <ChevronDown className={cn(
-              "w-3.5 h-3.5 mr-auto transition-transform duration-200",
-              expandedItems.includes("favorites") && "rotate-180"
-            )} />
-          </motion.button>
+            <PenLine className="w-[18px] h-[18px] opacity-60" />
+            <span className="font-medium">محادثة جديدة</span>
+          </button>
 
-          {/* Favorites Submenu */}
-          <AnimatePresence>
-            {expandedItems.includes("favorites") && (
-              <motion.div
-                initial={{ opacity: 0, height: 0 }}
-                animate={{ opacity: 1, height: "auto" }}
-                exit={{ opacity: 0, height: 0 }}
-                className="overflow-hidden mr-4 space-y-0.5"
+          <div className="h-px bg-white/10" />
+
+          {/* ─── المشروعات ─── */ }
+          <div>
+            <div className="flex items-center group/proj">
+              <button
+                onClick={ () => toggleExpand( "projects" ) }
+                className="flex-1 flex items-center gap-2.5 py-2 px-3 rounded-lg text-sm text-white/60 hover:bg-white/[0.04] hover:text-white/80 transition-colors"
               >
-                <div className="text-center py-2 text-muted-foreground/50 text-xs">
-                  لا توجد عناصر مفضلة
+                <Folder className="w-4 h-4 opacity-50" />
+                <span className="font-medium">المشروعات</span>
+                <ChevronDown className={ cn(
+                  "w-3.5 h-3.5 mr-auto transition-transform duration-200",
+                  expandedItems.includes( "projects" ) && "rotate-180"
+                ) } />
+              </button>
+              <button
+                onClick={ ( e ) =>
+                {
+                  e.stopPropagation();
+                  setShowCreateProject( true );
+                } }
+                className="p-1.5 rounded-lg text-white/30 hover:text-white/80 hover:bg-white/[0.06] 
+                           opacity-0 group-hover/proj:opacity-100 transition-all touch-target"
+                title="مشروع جديد"
+              >
+                <FolderPlus className="w-3.5 h-3.5" />
+              </button>
+            </div>
+
+            <AnimatePresence>
+              { expandedItems.includes( "projects" ) && (
+                <motion.div
+                  initial={ { opacity: 0, height: 0 } }
+                  animate={ { opacity: 1, height: "auto" } }
+                  exit={ { opacity: 0, height: 0 } }
+                  className="overflow-hidden mr-4 space-y-0.5"
+                >
+                  { projects.filter( p => !p.isArchived ).length === 0 ? (
+                    <div className="text-center py-2 text-white/30 text-xs">
+                      لا توجد مشروعات
+                    </div>
+                  ) : (
+                    projects.filter( p => !p.isArchived ).map( ( project ) => (
+                      <button
+                        key={ project.id }
+                        onClick={ () =>
+                        {
+                          // Select project to filter chats
+                          useProjectStore.getState().setActiveProject( project.id );
+                          if ( isMobileOpen ) onModeChange( "hidden" );
+                        } }
+                        className={ cn(
+                          "w-full flex items-center gap-2 py-1.5 px-2.5 rounded-lg text-sm transition-colors",
+                          useProjectStore.getState().activeProjectId === project.id
+                            ? "bg-white/10 text-white/90"
+                            : "text-white/60 hover:bg-white/[0.04] hover:text-white/80"
+                        ) }
+                      >
+                        <span>{ project.emoji }</span>
+                        <span className="truncate flex-1">{ project.name }</span>
+                        <span className="text-[10px] text-white/30">{ project.chatIds.length }</span>
+                      </button>
+                    ) )
+                  ) }
+                  <button
+                    onClick={ () => setShowCreateProject( true ) }
+                    className="w-full flex items-center gap-2 py-1.5 px-2.5 rounded-lg text-xs text-white/40 
+                               hover:bg-white/[0.04] hover:text-white/60 transition-colors"
+                  >
+                    <Plus className="w-3 h-3" />
+                    <span>مشروع جديد</span>
+                  </button>
+                </motion.div>
+              ) }
+            </AnimatePresence>
+          </div>
+
+          <div className="h-px bg-white/10" />
+
+          {/* ─── المفضلة ─── */ }
+          <div>
+            <div className="flex items-center group/fav">
+              <button
+                onClick={ () => toggleExpand( "favorites" ) }
+                className="flex-1 flex items-center gap-2.5 py-2 px-3 rounded-lg text-sm text-white/60 hover:bg-white/[0.04] hover:text-white/80 transition-colors"
+              >
+                <Star className="w-4 h-4 opacity-50" />
+                <span className="font-medium">المفضلة</span>
+                <ChevronDown className={ cn(
+                  "w-3.5 h-3.5 mr-auto transition-transform duration-200",
+                  expandedItems.includes( "favorites" ) && "rotate-180"
+                ) } />
+              </button>
+              <button
+                onClick={ ( e ) =>
+                {
+                  e.stopPropagation();
+                  if ( !expandedItems.includes( "favorites" ) ) toggleExpand( "favorites" );
+                  setIsAddingFavoritePage( true );
+                } }
+                className="p-1.5 rounded-lg text-white/30 hover:text-white/80 hover:bg-white/[0.06] 
+                           opacity-0 group-hover/fav:opacity-100 transition-all"
+                title="إضافة صفحة مفضلة"
+              >
+                <Plus className="w-3.5 h-3.5" />
+              </button>
+            </div>
+
+            <AnimatePresence>
+              { expandedItems.includes( "favorites" ) && (
+                <motion.div
+                  initial={ { opacity: 0, height: 0 } }
+                  animate={ { opacity: 1, height: "auto" } }
+                  exit={ { opacity: 0, height: 0 } }
+                  className="overflow-hidden mr-4 space-y-0.5"
+                >
+                  { isAddingFavoritePage && (
+                    <div className="px-2 py-1">
+                      <input
+                        id="new-fav-input"
+                        type="text"
+                        value={ newFavoritePageName }
+                        onChange={ ( e ) => setNewFavoritePageName( e.target.value ) }
+                        onKeyDown={ ( e ) =>
+                        {
+                          if ( e.key === "Enter" && newFavoritePageName.trim() )
+                          {
+                            addPage( newFavoritePageName.trim() );
+                            setNewFavoritePageName( "" );
+                            setIsAddingFavoritePage( false );
+                            playSound( "click" );
+                          } else if ( e.key === "Escape" )
+                          {
+                            setIsAddingFavoritePage( false );
+                            setNewFavoritePageName( "" );
+                          }
+                        } }
+                        onBlur={ () =>
+                        {
+                          if ( newFavoritePageName.trim() )
+                          {
+                            addPage( newFavoritePageName.trim() );
+                            playSound( "click" );
+                          }
+                          setNewFavoritePageName( "" );
+                          setIsAddingFavoritePage( false );
+                        } }
+                        placeholder="اسم الصفحة..."
+                        className="w-full bg-white/5 border border-white/10 rounded-lg px-2 py-1 text-xs text-white/80 focus:outline-none focus:border-white/20"
+                      />
+                    </div>
+                  ) }
+
+                  { pages.length === 0 && !isAddingFavoritePage ? (
+                    <div className="text-center py-2 text-white/30 text-xs">
+                      لا توجد صفحات مفضلة
+                    </div>
+                  ) : (
+                    pages.map( ( page ) => (
+                      <div key={ page.id } className="group relative">
+                        <button
+                          onClick={ () =>
+                          {
+                            router.push( `/favorites/${ page.id }` );
+                            if ( isMobileOpen ) onModeChange( "hidden" );
+                          } }
+                          className={ cn(
+                            "w-full flex items-center gap-2 py-1.5 px-2.5 rounded-lg text-sm transition-colors",
+                            pathname === `/favorites/${ page.id }`
+                              ? "bg-white/10 text-white/90 font-medium"
+                              : "text-white/60 hover:bg-white/[0.04] hover:text-white/80"
+                          ) }
+                        >
+                          <Folder className={ cn( "w-3.5 h-3.5", pathname === `/favorites/${ page.id }` ? "opacity-100" : "opacity-60" ) } />
+                          <span className="truncate">{ page.name }</span>
+                          <span className="mr-auto text-[10px] opacity-40">{ page.items.length }</span>
+                        </button>
+                        <button
+                          onClick={ ( e ) =>
+                          {
+                            e.stopPropagation();
+                            if ( confirm( "هل أنت متأكد من حذف هذه الصفحة؟" ) )
+                            {
+                              removePage( page.id );
+                            }
+                          } }
+                          className="absolute left-1 top-1/2 -translate-y-1/2 p-1 rounded-md text-white/20 hover:text-red-400 hover:bg-red-500/10 
+                                     opacity-0 group-hover:opacity-100 transition-all"
+                        >
+                          <Trash2 className="w-3 h-3" />
+                        </button>
+                      </div>
+                    ) )
+                  ) }
+                </motion.div>
+              ) }
+            </AnimatePresence>
+          </div>
+
+          <div className="h-px bg-white/10" />
+
+          {/* ─── معهد CCWAYS ─── */ }
+          <div>
+            <button
+              onClick={ () => toggleExpand( "CCWAYS-institute" ) }
+              className="w-full flex items-center gap-2.5 py-2 px-3 rounded-lg text-sm text-white/60 hover:bg-white/[0.04] hover:text-white/80 transition-colors"
+            >
+              <GraduationCap className="w-4 h-4 opacity-60" />
+              <span>معهد CCWAYS</span>
+              <ChevronDown className={ cn(
+                "w-3.5 h-3.5 mr-auto transition-transform",
+                expandedItems.includes( "CCWAYS-institute" ) && "rotate-180"
+              ) } />
+            </button>
+
+            <AnimatePresence>
+              { expandedItems.includes( "CCWAYS-institute" ) && (
+                <motion.div
+                  initial={ { opacity: 0, height: 0 } }
+                  animate={ { opacity: 1, height: "auto" } }
+                  exit={ { opacity: 0, height: 0 } }
+                  className="overflow-hidden mr-4 space-y-0.5"
+                >
+                  <button className="w-full flex items-center gap-2 py-1.5 px-2.5 rounded-lg text-sm text-white/60 hover:bg-white/[0.04] hover:text-white/80 transition-colors">
+                    <Award className="w-3.5 h-3.5 opacity-60" />
+                    <span>شهاداتي</span>
+                  </button>
+                  <button
+                    onClick={ () => toggleExpand( "institute-chats" ) }
+                    className="w-full flex items-center gap-2 py-1.5 px-2.5 rounded-lg text-sm text-white/60 hover:bg-white/[0.04] hover:text-white/80 transition-colors"
+                  >
+                    <MessageSquare className="w-3.5 h-3.5 opacity-60" />
+                    <span>محادثات المعهد</span>
+                    <ChevronDown className={ cn( "w-3 h-3 mr-auto transition-transform", expandedItems.includes( "institute-chats" ) && "rotate-180" ) } />
+                  </button>
+                  <AnimatePresence>
+                    { expandedItems.includes( "institute-chats" ) && (
+                      <motion.div
+                        initial={ { opacity: 0, height: 0 } }
+                        animate={ { opacity: 1, height: "auto" } }
+                        exit={ { opacity: 0, height: 0 } }
+                        className="overflow-hidden mr-4 space-y-0.5"
+                      >
+                        <div className="text-center py-2 text-white/30 text-xs">لا توجد محادثات بعد</div>
+                      </motion.div>
+                    ) }
+                  </AnimatePresence>
+                </motion.div>
+              ) }
+            </AnimatePresence>
+          </div>
+
+          <div className="h-px bg-white/[0.06]" />
+
+          {/* ─── دردشاتك — Grouped by Date ─── */ }
+          <div>
+            <div className="flex items-center justify-between py-1 mb-1 px-3">
+              <span className="text-[11px] font-medium text-white/40 uppercase tracking-wider">دردشاتك</span>
+              <button
+                onClick={ () => setIsArchiveOpen( true ) }
+                className="p-1 rounded-md text-white/30 hover:text-white/60 hover:bg-white/[0.04] transition-colors"
+                title="الأرشيف"
+              >
+                <Archive className="w-3 h-3" />
+              </button>
+            </div>
+
+            <div className="space-y-3">
+              { chatGroups.length === 0 ? (
+                <div className="text-center py-3 text-white/30">
+                  <p className="text-xs">لا توجد محادثات بعد</p>
                 </div>
-              </motion.div>
-            )}
-          </AnimatePresence>
+              ) : (
+                chatGroups.map( ( group ) => (
+                  <div key={ group.label }>
+                    <div className="px-3 py-1">
+                      <span className="text-[10px] font-medium text-white/30 uppercase tracking-wider">{ group.label }</span>
+                    </div>
+                    <div className="space-y-0.5">
+                      { group.chats.slice( 0, 30 ).map( ( chat ) => (
+                        <div key={ chat.id } className="relative group">
+                          { editingId === `chat-${ chat.id }` ? (
+                            <div className="flex items-center gap-2 py-2 px-3">
+                              <input
+                                type="text"
+                                value={ editingName }
+                                onChange={ ( e ) => setEditingName( e.target.value ) }
+                                onKeyDown={ ( e ) =>
+                                {
+                                  if ( e.key === "Enter" ) handleRenameChat( chat.id, editingName );
+                                  if ( e.key === "Escape" ) { setEditingId( null ); setEditingName( "" ); }
+                                } }
+                                onBlur={ () => handleRenameChat( chat.id, editingName ) }
+                                className="flex-1 bg-white/10 border border-white/20 rounded-lg px-2.5 py-1 text-sm text-white/90 focus:outline-none"
+                                autoFocus
+                              />
+                            </div>
+                          ) : (
+                            <div className="flex items-center w-full">
+                              <div
+                                onClick={ () =>
+                                {
+                                  setActiveChat( chat.id );
+                                  if ( isMobileOpen ) onModeChange( "hidden" );
+                                } }
+                                className={ cn(
+                                  "flex-1 flex items-center gap-2 py-2 px-3 rounded-lg text-sm transition-colors text-right cursor-pointer",
+                                  activeChatId === chat.id
+                                    ? "bg-white/10 text-white/90"
+                                    : "text-white/60 hover:bg-white/[0.04] hover:text-white/80"
+                                ) }
+                              >
+                                { chat.isPinned && <span className="text-xs">📌</span> }
+                                <span className="truncate flex-1">{ chat.title }</span>
+                              </div>
+                              <button
+                                type="button"
+                                onClick={ ( e ) =>
+                                {
+                                  e.stopPropagation();
+                                  setOpenMenuId( openMenuId === `chat-${ chat.id }` ? null : `chat-${ chat.id }` );
+                                } }
+                                className={ cn(
+                                  "p-1.5 rounded-lg hover:bg-white/10 text-white/40 hover:text-white/80 transition-all touch-target",
+                                  screenSize === "desktop" ? "opacity-0 group-hover:opacity-100" : "opacity-100"
+                                ) }
+                                aria-label="خيارات المحادثة"
+                              >
+                                <MoreHorizontal className="w-4 h-4" />
+                              </button>
+                            </div>
+                          ) }
 
-          {/* Divider */}
-          <div className="my-3 h-px bg-border/30" />
-
-          {/* 4. معهد CCCWAYS */}
-          <motion.button
-            onClick={() => toggleExpand("cccways-institute")}
-            className="w-full flex items-center gap-2 py-2 px-2.5 rounded-lg text-sm text-muted-foreground hover:bg-muted/50 hover:text-foreground transition-colors"
-          >
-            <GraduationCap className="w-4 h-4 opacity-60" />
-            <span>معهد CCCWAYS</span>
-            <ChevronDown className={cn(
-              "w-3.5 h-3.5 mr-auto transition-transform",
-              expandedItems.includes("cccways-institute") && "rotate-180"
-            )} />
-          </motion.button>
-
-          {/* CCCWAYS Institute Submenu */}
-          <AnimatePresence>
-            {expandedItems.includes("cccways-institute") && (
-              <motion.div
-                initial={{ opacity: 0, height: 0 }}
-                animate={{ opacity: 1, height: "auto" }}
-                exit={{ opacity: 0, height: 0 }}
-                className="overflow-hidden mr-4 space-y-0.5"
-              >
-                {/* شهاداتي */}
-                <motion.button
-                  className="w-full flex items-center gap-2 py-1.5 px-2.5 rounded-lg text-sm text-muted-foreground hover:bg-muted/50 hover:text-foreground transition-colors"
-                >
-                  <Award className="w-3.5 h-3.5 opacity-60" />
-                  <span>شهاداتي</span>
-                </motion.button>
-
-                {/* محادثات المعهد */}
-                <motion.button
-                  onClick={() => toggleExpand("institute-chats")}
-                  className="w-full flex items-center gap-2 py-1.5 px-2.5 rounded-lg text-sm text-muted-foreground hover:bg-muted/50 hover:text-foreground transition-colors"
-                >
-                  <MessageSquare className="w-3.5 h-3.5 opacity-60" />
-                  <span>محادثات المعهد</span>
-                  <ChevronDown className={cn(
-                    "w-3 h-3 mr-auto transition-transform",
-                    expandedItems.includes("institute-chats") && "rotate-180"
-                  )} />
-                </motion.button>
-
-                {/* Institute Chats List */}
-                <AnimatePresence>
-                  {expandedItems.includes("institute-chats") && (
-                    <motion.div
-                      initial={{ opacity: 0, height: 0 }}
-                      animate={{ opacity: 1, height: "auto" }}
-                      exit={{ opacity: 0, height: 0 }}
-                      className="overflow-hidden mr-4 space-y-0.5"
-                    >
-                      <div className="text-center py-2 text-muted-foreground/50 text-xs">
-                        لا توجد محادثات بعد
-                      </div>
-                    </motion.div>
-                  )}
-                </AnimatePresence>
-              </motion.div>
-            )}
-          </AnimatePresence>
-
-          {/* Divider */}
-          <div className="my-3 h-px bg-border/30" />
-
-          {/* 5. المحادثات السابقة */}
-          <div className="flex items-center justify-between px-2 py-1.5">
-            <span className="text-xs font-medium text-muted-foreground/70">المحادثات السابقة</span>
-            <motion.button
-              onClick={handleNewChat}
-              className="p-0.5 rounded hover:bg-muted text-muted-foreground/60 hover:text-foreground"
-              whileTap={{ scale: 0.95 }}
-              title="محادثة جديدة"
-            >
-              <Plus className="w-3.5 h-3.5" />
-            </motion.button>
-          </div>
-
-          {/* Conversations List */}
-          <div className="space-y-0.5">
-            {allChats.length === 0 ? (
-              <div className="text-center py-4 text-muted-foreground/60">
-                <p className="text-xs">لا توجد محادثات بعد</p>
-              </div>
-            ) : (
-              allChats
-                .filter(chat => 
-                  !searchQuery || 
-                  chat.title.toLowerCase().includes(searchQuery.toLowerCase())
-                )
-                .sort((a, b) => new Date(b.updatedAt).getTime() - new Date(a.updatedAt).getTime())
-                .slice(0, 30)
-                .map((chat) => (
-                  <div key={chat.id} className="relative group">
-                    {editingId === `chat-${chat.id}` ? (
-                      <div className="flex items-center gap-2 py-2 px-2.5">
-                        <MessageSquare className="w-4 h-4 shrink-0 opacity-60" />
-                        <input
-                          type="text"
-                          value={editingName}
-                          onChange={(e) => setEditingName(e.target.value)}
-                          onKeyDown={(e) => {
-                            if (e.key === "Enter") handleRenameChat(chat.id, editingName);
-                            if (e.key === "Escape") { setEditingId(null); setEditingName(""); }
-                          }}
-                          onBlur={() => handleRenameChat(chat.id, editingName)}
-                          className="flex-1 bg-muted/50 border border-border rounded px-2 py-0.5 text-sm focus:outline-none"
-                          autoFocus
-                        />
-                      </div>
-                    ) : (
-                      <motion.button
-                        onClick={() => {
-                          setActiveChat(chat.id);
-                          setActiveProject(chat.projectId);
-                          if (isMobile && onToggle) onToggle();
-                        }}
-                        className={cn(
-                          "w-full flex items-center gap-2 py-2 px-2.5 rounded-lg text-sm transition-colors text-right",
-                          activeChatId === chat.id
-                            ? "bg-muted text-foreground"
-                            : "text-muted-foreground hover:bg-muted/50 hover:text-foreground"
-                        )}
-                      >
-                        <MessageSquare className="w-4 h-4 shrink-0 opacity-60" />
-                        <span className="truncate flex-1">{chat.title}</span>
-                        <motion.div
-                          onClick={(e) => {
-                            e.stopPropagation();
-                            setOpenMenuId(openMenuId === `chat-${chat.id}` ? null : `chat-${chat.id}`);
-                          }}
-                          className="p-1 rounded opacity-0 group-hover:opacity-100 hover:bg-muted transition-all"
-                        >
-                          <MoreHorizontal className="w-3.5 h-3.5" />
-                        </motion.div>
-                      </motion.button>
-                    )}
-                    
-                    {/* Dropdown Menu */}
-                    <AnimatePresence>
-                      {openMenuId === `chat-${chat.id}` && (
-                        <motion.div
-                          initial={{ opacity: 0, scale: 0.95, y: -5 }}
-                          animate={{ opacity: 1, scale: 1, y: 0 }}
-                          exit={{ opacity: 0, scale: 0.95, y: -5 }}
-                          className="absolute left-0 top-full mt-1 z-50 bg-popover border border-border rounded-lg shadow-lg py-1 min-w-[140px]"
-                        >
-                          <button
-                            onClick={() => {
-                              setEditingId(`chat-${chat.id}`);
-                              setEditingName(chat.title);
-                              setOpenMenuId(null);
-                            }}
-                            className="w-full flex items-center gap-2 px-3 py-1.5 text-sm text-muted-foreground hover:bg-muted hover:text-foreground transition-colors"
-                          >
-                            <Edit3 className="w-3.5 h-3.5" />
-                            <span>إعادة تسمية</span>
-                          </button>
-                          <button
-                            onClick={() => handleShare(chat.id, chat.title, "chat")}
-                            className="w-full flex items-center gap-2 px-3 py-1.5 text-sm text-muted-foreground hover:bg-muted hover:text-foreground transition-colors"
-                          >
-                            <Share2 className="w-3.5 h-3.5" />
-                            <span>مشاركة</span>
-                          </button>
-                          <button
-                            onClick={() => {
-                              // Archive chat - TODO: implement archiveChat
-                              setOpenMenuId(null);
-                              playSound("click");
-                            }}
-                            className="w-full flex items-center gap-2 px-3 py-1.5 text-sm text-muted-foreground hover:bg-muted hover:text-foreground transition-colors"
-                          >
-                            <Archive className="w-3.5 h-3.5" />
-                            <span>أرشفة</span>
-                          </button>
-                          <div className="h-px bg-border my-1" />
-                          <button
-                            onClick={() => handleDeleteChat(chat.id)}
-                            className="w-full flex items-center gap-2 px-3 py-1.5 text-sm text-red-500 hover:bg-red-500/10 transition-colors"
-                          >
-                            <Trash2 className="w-3.5 h-3.5" />
-                            <span>حذف</span>
-                          </button>
-                        </motion.div>
-                      )}
-                    </AnimatePresence>
+                          {/* Context menu */ }
+                          <AnimatePresence>
+                            { openMenuId === `chat-${ chat.id }` && (
+                              <motion.div
+                                initial={ { opacity: 0, scale: 0.96, y: -4 } }
+                                animate={ { opacity: 1, scale: 1, y: 0 } }
+                                exit={ { opacity: 0, scale: 0.96, y: -4 } }
+                                transition={ { duration: 0.15 } }
+                                className="absolute left-0 top-full mt-1.5 z-50 overlay-dropdown rounded-xl p-1 min-w-[160px]"
+                              >
+                                <button
+                                  onClick={ () => { pinChat( chat.id ); setOpenMenuId( null ); playSound( "click" ); } }
+                                  className="w-full flex items-center gap-2 px-3 py-2 text-sm overlay-text overlay-item rounded-lg"
+                                >
+                                  <Pin className="w-3.5 h-3.5" />
+                                  <span>{ chat.isPinned ? "إلغاء التثبيت" : "تثبيت" }</span>
+                                </button>
+                                <button
+                                  onClick={ () => handleArchiveChat( chat.id ) }
+                                  className="w-full flex items-center gap-2 px-3 py-2 text-sm overlay-text overlay-item rounded-lg"
+                                >
+                                  <Archive className="w-3.5 h-3.5" />
+                                  <span>أرشفة</span>
+                                </button>
+                                <button
+                                  onClick={ () => { setEditingId( `chat-${ chat.id }` ); setEditingName( chat.title ); setOpenMenuId( null ); } }
+                                  className="w-full flex items-center gap-2 px-3 py-2 text-sm overlay-text overlay-item rounded-lg"
+                                >
+                                  <Edit3 className="w-3.5 h-3.5" />
+                                  <span>إعادة التسمية</span>
+                                </button>
+                                <button
+                                  onClick={ () => handleShare( chat.id, chat.title, "chat" ) }
+                                  className="w-full flex items-center gap-2 px-3 py-2 text-sm overlay-text overlay-item rounded-lg"
+                                >
+                                  <Share2 className="w-3.5 h-3.5" />
+                                  <span>المشاركة</span>
+                                </button>
+                                <div className="overlay-divider h-px my-1" />
+                                <button
+                                  onClick={ () => handleDeleteChat( chat.id ) }
+                                  className="w-full flex items-center gap-2 px-3 py-2 text-sm text-red-400 hover:bg-red-500/10 rounded-lg transition-colors"
+                                >
+                                  <Trash2 className="w-3.5 h-3.5" />
+                                  <span>الحذف</span>
+                                </button>
+                              </motion.div>
+                            ) }
+                          </AnimatePresence>
+                        </div>
+                      ) ) }
+                    </div>
                   </div>
-                ))
-            )}
+                ) )
+              ) }
+            </div>
           </div>
 
         </div>
 
-        {/* Modern Footer */}
-        <ModernFooter isOpen={isOpen} onOpenSettings={onOpenSettings} />
+        {/* ═════ Footer ═════ */ }
+        <div className="p-3 border-t border-white/[0.06] safe-bottom">
+          <div className="flex items-center gap-3">
+            {/* Avatar */ }
+            <div className="w-9 h-9 rounded-xl bg-gradient-to-br from-emerald-500 via-teal-500 to-cyan-500 
+                           flex items-center justify-center text-white text-sm font-bold shadow-lg 
+                           shadow-emerald-500/25 ring-2 ring-white/10 shrink-0">
+              A
+            </div>
+            {/* Name */ }
+            <div className="flex-1 min-w-0">
+              <div className="flex items-center gap-1.5">
+                <span className="text-sm font-semibold text-white/90 truncate">Ahmed Ali</span>
+                <Crown className="w-3.5 h-3.5 text-amber-400 shrink-0" />
+              </div>
+              <span className="text-[11px] text-white/40 truncate block">ahmed@ccways.com</span>
+            </div>
+            {/* Settings */ }
+            <button
+              onClick={ onOpenSettings }
+              className="p-2 rounded-lg text-white/40 hover:text-white/80 hover:bg-white/[0.06] transition-colors touch-target shrink-0"
+              title="الإعدادات"
+            >
+              <Settings className="w-4 h-4" />
+            </button>
+            {/* Logout */ }
+            <button
+              className="p-2 rounded-lg text-red-400/60 hover:text-red-400 hover:bg-red-500/10 transition-colors touch-target shrink-0"
+              title="تسجيل الخروج"
+            >
+              <LogOut className="w-4 h-4" />
+            </button>
+          </div>
+        </div>
       </motion.aside>
 
-      {/* Archive Panel */}
+      {/* Archive Panel */ }
       <ArchivePanel
-        isOpen={isArchiveOpen}
-        onClose={() => setIsArchiveOpen(false)}
+        isOpen={ isArchiveOpen }
+        onClose={ () => setIsArchiveOpen( false ) }
         userId="anonymous"
       />
 
-      {/* Share Modal */}
+      {/* Share Modal */ }
       <ShareModal
-        isOpen={shareModal.isOpen}
-        onClose={() => setShareModal({ isOpen: false, id: "", title: "", type: "chat" })}
-        title={shareModal.type === "chat" ? "مشاركة المحادثة" : "مشاركة المشروع"}
-        shareUrl={`https://cccways.com/share/${shareModal.type}/${shareModal.id}`}
-        shareText={shareModal.title}
-        type={shareModal.type}
+        isOpen={ shareModal.isOpen }
+        onClose={ () => setShareModal( { isOpen: false, id: "", title: "", type: "chat" } ) }
+        title={ shareModal.type === "chat" ? "مشاركة المحادثة" : "مشاركة المشروع" }
+        shareUrl={ `https://ccways.com/share/${ shareModal.type }/${ shareModal.id }` }
+        shareText={ shareModal.title }
+        type={ shareModal.type }
       />
+
+      {/* Create Project Modal (lazy) */ }
+      { showCreateProject && (
+        <CreateProjectInline onClose={ () => setShowCreateProject( false ) } />
+      ) }
     </>
   );
 }
 
-// Modern Footer Component
-function ModernFooter({ isOpen, onOpenSettings }: { isOpen: boolean; onOpenSettings?: () => void }) {
-  const { theme, setTheme } = useTheme();
-  const [isHovered, setIsHovered] = useState(false);
-  const [mounted, setMounted] = useState(false);
+// ═══════════════════════════════════════════════════════════════
+// Inline Create Project Modal (lightweight, no separate file needed initially)
+// ═══════════════════════════════════════════════════════════════
+function CreateProjectInline ( { onClose }: { onClose: () => void } )
+{
+  const [ name, setName ] = useState( "" );
+  const [ emoji, setEmoji ] = useState( "📁" );
+  const [ color, setColor ] = useState( "#264a46" );
+  const [ instructions, setInstructions ] = useState( "" );
+  const { createProject } = useProjectStore();
+  const { playSound } = useSound();
 
-  useEffect(() => {
-    setMounted(true);
-  }, []);
+  const colors = [ "#264a46", "#10b981", "#3b82f6", "#8b5cf6", "#ec4899", "#f97316" ];
+  const emojis = [ "📁", "🚀", "💡", "📊", "🎯", "🔬", "📝", "⚡" ];
 
-  if (!mounted) return null;
-
-  const themes = [
-    { id: "light", icon: Sun, label: "فاتح" },
-    { id: "normal", icon: Monitor, label: "عادي" },
-    { id: "dark", icon: Moon, label: "داكن" },
-  ];
-
-  if (!isOpen) {
-    // Collapsed state - minimal icons
-    return (
-      <div className="p-3 border-t border-white/[0.06] flex flex-col items-center gap-3">
-        <motion.div 
-          whileHover={{ scale: 1.1 }}
-          className="relative group cursor-pointer"
-        >
-          <div className="w-9 h-9 rounded-xl bg-gradient-to-br from-emerald-500 via-teal-500 to-cyan-500 
-                        flex items-center justify-center text-white text-sm font-bold shadow-lg 
-                        shadow-emerald-500/25 ring-2 ring-white/10">
-            A
-          </div>
-          <div className="absolute -bottom-0.5 -right-0.5 w-3 h-3 bg-emerald-400 rounded-full 
-                        border-2 border-background" />
-        </motion.div>
-        
-        <div className="w-6 h-px bg-gradient-to-r from-transparent via-white/20 to-transparent" />
-        
-        <motion.button
-          whileHover={{ scale: 1.1, rotate: 180 }}
-          transition={{ duration: 0.3 }}
-          className="p-2 rounded-lg text-muted-foreground hover:text-foreground 
-                   hover:bg-white/[0.05] transition-colors"
-        >
-          <Settings className="w-4 h-4" />
-        </motion.button>
-      </div>
-    );
-  }
+  const handleCreate = () =>
+  {
+    if ( !name.trim() ) return;
+    createProject( name.trim(), emoji, color, instructions.trim() );
+    playSound( "click" );
+    onClose();
+  };
 
   return (
-    <motion.div 
-      className="p-3 border-t border-white/[0.06]"
-      onMouseEnter={() => setIsHovered(true)}
-      onMouseLeave={() => setIsHovered(false)}
-    >
-      {/* Glassmorphism Card */}
+    <div className="fixed inset-0 z-[60] flex items-center justify-center p-4">
+      <div className="absolute inset-0 bg-black/60 backdrop-blur-sm" onClick={ onClose } />
       <motion.div
-        animate={{ 
-          boxShadow: isHovered 
-            ? "0 8px 32px rgba(16, 185, 129, 0.15)" 
-            : "0 4px 16px rgba(0, 0, 0, 0.1)"
-        }}
-        className="relative overflow-hidden rounded-2xl border border-white/[0.08] p-3 theme-card"
+        initial={ { opacity: 0, scale: 0.95 } }
+        animate={ { opacity: 1, scale: 1 } }
+        exit={ { opacity: 0, scale: 0.95 } }
+        className="relative w-full max-w-lg rounded-2xl bg-[#1d2b28] border border-white/10 shadow-2xl overflow-hidden max-h-[85vh] overflow-y-auto safe-bottom"
       >
-        {/* Animated Background Gradient */}
-        <motion.div
-          animate={{ 
-            opacity: isHovered ? 0.15 : 0.05,
-            scale: isHovered ? 1.2 : 1
-          }}
-          transition={{ duration: 0.5 }}
-          className="absolute inset-0 bg-gradient-to-br from-emerald-500 via-teal-500 to-cyan-500 blur-2xl"
-        />
+        {/* Header */ }
+        <div className="flex items-center justify-between px-6 pt-6 pb-2">
+          <h2 className="text-lg font-bold text-white/90">إنشاء مشروع</h2>
+          <button onClick={ onClose } className="p-2 rounded-lg text-white/40 hover:text-white/80 hover:bg-white/[0.06] transition-colors touch-target">
+            <X className="w-5 h-5" />
+          </button>
+        </div>
 
-        {/* Content */}
-        <div className="relative z-10 space-y-3">
-          {/* User Row */}
-          <div className="flex items-center gap-3">
-            {/* Avatar with Status */}
-            <motion.div 
-              whileHover={{ scale: 1.05 }}
-              className="relative shrink-0"
-            >
-              <div className="w-11 h-11 rounded-xl bg-gradient-to-br from-emerald-500 via-teal-500 to-cyan-500 
-                            flex items-center justify-center text-white font-bold text-base
-                            shadow-lg shadow-emerald-500/30 ring-2 ring-white/20">
-                A
-              </div>
-              <motion.div 
-                animate={{ scale: [1, 1.2, 1] }}
-                transition={{ repeat: Infinity, duration: 2 }}
-                className="absolute -bottom-0.5 -right-0.5 w-3.5 h-3.5 bg-emerald-400 rounded-full 
-                          border-2 border-background shadow-lg shadow-emerald-400/50"
-              />
-            </motion.div>
-
-            {/* User Info */}
-            <div className="flex-1 min-w-0">
-              <div className="flex items-center gap-1.5">
-                <span className="font-semibold text-sm text-foreground truncate">Ahmed Ali</span>
-                <Crown className="w-3.5 h-3.5 text-amber-400 shrink-0" />
-              </div>
-              <div className="text-[11px] text-muted-foreground/70 truncate">ahmed@cccways.com</div>
+        {/* Content */ }
+        <div className="px-6 py-4 space-y-4">
+          {/* Emoji + Color */ }
+          <div className="flex items-center gap-4">
+            <div className="flex items-center gap-2">
+              { emojis.slice( 0, 8 ).map( ( e ) => (
+                <button
+                  key={ e }
+                  onClick={ () => setEmoji( e ) }
+                  className={ cn(
+                    "w-9 h-9 rounded-lg flex items-center justify-center text-lg transition-all touch-target",
+                    emoji === e ? "bg-white/15 ring-2 ring-white/20" : "hover:bg-white/[0.06]"
+                  ) }
+                >
+                  { e }
+                </button>
+              ) ) }
             </div>
-
-            {/* Settings Button */}
-            <motion.button
-              whileHover={{ scale: 1.1, rotate: 90 }}
-              whileTap={{ scale: 0.95 }}
-              className="p-2 rounded-lg text-muted-foreground hover:text-foreground 
-                       hover:bg-white/[0.08] transition-all"
-              onClick={onOpenSettings}
-            >
-              <Settings className="w-4 h-4" />
-            </motion.button>
           </div>
 
-          {/* Theme Switcher - Pill Style */}
-          {typeof window !== "undefined" ? (
-            <div className="flex items-center gap-1 p-1 rounded-xl bg-muted">
-              {themes.map((t) => (
-                <motion.button
-                  key={t.id}
-                  onClick={() => setTheme(t.id)}
-                  whileHover={{ scale: 1.02 }}
-                  whileTap={{ scale: 0.98 }}
-                  className={cn(
-                    "flex-1 flex items-center justify-center gap-1.5 py-2 px-2 rounded-lg text-xs font-medium transition-all",
-                    theme === t.id
-                      ? "bg-gradient-to-r from-emerald-500/20 to-teal-500/20 text-emerald-400 shadow-inner"
-                      : "text-muted-foreground hover:text-foreground hover:bg-white/[0.05]"
-                  )}
-                >
-                  <t.icon className="w-3.5 h-3.5" />
-                  <span>{t.label}</span>
-                </motion.button>
-              ))}
-            </div>
-          ) : null}
+          {/* Color selector */ }
+          <div className="flex items-center gap-2">
+            <span className="text-xs text-white/40">اللون:</span>
+            { colors.map( ( c ) => (
+              <button
+                key={ c }
+                onClick={ () => setColor( c ) }
+                className={ cn(
+                  "w-7 h-7 rounded-full transition-all touch-target",
+                  color === c ? "ring-2 ring-white/40 ring-offset-2 ring-offset-[#1d2b28]" : "hover:scale-110"
+                ) }
+                style={ { backgroundColor: c } }
+              />
+            ) ) }
+          </div>
 
-          {/* Logout Button */}
-          <motion.button
-            whileHover={{ scale: 1.01, x: -2 }}
-            whileTap={{ scale: 0.99 }}
-            className="w-full flex items-center justify-center gap-2 py-2.5 px-3 rounded-xl
-                     bg-red-500/10 border border-red-500/20 text-red-400 
-                     hover:bg-red-500/20 hover:border-red-500/30 hover:text-red-300
-                     transition-all text-sm font-medium group"
+          {/* Name input */ }
+          <div>
+            <label className="block text-xs text-white/40 mb-1.5">اسم المشروع</label>
+            <input
+              type="text"
+              value={ name }
+              onChange={ ( e ) => setName( e.target.value ) }
+              onKeyDown={ ( e ) => e.key === "Enter" && handleCreate() }
+              placeholder="مثال: تحليل البيتكوين"
+              className="w-full px-4 py-2.5 rounded-xl bg-white/5 border border-white/10 text-sm text-white/90 
+                         placeholder:text-white/30 focus:outline-none focus:border-white/20 transition-colors"
+              autoFocus
+            />
+          </div>
+
+          {/* Instructions */ }
+          <div>
+            <label className="block text-xs text-white/40 mb-1.5">تعليمات المشروع (اختياري)</label>
+            <textarea
+              value={ instructions }
+              onChange={ ( e ) => setInstructions( e.target.value ) }
+              placeholder="أخبر CCWAYS عن مشروعك..."
+              rows={ 3 }
+              className="w-full px-4 py-2.5 rounded-xl bg-white/5 border border-white/10 text-sm text-white/90 
+                         placeholder:text-white/30 focus:outline-none focus:border-white/20 transition-colors resize-none"
+            />
+          </div>
+        </div>
+
+        {/* Footer */ }
+        <div className="flex items-center justify-end gap-3 px-6 pb-6 pt-2">
+          <button
+            onClick={ onClose }
+            className="px-4 py-2 rounded-xl text-sm text-white/60 hover:text-white/80 hover:bg-white/[0.06] transition-colors"
           >
-            <LogOut className="w-4 h-4 transition-transform group-hover:-translate-x-1" />
-            <span>تسجيل الخروج</span>
-          </motion.button>
+            إلغاء
+          </button>
+          <button
+            onClick={ handleCreate }
+            disabled={ !name.trim() }
+            className="px-5 py-2 rounded-xl text-sm font-medium bg-gradient-to-r from-teal-600 to-teal-700 
+                       text-white hover:from-teal-500 hover:to-teal-600 transition-all
+                       disabled:opacity-40 disabled:cursor-not-allowed shadow-lg shadow-teal-900/30"
+          >
+            إنشاء مشروع
+          </button>
         </div>
       </motion.div>
-    </motion.div>
+    </div>
   );
 }

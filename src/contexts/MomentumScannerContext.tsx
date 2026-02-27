@@ -1,0 +1,6 @@
+// ... existing code ...
+      // 🔎 Diagnostic logs (using warn to reduce console noise)
+      if (process.env.NODE_ENV === 'development') {
+        console.warn('[Momentum] Firestore Error:', err?.message);
+      }
+// ... rest of code ...

@@ -4,7 +4,8 @@ import * as React from "react";
 import { motion } from "framer-motion";
 import { cn } from "@/lib/utils";
 
-interface SettingCardProps {
+interface SettingCardProps
+{
   icon?: React.ReactNode;
   title: string;
   description?: string;
@@ -14,7 +15,7 @@ interface SettingCardProps {
   disabled?: boolean;
 }
 
-export function SettingCard({
+export function SettingCard ( {
   icon,
   title,
   description,
@@ -22,40 +23,40 @@ export function SettingCard({
   className,
   onClick,
   disabled = false,
-}: SettingCardProps) {
-  const Wrapper = onClick ? motion.button : motion.div;
+}: SettingCardProps )
+{
+  const Wrapper = onClick ? motion.button : "div";
 
   return (
     <Wrapper
-      onClick={onClick}
-      disabled={disabled}
-      className={cn(
-        "w-full bg-[var(--glass-bg)] backdrop-blur-xl border border-[var(--glass-border)] rounded-lg p-2.5 sm:p-3 text-right",
-        "hover:border-primary/30 transition-all duration-200",
-        "flex items-center justify-between gap-2.5 sm:gap-3",
-        onClick && "cursor-pointer",
+      onClick={ onClick }
+      disabled={ disabled }
+      className={ cn(
+        "w-full flex items-center justify-between py-3 px-1 border-b border-white/6 last:border-0 gap-4",
+        onClick && "cursor-pointer hover:bg-white/5 rounded-lg px-2 -mx-1 transition-colors",
         disabled && "opacity-50 cursor-not-allowed",
         className
-      )}
-      whileHover={onClick && !disabled ? { scale: 1.005 } : undefined}
-      whileTap={onClick && !disabled ? { scale: 0.995 } : undefined}
+      ) }
     >
-      <div className="flex items-center gap-2 sm:gap-2.5 flex-1 min-w-0">
-        {icon && (
-          <div className="w-8 h-8 sm:w-9 sm:h-9 rounded-md bg-primary/10 flex items-center justify-center shrink-0">
-            <span className="text-primary [&>svg]:w-4 [&>svg]:h-4 sm:[&>svg]:w-[18px] sm:[&>svg]:h-[18px]">{icon}</span>
-          </div>
-        )}
-        <div className="flex-1 min-w-0 text-right">
-          <h3 className="text-sm font-medium text-foreground truncate">{title}</h3>
-          {description && (
-            <p className="text-xs text-muted-foreground mt-0.5 line-clamp-1">
-              {description}
+      {/* Control on the left (in RTL) or right (in LTR) */ }
+      { children && <div className="shrink-0 order-first">{ children }</div> }
+
+      {/* Label on the right (in RTL) or left (in LTR) */ }
+      <div className="flex items-center gap-3 flex-1 min-w-0 text-right justify-end">
+        <div className="flex-1 min-w-0">
+          <h3 className="text-sm font-medium text-white/90 leading-relaxed">{ title }</h3>
+          { description && (
+            <p className="text-xs text-white/50 mt-1 line-clamp-2 leading-relaxed">
+              { description }
             </p>
-          )}
+          ) }
         </div>
+        { icon && (
+          <span className="text-white/50 [&>svg]:!w-4 [&>svg]:!h-4 shrink-0">
+            { icon }
+          </span>
+        ) }
       </div>
-      {children && <div className="shrink-0">{children}</div>}
     </Wrapper>
   );
 }
