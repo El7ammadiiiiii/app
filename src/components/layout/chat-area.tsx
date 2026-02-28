@@ -463,8 +463,7 @@ export function ChatArea ( { }: ChatAreaProps )
                       processChunk( parsed.data.content ?? '' );
                       break;
                     case 'thinking_delta':
-                      // Feed thinking content (can be displayed separately later)
-                      processChunk( parsed.data.content ?? '' );
+                      // Thinking content handled by ThinkingDisplay — do not pipe into chat text
                       break;
                     case 'tool_call_start':
                     case 'tool_call_delta':

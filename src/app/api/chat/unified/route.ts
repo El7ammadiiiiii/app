@@ -295,12 +295,16 @@ async function callAlibabaAPI ( payload: any, stream: boolean, canvasTools?: any
         requestBody.input.tools = canvasTools.tools;
         if ( canvasTools.tool_choice ) requestBody.input.tool_choice = canvasTools.tool_choice;
     }
+    const headers: Record<string, string> = {
+        'Content-Type': 'application/json',
+        'Authorization': `Bearer ${ apiKey }`,
+    };
+    if ( stream ) {
+        headers[ 'X-DashScope-SSE' ] = 'enable';
+    }
     const response = await fetch( API_ENDPOINTS.alibaba, {
         method: 'POST',
-        headers: {
-            'Content-Type': 'application/json',
-            'Authorization': `Bearer ${ apiKey }`,
-        },
+        headers,
         body: JSON.stringify( requestBody ),
     } );
 

@@ -138,8 +138,8 @@ export function ThinkingDisplay ( {
         </div>
       ) }
 
-      {/* Working Section */ }
-      { showWorking && (
+      {/* Working Section — only when Thinking is NOT already showing */ }
+      { showWorking && !( showThinking && session ) && (
         <div className="text-white text-[15px] font-medium flex items-center gap-2">
           <InfinityLogo size={ 72 } speed={ workingSpeed } />
           <span>○ { workingTitle }</span>
