@@ -6,7 +6,7 @@ coinbase-advanced-py==1.8.1
 python-okx==0.4.1
 bitfinex-api-py==3.0.4
 cryptofeed==2.4.1
-websockets==14.2
+websockets>=10.4
 httpx==0.28.1
 pydantic==2.10.4
 python-dotenv==1.0.1
