@@ -40,10 +40,15 @@ def _get_credential_path() -> str:
                     p = line.split("=", 1)[1].strip().strip('"').strip("'")
                     if os.path.isfile(p):
                         return p
-    # 3. Default known location
-    default = os.path.expanduser("~/elhammadi/backend-api-service/keys/service-account-key.json")
-    if os.path.isfile(default):
-        return default
+    # 3. Default known locations
+    defaults = [
+        os.path.join(os.path.dirname(__file__), "keys", "service-account-key.json"),
+        os.path.expanduser("~/elhammadi/backend-api-service/keys/service-account-key.json"),
+        os.path.expanduser("~/ccways/python-backend/keys/service-account-key.json"),
+    ]
+    for default in defaults:
+        if os.path.isfile(default):
+            return default
     return ""
 
 
