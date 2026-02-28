@@ -40,6 +40,29 @@ export function isCodeModel ( modelKey: string ): boolean
 }
 
 // ═══════════════════════════════════════════════════════════════════════════════
+// LANGUAGE DETECTION — كشف لغة المستخدم تلقائياً
+// ═══════════════════════════════════════════════════════════════════════════════
+
+/**
+ * Detect the dominant language of a text using character-range heuristics.
+ * Returns 'ar' for Arabic/Urdu/Persian scripts, 'en' for Latin-dominant, etc.
+ */
+export function detectLanguage ( text: string ): 'ar' | 'en'
+{
+  if ( !text || text.trim().length === 0 ) return 'ar'; // default to Arabic
+
+  // Count Arabic-range characters vs Latin-range characters
+  const arabicRegex = /[\u0600-\u06FF\u0750-\u077F\u08A0-\u08FF\uFB50-\uFDFF\uFE70-\uFEFF]/g;
+  const latinRegex = /[A-Za-z]/g;
+
+  const arabicCount = ( text.match( arabicRegex ) || [] ).length;
+  const latinCount = ( text.match( latinRegex ) || [] ).length;
+
+  if ( arabicCount === 0 && latinCount === 0 ) return 'ar';
+  return arabicCount >= latinCount ? 'ar' : 'en';
+}
+
+// ═══════════════════════════════════════════════════════════════════════════════
 // LAYER 1: BASE_IDENTITY — الهوية الأساسية
 // ═══════════════════════════════════════════════════════════════════════════════
 
@@ -53,7 +76,7 @@ const BASE_IDENTITY = `# أنت CCWAYS — كيان ذكاء اصطناعي فا
 - **قدرات تحليل متقدمة**: أساسي، فني، أون-تشين، اقتصاد كلي، إدارة مخاطر
 
 ## قواعد عامة يجب اتباعها دائماً:
-1. **اللغة**: أجب بالعربية الفصحى المبسطة مع استخدام المصطلحات التقنية الإنجليزية كما هي (Bitcoin, RSI, DeFi, Smart Contract).
+1. **اللغة**: تعرّف على لغة المستخدم من رسالته الأخيرة وأجب بنفس اللغة. إذا كتب بالعربية أجب بالعربية الفصحى المبسطة، وإذا كتب بالإنجليزية أو أي لغة أخرى أجب بنفس لغته. استخدم المصطلحات التقنية الإنجليزية كما هي في جميع الحالات (Bitcoin, RSI, DeFi, Smart Contract).
 2. **الدقة**: كل معلومة يجب أن تكون دقيقة وموضوعية. إذا لم تكن متأكداً، وضّح ذلك.
 3. **إخلاء المسؤولية**: لا تقدم نصائح مالية مباشرة. أضف تحذيراً عند تقديم تحليلات تتعلق بقرارات استثمارية: "⚠️ هذا تحليل تعليمي وليس نصيحة مالية."
 4. **التنسيق**: استخدم Markdown منظم — عناوين (##, ###)، قوائم نقطية، خط عريض للمصطلحات المهمة، جداول عند الحاجة.
@@ -450,6 +473,8 @@ export interface SystemPromptContext
 {
   /** Canvas context string (already built by chat-area) */
   activeCanvasContext?: string;
+  /** Detected language of the user's last message ('ar' | 'en') */
+  userLanguage?: 'ar' | 'en';
 }
 
 /**
@@ -493,6 +518,14 @@ export function buildSystemPrompt (
   if ( context?.activeCanvasContext )
   {
     parts.push( context.activeCanvasContext );
+  }
+
+  // ── Language Override ──
+  if ( context?.userLanguage === 'en' )
+  {
+    parts.push(
+      `## Language Override\nThe user wrote in English. You MUST respond entirely in English. Keep technical terms as-is. Use clear, professional English throughout your response.`
+    );
   }
 
   return parts.join( '\n\n---\n\n' );

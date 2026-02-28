@@ -1,11 +1,10 @@
 'use client';
 
 import React, { useState, useEffect, useMemo, useCallback } from 'react';
-import { usePatternScanner } from '@/contexts/PatternScannerContext';
+import { useScannerData } from '@/hooks/useScannerData';
 import { useExchangeStore } from '@/stores/exchangeStore';
 import { cexManager, CEXCoin } from '@/lib/services/centralizedExchanges';
 import { apiService } from '@/lib/services/apiService';
-import { exchangeOrchestrator } from '@/lib/services/ExchangeOrchestrator';
 import { EXCHANGE_PRIORITY } from '@/lib/services/exchangeRegistry';
 import { ExchangeSelector } from '@/components/layout/ExchangeSelector';
 import
@@ -74,12 +73,17 @@ export default function PatternScannerNewContent ()
 {
   const { activeExchange } = useExchangeStore();
 
+  const [ selectedTimeframes, setSelectedTimeframes ] = useState<string[]>( TIMEFRAMES.map( t => t.id ) );
+
   // Context for real Firestore data
   const {
-    patterns: firestorePatterns,
+    results: firestorePatterns,
     isLoading: isPatternLoading,
     refresh: refreshFirestore
-  } = usePatternScanner();
+  } = useScannerData<DetectedPattern>( {
+    pageId: 'pattern',
+    timeframe: selectedTimeframes[ 0 ] || '1h',
+  } );
 
   const [ unifiedPatterns, setUnifiedPatterns ] = useState<DetectedPattern[]>( [] );
   const [ isUnifiedLoading, setIsUnifiedLoading ] = useState( false );
@@ -93,8 +97,6 @@ export default function PatternScannerNewContent ()
     'rising_wedge_contracting', 'rising_wedge_expanding',
     'flag_bull', 'flag_bear', 'pennant_bull', 'pennant_bear'
   ] );
-
-  const [ selectedTimeframes, setSelectedTimeframes ] = useState<string[]>( TIMEFRAMES.map( t => t.id ) );
 
   // Map to store selected symbols per exchange
   const [ exchangeSymbolsMap, setExchangeSymbolsMap ] = useState<Record<string, string[]>>( () =>
@@ -248,21 +250,7 @@ export default function PatternScannerNewContent ()
         }
       }
 
-      // Save to Firebase Memory
-      import( '@/lib/services/firebaseMemoryService' ).then( ( module ) =>
-      {
-        const service = module.FirebaseMemoryService;
-        const resolvedExchange = exchangeOrchestrator.getActiveExchange();
-        if ( service && allDetectedPatterns.length > 0 )
-        {
-          allDetectedPatterns.slice( 0, 20 ).forEach( p =>
-          {
-            service.saveScannerData( 'pattern-scanner-new', resolvedExchange, p.symbol, p, {
-              sourceExchange: resolvedExchange
-            } );
-          } );
-        }
-      } );
+      // Patterns saved to Firebase by Python backend
     } catch ( err )
     {
       console.error( 'Failed to scan patterns:', err );

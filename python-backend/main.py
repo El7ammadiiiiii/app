@@ -3,9 +3,11 @@
 Port 8000 — Serves all exchange data to Next.js frontend (port 3001)
 
 Central Files:
-  File 1 → providers/cex_rest.py   — 15 REST exchanges (python-binance primary)
-  File 2 → providers/cex_ws.py     — 6 WebSocket exchanges (Binance WS primary)
-  File 3 → providers/cex_aggregator.py — cryptofeed 36+ exchanges
+  File 1 → providers/cex_rest.py            — 15 REST exchanges (python-binance primary)
+  File 2 → providers/cex_ws.py              — 6 WebSocket exchanges (Binance WS primary)
+  File 3 → providers/cex_aggregator.py       — cryptofeed 36+ exchanges
+  File 4 → providers/cryptofeed_scanner.py   — Background scanner → Firebase (4 pages)
+  File 5 → providers/ws_scanner.py           — Background scanner → Firebase (5 pages)
 """
 
 import asyncio
@@ -20,6 +22,12 @@ import config
 from providers.cex_rest import rest_router, init_rest_provider, shutdown_rest_provider
 from providers.cex_ws import ws_router, init_ws_provider, shutdown_ws_provider
 from providers.cex_aggregator import aggregator_router, init_aggregator, shutdown_aggregator
+from providers.cryptofeed_scanner import (
+    cryptofeed_scanner_router, init_cryptofeed_scanner, shutdown_cryptofeed_scanner
+)
+from providers.ws_scanner import (
+    ws_scanner_router, init_ws_scanner, shutdown_ws_scanner
+)
 
 # ─── Logging ───
 logging.basicConfig(level=logging.INFO, format="%(asctime)s [%(name)s] %(levelname)s: %(message)s")
@@ -34,9 +42,14 @@ async def lifespan(app: FastAPI):
     await init_rest_provider()
     await init_ws_provider()
     await init_aggregator()
-    logger.info("✅ All providers initialized")
+    # Start background scanners (write to Firebase)
+    await init_cryptofeed_scanner()
+    await init_ws_scanner()
+    logger.info("✅ All providers initialized (including Firebase scanners)")
     yield
     logger.info("🛑 Shutting down...")
+    await shutdown_cryptofeed_scanner()
+    await shutdown_ws_scanner()
     await shutdown_rest_provider()
     await shutdown_ws_provider()
     await shutdown_aggregator()
@@ -62,16 +75,21 @@ app.add_middleware(
 # ─── Health ───
 @app.get("/health")
 async def health():
-    return {"status": "ok", "version": "1.0.0", "exchanges": {
+    return {"status": "ok", "version": "2.0.0", "exchanges": {
         "rest": len(config.REST_EXCHANGES),
         "ws": len(config.WS_EXCHANGES),
         "aggregator": len(config.AGGREGATOR_EXCHANGES),
+    }, "scanners": {
+        "cryptofeed_pages": 4,
+        "ws_pages": 5,
     }}
 
 # ─── Mount Routers ───
 app.include_router(rest_router, prefix="/api/rest", tags=["REST - File 1"])
 app.include_router(ws_router, prefix="/api/ws", tags=["WebSocket - File 2"])
 app.include_router(aggregator_router, prefix="/api/aggregator", tags=["Aggregator - File 3"])
+app.include_router(cryptofeed_scanner_router, prefix="/api/scanner/cf", tags=["CryptoFeed Scanner - File 4"])
+app.include_router(ws_scanner_router, prefix="/api/scanner/ws", tags=["WS Scanner - File 5"])
 
 
 # ─── Run ───

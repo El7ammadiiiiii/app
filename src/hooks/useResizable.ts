@@ -52,6 +52,10 @@ export function useResizable ( options: UseResizableOptions = {} )
 
   useEffect( () =>
   {
+    // Detect RTL layout — CSS Grid reverses columns in RTL, so we must invert the ratio
+    const isRTL = typeof document !== 'undefined'
+      && getComputedStyle( document.documentElement ).direction === 'rtl';
+
     const handleMouseMove = ( e: MouseEvent ) =>
     {
       if ( !isDragging.current || !containerRef.current ) return;
@@ -64,7 +68,9 @@ export function useResizable ( options: UseResizableOptions = {} )
       const minRatio = minLeftWidth / containerWidth;
       const maxRatio = 1 - ( minRightWidth / containerWidth );
 
-      const newRatio = Math.max( minRatio, Math.min( maxRatio, mouseX / containerWidth ) );
+      const rawRatio = mouseX / containerWidth;
+      const correctedRatio = isRTL ? 1 - rawRatio : rawRatio;
+      const newRatio = Math.max( minRatio, Math.min( maxRatio, correctedRatio ) );
       setRatio( newRatio );
     };
 
@@ -79,7 +85,9 @@ export function useResizable ( options: UseResizableOptions = {} )
       const minRatio = minLeftWidth / containerWidth;
       const maxRatio = 1 - ( minRightWidth / containerWidth );
 
-      const newRatio = Math.max( minRatio, Math.min( maxRatio, touchX / containerWidth ) );
+      const rawRatio = touchX / containerWidth;
+      const correctedRatio = isRTL ? 1 - rawRatio : rawRatio;
+      const newRatio = Math.max( minRatio, Math.min( maxRatio, correctedRatio ) );
       setRatio( newRatio );
     };
 

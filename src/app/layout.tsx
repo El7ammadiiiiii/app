@@ -2,10 +2,6 @@ import type { Metadata, Viewport } from "next";
 import { Inter, Cairo, IBM_Plex_Mono, League_Spartan } from "next/font/google";
 import { ThemeProvider } from "@/components/providers/theme-provider";
 import { GlobalBackground } from "@/components/layout/GlobalBackground";
-import { PatternScannerProvider } from "@/contexts/PatternScannerContext";
-import { VolumeScannerProvider } from "@/contexts/VolumeScannerContext";
-import { LevelsScannerProvider } from "@/contexts/LevelsScannerContext";
-import { DivergenceScannerProvider } from "@/contexts/DivergenceScannerContext";
 import "./globals.css";
 import FirestorePermissionBanner from '@/components/FirestorePermissionBanner';
 import FirestoreHydrator from '@/components/FirestoreHydrator';
@@ -49,21 +45,13 @@ export default function RootLayout ( {
       <head>
         <title>CCWAYS | AI-Powered Crypto Intelligence</title>
         {/* viewport is set via the exported viewport object above */}
-        {/* 🚀 Service Worker + API Prefetch for instant divergence loading */ }
+        {/* Service Worker for offline support & caching */}
         <script
           dangerouslySetInnerHTML={ {
             __html: `
-              // Register Service Workers for offline support & caching
               if ('serviceWorker' in navigator) {
-                // Wave 6.1: General-purpose SW (offline, caching, push)
                 navigator.serviceWorker.register('/sw.js').catch(function() {});
-                // Divergence-specific SW
-                navigator.serviceWorker.register('/sw-divergence.js').catch(function() {});
               }
-              // Prefetch divergence data before React hydration
-              window.__DIVERGENCE_PREFETCH = fetch('/api/v2/divergences?exchange=binance')
-                .then(function(r) { return r.json(); })
-                .catch(function() { return null; });
             `
           } }
         />
@@ -81,17 +69,9 @@ export default function RootLayout ( {
         >
           <SkipToContent />
           <GlobalBackground />
-          <PatternScannerProvider>
-            <VolumeScannerProvider>
-              <LevelsScannerProvider>
-                <DivergenceScannerProvider>
-                  <FirestorePermissionBanner />
-                  <FirestoreHydrator />
-                  <main id="main-content">{ children }</main>
-                </DivergenceScannerProvider>
-              </LevelsScannerProvider>
-            </VolumeScannerProvider>
-          </PatternScannerProvider>
+          <FirestorePermissionBanner />
+          <FirestoreHydrator />
+          <main id="main-content">{ children }</main>
         </ThemeProvider>
       </body>
     </html>

@@ -5,9 +5,8 @@ import { DivergenceFilters, FilterState, DEFAULT_FILTER_STATE } from '@/componen
 import { DivergenceGrid, SortField, SortOrder, ViewMode } from '@/components/scanners/DivergenceGrid';
 import { DivergenceChartModal } from '@/components/scanners/DivergenceChartModal';
 import { DivergenceResult } from '@/lib/scanners/advanced-divergence-detector';
-import { useDivergenceScanner } from '@/contexts/DivergenceScannerContext';
+import { useScannerData } from '@/hooks/useScannerData';
 import { apiService } from '@/lib/services/apiService';
-import { exchangeOrchestrator } from '@/lib/services/ExchangeOrchestrator';
 import { getScannerInstance, type ScanProgress, DEFAULT_PAIRS, DEFAULT_TIMEFRAMES } from '@/lib/scanners/divergence-scanner';
 import { ExchangeSelector } from '@/components/layout/ExchangeSelector';
 import { useExchangeStore } from '@/stores/exchangeStore';
@@ -17,7 +16,9 @@ import { cn } from '@/lib/utils';
 export default function DivergenceScannerPage ()
 {
   const { activeExchange } = useExchangeStore();
-  const { results: firestoreResults, isLoading: isFirestoreLoading, error: firestoreError, refresh } = useDivergenceScanner();
+  const { results: firestoreResults, isLoading: isFirestoreLoading, error: firestoreError, refresh } = useScannerData<DivergenceResult>( {
+    pageId: 'divergence',
+  } );
 
   const [ unifiedResults, setUnifiedResults ] = useState<DivergenceResult[]>( [] );
   const [ isUnifiedLoading, setIsUnifiedLoading ] = useState( false );
@@ -57,25 +58,6 @@ export default function DivergenceScannerPage ()
     }
   }, [] );
 
-  // 🚀 Consume prefetched divergence data from layout.tsx (instant load)
-  useEffect( () =>
-  {
-    const prefetch = ( window as any ).__DIVERGENCE_PREFETCH;
-    if ( prefetch )
-    {
-      prefetch.then( ( data: DivergenceResult[] | null ) =>
-      {
-        if ( data && Array.isArray( data ) && data.length > 0 )
-        {
-          console.log( '[Prefetch] Loaded', data.length, 'divergences instantly' );
-          setUnifiedResults( data );
-        }
-      } ).catch( () => { } );
-      // Clear prefetch after consuming
-      delete ( window as any ).__DIVERGENCE_PREFETCH;
-    }
-  }, [] );
-
   useEffect( () =>
   {
     localStorage.setItem( 'divergence_favorites_v2', JSON.stringify( [ ...favorites ] ) );
@@ -93,17 +75,6 @@ export default function DivergenceScannerPage ()
       if ( data && data.length > 0 )
       {
         setUnifiedResults( data );
-        // 💾 Save to Firebase Memory for other users
-        import( '@/lib/services/firebaseMemoryService' ).then( ( { FirebaseMemoryService } ) =>
-        {
-          const resolvedExchange = exchangeOrchestrator.getActiveExchange();
-          data.forEach( ( d: any ) =>
-          {
-            FirebaseMemoryService.saveScannerData( 'divergence-scanner', resolvedExchange, d.symbol, d, {
-              sourceExchange: resolvedExchange
-            } );
-          } );
-        } );
       }
     } catch ( err )
     {

@@ -8,7 +8,6 @@ import { RightSidebar } from "./right-sidebar";
 import { ExchangeHealthMonitor } from "./ExchangeHealthMonitor";
 import { useExchangeStore } from "@/stores/exchangeStore";
 import { EXCHANGE_CONFIGS } from "@/constants/exchanges";
-import { usePatternScanner } from "@/contexts/PatternScannerContext";
 import { ChatArea } from "./chat-area";
 import { Dashboard } from "./dashboard";
 import { MarketsView } from "./markets-view";
@@ -90,7 +89,22 @@ export function AppShell() {
   const isDesktop = screenSize === "desktop";
   
   const { activeExchange, setActiveExchange, exchangePriority } = useExchangeStore();
-  const { startGlobalScan, isScanning } = usePatternScanner();
+  const [isScanning, setIsScanning] = useState(false);
+
+  // Trigger manual scan via backend API
+  const startGlobalScan = useCallback(async () => {
+    if (isScanning) return;
+    setIsScanning(true);
+    try {
+      // Trigger both scanner backends
+      await Promise.allSettled([
+        fetch(`/api/scanner/cf/refresh/pattern?exchange=${activeExchange}&timeframe=1h`, { method: 'POST' }),
+        fetch(`/api/scanner/ws/refresh/trend?exchange=${activeExchange}&timeframe=1h`, { method: 'POST' }),
+      ]);
+    } catch { /* ignore */ }
+    // Auto-reset after 30s
+    setTimeout(() => setIsScanning(false), 30000);
+  }, [activeExchange, isScanning]);
 
   return (
     <div className="h-screen w-screen theme-surface flex flex-col overflow-hidden" dir="rtl">

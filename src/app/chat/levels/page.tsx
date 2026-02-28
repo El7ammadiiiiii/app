@@ -3,11 +3,10 @@
 import React, { useState, useEffect, useMemo } from 'react';
 import LevelsGrid from '@/components/scanners/levels/LevelsGrid';
 import { LevelsChartModal } from '@/components/scanners/levels/LevelsChartModal';
-import { useLevelsScanner } from '@/contexts/LevelsScannerContext';
+import { useScannerData } from '@/hooks/useScannerData';
 import { useExchangeStore } from '@/stores/exchangeStore';
 import { cexManager, CEXCoin } from '@/lib/services/centralizedExchanges';
 import { apiService } from '@/lib/services/apiService';
-import { exchangeOrchestrator } from '@/lib/services/ExchangeOrchestrator';
 import SymbolFilters from '@/components/pattern-scanner-new/SymbolFilters';
 import TimeframeFilters from '@/components/pattern-scanner-new/TimeframeFilters';
 import { ExchangeSelector } from '@/components/layout/ExchangeSelector';
@@ -29,12 +28,17 @@ const TIMEFRAMES = [
 export default function LevelsScannerPage ()
 {
   const { activeExchange } = useExchangeStore();
-  const { results: firestoreResults, isLoading: isFirestoreLoading } = useLevelsScanner();
+
+  const [ selectedTimeframes, setSelectedTimeframes ] = useState<string[]>( [ '1h', '4h' ] );
+
+  const { results: firestoreResults, isLoading: isFirestoreLoading } = useScannerData( {
+    pageId: 'levels',
+    timeframe: selectedTimeframes[ 0 ] || '1h',
+  } );
 
   const [ unifiedResults, setUnifiedResults ] = useState<any[]>( [] );
   const [ isUnifiedLoading, setIsUnifiedLoading ] = useState( false );
 
-  const [ selectedTimeframes, setSelectedTimeframes ] = useState<string[]>( [ '1h', '4h' ] );
   const [ exchangeSymbolsMap, setExchangeSymbolsMap ] = useState<Record<string, string[]>>( {} );
   const [ topSymbols, setTopSymbols ] = useState<CEXCoin[]>( [] );
   const [ selectedResult, setSelectedResult ] = useState<any>( null );
@@ -55,17 +59,6 @@ export default function LevelsScannerPage ()
       if ( data && data.length > 0 )
       {
         setUnifiedResults( data );
-        // 💾 Save to Firebase Memory
-        import( '@/lib/services/firebaseMemoryService' ).then( ( { FirebaseMemoryService } ) =>
-        {
-          const resolvedExchange = exchangeOrchestrator.getActiveExchange();
-          data.forEach( ( d: any ) =>
-          {
-            FirebaseMemoryService.saveScannerData( 'levels-scanner', resolvedExchange, d.symbol, d, {
-              sourceExchange: resolvedExchange
-            } );
-          } );
-        } );
       }
     } catch ( err )
     {
@@ -81,55 +74,13 @@ export default function LevelsScannerPage ()
     cexManager.getTopCoinsByVolume( activeExchange as any )
       .then( coins => setTopSymbols( coins.slice( 0, 300 ) ) )
       .catch( () => setTopSymbols( [] ) );
+
+    // Fetch unified data if Firebase cache is empty
+    if ( firestoreResults.length === 0 && !isFirestoreLoading )
+    {
+      fetchUnifiedLevels();
+    }
   }, [ activeExchange ] );
-
-  useEffect( () =>
-  {
-    let interval: number | undefined;
-
-    import( '@/lib/services/firebaseMemoryService' ).then( ( { FirebaseMemoryService } ) =>
-    {
-      FirebaseMemoryService.needsRefresh( 'levels-scanner', activeExchange ).then( needed =>
-      {
-        if ( needed )
-        {
-          fetchUnifiedLevels();
-        }
-      } );
-    } );
-
-    interval = window.setInterval( () =>
-    {
-      import( '@/lib/services/firebaseMemoryService' ).then( ( { FirebaseMemoryService } ) =>
-      {
-        FirebaseMemoryService.needsRefresh( 'levels-scanner', activeExchange ).then( needed =>
-        {
-          if ( needed )
-          {
-            fetchUnifiedLevels();
-          }
-        } );
-      } );
-    }, 15 * 60 * 1000 );
-
-    const handleOnline = () =>
-    {
-      import( '@/lib/services/firebaseMemoryService' ).then( ( { FirebaseMemoryService } ) =>
-      {
-        FirebaseMemoryService.needsRefresh( 'levels-scanner', activeExchange ).then( needed =>
-        {
-          if ( needed ) fetchUnifiedLevels();
-        } );
-      } );
-    };
-    window.addEventListener( 'online', handleOnline );
-
-    return () =>
-    {
-      if ( interval ) window.clearInterval( interval );
-      window.removeEventListener( 'online', handleOnline );
-    };
-  }, [ activeExchange, selectedSymbols, selectedTimeframes ] );
 
   const results = useMemo( () =>
   {

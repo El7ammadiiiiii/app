@@ -16,6 +16,7 @@ import
   onAuthStateChanged,
   User,
   setPersistence,
+  browserLocalPersistence,
   inMemoryPersistence,
   connectAuthEmulator
 } from 'firebase/auth';
@@ -122,8 +123,11 @@ if ( typeof window !== 'undefined' )
       connectDatabaseEmulator( rtdb, emulatorHost, rtdbPort );
     }
 
-    // استخدام الذاكرة فقط لتجنب حظر المتصفح (Tracking Prevention)
-    setPersistence( auth, inMemoryPersistence ).catch( () => { } );
+    // استخدام التخزين المحلي للحفاظ على الجلسة عبر التحديثات
+    setPersistence( auth, browserLocalPersistence ).catch( () =>
+      // Fallback to inMemory if localStorage blocked (Tracking Prevention)
+      setPersistence( auth, inMemoryPersistence ).catch( () => { } )
+    );
 
     // 🚀 Pre-warm: بدء المصادقة فوراً عند تحميل الموقع
     signInAnonymously( auth ).catch( () => { _anonAuthFailed = true; } );

@@ -5,9 +5,8 @@ import { useExchangeStore } from '@/stores/exchangeStore';
 import { cexManager, CEXCoin } from '@/lib/services/centralizedExchanges';
 import SymbolFilters from '@/components/pattern-scanner-new/SymbolFilters';
 import TimeframeFilters from '@/components/pattern-scanner-new/TimeframeFilters';
-import { useVolumeScanner } from '@/contexts/VolumeScannerContext';
+import { useScannerData } from '@/hooks/useScannerData';
 import { apiService } from '@/lib/services/apiService';
-import { exchangeOrchestrator } from '@/lib/services/ExchangeOrchestrator';
 import { ExchangeSelector } from '@/components/layout/ExchangeSelector';
 import
 {
@@ -27,12 +26,17 @@ const TIMEFRAMES = [
 export default function VolumeScannerPage ()
 {
   const { activeExchange } = useExchangeStore();
-  const { results: firestoreResults, isLoading: isFirestoreLoading, refresh: refreshFirestore } = useVolumeScanner();
+
+  const [ selectedTimeframes, setSelectedTimeframes ] = useState<string[]>( TIMEFRAMES.map( t => t.id ) );
+
+  const { results: firestoreResults, isLoading: isFirestoreLoading, refresh: refreshFirestore } = useScannerData( {
+    pageId: 'volume',
+    timeframe: selectedTimeframes[ 0 ] || '1h',
+  } );
 
   const [ unifiedResults, setUnifiedResults ] = useState<any[]>( [] );
   const [ isUnifiedLoading, setIsUnifiedLoading ] = useState( false );
 
-  const [ selectedTimeframes, setSelectedTimeframes ] = useState<string[]>( TIMEFRAMES.map( t => t.id ) );
   const [ exchangeSymbolsMap, setExchangeSymbolsMap ] = useState<Record<string, string[]>>( {} );
   const [ topSymbols, setTopSymbols ] = useState<CEXCoin[]>( [] );
 
@@ -51,17 +55,6 @@ export default function VolumeScannerPage ()
       if ( data && data.length > 0 )
       {
         setUnifiedResults( data );
-        // 💾 Save to Firebase Memory
-        import( '@/lib/services/firebaseMemoryService' ).then( ( { FirebaseMemoryService } ) =>
-        {
-          const resolvedExchange = exchangeOrchestrator.getActiveExchange();
-          data.forEach( ( d: any ) =>
-          {
-            FirebaseMemoryService.saveScannerData( 'volume-scanner', resolvedExchange, d.symbol, d, {
-              sourceExchange: resolvedExchange
-            } );
-          } );
-        } );
       }
     } catch ( err )
     {
@@ -77,39 +70,6 @@ export default function VolumeScannerPage ()
     cexManager.getTopCoinsByVolume( activeExchange as any )
       .then( coins => setTopSymbols( coins.slice( 0, 300 ) ) )
       .catch( () => setTopSymbols( [] ) );
-
-    // 🚀 Smart Refresh Logic
-    import( '@/lib/services/firebaseMemoryService' ).then( ( { FirebaseMemoryService } ) =>
-    {
-      FirebaseMemoryService.needsRefresh( 'volume-scanner', activeExchange ).then( needed =>
-      {
-        if ( needed )
-        {
-          console.log( `[Volume] Refreshing memory for ${ activeExchange }...` );
-          fetchUnifiedVolume().then( () => refreshFirestore() );
-        }
-      } );
-    } );
-
-    const handleOnline = () =>
-    {
-      import( '@/lib/services/firebaseMemoryService' ).then( ( { FirebaseMemoryService } ) =>
-      {
-        FirebaseMemoryService.needsRefresh( 'volume-scanner', activeExchange ).then( needed =>
-        {
-          if ( needed )
-          {
-            fetchUnifiedVolume().then( () => refreshFirestore() );
-          }
-        } );
-      } );
-    };
-    window.addEventListener( 'online', handleOnline );
-
-    return () =>
-    {
-      window.removeEventListener( 'online', handleOnline );
-    };
   }, [ activeExchange, fetchUnifiedVolume, refreshFirestore ] );
 
   const results = useMemo( () =>

@@ -47,7 +47,7 @@ import { DeepResearchPanel } from "@/components/deep-research";
 import { WebSearchPanel } from "@/components/web-search";
 import { ChatInputBox } from "@/components/chat/ChatInputBox";
 import { createOCRSystemMessage, type OCRContext } from "@/services/ocrService";
-import { buildSystemPrompt } from "@/config/systemPrompts";
+import { buildSystemPrompt, detectLanguage } from "@/config/systemPrompts";
 // Thinking System
 import { ThinkingDisplay } from "@/components/thinking";
 import { useThinkingStore } from "@/store/thinkingStore";
@@ -400,8 +400,13 @@ export function ChatArea ( { }: ChatAreaProps )
         : '';
 
       // Build the full 5-layer system prompt
+      // Detect user's language from the last message for dynamic response language
+      const lastUserMsg = rawMessages.filter( ( m: { role: string } ) => m.role === 'user' ).pop();
+      const userLanguage = detectLanguage( lastUserMsg?.content || '' );
+
       const systemPrompt = buildSystemPrompt( model, mode, useFC, {
         activeCanvasContext,
+        userLanguage,
       } );
 
       const payloadMessages = [
