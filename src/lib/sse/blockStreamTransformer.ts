@@ -24,6 +24,7 @@ export type BlockEventType =
   | 'thinking_delta'
   | 'tool_call_start'
   | 'tool_call_delta'
+  | 'tool_call_end'
   | 'canvas_action'
   | 'error'
   | 'message_done';
@@ -186,6 +187,9 @@ function normalizeOpenAIFormat(parsed: any): BlockEvent[] {
 
   // Finish reason
   if (choice.finish_reason) {
+    if (choice.finish_reason === 'tool_calls') {
+      events.push({ type: 'tool_call_end', data: {} });
+    }
     events.push({
       type: 'message_done',
       data: {
@@ -231,6 +235,11 @@ function normalizeAnthropicFormat(parsed: any): BlockEvent[] {
           data: { input: delta.partial_json },
         });
       }
+      break;
+    }
+    case 'content_block_stop': {
+      // Signal tool_call_end if we were in a tool use block
+      events.push({ type: 'tool_call_end', data: {} });
       break;
     }
     case 'message_delta': {
@@ -283,9 +292,18 @@ function normalizeGoogleFormat(parsed: any): BlockEvent[] {
         events.push({ type: 'thinking_delta', data: { content: part.thought } });
       }
       if (part.functionCall) {
+        const callId = `gc_${Date.now()}`;
         events.push({
           type: 'tool_call_start',
-          data: { toolName: part.functionCall.name, input: JSON.stringify(part.functionCall.args) },
+          data: { toolCallId: callId, toolName: part.functionCall.name },
+        });
+        events.push({
+          type: 'tool_call_delta',
+          data: { toolCallId: callId, input: JSON.stringify(part.functionCall.args || {}) },
+        });
+        events.push({
+          type: 'tool_call_end',
+          data: { toolCallId: callId },
         });
       }
     }
@@ -313,6 +331,29 @@ function normalizeAlibabaFormat(parsed: any): BlockEvent[] {
   const text = parsed?.output?.text;
   if (text) {
     events.push({ type: 'text_delta', data: { content: text } });
+  }
+
+  // Alibaba tool calls (Qwen function calling)
+  const toolCalls = parsed?.output?.tool_calls;
+  if (toolCalls && Array.isArray(toolCalls)) {
+    for (const tc of toolCalls) {
+      if (tc.function?.name) {
+        events.push({
+          type: 'tool_call_start',
+          data: { toolCallId: tc.id || `ali_${Date.now()}`, toolName: tc.function.name },
+        });
+      }
+      if (tc.function?.arguments) {
+        events.push({
+          type: 'tool_call_delta',
+          data: { toolCallId: tc.id || `ali_${Date.now()}`, input: tc.function.arguments },
+        });
+        events.push({
+          type: 'tool_call_end',
+          data: { toolCallId: tc.id || `ali_${Date.now()}` },
+        });
+      }
+    }
   }
 
   if (parsed?.output?.finish_reason === 'stop') {

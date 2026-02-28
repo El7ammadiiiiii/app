@@ -18,8 +18,7 @@ import Highlight from "@tiptap/extension-highlight";
 import Typography from "@tiptap/extension-typography";
 import Placeholder from "@tiptap/extension-placeholder";
 
-// ── Wave 5.1: Canvas Create Button ──
-import { CanvasCreateButton } from "@/components/canvas/CanvasCreateButton";
+// Canvas Create Button removed — Canvas opens automatically via AI Function Calling
 
 
 // ==================== SVG Icons ====================
@@ -382,7 +381,7 @@ export function ChatInputBox ( {
     // تفعيل Canvas تلقائياً عند اختيار وضع coder
     if ( selectedChatbot === "coder" && !isModeActive )
     {
-      enableMode( "CODE" );
+      enableMode( "CODE_EDITOR" );
     }
 
     // تغيير النموذج إذا غير متوافق
@@ -816,8 +815,7 @@ export function ChatInputBox ( {
                 </div>
               ) ) }
 
-              {/* Wave 5.1: Canvas Create Button */}
-              <CanvasCreateButton />
+              {/* Canvas button removed — opens automatically via AI */}
             </div>
 
             {/* Right: Chatbot + Agent + Mic/Send */ }

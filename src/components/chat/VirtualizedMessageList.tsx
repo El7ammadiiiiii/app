@@ -193,7 +193,7 @@ function MessageRow ( {
               <CanvasEntryChip
                 artifactId={ msg.metadata.canvasArtifactId }
                 title={ artifact?.title || "Canvas" }
-                type={ artifact?.type || "CODE" }
+                type={ artifact?.type || "CODE_EDITOR" }
                 createdAt={ artifact?.createdAt || Date.now() }
                 onOpen={ openArtifact }
               />

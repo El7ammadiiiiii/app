@@ -78,6 +78,18 @@ export const useCanvasParser = () =>
 
       if ( parsingState.current === 'IDLE' )
       {
+        // ── Direct-to-Canvas bypass for ULTRA_RESEARCH ──
+        // When Canvas is already open with ULTRA_RESEARCH type (Altra mode),
+        // route all text directly into Canvas instead of requiring XML tags.
+        const canvasState = useCanvasStore.getState();
+        if ( canvasState.isOpen && canvasState.type === 'ULTRA_RESEARCH' )
+        {
+          canvasContent.current += remaining;
+          updateContent( canvasContent.current, false );
+          remaining = "";
+          continue;
+        }
+
         // B.1: Match both <canvas_action> and <canvas_action command="..." identifier="...">
         const tagMatch = remaining.match( CANVAS_TAG_REGEX );
         const simpleTagIndex = remaining.indexOf( "<canvas_action>" );
@@ -148,7 +160,7 @@ export const useCanvasParser = () =>
           const langMatch = metadataSection.match( /<language>(.*?)<\/language>/ );
           const titleMatch = metadataSection.match( /<title>(.*?)<\/title>/ );
 
-          const type = ( typeMatch ? typeMatch[ 1 ] : 'CODE' ) as CanvasType;
+          const type = ( typeMatch ? typeMatch[ 1 ] : 'CODE_EDITOR' ) as CanvasType;
           const language = langMatch ? langMatch[ 1 ] : 'markdown';
           const title = titleMatch ? titleMatch[ 1 ] : 'Untitled';
 

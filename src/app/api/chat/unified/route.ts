@@ -22,8 +22,10 @@ import
     getProviderReasoningParams,
     clampThinkingDepth,
     analyzeQueryComplexity,
+    modelSupportsToolCalling,
 } from '@/config/modelModeConfig';
 import { createBlockTransformer } from '@/lib/sse/blockStreamTransformer';
+import { getCanvasToolDefinition } from '@/lib/ai/tools/canvasToolDefinition';
 
 // ═══════════════════════════════════════════════════════════════════════════════
 // TYPES
@@ -110,7 +112,7 @@ const API_KEYS = {
 // PROVIDER-SPECIFIC API HANDLERS
 // ═══════════════════════════════════════════════════════════════════════════════
 
-async function callGoogleAPI ( payload: any, stream: boolean, reasoningParams?: Record<string, any> )
+async function callGoogleAPI ( payload: any, stream: boolean, reasoningParams?: Record<string, any>, canvasTools?: any )
 {
     // Get API key for specific model or default
     const apiKey = API_KEYS[ payload.model as keyof typeof API_KEYS ] || API_KEYS.google;
@@ -124,27 +126,37 @@ async function callGoogleAPI ( payload: any, stream: boolean, reasoningParams?: 
         parts: [ { text: msg.content } ],
     } ) );
 
+    const requestBody: any = {
+        contents,
+        generationConfig: {
+            temperature: payload.temperature,
+            maxOutputTokens: payload.max_tokens,
+            topP: payload.top_p,
+            // Google thinkingConfig — يُمرر فقط إذا موجود
+            ...( reasoningParams?.thinkingConfig && {
+                thinkingConfig: reasoningParams.thinkingConfig,
+            } ),
+        },
+    };
+
+    // Canvas Function Calling tools
+    if ( canvasTools?.tools ) {
+        requestBody.tools = canvasTools.tools;
+        if ( canvasTools.toolConfig ) {
+            requestBody.toolConfig = canvasTools.toolConfig;
+        }
+    }
+
     const response = await fetch( url, {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify( {
-            contents,
-            generationConfig: {
-                temperature: payload.temperature,
-                maxOutputTokens: payload.max_tokens,
-                topP: payload.top_p,
-                // Google thinkingConfig — يُمرر فقط إذا موجود
-                ...( reasoningParams?.thinkingConfig && {
-                    thinkingConfig: reasoningParams.thinkingConfig,
-                } ),
-            },
-        } ),
+        body: JSON.stringify( requestBody ),
     } );
 
     return response;
 }
 
-async function callOpenAIAPI ( payload: any, stream: boolean, reasoningParams?: Record<string, any> )
+async function callOpenAIAPI ( payload: any, stream: boolean, reasoningParams?: Record<string, any>, canvasTools?: any )
 {
     // Get API key for specific model or default
     const apiKey = API_KEYS[ payload.model as keyof typeof API_KEYS ] || API_KEYS.openai;
@@ -152,23 +164,31 @@ async function callOpenAIAPI ( payload: any, stream: boolean, reasoningParams?: 
 
     // إزالة الحقول الداخلية وإضافة reasoning بصيغة OpenAI
     const { _reasoning, reasoning, ...cleanPayload } = payload;
+    const requestBody: any = {
+        ...cleanPayload,
+        ...( reasoningParams || {} ),
+        stream,
+    };
+
+    // Canvas Function Calling tools
+    if ( canvasTools?.tools ) {
+        requestBody.tools = canvasTools.tools;
+        if ( canvasTools.tool_choice ) requestBody.tool_choice = canvasTools.tool_choice;
+    }
+
     const response = await fetch( API_ENDPOINTS.openai, {
         method: 'POST',
         headers: {
             'Content-Type': 'application/json',
             'Authorization': `Bearer ${ apiKey }`,
         },
-        body: JSON.stringify( {
-            ...cleanPayload,
-            ...( reasoningParams || {} ),
-            stream,
-        } ),
+        body: JSON.stringify( requestBody ),
     } );
 
     return response;
 }
 
-async function callAnthropicAPI ( payload: any, stream: boolean, reasoningParams?: Record<string, any> )
+async function callAnthropicAPI ( payload: any, stream: boolean, reasoningParams?: Record<string, any>, canvasTools?: any )
 {
     // مفتاح خاص بالموديل مع fallback للمفتاح العام
     const modelKey = API_KEYS[ payload.model as keyof typeof API_KEYS ];
@@ -210,6 +230,11 @@ async function callAnthropicAPI ( payload: any, stream: boolean, reasoningParams
         requestBody.output_config = reasoningParams.output_config;
     }
 
+    // Canvas Function Calling tools
+    if ( canvasTools?.tools ) {
+        requestBody.tools = [ ...( requestBody.tools || [] ), ...canvasTools.tools ];
+    }
+
     const response = await fetch( API_ENDPOINTS.anthropic, {
         method: 'POST',
         headers: {
@@ -223,149 +248,173 @@ async function callAnthropicAPI ( payload: any, stream: boolean, reasoningParams
     return response;
 }
 
-async function callXAIAPI ( payload: any, stream: boolean, reasoningParams?: Record<string, any> )
+async function callXAIAPI ( payload: any, stream: boolean, reasoningParams?: Record<string, any>, canvasTools?: any )
 {
     const apiKey = API_KEYS.xai;
     if ( !apiKey ) throw new Error( 'xAI API key not configured' );
 
     const { _reasoning, reasoning, ...cleanPayload } = payload;
+    const requestBody: any = {
+        ...cleanPayload,
+        ...( reasoningParams || {} ),
+        stream,
+    };
+    if ( canvasTools?.tools ) {
+        requestBody.tools = canvasTools.tools;
+        if ( canvasTools.tool_choice ) requestBody.tool_choice = canvasTools.tool_choice;
+    }
     const response = await fetch( API_ENDPOINTS.xai, {
         method: 'POST',
         headers: {
             'Content-Type': 'application/json',
             'Authorization': `Bearer ${ apiKey }`,
         },
-        body: JSON.stringify( {
-            ...cleanPayload,
-            ...( reasoningParams || {} ),
-            stream,
-        } ),
+        body: JSON.stringify( requestBody ),
     } );
 
     return response;
 }
 
-async function callAlibabaAPI ( payload: any, stream: boolean )
+async function callAlibabaAPI ( payload: any, stream: boolean, canvasTools?: any )
 {
     const apiKey = API_KEYS.alibaba;
     if ( !apiKey ) throw new Error( 'Alibaba API key not configured' );
 
+    const requestBody: any = {
+        model: payload.model,
+        input: {
+            messages: payload.messages,
+        },
+        parameters: {
+            temperature: payload.temperature,
+            max_tokens: payload.max_tokens,
+            incremental_output: stream,
+        },
+    };
+    if ( canvasTools?.tools ) {
+        requestBody.input.tools = canvasTools.tools;
+        if ( canvasTools.tool_choice ) requestBody.input.tool_choice = canvasTools.tool_choice;
+    }
     const response = await fetch( API_ENDPOINTS.alibaba, {
         method: 'POST',
         headers: {
             'Content-Type': 'application/json',
             'Authorization': `Bearer ${ apiKey }`,
         },
-        body: JSON.stringify( {
-            model: payload.model,
-            input: {
-                messages: payload.messages,
-            },
-            parameters: {
-                temperature: payload.temperature,
-                max_tokens: payload.max_tokens,
-                incremental_output: stream,
-            },
-        } ),
+        body: JSON.stringify( requestBody ),
     } );
 
     return response;
 }
 
-async function callDeepSeekAPI ( payload: any, stream: boolean, reasoningParams?: Record<string, any> )
+async function callDeepSeekAPI ( payload: any, stream: boolean, reasoningParams?: Record<string, any>, canvasTools?: any )
 {
     const apiKey = API_KEYS.deepseek;
     if ( !apiKey ) throw new Error( 'DeepSeek API key not configured' );
 
     const { _reasoning, reasoning, ...cleanPayload } = payload;
+    const requestBody: any = {
+        ...cleanPayload,
+        ...( reasoningParams || {} ),
+        stream,
+    };
+    if ( canvasTools?.tools ) {
+        requestBody.tools = canvasTools.tools;
+        if ( canvasTools.tool_choice ) requestBody.tool_choice = canvasTools.tool_choice;
+    }
     const response = await fetch( API_ENDPOINTS.deepseek, {
         method: 'POST',
         headers: {
             'Content-Type': 'application/json',
             'Authorization': `Bearer ${ apiKey }`,
         },
-        body: JSON.stringify( {
-            ...cleanPayload,
-            ...( reasoningParams || {} ),
-            stream,
-        } ),
+        body: JSON.stringify( requestBody ),
     } );
 
     return response;
 }
 
-async function callMistralAPI ( payload: any, stream: boolean )
+async function callMistralAPI ( payload: any, stream: boolean, canvasTools?: any )
 {
     const apiKey = API_KEYS.mistral;
     if ( !apiKey ) throw new Error( 'Mistral API key not configured' );
 
+    const requestBody: any = { ...payload, stream };
+    if ( canvasTools?.tools ) {
+        requestBody.tools = canvasTools.tools;
+        if ( canvasTools.tool_choice ) requestBody.tool_choice = canvasTools.tool_choice;
+    }
     const response = await fetch( API_ENDPOINTS.mistral, {
         method: 'POST',
         headers: {
             'Content-Type': 'application/json',
             'Authorization': `Bearer ${ apiKey }`,
         },
-        body: JSON.stringify( {
-            ...payload,
-            stream,
-        } ),
+        body: JSON.stringify( requestBody ),
     } );
 
     return response;
 }
 
-async function callMetaAPI ( payload: any, stream: boolean )
+async function callMetaAPI ( payload: any, stream: boolean, canvasTools?: any )
 {
     const apiKey = API_KEYS.meta;
     if ( !apiKey ) throw new Error( 'Meta API key not configured' );
 
+    const requestBody: any = { ...payload, stream };
+    if ( canvasTools?.tools ) {
+        requestBody.tools = canvasTools.tools;
+        if ( canvasTools.tool_choice ) requestBody.tool_choice = canvasTools.tool_choice;
+    }
     const response = await fetch( API_ENDPOINTS.meta, {
         method: 'POST',
         headers: {
             'Content-Type': 'application/json',
             'Authorization': `Bearer ${ apiKey }`,
         },
-        body: JSON.stringify( {
-            ...payload,
-            stream,
-        } ),
+        body: JSON.stringify( requestBody ),
     } );
 
     return response;
 }
 
-async function callVertexMetaAPI ( payload: any, stream: boolean )
+async function callVertexMetaAPI ( payload: any, stream: boolean, canvasTools?: any )
 {
     const apiKey = API_KEYS.vertexMeta || API_KEYS[ payload.model as keyof typeof API_KEYS ];
     if ( !apiKey ) throw new Error( 'Vertex AI API key not configured' );
 
+    const requestBody: any = {
+        model: `meta/${ payload.model }`,
+        messages: payload.messages,
+        max_tokens: payload.max_tokens || 16384,
+        temperature: payload.temperature || 0.7,
+        stream,
+        extra_body: {
+            google: {
+                model_safety_settings: {
+                    enabled: false,
+                    llama_guard_settings: {},
+                },
+            },
+        },
+    };
+    if ( canvasTools?.tools ) {
+        requestBody.tools = canvasTools.tools;
+        if ( canvasTools.tool_choice ) requestBody.tool_choice = canvasTools.tool_choice;
+    }
     const response = await fetch( API_ENDPOINTS.vertexMeta, {
         method: 'POST',
         headers: {
             'Content-Type': 'application/json',
             'x-goog-api-key': apiKey,
         },
-        body: JSON.stringify( {
-            model: `meta/${ payload.model }`,
-            messages: payload.messages,
-            max_tokens: payload.max_tokens || 16384,
-            temperature: payload.temperature || 0.7,
-            stream,
-            extra_body: {
-                google: {
-                    model_safety_settings: {
-                        enabled: false,
-                        llama_guard_settings: {},
-                    },
-                },
-            },
-        } ),
+        body: JSON.stringify( requestBody ),
     } );
 
     return response;
 }
 
-async function callVertexGoogleAPI ( payload: any, stream: boolean, reasoningParams?: Record<string, any> )
+async function callVertexGoogleAPI ( payload: any, stream: boolean, reasoningParams?: Record<string, any>, canvasTools?: any )
 {
     const apiKey = API_KEYS[ payload.model as keyof typeof API_KEYS ] || API_KEYS.vertexGoogle;
     if ( !apiKey ) throw new Error( 'Vertex AI Google API key not configured' );
@@ -378,29 +427,34 @@ async function callVertexGoogleAPI ( payload: any, stream: boolean, reasoningPar
         parts: [ { text: msg.content } ],
     } ) );
 
+    const requestBody: any = {
+        contents,
+        generationConfig: {
+            temperature: payload.temperature,
+            maxOutputTokens: payload.max_tokens,
+            topP: payload.top_p,
+            ...( reasoningParams?.thinkingConfig && {
+                thinkingConfig: reasoningParams.thinkingConfig,
+            } ),
+        },
+    };
+    if ( canvasTools?.tools ) {
+        requestBody.tools = canvasTools.tools;
+        if ( canvasTools.toolConfig ) requestBody.toolConfig = canvasTools.toolConfig;
+    }
     const response = await fetch( url, {
         method: 'POST',
         headers: {
             'Content-Type': 'application/json',
             'x-goog-api-key': apiKey,
         },
-        body: JSON.stringify( {
-            contents,
-            generationConfig: {
-                temperature: payload.temperature,
-                maxOutputTokens: payload.max_tokens,
-                topP: payload.top_p,
-                ...( reasoningParams?.thinkingConfig && {
-                    thinkingConfig: reasoningParams.thinkingConfig,
-                } ),
-            },
-        } ),
+        body: JSON.stringify( requestBody ),
     } );
 
     return response;
 }
 
-async function callVertexMistralAPI ( payload: any, stream: boolean )
+async function callVertexMistralAPI ( payload: any, stream: boolean, canvasTools?: any )
 {
     const apiKey = API_KEYS[ payload.model as keyof typeof API_KEYS ] || API_KEYS.vertexMistral;
     if ( !apiKey ) throw new Error( 'Vertex AI Mistral API key not configured' );
@@ -409,19 +463,24 @@ async function callVertexMistralAPI ( payload: any, stream: boolean )
     const action = stream ? 'streamRawPredict' : 'rawPredict';
     const url = `${ API_ENDPOINTS.vertexMistral }/${ modelName }:${ action }`;
 
+    const requestBody: any = {
+        model: modelName,
+        messages: payload.messages,
+        max_tokens: payload.max_tokens || 16384,
+        temperature: payload.temperature || 0.7,
+        stream,
+    };
+    if ( canvasTools?.tools ) {
+        requestBody.tools = canvasTools.tools;
+        if ( canvasTools.tool_choice ) requestBody.tool_choice = canvasTools.tool_choice;
+    }
     const response = await fetch( url, {
         method: 'POST',
         headers: {
             'Content-Type': 'application/json',
             'x-goog-api-key': apiKey,
         },
-        body: JSON.stringify( {
-            model: modelName,
-            messages: payload.messages,
-            max_tokens: payload.max_tokens || 16384,
-            temperature: payload.temperature || 0.7,
-            stream,
-        } ),
+        body: JSON.stringify( requestBody ),
     } );
 
     return response;
@@ -555,46 +614,50 @@ export async function POST ( request: NextRequest )
             : analyzeQueryComplexity( lastUserMessage, mode );
         const reasoningParams = getProviderReasoningParams( provider, modeSettings.reasoningType, effectiveDepth, model );
 
+        // Canvas Tool Calling — inject tools for models that support it
+        const useToolCalling = modelSupportsToolCalling( model );
+        const canvasTools = useToolCalling ? getCanvasToolDefinition( provider ) : null;
+
         // استدعاء API المناسب
         let response: Response;
 
         switch ( provider )
         {
             case 'google':
-                response = await callGoogleAPI( payload, stream, reasoningParams );
+                response = await callGoogleAPI( payload, stream, reasoningParams, canvasTools );
                 break;
             case 'openai':
-                response = await callOpenAIAPI( payload, stream, reasoningParams );
+                response = await callOpenAIAPI( payload, stream, reasoningParams, canvasTools );
                 break;
             case 'anthropic':
-                response = await callAnthropicAPI( payload, stream, reasoningParams );
+                response = await callAnthropicAPI( payload, stream, reasoningParams, canvasTools );
                 break;
             case 'xai':
-                response = await callXAIAPI( payload, stream, reasoningParams );
+                response = await callXAIAPI( payload, stream, reasoningParams, canvasTools );
                 break;
             case 'alibaba':
-                response = await callAlibabaAPI( payload, stream );
+                response = await callAlibabaAPI( payload, stream, canvasTools );
                 break;
             case 'deepseek':
-                response = await callDeepSeekAPI( payload, stream, reasoningParams );
+                response = await callDeepSeekAPI( payload, stream, reasoningParams, canvasTools );
                 break;
             case 'mistral':
-                response = await callMistralAPI( payload, stream );
+                response = await callMistralAPI( payload, stream, canvasTools );
                 break;
             case 'meta':
-                response = await callMetaAPI( payload, stream );
+                response = await callMetaAPI( payload, stream, canvasTools );
                 break;
             case 'amazon':
                 response = await callAmazonAPI( payload, stream );
                 break;
             case 'vertexMeta':
-                response = await callVertexMetaAPI( payload, stream );
+                response = await callVertexMetaAPI( payload, stream, canvasTools );
                 break;
             case 'vertexGoogle':
-                response = await callVertexGoogleAPI( payload, stream, reasoningParams );
+                response = await callVertexGoogleAPI( payload, stream, reasoningParams, canvasTools );
                 break;
             case 'vertexMistral':
-                response = await callVertexMistralAPI( payload, stream );
+                response = await callVertexMistralAPI( payload, stream, canvasTools );
                 break;
             default:
                 return NextResponse.json(

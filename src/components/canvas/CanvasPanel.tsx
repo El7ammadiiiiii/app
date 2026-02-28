@@ -10,6 +10,8 @@ import { DiffViewer } from './DiffViewer';
 import { SlideViewer } from './renderers/SlideViewer';
 import { EmailEditor } from './renderers/EmailEditor';
 import { MapViewer } from './renderers/MapViewer';
+// ── Wave 8.0: Ultra Research renderer ──
+import { UltraResearchRenderer } from './renderers/UltraResearchRenderer';
 // ── Wave 6.6: Python code execution ──
 import { PythonRunPanel } from './PythonRunPanel';
 import { Tabs, TabsContent, TabsList, TabsTrigger } from '@/components/ui/tabs';
@@ -31,24 +33,24 @@ export function CanvasPanel ()
   // Reset to code view when language changes to something non-previewable
   useEffect( () =>
   {
-    if ( type === 'CODE' && ![ 'html', 'javascript', 'typescript', 'jsx', 'tsx' ].includes( language ) )
+    if ( type === 'CODE_EDITOR' && ![ 'html', 'javascript', 'typescript', 'jsx', 'tsx' ].includes( language ) )
     {
       setActiveTab( 'code' );
     }
     // Default to split view for previewable code
-    if ( ( type === 'CODE' || type === 'DATA_VIZ' ) && [ 'html', 'javascript', 'typescript', 'jsx', 'tsx' ].includes( language ) )
+    if ( ( type === 'CODE_EDITOR' || type === 'DATA_VIZ' || type === 'WEB_PAGE' ) && [ 'html', 'javascript', 'typescript', 'jsx', 'tsx' ].includes( language ) )
     {
       setActiveTab( 'split' );
     }
-    // DEEP_RESEARCH defaults to text view
-    if ( type === 'DEEP_RESEARCH' || type === 'TEXT' || type === 'DOC' || type === 'LEARNING' || type === 'EMAIL' || type === 'AUTOMATION_PLAN' )
+    // Rich text defaults
+    if ( type === 'DEEP_RESEARCH' || type === 'DOCUMENT' || type === 'AUDIO_SUMMARY' || type === 'CUSTOM_TASK' )
     {
       setActiveTab( 'text' );
     }
   }, [ language, type ] );
 
   const isPreviewable = (
-    type === 'CODE' || type === 'DATA_VIZ'
+    type === 'CODE_EDITOR' || type === 'DATA_VIZ' || type === 'WEB_PAGE'
   ) && (
       language === 'html' ||
       [ 'javascript', 'typescript', 'jsx', 'tsx' ].includes( language )
@@ -56,14 +58,17 @@ export function CanvasPanel ()
 
   const meta = CANVAS_TYPE_META[ type ];
 
-  // ═══ Rich Text types: DEEP_RESEARCH, TEXT, DOC, etc. ═══
-  const isRichText = [ 'TEXT', 'DEEP_RESEARCH', 'DOC', 'LEARNING', 'STORYBOOK', 'AUTOMATION_PLAN' ].includes( type );
+  // ═══ Ultra Research special renderer ═══
+  const isUltraResearch = type === 'ULTRA_RESEARCH';
+
+  // ═══ Rich Text types ═══
+  const isRichText = [ 'DOCUMENT', 'DEEP_RESEARCH', 'AUDIO_SUMMARY', 'CUSTOM_TASK', 'MIND_MAP', 'SPREADSHEET', 'SKETCH_PAD', 'CHART_ANALYSIS' ].includes( type );
 
   // ═══ Wave 5.2: Specialized renderer types ═══
   const isSlides = type === 'SLIDES';
-  const isEmail = type === 'EMAIL';
-  const isMap = type === 'MAP';
-  const hasSpecialRenderer = isSlides || isEmail || isMap;
+  const isEmail = false; // Removed EMAIL type
+  const isMap = false;   // Removed MAP type
+  const hasSpecialRenderer = isSlides || isUltraResearch;
 
   return (
     <div
@@ -79,8 +84,13 @@ export function CanvasPanel ()
       <CanvasHeader />
       <CanvasToolbar />
 
-      { /* ─── Wave 5.2: Specialized renderers ─── */ }
-      { isSlides ? (
+      { /* ─── Wave 8.0: Ultra Research renderer ─── */ }
+      { isUltraResearch ? (
+        <div className="flex-1 min-h-0 relative">
+          <UltraResearchRenderer />
+        </div>
+      ) : /* ─── Wave 5.2: Specialized renderers ─── */
+      isSlides ? (
         <div className="flex-1 min-h-0 relative">
           <SlideViewer />
         </div>
@@ -160,16 +170,16 @@ export function CanvasPanel ()
           <PythonRunPanel code={ currentContent } language={ language } />
         </div>
       ) : (
-        /* RICH TEXT: TEXT, DEEP_RESEARCH, DOC, etc. */
+        /* RICH TEXT: DOCUMENT, DEEP_RESEARCH, etc. */
         <div className="flex-1 min-h-0 relative">
           { type === 'DEEP_RESEARCH' ? (
             <div className="h-full flex flex-col">
               <div className={ cn(
                 "flex items-center gap-2 px-4 py-2 border-b border-white/[0.06]",
                 "text-xs font-medium",
-              ) } style={ { color: meta.color } }>
+              ) } style={ { color: meta?.color || '#2dd4bf' } }>
                 <Search className="w-3.5 h-3.5" />
-                <span>{ meta.label } — تقرير بحثي تفاعلي</span>
+                <span>{ meta?.label || 'بحث معمق' } — تقرير بحثي تفاعلي</span>
               </div>
               <div className="flex-1 min-h-0">
                 <TextEditor />

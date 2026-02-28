@@ -32,6 +32,7 @@ import
 import { cn } from "@/lib/utils";
 import { useCanvasParser } from "@/hooks/useCanvasParser";
 import { useAutoCanvasDetector } from "@/hooks/useAutoCanvasDetector";
+import { useToolCallCanvasHandler } from "@/hooks/useToolCallCanvasHandler";
 import { useCanvasStore, CanvasType } from "@/store/canvasStore";
 import { CanvasEntryChip } from "@/components/canvas/CanvasEntryChip";
 import { useChatStore } from "@/store/chatStore";
@@ -46,12 +47,12 @@ import { DeepResearchPanel } from "@/components/deep-research";
 import { WebSearchPanel } from "@/components/web-search";
 import { ChatInputBox } from "@/components/chat/ChatInputBox";
 import { createOCRSystemMessage, type OCRContext } from "@/services/ocrService";
-import { getCanvasSystemPrompt } from "@/config/canvasSystemPrompts";
+import { buildSystemPrompt } from "@/config/systemPrompts";
 // Thinking System
 import { ThinkingDisplay } from "@/components/thinking";
 import { useThinkingStore } from "@/store/thinkingStore";
 import { ThinkingLevel, type ChatbotModel } from "@/types/thinking";
-import { type ChatMode, type ThinkingDepth, analyzeQueryComplexity } from "@/config/modelModeConfig";
+import { type ChatMode, type ThinkingDepth, analyzeQueryComplexity, modelSupportsToolCalling } from "@/config/modelModeConfig";
 import { AltraPipelineView } from "@/components/chat/AltraPipelineView";
 import { useAltraStore } from "@/stores/altraStore";
 
@@ -155,6 +156,7 @@ export function ChatArea ( { }: ChatAreaProps )
   // Canvas Parser Integration
   const { processChunk, chatContent, reset: resetCanvasParser, currentArtifactId } = useCanvasParser();
   const { checkAndOpen: checkAutoCanvas } = useAutoCanvasDetector();
+  const { handleToolEvent: handleCanvasToolEvent, reset: resetToolHandler } = useToolCallCanvasHandler( activeChatId || undefined );
   const [ streamingMessageId, setStreamingMessageId ] = useState<string | null>( null );
   const [ isEditingCanvas, setIsEditingCanvas ] = useState( false );
 
@@ -378,8 +380,8 @@ export function ChatArea ( { }: ChatAreaProps )
       const model = ( opts?.model ?? 'gemini3 pro' );
       const mode = ( opts?.mode ?? 'normal chat' ) as ChatMode;
 
-      // Build messages with canvas system prompt injected
-      const canvasSystemPrompt = getCanvasSystemPrompt( mode );
+      // Build messages with 5-layer system prompt
+      const useFC = modelSupportsToolCalling( model );
       const rawMessages = ( chat?.messages ?? [] )
         .filter( ( m: any ) => m?.content && m.content !== '...' )
         .map( ( m: any ) => ( {
@@ -387,8 +389,7 @@ export function ChatArea ( { }: ChatAreaProps )
           content: m.content,
         } ) );
 
-      // Inject canvas system prompt as the first system message
-      // + inject active canvas context for follow-up awareness
+      // Build active canvas context for follow-up awareness
       const canvasState = useCanvasStore.getState();
       const activeCanvasContext = canvasState.isOpen && canvasState.activeArtifactId
         ? `\n\n## Active Canvas Context\nالمستخدم يعمل حالياً على Canvas بعنوان '${ canvasState.title }' من نوع ${ canvasState.type }.
@@ -398,8 +399,13 @@ export function ChatArea ( { }: ChatAreaProps )
 المحتوى الحالي:\n\n${ ( canvasState.versions[ canvasState.currentVersionIndex ]?.content || '' ).slice( 0, 4000 ) }`
         : '';
 
+      // Build the full 5-layer system prompt
+      const systemPrompt = buildSystemPrompt( model, mode, useFC, {
+        activeCanvasContext,
+      } );
+
       const payloadMessages = [
-        { role: 'system' as const, content: canvasSystemPrompt + activeCanvasContext },
+        { role: 'system' as const, content: systemPrompt },
         ...rawMessages,
       ];
 
@@ -462,8 +468,11 @@ export function ChatArea ( { }: ChatAreaProps )
                       break;
                     case 'tool_call_start':
                     case 'tool_call_delta':
-                      // Tool calls — logged for now, GenUI will consume in 7.4
-                      console.debug( `[SSE] ${ parsed.type }:`, parsed.data );
+                    case 'tool_call_end':
+                      // Canvas Function Calling — open_canvas tool
+                      if ( !handleCanvasToolEvent( parsed ) ) {
+                        console.debug( `[SSE] ${ parsed.type }:`, parsed.data );
+                      }
                       break;
                     case 'canvas_action':
                       // Canvas commands via block events
@@ -474,8 +483,15 @@ export function ChatArea ( { }: ChatAreaProps )
                       processChunk( `⚠️ ${ parsed.data.message }` );
                       break;
                     case 'message_start':
+                      break;
                     case 'message_done':
-                      // Lifecycle events — no text action needed
+                      // End Canvas streaming if ULTRA_RESEARCH is active
+                      {
+                        const cs = useCanvasStore.getState();
+                        if ( cs.isOpen && cs.type === 'ULTRA_RESEARCH' && cs.isStreaming ) {
+                          cs.setIsStreaming( false );
+                        }
+                      }
                       break;
                   }
                   continue;
@@ -618,6 +634,7 @@ export function ChatArea ( { }: ChatAreaProps )
 
       // Reset parser state for this assistant message
       resetCanvasParser();
+      resetToolHandler();
       resetSmoother();
       setStreamingMessageId( assistantMsg.id );
 
@@ -655,8 +672,9 @@ export function ChatArea ( { }: ChatAreaProps )
       }
       else if ( selectedMode === "cways altra" )
       {
-        // ALTRA Mode - محرك استدلال متقدم
+        // ALTRA Mode - محرك استدلال متقدم — فتح Canvas + تفعيل Streaming
         handleOpenAltra();
+        useCanvasStore.getState().setIsStreaming( true );
         sendUnifiedChatMessage( assistantMsg.id, { model: options?.model, mode: selectedMode, thinkingDepth: autoThinkingDepth } );
       }
       else
@@ -795,15 +813,22 @@ export function ChatArea ( { }: ChatAreaProps )
     setIsWebSearchOpen( true );
   };
 
-  // Handle opening ALTRA mode
+  // Handle opening ALTRA mode — now routes through Canvas with ULTRA_RESEARCH type
   const handleOpenAltra = () =>
   {
-    const altraStore = useAltraStore.getState();
-    altraStore.openPanel();
+    const canvasState = useCanvasStore.getState();
+    const chatId = activeChatId || `chat_${Date.now()}`;
+    canvasState.createArtifact({
+      title: 'تحليل Altra المتقدم',
+      type: 'ULTRA_RESEARCH' as CanvasType,
+      language: 'markdown',
+      content: '',
+      chatId,
+    });
   };
 
   // Toggle Canvas Mode - تفعيل/إيقاف وضع Canvas (Gemini Style)
-  const handleToggleCanvasMode = ( type: CanvasType = 'CODE' ) =>
+  const handleToggleCanvasMode = ( type: CanvasType = 'CODE_EDITOR' ) =>
   {
     if ( isModeActive && activeModeType === type )
     {
@@ -1231,7 +1256,7 @@ export function ChatArea ( { }: ChatAreaProps )
       <div className="input-container mt-auto z-40 shrink-0">
         <ChatInputBox
           onSend={ handleSend }
-          onToggleMode={ () => handleToggleCanvasMode( 'CODE' ) }
+          onToggleMode={ () => handleToggleCanvasMode( 'CODE_EDITOR' ) }
           onOpenDeepResearch={ handleOpenResearch }
           onOpenWebSearch={ handleOpenSearch }
           onOpenAltra={ handleOpenAltra }
@@ -1267,8 +1292,7 @@ export function ChatArea ( { }: ChatAreaProps )
         onInsertToChat={ handleInsertWebSearch }
       />
 
-      {/* ALTRA Pipeline Panel */ }
-      <AltraPipelineView />
+      {/* ALTRA now renders through Canvas ULTRA_RESEARCH — AltraPipelineView deprecated */}
 
       {/* Share Modal */ }
       <ShareModal

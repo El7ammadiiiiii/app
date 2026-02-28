@@ -8,45 +8,85 @@ function genVersionId(): string {
 }
 
 // ═══════════════════════════════════════════════════════════════
-// Canvas Types — 12 Gemini Immersive types + full metadata map
+// Canvas Types — 13 Intelligent Canvas types (Function Calling + XML hybrid)
 // ═══════════════════════════════════════════════════════════════
 export type CanvasType =
-  | 'CODE'                    // كود
-  | 'TEXT'                    // مستند
-  | 'DEEP_RESEARCH'           // بحث معمق
-  | 'DATA_VIZ'                // تصوّر بيانات
-  | 'DOC'                     // مستند منسق
-  | 'LEARNING'                // تعلم
-  | 'STORYBOOK'               // قصصي
-  | 'ANNOTATED_MULTIMEDIA'    // وسائط مشروحة
-  | 'AGENTIC_BUNDLE'          // حزمة وكيل
-  | 'SLIDES'                  // شرائح
-  | 'EMAIL'                   // بريد
-  | 'AUTOMATION_PLAN'         // خطة أتمتة
-  | 'MAP';                    // خريطة
+  | 'DOCUMENT'               // مستند نصي غني بالتنسيق
+  | 'CODE_EDITOR'            // محرر كود مع تلوين وتشغيل مباشر
+  | 'WEB_PAGE'               // صفحة ويب HTML/CSS/JS مع معاينة حيّة
+  | 'SLIDES'                 // عرض تقديمي بالشرائح
+  | 'AUDIO_SUMMARY'          // نص ملخص جاهز للتحويل الصوتي
+  | 'CUSTOM_TASK'            // مهمة مخصصة
+  | 'DEEP_RESEARCH'          // بحث عميق وتحليل بيانات معقدة
+  | 'CHART_ANALYSIS'         // رسوم بيانية وتحليلات فنية
+  | 'DATA_VIZ'               // تصوّر بيانات مرئي
+  | 'MIND_MAP'               // خرائط ذهنية
+  | 'SKETCH_PAD'             // رسم تخطيطي سريع
+  | 'SPREADSHEET'            // جداول بيانات تفاعلية
+  | 'ULTRA_RESEARCH';        // بحث متقدم (CWAYS Altra)
 
 /** Metadata for each canvas type — icon name, Arabic label, accent color */
 export const CANVAS_TYPE_META: Record<CanvasType, { icon: string; label: string; color: string; bgClass: string }> = {
-  CODE:                  { icon: 'Code2',         label: 'كود',           color: '#22d3ee', bgClass: 'bg-cyan-500/15 border-cyan-500/20 text-cyan-400' },
-  TEXT:                  { icon: 'FileText',      label: 'مستند',          color: '#a78bfa', bgClass: 'bg-violet-500/15 border-violet-500/20 text-violet-400' },
-  DEEP_RESEARCH:         { icon: 'Search',        label: 'بحث معمق',       color: '#2dd4bf', bgClass: 'bg-teal-500/15 border-teal-500/20 text-teal-400' },
-  DATA_VIZ:              { icon: 'BarChart3',     label: 'تصوّر بيانات',    color: '#fb923c', bgClass: 'bg-orange-500/15 border-orange-500/20 text-orange-400' },
-  DOC:                   { icon: 'FileText',      label: 'مستند',          color: '#60a5fa', bgClass: 'bg-blue-500/15 border-blue-500/20 text-blue-400' },
-  LEARNING:              { icon: 'GraduationCap', label: 'تعلم',           color: '#34d399', bgClass: 'bg-emerald-500/15 border-emerald-500/20 text-emerald-400' },
-  STORYBOOK:             { icon: 'BookOpen',      label: 'قصصي',          color: '#f472b6', bgClass: 'bg-pink-500/15 border-pink-500/20 text-pink-400' },
-  ANNOTATED_MULTIMEDIA:  { icon: 'Image',         label: 'وسائط مشروحة',   color: '#c084fc', bgClass: 'bg-purple-500/15 border-purple-500/20 text-purple-400' },
-  AGENTIC_BUNDLE:        { icon: 'Bot',           label: 'حزمة وكيل',     color: '#38bdf8', bgClass: 'bg-sky-500/15 border-sky-500/20 text-sky-400' },
-  SLIDES:                { icon: 'Presentation',  label: 'شرائح',          color: '#fbbf24', bgClass: 'bg-amber-500/15 border-amber-500/20 text-amber-400' },
-  EMAIL:                 { icon: 'Mail',          label: 'بريد',           color: '#f87171', bgClass: 'bg-red-500/15 border-red-500/20 text-red-400' },
-  AUTOMATION_PLAN:       { icon: 'Workflow',      label: 'خطة أتمتة',      color: '#4ade80', bgClass: 'bg-green-500/15 border-green-500/20 text-green-400' },
-  MAP:                   { icon: 'MapPin',        label: 'خريطة',          color: '#e879f9', bgClass: 'bg-fuchsia-500/15 border-fuchsia-500/20 text-fuchsia-400' },
+  DOCUMENT:            { icon: 'FileText',      label: 'مستند',           color: '#a78bfa', bgClass: 'bg-violet-500/15 border-violet-500/20 text-violet-400' },
+  CODE_EDITOR:         { icon: 'Code2',         label: 'كود',            color: '#22d3ee', bgClass: 'bg-cyan-500/15 border-cyan-500/20 text-cyan-400' },
+  WEB_PAGE:            { icon: 'Globe',         label: 'صفحة ويب',       color: '#60a5fa', bgClass: 'bg-blue-500/15 border-blue-500/20 text-blue-400' },
+  SLIDES:              { icon: 'Presentation',  label: 'شرائح',          color: '#fbbf24', bgClass: 'bg-amber-500/15 border-amber-500/20 text-amber-400' },
+  AUDIO_SUMMARY:       { icon: 'AudioLines',    label: 'ملخص صوتي',      color: '#34d399', bgClass: 'bg-emerald-500/15 border-emerald-500/20 text-emerald-400' },
+  CUSTOM_TASK:         { icon: 'Sparkles',      label: 'مهمة مخصصة',     color: '#f472b6', bgClass: 'bg-pink-500/15 border-pink-500/20 text-pink-400' },
+  DEEP_RESEARCH:       { icon: 'Search',        label: 'بحث معمق',       color: '#2dd4bf', bgClass: 'bg-teal-500/15 border-teal-500/20 text-teal-400' },
+  CHART_ANALYSIS:      { icon: 'LineChart',     label: 'تحليل فني',      color: '#fb923c', bgClass: 'bg-orange-500/15 border-orange-500/20 text-orange-400' },
+  DATA_VIZ:            { icon: 'BarChart3',     label: 'تصوّر بيانات',    color: '#38bdf8', bgClass: 'bg-sky-500/15 border-sky-500/20 text-sky-400' },
+  MIND_MAP:            { icon: 'Network',       label: 'خريطة ذهنية',    color: '#c084fc', bgClass: 'bg-purple-500/15 border-purple-500/20 text-purple-400' },
+  SKETCH_PAD:          { icon: 'Pencil',        label: 'رسم تخطيطي',     color: '#e879f9', bgClass: 'bg-fuchsia-500/15 border-fuchsia-500/20 text-fuchsia-400' },
+  SPREADSHEET:         { icon: 'Table',         label: 'جدول بيانات',    color: '#4ade80', bgClass: 'bg-green-500/15 border-green-500/20 text-green-400' },
+  ULTRA_RESEARCH:      { icon: 'Telescope',     label: 'بحث متقدم',      color: '#f87171', bgClass: 'bg-red-500/15 border-red-500/20 text-red-400' },
 };
+
+/** Maps tool calling enum values to internal CanvasType */
+export const TOOL_TYPE_TO_CANVAS: Record<string, CanvasType> = {
+  document:           'DOCUMENT',
+  code_editor:        'CODE_EDITOR',
+  web_page:           'WEB_PAGE',
+  slides:             'SLIDES',
+  audio_summary:      'AUDIO_SUMMARY',
+  custom_task:        'CUSTOM_TASK',
+  deep_research:      'DEEP_RESEARCH',
+  chart_analysis:     'CHART_ANALYSIS',
+  data_visualization: 'DATA_VIZ',
+  mind_map:           'MIND_MAP',
+  sketch_pad:         'SKETCH_PAD',
+  spreadsheet:        'SPREADSHEET',
+  ultra_research:     'ULTRA_RESEARCH',
+};
+
+/** Maps old CanvasType values → new ones (backward compat for stored artifacts) */
+export const LEGACY_TYPE_MAP: Record<string, CanvasType> = {
+  CODE:                  'CODE_EDITOR',
+  TEXT:                  'DOCUMENT',
+  DOC:                   'DOCUMENT',
+  LEARNING:              'DOCUMENT',
+  STORYBOOK:             'DOCUMENT',
+  ANNOTATED_MULTIMEDIA:  'DATA_VIZ',
+  AGENTIC_BUNDLE:        'CUSTOM_TASK',
+  AUTOMATION_PLAN:       'DOCUMENT',
+  MAP:                   'DATA_VIZ',
+  EMAIL:                 'DOCUMENT',
+};
+
+/** Resolve a type string (new, old, or tool-calling) to a valid CanvasType */
+export function resolveCanvasType(raw: string): CanvasType {
+  if (CANVAS_TYPE_META[raw as CanvasType]) return raw as CanvasType;
+  if (LEGACY_TYPE_MAP[raw]) return LEGACY_TYPE_MAP[raw];
+  if (TOOL_TYPE_TO_CANVAS[raw]) return TOOL_TYPE_TO_CANVAS[raw];
+  return 'DOCUMENT'; // safe fallback
+}
 
 // ═══════════════════════════════════════════════════════════════
 // Typed Artifact Metadata — discriminated union per type
 // ═══════════════════════════════════════════════════════════════
 export type ArtifactMeta =
   | { kind: 'deep_research'; sources: string[]; queryId?: string }
+  | { kind: 'ultra_research'; sources: string[]; queryId?: string }
   | { kind: 'data_viz'; chartType: string; dataSource?: string }
   | { kind: 'code'; files?: CanvasFile[] }
   | { kind: 'generic' };
@@ -195,9 +235,9 @@ export const useCanvasStore = create<CanvasState & CanvasActions>()(
     ( set, get ) => ( {
       isOpen: false,
       isModeActive: false,
-      activeModeType: 'CODE',
+      activeModeType: 'CODE_EDITOR',
       activeCanvasId: null,
-      type: 'CODE',
+      type: 'CODE_EDITOR',
       title: 'Untitled',
       language: 'typescript',
       versions: [],
@@ -678,9 +718,9 @@ export const useCanvasStore = create<CanvasState & CanvasActions>()(
       reset: () => set( {
         isOpen: false,
         isModeActive: false,
-        activeModeType: 'CODE',
+        activeModeType: 'CODE_EDITOR',
         activeCanvasId: null,
-        type: 'CODE',
+        type: 'CODE_EDITOR',
         title: 'Untitled',
         language: 'typescript',
         versions: [],

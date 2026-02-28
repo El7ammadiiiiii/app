@@ -119,6 +119,9 @@ export interface ModelConfig
 
     /** وصف مختصر */
     description?: string;
+
+    /** هل النموذج يدعم Function Calling (tool calling) لفتح Canvas تلقائياً */
+    supportsToolCalling?: boolean;
 }
 
 // ═══════════════════════════════════════════════════════════════════════════════
@@ -224,7 +227,7 @@ export const MODE_CONFIGS: Record<ChatMode, ModeSettings> = {
         agentMode: false,
         enabledTools: [ "Canvas", "Code Execution" ],
         autoCanvas: true,
-        canvasType: 'CODE',
+        canvasType: 'CODE_EDITOR',
         temperature: 0.2,
         maxTokens: 32768,
     },
@@ -251,6 +254,35 @@ export const MODE_CONFIGS: Record<ChatMode, ModeSettings> = {
 export function getModeSettings ( mode: ChatMode ): ModeSettings
 {
     return MODE_CONFIGS[ mode ];
+}
+
+// ═══════════════════════════════════════════════════════════════════════════════
+// TOOL CALLING SUPPORT — determines which models support Function Calling
+// ═══════════════════════════════════════════════════════════════════════════════
+
+/** Models that DO NOT reliably support function calling */
+const NO_TOOL_CALLING_MODELS: Set<string> = new Set([
+    'llama-4-maverick',
+    'llama-3.3-70b-versatile',
+    'nova-2-pro-v1',
+]);
+
+/** Providers that don't support tool calling at all */
+const NO_TOOL_CALLING_PROVIDERS: Set<string> = new Set([
+    'amazon',  // Bedrock has limited tool support
+]);
+
+/**
+ * Check if a model supports Function Calling (tool calling) for Canvas.
+ * Uses a deny-list approach: all models support it EXCEPT known exceptions.
+ */
+export function modelSupportsToolCalling(modelKey: string): boolean {
+    if (NO_TOOL_CALLING_MODELS.has(modelKey)) return false;
+    const config = MODEL_CONFIGS[modelKey as ModelName];
+    if (!config) return false;
+    if (config.supportsToolCalling !== undefined) return config.supportsToolCalling;
+    if (NO_TOOL_CALLING_PROVIDERS.has(config.provider)) return false;
+    return true; // Most modern models support function calling
 }
 
 // ═══════════════════════════════════════════════════════════════════════════════

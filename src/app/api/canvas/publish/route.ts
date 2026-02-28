@@ -41,7 +41,7 @@ export async function POST(req: NextRequest) {
     publishedStore.set(publicId, {
       id: publicId,
       title: title || "Untitled",
-      type: type || "CODE",
+      type: type || "CODE_EDITOR",
       language: language || "typescript",
       content,
       publishedAt: Date.now(),

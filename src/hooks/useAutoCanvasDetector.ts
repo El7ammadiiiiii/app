@@ -64,7 +64,7 @@ export function detectAutoCanvas ( text: string ): DetectionResult | null
 
     return {
       shouldOpen: true,
-      type: isDataViz ? 'DATA_VIZ' : 'CODE',
+      type: isDataViz ? 'DATA_VIZ' : 'CODE_EDITOR',
       language: normalizeLanguage( largestBlock.lang ),
       title: extractTitle( text ) || 'كود',
       content: largestBlock.code,
@@ -77,7 +77,7 @@ export function detectAutoCanvas ( text: string ): DetectionResult | null
   {
     return {
       shouldOpen: true,
-      type: 'TEXT',
+      type: 'DOCUMENT',
       language: 'markdown',
       title: extractTitle( text ) || 'مستند',
       content: text,
