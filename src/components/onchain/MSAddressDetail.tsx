@@ -905,11 +905,41 @@ export function MSAddressDetail() {
   const [editingLabel, setEditingLabel] = useState(false);
   const [editLabelValue, setEditLabelValue] = useState("");
   const [transferFilterAddress, setTransferFilterAddress] = useState("");
+  const [fetchedTransfers, setFetchedTransfers] = useState<any[]>([]);
+  const [transfersLoading, setTransfersLoading] = useState(false);
 
   const node = useMemo(
     () => nodes.find((n) => n.id === nodeDetailNodeId),
     [nodes, nodeDetailNodeId]
   );
+
+  /* ── Fetch real transfers from API on-demand ── */
+  useEffect(() => {
+    if (!node?.address) {
+      setFetchedTransfers([]);
+      return;
+    }
+    let cancelled = false;
+    const doFetch = async () => {
+      setTransfersLoading(true);
+      try {
+        const res = await fetch(
+          `/api/ccways/transfers?address=${encodeURIComponent(node.address)}&limit=200`
+        );
+        if (!res.ok) throw new Error(`HTTP ${res.status}`);
+        const data = await res.json();
+        if (!cancelled && data.transfers) {
+          setFetchedTransfers(data.transfers);
+        }
+      } catch (err) {
+        console.warn("[MSAddressDetail] Failed to fetch transfers:", err);
+      } finally {
+        if (!cancelled) setTransfersLoading(false);
+      }
+    };
+    doFetch();
+    return () => { cancelled = true; };
+  }, [node?.address]);
 
   /* ── Label editing ── */
   const startEditLabel = useCallback(() => {
@@ -943,8 +973,7 @@ export function MSAddressDetail() {
       if (allChecked) return new Set();
       return new Set(allIds);
     });
-  // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, []);
+  }, [relatedAddresses]);
 
   /* ── Checkbox handlers — Transfer tab ── */
   const handleTransferToggleCheck = useCallback((key: string) => {
@@ -961,8 +990,7 @@ export function MSAddressDetail() {
       if (prev.size > 0) return new Set();
       return new Set(transfers.map((_, i) => `tx-${i}`));
     });
-  // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, []);
+  }, [transfers]);
 
   /* ── Bulk: Add/Remove from canvas — Related Address tab ── */
   const handleBulkAddToCanvas = useCallback(() => {
@@ -994,6 +1022,45 @@ export function MSAddressDetail() {
     if (!node) return [];
     const rows: TransferRow[] = [];
 
+    /* ── If we have fetched real transfers from the API, prefer those ── */
+    if (fetchedTransfers.length > 0) {
+      for (const t of fetchedTransfers) {
+        const fromAddr: string = t.from || "";
+        const toAddr: string = t.to || "";
+        const flowDir: "IN" | "OUT" =
+          toAddr.toLowerCase() === node.address?.toLowerCase() ? "IN" : "OUT";
+        const counterpartyAddr = flowDir === "IN" ? fromAddr : toAddr;
+        const counterpartyNode = nodes.find(
+          (n) => n.address?.toLowerCase() === counterpartyAddr.toLowerCase()
+        );
+        const ts = parseTimestamp(t.timestamp);
+        rows.push({
+          edgeId: "",
+          txHash: t.txHash || "",
+          from: fromAddr,
+          fromLabel: t.fromLabel || counterpartyNode?.label || "",
+          to: toAddr,
+          toLabel: t.toLabel || "",
+          amount: msFormatTokenAmount(t.value || t.valueUSD || 0, t.tokenSymbol),
+          rawAmount: t.value || t.valueUSD || 0,
+          token: t.tokenSymbol || "",
+          date: formatDateCW(ts),
+          dateMs: ts,
+          chain: t.chain || node.chain,
+          flowDirection: flowDir,
+          counterpartyAddress: counterpartyAddr,
+          counterpartyLabel:
+            counterpartyNode?.label ||
+            (flowDir === "IN" ? t.fromLabel : t.toLabel) ||
+            "",
+          counterpartyChain: counterpartyNode?.chain || t.chain || "",
+        });
+      }
+      rows.sort((a, b) => b.dateMs - a.dateMs);
+      return rows;
+    }
+
+    /* ── Fallback: build from edge.details (legacy) ── */
     for (const edge of edges) {
       if (edge.source !== node.id && edge.target !== node.id) continue;
       const src = nodes.find((n) => n.id === edge.source);
@@ -1052,7 +1119,7 @@ export function MSAddressDetail() {
     // Sort by date descending by default
     rows.sort((a, b) => b.dateMs - a.dateMs);
     return rows;
-  }, [node, nodes, edges]);
+  }, [node, nodes, edges, fetchedTransfers]);
 
   /* ── Bulk: Add/Remove from canvas — Transfer tab ── */
   const handleTransferBulkAddToCanvas = useCallback(() => {
@@ -1062,7 +1129,7 @@ export function MSAddressDetail() {
       const row = transfers[idx];
       if (!row) return;
       const cNode = nodes.find((n) => n.address === row.counterpartyAddress);
-      if (cNode && cNode.isVisibleOnCanvas === false) {
+      if (cNode && cNode.isVisibleOnCanvas !== true) {
         nodeIdsToShow.add(cNode.id);
       }
     });
@@ -1179,10 +1246,11 @@ export function MSAddressDetail() {
   /* Total transfer count for the status message */
   const totalTransferCount = useMemo(() => {
     if (!node) return 0;
+    if (fetchedTransfers.length > 0) return fetchedTransfers.length;
     return edges
       .filter((e) => e.source === node.id || e.target === node.id)
       .reduce((sum, e) => sum + Math.max(e.details.length, 1), 0);
-  }, [node, edges]);
+  }, [node, edges, fetchedTransfers]);
 
   /* Total known transfers (from API or fallback to loaded count) */
   const totalKnownTransfers = useMemo(() => {
@@ -1289,7 +1357,11 @@ export function MSAddressDetail() {
       {/* ─── Transfer count sub-header (Transfer tab only) ─── */}
       {sidebarSubTab === "2" && (
         <div className="px-4 py-1.5 text-[10px] text-[var(--desc-color)] border-b border-[var(--default-border-color)] bg-[var(--secondary-background)]">
-          Showing <span className="text-[var(--default-color)]">{transfers.length}</span> out of {totalKnownTransfers} transfers
+          {transfersLoading ? (
+            <span className="animate-pulse">Loading transfers…</span>
+          ) : (
+            <>Showing <span className="text-[var(--default-color)]">{transfers.length}</span> out of {totalKnownTransfers} transfers</>
+          )}
         </div>
       )}
 
