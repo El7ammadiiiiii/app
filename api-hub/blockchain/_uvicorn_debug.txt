@@ -1,0 +1,5 @@
+[32mINFO[0m:     Started server process [[36m7548[0m]
+[32mINFO[0m:     Waiting for application startup.
+2026-03-02 02:23:41,263 - main - WARNING - \u26a0\ufe0f ORCHESTRATOR_ENABLED is false; orchestrator disabled. Onchain routes still available.
+[32mINFO[0m:     Application startup complete.
+[32mINFO[0m:     Uvicorn running on [1mhttp://0.0.0.0:8001[0m (Press CTRL+C to quit)

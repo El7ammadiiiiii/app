@@ -1,14 +1,16 @@
 """
-CCWAYS Gateway — Unified Orchestrator
+CCWAYS Gateway — Unified Orchestrator with Smart Load Balancing
 
 Merges Provider ALPHA (intelligence/entities/counterparties/flow/transfers)
 with Provider BETA (93-chain balances/DeFi protocols/NFTs).
 
 Features:
+ • Smart Load Balancer — distributes requests based on provider health/rate
+ • Adaptive Rate Control — AIMD algorithm per provider (auto slowdown on 429)
  • Circuit breaker per provider (auto-skip after N consecutive failures)
  • Daily request budget tracking
- • Priority queue semantics (intel > balance > transfers > portfolio)
- • Fallback: if one provider is down, return partial data from the other
+ • Staggered parallel calls — reduces burst rate-limit pressure
+ • Fallback routing — if primary provider rate-limited, use secondary
  • Every response passes through the sanitizer — zero upstream traces
 
 No third-party names appear anywhere in this file.
@@ -28,6 +30,11 @@ from providers.ccways_sanitizer import (
     sanitize_response,
     sanitize_error,
     register_asset_url,
+)
+from providers.ccways_loadbalancer import (
+    LoadBalancer,
+    ProviderChoice,
+    staggered_gather,
 )
 
 logger = logging.getLogger(__name__)
@@ -215,18 +222,18 @@ def _map_risk_level(raw: Any) -> Optional[str]:
 class CCWaysGateway:
     """
     Unified gateway that orchestrates ALPHA + BETA providers,
-    manages circuit breakers, caching, and daily budgets.
+    manages load balancing, circuit breakers, caching, and daily budgets.
     """
 
     def __init__(self):
         # Providers
         self.alpha = AlphaClient(
-            rate_limit=float(os.getenv("CCWAYS_ALPHA_RATE", "0.5")),
+            rate_limit=float(os.getenv("CCWAYS_ALPHA_RATE", "2.0")),
             cache_ttl=300,
         )
         self.beta = BetaClient(
             static_key=os.getenv("CCWAYS_BETA_KEY", ""),
-            rate_limit=float(os.getenv("CCWAYS_BETA_RATE", "0.5")),
+            rate_limit=float(os.getenv("CCWAYS_BETA_RATE", "2.0")),
             cache_ttl=120,
         )
 
@@ -241,6 +248,9 @@ class CCWaysGateway:
             threshold=int(os.getenv("CCWAYS_CB_THRESHOLD", "5")),
             cooldown=float(os.getenv("CCWAYS_CB_COOLDOWN", "300")),
         )
+
+        # Load balancer (adaptive rate + health tracking)
+        self.lb = LoadBalancer()
 
         # Shared tiered cache
         self.cache = CacheLayer(max_size=5000)
@@ -273,7 +283,7 @@ class CCWaysGateway:
     # ─── helpers ────────────────────────────────────────────────────────────
 
     async def _call_alpha(self, method: str, *args, **kwargs) -> Optional[Any]:
-        """Call ALPHA with circuit breaker + budget check."""
+        """Call ALPHA with circuit breaker + budget + adaptive rate control."""
         if not self.cb_alpha.allow_request():
             logger.debug("ALPHA circuit open — skipping")
             return None
@@ -281,6 +291,7 @@ class CCWaysGateway:
             logger.warning("Daily budget exhausted")
             return None
         try:
+            await self.lb.acquire_alpha()
             t0 = time.time()
             fn = getattr(self.alpha, method)
             result = await fn(*args, **kwargs)
@@ -290,14 +301,18 @@ class CCWaysGateway:
                 self._alpha_latencies = self._alpha_latencies[-100:]
             self.cb_alpha.record_success()
             self.budget.record("alpha")
+            self.lb.record_alpha(True, lat)
             return result
         except Exception as exc:
+            lat = time.time() - t0 if 't0' in dir() else 0
+            was_429 = "429" in str(exc) or "rate" in str(exc).lower()
+            self.lb.record_alpha(False, lat, was_429=was_429)
             self.cb_alpha.record_failure()
             logger.warning("ALPHA.%s failed: %s", method, exc)
             return None
 
     async def _call_beta(self, method: str, *args, **kwargs) -> Optional[Any]:
-        """Call BETA with circuit breaker + budget check."""
+        """Call BETA with circuit breaker + budget + adaptive rate control."""
         if not self.cb_beta.allow_request():
             logger.debug("BETA circuit open — skipping")
             return None
@@ -305,6 +320,7 @@ class CCWaysGateway:
             logger.warning("Daily budget exhausted")
             return None
         try:
+            await self.lb.acquire_beta()
             t0 = time.time()
             fn = getattr(self.beta, method)
             result = await fn(*args, **kwargs)
@@ -314,8 +330,12 @@ class CCWaysGateway:
                 self._beta_latencies = self._beta_latencies[-100:]
             self.cb_beta.record_success()
             self.budget.record("beta")
+            self.lb.record_beta(True, lat)
             return result
         except Exception as exc:
+            lat = time.time() - t0 if 't0' in dir() else 0
+            was_429 = "429" in str(exc) or "rate" in str(exc).lower()
+            self.lb.record_beta(False, lat, was_429=was_429)
             self.cb_beta.record_failure()
             logger.warning("BETA.%s failed: %s", method, exc)
             return None
@@ -331,30 +351,82 @@ class CCWaysGateway:
     # ═══════════════════════════════════════════════════════════════════════════
 
     async def chains(self) -> Dict:
-        """Get unified chain list (93+ chains from BETA, enriched with ALPHA)."""
+        """Get unified chain list — BETA primary (93+), ALPHA fallback."""
         cached = await self.cache.get("chains", "all")
         if cached:
             return cached
 
-        beta_chains = await self._call_beta("get_chain_list") or []
+        choice = self.lb.choose_provider("chains")
+        logger.info("[GW] chains() → provider=%s", choice.value)
 
-        # Transform to CCWAYS format
+        beta_chains = None
+        alpha_chains = None
+
+        if choice in (ProviderChoice.BETA, ProviderChoice.BETA_THEN_ALPHA):
+            beta_chains = await self._call_beta("get_chain_list") or []
+            if not beta_chains and choice == ProviderChoice.BETA_THEN_ALPHA:
+                alpha_chains = await self._call_alpha("get_chains")
+        elif choice in (ProviderChoice.ALPHA, ProviderChoice.ALPHA_THEN_BETA):
+            alpha_chains = await self._call_alpha("get_chains")
+            if not alpha_chains and choice == ProviderChoice.ALPHA_THEN_BETA:
+                beta_chains = await self._call_beta("get_chain_list")
+
         chains = []
-        for c in beta_chains if isinstance(beta_chains, list) else []:
-            logo = c.get("logo_url") or c.get("svg_logo_url") or ""
-            if logo:
-                logo = register_asset_url(logo)
-            chains.append({
-                "id": c.get("id", ""),
-                "name": c.get("name", ""),
-                "symbol": c.get("token_symbol", ""),
-                "logoUrl": logo,
-                "type": "evm",
-                "explorerUrl": f"https://{c.get('explorer_host', '')}" if c.get("explorer_host") else "",
-                "isSupported": True,
-                "networkId": c.get("network_id"),
-                "nativeWrapped": c.get("wrapped", {}).get("id", ""),
-            })
+
+        if beta_chains and isinstance(beta_chains, (list, dict)):
+            # BETA may wrap: {data: {chains: [...]}} or just return list
+            chain_list = beta_chains
+            if isinstance(beta_chains, dict):
+                d = beta_chains.get("data") or beta_chains
+                chain_list = d.get("chains") if isinstance(d, dict) else []
+                if not isinstance(chain_list, list):
+                    chain_list = []
+            for c in chain_list:
+                if isinstance(c, dict):
+                    logo = c.get("logo_url") or c.get("svg_logo_url") or ""
+                    if logo:
+                        logo = register_asset_url(logo)
+                    chains.append({
+                        "id": c.get("id", ""),
+                        "name": c.get("name", ""),
+                        "symbol": c.get("token_symbol", ""),
+                        "logoUrl": logo,
+                        "type": "evm",
+                        "explorerUrl": f"https://{c.get('explorer_host', '')}" if c.get("explorer_host") else "",
+                        "isSupported": True,
+                        "networkId": c.get("network_id"),
+                        "nativeWrapped": (c.get("wrapped") or {}).get("id", "") if isinstance(c.get("wrapped"), dict) else str(c.get("wrapped") or ""),
+                    })
+
+        if not chains and alpha_chains:
+            # ALPHA returns: ["ethereum","polygon",...] (plain list of strings)
+            # or could be a dict with chains inside
+            raw_list = alpha_chains
+            if isinstance(alpha_chains, dict):
+                raw_list = alpha_chains.get("chains") or alpha_chains.get("data") or []
+
+            if isinstance(raw_list, list):
+                for c in raw_list:
+                    if isinstance(c, str):
+                        chains.append({
+                            "id": c,
+                            "name": c.replace("_", " ").title(),
+                            "symbol": "",
+                            "logoUrl": "",
+                            "type": "evm",
+                            "explorerUrl": "",
+                            "isSupported": True,
+                        })
+                    elif isinstance(c, dict):
+                        chains.append({
+                            "id": c.get("id") or c.get("chain", ""),
+                            "name": c.get("name", ""),
+                            "symbol": c.get("symbol", ""),
+                            "logoUrl": "",
+                            "type": "evm",
+                            "explorerUrl": c.get("explorer", ""),
+                            "isSupported": c.get("isSupported", True),
+                        })
 
         result = sanitize_response({"success": True, "chains": chains})
         await self.cache.set("chains", result, "all")
@@ -366,17 +438,27 @@ class CCWaysGateway:
         if cached:
             return cached
 
-        # Parallel fetch from both providers
-        alpha_data, beta_data = await asyncio.gather(
-            self._call_alpha("get_intelligence_enriched", address),
-            self._call_beta("get_total_balance", address),
-            return_exceptions=True,
-        )
+        choice = self.lb.choose_provider("intel")
+        logger.info("[GW] intel(%s) → provider=%s", address[:10], choice.value)
 
-        if isinstance(alpha_data, Exception):
-            alpha_data = None
-        if isinstance(beta_data, Exception):
-            beta_data = None
+        alpha_data = None
+        beta_data = None
+
+        if choice == ProviderChoice.BOTH:
+            # Staggered parallel — 150ms gap between providers
+            alpha_data, beta_data = await staggered_gather(
+                self._call_alpha("get_intelligence_enriched", address),
+                self._call_beta("get_total_balance", address),
+                stagger_ms=150,
+            )
+        elif choice in (ProviderChoice.ALPHA, ProviderChoice.ALPHA_THEN_BETA):
+            alpha_data = await self._call_alpha("get_intelligence_enriched", address)
+            if choice == ProviderChoice.ALPHA_THEN_BETA:
+                beta_data = await self._call_beta("get_total_balance", address)
+        elif choice in (ProviderChoice.BETA, ProviderChoice.BETA_THEN_ALPHA):
+            beta_data = await self._call_beta("get_total_balance", address)
+            if choice == ProviderChoice.BETA_THEN_ALPHA:
+                alpha_data = await self._call_alpha("get_intelligence_enriched", address)
 
         entity = self._build_entity(address, alpha_data, beta_data)
         result = sanitize_response({"success": True, "entity": entity})
@@ -394,134 +476,378 @@ class CCWaysGateway:
         """
         Graph expansion — counterparties + transfers.
         Returns MSNode[] + MSEdge[]-compatible structures.
+
+        Distribution strategy:
+        1. Load balancer decides: ALPHA primary? BETA fallback?
+        2. ALPHA → get_counterparties (richest entity data)
+        3. BETA → get_history (transaction-based counterparties) if ALPHA unavailable
+        4. If both available, combine for richer graph
         """
         cached = await self.cache.get("counterparties", address, direction)
         if cached:
             return cached
 
-        # Map direction to ALPHA flow param
+        # Map direction
         flow = "all"
-        if direction == "in" or direction == "left":
+        if direction in ("in", "left"):
             flow = "in"
-        elif direction == "out" or direction == "right":
+        elif direction in ("out", "right"):
             flow = "out"
 
-        alpha_cp = await self._call_alpha(
-            "get_counterparties", address, flow=flow, limit=limit
-        )
+        choice = self.lb.choose_provider("expand")
+        logger.info("[GW] expand(%s, %s) → provider=%s", address[:10], direction, choice.value)
+
+        alpha_cp = None
+        beta_history = None
+
+        if choice == ProviderChoice.ALPHA:
+            alpha_cp = await self._call_alpha(
+                "get_counterparties", address, flow=flow, limit=limit,
+            )
+        elif choice == ProviderChoice.BETA:
+            beta_history = await self._call_beta(
+                "get_history", address, page_count=limit,
+            )
+        elif choice == ProviderChoice.BOTH:
+            # Staggered parallel — 150ms gap to reduce burst pressure
+            alpha_cp, beta_history = await staggered_gather(
+                self._call_alpha("get_counterparties", address, flow=flow, limit=limit),
+                self._call_beta("get_history", address, page_count=limit),
+                stagger_ms=150,
+            )
+        elif choice == ProviderChoice.ALPHA_THEN_BETA:
+            alpha_cp = await self._call_alpha(
+                "get_counterparties", address, flow=flow, limit=limit,
+            )
+            if not alpha_cp:
+                logger.info("[GW] ALPHA failed for expand → trying BETA")
+                beta_history = await self._call_beta(
+                    "get_history", address, page_count=limit,
+                )
+        elif choice == ProviderChoice.BETA_THEN_ALPHA:
+            beta_history = await self._call_beta(
+                "get_history", address, page_count=limit,
+            )
+            if not beta_history:
+                logger.info("[GW] BETA failed for expand → trying ALPHA")
+                alpha_cp = await self._call_alpha(
+                    "get_counterparties", address, flow=flow, limit=limit,
+                )
 
         nodes = []
         edges = []
+        seen_addrs = set()
 
+        # Process ALPHA counterparties (primary — rich entity data)
         if alpha_cp and isinstance(alpha_cp, dict):
-            counterparties = alpha_cp.get("counterparties") or alpha_cp.get("data") or []
-            if isinstance(counterparties, list):
-                for i, cp in enumerate(counterparties):
-                    cp_addr = cp.get("address", {})
-                    if isinstance(cp_addr, dict):
-                        addr = cp_addr.get("address", "")
-                        label = cp_addr.get("label") or cp_addr.get("name") or self._shorten(addr)
-                        entity_info = cp_addr.get("entity") or {}
-                        etype = _map_entity_type(
-                            entity_info.get("type") if isinstance(entity_info, dict) else None
-                        )
-                        tags = entity_info.get("tags", []) if isinstance(entity_info, dict) else []
-                    elif isinstance(cp_addr, str):
-                        addr = cp_addr
-                        label = self._shorten(addr)
-                        etype = "unknown"
-                        tags = []
-                    else:
-                        continue
+            a_nodes, a_edges = self._parse_alpha_counterparties(
+                alpha_cp, node_id, flow, address,
+            )
+            for n in a_nodes:
+                if n["address"] not in seen_addrs:
+                    seen_addrs.add(n["address"])
+                    nodes.append(n)
+            edges.extend(a_edges)
 
-                    if not addr:
-                        continue
+        # Process BETA history (fallback — transaction-derived counterparties)
+        if beta_history and isinstance(beta_history, dict):
+            b_nodes, b_edges = self._parse_beta_history(
+                beta_history, node_id, flow, address, seen_addrs,
+            )
+            nodes.extend(b_nodes)
+            edges.extend(b_edges)
 
-                    chain = cp.get("chain") or cp.get("chainId") or "ethereum"
-                    cp_id = f"ccways:{chain}:{addr}"
-
-                    # Build MSNode-compatible dict
-                    node = {
-                        "id": cp_id,
-                        "address": addr,
-                        "label": label,
-                        "type": etype,
-                        "chain": str(chain).lower(),
-                        "gridX": 0,
-                        "gridY": 0,
-                        "x": 0,
-                        "y": 0,
-                        "isRoot": False,
-                        "isExpanded": False,
-                        "isLoading": False,
-                        "isSelected": False,
-                        "isPruned": False,
-                        "isDragging": False,
-                        "isContract": cp.get("isContract", False),
-                        "flowsIn": 0,
-                        "flowsOut": 0,
-                        "txCount": cp.get("transferCount") or cp.get("count") or 0,
-                        "tags": [str(t) for t in tags] if isinstance(tags, list) else [],
-                        "riskLevel": _map_risk_level(cp.get("risk")),
-                        "totalValueUSD": cp.get("totalUSD") or cp.get("usdValue") or 0,
-                    }
-                    nodes.append(node)
-
-                    # Build MSEdge-compatible dict
-                    value = cp.get("totalUSD") or cp.get("usdValue") or 0
-                    token = cp.get("tokenSymbol") or cp.get("symbol") or "ETH"
-                    count = cp.get("transferCount") or cp.get("count") or 1
-
-                    cp_flow = cp.get("direction") or cp.get("flow") or flow
-                    if cp_flow in ("in", "left"):
-                        src, tgt = cp_id, node_id
-                        edge_dir = "in"
-                    else:
-                        src, tgt = node_id, cp_id
-                        edge_dir = "out"
-
-                    edge = {
-                        "id": f"edge:{src}->{tgt}:{chain}:{token}",
-                        "source": src,
-                        "target": tgt,
-                        "chain": str(chain).lower(),
-                        "direction": edge_dir,
-                        "isCurve": False,
-                        "curveOffset": 0,
-                        "tokenSymbol": token,
-                        "totalValue": value,
-                        "valueLabel": f"{self._format_value(value)} {token}",
-                        "amountLabel": f"{self._format_value(value)} {token}",
-                        "transferCount": count,
-                        "color": "",
-                        "details": [],
-                        "isCrossChain": False,
-                        "isSuspicious": etype in ("mixer", "sanctioned"),
-                        "isCustom": False,
-                        "isSelected": False,
-                        "isHighlighted": False,
-                    }
-                    edges.append(edge)
+        # Enforce limit
+        if len(nodes) > limit:
+            nodes = nodes[:limit]
+            edge_node_ids = {n["id"] for n in nodes} | {node_id}
+            edges = [e for e in edges if e["source"] in edge_node_ids and e["target"] in edge_node_ids]
 
         result = sanitize_response({
-            "success": True, "nodes": nodes, "edges": edges
+            "success": True,
+            "nodes": nodes,
+            "edges": edges,
+            "provider": "ccways",
+            "count": len(nodes),
         })
         await self.cache.set("counterparties", result, address, direction)
         return result
 
+    def _parse_alpha_counterparties(
+        self, data: Dict, node_id: str, flow: str, source_addr: str,
+    ) -> tuple:
+        """Parse ALPHA counterparties response into nodes + edges.
+        
+        ALPHA response format:
+        {
+          "ethereum": [
+            {
+              "address": {"address": "0x...", "arkhamEntity": {...}, "arkhamLabel": {...}},
+              "usd": 123.45,
+              "transactionCount": 10,
+              "flow": "in",
+              "chains": ["ethereum", "bsc"]
+            }
+          ],
+          "arbitrum_one": [...]
+        }
+        """
+        nodes = []
+        edges = []
+
+        # Response is chain_name → list of counterparties
+        all_cps = []
+        if isinstance(data, dict):
+            for chain_name, cp_list in data.items():
+                if isinstance(cp_list, list):
+                    for cp in cp_list:
+                        if isinstance(cp, dict):
+                            cp.setdefault("_chain", chain_name)
+                            all_cps.append(cp)
+
+        if not all_cps:
+            return nodes, edges
+
+        for cp in all_cps:
+            cp_addr_obj = cp.get("address", {})
+            if isinstance(cp_addr_obj, dict):
+                addr = cp_addr_obj.get("address", "")
+                ent = cp_addr_obj.get("arkhamEntity") or cp_addr_obj.get("knownEntity") or {}
+                lbl = cp_addr_obj.get("arkhamLabel") or cp_addr_obj.get("knownLabel") or {}
+                label = (
+                    (lbl.get("name") if isinstance(lbl, dict) else None)
+                    or (ent.get("name") if isinstance(ent, dict) else None)
+                    or self._shorten(addr)
+                )
+                etype = _map_entity_type(
+                    ent.get("type") if isinstance(ent, dict) else None
+                )
+                tags = ent.get("tags", []) if isinstance(ent, dict) else []
+                is_contract = bool(cp_addr_obj.get("contract", False))
+            elif isinstance(cp_addr_obj, str):
+                addr = cp_addr_obj
+                label = self._shorten(addr)
+                etype = "unknown"
+                tags = []
+                is_contract = False
+            else:
+                continue
+
+            if not addr or addr.lower() == source_addr.lower():
+                continue
+
+            chain = cp.get("_chain") or "ethereum"
+            cp_id = f"ccways:{chain}:{addr}"
+
+            usd_val = cp.get("usd") or cp.get("totalUSD") or 0
+            tx_count = cp.get("transactionCount") or cp.get("count") or 0
+            cp_chains = cp.get("chains") or [chain]
+
+            node = {
+                "id": cp_id,
+                "address": addr,
+                "label": label,
+                "type": etype,
+                "chain": str(chain).lower(),
+                "gridX": 0, "gridY": 0, "x": 0, "y": 0,
+                "isRoot": False, "isExpanded": False,
+                "isLoading": False, "isSelected": False,
+                "isPruned": False, "isDragging": False,
+                "isContract": is_contract,
+                "flowsIn": 0, "flowsOut": 0,
+                "txCount": tx_count,
+                "tags": [str(t) for t in tags] if isinstance(tags, list) else [],
+                "riskLevel": _map_risk_level(cp.get("risk")),
+                "totalValueUSD": usd_val,
+                "activeChains": cp_chains if isinstance(cp_chains, list) else [],
+            }
+            nodes.append(node)
+
+            token = cp.get("tokenSymbol") or cp.get("symbol") or "ETH"
+            cp_flow = cp.get("flow") or flow
+            if cp_flow in ("in", "left"):
+                src, tgt = cp_id, node_id
+                edge_dir = "in"
+            else:
+                src, tgt = node_id, cp_id
+                edge_dir = "out"
+
+            edge = {
+                "id": f"edge:{src}->{tgt}:{chain}:{token}",
+                "source": src, "target": tgt,
+                "chain": str(chain).lower(),
+                "direction": edge_dir,
+                "isCurve": False, "curveOffset": 0,
+                "tokenSymbol": token,
+                "totalValue": usd_val,
+                "valueLabel": f"{self._format_value(usd_val)} {token}",
+                "amountLabel": f"{self._format_value(usd_val)} {token}",
+                "transferCount": tx_count,
+                "color": "", "details": [],
+                "isCrossChain": len(cp_chains) > 1 if isinstance(cp_chains, list) else False,
+                "isSuspicious": etype in ("mixer", "sanctioned"),
+                "isCustom": False,
+                "isSelected": False,
+                "isHighlighted": False,
+            }
+            edges.append(edge)
+
+        return nodes, edges
+
+    def _parse_beta_history(
+        self, data: Dict, node_id: str, flow: str, source_addr: str,
+        seen_addrs: set,
+    ) -> tuple:
+        """
+        Parse BETA history into counterparty nodes + edges.
+        Groups transactions by counterparty address to build the graph.
+        """
+        nodes = []
+        edges = []
+        history = data.get("history_list") or data.get("data") or []
+        if not isinstance(history, list):
+            return nodes, edges
+
+        # Group by counterparty address
+        cp_map: Dict[str, Dict] = {}
+        for tx in history:
+            if not isinstance(tx, dict):
+                continue
+
+            tx_from = tx.get("from_addr") or tx.get("from", "")
+            tx_to = tx.get("to_addr") or tx.get("to", "")
+            chain = tx.get("chain") or "ethereum"
+            value_usd = tx.get("usd_value") or tx.get("value") or 0
+            token_symbol = ""
+            sends = tx.get("sends", [])
+            receives = tx.get("receives", [])
+            if sends and isinstance(sends, list):
+                token_symbol = sends[0].get("token_id", "").split(":")[-1] if sends[0].get("token_id") else "ETH"
+            elif receives and isinstance(receives, list):
+                token_symbol = receives[0].get("token_id", "").split(":")[-1] if receives[0].get("token_id") else "ETH"
+            if not token_symbol:
+                token_symbol = "ETH"
+
+            # Determine counterparty
+            src_lower = source_addr.lower()
+            if tx_from and tx_from.lower() != src_lower:
+                cp_address = tx_from
+                direction = "in"
+            elif tx_to and tx_to.lower() != src_lower:
+                cp_address = tx_to
+                direction = "out"
+            else:
+                continue
+
+            # Filter by requested flow
+            if flow == "in" and direction != "in":
+                continue
+            if flow == "out" and direction != "out":
+                continue
+
+            if cp_address in seen_addrs:
+                continue
+
+            if cp_address not in cp_map:
+                cp_map[cp_address] = {
+                    "address": cp_address,
+                    "chain": chain,
+                    "direction": direction,
+                    "totalUSD": 0,
+                    "count": 0,
+                    "token": token_symbol,
+                    "name": tx.get("other_addr", {}).get("name", "") if isinstance(tx.get("other_addr"), dict) else "",
+                }
+            cp_map[cp_address]["totalUSD"] += float(value_usd) if value_usd else 0
+            cp_map[cp_address]["count"] += 1
+
+        # Convert grouped data to nodes + edges
+        for addr, info in cp_map.items():
+            chain = info["chain"]
+            cp_id = f"ccways:{chain}:{addr}"
+            label = info["name"] or self._shorten(addr)
+
+            node = {
+                "id": cp_id,
+                "address": addr,
+                "label": label,
+                "type": "unknown",
+                "chain": str(chain).lower(),
+                "gridX": 0, "gridY": 0, "x": 0, "y": 0,
+                "isRoot": False, "isExpanded": False,
+                "isLoading": False, "isSelected": False,
+                "isPruned": False, "isDragging": False,
+                "isContract": False,
+                "flowsIn": 0, "flowsOut": 0,
+                "txCount": info["count"],
+                "tags": [],
+                "riskLevel": None,
+                "totalValueUSD": info["totalUSD"],
+            }
+            nodes.append(node)
+            seen_addrs.add(addr)
+
+            token = info["token"]
+            if info["direction"] == "in":
+                src, tgt = cp_id, node_id
+            else:
+                src, tgt = node_id, cp_id
+
+            edge = {
+                "id": f"edge:{src}->{tgt}:{chain}:{token}",
+                "source": src, "target": tgt,
+                "chain": str(chain).lower(),
+                "direction": info["direction"],
+                "isCurve": False, "curveOffset": 0,
+                "tokenSymbol": token,
+                "totalValue": info["totalUSD"],
+                "valueLabel": f"{self._format_value(info['totalUSD'])} {token}",
+                "amountLabel": f"{self._format_value(info['totalUSD'])} {token}",
+                "transferCount": info["count"],
+                "color": "", "details": [],
+                "isCrossChain": False,
+                "isSuspicious": False,
+                "isCustom": False,
+                "isSelected": False,
+                "isHighlighted": False,
+            }
+            edges.append(edge)
+
+        return nodes, edges
+
     async def balance(
         self, address: str, chains: Optional[List[str]] = None
     ) -> Dict:
-        """Multi-chain balance (93 chains from BETA)."""
+        """Multi-chain balance — BETA primary, ALPHA fallback."""
         cached = await self.cache.get("balance", address)
         if cached:
             return cached
 
-        beta_bal = await self._call_beta("get_total_balance", address)
+        choice = self.lb.choose_provider("balance")
+        logger.info("[GW] balance(%s) → provider=%s", address[:10], choice.value)
+
+        beta_bal = None
+        alpha_bal = None
+
+        if choice in (ProviderChoice.BETA, ProviderChoice.BETA_THEN_ALPHA):
+            beta_bal = await self._call_beta("get_total_balance", address)
+            if not beta_bal and choice == ProviderChoice.BETA_THEN_ALPHA:
+                alpha_bal = await self._call_alpha("get_balances", address)
+        elif choice in (ProviderChoice.ALPHA, ProviderChoice.ALPHA_THEN_BETA):
+            alpha_bal = await self._call_alpha("get_balances", address)
+            if not alpha_bal and choice == ProviderChoice.ALPHA_THEN_BETA:
+                beta_bal = await self._call_beta("get_total_balance", address)
+        elif choice == ProviderChoice.BOTH:
+            beta_bal, alpha_bal = await staggered_gather(
+                self._call_beta("get_total_balance", address),
+                self._call_alpha("get_balances", address),
+                stagger_ms=100,
+            )
 
         total_usd = 0.0
         chain_balances = {}
 
+        # Prefer BETA (richer chain data)
         if beta_bal and isinstance(beta_bal, dict):
             total_usd = beta_bal.get("total_usd_value", 0) or 0
             chain_list = beta_bal.get("chain_list") or []
@@ -531,11 +857,41 @@ class CCWaysGateway:
                     "usd": cb.get("usd_value", 0),
                     "name": cb.get("name", cid),
                 }
+        # Fallback to ALPHA
+        if not chain_balances and alpha_bal and isinstance(alpha_bal, dict):
+            # ALPHA format: totalBalance={chain: usd}, balances={chain: [{token}]}
+            tb = alpha_bal.get("totalBalance") or {}
+            if isinstance(tb, dict):
+                for chain_id, chain_usd in tb.items():
+                    total_usd += float(chain_usd or 0)
+                    chain_balances[chain_id] = {
+                        "usd": float(chain_usd or 0),
+                        "name": chain_id.replace("_", " ").title(),
+                    }
+            # Also extract token-level data
+            bals = alpha_bal.get("balances") or {}
+            if isinstance(bals, dict):
+                for chain_id, tokens in bals.items():
+                    if chain_id not in chain_balances:
+                        chain_balances[chain_id] = {"usd": 0, "name": chain_id}
+                    if isinstance(tokens, list):
+                        chain_balances[chain_id]["tokens"] = [
+                            {
+                                "symbol": t.get("symbol", "?"),
+                                "name": t.get("name", ""),
+                                "balance": t.get("balance", 0),
+                                "usd": t.get("usd", 0),
+                                "price": t.get("price", 0),
+                            }
+                            for t in tokens[:20]
+                            if isinstance(t, dict)
+                        ]
 
         result = sanitize_response({
             "success": True,
             "totalUSD": total_usd,
             "chainBalances": chain_balances,
+            "provider": "ccways",
         })
         await self.cache.set("balance", result, address)
         return result
@@ -630,18 +986,39 @@ class CCWaysGateway:
         limit: int = 50,
         offset: int = 0,
     ) -> Dict:
-        """Transfer history (ALPHA)."""
+        """Transfer history — ALPHA primary, BETA fallback."""
         cache_key_parts = (address or "", chain or "", flow, limit, offset)
         cached = await self.cache.get("transfers", *cache_key_parts)
         if cached:
             return cached
 
-        alpha_tx = await self._call_alpha(
-            "get_transfers", address=address, chain=chain,
-            flow=flow, limit=limit, offset=offset,
-        )
+        choice = self.lb.choose_provider("transfers")
+        logger.info("[GW] transfers(%s) → provider=%s", (address or "")[:10], choice.value)
 
         transfers = []
+        alpha_tx = None
+        beta_tx = None
+
+        if choice in (ProviderChoice.ALPHA, ProviderChoice.ALPHA_THEN_BETA):
+            alpha_tx = await self._call_alpha(
+                "get_transfers", address=address, chain=chain,
+                flow=flow, limit=limit, offset=offset,
+            )
+            if not alpha_tx and choice == ProviderChoice.ALPHA_THEN_BETA:
+                beta_tx = await self._call_beta(
+                    "get_history", address, chain=chain, page_count=limit,
+                )
+        elif choice in (ProviderChoice.BETA, ProviderChoice.BETA_THEN_ALPHA):
+            beta_tx = await self._call_beta(
+                "get_history", address, chain=chain, page_count=limit,
+            )
+            if not beta_tx and choice == ProviderChoice.BETA_THEN_ALPHA:
+                alpha_tx = await self._call_alpha(
+                    "get_transfers", address=address, chain=chain,
+                    flow=flow, limit=limit, offset=offset,
+                )
+
+        # Parse ALPHA transfers
         if alpha_tx and isinstance(alpha_tx, dict):
             raw = alpha_tx.get("transfers") or alpha_tx.get("data") or []
             for t in raw if isinstance(raw, list) else []:
@@ -657,6 +1034,24 @@ class CCWaysGateway:
                     "direction": t.get("direction") or "",
                     "fromLabel": (t.get("from", {}) or {}).get("label", ""),
                     "toLabel": (t.get("to", {}) or {}).get("label", ""),
+                })
+
+        # Parse BETA history as fallback transfers
+        if beta_tx and isinstance(beta_tx, dict):
+            history = beta_tx.get("history_list") or beta_tx.get("data") or []
+            for h in history if isinstance(history, list) else []:
+                transfers.append({
+                    "txHash": h.get("id") or h.get("tx_hash") or "",
+                    "chain": h.get("chain") or "",
+                    "from": h.get("from_addr") or h.get("from", ""),
+                    "to": h.get("to_addr") or h.get("to", ""),
+                    "value": 0,
+                    "valueUSD": h.get("usd_value") or 0,
+                    "tokenSymbol": "",
+                    "timestamp": h.get("time_at") or "",
+                    "direction": "",
+                    "fromLabel": "",
+                    "toLabel": "",
                 })
 
         result = sanitize_response({
@@ -749,26 +1144,31 @@ class CCWaysGateway:
     # ═══════════════════════════════════════════════════════════════════════════
 
     async def stats(self) -> Dict:
-        """Internal admin stats — not sanitized (admin only)."""
-        avg_alpha = (
+        """Internal admin stats — sanitized for public safety."""
+        avg_p = (
             sum(self._alpha_latencies) / len(self._alpha_latencies)
             if self._alpha_latencies else 0
         )
-        avg_beta = (
+        avg_s = (
             sum(self._beta_latencies) / len(self._beta_latencies)
             if self._beta_latencies else 0
         )
         return {
             "success": True,
-            "budget": self.budget.to_dict(),
-            "circuitBreakers": {
-                "alpha": self.cb_alpha.to_dict(),
-                "beta": self.cb_beta.to_dict(),
+            "provider": "ccways",
+            "budget": {
+                "used": self.budget.to_dict().get("used", 0),
+                "limit": self.budget.to_dict().get("limit", 0),
+                "remaining": self.budget.to_dict().get("remaining", 0),
+            },
+            "health": {
+                "primary": self.cb_alpha.to_dict().get("state", "unknown"),
+                "secondary": self.cb_beta.to_dict().get("state", "unknown"),
             },
             "cache": self.cache.stats(),
             "latency": {
-                "alpha_avg_ms": round(avg_alpha * 1000, 1),
-                "beta_avg_ms": round(avg_beta * 1000, 1),
+                "primary_avg_ms": round(avg_p * 1000, 1),
+                "secondary_avg_ms": round(avg_s * 1000, 1),
             },
         }
 
@@ -802,31 +1202,42 @@ class CCWaysGateway:
 
         # Enrich from ALPHA (intelligence)
         if alpha_data and isinstance(alpha_data, dict):
-            addr_info = alpha_data.get("address") or alpha_data
-            entity_info = alpha_data.get("entity") or addr_info.get("entity") or {}
+            # ALPHA response: address=str, arkhamEntity=dict, arkhamLabel=dict,
+            # populatedTags=list, contract=bool, isUserAddress=bool
+            ent = alpha_data.get("arkhamEntity") or alpha_data.get("knownEntity") or {}
+            lbl = alpha_data.get("arkhamLabel") or alpha_data.get("knownLabel") or {}
 
             entity["label"] = (
-                addr_info.get("label")
-                or addr_info.get("name")
-                or (entity_info.get("name") if isinstance(entity_info, dict) else None)
+                (lbl.get("name") if isinstance(lbl, dict) else None)
+                or (ent.get("name") if isinstance(ent, dict) else None)
                 or entity["label"]
             )
             entity["type"] = _map_entity_type(
-                entity_info.get("type") if isinstance(entity_info, dict) else None
+                ent.get("type") if isinstance(ent, dict) else None
             )
-            entity["isContract"] = addr_info.get("isContract", False)
+            entity["isContract"] = bool(alpha_data.get("contract", False))
             entity["riskLevel"] = _map_risk_level(
-                addr_info.get("risk") or addr_info.get("riskScore")
+                alpha_data.get("risk") or alpha_data.get("riskScore")
             )
 
-            tags = addr_info.get("tags") or (
-                entity_info.get("tags") if isinstance(entity_info, dict) else []
-            )
-            entity["tags"] = [str(t) for t in tags] if isinstance(tags, list) else []
+            # Tags from populatedTags array
+            pop_tags = alpha_data.get("populatedTags") or []
+            if isinstance(pop_tags, list):
+                entity["tags"] = [
+                    t.get("label", t.get("id", ""))
+                    for t in pop_tags if isinstance(t, dict)
+                ]
+            elif isinstance(ent, dict):
+                entity["tags"] = [str(t) for t in (ent.get("tags") or []) if t]
 
-            entity["firstSeen"] = addr_info.get("firstSeen")
-            entity["lastSeen"] = addr_info.get("lastSeen")
-            entity["txCount"] = addr_info.get("txCount") or 0
+            entity["firstSeen"] = alpha_data.get("firstSeen")
+            entity["lastSeen"] = alpha_data.get("lastSeen")
+            entity["txCount"] = alpha_data.get("txCount") or 0
+
+            # Extra entity info
+            if isinstance(ent, dict):
+                entity["twitter"] = ent.get("twitter")
+                entity["website"] = ent.get("website") or ent.get("crunchbase")
 
         # Enrich from BETA (balances)
         if beta_data and isinstance(beta_data, dict):

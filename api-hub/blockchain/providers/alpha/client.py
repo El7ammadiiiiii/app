@@ -4,9 +4,11 @@ Handles: entity lookup, counterparties, transfers, flow, portfolio, token data
 All external identifiers are obfuscated. No third-party names in code.
 """
 
+import asyncio
 import hashlib
 import time
 import logging
+from email.utils import parsedate_to_datetime
 from typing import Any, Dict, List, Optional
 from urllib.parse import urlparse
 
@@ -50,22 +52,46 @@ class AlphaClient(BaseClient):
     # ═══════════════════════════════════════════════════════════════════════════
 
     async def _sync_server_time(self) -> None:
-        """Sync clock offset with upstream (max once per 60s)."""
+        """Sync clock offset with upstream (max once per 60s).
+        Uses a lightweight GET to /chains and reads the Date header
+        from the response (works even on error responses).
+        """
         now = time.time()
         if now - self._last_time_sync < 60:
             return
         try:
             if not self._initialized:
                 await self.initialize()
-            async with self._session.head(self.base_url) as resp:
+            # Use GET /chains — lightweight, always returns Date header
+            headers = self._get_headers()
+            async with self._session.get(
+                f"{self.base_url}/chains", headers=headers
+            ) as resp:
                 server_date = resp.headers.get("Date", "")
                 if server_date:
-                    from email.utils import parsedate_to_datetime
                     server_ts = parsedate_to_datetime(server_date).timestamp()
                     self._time_offset = server_ts - time.time()
+                    logger.info(
+                        "ALPHA clock offset: %.1fs (%.1f min)",
+                        self._time_offset, self._time_offset / 60,
+                    )
             self._last_time_sync = time.time()
         except Exception as exc:
-            logger.debug("Time sync failed: %s", exc)
+            # Even error responses carry a Date header — try to extract it
+            date_str = getattr(getattr(exc, 'headers', None), 'get', lambda *a: None)('Date')
+            if date_str:
+                try:
+                    server_ts = parsedate_to_datetime(date_str).timestamp()
+                    self._time_offset = server_ts - time.time()
+                    self._last_time_sync = time.time()
+                    logger.info(
+                        "ALPHA clock offset (from error): %.1fs",
+                        self._time_offset,
+                    )
+                except Exception:
+                    pass
+            else:
+                logger.debug("Time sync failed: %s", exc)
 
     def _sign(self, pathname: str, timestamp: str) -> str:
         """
@@ -174,19 +200,21 @@ class AlphaClient(BaseClient):
         self,
         address: str,
         chain: Optional[str] = None,
-        flow: str = "all",
+        flow: Optional[str] = None,
         limit: int = 25,
         offset: int = 0,
     ) -> Dict:
         """
         Get counterparties for an address — the core graph expansion data.
-        flow = 'all' | 'in' | 'out'
+        flow = None | 'in' | 'out'  (None = default/both, 'all' causes 500)
         """
         params: Dict[str, Any] = {
-            "flow": flow,
             "limit": limit,
             "offset": offset,
         }
+        # NOTE: flow='all' causes HTTP 500 on upstream — omit to get all
+        if flow and flow != "all":
+            params["flow"] = flow
         if chain:
             params["chain"] = chain
         return await self._signed_get(
@@ -279,6 +307,72 @@ class AlphaClient(BaseClient):
         return await self._signed_get("/networks/status")
 
     # ═══════════════════════════════════════════════════════════════════════════
+    # History / Batch endpoints (discovered from OpenAPI spec)
+    # ═══════════════════════════════════════════════════════════════════════════
+
+    async def get_history(
+        self,
+        address: str,
+        chain: Optional[str] = None,
+        limit: int = 25,
+        offset: int = 0,
+    ) -> Dict:
+        """Get transaction history for an address."""
+        params: Dict[str, Any] = {"limit": limit, "offset": offset}
+        if chain:
+            params["chain"] = chain
+        return await self._signed_get(
+            f"/history/address/{address}", params=params
+        )
+
+    async def get_intelligence_batch(
+        self, addresses: List[str]
+    ) -> Dict:
+        """Batch intelligence lookup — up to 100 addresses at once."""
+        return await self._signed_get(
+            "/intelligence/address/batch",
+            params={"addresses": ",".join(addresses[:100])},
+        )
+
+    async def get_entity_counterparties(
+        self,
+        entity_id: str,
+        limit: int = 25,
+        offset: int = 0,
+    ) -> Dict:
+        """Get counterparties by entity ID (e.g., 'vitalik-buterin')."""
+        params: Dict[str, Any] = {"limit": limit, "offset": offset}
+        return await self._signed_get(
+            f"/counterparties/entity/{entity_id}", params=params
+        )
+
+    async def get_entity_summary(self, entity_id: str) -> Dict:
+        """Get entity summary by ID."""
+        return await self._signed_get(
+            f"/intelligence/entity/{entity_id}/summary"
+        )
+
+    async def get_cluster_summary(self, cluster_id: str) -> Dict:
+        """Get cluster (related addresses) summary."""
+        return await self._signed_get(f"/cluster/{cluster_id}/summary")
+
+    async def get_token_holders(
+        self, token_id: str, limit: int = 25
+    ) -> Dict:
+        """Get top token holders."""
+        return await self._signed_get(
+            f"/token/holders/{token_id}", params={"limit": limit}
+        )
+
+    async def get_token_top_flow(self, token_id: str) -> Dict:
+        """Get top token flows."""
+        return await self._signed_get(f"/token/top_flow/{token_id}")
+
+    async def get_loans(self, address: str) -> Dict:
+        """Get DeFi loan positions."""
+        return await self._signed_get(f"/loans/address/{address}")
+
+    # ═══════════════════════════════════════════════════════════════════════════
     # BaseClient abstract methods
     # ═══════════════════════════════════════════════════════════════════════════
 
@@ -291,5 +385,4 @@ class AlphaClient(BaseClient):
         return await self.get_transfers(address=address, **kwargs)
 
 
-# ─── missing import at module level ─────────────────────────────────────────
-import asyncio  # noqa: E402 — used in retry sleep
+# asyncio imported at top of file

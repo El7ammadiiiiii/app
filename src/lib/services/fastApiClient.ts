@@ -193,6 +193,76 @@ export const fastApiClient = {
     };
     return ws;
   },
+
+  // ─── File 4: CMC S3 + SQLite endpoints (34K+ coins) ───
+
+  /** Browse CMC coins with pagination (34,436 coins) */
+  async getCMCCoins(page = 1, perPage = 100, type?: number, maxRank?: number) {
+    let url = `/cmc/coins?page=${page}&per_page=${perPage}`;
+    if (type) url += `&type=${type}`;
+    if (maxRank) url += `&max_rank=${maxRank}`;
+    return fastApiFetch(url);
+  },
+
+  /** Search CMC coins by name/symbol */
+  async searchCMCCoins(query: string, limit = 20) {
+    return fastApiFetch(`/cmc/coins/search?q=${encodeURIComponent(query)}&limit=${limit}`);
+  },
+
+  /** Get CMC coin by slug */
+  async getCMCCoinBySlug(slug: string) {
+    return fastApiFetch(`/cmc/coins/${slug}`);
+  },
+
+  /** Get CMC DB stats */
+  async getCMCDbStats() {
+    return fastApiFetch('/cmc/db-stats');
+  },
+
+  /** Get import status */
+  async getCMCImportStatus() {
+    return fastApiFetch('/cmc/import-status');
+  },
+
+  // ─── File 5: Unified endpoints (All sources merged) ───
+
+  /** Browse ALL coins with merged data (CMC + CoinGecko + Messari) */
+  async getUnifiedCoins(params: {
+    page?: number;
+    per_page?: number;
+    search?: string;
+    sort?: string;
+    order?: string;
+    sector?: string;
+    coin_type?: number;
+    has_price?: boolean;
+  } = {}) {
+    const p = new URLSearchParams();
+    if (params.page) p.set('page', String(params.page));
+    if (params.per_page) p.set('per_page', String(params.per_page));
+    if (params.search) p.set('search', params.search);
+    if (params.sort) p.set('sort', params.sort);
+    if (params.order) p.set('order', params.order);
+    if (params.sector) p.set('sector', params.sector);
+    if (params.coin_type) p.set('coin_type', String(params.coin_type));
+    if (params.has_price !== undefined) p.set('has_price', String(params.has_price));
+    return fastApiFetch(`/unified/coins?${p.toString()}`);
+  },
+
+  /** Get comprehensive coin detail — all sources merged */
+  async getUnifiedCoin(slug: string) {
+    return fastApiFetch(`/unified/coin/${slug}`, { timeout: 15000 });
+  },
+
+  /** Get all Messari sectors with counts */
+  async getUnifiedSectors() {
+    return fastApiFetch('/unified/sectors');
+  },
+
+  /** Get unified stats (counts from all sources) */
+  async getUnifiedStats() {
+    return fastApiFetch('/unified/stats');
+  },
 };
 
 export default fastApiClient;

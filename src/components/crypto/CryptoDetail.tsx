@@ -162,28 +162,115 @@ export default function CryptoDetail({ id }: { id: string }) {
   useEffect(() => {
     const loadAll = async () => {
       try {
-        const cb = `?v=${Date.now()}`;
-        const [marketsRes, detailsRes, messariRes, aboutRes, ohlcvRes] = await Promise.allSettled([
-          fetch(`/data/coingecko-markets.json${cb}`, { cache: 'no-store' }).then(r => r.ok ? r.json() : []),
-          fetch(`/data/coingecko-details.json${cb}`, { cache: 'no-store' }).then(r => r.ok ? r.json() : []),
-          fetch(`/data/messari-projects.json${cb}`, { cache: 'no-store' }).then(r => r.ok ? r.json() : []),
-          fetch(`/data/coingecko-about.json${cb}`, { cache: 'no-store' }).then(r => r.ok ? r.json() : {}),
-          fetch(`/data/coingecko-ohlcv.json${cb}`, { cache: 'no-store' }).then(r => r.ok ? r.json() : {}),
-        ]);
+        // ── PRIMARY: Try Unified API (SQLite-backed, all sources merged) ──
+        let mkt: CoinGeckoMarket | undefined;
+        let det: CoinGeckoDetail | undefined;
+        let mes: MessariProject | undefined;
+        let aboutHtml = '';
+        let ohlcvData: OHLCVPoint[] = [];
 
-        const markets: CoinGeckoMarket[] = marketsRes.status === 'fulfilled' ? marketsRes.value : [];
-        const details: CoinGeckoDetail[] = detailsRes.status === 'fulfilled' ? detailsRes.value : [];
-        const messariRaw = messariRes.status === 'fulfilled' ? messariRes.value : [];
-        // messari-projects.json can be either an array or an object keyed by coin id
-        const messari: MessariProject[] = Array.isArray(messariRaw) ? messariRaw : Object.values(messariRaw);
-        const messariMap: Record<string, MessariProject> = Array.isArray(messariRaw) ? {} : messariRaw;
-        const aboutMap: Record<string, { title: string; html: string }> = aboutRes.status === 'fulfilled' ? aboutRes.value : {};
-        const ohlcvMap: Record<string, OHLCVPoint[]> = ohlcvRes.status === 'fulfilled' ? ohlcvRes.value : {};
+        const FASTAPI_BASE = process.env.NEXT_PUBLIC_FASTAPI_URL || 'http://localhost:8000';
+        try {
+          const resp = await fetch(`${FASTAPI_BASE}/unified/coin/${id}`, { cache: 'no-store' });
+          if (resp.ok) {
+            const unified = await resp.json();
 
-        const mkt = markets.find(m => m.id === id || m.name?.toLowerCase() === id.toLowerCase());
-        const det = details.find(d => d.id === id || d.name?.toLowerCase() === id.toLowerCase());
-        // Try direct key lookup first (fast), then fallback to .find()
-        const mes = messariMap[id] || messari.find(m => m.slug === id || m.id === id || m.messariSlug === id || m.name?.toLowerCase() === id.toLowerCase());
+            // Map unified.market → CoinGeckoMarket shape
+            if (unified.market) {
+              const um = unified.market;
+              mkt = {
+                id: um.id, name: um.name, symbol: um.symbol, image: um.image,
+                rank: um.rank, price: um.price, market_cap: um.market_cap, fdv: um.fdv,
+                total_volume: um.total_volume, circulating_supply: um.circulating_supply,
+                total_supply: um.total_supply, max_supply: um.max_supply,
+                price_change_1h: um.change_1h, price_change_24h: um.change_24h,
+                price_change_7d: um.change_7d, price_change_14d: um.change_14d,
+                price_change_30d: um.change_30d, price_change_200d: um.change_200d, price_change_1y: um.change_1y,
+                ath: um.ath, ath_change_percentage: um.ath_change, ath_date: um.ath_date,
+                atl: um.atl, atl_change_percentage: um.atl_change, atl_date: um.atl_date,
+                sparkline_7d: um.sparkline_7d || [],
+              } as CoinGeckoMarket;
+            }
+
+            // Map unified.detail → CoinGeckoDetail shape
+            if (unified.detail) {
+              const ud = unified.detail;
+              det = {
+                id: ud.id, name: ud.name, symbol: ud.symbol,
+                image: ud.image_large || '',
+                description: { en: ud.description || '' },
+                categories: ud.categories || [],
+                links: {
+                  homepage: ud.homepage || [],
+                  whitepaper: ud.whitepaper || '',
+                  blockchain_site: ud.blockchain_sites || [],
+                  repos_url: { github: ud.github_repos || [] },
+                  twitter: ud.twitter || '',
+                  telegram: ud.telegram || '',
+                  reddit: ud.reddit || '',
+                  github: '',
+                },
+                genesis_date: ud.genesis_date || '',
+                hashing_algorithm: ud.hashing_algorithm || '',
+                market_data: ud.market_data || {},
+                tickers: ud.tickers || [],
+                community: ud.community_data || {},
+                developer: ud.developer_data || {},
+                contract_address: ud.contract_address || '',
+                platforms: ud.platforms || {},
+                chart_365d: null,
+                last_updated: '',
+              } as CoinGeckoDetail;
+            }
+
+            // Map unified.messari → MessariProject shape
+            if (unified.messari) {
+              const um = unified.messari;
+              mes = {
+                id: um.id, entityId: '', name: um.name, slug: um.slug,
+                overview: um.overview || '', background: um.background || '',
+                category: um.category || '', sector: um.sector || '',
+                sectors_v2: um.sectors_v2 || [], sub_sectors_v2: um.sub_sectors_v2 || [],
+                logo_id: um.logo_id || '', faqs: um.faqs || [], links: um.links || [],
+                pageViews: um.page_views || 0,
+                asset: { id: '', name: um.name, slug: um.slug, symbol: um.symbol || '', sector: um.sector || '', sectors_v2: um.sectors_v2 || [], sub_sectors_v2: um.sub_sectors_v2 || [], contract_addresses: um.contract_addresses || [] },
+                price: um.price || 0, priceChange: um.price_change || 0, rank: um.rank || 0, assetId: '',
+                ohlcv: um.ohlcv || [], tokenUnlocks: um.token_unlocks || [],
+                developments: um.developments || [], markets: um.markets || [],
+                news: um.news || [],
+              } as any;
+              ohlcvData = um.ohlcv || [];
+            }
+          }
+        } catch (apiErr) {
+          console.warn('Unified API unavailable, falling back to static JSON:', apiErr);
+        }
+
+        // ── FALLBACK: Load from static JSON files if API didn't return data ──
+        if (!mkt && !det && !mes) {
+          const cb = `?v=${Date.now()}`;
+          const [marketsRes, detailsRes, messariRes, aboutRes, ohlcvRes] = await Promise.allSettled([
+            fetch(`/data/coingecko-markets.json${cb}`, { cache: 'no-store' }).then(r => r.ok ? r.json() : []),
+            fetch(`/data/coingecko-details.json${cb}`, { cache: 'no-store' }).then(r => r.ok ? r.json() : []),
+            fetch(`/data/messari-projects.json${cb}`, { cache: 'no-store' }).then(r => r.ok ? r.json() : []),
+            fetch(`/data/coingecko-about.json${cb}`, { cache: 'no-store' }).then(r => r.ok ? r.json() : {}),
+            fetch(`/data/coingecko-ohlcv.json${cb}`, { cache: 'no-store' }).then(r => r.ok ? r.json() : {}),
+          ]);
+
+          const markets: CoinGeckoMarket[] = marketsRes.status === 'fulfilled' ? marketsRes.value : [];
+          const details: CoinGeckoDetail[] = detailsRes.status === 'fulfilled' ? detailsRes.value : [];
+          const messariRaw = messariRes.status === 'fulfilled' ? messariRes.value : [];
+          const messari: MessariProject[] = Array.isArray(messariRaw) ? messariRaw : Object.values(messariRaw);
+          const messariMap: Record<string, MessariProject> = Array.isArray(messariRaw) ? {} : messariRaw;
+          const aboutMap: Record<string, { title: string; html: string }> = aboutRes.status === 'fulfilled' ? aboutRes.value : {};
+          const ohlcvMap: Record<string, OHLCVPoint[]> = ohlcvRes.status === 'fulfilled' ? ohlcvRes.value : {};
+
+          mkt = markets.find(m => m.id === id || m.name?.toLowerCase() === id.toLowerCase());
+          det = details.find(d => d.id === id || d.name?.toLowerCase() === id.toLowerCase());
+          mes = messariMap[id] || messari.find(m => m.slug === id || m.id === id || (m as any).messariSlug === id || m.name?.toLowerCase() === id.toLowerCase());
+          aboutHtml = aboutMap[id]?.html || '';
+          ohlcvData = ohlcvMap[id] || [];
+        }
 
         if (!mkt && !det && !mes) {
           setCoin(null);
@@ -224,7 +311,7 @@ export default function CryptoDetail({ id }: { id: string }) {
           atl_date: md?.atl_date || mkt?.atl_date || '',
           atl_change: md?.atl_change || mkt?.atl_change_percentage || 0,
           description: desc || mes?.overview || '',
-          aboutHtml: aboutMap[id]?.html || '',
+          aboutHtml: aboutHtml || '',
           categories: det?.categories || [],
           genesis_date: det?.genesis_date || '',
           hashing_algorithm: det?.hashing_algorithm || '',
@@ -245,7 +332,7 @@ export default function CryptoDetail({ id }: { id: string }) {
           faqs: mes?.faqs || [],
           messariLinks: mes?.links || [],
           messari_contract_addresses: mes?.asset?.contract_addresses || mes?.contract_addresses || [],
-          ohlcv: ohlcvMap[id] || mes?.ohlcv || [],
+          ohlcv: ohlcvData.length > 0 ? ohlcvData : (mes?.ohlcv || []),
           tokenUnlocks: mes?.tokenUnlocks || [],
           developments: mes?.developments || [],
           markets: mes?.markets || [],

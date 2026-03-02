@@ -20,14 +20,16 @@ logger = logging.getLogger(__name__)
 # ─── obfuscated constants ──────────────────────────────────────────────────
 _BETA_BASE = "https://api.debank.com"
 _BETA_VER = "v2"
-# Static key captured from browser — may need periodic refresh
-_BETA_STATIC_KEY = ""  # Populated from env: CCWAYS_BETA_KEY
+# Captured from browser session — refresh periodically
+_BETA_STATIC_KEY = "78730c11-5792-43b1-bd09-a5b7c918422a"  # x-api-key
+_BETA_SESSION_TIME = "1772318336"  # x-api-time / account.random_at
+_BETA_SESSION_RANDOM = "167081e5d87b41c3a4ec4b6ad552974f"  # account.random_id
 
 
 class BetaClient(BaseClient):
     """
-    Multi-chain balance & DeFi provider — 93+ chains.
-    Signing: static headers for now (Phase 2.5 will add full HMAC).
+    Multi-chain balance & DeFi provider — 96+ EVM chains.
+    Auth: api-key + account header + nonce (signing Phase 2.5).
     """
 
     def __init__(
@@ -47,28 +49,40 @@ class BetaClient(BaseClient):
             max_retries=max_retries,
         )
         self._static_key = static_key or _BETA_STATIC_KEY
+        self._session_time = _BETA_SESSION_TIME
+        self._session_random = _BETA_SESSION_RANDOM
 
     def _get_headers(self) -> Dict[str, str]:
-        """Build request headers with available auth."""
+        """Build request headers with full browser-like auth."""
         ts = str(int(time.time()))
-        nonce = f"n_{uuid.uuid4().hex[:16]}"
+        nonce = f"n_{uuid.uuid4().hex[:40]}"
+        # Account header — matches browser session format
+        import json as _json
+        account_obj = {
+            "random_at": int(self._session_time),
+            "random_id": self._session_random,
+            "user_addr": None,
+            "connected_addr": None,
+        }
         headers = {
-            "Accept": "application/json",
+            "Accept": "*/*",
             "User-Agent": (
                 "Mozilla/5.0 (Windows NT 10.0; Win64; x64) "
                 "AppleWebKit/537.36 (KHTML, like Gecko) "
-                "Chrome/131.0.0.0 Safari/537.36"
+                "Chrome/145.0.0.0 Safari/537.36"
             ),
             "Origin": "https://debank.com",
             "Referer": "https://debank.com/",
+            "source": "web",
+            "account": _json.dumps(account_obj, separators=(',', ':')),
             "x-api-ver": _BETA_VER,
             "x-api-ts": ts,
             "x-api-nonce": nonce,
+            "x-api-time": self._session_time,
         }
         if self._static_key:
             headers["x-api-key"] = self._static_key
-        # x-api-sign — TODO Phase 2.5: reverse-engineer signing algorithm
-        # For now, some endpoints work without the full signature
+        # x-api-sign — TODO Phase 2.5: reverse-engineer HMAC signing
         return headers
 
     async def _beta_get(
@@ -165,7 +179,7 @@ class BetaClient(BaseClient):
         page_count: int = 20,
         start_time: int = 0,
     ) -> Dict:
-        """Get transaction history."""
+        """Get transaction history (correct path: /history/list)."""
         params: Dict[str, Any] = {
             "addr": address,
             "page_count": page_count,
@@ -174,7 +188,7 @@ class BetaClient(BaseClient):
             params["chain_id"] = chain
         if start_time:
             params["start_time"] = start_time
-        return await self._beta_get("/user/history_list", params=params)
+        return await self._beta_get("/history/list", params=params)
 
     # ═══════════════════════════════════════════════════════════════════════════
     # NFT endpoints

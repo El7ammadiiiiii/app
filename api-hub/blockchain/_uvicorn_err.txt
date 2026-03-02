@@ -1,0 +1,37 @@
+[32mINFO[0m:     Started server process [[36m40360[0m]
+[32mINFO[0m:     Waiting for application startup.
+2026-03-02 02:28:24,586 - main - WARNING - \u26a0\ufe0f ORCHESTRATOR_ENABLED is false; orchestrator disabled. Onchain routes still available.
+[32mINFO[0m:     Application startup complete.
+[32mINFO[0m:     Uvicorn running on [1mhttp://0.0.0.0:8001[0m (Press CTRL+C to quit)
+2026-03-02 02:30:54,673 - routes.ccways - ERROR - GET /ccways/chains failed
+Traceback (most recent call last):
+  File "C:\Users\GAME\elhammadi\ccways\api-hub\blockchain\routes\ccways.py", line 62, in get_chains
+    return await gw.chains()
+           ^^^^^^^^^^^^^^^^^
+  File "C:\Users\GAME\elhammadi\ccways\api-hub\blockchain\providers\ccways_gateway.py", line 398, in chains
+    "nativeWrapped": c.get("wrapped", {}).get("id", ""),
+                     ^^^^^^^^^^^^^^^^^^^^^^^^
+AttributeError: 'str' object has no attribute 'get'
+2026-03-02 02:30:56,226 - providers.beta.client - WARNING - BETA rate-limited, waiting 3s
+2026-03-02 02:30:59,619 - providers.beta.client - WARNING - BETA rate-limited, waiting 3s
+2026-03-02 02:31:03,029 - providers.beta.client - WARNING - BETA rate-limited, waiting 3s
+2026-03-02 02:31:06,042 - providers.ccways_gateway - WARNING - BETA.get_total_balance failed: BETA request failed
+2026-03-02 02:31:40,309 - providers.ccways_gateway - WARNING - ALPHA.get_intelligence_enriched failed: Cannot connect to host api.arkm.com:443 ssl:default [Timeout while contacting DNS servers]
+2026-03-02 02:32:26,771 - providers.ccways_gateway - WARNING - ALPHA.get_counterparties failed: Cannot connect to host api.arkm.com:443 ssl:default [Timeout while contacting DNS servers]
+2026-03-02 02:32:27,100 - providers.beta.client - WARNING - BETA rate-limited, waiting 3s
+2026-03-02 02:32:30,334 - providers.beta.client - WARNING - BETA rate-limited, waiting 3s
+2026-03-02 02:32:33,719 - providers.beta.client - WARNING - BETA rate-limited, waiting 3s
+2026-03-02 02:32:36,721 - providers.ccways_gateway - WARNING - BETA.get_history failed: BETA request failed
+2026-03-02 02:32:38,138 - providers.beta.client - WARNING - BETA rate-limited, waiting 3s
+2026-03-02 02:32:41,349 - providers.beta.client - WARNING - BETA rate-limited, waiting 3s
+2026-03-02 02:32:44,739 - providers.beta.client - WARNING - BETA rate-limited, waiting 3s
+2026-03-02 02:32:47,754 - providers.ccways_gateway - WARNING - BETA.get_total_balance failed: BETA request failed
+2026-03-02 02:38:37,997 - routes.ccways - ERROR - GET /ccways/chains failed
+Traceback (most recent call last):
+  File "C:\Users\GAME\elhammadi\ccways\api-hub\blockchain\routes\ccways.py", line 62, in get_chains
+    return await gw.chains()
+           ^^^^^^^^^^^^^^^^^
+  File "C:\Users\GAME\elhammadi\ccways\api-hub\blockchain\providers\ccways_gateway.py", line 398, in chains
+    "nativeWrapped": (c.get("wrapped") or {}).get("id", "") if isinstance(c.get("wrapped"), dict) else str(c.get("wrapped") or ""),
+                     ^^^^^^^^^^^^^^^^^^^^^^^^
+AttributeError: 'str' object has no attribute 'get'

@@ -550,6 +550,11 @@ export const useProjectStore = create<ProjectStore>()(
         viewMode: state.viewMode,
         sortBy: state.sortBy,
       }),
+      version: 1,
+      migrate: (persistedState: unknown, version: number) => {
+        // Migration function to handle state schema changes
+        return persistedState as ProjectStore;
+      },
     }
   )
 );

@@ -119,10 +119,16 @@ export function SmartSearchInput({ onSelect, onClose }: SmartSearchInputProps) {
           <div className="flex flex-col items-center justify-center py-8">
             <span className="text-2xl opacity-20 mb-2">🔍</span>
             <p className="text-xs text-slate-500">No results found</p>
-            {query.startsWith("0x") && query.length >= 10 && (
+            {query.length >= 10 && /^(0x[0-9a-fA-F]{10,}|T[1-9A-HJ-NP-Za-km-z]{10,}|bc1[a-zA-HJ-NP-Z0-9]{10,}|[1-9A-HJ-NP-Za-km-z]{20,})$/.test(query.trim()) && (
               <button
                 className="mt-2 text-[10px] text-teal-400 hover:underline"
-                onClick={() => onSelect(query, "ethereum")}
+                onClick={() => {
+                  const q = query.trim();
+                  let chain = "ethereum";
+                  if (q.startsWith("T")) chain = "tron";
+                  else if (q.startsWith("bc1") || q.startsWith("1") || q.startsWith("3")) chain = "bitcoin";
+                  onSelect(q, chain);
+                }}
               >
                 Add as new address →
               </button>

@@ -6,6 +6,7 @@
 "use client";
 
 import React, { useEffect, useState, useCallback, useRef } from "react";
+import { toPng, toSvg } from "html-to-image";
 import { useCWTrackerStore } from "@/lib/onchain/cwtracker-store";
 import { CWTrackerLayout } from "@/components/onchain/CWTrackerLayout";
 import { MSActionBar } from "@/components/onchain/MSActionBar";
@@ -27,41 +28,45 @@ export default function CWTrackerInner() {
 
   const [searchOpen, setSearchOpen] = useState(false);
   const [watermarkOn, setWatermarkOn] = useState(false);
+  const [toast, setToast] = useState<string | null>(null);
 
-  /* ── Export as PNG ── */
+  const showToast = useCallback((msg: string, ms = 2500) => {
+    setToast(msg);
+    setTimeout(() => setToast(null), ms);
+  }, []);
+
+  /* ── Export as PNG (html-to-image on .react-flow) ── */
   const handleExportPNG = useCallback(() => {
-    const svg = document.querySelector("svg.canvas-bg") as SVGSVGElement | null;
-    if (!svg) return;
-    const svgData = new XMLSerializer().serializeToString(svg);
-    const canvas = document.createElement("canvas");
-    const rect = svg.getBoundingClientRect();
-    canvas.width = rect.width * 2;
-    canvas.height = rect.height * 2;
-    const ctx = canvas.getContext("2d")!;
-    const img = new Image();
-    img.onload = () => {
-      ctx.fillStyle = "#1f2124";
-      ctx.fillRect(0, 0, canvas.width, canvas.height);
-      ctx.drawImage(img, 0, 0, canvas.width, canvas.height);
+    const el = document.querySelector(".react-flow") as HTMLElement | null;
+    if (!el) { showToast("No graph to export"); return; }
+    toPng(el, {
+      backgroundColor: "#0a0a0a",
+      pixelRatio: 2,
+      filter: (node) => !(node as HTMLElement)?.classList?.contains("react-flow__minimap"),
+    }).then((dataUrl) => {
       const a = document.createElement("a");
       a.download = "cwtracker-graph.png";
-      a.href = canvas.toDataURL("image/png");
+      a.href = dataUrl;
       a.click();
-    };
-    img.src = "data:image/svg+xml;charset=utf-8," + encodeURIComponent(svgData);
-  }, []);
+      showToast("PNG exported ✓");
+    }).catch(() => showToast("Export failed"));
+  }, [showToast]);
 
   /* ── Export as SVG ── */
   const handleExportSVG = useCallback(() => {
-    const svg = document.querySelector("svg.canvas-bg") as SVGSVGElement | null;
-    if (!svg) return;
-    const data = new XMLSerializer().serializeToString(svg);
-    const blob = new Blob([data], { type: "image/svg+xml;charset=utf-8" });
-    const a = document.createElement("a");
-    a.download = "cwtracker-graph.svg";
-    a.href = URL.createObjectURL(blob);
-    a.click();
-  }, []);
+    const el = document.querySelector(".react-flow") as HTMLElement | null;
+    if (!el) { showToast("No graph to export"); return; }
+    toSvg(el, {
+      backgroundColor: "#0a0a0a",
+      filter: (node) => !(node as HTMLElement)?.classList?.contains("react-flow__minimap"),
+    }).then((dataUrl) => {
+      const a = document.createElement("a");
+      a.download = "cwtracker-graph.svg";
+      a.href = dataUrl;
+      a.click();
+      showToast("SVG exported ✓");
+    }).catch(() => showToast("Export failed"));
+  }, [showToast]);
 
   /* ── Export as JSON ── */
   const handleExportJSON = useCallback(() => {
@@ -73,11 +78,16 @@ export default function CWTrackerInner() {
     a.click();
   }, []);
 
-  /* ── Share (copy link) ── */
+  /* ── Share (copy link with root address) ── */
   const handleShare = useCallback(() => {
-    const url = window.location.href;
-    navigator.clipboard.writeText(url).catch(() => {});
-  }, []);
+    const root = useCWTrackerStore.getState().nodes.find((n) => n.isRoot);
+    let url = window.location.href.split("?")[0];
+    if (root?.address) url += `?address=${root.address}&chain=${root.chain || "ethereum"}`;
+    navigator.clipboard.writeText(url).then(
+      () => showToast("Link copied ✓"),
+      () => showToast("Copy failed")
+    );
+  }, [showToast]);
 
   /* ── Toggle watermark ── */
   const handleToggleWatermark = useCallback(() => {
@@ -104,7 +114,22 @@ export default function CWTrackerInner() {
   }, []);
 
   /* ── Canvas starts empty — user searches to begin ── */
-  // No auto-restore from localStorage; user initiates traces via search.
+  /* ── Auto-load from URL query params ── */
+  const autoLoadedRef = useRef(false);
+  useEffect(() => {
+    if (autoLoadedRef.current) return;
+    autoLoadedRef.current = true;
+    const params = new URLSearchParams(window.location.search);
+    const addr = params.get("address");
+    const chain = params.get("chain") || "ethereum";
+    if (addr && addr.length >= 10) {
+      initTrace(addr, chain, `Trace ${addr.slice(0, 6)}...`);
+      const rootNode = useCWTrackerStore.getState().nodes.find((n) => n.isRoot);
+      if (rootNode) {
+        useCWTrackerStore.getState().expandNodeDirection(rootNode.id, "both");
+      }
+    }
+  }, [initTrace]);
 
   /* ── Callbacks ── */
   const handleNodeClick = useCallback(
@@ -134,12 +159,11 @@ export default function CWTrackerInner() {
         useCWTrackerStore.getState().openNodeDetail(existing.id);
       } else {
         initTrace(address, chain, `Trace ${address.slice(0, 6)}...`);
-        setTimeout(() => {
-          const rootNode = useCWTrackerStore.getState().nodes.find((n) => n.isRoot);
-          if (rootNode) {
-            useCWTrackerStore.getState().expandNodeDirection(rootNode.id, "both");
-          }
-        }, 500);
+        // initTrace is synchronous — expand immediately
+        const rootNode = useCWTrackerStore.getState().nodes.find((n) => n.isRoot);
+        if (rootNode) {
+          useCWTrackerStore.getState().expandNodeDirection(rootNode.id, "both");
+        }
       }
       setSearchOpen(false);
     },
@@ -195,6 +219,13 @@ export default function CWTrackerInner() {
               onClose={() => setSearchOpen(false)}
             />
           </div>
+        </div>
+      )}
+
+      {/* ── Toast notification ── */}
+      {toast && (
+        <div className="fixed bottom-8 left-1/2 -translate-x-1/2 z-[9999] px-5 py-2.5 rounded-xl bg-black/80 border border-white/10 text-sm text-white/90 shadow-2xl backdrop-blur-md animate-[fadeInUp_0.2s_ease-out]">
+          {toast}
         </div>
       )}
     </CWTrackerLayout>

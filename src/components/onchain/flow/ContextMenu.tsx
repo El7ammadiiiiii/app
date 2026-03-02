@@ -159,7 +159,7 @@ function ContextMenuComponent({ data, onClose, onAddAnnotation }: ContextMenuPro
         label: "Fit View",
         icon: "⊞",
         action: () => {
-          // Handled externally via reactFlowInstance.fitView()
+          useCWTrackerStore.getState().fitToView();
           onClose();
         },
       }

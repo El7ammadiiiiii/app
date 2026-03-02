@@ -1,0 +1,182 @@
+[baseline-browser-mapping] The data in this module is over two months old.  To ensure accurate Baseline data, please update: `npm i baseline-browser-mapping@latest -D`
+   Γû▓ Next.js 16.0.8 (Turbopack)
+   - Environments: .env.production.local, .env.local, .env
+   - Experiments (use with caution):
+     ┬╖ optimizePackageImports
+
+ ΓÜá The "middleware" file convention is deprecated. Please use "proxy" instead. Learn more: https://nextjs.org/docs/messages/middleware-to-proxy
+   Creating an optimized production build ...
+[baseline-browser-mapping] The data in this module is over two months old.  To ensure accurate Baseline data, please update: `npm i baseline-browser-mapping@latest -D`
+ Γ£ô Compiled successfully in 30.9s
+   Skipping validation of types
+   Collecting page data using 11 workers ...
+[baseline-browser-mapping] The data in this module is over two months old.  To ensure accurate Baseline data, please update: `npm i baseline-browser-mapping@latest -D`
+[baseline-browser-mapping] The data in this module is over two months old.  To ensure accurate Baseline data, please update: `npm i baseline-browser-mapping@latest -D`
+[baseline-browser-mapping] The data in this module is over two months old.  To ensure accurate Baseline data, please update: `npm i baseline-browser-mapping@latest -D`
+[baseline-browser-mapping] The data in this module is over two months old.  To ensure accurate Baseline data, please update: `npm i baseline-browser-mapping@latest -D`
+[baseline-browser-mapping] The data in this module is over two months old.  To ensure accurate Baseline data, please update: `npm i baseline-browser-mapping@latest -D`
+[baseline-browser-mapping] The data in this module is over two months old.  To ensure accurate Baseline data, please update: `npm i baseline-browser-mapping@latest -D`
+[baseline-browser-mapping] The data in this module is over two months old.  To ensure accurate Baseline data, please update: `npm i baseline-browser-mapping@latest -D`
+[baseline-browser-mapping] The data in this module is over two months old.  To ensure accurate Baseline data, please update: `npm i baseline-browser-mapping@latest -D`
+[baseline-browser-mapping] The data in this module is over two months old.  To ensure accurate Baseline data, please update: `npm i baseline-browser-mapping@latest -D`
+[baseline-browser-mapping] The data in this module is over two months old.  To ensure accurate Baseline data, please update: `npm i baseline-browser-mapping@latest -D`
+[baseline-browser-mapping] The data in this module is over two months old.  To ensure accurate Baseline data, please update: `npm i baseline-browser-mapping@latest -D`
+   Generating static pages using 11 workers (0/102) ...
+[baseline-browser-mapping] The data in this module is over two months old.  To ensure accurate Baseline data, please update: `npm i baseline-browser-mapping@latest -D`
+[baseline-browser-mapping] The data in this module is over two months old.  To ensure accurate Baseline data, please update: `npm i baseline-browser-mapping@latest -D`
+[baseline-browser-mapping] The data in this module is over two months old.  To ensure accurate Baseline data, please update: `npm i baseline-browser-mapping@latest -D`
+[baseline-browser-mapping] The data in this module is over two months old.  To ensure accurate Baseline data, please update: `npm i baseline-browser-mapping@latest -D`
+[baseline-browser-mapping] The data in this module is over two months old.  To ensure accurate Baseline data, please update: `npm i baseline-browser-mapping@latest -D`
+   Generating static pages using 11 workers (25/102) 
+   Generating static pages using 11 workers (50/102) 
+   Generating static pages using 11 workers (76/102) 
+ Γ£ô Generating static pages using 11 workers (102/102) in 2.2s
+   Finalizing page optimization ...
+
+Route (app)
+Γöî Γùï /
+Γö£ Γùï /_not-found
+Γö£ ╞Æ /api/agent/search
+Γö£ ╞Æ /api/ai-chart-analysis
+Γö£ ╞Æ /api/altra
+Γö£ ╞Æ /api/analysis
+Γö£ ╞Æ /api/auth/google/callback
+Γö£ ╞Æ /api/auth/google/refresh
+Γö£ ╞Æ /api/auth/google/start
+Γö£ ╞Æ /api/auth/logout
+Γö£ ╞Æ /api/bybit/ohlcv
+Γö£ ╞Æ /api/bybit/orderbook
+Γö£ ╞Æ /api/bybit/rsi-heatmap
+Γö£ ╞Æ /api/bybit/ticker
+Γö£ ╞Æ /api/bybit/trades
+Γö£ ╞Æ /api/canvas/diff/[version]
+Γö£ ╞Æ /api/canvas/edit
+Γö£ ╞Æ /api/canvas/publish
+Γö£ ╞Æ /api/ccways/asset/[hash]
+Γö£ ╞Æ /api/ccways/balance/[address]
+Γö£ ╞Æ /api/ccways/chains
+Γö£ ╞Æ /api/ccways/expand
+Γö£ ╞Æ /api/ccways/flow/[address]
+Γö£ ╞Æ /api/ccways/intel/[address]
+Γö£ ╞Æ /api/ccways/portfolio/[address]
+Γö£ ╞Æ /api/ccways/protocols/[address]
+Γö£ ╞Æ /api/ccways/search
+Γö£ ╞Æ /api/ccways/token/[id]
+Γö£ ╞Æ /api/ccways/transfers
+Γö£ ╞Æ /api/ccways/tx/[hash]
+Γö£ ╞Æ /api/cex
+Γö£ ╞Æ /api/chat/thinking
+Γö£ ╞Æ /api/chat/unified
+Γö£ ╞Æ /api/coingecko
+Γö£ ╞Æ /api/crawler/chain
+Γö£ ╞Æ /api/crawler/cryptoquant-studio
+Γö£ ╞Æ /api/crawler/defillama
+Γö£ ╞Æ /api/crawler/etf
+Γö£ ╞Æ /api/crawler/history
+Γö£ ╞Æ /api/crawler/polygon-analytics
+Γö£ ╞Æ /api/crawler/stakingrewards
+Γö£ ╞Æ /api/crawler/top-holders
+Γö£ ╞Æ /api/cryptorank
+Γö£ ╞Æ /api/deep-research
+Γö£ ╞Æ /api/deep-research/[id]
+Γö£ ╞Æ /api/deep-research/history
+Γö£ ╞Æ /api/dia
+Γö£ ╞Æ /api/dune/[queryId]
+Γö£ ╞Æ /api/dune/layerzero
+Γö£ ╞Æ /api/exchanges/aggregated
+Γö£ ╞Æ /api/exchanges/markets
+Γö£ ╞Æ /api/exchanges/ohlcv
+Γö£ ╞Æ /api/exchanges/orderbook
+Γö£ ╞Æ /api/exchanges/ticker
+Γö£ ╞Æ /api/exchanges/trades
+Γö£ ╞Æ /api/fibonacci-scanner
+Γö£ ╞Æ /api/gemini/image
+Γö£ ╞Æ /api/integrations/[provider]/callback
+Γö£ ╞Æ /api/integrations/[provider]/disconnect
+Γö£ ╞Æ /api/integrations/[provider]/start
+Γö£ ╞Æ /api/integrations/status
+Γö£ ╞Æ /api/integrations/webhooks
+Γö£ ╞Æ /api/levels
+Γö£ ╞Æ /api/mcp/execute
+Γö£ ╞Æ /api/news
+Γö£ ╞Æ /api/ocr
+Γö£ ╞Æ /api/ohlcv
+Γö£ ╞Æ /api/onchain/chains
+Γö£ ╞Æ /api/onchain/entity-icon/[entityId]
+Γö£ ╞Æ /api/onchain/intelligence/search
+Γö£ ╞Æ /api/onchain/token/holders
+Γö£ ╞Æ /api/onchain/trace/build
+Γö£ ╞Æ /api/onchain/trace/edge
+Γö£ ╞Æ /api/onchain/trace/expand
+Γö£ ╞Æ /api/onchain/trace/node
+Γö£ ╞Æ /api/onchain/transfers
+Γö£ ╞Æ /api/orderbook
+Γö£ ╞Æ /api/orderbook-heatmap
+Γö£ ╞Æ /api/patterns/scan
+Γö£ ╞Æ /api/patterns/ts-scan
+Γö£ ╞Æ /api/trend-scanner-dyor
+Γö£ ╞Æ /api/veo/generate
+Γö£ ╞Æ /api/veo/status/[operationName]
+Γö£ ╞Æ /api/whales
+Γö£ ╞Æ /artifacts/[uuid]
+Γö£ Γùï /charts-demo
+Γö£ Γùï /chat
+Γö£ Γùï /chat/bitcoin-etf
+Γö£ Γùï /chat/cexs-inflow-outflow
+Γö£ Γùï /chat/chain-explorer
+Γö£ Γùï /chat/ChainTracker
+Γö£ Γùï /chat/cryptocurrencies
+Γö£ Γùï /chat/cways-studio
+Γö£ Γùï /chat/cwtracker
+Γö£ Γùï /chat/divergence-scanner
+Γö£ Γùï /chat/ethereum-etf
+Γö£ Γùï /chat/etherum-summry
+Γö£ Γùï /chat/fibonacci-scanner
+Γö£ Γùï /chat/layer-zero
+Γö£ Γùï /chat/levels
+Γö£ Γùï /chat/macd-heatmap
+Γö£ Γùï /chat/news
+Γö£ Γùï /chat/orderbook
+Γö£ Γùï /chat/orderbook-heatmap
+Γö£ Γùï /chat/pattern
+Γö£ Γùï /chat/polygon
+Γö£ Γùï /chat/polygon/agora-pos
+Γö£ Γùï /chat/polygon/bitcoin-etf
+Γö£ Γùï /chat/polygon/chain-usage-comparison
+Γö£ Γùï /chat/polygon/ethereum-etf
+Γö£ Γùï /chat/polygon/evm-comparison
+Γö£ Γùï /chat/polygon/fx-dash
+Γö£ Γùï /chat/polygon/pol-token
+Γö£ Γùï /chat/polygon/polygon-data-catalog
+Γö£ Γùï /chat/polygon/polygon-defi
+Γö£ Γùï /chat/polygon/polygon-network
+Γö£ Γùï /chat/polygon/polygon-nft
+Γö£ Γùï /chat/polygon/polygon-pos-payments
+Γö£ Γùï /chat/polygon/polygon-stablecoin
+Γö£ Γùï /chat/polygon/polymarket-markets
+Γö£ Γùï /chat/rsi-heatmap
+Γö£ Γùï /chat/stablecoins
+Γö£ Γùï /chat/staking-rewards
+Γö£ Γùï /chat/token-sales
+Γö£ ╞Æ /chat/token-sales/[id]
+Γö£ ╞Æ /chat/top-holders
+Γö£ Γùï /chat/trader
+Γö£ Γùï /chat/trend-scanner
+Γö£ ╞Æ /chat/trend-scanner/[pair]
+Γö£ Γùï /chat/trend-scanner/favorites
+Γö£ Γùï /chat/visualizer
+Γö£ ╞Æ /chat/visualizer/entity/[...entities]
+Γö£ ╞Æ /chat/visualizer/token/[token]
+Γö£ Γùï /chat/volume-scanner
+Γö£ ╞Æ /chat/whales
+Γö£ ╞Æ /favorites/[id]
+Γö£ Γùï /login
+Γö£ Γùï /responsive-demo
+Γöö Γùï /test-chart
+
+
+╞Æ Proxy (Middleware)
+
+Γùï  (Static)   prerendered as static content
+╞Æ  (Dynamic)  server-rendered on demand
+

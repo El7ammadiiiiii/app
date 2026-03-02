@@ -240,4 +240,4 @@ async def get_stats():
         return await gw.stats()
     except Exception as exc:
         logger.exception("GET /ccways/stats failed")
-        return {"success": False, "error": str(exc)}
+        return sanitize_error(exc)

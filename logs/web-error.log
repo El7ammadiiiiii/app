@@ -1,0 +1,144 @@
+2026-03-02 03:15:05 +03:00: C:\Users\GAME\elhammadi\ccways\node_modules\.bin\next:2
+2026-03-02 03:15:05 +03:00: basedir=$(dirname "$(echo "$0" | sed -e 's,\\,/,g')")
+2026-03-02 03:15:05 +03:00:           ^^^^^^^
+2026-03-02 03:15:05 +03:00: 
+2026-03-02 03:15:05 +03:00: SyntaxError: missing ) after argument list
+2026-03-02 03:15:05 +03:00:     at wrapSafe (node:internal/modules/cjs/loader:1692:18)
+2026-03-02 03:15:05 +03:00:     at Module._compile (node:internal/modules/cjs/loader:1735:20)
+2026-03-02 03:15:05 +03:00:     at Object..js (node:internal/modules/cjs/loader:1893:10)
+2026-03-02 03:15:05 +03:00:     at Module.load (node:internal/modules/cjs/loader:1481:32)
+2026-03-02 03:15:05 +03:00:     at Module._load (node:internal/modules/cjs/loader:1300:12)
+2026-03-02 03:15:05 +03:00:     at TracingChannel.traceSync (node:diagnostics_channel:328:14)
+2026-03-02 03:15:05 +03:00:     at wrapModuleLoad (node:internal/modules/cjs/loader:245:24)
+2026-03-02 03:15:05 +03:00:     at Module.executeUserEntryPoint [as runMain] (node:internal/modules/run_main:154:5)
+2026-03-02 03:15:05 +03:00:     at node:internal/main/run_main_module:33:47
+2026-03-02 03:15:05 +03:00: 
+2026-03-02 03:15:05 +03:00: Node.js v24.13.0
+2026-03-02 03:15:08 +03:00: C:\Users\GAME\elhammadi\ccways\node_modules\.bin\next:2
+2026-03-02 03:15:08 +03:00: basedir=$(dirname "$(echo "$0" | sed -e 's,\\,/,g')")
+2026-03-02 03:15:08 +03:00:           ^^^^^^^
+2026-03-02 03:15:08 +03:00: 
+2026-03-02 03:15:08 +03:00: SyntaxError: missing ) after argument list
+2026-03-02 03:15:08 +03:00:     at wrapSafe (node:internal/modules/cjs/loader:1692:18)
+2026-03-02 03:15:08 +03:00:     at Module._compile (node:internal/modules/cjs/loader:1735:20)
+2026-03-02 03:15:08 +03:00:     at Object..js (node:internal/modules/cjs/loader:1893:10)
+2026-03-02 03:15:08 +03:00:     at Module.load (node:internal/modules/cjs/loader:1481:32)
+2026-03-02 03:15:08 +03:00:     at Module._load (node:internal/modules/cjs/loader:1300:12)
+2026-03-02 03:15:08 +03:00:     at TracingChannel.traceSync (node:diagnostics_channel:328:14)
+2026-03-02 03:15:08 +03:00:     at wrapModuleLoad (node:internal/modules/cjs/loader:245:24)
+2026-03-02 03:15:08 +03:00:     at Module.executeUserEntryPoint [as runMain] (node:internal/modules/run_main:154:5)
+2026-03-02 03:15:08 +03:00:     at node:internal/main/run_main_module:33:47
+2026-03-02 03:15:08 +03:00: 
+2026-03-02 03:15:08 +03:00: Node.js v24.13.0
+2026-03-02 03:15:12 +03:00: C:\Users\GAME\elhammadi\ccways\node_modules\.bin\next:2
+2026-03-02 03:15:12 +03:00: basedir=$(dirname "$(echo "$0" | sed -e 's,\\,/,g')")
+2026-03-02 03:15:12 +03:00:           ^^^^^^^
+2026-03-02 03:15:12 +03:00: 
+2026-03-02 03:15:12 +03:00: SyntaxError: missing ) after argument list
+2026-03-02 03:15:12 +03:00:     at wrapSafe (node:internal/modules/cjs/loader:1692:18)
+2026-03-02 03:15:12 +03:00:     at Module._compile (node:internal/modules/cjs/loader:1735:20)
+2026-03-02 03:15:12 +03:00:     at Object..js (node:internal/modules/cjs/loader:1893:10)
+2026-03-02 03:15:12 +03:00:     at Module.load (node:internal/modules/cjs/loader:1481:32)
+2026-03-02 03:15:12 +03:00:     at Module._load (node:internal/modules/cjs/loader:1300:12)
+2026-03-02 03:15:12 +03:00:     at TracingChannel.traceSync (node:diagnostics_channel:328:14)
+2026-03-02 03:15:12 +03:00:     at wrapModuleLoad (node:internal/modules/cjs/loader:245:24)
+2026-03-02 03:15:12 +03:00:     at Module.executeUserEntryPoint [as runMain] (node:internal/modules/run_main:154:5)
+2026-03-02 03:15:12 +03:00:     at node:internal/main/run_main_module:33:47
+2026-03-02 03:15:12 +03:00: 
+2026-03-02 03:15:12 +03:00: Node.js v24.13.0
+2026-03-02 03:15:15 +03:00: C:\Users\GAME\elhammadi\ccways\node_modules\.bin\next:2
+2026-03-02 03:15:15 +03:00: basedir=$(dirname "$(echo "$0" | sed -e 's,\\,/,g')")
+2026-03-02 03:15:15 +03:00:           ^^^^^^^
+2026-03-02 03:15:15 +03:00: 
+2026-03-02 03:15:15 +03:00: SyntaxError: missing ) after argument list
+2026-03-02 03:15:15 +03:00:     at wrapSafe (node:internal/modules/cjs/loader:1692:18)
+2026-03-02 03:15:15 +03:00:     at Module._compile (node:internal/modules/cjs/loader:1735:20)
+2026-03-02 03:15:15 +03:00:     at Object..js (node:internal/modules/cjs/loader:1893:10)
+2026-03-02 03:15:15 +03:00:     at Module.load (node:internal/modules/cjs/loader:1481:32)
+2026-03-02 03:15:15 +03:00:     at Module._load (node:internal/modules/cjs/loader:1300:12)
+2026-03-02 03:15:15 +03:00:     at TracingChannel.traceSync (node:diagnostics_channel:328:14)
+2026-03-02 03:15:15 +03:00:     at wrapModuleLoad (node:internal/modules/cjs/loader:245:24)
+2026-03-02 03:15:15 +03:00:     at Module.executeUserEntryPoint [as runMain] (node:internal/modules/run_main:154:5)
+2026-03-02 03:15:15 +03:00:     at node:internal/main/run_main_module:33:47
+2026-03-02 03:15:15 +03:00: 
+2026-03-02 03:15:15 +03:00: Node.js v24.13.0
+2026-03-02 03:15:18 +03:00: C:\Users\GAME\elhammadi\ccways\node_modules\.bin\next:2
+2026-03-02 03:15:18 +03:00: basedir=$(dirname "$(echo "$0" | sed -e 's,\\,/,g')")
+2026-03-02 03:15:18 +03:00:           ^^^^^^^
+2026-03-02 03:15:18 +03:00: 
+2026-03-02 03:15:18 +03:00: SyntaxError: missing ) after argument list
+2026-03-02 03:15:18 +03:00:     at wrapSafe (node:internal/modules/cjs/loader:1692:18)
+2026-03-02 03:15:18 +03:00:     at Module._compile (node:internal/modules/cjs/loader:1735:20)
+2026-03-02 03:15:18 +03:00:     at Object..js (node:internal/modules/cjs/loader:1893:10)
+2026-03-02 03:15:18 +03:00:     at Module.load (node:internal/modules/cjs/loader:1481:32)
+2026-03-02 03:15:18 +03:00:     at Module._load (node:internal/modules/cjs/loader:1300:12)
+2026-03-02 03:15:18 +03:00:     at TracingChannel.traceSync (node:diagnostics_channel:328:14)
+2026-03-02 03:15:18 +03:00:     at wrapModuleLoad (node:internal/modules/cjs/loader:245:24)
+2026-03-02 03:15:18 +03:00:     at Module.executeUserEntryPoint [as runMain] (node:internal/modules/run_main:154:5)
+2026-03-02 03:15:18 +03:00:     at node:internal/main/run_main_module:33:47
+2026-03-02 03:15:18 +03:00: 
+2026-03-02 03:15:18 +03:00: Node.js v24.13.0
+2026-03-02 03:15:21 +03:00: C:\Users\GAME\elhammadi\ccways\node_modules\.bin\next:2
+2026-03-02 03:15:21 +03:00: basedir=$(dirname "$(echo "$0" | sed -e 's,\\,/,g')")
+2026-03-02 03:15:21 +03:00:           ^^^^^^^
+2026-03-02 03:15:21 +03:00: 
+2026-03-02 03:15:21 +03:00: SyntaxError: missing ) after argument list
+2026-03-02 03:15:21 +03:00:     at wrapSafe (node:internal/modules/cjs/loader:1692:18)
+2026-03-02 03:15:21 +03:00:     at Module._compile (node:internal/modules/cjs/loader:1735:20)
+2026-03-02 03:15:21 +03:00:     at Object..js (node:internal/modules/cjs/loader:1893:10)
+2026-03-02 03:15:21 +03:00:     at Module.load (node:internal/modules/cjs/loader:1481:32)
+2026-03-02 03:15:21 +03:00:     at Module._load (node:internal/modules/cjs/loader:1300:12)
+2026-03-02 03:15:21 +03:00:     at TracingChannel.traceSync (node:diagnostics_channel:328:14)
+2026-03-02 03:15:21 +03:00:     at wrapModuleLoad (node:internal/modules/cjs/loader:245:24)
+2026-03-02 03:15:21 +03:00:     at Module.executeUserEntryPoint [as runMain] (node:internal/modules/run_main:154:5)
+2026-03-02 03:15:21 +03:00:     at node:internal/main/run_main_module:33:47
+2026-03-02 03:15:21 +03:00: 
+2026-03-02 03:15:21 +03:00: Node.js v24.13.0
+2026-03-02 03:15:24 +03:00: C:\Users\GAME\elhammadi\ccways\node_modules\.bin\next:2
+2026-03-02 03:15:24 +03:00: basedir=$(dirname "$(echo "$0" | sed -e 's,\\,/,g')")
+2026-03-02 03:15:24 +03:00:           ^^^^^^^
+2026-03-02 03:15:24 +03:00: 
+2026-03-02 03:15:24 +03:00: SyntaxError: missing ) after argument list
+2026-03-02 03:15:24 +03:00:     at wrapSafe (node:internal/modules/cjs/loader:1692:18)
+2026-03-02 03:15:24 +03:00:     at Module._compile (node:internal/modules/cjs/loader:1735:20)
+2026-03-02 03:15:24 +03:00:     at Object..js (node:internal/modules/cjs/loader:1893:10)
+2026-03-02 03:15:24 +03:00:     at Module.load (node:internal/modules/cjs/loader:1481:32)
+2026-03-02 03:15:24 +03:00:     at Module._load (node:internal/modules/cjs/loader:1300:12)
+2026-03-02 03:15:24 +03:00:     at TracingChannel.traceSync (node:diagnostics_channel:328:14)
+2026-03-02 03:15:24 +03:00:     at wrapModuleLoad (node:internal/modules/cjs/loader:245:24)
+2026-03-02 03:15:24 +03:00:     at Module.executeUserEntryPoint [as runMain] (node:internal/modules/run_main:154:5)
+2026-03-02 03:15:24 +03:00:     at node:internal/main/run_main_module:33:47
+2026-03-02 03:15:24 +03:00: 
+2026-03-02 03:15:24 +03:00: Node.js v24.13.0
+2026-03-02 03:15:27 +03:00: C:\Users\GAME\elhammadi\ccways\node_modules\.bin\next:2
+2026-03-02 03:15:27 +03:00: basedir=$(dirname "$(echo "$0" | sed -e 's,\\,/,g')")
+2026-03-02 03:15:27 +03:00:           ^^^^^^^
+2026-03-02 03:15:27 +03:00: 
+2026-03-02 03:15:27 +03:00: SyntaxError: missing ) after argument list
+2026-03-02 03:15:27 +03:00:     at wrapSafe (node:internal/modules/cjs/loader:1692:18)
+2026-03-02 03:15:27 +03:00:     at Module._compile (node:internal/modules/cjs/loader:1735:20)
+2026-03-02 03:15:27 +03:00:     at Object..js (node:internal/modules/cjs/loader:1893:10)
+2026-03-02 03:15:27 +03:00:     at Module.load (node:internal/modules/cjs/loader:1481:32)
+2026-03-02 03:15:27 +03:00:     at Module._load (node:internal/modules/cjs/loader:1300:12)
+2026-03-02 03:15:27 +03:00:     at TracingChannel.traceSync (node:diagnostics_channel:328:14)
+2026-03-02 03:15:27 +03:00:     at wrapModuleLoad (node:internal/modules/cjs/loader:245:24)
+2026-03-02 03:15:27 +03:00:     at Module.executeUserEntryPoint [as runMain] (node:internal/modules/run_main:154:5)
+2026-03-02 03:15:27 +03:00:     at node:internal/main/run_main_module:33:47
+2026-03-02 03:15:27 +03:00: 
+2026-03-02 03:15:27 +03:00: Node.js v24.13.0
+2026-03-02 03:15:30 +03:00: C:\Users\GAME\elhammadi\ccways\node_modules\.bin\next:2
+2026-03-02 03:15:30 +03:00: basedir=$(dirname "$(echo "$0" | sed -e 's,\\,/,g')")
+2026-03-02 03:15:30 +03:00:           ^^^^^^^
+2026-03-02 03:15:30 +03:00: 
+2026-03-02 03:15:30 +03:00: SyntaxError: missing ) after argument list
+2026-03-02 03:15:30 +03:00:     at wrapSafe (node:internal/modules/cjs/loader:1692:18)
+2026-03-02 03:15:30 +03:00:     at Module._compile (node:internal/modules/cjs/loader:1735:20)
+2026-03-02 03:15:30 +03:00:     at Object..js (node:internal/modules/cjs/loader:1893:10)
+2026-03-02 03:15:30 +03:00:     at Module.load (node:internal/modules/cjs/loader:1481:32)
+2026-03-02 03:15:30 +03:00:     at Module._load (node:internal/modules/cjs/loader:1300:12)
+2026-03-02 03:15:30 +03:00:     at TracingChannel.traceSync (node:diagnostics_channel:328:14)
+2026-03-02 03:15:30 +03:00:     at wrapModuleLoad (node:internal/modules/cjs/loader:245:24)
+2026-03-02 03:15:30 +03:00:     at Module.executeUserEntryPoint [as runMain] (node:internal/modules/run_main:154:5)
+2026-03-02 03:15:30 +03:00:     at node:internal/main/run_main_module:33:47
+2026-03-02 03:15:30 +03:00: 
+2026-03-02 03:15:30 +03:00: Node.js v24.13.0

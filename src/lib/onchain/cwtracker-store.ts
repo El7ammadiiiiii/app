@@ -322,7 +322,7 @@ export const useCWTrackerStore = create<CWTrackerState & CWTrackerActions>()(
           balanceToken: chain === "ethereum" ? "ETH" : chain === "bsc" ? "BNB" : "ETH",
           totalValueUSD: 0,
           activeChains: [chain],
-          chainBalances: { [chain]: { native: 0, usd: 0 } },
+          chainBalances: { [chain]: [{ token: chain === "ethereum" ? "ETH" : chain === "bsc" ? "BNB" : "ETH", amount: 0, usdValue: 0 }] },
           chainFirstSeen: { [chain]: new Date().toISOString() },
           totalKnownTransfers: 0,
         };
@@ -336,7 +336,7 @@ export const useCWTrackerStore = create<CWTrackerState & CWTrackerActions>()(
 
     loadCSVData(nodes, edges) {
       set((s) => {
-        s.pushUndo = () => {}; // skip undo for initial load
+        // Note: do NOT overwrite s.pushUndo inside immer draft — it permanently kills undo
 
         // Deduplicate nodes by address key
         const existing = new Set(s.nodes.map((n) => normalizeAddressKey(n.address, n.chain)));
