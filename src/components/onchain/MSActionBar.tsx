@@ -12,7 +12,6 @@
 import React, { useState, useCallback, useMemo } from "react";
 import { useCWTrackerStore } from "@/lib/onchain/cwtracker-store";
 import { getMSChainIconUrl } from "@/lib/onchain/cwtracker-types";
-import { autoSave } from "@/lib/onchain/persistence";
 
 /* ── Tooltip wrapper ── */
 function Tip({ text, children }: { text: string; children: React.ReactNode }) {
@@ -89,19 +88,11 @@ export function MSActionBar({
   const [isEditing, setIsEditing] = useState(false);
   const [editValue, setEditValue] = useState(title);
   const [showExport, setShowExport] = useState(false);
-  const [saveFlash, setSaveFlash] = useState(false);
 
   const handleTitleSave = useCallback(() => {
     if (editValue.trim()) setTitle(editValue.trim());
     setIsEditing(false);
   }, [editValue, setTitle]);
-
-  const handleSave = useCallback(() => {
-    const snapshot = useCWTrackerStore.getState().getSnapshot();
-    autoSave(snapshot);
-    setSaveFlash(true);
-    setTimeout(() => setSaveFlash(false), 1200);
-  }, []);
 
   return (
     <div>
@@ -117,10 +108,10 @@ export function MSActionBar({
 
         {/* Title */}
         <div className="flex items-center gap-2 flex-1 min-w-0">
-          <span className="text-white text-sm font-medium truncate max-w-[300px]">
+          <span className="text-white text-sm font-medium truncate max-w-[300px] sm:max-w-[300px] max-w-[120px]">
             InterChain Tracker
           </span>
-          <span className="text-[var(--desc-color)] text-xs truncate max-w-[200px]">
+          <span className="text-[var(--desc-color)] text-xs truncate max-w-[200px] hidden sm:inline">
             — {title}
           </span>
         </div>
@@ -135,7 +126,7 @@ export function MSActionBar({
               className="w-5 h-5 rounded-full"
             />
           ))}
-          <span className="text-xs text-[var(--desc-color)] ml-2">
+          <span className="text-xs text-[var(--desc-color)] ml-2 hidden sm:inline">
             {nodes.length} addresses · {edges.length} transfers
           </span>
         </div>
@@ -145,7 +136,6 @@ export function MSActionBar({
       <div className="index_graphDataAction__yKrL2">
         {/* Left side: Save, Share, Edit, Download */}
         <div className="flex items-center gap-1">
-          <IBtn icon="icon-save1" size={18} tip={saveFlash ? "Saved ✓" : "Save"} onClick={handleSave} />
           <IBtn icon="icon-share" size={18} tip="Share" onClick={onShare} />
           
           {/* Edit title */}
@@ -231,13 +221,7 @@ export function MSActionBar({
             active={controlMode === "draw_edge"}
             onClick={() => setControlMode(controlMode === "draw_edge" ? "select" : "draw_edge")}
           />
-          <IBtn
-            icon="icon-note"
-            size={20}
-            tip="Add memo"
-            active={controlMode === "annotate"}
-            onClick={() => setControlMode(controlMode === "annotate" ? "select" : "annotate")}
-          />
+
         </div>
       </div>
     </div>

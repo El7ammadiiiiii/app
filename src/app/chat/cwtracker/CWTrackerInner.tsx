@@ -19,6 +19,7 @@ import { MSInterChainTracker } from "@/components/onchain/MSInterChainTracker";
 import { MSEdgeStylePicker } from "@/components/onchain/MSEdgeStylePicker";
 import { MSEdgeList } from "@/components/onchain/MSEdgeList";
 import { SmartSearchInput } from "@/components/onchain/SmartSearchInput";
+import { ShareModal } from "@/components/share";
 import { autoSave } from "@/lib/onchain/persistence";
 
 export default function CWTrackerInner() {
@@ -27,7 +28,8 @@ export default function CWTrackerInner() {
   const selectNode = useCWTrackerStore((s) => s.selectNode);
 
   const [searchOpen, setSearchOpen] = useState(false);
-  const [watermarkOn, setWatermarkOn] = useState(false);
+  const [shareOpen, setShareOpen] = useState(false);
+  const [shareUrl, setShareUrl] = useState("");
   const [toast, setToast] = useState<string | null>(null);
 
   const showToast = useCallback((msg: string, ms = 2500) => {
@@ -78,20 +80,13 @@ export default function CWTrackerInner() {
     a.click();
   }, []);
 
-  /* ── Share (copy link with root address) ── */
+  /* ── Share (open ShareModal with share link) ── */
   const handleShare = useCallback(() => {
     const root = useCWTrackerStore.getState().nodes.find((n) => n.isRoot);
     let url = window.location.href.split("?")[0];
     if (root?.address) url += `?address=${root.address}&chain=${root.chain || "ethereum"}`;
-    navigator.clipboard.writeText(url).then(
-      () => showToast("Link copied ✓"),
-      () => showToast("Copy failed")
-    );
-  }, [showToast]);
-
-  /* ── Toggle watermark ── */
-  const handleToggleWatermark = useCallback(() => {
-    setWatermarkOn((prev) => !prev);
+    setShareUrl(url);
+    setShareOpen(true);
   }, []);
 
   /* ── Auto-save on state changes ── */
@@ -185,11 +180,6 @@ export default function CWTrackerInner() {
         <MSGraphToolbar
           onSearchOpen={() => setSearchOpen(true)}
           onAddAddress={() => setSearchOpen(true)}
-          onMemo={() => {
-            const mode = useCWTrackerStore.getState().controlMode;
-            useCWTrackerStore.getState().setControlMode(mode === "annotate" ? "select" : "annotate");
-          }}
-          onToggleWatermark={handleToggleWatermark}
         />
       }
       rightToolbar={<MSRightToolbar />}
@@ -221,6 +211,15 @@ export default function CWTrackerInner() {
           </div>
         </div>
       )}
+
+      {/* ── Share Modal ── */}
+      <ShareModal
+        isOpen={shareOpen}
+        onClose={() => setShareOpen(false)}
+        title="Share CWTracker Graph"
+        shareUrl={shareUrl}
+        shareText="Check out this on-chain graph on CCWAYS CWTracker"
+      />
 
       {/* ── Toast notification ── */}
       {toast && (

@@ -201,7 +201,7 @@ class AlphaClient(BaseClient):
         address: str,
         chain: Optional[str] = None,
         flow: Optional[str] = None,
-        limit: int = 100,
+        limit: int = 10,
         offset: int = 0,
     ) -> Dict:
         """

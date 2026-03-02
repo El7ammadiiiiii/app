@@ -956,67 +956,6 @@ export function MSAddressDetail() {
     setEditingLabel(false);
   }, [node, editLabelValue, updateNode]);
 
-  /* ── Checkbox handlers — Related Address tab ── */
-  const handleToggleCheck = useCallback((nodeId: string) => {
-    setCheckedIds((prev) => {
-      const next = new Set(prev);
-      if (next.has(nodeId)) next.delete(nodeId);
-      else next.add(nodeId);
-      return next;
-    });
-  }, []);
-
-  const handleToggleAll = useCallback(() => {
-    setCheckedIds((prev) => {
-      const allIds = relatedAddresses.map((r) => r.nodeId);
-      const allChecked = allIds.every((id) => prev.has(id));
-      if (allChecked) return new Set();
-      return new Set(allIds);
-    });
-  }, [relatedAddresses]);
-
-  /* ── Checkbox handlers — Transfer tab ── */
-  const handleTransferToggleCheck = useCallback((key: string) => {
-    setTransferCheckedIds((prev) => {
-      const next = new Set(prev);
-      if (next.has(key)) next.delete(key);
-      else next.add(key);
-      return next;
-    });
-  }, []);
-
-  const handleTransferToggleAll = useCallback(() => {
-    setTransferCheckedIds((prev) => {
-      if (prev.size > 0) return new Set();
-      return new Set(transfers.map((_, i) => `tx-${i}`));
-    });
-  }, [transfers]);
-
-  /* ── Bulk: Add/Remove from canvas — Related Address tab ── */
-  const handleBulkAddToCanvas = useCallback(() => {
-    checkedIds.forEach((nodeId) => {
-      const n = nodes.find((nd) => nd.id === nodeId);
-      if (n && n.isVisibleOnCanvas === false) {
-        toggleNodeVisibility(nodeId);
-      }
-    });
-    setCheckedIds(new Set());
-  }, [checkedIds, nodes, toggleNodeVisibility]);
-
-  const handleBulkRemoveFromCanvas = useCallback(() => {
-    checkedIds.forEach((nodeId) => {
-      const n = nodes.find((nd) => nd.id === nodeId);
-      if (n && n.isVisibleOnCanvas !== false) {
-        toggleNodeVisibility(nodeId);
-      }
-    });
-    setCheckedIds(new Set());
-  }, [checkedIds, nodes, toggleNodeVisibility]);
-
-  const handleClearChecked = useCallback(() => {
-    setCheckedIds(new Set());
-  }, []);
-
   /* ── Compute transfers (with counterparty fields) — robust date/hash ── */
   const transfers = useMemo((): TransferRow[] => {
     if (!node) return [];
@@ -1121,6 +1060,126 @@ export function MSAddressDetail() {
     return rows;
   }, [node, nodes, edges, fetchedTransfers]);
 
+  /* ── Compute related addresses (with transfer count + visibility) ── */
+  const relatedAddresses = useMemo((): RelatedAddress[] => {
+    if (!node) return [];
+    const result: RelatedAddress[] = [];
+    const seen = new Set<string>();
+
+    const totalTx = edges
+      .filter((e) => e.source === node.id || e.target === node.id)
+      .reduce((sum, e) => sum + Math.max(e.details.length, 1), 0);
+
+    for (const edge of edges) {
+      let neighborId: string | null = null;
+      let dir: "IN" | "OUT" | null = null;
+
+      if (edge.source === node.id) {
+        neighborId = edge.target;
+        dir = "OUT";
+      } else if (edge.target === node.id) {
+        neighborId = edge.source;
+        dir = "IN";
+      }
+      if (!neighborId || !dir) continue;
+
+      const neighbor = nodes.find((n) => n.id === neighborId);
+      if (!neighbor) continue;
+
+      if (seen.has(neighbor.id)) {
+        const existing = result.find((r) => r.nodeId === neighbor.id);
+        if (existing && existing.direction !== dir) {
+          existing.direction = "IN/OUT";
+        }
+        if (existing && !existing.tokens.includes(edge.tokenSymbol)) {
+          existing.tokens.push(edge.tokenSymbol);
+        }
+        if (existing) {
+          existing.transferCount += edge.transferCount || 1;
+        }
+        continue;
+      }
+
+      seen.add(neighbor.id);
+      result.push({
+        nodeId: neighbor.id,
+        address: neighbor.address,
+        label: neighbor.label,
+        chain: neighbor.chain,
+        type: neighbor.type,
+        riskLevel: neighbor.riskLevel,
+        direction: dir,
+        tokens: edge.tokenSymbol ? [edge.tokenSymbol] : [],
+        transferCount: edge.transferCount || 1,
+        totalTransferCount: totalTx,
+        isVisibleOnCanvas: neighbor.isVisibleOnCanvas !== false,
+      });
+    }
+
+    return result;
+  }, [node, nodes, edges]);
+
+  /* ── Checkbox handlers — Related Address tab ── */
+  const handleToggleCheck = useCallback((nodeId: string) => {
+    setCheckedIds((prev) => {
+      const next = new Set(prev);
+      if (next.has(nodeId)) next.delete(nodeId);
+      else next.add(nodeId);
+      return next;
+    });
+  }, []);
+
+  const handleToggleAll = useCallback(() => {
+    setCheckedIds((prev) => {
+      const allIds = relatedAddresses.map((r) => r.nodeId);
+      const allChecked = allIds.every((id) => prev.has(id));
+      if (allChecked) return new Set();
+      return new Set(allIds);
+    });
+  }, [relatedAddresses]);
+
+  /* ── Checkbox handlers — Transfer tab ── */
+  const handleTransferToggleCheck = useCallback((key: string) => {
+    setTransferCheckedIds((prev) => {
+      const next = new Set(prev);
+      if (next.has(key)) next.delete(key);
+      else next.add(key);
+      return next;
+    });
+  }, []);
+
+  const handleTransferToggleAll = useCallback(() => {
+    setTransferCheckedIds((prev) => {
+      if (prev.size > 0) return new Set();
+      return new Set(transfers.map((_, i) => `tx-${i}`));
+    });
+  }, [transfers]);
+
+  /* ── Bulk: Add/Remove from canvas — Related Address tab ── */
+  const handleBulkAddToCanvas = useCallback(() => {
+    checkedIds.forEach((nodeId) => {
+      const n = nodes.find((nd) => nd.id === nodeId);
+      if (n && n.isVisibleOnCanvas === false) {
+        toggleNodeVisibility(nodeId);
+      }
+    });
+    setCheckedIds(new Set());
+  }, [checkedIds, nodes, toggleNodeVisibility]);
+
+  const handleBulkRemoveFromCanvas = useCallback(() => {
+    checkedIds.forEach((nodeId) => {
+      const n = nodes.find((nd) => nd.id === nodeId);
+      if (n && n.isVisibleOnCanvas !== false) {
+        toggleNodeVisibility(nodeId);
+      }
+    });
+    setCheckedIds(new Set());
+  }, [checkedIds, nodes, toggleNodeVisibility]);
+
+  const handleClearChecked = useCallback(() => {
+    setCheckedIds(new Set());
+  }, []);
+
   /* ── Bulk: Add/Remove from canvas — Transfer tab ── */
   const handleTransferBulkAddToCanvas = useCallback(() => {
     const nodeIdsToShow = new Set<string>();
@@ -1182,66 +1241,6 @@ export function MSAddressDetail() {
     }
     setSidebarSubTab(tab);
   }, [setSidebarSubTab]);
-
-  /* ── Compute related addresses (with transfer count + visibility) ── */
-  const relatedAddresses = useMemo((): RelatedAddress[] => {
-    if (!node) return [];
-    const result: RelatedAddress[] = [];
-    const seen = new Set<string>();
-
-    // Compute total transfers for this node
-    const totalTx = edges
-      .filter((e) => e.source === node.id || e.target === node.id)
-      .reduce((sum, e) => sum + Math.max(e.details.length, 1), 0);
-
-    for (const edge of edges) {
-      let neighborId: string | null = null;
-      let dir: "IN" | "OUT" | null = null;
-
-      if (edge.source === node.id) {
-        neighborId = edge.target;
-        dir = "OUT";
-      } else if (edge.target === node.id) {
-        neighborId = edge.source;
-        dir = "IN";
-      }
-      if (!neighborId || !dir) continue;
-
-      const neighbor = nodes.find((n) => n.id === neighborId);
-      if (!neighbor) continue;
-
-      if (seen.has(neighbor.id)) {
-        const existing = result.find((r) => r.nodeId === neighbor.id);
-        if (existing && existing.direction !== dir) {
-          existing.direction = "IN/OUT";
-        }
-        if (existing && !existing.tokens.includes(edge.tokenSymbol)) {
-          existing.tokens.push(edge.tokenSymbol);
-        }
-        if (existing) {
-          existing.transferCount += edge.transferCount || 1;
-        }
-        continue;
-      }
-
-      seen.add(neighbor.id);
-      result.push({
-        nodeId: neighbor.id,
-        address: neighbor.address,
-        label: neighbor.label,
-        chain: neighbor.chain,
-        type: neighbor.type,
-        riskLevel: neighbor.riskLevel,
-        direction: dir,
-        tokens: edge.tokenSymbol ? [edge.tokenSymbol] : [],
-        transferCount: edge.transferCount || 1,
-        totalTransferCount: totalTx,
-        isVisibleOnCanvas: neighbor.isVisibleOnCanvas !== false,
-      });
-    }
-
-    return result;
-  }, [node, nodes, edges]);
 
   /* Total transfer count for the status message */
   const totalTransferCount = useMemo(() => {

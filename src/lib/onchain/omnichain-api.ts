@@ -41,7 +41,7 @@ export async function fetchOmniChainData(
         address,
         nodeId,
         direction,
-        limit: 100,
+        limit: 10,
         ...(filter?.dateFrom ? { dateFrom: filter.dateFrom } : {}),
         ...(filter?.dateTo ? { dateTo: filter.dateTo } : {}),
         ...(filter?.tokenFilter ? { tokenFilter: filter.tokenFilter } : {}),

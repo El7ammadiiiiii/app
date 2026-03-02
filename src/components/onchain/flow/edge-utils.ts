@@ -140,3 +140,26 @@ export function getFlowAnimationStyle(speed = 1): React.CSSProperties {
     animation: `flowDash ${1 / speed}s linear infinite`,
   };
 }
+
+/**
+ * Format a raw timestamp (epoch ms, epoch s, or ISO string) to YYYY-MM-DD HH:mm:ss.
+ */
+export function formatTimestamp(ts: string | number | undefined): string {
+  if (!ts) return "";
+  try {
+    const tNum =
+      typeof ts === "string"
+        ? Number(ts) > 0 && !isNaN(Number(ts))
+          ? Number(ts) > 1e12
+            ? Number(ts)
+            : Number(ts) * 1000
+          : new Date(ts).getTime()
+        : ts;
+    const d = new Date(tNum);
+    if (isNaN(d.getTime()) || d.getTime() <= 0) return "";
+    const pad = (n: number) => String(n).padStart(2, "0");
+    return `${d.getFullYear()}-${pad(d.getMonth() + 1)}-${pad(d.getDate())} ${pad(d.getHours())}:${pad(d.getMinutes())}:${pad(d.getSeconds())}`;
+  } catch {
+    return "";
+  }
+}

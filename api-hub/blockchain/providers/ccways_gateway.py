@@ -471,7 +471,7 @@ class CCWaysGateway:
         node_id: str,
         direction: str = "both",
         chains: Optional[List[str]] = None,
-        limit: int = 100,
+        limit: int = 10,
     ) -> Dict:
         """
         Graph expansion — counterparties + transfers.

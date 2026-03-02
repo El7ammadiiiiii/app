@@ -46,7 +46,7 @@ class ExpandRequest(BaseModel):
     nodeId: str = Field(..., description="Parent node ID in the graph")
     direction: str = Field("both", description="'in', 'out', 'left', 'right', 'both'")
     chains: Optional[List[str]] = Field(None, description="Filter by chains")
-    limit: int = Field(100, ge=1, le=500, description="Max counterparties")
+    limit: int = Field(10, ge=1, le=500, description="Max counterparties")
 
 
 # ═══════════════════════════════════════════════════════════════════════════════

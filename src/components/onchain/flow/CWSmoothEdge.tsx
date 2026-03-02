@@ -14,7 +14,7 @@ import {
 } from "@xyflow/react";
 import { useCWTrackerStore } from "@/lib/onchain/cwtracker-store";
 import { msFormatTokenAmount } from "@/lib/onchain/cwtracker-types";
-import { routeToSmoothPath, computeArrowPoints } from "./edge-utils";
+import { routeToSmoothPath, computeArrowPoints, formatTimestamp } from "./edge-utils";
 import { getEdgeEntityColor } from "./node-shapes";
 import { EDGE_WIDTH, ARROW_SIZE, ANIMATED_DOT_COLOR } from "./constants";
 import { markerUrlForEdge, SELECTED_MARKER_URL } from "./EdgeMarkerDefs";
@@ -90,6 +90,10 @@ function CWSmoothEdgeComponent({
   const amountStr =
     data.amountLabel ||
     msFormatTokenAmount(data.totalValue ?? 0, data.tokenSymbol ?? "");
+  const ts =
+    data.latestTimestamp || (data.details?.[0]?.timestamp);
+  const dateStr = formatTimestamp(ts);
+  const labelText = dateStr ? `[${dateStr}] ${amountStr}` : amountStr;
 
   const handleMouseEnter = useCallback(() => hoverEdge(data.msEdgeId), [data.msEdgeId, hoverEdge]);
   const handleMouseLeave = useCallback(() => hoverEdge(null), [hoverEdge]);
@@ -155,10 +159,14 @@ function CWSmoothEdgeComponent({
             fontFamily: "Inter, sans-serif",
             userSelect: "none",
             whiteSpace: "nowrap",
+            background: "rgba(14,14,14,0.82)",
+            padding: "1px 8px",
+            borderRadius: 4,
+            border: "1px solid rgba(255,255,255,0.08)",
           }}
         >
           <span style={{ color, fontWeight: 600 }}>{ordinalStr} </span>
-          <span style={{ color: "#fff" }}>{amountStr}</span>
+          <span style={{ color: "#fff" }}>{labelText}</span>
 
           {/* Hover action buttons */}
           {(isHovered || selected) && (

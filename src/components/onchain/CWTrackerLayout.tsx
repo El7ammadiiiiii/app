@@ -70,17 +70,17 @@ export function CWTrackerLayout({
         </div>
 
         {/* Floating Graph Toolbar — top-left */}
-        <div className="absolute left-4 top-4 z-10">
+        <div className="absolute left-2 top-2 z-10 sm:left-4 sm:top-4 max-w-[calc(100vw-80px)] overflow-x-auto">
           {graphToolbar}
         </div>
 
         {/* Floating Right Toolbar — right side */}
-        <div className="absolute right-4 top-4 z-10">
+        <div className="absolute right-2 top-2 z-10 sm:right-4 sm:top-4">
           {rightToolbar}
         </div>
 
         {/* Floating Zoom Bar — bottom-right */}
-        <div className="absolute right-4 bottom-4 z-10">
+        <div className="absolute right-2 bottom-2 z-10 sm:right-4 sm:bottom-4">
           {zoomBar}
         </div>
 

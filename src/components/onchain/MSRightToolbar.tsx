@@ -7,9 +7,8 @@
 
 "use client";
 
-import React, { useState, useRef, useEffect } from "react";
+import React from "react";
 import { useCWTrackerStore } from "@/lib/onchain/cwtracker-store";
-import { MS_NODE } from "@/lib/onchain/cwtracker-types";
 
 /* ── Tooltip ── */
 function Tip({ text, children, side = "left" }: { text: string; children: React.ReactNode; side?: "left" | "right" }) {
@@ -61,9 +60,6 @@ function HDivider() {
 }
 
 export function MSRightToolbar() {
-  const nodeSpacing = useCWTrackerStore((s) => s.nodeSpacing);
-  const setNodeSpacing = useCWTrackerStore((s) => s.setNodeSpacing);
-  const relayout = useCWTrackerStore((s) => s.relayout);
   const undo = useCWTrackerStore((s) => s.undo);
   const redo = useCWTrackerStore((s) => s.redo);
   const undoStack = useCWTrackerStore((s) => s.undoStack);
@@ -71,20 +67,6 @@ export function MSRightToolbar() {
   const edgeStyleEdgeId = useCWTrackerStore((s) => s.edgeStyleEdgeId);
   const openEdgeStylePicker = useCWTrackerStore((s) => s.openEdgeStylePicker);
   const closeEdgeStylePicker = useCWTrackerStore((s) => s.closeEdgeStylePicker);
-
-  const [showSpacing, setShowSpacing] = useState(false);
-  const spacingRef = useRef<HTMLDivElement>(null);
-
-  /* close slider on outside click */
-  useEffect(() => {
-    const handler = (e: MouseEvent) => {
-      if (spacingRef.current && !spacingRef.current.contains(e.target as Node)) {
-        setShowSpacing(false);
-      }
-    };
-    document.addEventListener("mousedown", handler);
-    return () => document.removeEventListener("mousedown", handler);
-  }, []);
 
   return (
     <div
@@ -116,49 +98,6 @@ export function MSRightToolbar() {
           useCWTrackerStore.getState().setControlMode(mode === "draw_edge" ? "select" : "draw_edge");
         }}
       />
-
-      <HDivider />
-
-      {/* Auto layout */}
-      <IBtn
-        icon="icon-auto_layout"
-        size={20}
-        tip="Automatic layout"
-        onClick={relayout}
-      />
-
-      {/* Spacing slider */}
-      <div ref={spacingRef} className="relative">
-        <IBtn
-          icon="icon-horizontal_spacing"
-          size={20}
-          tip="Adjust spacing"
-          onClick={() => setShowSpacing(!showSpacing)}
-        />
-        {showSpacing && (
-          <div
-            className="absolute right-full mr-3 top-1/2 -translate-y-1/2 bg-[var(--dropdown-bgc)] border border-[var(--default-border-color)] rounded-lg shadow-lg z-50 p-3 flex flex-col gap-2"
-            style={{ width: 200 }}
-          >
-            <div className="flex items-center justify-between text-xs text-[var(--desc-color)]">
-              <span>Spacing</span>
-              <span className="text-white">{nodeSpacing}</span>
-            </div>
-            <input
-              type="range"
-              min={MS_NODE.minSpacing}
-              max={MS_NODE.maxSpacing}
-              value={nodeSpacing}
-              onChange={(e) => setNodeSpacing(Number(e.target.value))}
-              className="w-full accent-[var(--default-color)] cursor-pointer"
-            />
-            <div className="flex items-center justify-between text-[10px] text-[var(--placeholder-color)]">
-              <span>{MS_NODE.minSpacing}</span>
-              <span>{MS_NODE.maxSpacing}</span>
-            </div>
-          </div>
-        )}
-      </div>
 
       <HDivider />
 

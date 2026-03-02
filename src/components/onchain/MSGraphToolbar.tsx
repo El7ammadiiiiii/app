@@ -26,12 +26,9 @@ function Tip({ text, children }: { text: string; children: React.ReactNode }) {
 interface MSGraphToolbarProps {
   onSearchOpen?: () => void;
   onAddAddress?: () => void;
-  onMemo?: () => void;
-  onRoute?: () => void;
-  onToggleWatermark?: () => void;
 }
 
-export function MSGraphToolbar({ onSearchOpen, onAddAddress, onMemo, onRoute, onToggleWatermark }: MSGraphToolbarProps) {
+export function MSGraphToolbar({ onSearchOpen, onAddAddress }: MSGraphToolbarProps) {
   const nodes = useCWTrackerStore((s) => s.nodes);
   const edges = useCWTrackerStore((s) => s.edges);
   const getUniqueChains = useCWTrackerStore((s) => s.getUniqueChains);
@@ -80,7 +77,7 @@ export function MSGraphToolbar({ onSearchOpen, onAddAddress, onMemo, onRoute, on
 
   return (
     <div
-      className="flex items-center h-11 rounded-lg px-2 gap-1"
+      className="flex items-center h-10 sm:h-11 rounded-lg px-1.5 sm:px-2 gap-0.5 sm:gap-1 max-w-[calc(100vw-80px)] overflow-x-auto"
       style={{
         background: "rgba(0,0,0,0.25)",
         backdropFilter: "blur(12px)",
@@ -184,36 +181,6 @@ export function MSGraphToolbar({ onSearchOpen, onAddAddress, onMemo, onRoute, on
 
       {/* ── Divider ── */}
       <div className="w-px h-5 bg-white/20 mx-1" />
-
-      {/* ── Memo ── */}
-      <Tip text="Memo">
-        <button
-          onClick={onMemo}
-          className="flex items-center justify-center w-8 h-8 rounded text-white/60 hover:text-white hover:bg-white/10 transition-colors"
-        >
-          <i className="iconfont icon-memo" style={{ fontSize: 18 }} />
-        </button>
-      </Tip>
-
-      {/* ── Route ── */}
-      <Tip text="Route tracing">
-        <button
-          onClick={onRoute}
-          className="flex items-center justify-center w-8 h-8 rounded text-white/60 hover:text-white hover:bg-white/10 transition-colors"
-        >
-          <i className="iconfont icon-route" style={{ fontSize: 20 }} />
-        </button>
-      </Tip>
-
-      {/* ── Watermark ── */}
-      <Tip text="Toggle watermark">
-        <button
-          onClick={onToggleWatermark}
-          className="flex items-center justify-center w-8 h-8 rounded text-white/60 hover:text-white hover:bg-white/10 transition-colors"
-        >
-          <i className="iconfont icon-watermark" style={{ fontSize: 20 }} />
-        </button>
-      </Tip>
 
       {/* ── Search ── */}
       <Tip text="Search">
