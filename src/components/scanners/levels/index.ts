@@ -14,6 +14,7 @@ export { LevelsFilters, DEFAULT_LEVELS_FILTER } from './LevelsFilters';
 export type { LevelsFilterState } from './LevelsFilters';
 
 export { LevelsCard } from './LevelsCard';
+export { PivotLevelsCard } from './PivotLevelsCard';
 
 export { LevelsGrid } from './LevelsGrid';
 

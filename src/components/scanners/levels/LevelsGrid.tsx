@@ -14,7 +14,7 @@
 import React, { useState, useMemo, useCallback } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 import { LevelResult } from '@/lib/scanners/levels-detector';
-import { LevelsCard } from './LevelsCard';
+import { PivotLevelsCard } from './PivotLevelsCard';
 import { ScanProgress } from '@/lib/scanners/levels-scanner';
 
 // ============================================================================
@@ -34,6 +34,7 @@ interface LevelsGridProps
   progress?: ScanProgress;
   error?: string;
   toolbarControls?: React.ReactNode;
+  itemsPerPage?: number;
 }
 
 // ============================================================================
@@ -49,6 +50,7 @@ export function LevelsGrid ( {
   progress,
   error,
   toolbarControls,
+  itemsPerPage: propItemsPerPage = 12,
 }: LevelsGridProps )
 {
   const WIDTH_CLASSES: Record<number, string> = {
@@ -85,7 +87,7 @@ export function LevelsGrid ( {
   const [ sortField, setSortField ] = useState<SortField>( 'distance' );
   const [ sortOrder, setSortOrder ] = useState<SortOrder>( 'asc' );
   const [ currentPage, setCurrentPage ] = useState( 1 );
-  const [ itemsPerPage, setItemsPerPage ] = useState( 12 ); // 12 أو 24 قالب بالصفحة
+  const itemsPerPage = propItemsPerPage;
 
   // ترتيب النتائج
   const sortedResults = useMemo( () =>
@@ -223,58 +225,7 @@ export function LevelsGrid ( {
       {/* شريط التقدم */ }
       { ProgressBar }
 
-      {/* شريط الأدوات - موحد ومناسب للجوال */ }
-      <div className="flex items-center h-10 gap-2 px-3 rounded-xl bg-white/5 border border-white/10 backdrop-blur-md overflow-x-auto">
-        {/* أيقونة القائمة */ }
-        <button className="h-7 w-7 flex items-center justify-center rounded-lg bg-white/5 border border-white/10 text-gray-400">
-          <svg className="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-            <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={ 2 } d="M4 6h16M4 12h16M4 18h16" />
-          </svg>
-        </button>
 
-        {/* فاصل */ }
-        <div className="h-5 w-px bg-white/10" />
-
-        {/* عدد البطاقات */ }
-        <div className="relative">
-          <select
-            value={ itemsPerPage }
-            onChange={ ( e ) => { setItemsPerPage( Number( e.target.value ) ); setCurrentPage( 1 ); } }
-            className="appearance-none h-7 bg-transparent border border-white/10 rounded-lg pl-6 pr-2 text-xs text-white cursor-pointer hover:border-cyan-500/50 focus:outline-none"
-          >
-            <option value={ 12 } className="bg-[#1a2f2c]">12</option>
-            <option value={ 24 } className="bg-[#1a2f2c]">24</option>
-          </select>
-          <svg className="absolute left-1.5 top-1/2 -translate-y-1/2 w-3 h-3 text-gray-400 pointer-events-none" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-            <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={ 2 } d="M19 9l-7 7-7-7" />
-          </svg>
-        </div>
-
-        {/* فاصل */ }
-        <div className="h-5 w-px bg-white/10" />
-
-        {/* الترتيب بالوقت */ }
-        <button
-          onClick={ () => handleSort( 'time' ) }
-          className={ `h-7 px-2 flex items-center gap-1 rounded-lg text-xs transition-all ${ sortField === 'time'
-            ? 'bg-cyan-500/20 text-cyan-400 border border-cyan-500/30'
-            : 'bg-white/5 border border-white/10 text-gray-400 hover:text-white'
-            }` }
-        >
-          <span>الوقت</span>
-          { sortField === 'time' && (
-            <svg className={ `w-3 h-3 transition-transform ${ sortOrder === 'asc' ? 'rotate-180' : '' }` } fill="none" viewBox="0 0 24 24" stroke="currentColor">
-              <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={ 2 } d="M19 9l-7 7-7-7" />
-            </svg>
-          ) }
-        </button>
-
-        { toolbarControls && (
-          <div className="flex items-center gap-2 ms-auto">
-            { toolbarControls }
-          </div>
-        ) }
-      </div>
 
       {/* الشبكة - responsive grid */ }
       <div className={ `grid gap-3 ${ itemsPerPage === 12 ? 'grid-cols-2 lg:grid-cols-3' : 'grid-cols-2 lg:grid-cols-4' }` }>
@@ -288,7 +239,7 @@ export function LevelsGrid ( {
               exit={ { opacity: 0, scale: 0.95 } }
               transition={ { duration: 0.2 } }
             >
-              <LevelsCard
+              <PivotLevelsCard
                 result={ result }
                 isFavorite={ favorites.has( result.id ) }
                 onToggleFavorite={ onToggleFavorite }

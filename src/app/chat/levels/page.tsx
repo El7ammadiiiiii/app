@@ -18,7 +18,6 @@ import
 } from '@/components/ui/dropdown-menu';
 
 const TIMEFRAMES = [
-  { id: '15m', label: '15 دقيقة' },
   { id: '1h', label: '1 ساعة' },
   { id: '4h', label: '4 ساعات' },
   { id: '1d', label: '1 يوم' },
@@ -32,7 +31,7 @@ export default function LevelsScannerPage ()
   const [ selectedTimeframes, setSelectedTimeframes ] = useState<string[]>( [ '1h', '4h' ] );
 
   const { results: firestoreResults, isLoading: isFirestoreLoading } = useScannerData( {
-    pageId: 'levels',
+    pageId: 'pivot-levels',
     timeframe: selectedTimeframes[ 0 ] || '1h',
   } );
 
@@ -43,6 +42,7 @@ export default function LevelsScannerPage ()
   const [ topSymbols, setTopSymbols ] = useState<CEXCoin[]>( [] );
   const [ selectedResult, setSelectedResult ] = useState<any>( null );
   const [ isModalOpen, setIsModalOpen ] = useState( false );
+  const [ itemsPerPage, setItemsPerPage ] = useState( 12 );
 
   const selectedSymbols = useMemo( () => exchangeSymbolsMap[ activeExchange ] || [ 'all' ], [ exchangeSymbolsMap, activeExchange ] );
 
@@ -151,6 +151,21 @@ export default function LevelsScannerPage ()
 
           <ExchangeSelector />
 
+          {/* عدد القوالب */}
+          <div className="relative">
+            <select
+              value={itemsPerPage}
+              onChange={(e) => setItemsPerPage(Number(e.target.value))}
+              className="appearance-none h-8 bg-white/5 border border-white/10 rounded-lg pl-6 pr-3 text-xs text-white cursor-pointer hover:border-cyan-500/50 focus:outline-none"
+            >
+              <option value={12} className="bg-[#1a2f2c]">12</option>
+              <option value={24} className="bg-[#1a2f2c]">24</option>
+            </select>
+            <svg className="absolute left-1.5 top-1/2 -translate-y-1/2 w-3 h-3 text-gray-400 pointer-events-none" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+              <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M19 9l-7 7-7-7" />
+            </svg>
+          </div>
+
           <button className="mr-auto px-3 py-2 hover:bg-white/5 rounded-lg transition-all text-xs font-bold text-gray-400 hover:text-white">
             تحديث
           </button>
@@ -162,7 +177,7 @@ export default function LevelsScannerPage ()
               <p>لا توجد نتائج حالياً</p>
             </div>
           ) : (
-            <LevelsGrid results={ results } favorites={ new Set() } onToggleFavorite={ () => { } } onExpand={ ( r ) => { setSelectedResult( r ); setIsModalOpen( true ); } } isScanning={ isLoading } />
+            <LevelsGrid results={ results } favorites={ new Set() } onToggleFavorite={ () => { } } onExpand={ ( r ) => { setSelectedResult( r ); setIsModalOpen( true ); } } isScanning={ isLoading } itemsPerPage={ itemsPerPage } />
           ) }
         </div>
 

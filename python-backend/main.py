@@ -32,6 +32,9 @@ from providers.ws_scanner import (
 from providers.trendline_scanner import (
     trendline_scanner_router, init_trendline_scanner, shutdown_trendline_scanner
 )
+from providers.pivot_levels_scanner import (
+    pivot_levels_scanner_router, init_pivot_levels_scanner, shutdown_pivot_levels_scanner
+)
 
 # ─── Logging ───
 logging.basicConfig(level=logging.INFO, format="%(asctime)s [%(name)s] %(levelname)s: %(message)s")
@@ -50,12 +53,14 @@ async def lifespan(app: FastAPI):
     await init_cryptofeed_scanner()
     await init_ws_scanner()
     await init_trendline_scanner()
+    await init_pivot_levels_scanner()
     logger.info("✅ All providers initialized (including Firebase scanners)")
     yield
     logger.info("🛑 Shutting down...")
     await shutdown_cryptofeed_scanner()
     await shutdown_ws_scanner()
     await shutdown_trendline_scanner()
+    await shutdown_pivot_levels_scanner()
     await shutdown_rest_provider()
     await shutdown_ws_provider()
     await shutdown_aggregator()
@@ -89,6 +94,7 @@ async def health():
         "cryptofeed_pages": 4,
         "ws_pages": 5,
         "trendlines_exchanges": 6,
+        "pivot_levels_exchanges": 6,
     }}
 
 # ─── Mount Routers ───
@@ -98,6 +104,7 @@ app.include_router(aggregator_router, prefix="/api/aggregator", tags=["Aggregato
 app.include_router(cryptofeed_scanner_router, prefix="/api/scanner/cf", tags=["CryptoFeed Scanner - File 4"])
 app.include_router(ws_scanner_router, prefix="/api/scanner/ws", tags=["WS Scanner - File 5"])
 app.include_router(trendline_scanner_router, prefix="/api/scanner/trendlines", tags=["Trendline Scanner - File 6"])
+app.include_router(pivot_levels_scanner_router, prefix="/api/scanner/pivot-levels", tags=["Pivot Levels Scanner - File 7"])
 
 
 # ─── Run ───
