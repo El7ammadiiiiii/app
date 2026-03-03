@@ -74,9 +74,11 @@ export function msEdgesToFlowEdges(
 ): Edge[] {
   // Build a position lookup for dynamic handle selection
   const posMap = new Map<string, { x: number; y: number }>();
+  const typeMap = new Map<string, string>();
   if (nodes) {
     for (const n of nodes) {
       posMap.set(n.id, { x: n.x, y: n.y });
+      typeMap.set(n.id, n.type || "");
     }
   }
 
@@ -118,7 +120,8 @@ export function msEdgesToFlowEdges(
         totalValue: e.totalValue,
         tokenSymbol: e.tokenSymbol,
         latestTimestamp: e.latestTimestamp,
-        targetType: "", // filled in by store if needed
+        targetType: typeMap.get(e.target) || "",
+        sourceType: typeMap.get(e.source) || "",
         details: e.details?.map((d) => ({ timestamp: d.timestamp })),
         customArrowSize: e.customArrowSize,
       };

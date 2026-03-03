@@ -13,8 +13,8 @@ import type {
 // 🔑 API Keys
 // =============================================================================
 
-const SERPER_API_KEY = '84623444ccd50b82dd4824f80d679031f391c1c6';
-const TAVILY_API_KEY = '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';
+const SERPER_API_KEY = process.env.SERPER_API_KEY || '';
+const TAVILY_API_KEY = process.env.TAVILY_API_KEY || '';
 
 // =============================================================================
 // 🔧 Helper Functions

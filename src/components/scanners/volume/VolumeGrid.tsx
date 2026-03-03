@@ -77,8 +77,8 @@ export function VolumeGrid ( {
     {
       const query = searchQuery.toLowerCase();
       filtered = filtered.filter( r =>
-        r.symbol.toLowerCase().includes( query ) ||
-        r.exchange.toLowerCase().includes( query )
+        (r.symbol || "").toLowerCase().includes( query ) ||
+        (r.exchange || "").toLowerCase().includes( query )
       );
     }
 

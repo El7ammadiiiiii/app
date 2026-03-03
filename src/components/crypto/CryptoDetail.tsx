@@ -169,7 +169,9 @@ export default function CryptoDetail({ id }: { id: string }) {
         let aboutHtml = '';
         let ohlcvData: OHLCVPoint[] = [];
 
-        const FASTAPI_BASE = process.env.NEXT_PUBLIC_FASTAPI_URL || 'http://localhost:8000';
+        const FASTAPI_BASE = typeof window === 'undefined'
+          ? (process.env.FASTAPI_URL || 'http://127.0.0.1:8000')
+          : '/api/backend';
         try {
           const resp = await fetch(`${FASTAPI_BASE}/unified/coin/${id}`, { cache: 'no-store' });
           if (resp.ok) {

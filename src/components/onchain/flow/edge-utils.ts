@@ -142,7 +142,7 @@ export function getFlowAnimationStyle(speed = 1): React.CSSProperties {
 }
 
 /**
- * Format a raw timestamp (epoch ms, epoch s, or ISO string) to YYYY-MM-DD HH:mm:ss.
+ * Format a raw timestamp (epoch ms, epoch s, or ISO string) to DD-Mon-YYYY HH:mm.
  */
 export function formatTimestamp(ts: string | number | undefined): string {
   if (!ts) return "";
@@ -157,9 +157,48 @@ export function formatTimestamp(ts: string | number | undefined): string {
         : ts;
     const d = new Date(tNum);
     if (isNaN(d.getTime()) || d.getTime() <= 0) return "";
+    const months = ["Jan","Feb","Mar","Apr","May","Jun","Jul","Aug","Sep","Oct","Nov","Dec"];
     const pad = (n: number) => String(n).padStart(2, "0");
-    return `${d.getFullYear()}-${pad(d.getMonth() + 1)}-${pad(d.getDate())} ${pad(d.getHours())}:${pad(d.getMinutes())}:${pad(d.getSeconds())}`;
+    return `${pad(d.getDate())}-${months[d.getMonth()]}-${d.getFullYear()} ${pad(d.getHours())}:${pad(d.getMinutes())}`;
   } catch {
     return "";
   }
+}
+
+/**
+ * Compute the midpoint and rotation angle for a mid-edge directional arrow.
+ * Returns { mx, my, angle } where angle is in degrees.
+ */
+export function computeMidArrow(pts: Point[]): { mx: number; my: number; angle: number } | null {
+  if (!pts || pts.length < 2) return null;
+  // Accumulate total path length and find midpoint
+  let totalLen = 0;
+  const segLens: number[] = [];
+  for (let i = 1; i < pts.length; i++) {
+    const dx = pts[i].x - pts[i - 1].x;
+    const dy = pts[i].y - pts[i - 1].y;
+    const l = Math.sqrt(dx * dx + dy * dy);
+    segLens.push(l);
+    totalLen += l;
+  }
+  const half = totalLen / 2;
+  let accum = 0;
+  for (let i = 0; i < segLens.length; i++) {
+    if (accum + segLens[i] >= half) {
+      const remain = half - accum;
+      const t = segLens[i] > 0 ? remain / segLens[i] : 0;
+      const mx = pts[i].x + (pts[i + 1].x - pts[i].x) * t;
+      const my = pts[i].y + (pts[i + 1].y - pts[i].y) * t;
+      const angle = Math.atan2(pts[i + 1].y - pts[i].y, pts[i + 1].x - pts[i].x) * (180 / Math.PI);
+      return { mx, my, angle };
+    }
+    accum += segLens[i];
+  }
+  // fallback: last segment midpoint
+  const last = pts.length - 1;
+  return {
+    mx: (pts[last - 1].x + pts[last].x) / 2,
+    my: (pts[last - 1].y + pts[last].y) / 2,
+    angle: Math.atan2(pts[last].y - pts[last - 1].y, pts[last].x - pts[last - 1].x) * (180 / Math.PI),
+  };
 }

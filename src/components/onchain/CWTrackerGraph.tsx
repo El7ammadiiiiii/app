@@ -75,7 +75,7 @@ export function CWTrackerGraph({
   const openEdgeList = useCWTrackerStore((s) => s.openEdgeList);
   const openEdgeStylePicker = useCWTrackerStore((s) => s.openEdgeStylePicker);
   const openNodeDetail = useCWTrackerStore((s) => s.openNodeDetail);
-  const openAdvancedAnalyze = useCWTrackerStore((s) => s.openAdvancedAnalyze);
+  const openFindRelationship = useCWTrackerStore((s) => s.openFindRelationship);
   const expandNodeDirection = useCWTrackerStore((s) => s.expandNodeDirection);
 
   /* ── Derived filtered data (memoised to avoid infinite loops) ── */
@@ -87,8 +87,8 @@ export function CWTrackerGraph({
       if (filter.searchText) {
         const q = filter.searchText.toLowerCase();
         const match =
-          n.label.toLowerCase().includes(q) ||
-          n.address.toLowerCase().includes(q) ||
+          (n.label || "").toLowerCase().includes(q) ||
+          (n.address || "").toLowerCase().includes(q) ||
           (n.subLabel?.toLowerCase().includes(q) ?? false);
         if (!match) return false;
       }
@@ -664,7 +664,7 @@ export function CWTrackerGraph({
               onButtonsMouseLeave={handleButtonsMouseLeave}
               onExpand={() => onNodeExpand?.(node.id)}
               onRemove={() => onNodeRemove?.(node.id)}
-              onAnalyze={() => openAdvancedAnalyze(node.id)}
+              onAnalyze={() => openFindRelationship(node.id)}
               onExpandLeft={() => expandNodeDirection(node.id, "left")}
               onExpandRight={() => expandNodeDirection(node.id, "right")}
               onOpenDetail={() => openNodeDetail(node.id)}

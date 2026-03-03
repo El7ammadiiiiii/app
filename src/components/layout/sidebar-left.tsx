@@ -195,7 +195,7 @@ export function SidebarLeft ( { mode, onModeChange, onToggle, screenSize, onOpen
   // Chat groups
   const filteredChats = allChats.filter( chat =>
     !chat.isArchived &&
-    ( !searchQuery || chat.title.toLowerCase().includes( searchQuery.toLowerCase() ) )
+    ( !searchQuery || (chat.title || "").toLowerCase().includes( searchQuery.toLowerCase() ) )
   );
   const chatGroups = groupChatsByDate( filteredChats );
 

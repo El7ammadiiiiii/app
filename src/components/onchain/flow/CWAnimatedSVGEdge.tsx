@@ -16,10 +16,9 @@ import {
 } from "@xyflow/react";
 import { useCWTrackerStore } from "@/lib/onchain/cwtracker-store";
 import { msFormatTokenAmount } from "@/lib/onchain/cwtracker-types";
-import { computeArrowPoints, formatTimestamp } from "./edge-utils";
+import { computeMidArrow, formatTimestamp } from "./edge-utils";
 import { getEdgeEntityColor } from "./node-shapes";
-import { EDGE_WIDTH, ARROW_SIZE, ANIMATED_DOT_COLOR } from "./constants";
-import { markerUrlForEdge, SELECTED_MARKER_URL } from "./EdgeMarkerDefs";
+import { EDGE_WIDTH } from "./constants";
 import EdgeActionBar from "./EdgeActionBar";
 
 import type { CWEdgeData } from "./CWEdge";
@@ -43,7 +42,7 @@ function CWAnimatedSVGEdgeComponent({
 
   const isHovered = hoveredEdgeId === data.msEdgeId;
 
-  const color = data.color || getEdgeEntityColor(data.targetType || "");
+  const color = data.color || getEdgeEntityColor(data.sourceType || "", data.targetType || "");
   const baseWidth = data.customWidth ?? EDGE_WIDTH;
   const strokeWidth = isHovered || selected ? baseWidth + 1.5 : baseWidth;
 
@@ -67,27 +66,21 @@ function CWAnimatedSVGEdgeComponent({
     borderRadius: 16,
   });
 
-  /* ── Arrowhead polygon (fallback for visual consistency) ── */
-  const arrowPointsStr = useMemo(() => {
-    return computeArrowPoints(
-      [
-        { x: sourceX, y: sourceY },
-        { x: targetX, y: targetY },
-      ],
-      ARROW_SIZE,
-      ARROW_SIZE / 2.5
-    );
+  /* ── Mid-edge directional arrow ── */
+  const midArrow = useMemo(() => {
+    return computeMidArrow([
+      { x: sourceX, y: sourceY },
+      { x: targetX, y: targetY },
+    ]);
   }, [sourceX, sourceY, targetX, targetY]);
 
   /* ── Label ── */
-  const ordinalStr = `[${data.edgeIndex + 1}]`;
   const amountStr =
     data.amountLabel ||
     msFormatTokenAmount(data.totalValue ?? 0, data.tokenSymbol ?? "");
   const ts =
     data.latestTimestamp || (data.details?.[0]?.timestamp);
   const dateStr = formatTimestamp(ts);
-  const labelText = dateStr ? `[${dateStr}] ${amountStr}` : amountStr;
 
   /* ── Handlers ── */
   const handleMouseEnter = useCallback(() => hoverEdge(data.msEdgeId), [data.msEdgeId, hoverEdge]);
@@ -101,13 +94,10 @@ function CWAnimatedSVGEdgeComponent({
   );
 
   const activeColor = selected ? "#597ef7" : color;
-  const dotRadius = Math.max(5, strokeWidth * 1.5);
-  const markerEnd = selected
-    ? SELECTED_MARKER_URL
-    : markerUrlForEdge(data.msEdgeId);
+  const dimmed = hoveredEdgeId != null && hoveredEdgeId !== data.msEdgeId && !isHovered;
 
   return (
-    <>
+    <g opacity={dimmed ? 0.12 : 1} style={{ transition: "opacity 0.2s ease" }}>
       {/* Hit area (wide transparent path for easy clicking) */}
       <path
         d={pathD}
@@ -128,27 +118,20 @@ function CWAnimatedSVGEdgeComponent({
         strokeWidth={strokeWidth}
         strokeOpacity={0.4}
         strokeDasharray={dashArray}
-        markerEnd={markerEnd}
         style={{ pointerEvents: "none" }}
       />
-
-      {/* ★ Primary animated dot — SVG <animateMotion> */}
-      <circle r={dotRadius} fill={ANIMATED_DOT_COLOR} opacity={0.9}>
-        <animateMotion dur="2s" repeatCount="indefinite" path={pathD} />
-      </circle>
-      {/* ★ Trailing dot (smaller, offset) */}
-      <circle r={dotRadius * 0.6} fill={ANIMATED_DOT_COLOR} opacity={0.5}>
-        <animateMotion dur="2s" repeatCount="indefinite" path={pathD} begin="0.7s" />
-      </circle>
-
-      {/* Arrowhead polygon (always visible) */}
-      {arrowPointsStr && (
+      {/* ★ 3 animated flowing balls */}
+      {[0, 0.8, 1.6].map((delay, i) => (
+        <circle key={i} r={3} fill={activeColor} opacity={[0.9, 0.7, 0.5][i]}>
+          <animateMotion dur="2.5s" repeatCount="indefinite" path={pathD} begin={`${delay}s`} />
+        </circle>
+      ))}
+      {/* ★ Mid-edge directional arrow */}
+      {midArrow && (
         <polygon
+          points="-6,-4 6,0 -6,4"
           fill={activeColor}
-          stroke={activeColor}
-          strokeWidth={baseWidth * 0.5}
-          strokeLinejoin="round"
-          points={arrowPointsStr}
+          transform={`translate(${midArrow.mx},${midArrow.my}) rotate(${midArrow.angle})`}
           style={{ pointerEvents: "none" }}
         />
       )}
@@ -161,31 +144,41 @@ function CWAnimatedSVGEdgeComponent({
           onMouseLeave={handleMouseLeave}
           style={{
             position: "absolute",
-            transform: `translate(-50%, -100%) translate(${labelX}px,${labelY - 8}px)`,
+            transform: `translate(-50%, -50%) translate(${labelX}px,${labelY}px)`,
             pointerEvents: "all",
-            fontSize: 12,
+            fontSize: 11,
             fontFamily: "Inter, sans-serif",
             userSelect: "none",
             whiteSpace: "nowrap",
-            background: "rgba(14,14,14,0.82)",
-            padding: "1px 8px",
-            borderRadius: 4,
-            border: "1px solid rgba(255,255,255,0.08)",
+            display: "flex",
+            flexDirection: "column",
+            alignItems: "center",
+            gap: 1,
           }}
         >
-          <span style={{ color, fontWeight: 600 }}>{ordinalStr} </span>
-          <span style={{ color: "#fff" }}>{labelText}</span>
-          <span
-            style={{
-              display: "inline-block",
-              width: 6,
-              height: 6,
-              borderRadius: "50%",
-              background: ANIMATED_DOT_COLOR,
-              marginLeft: 6,
-              verticalAlign: "middle",
-            }}
-          />
+          {dateStr && (
+            <span style={{
+              color: "rgba(255,255,255,0.7)",
+              fontSize: 10,
+              background: "rgba(14,14,14,0.82)",
+              padding: "0px 6px",
+              borderRadius: 3,
+              border: "1px solid rgba(255,255,255,0.06)",
+            }}>
+              {dateStr}
+            </span>
+          )}
+          <span style={{
+            color: "#22c55e",
+            fontWeight: 600,
+            fontSize: 11,
+            background: "rgba(14,14,14,0.82)",
+            padding: "0px 6px",
+            borderRadius: 3,
+            border: "1px solid rgba(255,255,255,0.06)",
+          }}>
+            → {amountStr}
+          </span>
 
           {/* Hover action bar */}
           {(isHovered || selected) && (
@@ -193,7 +186,7 @@ function CWAnimatedSVGEdgeComponent({
           )}
         </div>
       </EdgeLabelRenderer>
-    </>
+    </g>
   );
 }
 

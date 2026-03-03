@@ -298,7 +298,7 @@ Detected At: ${ divergence.timestamp ? new Date( divergence.timestamp ).toLocale
     filtered = filtered.filter( r =>
     {
       // Filter by current exchange only to prevent overlap
-      if ( r.exchange?.toLowerCase() !== activeExchange.toLowerCase() ) return false;
+      if ( (r.exchange || "").toLowerCase() !== (activeExchange || "").toLowerCase() ) return false;
 
       if ( filters.timeframes.length > 0 && !filters.timeframes.includes( r.timeframe ) ) return false;
       if ( filters.indicators.length > 0 && !filters.indicators.includes( r.indicator ) ) return false;

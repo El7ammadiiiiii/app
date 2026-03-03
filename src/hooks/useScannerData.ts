@@ -102,7 +102,8 @@ export function useScannerData<T = any> (
       .catch( ( err ) =>
       {
         console.error( `[useScannerData:${ pageId }] Auth failed:`, err );
-        if ( !cancelled ) setError( 'فشل تهيئة الاتصال الآمن' );
+        // Still set auth ready to allow public read access
+        if ( !cancelled ) setIsAuthReady( true );
       } );
     return () => { cancelled = true; };
   }, [ enabled, pageId ] );

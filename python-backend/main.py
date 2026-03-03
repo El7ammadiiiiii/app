@@ -8,6 +8,7 @@ Central Files:
   File 3 → providers/cex_aggregator.py       — cryptofeed 36+ exchanges
   File 4 → providers/cryptofeed_scanner.py   — Background scanner → Firebase (4 pages)
   File 5 → providers/ws_scanner.py           — Background scanner → Firebase (5 pages)
+  File 6 → providers/trendline_scanner.py    — Trend Lines Scanner → Firebase (6 exchanges)
 """
 
 import asyncio
@@ -28,6 +29,9 @@ from providers.cryptofeed_scanner import (
 from providers.ws_scanner import (
     ws_scanner_router, init_ws_scanner, shutdown_ws_scanner
 )
+from providers.trendline_scanner import (
+    trendline_scanner_router, init_trendline_scanner, shutdown_trendline_scanner
+)
 
 # ─── Logging ───
 logging.basicConfig(level=logging.INFO, format="%(asctime)s [%(name)s] %(levelname)s: %(message)s")
@@ -45,11 +49,13 @@ async def lifespan(app: FastAPI):
     # Start background scanners (write to Firebase)
     await init_cryptofeed_scanner()
     await init_ws_scanner()
+    await init_trendline_scanner()
     logger.info("✅ All providers initialized (including Firebase scanners)")
     yield
     logger.info("🛑 Shutting down...")
     await shutdown_cryptofeed_scanner()
     await shutdown_ws_scanner()
+    await shutdown_trendline_scanner()
     await shutdown_rest_provider()
     await shutdown_ws_provider()
     await shutdown_aggregator()
@@ -82,6 +88,7 @@ async def health():
     }, "scanners": {
         "cryptofeed_pages": 4,
         "ws_pages": 5,
+        "trendlines_exchanges": 6,
     }}
 
 # ─── Mount Routers ───
@@ -90,6 +97,7 @@ app.include_router(ws_router, prefix="/api/ws", tags=["WebSocket - File 2"])
 app.include_router(aggregator_router, prefix="/api/aggregator", tags=["Aggregator - File 3"])
 app.include_router(cryptofeed_scanner_router, prefix="/api/scanner/cf", tags=["CryptoFeed Scanner - File 4"])
 app.include_router(ws_scanner_router, prefix="/api/scanner/ws", tags=["WS Scanner - File 5"])
+app.include_router(trendline_scanner_router, prefix="/api/scanner/trendlines", tags=["Trendline Scanner - File 6"])
 
 
 # ─── Run ───

@@ -263,9 +263,9 @@ export const useChatStore = create<ChatStore>()(
                 return chats.filter(
                     ( c ) =>
                         !c.isArchived &&
-                        ( c.title.toLowerCase().includes( searchQuery.toLowerCase() ) ||
+                        ( (c.title || "").toLowerCase().includes( searchQuery.toLowerCase() ) ||
                             c.messages.some( ( m ) =>
-                                m.content.toLowerCase().includes( searchQuery.toLowerCase() )
+                                (m.content || "").toLowerCase().includes( searchQuery.toLowerCase() )
                             ) )
                 );
             },
@@ -277,9 +277,9 @@ export const useChatStore = create<ChatStore>()(
 
                 return chats.filter(
                     ( c ) =>
-                        c.title.toLowerCase().includes( query.toLowerCase() ) ||
+                        (c.title || "").toLowerCase().includes( query.toLowerCase() ) ||
                         c.messages.some( ( m ) =>
-                            m.content.toLowerCase().includes( query.toLowerCase() )
+                            (m.content || "").toLowerCase().includes( query.toLowerCase() )
                         )
                 );
             },

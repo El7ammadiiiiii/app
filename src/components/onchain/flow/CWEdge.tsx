@@ -17,12 +17,11 @@ import { useCWTrackerStore } from "@/lib/onchain/cwtracker-store";
 import { msFormatTokenAmount } from "@/lib/onchain/cwtracker-types";
 import {
   routeToRoundedPath,
-  computeArrowPoints,
+  computeMidArrow,
   formatTimestamp,
 } from "./edge-utils";
 import { getEdgeEntityColor } from "./node-shapes";
-import { EDGE_WIDTH, LABEL_W, LABEL_H, ARROW_SIZE, ANIMATED_DOT_COLOR } from "./constants";
-import { markerUrlForEdge, SELECTED_MARKER_URL } from "./EdgeMarkerDefs";
+import { EDGE_WIDTH } from "./constants";
 import EdgeActionBar from "./EdgeActionBar";
 
 /* ─────────── edge data type ─────────── */
@@ -52,6 +51,8 @@ export interface CWEdgeData {
   latestTimestamp?: string;
   /** Target node type for entity color */
   targetType?: string;
+  /** Source node type for entity color */
+  sourceType?: string;
   /** Custom arrowhead / marker size */
   customArrowSize?: number;
   /** Edge details */
@@ -79,7 +80,7 @@ function CWEdgeComponent({
 
   /* ── Edge path ── */
   const routePoints = data.routePoints;
-  const color = data.color || getEdgeEntityColor(data.targetType || "");
+  const color = data.color || getEdgeEntityColor(data.sourceType || "", data.targetType || "");
   const baseWidth = data.customWidth ?? EDGE_WIDTH;
   const strokeWidth = isHovered || selected ? baseWidth + 1.5 : baseWidth;
 
@@ -106,15 +107,15 @@ function CWEdgeComponent({
     return d;
   }, [routePoints, sourceX, sourceY, targetX, targetY]);
 
-  /* ── Arrowhead ── */
-  const arrowPointsStr = useMemo(() => {
+  /* ── Mid-edge directional arrow ── */
+  const midArrow = useMemo(() => {
     const pts = routePoints && routePoints.length >= 2
       ? routePoints
       : [
           { x: sourceX, y: sourceY },
           { x: targetX, y: targetY },
         ];
-    return computeArrowPoints(pts, ARROW_SIZE, ARROW_SIZE / 2.5);
+    return computeMidArrow(pts);
   }, [routePoints, sourceX, sourceY, targetX, targetY]);
 
   /* ── Label positioning: midpoint of route ── */
@@ -148,15 +149,13 @@ function CWEdgeComponent({
     return deg;
   }, [routePoints, sourceX, sourceY, targetX, targetY]);
 
-  /* ── Label text ── */
-  const ordinalStr = `[${data.edgeIndex + 1}]`;
+  /* ── Label text — split into date and value ── */
   const amountStr =
     data.amountLabel ||
     msFormatTokenAmount(data.totalValue ?? 0, data.tokenSymbol ?? "");
   const ts =
     data.latestTimestamp || (data.details?.[0]?.timestamp);
   const dateStr = formatTimestamp(ts);
-  const labelText = dateStr ? `[${dateStr}] ${amountStr}` : amountStr;
 
   /* ── Handlers ── */
   const handleMouseEnter = useCallback(() => hoverEdge(data.msEdgeId), [data.msEdgeId, hoverEdge]);
@@ -170,12 +169,10 @@ function CWEdgeComponent({
   );
 
   const activeColor = selected ? "#597ef7" : color;
-  const markerEnd = selected
-    ? SELECTED_MARKER_URL
-    : markerUrlForEdge(data.msEdgeId);
+  const dimmed = hoveredEdgeId != null && hoveredEdgeId !== data.msEdgeId && !isHovered;
 
   return (
-    <>
+    <g opacity={dimmed ? 0.12 : 1} style={{ transition: "opacity 0.2s ease" }}>
       {/* Hit area (wide transparent path for easy clicking) */}
       <path
         d={pathD}
@@ -194,26 +191,31 @@ function CWEdgeComponent({
         stroke={activeColor}
         strokeWidth={strokeWidth}
         strokeDasharray={dashArray}
-        markerEnd={markerEnd}
         className="react-flow__edge-path"
         style={{ pointerEvents: "none" }}
       />
-      {/* ★ Animated dot — flow direction indicator */}
-      <circle r={Math.max(3.5, strokeWidth)} fill={ANIMATED_DOT_COLOR} opacity={0.75}>
-        <animateMotion dur="2.5s" repeatCount="indefinite" path={pathD} />
-      </circle>
-      {/* Arrowhead */}
-      {arrowPointsStr && (
-        <polygon
+      {/* ★ 3 animated flowing balls — source → target */}
+      {[0, 0.8, 1.6].map((delay, i) => (
+        <circle
+          key={i}
+          r={3}
           fill={activeColor}
-          stroke={activeColor}
-          strokeWidth={baseWidth * 0.5}
-          points={arrowPointsStr}
+          opacity={[0.9, 0.7, 0.5][i]}
+        >
+          <animateMotion dur="2.5s" repeatCount="indefinite" path={pathD} begin={`${delay}s`} />
+        </circle>
+      ))}
+      {/* ★ Mid-edge directional arrow */}
+      {midArrow && (
+        <polygon
+          points="-6,-4 6,0 -6,4"
+          fill={activeColor}
+          transform={`translate(${midArrow.mx},${midArrow.my}) rotate(${midArrow.angle})`}
           style={{ pointerEvents: "none" }}
         />
       )}
 
-      {/* Edge label via EdgeLabelRenderer */}
+      {/* Edge labels — date above, value below */}
       <EdgeLabelRenderer>
         <div
           className="cw-edge-label nodrag nopan"
@@ -221,21 +223,43 @@ function CWEdgeComponent({
           onMouseLeave={handleMouseLeave}
           style={{
             position: "absolute",
-            transform: `translate(-50%, -100%) translate(${labelPos.x}px,${labelPos.y - 8}px) rotate(${labelAngle}deg)`,
+            transform: `translate(-50%, -50%) translate(${labelPos.x}px,${labelPos.y}px) rotate(${labelAngle}deg)`,
             pointerEvents: "all",
-            fontSize: 12,
+            fontSize: 11,
             fontFamily: "Inter, sans-serif",
             userSelect: "none",
             whiteSpace: "nowrap",
-            background: "rgba(14,14,14,0.82)",
-            padding: "1px 8px",
-            borderRadius: 4,
-            border: "1px solid rgba(255,255,255,0.08)",
+            display: "flex",
+            flexDirection: "column",
+            alignItems: "center",
+            gap: 1,
           }}
         >
-          {/* Label text */}
-          <span style={{ color, fontWeight: 600 }}>{ordinalStr} </span>
-          <span style={{ color: "#fff" }}>{labelText}</span>
+          {/* Date/time — above edge */}
+          {dateStr && (
+            <span style={{
+              color: "rgba(255,255,255,0.7)",
+              fontSize: 10,
+              background: "rgba(14,14,14,0.82)",
+              padding: "0px 6px",
+              borderRadius: 3,
+              border: "1px solid rgba(255,255,255,0.06)",
+            }}>
+              {dateStr}
+            </span>
+          )}
+          {/* Value — below edge */}
+          <span style={{
+            color: "#22c55e",
+            fontWeight: 600,
+            fontSize: 11,
+            background: "rgba(14,14,14,0.82)",
+            padding: "0px 6px",
+            borderRadius: 3,
+            border: "1px solid rgba(255,255,255,0.06)",
+          }}>
+            → {amountStr}
+          </span>
 
           {/* Hover action buttons (shared component) */}
           {(isHovered || selected) && (
@@ -243,7 +267,7 @@ function CWEdgeComponent({
           )}
         </div>
       </EdgeLabelRenderer>
-    </>
+    </g>
   );
 }
 

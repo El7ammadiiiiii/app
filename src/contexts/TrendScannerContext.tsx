@@ -135,7 +135,7 @@ export function TrendScannerProvider ( { children }: { children: React.ReactNode
     };
   }, [ subscribe, isAuthReady ] );
 
-  const results = useMemo( () => resultsCache[ activeExchange.toLowerCase() ] || [], [ resultsCache, activeExchange ] );
+  const results = useMemo( () => resultsCache[ (activeExchange || "").toLowerCase() ] || [], [ resultsCache, activeExchange ] );
 
   return (
     <TrendScannerContext.Provider value={ { results, isLoading, error, lastUpdated, refresh: subscribe } }>

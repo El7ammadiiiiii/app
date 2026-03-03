@@ -10,6 +10,7 @@
 
 import React, { useState, useRef, useEffect, useCallback, useMemo } from "react";
 import { useCWTrackerStore } from "@/lib/onchain/cwtracker-store";
+import { useMediaQuery } from "@/hooks/useMediaQuery";
 
 /* ── Tooltip ── */
 function Tip({ text, children }: { text: string; children: React.ReactNode }) {
@@ -37,6 +38,7 @@ export function MSGraphToolbar({ onSearchOpen, onAddAddress }: MSGraphToolbarPro
   const tokens = useMemo(() => getUniqueTokens(), [edges.length]); // eslint-disable-line react-hooks/exhaustive-deps
   const filter = useCWTrackerStore((s) => s.filter);
   const setFilter = useCWTrackerStore((s) => s.setFilter);
+  const { isMobile } = useMediaQuery();
 
   const [addressDropdown, setAddressDropdown] = useState(false);
   const [tokenDropdown, setTokenDropdown] = useState(false);
@@ -77,22 +79,28 @@ export function MSGraphToolbar({ onSearchOpen, onAddAddress }: MSGraphToolbarPro
 
   return (
     <div
-      className="flex items-center h-10 sm:h-11 rounded-lg px-1.5 sm:px-2 gap-0.5 sm:gap-1 max-w-[calc(100vw-80px)] overflow-x-auto"
+      className={`flex items-center rounded-lg ${
+        isMobile ? "h-7 px-0.5 gap-0" : "h-10 sm:h-11 px-1.5 sm:px-2 gap-0.5 sm:gap-1"
+      }`}
       style={{
-        background: "rgba(0,0,0,0.25)",
-        backdropFilter: "blur(12px)",
-        WebkitBackdropFilter: "blur(12px)",
+        background: "rgba(255,255,255,0.08)",
+        backdropFilter: "blur(16px)",
+        WebkitBackdropFilter: "blur(16px)",
+        maxWidth: isMobile ? "calc(100vw - 56px)" : undefined,
+        overflow: "hidden",
       }}
     >
       {/* ── Address Filter ── */}
       <div ref={addrRef} className="relative">
         <button
           onClick={() => setAddressDropdown(!addressDropdown)}
-          className="flex items-center gap-1.5 px-2.5 py-1.5 rounded text-xs text-white/80 hover:text-white hover:bg-white/10 transition-colors"
+          className={`flex items-center gap-1 rounded text-white/80 hover:text-white hover:bg-white/10 transition-colors ${
+            isMobile ? "px-1.5 py-1 text-[10px]" : "gap-1.5 px-2.5 py-1.5 text-xs"
+          }`}
         >
-          <i className="iconfont icon-filter" style={{ fontSize: 14 }} />
-          <span>Address</span>
-          <i className="iconfont icon-arrow_down" style={{ fontSize: 10 }} />
+          <i className="iconfont icon-filter" style={{ fontSize: isMobile ? 12 : 14 }} />
+          {!isMobile && <span>Address</span>}
+          <i className="iconfont icon-arrow_down" style={{ fontSize: isMobile ? 8 : 10 }} />
         </button>
         {addressDropdown && (
           <div className="absolute top-full left-0 mt-1 bg-[var(--dropdown-bgc)] border border-[var(--default-border-color)] rounded-md shadow-lg z-50 min-w-[160px] py-1 max-h-[240px] overflow-y-auto">
@@ -131,11 +139,13 @@ export function MSGraphToolbar({ onSearchOpen, onAddAddress }: MSGraphToolbarPro
       <div ref={tokenRef} className="relative">
         <button
           onClick={() => setTokenDropdown(!tokenDropdown)}
-          className="flex items-center gap-1.5 px-2.5 py-1.5 rounded text-xs text-white/80 hover:text-white hover:bg-white/10 transition-colors"
+          className={`flex items-center gap-1 rounded text-white/80 hover:text-white hover:bg-white/10 transition-colors ${
+            isMobile ? "px-1.5 py-1 text-[10px]" : "gap-1.5 px-2.5 py-1.5 text-xs"
+          }`}
         >
-          <i className="iconfont icon-filter" style={{ fontSize: 14 }} />
-          <span>Token</span>
-          <i className="iconfont icon-arrow_down" style={{ fontSize: 10 }} />
+          <i className="iconfont icon-filter" style={{ fontSize: isMobile ? 12 : 14 }} />
+          {!isMobile && <span>Token</span>}
+          <i className="iconfont icon-arrow_down" style={{ fontSize: isMobile ? 8 : 10 }} />
         </button>
         {tokenDropdown && (
           <div className="absolute top-full left-0 mt-1 bg-[var(--dropdown-bgc)] border border-[var(--default-border-color)] rounded-md shadow-lg z-50 min-w-[160px] py-1 max-h-[240px] overflow-y-auto">
@@ -173,22 +183,26 @@ export function MSGraphToolbar({ onSearchOpen, onAddAddress }: MSGraphToolbarPro
       {/* ── Add Address / Tx ── */}
       <button
         onClick={onAddAddress || onSearchOpen}
-        className="flex items-center gap-1.5 px-2.5 py-1.5 rounded text-xs text-white/80 hover:text-white hover:bg-white/10 transition-colors"
+        className={`flex items-center gap-1 rounded text-white/80 hover:text-white hover:bg-white/10 transition-colors ${
+          isMobile ? "px-1.5 py-1 text-[10px]" : "gap-1.5 px-2.5 py-1.5 text-xs"
+        }`}
       >
-        <i className="iconfont icon-add_no_bgc" style={{ fontSize: 14 }} />
-        <span>Add Address / Tx</span>
+        <i className="iconfont icon-add_no_bgc" style={{ fontSize: isMobile ? 12 : 14 }} />
+        {!isMobile && <span>Add Address / Tx</span>}
       </button>
 
       {/* ── Divider ── */}
-      <div className="w-px h-5 bg-white/20 mx-1" />
+      <div className={`bg-white/20 mx-1 ${isMobile ? "w-px h-4" : "w-px h-5"}`} />
 
       {/* ── Search ── */}
       <Tip text="Search">
         <button
           onClick={onSearchOpen}
-          className="flex items-center justify-center w-8 h-8 rounded text-white/60 hover:text-white hover:bg-white/10 transition-colors"
+          className={`flex items-center justify-center rounded text-white/60 hover:text-white hover:bg-white/10 transition-colors ${
+            isMobile ? "w-6 h-6" : "w-8 h-8"
+          }`}
         >
-          <i className="iconfont icon-search-lg" style={{ fontSize: 20 }} />
+          <i className="iconfont icon-search-lg" style={{ fontSize: isMobile ? 16 : 20 }} />
         </button>
       </Tip>
     </div>

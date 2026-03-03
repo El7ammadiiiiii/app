@@ -302,7 +302,7 @@ export default function PatternScannerNewContent ()
     return combined.filter( p =>
     {
       // Pattern type filter
-      const name = p.name.toLowerCase();
+      const name = (p.name || "").toLowerCase();
       const id = name.replace( / /g, '_' ).replace( /[()]/g, '' );
       const mappedId = id.includes( 'flag' ) ? ( id.includes( 'bullish' ) ? 'flag_bull' : 'flag_bear' ) :
         id.includes( 'pennant' ) ? ( id.includes( 'bullish' ) ? 'pennant_bull' : 'pennant_bear' ) : id;

@@ -21,7 +21,6 @@ import {
   ReactFlow,
   Background,
   MiniMap,
-  Controls,
   Panel,
   useReactFlow,
   ReactFlowProvider,
@@ -53,7 +52,6 @@ import CWSmoothEdge from "./flow/CWSmoothEdge";
 import CWStraightEdge from "./flow/CWStraightEdge";
 import CWAnimatedSVGEdge from "./flow/CWAnimatedSVGEdge";
 import CWConnectionLine from "./flow/CWConnectionLine";
-import EdgeStyleSwitcher from "./flow/EdgeStyleSwitcher";
 import EdgeMarkerDefs from "./flow/EdgeMarkerDefs";
 import ContextMenu, { type ContextMenuData } from "./flow/ContextMenu";
 import HelperLines, { getHelperLines } from "./flow/HelperLines";
@@ -395,14 +393,14 @@ function MSGraphCanvasInner({
         nodesDraggable={!isConnectMode}
         proOptions={{ hideAttribution: true }}
         style={{
-          background: "#0a0a0a",
+          background: "transparent",
         }}
       >
         {/* Background */}
         {bgVariant !== "none" && (
           <Background
             variant={bgVariantMap[bgVariant] || BackgroundVariant.Dots}
-            color="#333"
+            color="rgba(255,255,255,0.06)"
             gap={20}
             size={1}
           />
@@ -425,16 +423,6 @@ function MSGraphCanvasInner({
             }}
           />
         )}
-
-        {/* Controls (zoom buttons) */}
-        <Controls
-          showInteractive={false}
-          style={{
-            background: "#1f1f1f",
-            border: "1px solid #333",
-            borderRadius: 8,
-          }}
-        />
 
         {/* Lasso freehand selection overlay */}
         {isLassoActive && !isConnectMode && <Lasso partial={lassoPartial} />}
@@ -513,10 +501,7 @@ function MSGraphCanvasInner({
           </div>
         </Panel>
 
-        {/* Edge style switcher panel (bottom-left) */}
-        <Panel position="bottom-left">
-          <EdgeStyleSwitcher />
-        </Panel>
+        {/* Edge style switcher moved to CWLeftToolbar */}
 
         {/* Layout loading indicator */}
         {isLayouting && (

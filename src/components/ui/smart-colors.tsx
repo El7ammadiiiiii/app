@@ -302,7 +302,7 @@ export function AIInsightCard ( {
 
   // تحديد المشاعر الإجمالية
   type ExtendedSentiment = SentimentType | "bullish" | "bearish";
-  const overallSentiment: ExtendedSentiment = sentiment
+  const overallSentiment: ExtendedSentiment = sentiment && typeof sentiment === "string"
     ? sentiment.toLowerCase() as ExtendedSentiment
     : ( titleSentiment !== "neutral" ? titleSentiment : contentSentiment );
 

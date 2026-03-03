@@ -11,8 +11,7 @@ import { useCWTrackerStore } from "@/lib/onchain/cwtracker-store";
 import { CWTrackerLayout } from "@/components/onchain/CWTrackerLayout";
 import { MSActionBar } from "@/components/onchain/MSActionBar";
 import { MSGraphToolbar } from "@/components/onchain/MSGraphToolbar";
-import { MSRightToolbar } from "@/components/onchain/MSRightToolbar";
-import { MSZoomBar } from "@/components/onchain/MSZoomBar";
+import { CWLeftToolbar } from "@/components/onchain/CWLeftToolbar";
 import { MSGraphCanvas } from "@/components/onchain/MSGraphCanvas";
 import { MSAddressDetail } from "@/components/onchain/MSAddressDetail";
 import { MSInterChainTracker } from "@/components/onchain/MSInterChainTracker";
@@ -182,8 +181,7 @@ export default function CWTrackerInner() {
           onAddAddress={() => setSearchOpen(true)}
         />
       }
-      rightToolbar={<MSRightToolbar />}
-      zoomBar={<MSZoomBar />}
+      leftToolbar={<CWLeftToolbar />}
       graph={
         <MSGraphCanvas
           onNodeClick={handleNodeClick}

@@ -107,6 +107,13 @@ const analysisCategories: AnalysisCategory[] = [
         path: "/chat/fibonacci-scanner"
       },
       {
+        id: "trendlines-scanner",
+        label: "📐 Trendlines",
+        icon: <TrendingUp className="w-4 h-4" />,
+        description: "خطوط الدعم والمقاومة",
+        path: "/chat/trendlines"
+      },
+      {
         id: "news",
         label: "📰 News",
         icon: <Newspaper className="w-4 h-4" />,

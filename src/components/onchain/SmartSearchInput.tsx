@@ -18,6 +18,7 @@ import {
   MS_ENTITY_TYPE_LABELS,
   type MSNode,
 } from "@/lib/onchain/cwtracker-types";
+import { useHotWallets, type HotWallet } from "@/hooks/useHotWallets";
 
 interface SmartSearchInputProps {
   onSelect: (address: string, chain: string) => void;
@@ -30,6 +31,7 @@ export function SmartSearchInput({ onSelect, onClose }: SmartSearchInputProps) {
   const [query, setQuery] = useState("");
   const [selectedIdx, setSelectedIdx] = useState(0);
   const inputRef = useRef<HTMLInputElement>(null);
+  const { search: searchHotWallets } = useHotWallets();
 
   // Auto-focus
   useEffect(() => {
@@ -61,25 +63,41 @@ export function SmartSearchInput({ onSelect, onClose }: SmartSearchInputProps) {
       .slice(0, 20);
   }, [query, nodes]);
 
+  // Hot wallet results
+  const hotWalletResults = useMemo(() => {
+    return searchHotWallets(query, 6);
+  }, [query, searchHotWallets]);
+
+  // Total items count for keyboard navigation
+  const totalItems = results.length + hotWalletResults.length;
+
   // Keyboard navigation
   const handleKeyDown = useCallback(
     (e: React.KeyboardEvent) => {
       if (e.key === "ArrowDown") {
         e.preventDefault();
-        setSelectedIdx((i) => Math.min(i + 1, results.length - 1));
+        setSelectedIdx((i) => Math.min(i + 1, totalItems - 1));
       } else if (e.key === "ArrowUp") {
         e.preventDefault();
         setSelectedIdx((i) => Math.max(i - 1, 0));
       } else if (e.key === "Enter") {
         e.preventDefault();
-        const item = results[selectedIdx];
-        if (item) {
-          selectNode(item.id);
-          onSelect(item.address, item.chain);
+        if (selectedIdx < results.length) {
+          const item = results[selectedIdx];
+          if (item) {
+            selectNode(item.id);
+            onSelect(item.address, item.chain);
+          }
+        } else {
+          const hwIdx = selectedIdx - results.length;
+          const hw = hotWalletResults[hwIdx];
+          if (hw) {
+            onSelect(hw.address, hw.chain);
+          }
         }
       }
     },
-    [results, selectedIdx, selectNode, onSelect]
+    [results, hotWalletResults, selectedIdx, totalItems, selectNode, onSelect]
   );
 
   return (
@@ -115,7 +133,7 @@ export function SmartSearchInput({ onSelect, onClose }: SmartSearchInputProps) {
 
       {/* ── Results ── */}
       <div className="max-h-[340px] overflow-y-auto">
-        {results.length === 0 ? (
+        {results.length === 0 && hotWalletResults.length === 0 ? (
           <div className="flex flex-col items-center justify-center py-8">
             <span className="text-2xl opacity-20 mb-2">🔍</span>
             <p className="text-xs text-slate-500">No results found</p>
@@ -135,24 +153,48 @@ export function SmartSearchInput({ onSelect, onClose }: SmartSearchInputProps) {
             )}
           </div>
         ) : (
-          results.map((node, idx) => (
-            <SearchResultItem
-              key={node.id}
-              node={node}
-              isSelected={idx === selectedIdx}
-              onClick={() => {
-                selectNode(node.id);
-                onSelect(node.address, node.chain);
-              }}
-              onMouseEnter={() => setSelectedIdx(idx)}
-            />
-          ))
+          <>
+            {/* Graph node results */}
+            {results.map((node, idx) => (
+              <SearchResultItem
+                key={node.id}
+                node={node}
+                isSelected={idx === selectedIdx}
+                onClick={() => {
+                  selectNode(node.id);
+                  onSelect(node.address, node.chain);
+                }}
+                onMouseEnter={() => setSelectedIdx(idx)}
+              />
+            ))}
+
+            {/* Hot wallet results */}
+            {hotWalletResults.length > 0 && (
+              <>
+                <div className="flex items-center gap-2 px-4 py-1.5 border-t border-teal-600/10">
+                  <span className="text-[10px] text-orange-400/80 font-medium uppercase tracking-wider">🔥 Known Hot Wallets</span>
+                </div>
+                {hotWalletResults.map((hw, idx) => {
+                  const globalIdx = results.length + idx;
+                  return (
+                    <HotWalletItem
+                      key={hw.address}
+                      wallet={hw}
+                      isSelected={globalIdx === selectedIdx}
+                      onClick={() => onSelect(hw.address, hw.chain)}
+                      onMouseEnter={() => setSelectedIdx(globalIdx)}
+                    />
+                  );
+                })}
+              </>
+            )}
+          </>
         )}
       </div>
 
       {/* ── Footer ── */}
       <div className="flex items-center justify-between px-4 py-2 border-t border-teal-600/10 text-[9px] text-slate-500">
-        <span>{results.length} results</span>
+        <span>{totalItems} results</span>
         <div className="flex items-center gap-3">
           <span>↑↓ Navigate</span>
           <span>↵ Select</span>
@@ -230,6 +272,59 @@ function SearchResultItem({
       <div className="text-right">
         <div className="text-[10px] text-slate-400">{node.txCount} tx</div>
         <div className="text-[9px] text-slate-500 capitalize">{node.chain}</div>
+      </div>
+    </div>
+  );
+}
+
+/* ── Hot Wallet Result Item ── */
+function HotWalletItem({
+  wallet,
+  isSelected,
+  onClick,
+  onMouseEnter,
+}: {
+  wallet: HotWallet;
+  isSelected: boolean;
+  onClick: () => void;
+  onMouseEnter: () => void;
+}) {
+  const shortAddr = wallet.address.slice(0, 6) + "…" + wallet.address.slice(-4);
+  return (
+    <div
+      className={`flex items-center gap-3 px-4 py-2 cursor-pointer transition-all ${
+        isSelected ? "bg-orange-500/10" : "hover:bg-white/3"
+      }`}
+      style={{
+        borderLeft: isSelected ? "2px solid #f97316" : "2px solid transparent",
+      }}
+      onClick={onClick}
+      onMouseEnter={onMouseEnter}
+    >
+      {/* Fire icon */}
+      <div className="flex items-center justify-center w-8 h-8 rounded text-sm" style={{ background: "rgba(249,115,22,0.1)" }}>
+        🔥
+      </div>
+      {/* Info */}
+      <div className="flex-1 min-w-0">
+        <div className="flex items-center gap-2">
+          <span className="text-xs text-slate-200 font-medium truncate">{wallet.name}</span>
+          <span className="text-[8px] text-orange-400/80 bg-orange-500/10 px-1 py-0 rounded">
+            Hot Wallet
+          </span>
+        </div>
+        <div className="flex items-center gap-1.5 mt-0.5">
+          <img
+            src={getMSChainIconUrl(wallet.chain)}
+            alt=""
+            className="w-3 h-3 rounded-full"
+          />
+          <span className="text-[10px] text-slate-500 font-mono">{shortAddr}</span>
+        </div>
+      </div>
+      {/* Chain */}
+      <div className="text-right">
+        <div className="text-[9px] text-slate-500 capitalize">{wallet.chain}</div>
       </div>
     </div>
   );

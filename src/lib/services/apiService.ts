@@ -5,8 +5,12 @@
 import { exchangeOrchestrator } from "./ExchangeOrchestrator";
 import { fastApiClient } from "./fastApiClient";
 
-const API_BASE_URL = process.env.NEXT_PUBLIC_FRONTEND_API_URL || 'http://localhost:8082/api/v1';
-const IS_LOCAL_API_BASE = API_BASE_URL.includes( 'localhost' ) || API_BASE_URL.includes( '127.0.0.1' );
+// Server-side: call backend directly; Client-side: use relative URL (hides origin)
+const _isServer = typeof window === 'undefined';
+const API_BASE_URL = _isServer
+  ? (process.env.FRONTEND_API_URL || 'http://127.0.0.1:8000/api/v1')
+  : '/api/v1';
+const IS_LOCAL_API_BASE = false; // always routed through Nginx or proxy
 const REQUEST_TIMEOUT_MS = 12000;
 
 function normalizeTimeframe ( timeframe?: string )

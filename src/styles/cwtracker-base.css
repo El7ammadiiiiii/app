@@ -967,19 +967,12 @@ rect.graph-node-shadow {
   background: transparent;
 }
 
-.index_container__XbHcS {
-  height: 56px;
-  background: var(--secondary-background);
-  border-bottom: 1px solid var(--default-border-color);
-  display: flex;
-  align-items: center;
-  padding: 0 20px;
-}
-
 .index_graphDataAction__yKrL2 {
   height: 48px;
-  background: var(--secondary-background);
-  border-bottom: 1px solid var(--default-border-color);
+  background: rgba(255,255,255,0.08);
+  backdrop-filter: blur(16px);
+  -webkit-backdrop-filter: blur(16px);
+  border-bottom: 1px solid rgba(255,255,255,0.12);
   display: flex;
   align-items: center;
   justify-content: space-between;
@@ -990,7 +983,9 @@ rect.graph-node-shadow {
   font-family: Inter, sans-serif;
   position: absolute !important;
   z-index: 2000;
-  background: var(--secondary-background);
+  background: linear-gradient(180deg, rgba(29,43,40,0.96) 0%, rgba(38,74,70,0.18) 50%, rgba(20,31,31,0.96) 100%);
+  backdrop-filter: blur(20px);
+  -webkit-backdrop-filter: blur(20px);
   direction: ltr;
   font-size: 12px;
   top: 16px;
@@ -998,15 +993,17 @@ rect.graph-node-shadow {
   bottom: 16px;
   overflow: hidden;
   width: 750px;
-  box-shadow: 0 8px 32px rgba(0,0,0,0.35);
-  border: 1px solid var(--default-border-color);
+  box-shadow: 0 8px 32px rgba(0,0,0,0.45), inset 0 1px 0 rgba(38,74,70,0.15), 0 0 12px rgba(38,74,70,0.2);
+  border: 1px solid rgba(38,74,70,0.4);
   border-radius: .5rem;
   display: flex;
   flex-direction: column;
 }
 
 .index_container__MJ_aS {
-  background: var(--secondary-background);
+  background: linear-gradient(180deg, rgba(29,43,40,0.96) 0%, rgba(38,74,70,0.15) 50%, rgba(20,31,31,0.96) 100%);
+  backdrop-filter: blur(20px);
+  -webkit-backdrop-filter: blur(20px);
   position: fixed;
   bottom: 0;
   left: 0;
@@ -1014,14 +1011,16 @@ rect.graph-node-shadow {
   z-index: 1000;
   border-radius: 12px 12px 0 0;
   overflow: hidden;
-  border-top: 1px solid var(--default-border-color);
-  box-shadow: 0 -4px 20px rgba(0,0,0,0.3);
+  border-top: 1px solid rgba(38,74,70,0.4);
+  box-shadow: 0 -4px 20px rgba(0,0,0,0.4), inset 0 1px 0 rgba(38,74,70,0.12), 0 0 10px rgba(38,74,70,0.15);
 }
 
 .index_styleControls__dOfSS {
   position: absolute;
-  background: var(--primary-background);
-  border: 1px solid var(--default-border-color);
+  background: rgba(255,255,255,0.08);
+  backdrop-filter: blur(16px);
+  -webkit-backdrop-filter: blur(16px);
+  border: 1px solid rgba(255,255,255,0.12);
   border-radius: 6px;
   padding: 9px;
   z-index: 4;
@@ -1035,18 +1034,11 @@ rect.graph-node-shadow {
    ═══════════════════════════════════════════ */
 
 @media (max-width: 768px) {
-  /* ── Nav bar compact ── */
-  .index_container__XbHcS {
-    height: 44px;
-    padding: 0 10px;
-  }
-
   /* ── Action bar compact ── */
   .index_graphDataAction__yKrL2 {
-    height: 40px;
+    height: 36px;
     padding: 0 8px;
-    overflow-x: auto;
-    -webkit-overflow-scrolling: touch;
+    overflow: hidden;
   }
 
   /* ── Sidebar → bottom sheet ── */
@@ -1058,8 +1050,14 @@ rect.graph-node-shadow {
     right: 0 !important;
     bottom: 0 !important;
     border-radius: 16px 16px 0 0;
-    max-height: 70vh;
+    max-height: 75vh;
     box-shadow: 0 -8px 32px rgba(0,0,0,0.5);
+  }
+
+  /* ── InterChain panel mobile ── */
+  .index_container__MJ_aS {
+    max-height: 50vh;
+    font-size: 11px;
   }
 
   /* ── Edge style picker responsive ── */
@@ -1076,18 +1074,32 @@ rect.graph-node-shadow {
 }
 
 @media (max-width: 480px) {
-  .index_container__XbHcS {
-    height: 40px;
-    padding: 0 8px;
-  }
-
   .index_graphDataAction__yKrL2 {
-    height: 36px;
-    padding: 0 6px;
+    height: 32px;
+    padding: 0 4px;
   }
 
   .index_addressDetail__IpPiN {
-    max-height: 60vh;
+    max-height: 65vh;
     border-radius: 12px 12px 0 0;
+  }
+}
+
+/* ── Desktop auto-grow panels ── */
+@media (min-width: 1024px) {
+  .index_addressDetail__IpPiN {
+    width: min(850px, 55vw);
+  }
+  .index_container__MJ_aS {
+    max-height: 55vh;
+  }
+}
+
+@media (min-width: 768px) and (max-width: 1023px) {
+  .index_addressDetail__IpPiN {
+    width: min(700px, 80vw);
+  }
+  .index_container__MJ_aS {
+    max-height: 50vh;
   }
 }

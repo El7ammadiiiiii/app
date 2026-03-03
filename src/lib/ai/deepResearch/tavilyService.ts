@@ -5,7 +5,7 @@
 
 import type { TavilySearchParams, SearchResult } from '@/types/deepResearch';
 
-const TAVILY_API_KEY = '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';
+const TAVILY_API_KEY = process.env.TAVILY_API_KEY || '';
 const TAVILY_API_URL = 'https://api.tavily.com/search';
 
 interface TavilyResponse {

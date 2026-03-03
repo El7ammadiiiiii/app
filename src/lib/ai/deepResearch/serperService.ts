@@ -5,7 +5,7 @@
 
 import type { SerperSearchParams, SearchResult } from '@/types/deepResearch';
 
-const SERPER_API_KEY = '84623444ccd50b82dd4824f80d679031f391c1c6';
+const SERPER_API_KEY = process.env.SERPER_API_KEY || '';
 const SERPER_API_URL = 'https://google.serper.dev/search';
 
 interface SerperResult {

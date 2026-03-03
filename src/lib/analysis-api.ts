@@ -4,7 +4,11 @@
 // TypeScript client for Python analysis API
 // ═══════════════════════════════════════════════════════════════
 
-const API_URL = process.env.NEXT_PUBLIC_PYTHON_API_URL || 'http://localhost:8000';
+// Server-side: call backend directly; Client-side: use proxy (hides URL)
+const _isServer = typeof window === 'undefined';
+const API_URL = _isServer
+  ? (process.env.FASTAPI_URL || process.env.ONCHAIN_API_URL || 'http://127.0.0.1:8000')
+  : '/api/backend';
 
 // ═══════════════════════════════════════════════════════════════
 // TYPES

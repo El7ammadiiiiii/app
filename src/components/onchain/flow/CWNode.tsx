@@ -13,14 +13,11 @@ import {
   MS_COLORS,
   getMSChainIconUrl,
   getMSChainBgColor,
-  getMSRiskColor,
-  getMSRiskLabel,
   getBlockExplorerUrl,
   msShortenAddress,
-  msFormatValue,
   type MSNode,
 } from "@/lib/onchain/cwtracker-types";
-import { NODE_W, NODE_H, NODE_R, EXPANDED_NODE_EXTRA_H, SVG_ICON, APPROX_TOKEN_USD } from "./constants";
+import { NODE_W, NODE_H, NODE_R, SVG_ICON } from "./constants";
 
 export interface CWNodeData extends MSNode {
   flowUSD?: number;
@@ -29,6 +26,60 @@ export interface CWNodeData extends MSNode {
 
 type CWNodeProps = NodeProps & { data: CWNodeData };
 
+/* ── Floating Action Button (pill with label) ── */
+function FAB({
+  icon,
+  stroke,
+  label,
+  title,
+  onClick,
+  badge,
+}: {
+  icon: string;
+  stroke?: string;
+  label?: string;
+  title: string;
+  onClick: (e: React.MouseEvent) => void;
+  badge?: React.ReactNode;
+}) {
+  return (
+    <button
+      onClick={onClick}
+      title={title}
+      style={{
+        height: 26,
+        borderRadius: 7,
+        padding: label ? "0 8px 0 6px" : "0 6px",
+        background: "rgba(29,43,40,0.88)",
+        backdropFilter: "blur(10px)",
+        WebkitBackdropFilter: "blur(10px)",
+        border: "1px solid rgba(38,74,70,0.5)",
+        cursor: "pointer",
+        display: "flex",
+        alignItems: "center",
+        justifyContent: "center",
+        gap: 4,
+        position: "relative",
+        boxShadow: "0 2px 8px rgba(0,0,0,0.4)",
+        transition: "transform 0.12s, background 0.15s, box-shadow 0.15s",
+        fontFamily: "Inter, sans-serif",
+      }}
+      onMouseOver={(e) => { e.currentTarget.style.background = "rgba(38,74,70,0.95)"; e.currentTarget.style.transform = "scale(1.06)"; e.currentTarget.style.boxShadow = "0 2px 12px rgba(38,74,70,0.35)"; }}
+      onMouseOut={(e) => { e.currentTarget.style.background = "rgba(29,43,40,0.88)"; e.currentTarget.style.transform = "scale(1)"; e.currentTarget.style.boxShadow = "0 2px 8px rgba(0,0,0,0.4)"; }}
+    >
+      <svg width={13} height={13} viewBox="0 0 16 16">
+        <path d={icon} fill="none" stroke={stroke || "#b0c4c0"} strokeWidth={1.4} strokeLinecap="round" strokeLinejoin="round" />
+      </svg>
+      {label && (
+        <span style={{ fontSize: 10, fontWeight: 500, color: "#cdd9d6", whiteSpace: "nowrap", letterSpacing: 0.2 }}>
+          {label}
+        </span>
+      )}
+      {badge}
+    </button>
+  );
+}
+
 function CWNodeComponent({ id, data, selected }: CWNodeProps) {
   const node = data;
   const isHovered = useCWTrackerStore((s) => s.hoveredNodeId === id);
@@ -36,23 +87,26 @@ function CWNodeComponent({ id, data, selected }: CWNodeProps) {
   const edges = useCWTrackerStore((s) => s.edges);
   const hoverNode = useCWTrackerStore((s) => s.hoverNode);
   const expandNodeDirection = useCWTrackerStore((s) => s.expandNodeDirection);
-  const openAdvancedAnalyze = useCWTrackerStore((s) => s.openAdvancedAnalyze);
+  const openFindRelationship = useCWTrackerStore((s) => s.openFindRelationship);
   const openNodeDetail = useCWTrackerStore((s) => s.openNodeDetail);
-  const removeNode = useCWTrackerStore((s) => s.removeNode);
   const updateNode = useCWTrackerStore((s) => s.updateNode);
 
   const [editingLabel, setEditingLabel] = useState(false);
   const [editValue, setEditValue] = useState("");
   const [isPinnedExpanded, setIsPinnedExpanded] = useState(false);
   const [copied, setCopied] = useState(false);
+  const [alertOn, setAlertOn] = useState(false);
 
   const isEdgeConnected = hoveredEdgeId
     ? edges.some((e) => e.id === hoveredEdgeId && (e.source === id || e.target === id))
     : false;
 
   const showGlow = isHovered || selected || isEdgeConnected;
-  const showExpanded = isHovered || selected || isPinnedExpanded;
-  const visualHeight = showExpanded ? NODE_H + EXPANDED_NODE_EXTRA_H : NODE_H;
+  // Show floating buttons on hover or click-pinned
+  const showButtons = isHovered || selected || isPinnedExpanded;
+
+  // Dim node when an edge is hovered and this node is NOT connected to it
+  const dimmedByEdge = hoveredEdgeId != null && !isEdgeConnected && !isHovered;
 
   const fill = node.customColor || (node.isRoot ? MS_COLORS.nodeRootFill : MS_COLORS.nodeFill);
   const strokeColor = node.isRoot
@@ -102,504 +156,261 @@ function CWNodeComponent({ id, data, selected }: CWNodeProps) {
     [node.chain, node.address]
   );
 
-  const usd = node.balanceUSD ?? node.totalValueUSD ?? node.flowUSD;
+  const handleNodeClick = useCallback(() => {
+    setIsPinnedExpanded((p) => !p);
+  }, []);
 
   return (
     <div
       className="cw-node-wrapper"
       style={{
-        /* Outer wrapper: wider interaction area so + buttons stay hovered */
+        /* Outer wrapper: wider + taller for floating buttons + safe mouse gap */
         width: NODE_W + 72,
-        height: visualHeight + 20,
-        padding: "10px 36px",
+        minHeight: NODE_H + 80,
+        padding: "36px 36px 36px 36px",
         position: "relative",
         boxSizing: "border-box",
+        opacity: dimmedByEdge ? 0.15 : 1,
+        transition: "opacity 0.2s ease",
       }}
       onMouseEnter={() => hoverNode(id)}
       onMouseLeave={() => hoverNode(null)}
+      onClick={handleNodeClick}
     >
-      {/* ── Expand "+" buttons OUTSIDE the card, INSIDE the hover wrapper ── */}
-      {showExpanded && (
+      {/* ── Floating buttons ABOVE the card ── */}
+      {showButtons && (
+        <div
+          style={{
+            position: "absolute",
+            top: 4,
+            left: "50%",
+            transform: "translateX(-50%)",
+            display: "flex",
+            gap: 4,
+            zIndex: 20,
+          }}
+        >
+          {/* Copy */}
+          <FAB
+            icon={SVG_ICON.copy}
+            stroke={copied ? "#24c197" : "#b0c4c0"}
+            label="Copy"
+            title="Copy address"
+            onClick={handleCopyAddress}
+            badge={copied ? (
+              <div style={{ position: "absolute", top: -18, left: "50%", transform: "translateX(-50%)", background: "#24c197", color: "#fff", fontSize: 8, padding: "1px 5px", borderRadius: 3, whiteSpace: "nowrap", pointerEvents: "none" }}>
+                Copied!
+              </div>
+            ) : undefined}
+          />
+          {/* Explorer */}
+          <FAB
+            icon={SVG_ICON.explorer}
+            label="Explorer"
+            title="View on block explorer"
+            onClick={handleOpenExplorer}
+          />
+          {/* Address ID / Node detail */}
+          <FAB
+            icon={SVG_ICON.addressId}
+            stroke="#7b9ef7"
+            label="Details"
+            title="Address ID / Details"
+            onClick={(e) => { e.stopPropagation(); openNodeDetail(id); }}
+          />
+        </div>
+      )}
+
+      {/* ── Expand buttons OUTSIDE the card ── */}
+      {showButtons && (
         <>
           <button
-            onClick={(e) => {
-              e.stopPropagation();
-              expandNodeDirection(id, "left");
-            }}
+            onClick={(e) => { e.stopPropagation(); expandNodeDirection(id, "left"); }}
             title="Expand Incoming"
             style={{
               position: "absolute",
               left: 4,
-              top: 10 + NODE_H / 2 - 12,
-              width: 24,
-              height: 24,
-              borderRadius: 6,
-              background: MS_COLORS.primary,
-              border: "none",
-              color: "#fff",
-              fontSize: 16,
-              fontWeight: 700,
+              top: 36 + NODE_H / 2 - 13,
+              width: 26,
+              height: 26,
+              borderRadius: 7,
+              background: "rgba(29,43,40,0.88)",
+              backdropFilter: "blur(10px)",
+              WebkitBackdropFilter: "blur(10px)",
+              border: "1px solid rgba(38,74,70,0.5)",
+              color: "#b0c4c0",
+              fontSize: 14,
+              fontWeight: 600,
               cursor: "pointer",
               display: "flex",
               alignItems: "center",
               justifyContent: "center",
               zIndex: 10,
               boxShadow: "0 2px 6px rgba(0,0,0,0.4)",
+              transition: "transform 0.12s, background 0.15s, box-shadow 0.15s",
             }}
+            onMouseOver={(e) => { e.currentTarget.style.background = "rgba(38,74,70,0.95)"; e.currentTarget.style.transform = "scale(1.1)"; e.currentTarget.style.boxShadow = "0 2px 10px rgba(38,74,70,0.35)"; }}
+            onMouseOut={(e) => { e.currentTarget.style.background = "rgba(29,43,40,0.88)"; e.currentTarget.style.transform = "scale(1)"; e.currentTarget.style.boxShadow = "0 2px 6px rgba(0,0,0,0.4)"; }}
           >
-            +
+            <svg width={12} height={12} viewBox="0 0 16 16" fill="none"><path d="M10 3L5 8l5 5" stroke="#b0c4c0" strokeWidth={1.6} strokeLinecap="round" strokeLinejoin="round"/></svg>
           </button>
           <button
-            onClick={(e) => {
-              e.stopPropagation();
-              expandNodeDirection(id, "right");
-            }}
+            onClick={(e) => { e.stopPropagation(); expandNodeDirection(id, "right"); }}
             title="Expand Outgoing"
             style={{
               position: "absolute",
               right: 4,
-              top: 10 + NODE_H / 2 - 12,
-              width: 24,
-              height: 24,
-              borderRadius: 6,
-              background: MS_COLORS.primary,
-              border: "none",
-              color: "#fff",
-              fontSize: 16,
-              fontWeight: 700,
+              top: 36 + NODE_H / 2 - 13,
+              width: 26,
+              height: 26,
+              borderRadius: 7,
+              background: "rgba(29,43,40,0.88)",
+              backdropFilter: "blur(10px)",
+              WebkitBackdropFilter: "blur(10px)",
+              border: "1px solid rgba(38,74,70,0.5)",
+              color: "#b0c4c0",
+              fontSize: 14,
+              fontWeight: 600,
               cursor: "pointer",
               display: "flex",
               alignItems: "center",
               justifyContent: "center",
               zIndex: 10,
               boxShadow: "0 2px 6px rgba(0,0,0,0.4)",
+              transition: "transform 0.12s, background 0.15s, box-shadow 0.15s",
             }}
+            onMouseOver={(e) => { e.currentTarget.style.background = "rgba(38,74,70,0.95)"; e.currentTarget.style.transform = "scale(1.1)"; e.currentTarget.style.boxShadow = "0 2px 10px rgba(38,74,70,0.35)"; }}
+            onMouseOut={(e) => { e.currentTarget.style.background = "rgba(29,43,40,0.88)"; e.currentTarget.style.transform = "scale(1)"; e.currentTarget.style.boxShadow = "0 2px 6px rgba(0,0,0,0.4)"; }}
           >
-            +
+            <svg width={12} height={12} viewBox="0 0 16 16" fill="none"><path d="M6 3l5 5-5 5" stroke="#b0c4c0" strokeWidth={1.6} strokeLinecap="round" strokeLinejoin="round"/></svg>
           </button>
         </>
       )}
 
-      {/* ── Inner visible card ── */}
-    <div
-      className={`cw-node ${showGlow ? "cw-node-glow" : ""} ${isBridge ? "cw-node-bridge" : ""}`}
-      style={{
-        width: NODE_W,
-        height: visualHeight,
-        background: fill,
-        border: `${strokeW}px solid ${isBridge ? "#bd7c4060" : strokeColor}`,
-        borderRadius: NODE_R,
-        position: "relative",
-        transition: "height 0.15s ease",
-        filter: showGlow ? "drop-shadow(0 0 8px rgba(189,124,64,0.5))" : undefined,
-      }}
-    >
-      {/* Handles — 4 handles for bidirectional edge routing */}
-      {/* Left side: receive (target) & send (source) */}
-      <Handle
-        type="target"
-        position={Position.Left}
-        id="left"
-        style={{ background: "#555", width: 8, height: 8, border: "2px solid #888" }}
-      />
-      <Handle
-        type="source"
-        position={Position.Left}
-        id="left-out"
-        style={{ background: "#555", width: 8, height: 8, border: "2px solid #888", top: "60%" }}
-      />
-      {/* Right side: send (source) & receive (target) */}
-      <Handle
-        type="source"
-        position={Position.Right}
-        id="right"
-        style={{ background: "#555", width: 8, height: 8, border: "2px solid #888" }}
-      />
-      <Handle
-        type="target"
-        position={Position.Right}
-        id="right-in"
-        style={{ background: "#555", width: 8, height: 8, border: "2px solid #888", top: "60%" }}
-      />
-
-      {/* Risk badge */}
-      {isDanger && (
-        <div
-          style={{
-            position: "absolute",
-            top: -10,
-            right: -4,
-            width: 20,
-            height: 20,
-            borderRadius: "50%",
-            background: node.riskLevel === "critical" ? "#D60473" : "#FF3B30",
-            display: "flex",
-            alignItems: "center",
-            justifyContent: "center",
-            fontSize: 11,
-            fontWeight: 700,
-            color: "#fff",
-            zIndex: 10,
-          }}
-        >
-          !
-        </div>
-      )}
-
-      {/* Main content */}
+      {/* ── Inner visible card — compact: icon + label + address ── */}
       <div
+        className={`cw-node ${showGlow ? "cw-node-glow" : ""} ${isBridge ? "cw-node-bridge" : ""}`}
         style={{
-          display: "flex",
-          alignItems: "flex-start",
-          gap: 10,
-          padding: "12px 10px 8px 12px",
+          width: NODE_W,
           height: NODE_H,
-          overflow: "hidden",
-          fontFamily: "Inter, sans-serif",
+          background: fill,
+          border: `${strokeW}px solid ${isBridge ? "#bd7c4060" : strokeColor}`,
+          borderRadius: NODE_R,
+          position: "relative",
+          filter: showGlow ? "drop-shadow(0 0 8px rgba(189,124,64,0.5))" : undefined,
         }}
       >
-        {/* Chain icon */}
-        <div
-          style={{
-            flexShrink: 0,
-            width: 32,
-            height: 32,
-            borderRadius: "50%",
-            background: getMSChainBgColor(node.chain || "") + "2E",
-            display: "flex",
-            alignItems: "center",
-            justifyContent: "center",
-          }}
-        >
-          <img
-            src={getMSChainIconUrl(node.chain || "")}
-            width={22}
-            height={22}
-            alt=""
-            style={{ borderRadius: "50%" }}
-            draggable={false}
-          />
-        </div>
+        {/* Handles — 4 for bidirectional */}
+        <Handle type="target" position={Position.Left} id="left" style={{ background: "#555", width: 8, height: 8, border: "2px solid #888" }} />
+        <Handle type="source" position={Position.Left} id="left-out" style={{ background: "#555", width: 8, height: 8, border: "2px solid #888", top: "60%" }} />
+        <Handle type="source" position={Position.Right} id="right" style={{ background: "#555", width: 8, height: 8, border: "2px solid #888" }} />
+        <Handle type="target" position={Position.Right} id="right-in" style={{ background: "#555", width: 8, height: 8, border: "2px solid #888", top: "60%" }} />
 
-        {/* Text column */}
-        <div style={{ flex: 1, minWidth: 0, overflow: "hidden" }}>
-          {/* Label */}
-          {editingLabel ? (
-            <input
-              autoFocus
-              value={editValue}
-              onChange={(ev) => setEditValue(ev.target.value)}
-              onKeyDown={(ev) => {
-                if (ev.key === "Enter") commitEdit();
-                if (ev.key === "Escape") setEditingLabel(false);
-              }}
-              onBlur={commitEdit}
-              onClick={(ev) => ev.stopPropagation()}
-              style={{
-                width: "100%",
-                fontSize: 13,
-                fontWeight: 600,
-                color: textColor,
-                background: "rgba(255,255,255,0.1)",
-                border: `1px solid ${MS_COLORS.primary}`,
-                borderRadius: 3,
-                padding: "1px 4px",
-                outline: "none",
-                fontFamily: "Inter, sans-serif",
-              }}
-            />
-          ) : (
-            <div style={{ display: "flex", alignItems: "center", gap: 4, lineHeight: "18px" }}>
-              <span
-                style={{
-                  fontSize: 13,
-                  fontWeight: 600,
-                  color: textColor,
-                  whiteSpace: "nowrap",
-                  overflow: "hidden",
-                  textOverflow: "ellipsis",
-                  maxWidth: isBridge ? 120 : 170,
-                }}
-              >
-                {node.label}
-              </span>
-              {node.isRoot && (
-                <span style={{ fontSize: 9, fontWeight: 700, color: MS_COLORS.primary, flexShrink: 0 }}>
-                  ROOT
-                </span>
-              )}
-              {isBridge && (
-                <span
-                  style={{
-                    fontSize: 9,
-                    fontWeight: 700,
-                    color: "rgba(255,255,255,0.44)",
-                    background: "rgba(255,255,255,0.063)",
-                    borderRadius: 3,
-                    padding: "1px 6px",
-                    flexShrink: 0,
-                  }}
-                >
-                  Bridge
-                </span>
-              )}
-              {node.riskLevel && node.riskLevel !== "unknown" && !isDanger && (
-                <span
-                  style={{
-                    fontSize: 9,
-                    color: getMSRiskColor(node.riskLevel),
-                    marginLeft: "auto",
-                    flexShrink: 0,
-                  }}
-                >
-                  {getMSRiskLabel(node.riskLevel)}
-                </span>
-              )}
-            </div>
-          )}
+        {/* Risk badge */}
+        {isDanger && (
+          <div style={{ position: "absolute", top: -10, right: -4, width: 20, height: 20, borderRadius: "50%", background: node.riskLevel === "critical" ? "#D60473" : "#FF3B30", display: "flex", alignItems: "center", justifyContent: "center", fontSize: 11, fontWeight: 700, color: "#fff", zIndex: 10 }}>
+            !
+          </div>
+        )}
 
-          {/* Address */}
-          <div style={{ marginTop: 1, lineHeight: "14px" }}>
-            <span
-              style={{
-                fontFamily: "Menlo, Monaco, monospace",
-                fontSize: 10,
-                color: "rgba(255,255,255,0.55)",
-                whiteSpace: "nowrap",
-                overflow: "hidden",
-                textOverflow: "ellipsis",
-                display: "block",
-              }}
-            >
-              {node.address || ""}
-            </span>
+        {/* Alert badge */}
+        {alertOn && (
+          <div style={{ position: "absolute", top: -8, left: -4, width: 18, height: 18, borderRadius: "50%", background: "#f59e0b", display: "flex", alignItems: "center", justifyContent: "center", fontSize: 10, zIndex: 10 }}>
+            🔔
+          </div>
+        )}
+
+        {/* Main content — icon + label + address */}
+        <div style={{ display: "flex", alignItems: "center", gap: 10, padding: "8px 12px", height: NODE_H, overflow: "hidden", fontFamily: "Inter, sans-serif" }}>
+          {/* Chain icon */}
+          <div style={{ flexShrink: 0, width: 28, height: 28, borderRadius: "50%", background: getMSChainBgColor(node.chain || "") + "2E", display: "flex", alignItems: "center", justifyContent: "center" }}>
+            <img src={getMSChainIconUrl(node.chain || "")} width={20} height={20} alt="" style={{ borderRadius: "50%" }} draggable={false} />
           </div>
 
-          {/* USD balance */}
-          {usd != null && usd > 0 && (
-            <div style={{ marginTop: 1, fontSize: 11, fontWeight: 700, color: "#24c197", lineHeight: "14px" }}>
-              ≈ {msFormatValue(usd)}
-            </div>
-          )}
-        </div>
-
-        {/* Icon column — Copy address & Open explorer */}
-        <div
-          style={{
-            flexShrink: 0,
-            display: "flex",
-            flexDirection: "column",
-            gap: 4,
-            marginTop: 2,
-            opacity: isHovered || selected ? 1 : 0.5,
-          }}
-        >
-          {/* Copy full wallet address */}
-          <div style={{ position: "relative" }}>
-            <svg
-              width={14}
-              height={14}
-              viewBox="0 0 16 16"
-              style={{ cursor: "pointer" }}
-              onClick={handleCopyAddress}
-            >
-              <title>Copy full address</title>
-              <path
-                d={SVG_ICON.copy}
-                fill="none"
-                stroke={copied ? "#24c197" : "#999"}
-                strokeWidth={1.4}
-                strokeLinecap="round"
-                strokeLinejoin="round"
+          {/* Text */}
+          <div style={{ flex: 1, minWidth: 0, overflow: "hidden" }}>
+            {/* Label */}
+            {editingLabel ? (
+              <input
+                autoFocus
+                value={editValue}
+                onChange={(ev) => setEditValue(ev.target.value)}
+                onKeyDown={(ev) => { if (ev.key === "Enter") commitEdit(); if (ev.key === "Escape") setEditingLabel(false); }}
+                onBlur={commitEdit}
+                onClick={(ev) => ev.stopPropagation()}
+                style={{ width: "100%", fontSize: 12, fontWeight: 600, color: textColor, background: "rgba(255,255,255,0.1)", border: `1px solid ${MS_COLORS.primary}`, borderRadius: 3, padding: "1px 4px", outline: "none", fontFamily: "Inter, sans-serif" }}
               />
-            </svg>
-            {copied && (
-              <div
-                style={{
-                  position: "absolute",
-                  top: -22,
-                  left: "50%",
-                  transform: "translateX(-50%)",
-                  background: "#24c197",
-                  color: "#fff",
-                  fontSize: 9,
-                  padding: "2px 6px",
-                  borderRadius: 4,
-                  whiteSpace: "nowrap",
-                  pointerEvents: "none",
-                  zIndex: 20,
-                }}
-              >
-                Copied!
+            ) : (
+              <div style={{ display: "flex", alignItems: "center", gap: 4, lineHeight: "16px" }}>
+                <span style={{ fontSize: 12, fontWeight: 600, color: textColor, whiteSpace: "nowrap", overflow: "hidden", textOverflow: "ellipsis", maxWidth: 180 }}>
+                  {node.label}
+                </span>
+                {node.isRoot && (
+                  <span style={{ fontSize: 8, fontWeight: 700, color: MS_COLORS.primary, flexShrink: 0 }}>ROOT</span>
+                )}
+                {isBridge && (
+                  <span style={{ fontSize: 8, fontWeight: 700, color: "rgba(255,255,255,0.44)", background: "rgba(255,255,255,0.063)", borderRadius: 3, padding: "1px 4px", flexShrink: 0 }}>Bridge</span>
+                )}
               </div>
             )}
+
+            {/* Address */}
+            <div style={{ marginTop: 1, lineHeight: "13px" }}>
+              <span style={{ fontFamily: "Menlo, Monaco, monospace", fontSize: 9, color: "rgba(255,255,255,0.5)", whiteSpace: "nowrap", overflow: "hidden", textOverflow: "ellipsis", display: "block" }}>
+                {msShortenAddress(node.address || "")}
+              </span>
+            </div>
           </div>
-          {/* Open block explorer */}
-          <svg
-            width={14}
-            height={14}
-            viewBox="0 0 16 16"
-            style={{ cursor: "pointer" }}
-            onClick={handleOpenExplorer}
-          >
-            <title>View on block explorer</title>
-            <path
-              d={SVG_ICON.explorer}
-              fill="none"
-              stroke="#999"
-              strokeWidth={1.4}
-              strokeLinecap="round"
-              strokeLinejoin="round"
-            />
-          </svg>
         </div>
+
+        {/* Loading spinner */}
+        {node.isLoading && (
+          <div style={{ position: "absolute", bottom: -24, left: "50%", transform: "translateX(-50%)" }}>
+            <div className="w-4 h-4 border-2 border-[var(--default-color)] border-t-transparent rounded-full animate-spin" />
+          </div>
+        )}
+
+        {/* Resizer */}
+        <NodeResizer minWidth={NODE_W} minHeight={NODE_H} isVisible={selected || false} lineStyle={{ borderColor: MS_COLORS.primary }} handleStyle={{ background: MS_COLORS.primary, width: 8, height: 8 }} />
       </div>
 
-      {/* Expanded action bar */}
-      {showExpanded && (
-        <div
-          style={{
-            display: "flex",
-            gap: 3,
-            padding: "4px 6px",
-            height: EXPANDED_NODE_EXTRA_H,
-            alignItems: "center",
-          }}
-        >
-          {/* Analyze */}
-          <button
-            onClick={(e) => {
-              e.stopPropagation();
-              openAdvancedAnalyze(id);
-            }}
-            style={{
-              flex: 1,
-              height: 28,
-              background: MS_COLORS.primary,
-              border: "none",
-              borderRadius: 6,
-              color: "#fff",
-              fontSize: 13,
-              fontWeight: 500,
-              cursor: "pointer",
-              fontFamily: "Inter, sans-serif",
-            }}
-          >
-            Analyze
-          </button>
-
-          {/* Settings — opens node detail sidebar */}
-          <button
-            onClick={(e) => {
-              e.stopPropagation();
-              openNodeDetail(id);
-            }}
-            title="Node details &amp; settings"
-            style={{
-              width: 30,
-              height: 28,
-              background: MS_COLORS.primary,
-              border: "none",
-              borderRadius: 6,
-              cursor: "pointer",
-              display: "flex",
-              alignItems: "center",
-              justifyContent: "center",
-            }}
-          >
-            <svg width={16} height={16} viewBox="0 0 16 16">
-              <path d={SVG_ICON.sliders} fill="none" stroke="#fff" strokeWidth={1.5} strokeLinecap="round" />
-            </svg>
-          </button>
-
-          {/* Edit */}
-          <button
-            onClick={(e) => {
-              e.stopPropagation();
-              startEdit();
-            }}
-            title="Edit name tag"
-            style={{
-              width: 28,
-              height: 28,
-              background: "#30313580",
-              border: "none",
-              borderRadius: 6,
-              cursor: "pointer",
-              display: "flex",
-              alignItems: "center",
-              justifyContent: "center",
-            }}
-          >
-            <svg width={16} height={16} viewBox="0 0 16 16">
-              <path
-                d={SVG_ICON.pencil}
-                fill="none"
-                stroke="#cfcfcf"
-                strokeWidth={1.4}
-                strokeLinecap="round"
-                strokeLinejoin="round"
-              />
-            </svg>
-          </button>
-
-          {/* Delete */}
-          <button
-            onClick={(e) => {
-              e.stopPropagation();
-              removeNode(id);
-            }}
-            title="Remove this node"
-            style={{
-              width: 28,
-              height: 28,
-              background: "#30313580",
-              border: "none",
-              borderRadius: 6,
-              cursor: "pointer",
-              display: "flex",
-              alignItems: "center",
-              justifyContent: "center",
-            }}
-          >
-            <svg width={16} height={16} viewBox="0 0 16 16">
-              <path
-                d={SVG_ICON.trash}
-                fill="none"
-                stroke="#ff4d4f"
-                strokeWidth={1.4}
-                strokeLinecap="round"
-                strokeLinejoin="round"
-              />
-            </svg>
-          </button>
-
-        </div>
-      )}
-
-      {/* Loading spinner */}
-      {node.isLoading && (
+      {/* ── Floating buttons BELOW the card ── */}
+      {showButtons && (
         <div
           style={{
             position: "absolute",
-            bottom: -28,
+            bottom: 4,
             left: "50%",
             transform: "translateX(-50%)",
+            display: "flex",
+            gap: 4,
+            zIndex: 20,
           }}
         >
-          <div className="w-5 h-5 border-2 border-[var(--default-color)] border-t-transparent rounded-full animate-spin" />
+          {/* Rename */}
+          <FAB
+            icon={SVG_ICON.pencil}
+            label="Rename"
+            title="Rename"
+            onClick={(e) => { e.stopPropagation(); startEdit(); }}
+          />
+          {/* Find Relationship */}
+          <FAB
+            icon="M6.5 2a4.5 4.5 0 013.58 7.2l3.6 3.6-.7.7-3.6-3.6A4.5 4.5 0 116.5 2z"
+            label="Find"
+            title="Find Relationship"
+            onClick={(e) => { e.stopPropagation(); openFindRelationship(id); }}
+          />
+          {/* Alert toggle */}
+          <FAB
+            icon={SVG_ICON.bell}
+            stroke={alertOn ? "#f59e0b" : undefined}
+            label={alertOn ? "Alert ON" : "Alert"}
+            title={alertOn ? "Alert ON — click to disable" : "Set alert"}
+            onClick={(e) => { e.stopPropagation(); setAlertOn(!alertOn); }}
+          />
         </div>
       )}
-
-      {/* Resizer for node */}
-      <NodeResizer
-        minWidth={NODE_W}
-        minHeight={NODE_H}
-        isVisible={selected || false}
-        lineStyle={{ borderColor: MS_COLORS.primary }}
-        handleStyle={{ background: MS_COLORS.primary, width: 8, height: 8 }}
-      />
-    </div>
     </div>
   );
 }

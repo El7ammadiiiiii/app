@@ -220,7 +220,7 @@ export default function DYORTrendScannerPage() {
     // Search
     if (searchQuery) {
       const q = searchQuery.toLowerCase();
-      filtered = filtered.filter(c => c.name.toLowerCase().includes(q) || c.symbol.toLowerCase().includes(q));
+      filtered = filtered.filter(c => (c.name || "").toLowerCase().includes(q) || (c.symbol || "").toLowerCase().includes(q));
     }
 
     // Favorites

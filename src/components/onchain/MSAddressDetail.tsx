@@ -139,7 +139,7 @@ function ActiveChainsDropdown({ node }: { node: MSNode }) {
     <div ref={ref} className="relative inline-flex items-center">
       <button
         onClick={() => setOpen(!open)}
-        className="flex items-center gap-1.5 px-2.5 py-1 rounded-md border border-[var(--default-border-color)] bg-[var(--primary-background)] hover:border-[var(--default-color)] transition-colors text-[11px] text-[var(--desc-color)]"
+        className="flex items-center gap-1.5 px-2.5 py-1 rounded-md border border-white/12 bg-white/8 hover:border-[var(--default-color)] transition-colors text-[11px] text-white/60"
       >
         <span>Active on {node.activeChains.length} chain{node.activeChains.length > 1 ? "s" : ""}</span>
         <div className="flex items-center gap-0.5 ml-0.5">
@@ -225,7 +225,7 @@ function DetailHeader({
   };
 
   return (
-    <div className="px-4 py-3 border-b border-[var(--default-border-color)]">
+    <div className="px-4 py-3 border-b border-white/10">
       {/* Row 1: Chain icon + label + pencil + icons + close */}
       <div className="flex items-center gap-2.5">
         <img src={getMSChainIconUrl(node.chain)} alt={node.chain} className="w-8 h-8 rounded-full flex-shrink-0" />
@@ -282,11 +282,11 @@ function DetailHeader({
 
       {/* Row 3: Balance pills + Active chains dropdown */}
       <div className="flex flex-wrap items-center gap-2 mt-2.5">
-        <div className="flex items-center gap-1 px-2.5 py-1 rounded-md border border-[var(--default-border-color)] bg-[var(--primary-background)] text-[11px] text-[var(--desc-color)]">
+        <div className="flex items-center gap-1 px-2.5 py-1 rounded-md border border-white/12 bg-white/8 text-[11px] text-white/60">
           <span>Ether Balance:</span>
           <span className="text-white/70">{fmtBalance(node.balanceUSD)}</span>
         </div>
-        <div className="flex items-center gap-1 px-2.5 py-1 rounded-md border border-[var(--default-border-color)] bg-[var(--primary-background)] text-[11px] text-[var(--desc-color)]">
+        <div className="flex items-center gap-1 px-2.5 py-1 rounded-md border border-white/12 bg-white/8 text-[11px] text-white/60">
           <span>Total value on <span className="capitalize">{node.chain}</span>:</span>
           <span className="text-white/70">{fmtBalance(node.totalValueUSD ?? node.balanceUSD)}</span>
         </div>
@@ -294,7 +294,7 @@ function DetailHeader({
       </div>
 
       {/* Row 4: Transfer counter with Data Explorer link */}
-      <div className="mt-2.5 text-[11px] text-[var(--desc-color)] flex items-center gap-1 flex-wrap">
+      <div className="mt-2.5 text-[11px] text-white/60 flex items-center gap-1 flex-wrap">
         <span>
           <span className="text-[var(--default-color)] font-medium">{totalTransfers}</span>
           {" "}out of{" "}
@@ -342,8 +342,8 @@ function SelectionToolbar({
   if (count === 0) return null;
   return (
     <div
-      className="absolute left-1/2 -translate-x-1/2 z-[100] rounded-lg border border-[var(--default-border-color)] bg-[var(--secondary-background)] px-3 py-2 shadow-md"
-      style={{ top: 10 }}
+      className="absolute left-1/2 -translate-x-1/2 z-[100] rounded-lg border border-white/12 px-3 py-2 shadow-md"
+      style={{ top: 10, background: "rgba(30,28,24,0.95)", backdropFilter: "blur(16px)" }}
     >
       <div className="flex w-max items-center gap-3 text-xs font-semibold text-neutral-200">
         <span>{count} Selected</span>
@@ -358,7 +358,7 @@ function SelectionToolbar({
         <button
           type="button"
           onClick={onRemoveFromCanvas}
-          className="inline-flex items-center gap-1.5 rounded border border-[var(--default-border-color)] px-2.5 py-1 text-xs font-medium text-neutral-400 hover:text-[var(--default-color)] transition-colors"
+          className="inline-flex items-center gap-1.5 rounded border border-white/12 px-2.5 py-1 text-xs font-medium text-neutral-400 hover:text-[var(--default-color)] transition-colors"
         >
           <i className="iconfont icon-eye-off" style={{ fontSize: 14, lineHeight: "14px", verticalAlign: "middle" }} />
           <span>Remove from canvas</span>
@@ -416,8 +416,8 @@ function RelatedAddressTab({
     const q = searchText.toLowerCase();
     return data.filter(
       (d) =>
-        d.address.toLowerCase().includes(q) ||
-        d.label.toLowerCase().includes(q)
+        (d.address || "").toLowerCase().includes(q) ||
+        (d.label || "").toLowerCase().includes(q)
     );
   }, [data, searchText]);
 
@@ -443,46 +443,15 @@ function RelatedAddressTab({
           <col style={{ width: 60 }} />
           <col style={{ width: 80 }} />
         </colgroup>
-        <thead className="sticky top-0 bg-[var(--secondary-background)] z-10">
-          <tr className="text-left text-[var(--desc-color)]">
-            <th className="pl-3 pr-1 py-2">
-              <input
-                type="checkbox"
-                checked={allChecked}
-                onChange={onToggleAll}
-                className="accent-[var(--default-color)] w-3 h-3 cursor-pointer"
-              />
-            </th>
-            <th className="px-1 py-2 font-normal"> </th>
-            <th className="px-2 py-2 font-normal">
-              <span className="flex items-center gap-1">Counterparty <span className="text-white/20">&diams;</span></span>
-            </th>
-            <th className="px-2 py-2 font-normal text-center">
-              <span className="flex items-center justify-center gap-0.5">Risk <span className="text-white/20">&diams;</span></span>
-            </th>
-            <th className="px-2 py-2 font-normal text-center">
-              <span className="flex items-center justify-center gap-0.5">
-                Direction
-                <span className="relative group inline-flex items-center cursor-help ml-0.5">
-                  <svg width="11" height="11" viewBox="0 0 16 16" className="text-white/30">
-                    <circle cx="8" cy="8" r="7" stroke="currentColor" strokeWidth="1.5" fill="none" />
-                    <text x="8" y="12" textAnchor="middle" fontSize="9" fill="currentColor">i</text>
-                  </svg>
-                  <div className="absolute bottom-full left-1/2 -translate-x-1/2 mb-1 px-2 py-1 rounded bg-[#1a1a1a] border border-[var(--default-border-color)] shadow-lg z-50 opacity-0 group-hover:opacity-100 transition-opacity pointer-events-none text-[10px] text-white whitespace-nowrap">
-                    Flow direction relative to this address
-                  </div>
-                </span>
-              </span>
-            </th>
-            <th className="px-2 py-2 font-normal text-center">Token</th>
-            <th className="px-2 py-2 font-normal text-right">Transfer</th>
+        <thead className="sticky top-0 z-10" style={{ background: "rgba(30,28,24,0.92)" }}>
+          <tr className="text-left text-white/60">
           </tr>
         </thead>
         <tbody>
           {filtered.map((row) => (
             <tr
               key={row.nodeId}
-              className="border-t border-[var(--default-border-color)] hover:bg-[var(--table-hover)] cursor-pointer transition-colors"
+              className="border-t border-white/8 hover:bg-[var(--table-hover)] cursor-pointer transition-colors"
               onClick={() => onAddressClick(row.nodeId)}
             >
               {/* Checkbox */}
@@ -604,7 +573,7 @@ function RelatedAddressTab({
       </table>
 
       {/* Footer: X on canvas / Y total */}
-      <div className="sticky bottom-0 px-4 py-1.5 text-[10px] text-[var(--placeholder-color)] bg-[var(--secondary-background)] border-t border-[var(--default-border-color)]">
+      <div className="sticky bottom-0 px-4 py-1.5 text-[10px] text-white/50 border-t border-white/10" style={{ background: "rgba(30,28,24,0.92)" }}>
         {filtered.filter(r => r.isVisibleOnCanvas).length} on canvas / {filtered.length} total
       </div>
     </div>
@@ -676,11 +645,11 @@ function TransferTab({
       const q = searchText.toLowerCase();
       rows = rows.filter(
         (d) =>
-          d.txHash.toLowerCase().includes(q) ||
-          d.counterpartyAddress.toLowerCase().includes(q) ||
-          d.counterpartyLabel.toLowerCase().includes(q) ||
-          d.from.toLowerCase().includes(q) ||
-          d.to.toLowerCase().includes(q)
+          (d.txHash || "").toLowerCase().includes(q) ||
+          (d.counterpartyAddress || "").toLowerCase().includes(q) ||
+          (d.counterpartyLabel || "").toLowerCase().includes(q) ||
+          (d.from || "").toLowerCase().includes(q) ||
+          (d.to || "").toLowerCase().includes(q)
       );
     }
     if (sortKey && sortDir) {
@@ -728,8 +697,8 @@ function TransferTab({
             <col style={{ width: 100 }} />
             <col style={{ width: 65 }} />
           </colgroup>
-          <thead className="sticky top-0 bg-[var(--secondary-background)] z-10">
-            <tr className="text-left text-[var(--desc-color)]">
+          <thead className="sticky top-0 z-10" style={{ background: "rgba(30,28,24,0.92)" }}>
+            <tr className="text-left text-white/60">
               <th className="pl-3 pr-1 py-2">
                 <input
                   type="checkbox"
@@ -768,7 +737,7 @@ function TransferTab({
               return (
                 <tr
                   key={row.edgeId + i}
-                  className="border-t border-[var(--default-border-color)] hover:bg-[var(--table-hover)] transition-colors"
+                  className="border-t border-white/8 hover:bg-[var(--table-hover)] transition-colors"
                 >
                   {/* Checkbox */}
                   <td className="pl-3 pr-1 py-2">
@@ -790,7 +759,7 @@ function TransferTab({
                     </button>
                   </td>
                   {/* Date — YYYY-MM-DD HH:mm:ss */}
-                  <td className="px-2 py-2 text-[var(--desc-color)] whitespace-nowrap overflow-hidden text-ellipsis tabular-nums text-[11px]">
+                  <td className="px-2 py-2 text-white/50 whitespace-nowrap overflow-hidden text-ellipsis tabular-nums text-[11px]">
                     {formatDateCW(row.dateMs)}
                   </td>
                   {/* Tx Hash — truncated with hover tooltip */}
@@ -876,7 +845,7 @@ function TransferTab({
       </div>
 
       {/* Footer: X on canvas / Y total */}
-      <div className="px-4 py-1.5 text-[10px] text-[var(--placeholder-color)] border-t border-[var(--default-border-color)]">
+      <div className="px-4 py-1.5 text-[10px] text-white/50 border-t border-white/10">
         {filtered.length} on canvas / {data.length} total
       </div>
     </div>
@@ -1289,7 +1258,7 @@ export function MSAddressDetail() {
 
       {/* ─── Inline label editor overlay ─── */}
       {editingLabel && (
-        <div className="px-4 py-2 border-b border-[var(--default-border-color)] bg-[var(--primary-background)]">
+        <div className="px-4 py-2 border-b border-white/10 bg-white/5">
           <input
             autoFocus
             value={editLabelValue}
@@ -1306,14 +1275,14 @@ export function MSAddressDetail() {
       )}
 
       {/* ─── Tab Bar + Search ─── */}
-      <div className="flex items-center border-b border-[var(--default-border-color)] px-4">
+      <div className="flex items-center border-b border-white/10 px-4">
         <div className="flex items-center gap-0 flex-shrink-0">
           <button
             onClick={() => handleTabSwitch("1")}
             className={`px-3 py-2.5 text-xs border-b-2 transition-colors ${
               sidebarSubTab === "1"
                 ? "text-[var(--default-color)] border-[var(--default-color)]"
-                : "text-[var(--desc-color)] border-transparent hover:text-white"
+                : "text-white/50 border-transparent hover:text-white"
             }`}
           >
             Related Address
@@ -1323,7 +1292,7 @@ export function MSAddressDetail() {
             className={`px-3 py-2.5 text-xs border-b-2 transition-colors ${
               sidebarSubTab === "2"
                 ? "text-[var(--default-color)] border-[var(--default-color)]"
-                : "text-[var(--desc-color)] border-transparent hover:text-white"
+                : "text-white/50 border-transparent hover:text-white"
             }`}
           >
             Transfer
@@ -1341,7 +1310,7 @@ export function MSAddressDetail() {
               value={searchText}
               onChange={(e) => { setSearchText(e.target.value); setTransferFilterAddress(""); }}
               placeholder={sidebarSubTab === "1" ? "Address/Label" : "Address/Label/Hash"}
-              className="bg-[var(--primary-background)] border border-[var(--default-border-color)] rounded-md pl-7 pr-2 py-1 text-xs text-white placeholder:text-[var(--input-placeholder-text-color)] outline-none focus:border-[var(--default-color)] w-[180px] transition-colors"
+              className="bg-white/8 border border-white/12 rounded-md pl-7 pr-2 py-1 text-xs text-white placeholder:text-white/30 outline-none focus:border-[var(--default-color)] w-[180px] transition-colors"
             />
           </div>
           {/* Filter button */}
@@ -1355,7 +1324,7 @@ export function MSAddressDetail() {
 
       {/* ─── Transfer count sub-header (Transfer tab only) ─── */}
       {sidebarSubTab === "2" && (
-        <div className="px-4 py-1.5 text-[10px] text-[var(--desc-color)] border-b border-[var(--default-border-color)] bg-[var(--secondary-background)]">
+        <div className="px-4 py-1.5 text-[10px] text-white/60 border-b border-white/10" style={{ background: "rgba(30,28,24,0.92)" }}>
           {transfersLoading ? (
             <span className="animate-pulse">Loading transfers…</span>
           ) : (
@@ -1409,7 +1378,7 @@ export function MSAddressDetail() {
       </div>
 
       {/* ─── Footer Summary ─── */}
-      <div className="flex items-center justify-end px-4 py-2 border-t border-[var(--default-border-color)] text-[10px] text-[var(--placeholder-color)]">
+      <div className="flex items-center justify-end px-4 py-2 border-t border-white/10 text-[10px] text-white/50">
         <span>
           Chain: {node.chain} · Txs: {node.txCount}
         </span>

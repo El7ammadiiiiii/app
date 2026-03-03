@@ -39,7 +39,7 @@ const ZIGZAG_COLOR = '#42A5F5';
 const DEFAULT_COLOR = '#B0BEC5';
 
 export function getPatternColor(name: string): string {
-  return PATTERN_COLORS[name.toLowerCase()] || DEFAULT_COLOR;
+  return PATTERN_COLORS[(name || "").toLowerCase()] || DEFAULT_COLOR;
 }
 
 export function getZigzagColor(): string {

@@ -8,10 +8,10 @@ import { MS_NODE, MS_COLORS } from "@/lib/onchain/cwtracker-types";
 
 /* ── Node dimensions ── */
 export const NODE_W = MS_NODE.width;        // 280
-export const NODE_H = MS_NODE.height;       // 72
+export const NODE_H = 52;                   // Compact: icon + address only
 export const NODE_R = MS_NODE.cornerRadius; // 6
 export const ICON_SIZE = MS_NODE.iconSize;  // 24
-export const EXPANDED_NODE_EXTRA_H = 43;
+export const EXPANDED_NODE_EXTRA_H = 0;     // No internal expansion; buttons float outside
 
 /* ── Edge dimensions ── */
 export const ARROW_SIZE = 12;
@@ -84,4 +84,6 @@ export const SVG_ICON = {
   sliders: "M2 4h4m4 0h4M2 8h8m4 0h0M2 12h2m4 0h6M6 2.5v3M10 6.5v3M4 10.5v3",
   pencil: "M11.5 1.5a1.41 1.41 0 012 2L5 12l-3 1 1-3 8.5-8.5z",
   trash: "M3 4h10M5.5 4V2.5h5V4M4 4v9a1 1 0 001 1h6a1 1 0 001-1V4M6.5 7v4M9.5 7v4",
+  bell: "M8 1.5a4 4 0 00-4 4v2.5L2.5 10v1h11v-1L12 8V5.5a4 4 0 00-4-4zM6.5 12a1.5 1.5 0 003 0",
+  addressId: "M2 4h12v8H2zM5 7h1M5 9h6",
 } as const;

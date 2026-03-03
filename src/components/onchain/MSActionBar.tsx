@@ -96,43 +96,7 @@ export function MSActionBar({
 
   return (
     <div>
-      {/* ═══ Row 1: Nav Bar ═══ */}
-      <div className="index_container__XbHcS">
-        {/* Back button */}
-        <button
-          onClick={() => window.history.back()}
-          className="flex items-center gap-1 text-[var(--desc-color)] hover:text-white transition-colors mr-4"
-        >
-          <i className="iconfont icon-arrow-left" style={{ fontSize: 18 }} />
-        </button>
-
-        {/* Title */}
-        <div className="flex items-center gap-2 flex-1 min-w-0">
-          <span className="text-white text-sm font-medium truncate max-w-[300px] sm:max-w-[300px] max-w-[120px]">
-            InterChain Tracker
-          </span>
-          <span className="text-[var(--desc-color)] text-xs truncate max-w-[200px] hidden sm:inline">
-            — {title}
-          </span>
-        </div>
-
-        {/* Chain badges */}
-        <div className="flex items-center gap-1.5 ml-auto">
-          {chains.map((c) => (
-            <img
-              key={c}
-              src={getMSChainIconUrl(c)}
-              alt={c}
-              className="w-5 h-5 rounded-full"
-            />
-          ))}
-          <span className="text-xs text-[var(--desc-color)] ml-2 hidden sm:inline">
-            {nodes.length} addresses · {edges.length} transfers
-          </span>
-        </div>
-      </div>
-
-      {/* ═══ Row 2: Graph Data Action Bar ═══ */}
+      {/* ═══ Action Bar ═══ */}
       <div className="index_graphDataAction__yKrL2">
         {/* Left side: Save, Share, Edit, Download */}
         <div className="flex items-center gap-1">
@@ -222,6 +186,19 @@ export function MSActionBar({
             onClick={() => setControlMode(controlMode === "draw_edge" ? "select" : "draw_edge")}
           />
 
+          <Divider />
+          {/* Chain badges */}
+          {chains.length > 0 && (
+            <div className="flex items-center gap-1 mr-1">
+              {chains.map((c) => (
+                <img key={c} src={getMSChainIconUrl(c)} alt={c} className="w-4 h-4 rounded-full opacity-80" />
+              ))}
+            </div>
+          )}
+          <Divider />
+          <span className="text-[10px] sm:text-xs text-white/50 tabular-nums whitespace-nowrap">
+            {nodes.length} addresses · {edges.length} transfers
+          </span>
         </div>
       </div>
     </div>

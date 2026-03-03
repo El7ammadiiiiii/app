@@ -73,6 +73,9 @@ interface CWTrackerState {
   /** Advanced Analyze modal */
   advancedAnalyzeOpen: boolean;
   advancedAnalyzeNodeId: string | null;
+  /** Find Relationship panel */
+  findRelationshipOpen: boolean;
+  findRelationshipNodeId: string | null;
 
   /* ── CWTracker New State ── */
   /** Sidebar sub-tab: "1" = Related Address, "2" = Transfer */
@@ -152,6 +155,8 @@ interface CWTrackerActions {
   closeNodeDetail: () => void;
   openAdvancedAnalyze: (nodeId: string) => void;
   closeAdvancedAnalyze: () => void;
+  openFindRelationship: (nodeId: string) => void;
+  closeFindRelationship: () => void;
   /** Expand node in a specific direction (INCOMING left / OUTGOING right) */
   expandNodeDirection: (nodeId: string, direction: "left" | "right" | "both") => void;
   /** Re-run dagre layout on current graph */
@@ -260,6 +265,8 @@ const initialState: CWTrackerState = {
   nodeDetailNodeId: null,
   advancedAnalyzeOpen: false,
   advancedAnalyzeNodeId: null,
+  findRelationshipOpen: false,
+  findRelationshipNodeId: null,
   sidebarSubTab: "1",
   nodeSpacing: MS_NODE.defaultSpacing,
   interChainOpen: false,
@@ -601,6 +608,20 @@ export const useCWTrackerStore = create<CWTrackerState & CWTrackerActions>()(
       set((s) => {
         s.advancedAnalyzeOpen = false;
         s.advancedAnalyzeNodeId = null;
+      });
+    },
+
+    openFindRelationship(nodeId) {
+      set((s) => {
+        s.findRelationshipOpen = true;
+        s.findRelationshipNodeId = nodeId;
+      });
+    },
+
+    closeFindRelationship() {
+      set((s) => {
+        s.findRelationshipOpen = false;
+        s.findRelationshipNodeId = null;
       });
     },
 

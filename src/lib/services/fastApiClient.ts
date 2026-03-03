@@ -3,9 +3,15 @@
  * 
  * All pages use this instead of direct fetch calls.
  * Includes: health check, retry logic, automatic fallback to old API routes.
+ * 
+ * Server-side: calls http://localhost:8000 directly (fast, internal)
+ * Client-side: calls /api/backend/* proxy (hides backend URL from browser)
  */
 
-const FASTAPI_BASE = process.env.NEXT_PUBLIC_FASTAPI_URL || 'http://localhost:8000';
+const _isServer = typeof window === 'undefined';
+const FASTAPI_BASE = _isServer
+  ? (process.env.FASTAPI_URL || process.env.ONCHAIN_API_URL || 'http://127.0.0.1:8000')
+  : '/api/backend';
 const MAX_RETRIES = 2;
 const TIMEOUT_MS = 30000;
 
@@ -151,7 +157,8 @@ export const fastApiClient = {
 
   /** Connect to orderbook WebSocket */
   connectOrderbookWS(onMessage: (data: unknown) => void, onError?: (err: Event) => void): WebSocket {
-    const ws = new WebSocket(`${FASTAPI_BASE.replace('http', 'ws')}/api/ws/stream/orderbook`);
+    const wsBase = _isServer ? 'ws://127.0.0.1:8000' : `wss://${window.location.host}`;
+    const ws = new WebSocket(`${wsBase}/api/ws/stream/orderbook`);
     ws.onmessage = (evt) => {
       try { onMessage(JSON.parse(evt.data)); } catch { /* ignore */ }
     };
@@ -161,7 +168,8 @@ export const fastApiClient = {
 
   /** Connect to prices WebSocket */
   connectPricesWS(onMessage: (data: unknown) => void): WebSocket {
-    const ws = new WebSocket(`${FASTAPI_BASE.replace('http', 'ws')}/api/ws/stream/prices`);
+    const wsBase = _isServer ? 'ws://127.0.0.1:8000' : `wss://${window.location.host}`;
+    const ws = new WebSocket(`${wsBase}/api/ws/stream/prices`);
     ws.onmessage = (evt) => {
       try { onMessage(JSON.parse(evt.data)); } catch { /* ignore */ }
     };
@@ -187,7 +195,8 @@ export const fastApiClient = {
 
   /** Connect to market updates WebSocket */
   connectMarketsWS(onMessage: (data: unknown) => void): WebSocket {
-    const ws = new WebSocket(`${FASTAPI_BASE.replace('http', 'ws')}/api/aggregator/stream/markets`);
+    const wsBase = _isServer ? 'ws://127.0.0.1:8000' : `wss://${window.location.host}`;
+    const ws = new WebSocket(`${wsBase}/api/aggregator/stream/markets`);
     ws.onmessage = (evt) => {
       try { onMessage(JSON.parse(evt.data)); } catch { /* ignore */ }
     };

@@ -286,7 +286,7 @@ export function MSEdgeStylePicker() {
         <>
           {/* Node Background Color */}
           <div className="mb-3">
-            <div className="text-[10px] text-[var(--desc-color)] mb-1.5">Node Color</div>
+            <div className="text-[10px] text-white/70 mb-1.5">Node Color</div>
             <div className="grid grid-cols-5 gap-1.5">
               {PALETTE_COLORS.map((color) => (
                 <button
@@ -305,7 +305,7 @@ export function MSEdgeStylePicker() {
 
           {/* Text Color */}
           <div className="mb-3">
-            <div className="text-[10px] text-[var(--desc-color)] mb-1.5">Text Color</div>
+            <div className="text-[10px] text-white/70 mb-1.5">Text Color</div>
             <div className="grid grid-cols-5 gap-1.5">
               {PALETTE_COLORS.map((color) => (
                 <button
@@ -324,7 +324,7 @@ export function MSEdgeStylePicker() {
 
           {/* Node Shape */}
           <div className="mb-3">
-            <div className="text-[10px] text-[var(--desc-color)] mb-1.5">Shape</div>
+            <div className="text-[10px] text-white/70 mb-1.5">Shape</div>
             <div className="grid grid-cols-4 gap-1.5">
               {NODE_SHAPES.map((shape) => (
                 <button
@@ -350,7 +350,7 @@ export function MSEdgeStylePicker() {
         <>
           {/* Edge Routing Mode */}
           <div className="mb-3">
-            <div className="text-[10px] text-[var(--desc-color)] mb-1.5">Edge Routing</div>
+            <div className="text-[10px] text-white/70 mb-1.5">Edge Routing</div>
             <div className="flex items-center gap-1.5 flex-wrap">
               {([
                   { mode: "orthogonal", label: "90°" },
@@ -377,9 +377,9 @@ export function MSEdgeStylePicker() {
 
           {/* Canvas Settings */}
           <div className="mb-3">
-            <div className="text-[10px] text-[var(--desc-color)] mb-1.5">Canvas</div>
+            <div className="text-[10px] text-white/70 mb-1.5">Canvas</div>
             <div className="flex items-center gap-2">
-              <label className="flex items-center gap-1 text-[10px] text-[var(--desc-color)] cursor-pointer">
+              <label className="flex items-center gap-1 text-[10px] text-white/60 cursor-pointer">
                 <input
                   type="checkbox"
                   checked={snapToGrid}
@@ -388,7 +388,7 @@ export function MSEdgeStylePicker() {
                 />
                 Snap
               </label>
-              <label className="flex items-center gap-1 text-[10px] text-[var(--desc-color)] cursor-pointer">
+              <label className="flex items-center gap-1 text-[10px] text-white/60 cursor-pointer">
                 <input
                   type="checkbox"
                   checked={showMinimap}
@@ -402,7 +402,7 @@ export function MSEdgeStylePicker() {
 
           {/* Color Palette */}
           <div className="mb-3">
-            <div className="text-[10px] text-[var(--desc-color)] mb-1.5">Color</div>
+            <div className="text-[10px] text-white/70 mb-1.5">Color</div>
             <div className="grid grid-cols-5 gap-1.5">
               {PALETTE_COLORS.map((color) => (
                 <button
@@ -421,7 +421,7 @@ export function MSEdgeStylePicker() {
 
           {/* Line Style */}
           <div className="mb-3">
-            <div className="text-[10px] text-[var(--desc-color)] mb-1.5">Line Style</div>
+            <div className="text-[10px] text-white/70 mb-1.5">Line Style</div>
             <div className="flex items-center gap-1.5">
               {LINE_STYLES.map((style) => (
                 <button
@@ -442,7 +442,7 @@ export function MSEdgeStylePicker() {
 
           {/* Edge Width */}
           <div className="mb-3">
-            <div className="text-[10px] text-[var(--desc-color)] mb-1.5">Width</div>
+            <div className="text-[10px] text-white/70 mb-1.5">Width</div>
             <div className="flex items-center gap-2">
               <input
                 type="number"
@@ -451,7 +451,7 @@ export function MSEdgeStylePicker() {
                 step={1}
                 value={currentEdgeWidth}
                 onChange={(e) => handleWidthChange(Number(e.target.value))}
-                className="w-14 h-7 text-center text-xs text-white bg-[var(--secondary-background)] border border-[var(--default-border-color)] rounded focus:border-[var(--default-color)] focus:outline-none transition-colors [appearance:textfield] [&::-webkit-inner-spin-button]:appearance-none [&::-webkit-outer-spin-button]:appearance-none"
+                className="w-14 h-7 text-center text-xs text-white bg-white/10 border border-white/15 rounded focus:border-[var(--default-color)] focus:outline-none transition-colors [appearance:textfield] [&::-webkit-inner-spin-button]:appearance-none [&::-webkit-outer-spin-button]:appearance-none"
               />
               <input
                 type="range"
@@ -462,13 +462,13 @@ export function MSEdgeStylePicker() {
                 onChange={(e) => handleWidthChange(Number(e.target.value))}
                 className="flex-1 h-1 accent-[var(--default-color)] cursor-pointer"
               />
-              <span className="text-[10px] text-[var(--desc-color)] min-w-[20px] text-right">{currentEdgeWidth}px</span>
+              <span className="text-[10px] text-white/60 min-w-[20px] text-right">{currentEdgeWidth}px</span>
             </div>
           </div>
 
           {/* Arrow Size */}
           <div className="mb-3">
-            <div className="text-[10px] text-[var(--desc-color)] mb-1.5">Arrow Size</div>
+            <div className="text-[10px] text-white/70 mb-1.5">Arrow Size</div>
             <div className="flex items-center gap-2">
               <input
                 type="number"
@@ -477,7 +477,7 @@ export function MSEdgeStylePicker() {
                 step={1}
                 value={currentArrowSize}
                 onChange={(e) => handleArrowSizeChange(Number(e.target.value))}
-                className="w-14 h-7 text-center text-xs text-white bg-[var(--secondary-background)] border border-[var(--default-border-color)] rounded focus:border-[var(--default-color)] focus:outline-none transition-colors [appearance:textfield] [&::-webkit-inner-spin-button]:appearance-none [&::-webkit-outer-spin-button]:appearance-none"
+                className="w-14 h-7 text-center text-xs text-white bg-white/10 border border-white/15 rounded focus:border-[var(--default-color)] focus:outline-none transition-colors [appearance:textfield] [&::-webkit-inner-spin-button]:appearance-none [&::-webkit-outer-spin-button]:appearance-none"
               />
               <input
                 type="range"
@@ -488,7 +488,7 @@ export function MSEdgeStylePicker() {
                 onChange={(e) => handleArrowSizeChange(Number(e.target.value))}
                 className="flex-1 h-1 accent-[var(--default-color)] cursor-pointer"
               />
-              <span className="text-[10px] text-[var(--desc-color)] min-w-[20px] text-right">{currentArrowSize}px</span>
+              <span className="text-[10px] text-white/60 min-w-[20px] text-right">{currentArrowSize}px</span>
             </div>
           </div>
         </>

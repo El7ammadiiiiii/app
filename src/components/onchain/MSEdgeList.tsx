@@ -214,8 +214,14 @@ export function MSEdgeList() {
 
   return (
     <div
-      className="absolute bottom-0 left-0 right-0 z-30 bg-[var(--secondary-background)] border-t border-[var(--default-border-color)] flex flex-col"
-      style={{ height: panelH }}
+      className="absolute bottom-0 left-0 right-0 z-30 flex flex-col"
+      style={{
+        height: panelH,
+        background: "linear-gradient(180deg, rgba(29,43,40,0.96) 0%, rgba(38,74,70,0.15) 50%, rgba(20,31,31,0.96) 100%)",
+        backdropFilter: "blur(20px)",
+        WebkitBackdropFilter: "blur(20px)",
+        borderTop: "1px solid rgba(38,74,70,0.4)",
+      }}
     >
       {/* ── Resize handle ── */}
       <div
@@ -224,33 +230,33 @@ export function MSEdgeList() {
       />
 
       {/* ── Header ── */}
-      <div className="flex items-center justify-between px-3 py-1.5 flex-shrink-0 border-b border-[var(--default-border-color)]">
+      <div className="flex items-center justify-between px-3 py-1.5 flex-shrink-0 border-b border-white/10">
         <div className="flex items-center gap-2">
           <i className="iconfont icon-swap" style={{ fontSize: 14, color: "var(--default-color)" }} />
           <span className="text-xs font-medium text-white">Edge List</span>
-          <span className="text-[10px] text-[var(--desc-color)]">({edges.length} edges)</span>
+          <span className="text-[10px] text-white/60">({edges.length} edges)</span>
         </div>
         <div className="flex items-center gap-2">
           {/* Export dropdown */}
           <div className="relative">
             <button
               onClick={() => setExportOpen((o) => !o)}
-              className="flex items-center gap-1 px-2 py-1 text-[10px] text-[var(--desc-color)] hover:text-white border border-[var(--default-border-color)] hover:border-[var(--default-color)] rounded transition-colors"
+              className="flex items-center gap-1 px-2 py-1 text-[10px] text-white/60 hover:text-white border border-white/15 hover:border-[var(--default-color)] rounded transition-colors"
             >
               <i className="iconfont icon-download" style={{ fontSize: 12 }} />
               Export
             </button>
             {exportOpen && (
-              <div className="absolute right-0 top-full mt-1 bg-[var(--primary-background)] border border-[var(--default-border-color)] rounded shadow-lg z-50 min-w-[80px]">
+              <div className="absolute right-0 top-full mt-1 bg-[rgba(30,28,24,0.95)] border border-white/15 rounded shadow-lg z-50 min-w-[80px]">
                 <button
                   onClick={() => handleExport("csv")}
-                  className="block w-full text-left px-3 py-1.5 text-[10px] text-[var(--desc-color)] hover:text-white hover:bg-[var(--action-hover)] transition-colors"
+                  className="block w-full text-left px-3 py-1.5 text-[10px] text-white/60 hover:text-white hover:bg-[var(--action-hover)] transition-colors"
                 >
                   CSV
                 </button>
                 <button
                   onClick={() => handleExport("json")}
-                  className="block w-full text-left px-3 py-1.5 text-[10px] text-[var(--desc-color)] hover:text-white hover:bg-[var(--action-hover)] transition-colors"
+                  className="block w-full text-left px-3 py-1.5 text-[10px] text-white/60 hover:text-white hover:bg-[var(--action-hover)] transition-colors"
                 >
                   JSON
                 </button>
@@ -270,8 +276,8 @@ export function MSEdgeList() {
       {/* ── Table ── */}
       <div className="flex-1 overflow-auto">
         <table className="w-full text-[11px] border-collapse">
-          <thead className="sticky top-0 z-10 bg-[var(--secondary-background)]">
-            <tr className="border-b border-[var(--default-border-color)]">
+          <thead className="sticky top-0 z-10" style={{ background: "rgba(30,28,24,0.92)" }}>
+            <tr className="border-b border-white/10">
               {/* Checkbox */}
               <th className="w-8 px-2 py-1.5 text-center">
                 <input
@@ -283,11 +289,11 @@ export function MSEdgeList() {
               </th>
               {/* Eye (visibility) */}
               <th className="w-8 px-1 py-1.5 text-center">
-                <i className="iconfont icon-eye" style={{ fontSize: 12, color: "var(--desc-color)" }} />
+                <i className="iconfont icon-eye" style={{ fontSize: 12, color: "rgba(255,255,255,0.5)" }} />
               </th>
               {/* From */}
               <th
-                className="px-2 py-1.5 text-left text-[var(--desc-color)] font-normal cursor-pointer select-none hover:text-white"
+                className="px-2 py-1.5 text-left text-white/60 font-normal cursor-pointer select-none hover:text-white"
                 onClick={() => toggleSort("from")}
               >
                 From
@@ -295,7 +301,7 @@ export function MSEdgeList() {
               </th>
               {/* To */}
               <th
-                className="px-2 py-1.5 text-left text-[var(--desc-color)] font-normal cursor-pointer select-none hover:text-white"
+                className="px-2 py-1.5 text-left text-white/60 font-normal cursor-pointer select-none hover:text-white"
                 onClick={() => toggleSort("to")}
               >
                 To
@@ -303,7 +309,7 @@ export function MSEdgeList() {
               </th>
               {/* Total Amount */}
               <th
-                className="px-2 py-1.5 text-right text-[var(--desc-color)] font-normal cursor-pointer select-none hover:text-white"
+                className="px-2 py-1.5 text-right text-white/60 font-normal cursor-pointer select-none hover:text-white"
                 onClick={() => toggleSort("totalAmount")}
               >
                 Total Amount
@@ -311,7 +317,7 @@ export function MSEdgeList() {
               </th>
               {/* Selected Amount */}
               <th
-                className="px-2 py-1.5 text-right text-[var(--desc-color)] font-normal cursor-pointer select-none hover:text-white"
+                className="px-2 py-1.5 text-right text-white/60 font-normal cursor-pointer select-none hover:text-white"
                 onClick={() => toggleSort("selectedAmount")}
               >
                 Selected Amount
@@ -319,14 +325,14 @@ export function MSEdgeList() {
               </th>
               {/* Token */}
               <th
-                className="px-2 py-1.5 text-left text-[var(--desc-color)] font-normal cursor-pointer select-none hover:text-white"
+                className="px-2 py-1.5 text-left text-white/60 font-normal cursor-pointer select-none hover:text-white"
                 onClick={() => toggleSort("token")}
               >
                 Token
                 <SortIcon field="token" current={sortField} dir={sortDir} />
               </th>
               {/* Transaction List */}
-              <th className="px-2 py-1.5 text-center text-[var(--desc-color)] font-normal">
+              <th className="px-2 py-1.5 text-center text-white/60 font-normal">
                 Transaction List
               </th>
             </tr>
@@ -334,7 +340,7 @@ export function MSEdgeList() {
           <tbody>
             {sortedRows.length === 0 && (
               <tr>
-                <td colSpan={8} className="text-center text-[var(--desc-color)] py-8">
+                <td colSpan={8} className="text-center text-white/50 py-8">
                   No edges in the graph
                 </td>
               </tr>
@@ -345,7 +351,7 @@ export function MSEdgeList() {
               return (
                 <tr
                   key={row.edge.id}
-                  className={`EDGES_TABLE_ROW_${row.edge.id} border-b border-[var(--default-border-color)] hover:bg-[var(--action-hover)] transition-colors ${
+                  className={`EDGES_TABLE_ROW_${row.edge.id} border-b border-white/8 hover:bg-[var(--action-hover)] transition-colors ${
                     !isVisible ? "opacity-40" : ""
                   }`}
                 >
@@ -362,7 +368,7 @@ export function MSEdgeList() {
                   <td className="px-1 py-1.5 text-center">
                     <button
                       onClick={() => toggleEdgeVisibility(row.edge.id)}
-                      className="text-[var(--desc-color)] hover:text-white transition-colors"
+                      className="text-white/50 hover:text-white transition-colors"
                       title={isVisible ? "Hide edge" : "Show edge"}
                     >
                       <i
@@ -402,7 +408,7 @@ export function MSEdgeList() {
                     {msFormatValue(row.totalAmount)}
                   </td>
                   {/* Selected Amount */}
-                  <td className="px-2 py-1.5 text-right text-[var(--desc-color)] tabular-nums">
+                  <td className="px-2 py-1.5 text-right text-white/50 tabular-nums">
                     {row.selectedAmount > 0 ? msFormatValue(row.selectedAmount) : "—"}
                   </td>
                   {/* Token */}
@@ -426,7 +432,7 @@ export function MSEdgeList() {
       </div>
 
       {/* ── Footer summary ── */}
-      <div className="flex items-center justify-between px-3 py-1 flex-shrink-0 border-t border-[var(--default-border-color)] text-[10px] text-[var(--desc-color)]">
+      <div className="flex items-center justify-between px-3 py-1 flex-shrink-0 border-t border-white/10 text-[10px] text-white/60">
         <span>
           {checkedIds.size > 0 ? `${checkedIds.size} selected` : `${edges.length} edges total`}
         </span>

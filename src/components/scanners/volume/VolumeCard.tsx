@@ -49,7 +49,7 @@ export function VolumeCard ( {
 
   const color = SIGNAL_COLORS[ signalStrength ];
   const priceChangeColor = metrics.priceChange24h >= 0 ? 'text-green-400' : 'text-red-400';
-  const signalBadgeClass = `volume-signal-${ signalStrength.toLowerCase() }`;
+  const signalBadgeClass = `volume-signal-${ String(signalStrength).toLowerCase() }`;
 
   if ( compact )
   {

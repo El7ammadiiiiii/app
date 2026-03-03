@@ -21,8 +21,7 @@ import { OHLCV } from '@/lib/indicators/technical';
 import { 
   ExpertAnalystAgent, 
   AIAnalysisResponse, 
-  calculateAllIndicatorReadings,
-  analyzeWithAI 
+  calculateAllIndicatorReadings
 } from '@/lib/ai/expert-analyst-agent';
 import { EliteTrendResult } from '@/lib/indicators/elite-trend-algorithms';
 
@@ -75,35 +74,39 @@ export function ExpertAnalystPanel({
     setError(null);
 
     try {
-      // Calculate all indicator readings
-      const indicators = calculateAllIndicatorReadings(candles);
-      
-      // Get API key from environment
-      const apiKey = process.env.NEXT_PUBLIC_OPENAI_API_KEY;
-      
+      // Call server-side proxy — API key stays hidden
       let result: AIAnalysisResponse;
       
-      if (apiKey) {
-        // Use AI analysis
-        result = await analyzeWithAI({
-          symbol,
-          timeframe,
-          currentPrice,
-          priceChange24h,
-          indicators,
-          eliteResult,
-          candles
-        }, apiKey);
-      } else {
-        // Use fallback analysis
+      try {
+        const res = await fetch('/api/ai/expert-analysis', {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify({
+            symbol,
+            timeframe,
+            currentPrice,
+            priceChange24h,
+            candles,
+            eliteResult,
+          }),
+        });
+
+        if (res.ok) {
+          result = await res.json();
+        } else {
+          // Fallback to local rule-based analysis
+          const indicators = calculateAllIndicatorReadings(candles);
+          result = ExpertAnalystAgent.generateFallbackAnalysis({
+            symbol, timeframe, currentPrice, priceChange24h,
+            indicators, eliteResult, candles,
+          });
+        }
+      } catch {
+        // Network error — fallback to local analysis
+        const indicators = calculateAllIndicatorReadings(candles);
         result = ExpertAnalystAgent.generateFallbackAnalysis({
-          symbol,
-          timeframe,
-          currentPrice,
-          priceChange24h,
-          indicators,
-          eliteResult,
-          candles
+          symbol, timeframe, currentPrice, priceChange24h,
+          indicators, eliteResult, candles,
         });
       }
       

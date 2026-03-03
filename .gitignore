@@ -45,3 +45,5 @@ next-env.d.ts
 
 # crawler data (standalone crawler directory at project root)
 /crawler/
+ccways-deploy*.tar
+ccways-deploy*.zip

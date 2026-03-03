@@ -91,11 +91,43 @@ export function getNodeShapePath(
   }
 }
 
-/** Default edge color by target-node entity type */
-export function getEdgeEntityColor(type: MSEntityType | undefined): string {
-  switch (type) {
-    case "exchange": return "#3b82f6";
-    case "bridge":   return "#f59e0b";
-    default:         return "#ffffff";
+/**
+ * Edge color by source–target entity type pairing.
+ * Accepts either a single target type (legacy) or both source & target.
+ */
+export function getEdgeEntityColor(
+  targetOrSource: MSEntityType | string | undefined,
+  targetType?: MSEntityType | string | undefined
+): string {
+  const src = ((targetType !== undefined ? targetOrSource : undefined) || "").toString();
+  const tgt = ((targetType !== undefined ? targetType : targetOrSource) || "").toString();
+
+  // Special types always win (regardless of pairing)
+  if (src === "sanctioned" || tgt === "sanctioned") return "#dc2626"; // dark red
+  if (src === "mixer" || tgt === "mixer") return "#ef4444";           // red
+  if (src === "bridge" || tgt === "bridge") return "#f59e0b";         // amber
+
+  // Pair-based coloring (order-independent)
+  const pair = [src, tgt].sort().join("|");
+  switch (pair) {
+    case "wallet|wallet":     return "#a3a3a3"; // neutral gray (was black — better contrast on dark bg)
+    case "exchange|wallet":   return "#3b82f6"; // blue
+    case "defi|wallet":       return "#22c55e"; // green
+    case "contract|wallet":   return "#8b5cf6"; // purple
+    case "exchange|exchange": return "#eab308"; // yellow
+    case "defi|exchange":     return "#06b6d4"; // cyan
+    case "contract|exchange": return "#a855f7"; // violet
+    case "defi|defi":         return "#10b981"; // emerald
+    case "token|wallet":      return "#f97316"; // orange
+    case "nft|wallet":        return "#ec4899"; // pink
+    default: break;
   }
+
+  // Fallback: single-type coloring
+  if (tgt === "exchange") return "#3b82f6";
+  if (tgt === "defi") return "#22c55e";
+  if (tgt === "contract") return "#8b5cf6";
+  if (tgt === "token") return "#f97316";
+  if (tgt === "nft") return "#ec4899";
+  return "#ffffff";
 }

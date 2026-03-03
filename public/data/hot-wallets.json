@@ -1,0 +1,4958 @@
+[
+  {
+    "name": "1xBet",
+    "slug": "1xbet",
+    "address": "0xB1D7d6466d0Fb86766C119dF1967015e9bFF2e81",
+    "label": "Hot Wallet (0xB1D)",
+    "chain": "ethereum"
+  },
+  {
+    "name": "1xBet",
+    "slug": "1xbet",
+    "address": "0x8103AA02E74a320e9C377F7c4819a3940A133F2D",
+    "label": "Hot Wallet (0x810)",
+    "chain": "ethereum"
+  },
+  {
+    "name": "1xBet",
+    "slug": "1xbet",
+    "address": "0x98cc7B8a01061043924f4dFF94c5420230C607e5",
+    "label": "Hot Wallet (0x98c)",
+    "chain": "ethereum"
+  },
+  {
+    "name": "1xBet",
+    "slug": "1xbet",
+    "address": "0x1CcFC4E4b9c05b99cFE43DAc0dC84BF48b99E745",
+    "label": "Hot Wallet (0x1Cc)",
+    "chain": "ethereum"
+  },
+  {
+    "name": "AlphaPo",
+    "slug": "alphapo",
+    "address": "0x7772FE062C2B6aC0c0F83cA4948177bE4889B1B3",
+    "label": "Hot Wallet (0x777)",
+    "chain": "ethereum"
+  },
+  {
+    "name": "AlphaPo",
+    "slug": "alphapo",
+    "address": "TMptWX8VHtfCnD8fACnphf24fgUWGD1nzW",
+    "label": "Hot Wallet (TMptW)",
+    "chain": "tron"
+  },
+  {
+    "name": "AlphaPo",
+    "slug": "alphapo",
+    "address": "0x9A10Da8Ce77F26231860764a2CaaB36E70584c4b",
+    "label": "Hot Wallet (0x9A1)",
+    "chain": "ethereum"
+  },
+  {
+    "name": "AlphaPo",
+    "slug": "alphapo",
+    "address": "0x183A6cF1Fc6504138d92C9d663094EE774f80038",
+    "label": "Hot Wallet (0x183)",
+    "chain": "ethereum"
+  },
+  {
+    "name": "Arkham Exchange",
+    "slug": "arkham-exchange",
+    "address": "3huamNpghPSPbgQSLX56B18Sj1hq5SE4KGxwTvhwJGnC",
+    "label": "Hot Wallet (3huam)",
+    "chain": "bitcoin"
+  },
+  {
+    "name": "AscendEX",
+    "slug": "ascendex",
+    "address": "0xE5C186cE7ee210AdFD297875D63E62527377e217",
+    "label": "Hot Wallet (0xE5C)",
+    "chain": "ethereum"
+  },
+  {
+    "name": "AscendEX",
+    "slug": "ascendex",
+    "address": "0x983873529f95132BD1812A3B52c98Fb271d2f679",
+    "label": "Hot Wallet (0x983)",
+    "chain": "ethereum"
+  },
+  {
+    "name": "AscendEX",
+    "slug": "ascendex",
+    "address": "0x4B1a99467a284Cc690e3237bC69105956816f762",
+    "label": "Hot Wallet (0x4B1)",
+    "chain": "ethereum"
+  },
+  {
+    "name": "AscendEX",
+    "slug": "ascendex",
+    "address": "0x4240781A9ebDB2EB14a183466E8820978b7DA4e2",
+    "label": "Hot Wallet (0x424)",
+    "chain": "ethereum"
+  },
+  {
+    "name": "ATAIX",
+    "slug": "ataix",
+    "address": "0x4dF5f3610e2471095a130D7d934D551f3ddE01ED",
+    "label": "Hot Wallet (0x4dF)",
+    "chain": "ethereum"
+  },
+  {
+    "name": "BC.game",
+    "slug": "bc-game",
+    "address": "97UQvPXbadGSsVaGuJCBLRm3Mkm7A5DVJ2HktRzrnDTB",
+    "label": "Hot Wallet (97UQv)",
+    "chain": "ethereum"
+  },
+  {
+    "name": "BC.game",
+    "slug": "bc-game",
+    "address": "0xA7B9874D15742358fB455Dd56f97C6d19ad74f5C",
+    "label": "Hot Wallet (0xA7B)",
+    "chain": "ethereum"
+  },
+  {
+    "name": "BC.game",
+    "slug": "bc-game",
+    "address": "0xe7176831C898D585Cd999bCee9984A7fA9A6be96",
+    "label": "Hot Wallet (0xe71)",
+    "chain": "ethereum"
+  },
+  {
+    "name": "BC.game",
+    "slug": "bc-game",
+    "address": "0x56Ff954B793c48460051AF4aDb7d8E16b349a543",
+    "label": "Hot Wallet (0x56F)",
+    "chain": "ethereum"
+  },
+  {
+    "name": "BC.game",
+    "slug": "bc-game",
+    "address": "0x6AdC35BBdD759bE047d9D28B94f5734a9c0cB563",
+    "label": "Hot Wallet (0x6Ad)",
+    "chain": "ethereum"
+  },
+  {
+    "name": "BC.game",
+    "slug": "bc-game",
+    "address": "0xd27047Fe310178316b3ACC4746E2A30823Bb9186",
+    "label": "Hot Wallet (0xd27)",
+    "chain": "ethereum"
+  },
+  {
+    "name": "BC.game",
+    "slug": "bc-game",
+    "address": "0x8AC645Bcb09B98210eB57FFC32FFfE0c12a266D9",
+    "label": "Hot Wallet (0x8AC)",
+    "chain": "ethereum"
+  },
+  {
+    "name": "BC.game",
+    "slug": "bc-game",
+    "address": "0xe8B0e10c75f5e2d50DCDC4C269A298Ab21320e70",
+    "label": "Hot Wallet (0xe8B)",
+    "chain": "ethereum"
+  },
+  {
+    "name": "BC.game",
+    "slug": "bc-game",
+    "address": "0xB5a86967C30AC9703f2d5aFbf1D23A7eB3a8D058",
+    "label": "Hot Wallet (0xB5a)",
+    "chain": "ethereum"
+  },
+  {
+    "name": "BC.game",
+    "slug": "bc-game",
+    "address": "0x3BacCdFe2a0D1dd2983a089721CDA7F5a4203e8C",
+    "label": "Hot Wallet (0x3Ba)",
+    "chain": "ethereum"
+  },
+  {
+    "name": "BC.game",
+    "slug": "bc-game",
+    "address": "0x41Fc802E01Bcf85D91E5708B42d41C2EAf01f375",
+    "label": "Hot Wallet (0x41F)",
+    "chain": "ethereum"
+  },
+  {
+    "name": "BC.game",
+    "slug": "bc-game",
+    "address": "0x380Df9e33d044632606e3A3daC735D3a05a44Fce",
+    "label": "Hot Wallet (0x380)",
+    "chain": "ethereum"
+  },
+  {
+    "name": "BC.game",
+    "slug": "bc-game",
+    "address": "0xb0248a36670773548453B2a3F9975559757dC86A",
+    "label": "Hot Wallet (0xb02)",
+    "chain": "ethereum"
+  },
+  {
+    "name": "BC.game",
+    "slug": "bc-game",
+    "address": "0xf03E70113E395C2CeBE08f91FaA56CAD16722d4B",
+    "label": "Hot Wallet (0xf03)",
+    "chain": "ethereum"
+  },
+  {
+    "name": "BC.game",
+    "slug": "bc-game",
+    "address": "0x9D2A0e32633d9be838BFDE19d510E6aA6eB202dd",
+    "label": "Hot Wallet (0x9D2)",
+    "chain": "ethereum"
+  },
+  {
+    "name": "BC.game",
+    "slug": "bc-game",
+    "address": "0xe2229976786E3388A000BFE681301E5853FB79D6",
+    "label": "Hot Wallet (0xe22)",
+    "chain": "ethereum"
+  },
+  {
+    "name": "Belqi.net",
+    "slug": "belqi-net",
+    "address": "1GbUhB5Aub17yjLaFf1fPNFN8icPzXn3sU",
+    "label": "Hot Wallet (1GbUh)",
+    "chain": "bitcoin"
+  },
+  {
+    "name": "BetFury",
+    "slug": "betfury",
+    "address": "0x52A258ED593C793251a89bfd36caE158EE9fC4F8",
+    "label": "Hot Wallet (0x52A)",
+    "chain": "ethereum"
+  },
+  {
+    "name": "BetFury",
+    "slug": "betfury",
+    "address": "TCY3Pt4YFh8MLPK6yUKzsDsGi7Tq3CMqo3",
+    "label": "Hot Wallet (TCY3P)",
+    "chain": "tron"
+  },
+  {
+    "name": "Betpanda.io (Star Bright Media S.R.L.)",
+    "slug": "betpanda-io",
+    "address": "0x65DC40e3Fab0B71Ceec90c23f22579278e5b3bEF",
+    "label": "Hot Wallet (0x65D)",
+    "chain": "ethereum"
+  },
+  {
+    "name": "Betpanda.io (Star Bright Media S.R.L.)",
+    "slug": "betpanda-io",
+    "address": "8YxUm2CgA67gSxu3Vdeij1cEpfbVRurCFHQnUC2sytFz",
+    "label": "Hot Wallet (8YxUm)",
+    "chain": "ethereum"
+  },
+  {
+    "name": "BigONE",
+    "slug": "bigone",
+    "address": "TE4CRGTXpLR3eRsn2mNKwsJWBFT7ojtvnU",
+    "label": "Hot Wallet (TE4CR)",
+    "chain": "tron"
+  },
+  {
+    "name": "BigONE",
+    "slug": "bigone",
+    "address": "0xD4Dcd2459BB78d7a645Aa7E196857D421b10D93F",
+    "label": "Hot Wallet (0xD4D)",
+    "chain": "ethereum"
+  },
+  {
+    "name": "BigONE",
+    "slug": "bigone",
+    "address": "0xa30D8157911ef23c46C0eB71889eFe6a648a41F7",
+    "label": "Hot Wallet (0xa30)",
+    "chain": "ethereum"
+  },
+  {
+    "name": "BigONE",
+    "slug": "bigone",
+    "address": "bc1qu02z43yduyjx6saeea4l54qqulvz568qnzgaes",
+    "label": "Hot Wallet (bc1qu)",
+    "chain": "bitcoin"
+  },
+  {
+    "name": "BigONE",
+    "slug": "bigone",
+    "address": "0x493144718a78DfBEF79F825AE71b29134b5cF60E",
+    "label": "Hot Wallet (0x493)",
+    "chain": "ethereum"
+  },
+  {
+    "name": "BigONE",
+    "slug": "bigone",
+    "address": "TNrPUjc47JU1fgaQZPa1odQnD5RTdH3NSu",
+    "label": "Hot Wallet (TNrPU)",
+    "chain": "tron"
+  },
+  {
+    "name": "Binance",
+    "slug": "binance",
+    "address": "0xEe7aE85f2Fe2239E27D9c1E23fFFe168D63b4055",
+    "label": "Hot Wallet (0xEe7)",
+    "chain": "ethereum"
+  },
+  {
+    "name": "Binance",
+    "slug": "binance",
+    "address": "bc1qm34lsc65zpw79lxes69zkqmk6ee3ewf0j77s3h",
+    "label": "Hot Wallet (bc1qm)",
+    "chain": "bitcoin"
+  },
+  {
+    "name": "Binance",
+    "slug": "binance",
+    "address": "0x28C6c06298d514Db089934071355E5743bf21d60",
+    "label": "Hot Wallet (0x28C)",
+    "chain": "ethereum"
+  },
+  {
+    "name": "Binance",
+    "slug": "binance",
+    "address": "0x8894E0a0c962CB723c1976a4421c95949bE2D4E3",
+    "label": "Hot Wallet (0x889)",
+    "chain": "ethereum"
+  },
+  {
+    "name": "BINANCE",
+    "slug": "binance",
+    "address": "TAzsQ9Gx8eqFNFSKbeXrbi45CuVPHzA8wr",
+    "label": "HOT WALLET (TAZSQ)",
+    "chain": "tron"
+  },
+  {
+    "name": "BINANCE",
+    "slug": "binance",
+    "address": "TDqSquXBgUCLYvYC4XZgrprLK589dkhSCf",
+    "label": "HOT WALLET (TDQSQ)",
+    "chain": "tron"
+  },
+  {
+    "name": "BINANCE",
+    "slug": "binance",
+    "address": "TNXoiAJ3dct8Fjg4M9fkLFh9S2v9TXc32G",
+    "label": "HOT WALLET (TNXOI)",
+    "chain": "tron"
+  },
+  {
+    "name": "BINANCE",
+    "slug": "binance",
+    "address": "TQrY8tryqsYVCYS3MFbtffiPp2ccyn4STm",
+    "label": "HOT WALLET (TQRY8)",
+    "chain": "tron"
+  },
+  {
+    "name": "Binance",
+    "slug": "binance",
+    "address": "5tzFkiKscXHK5ZXCGbXZxdw7gTjjD1mBwuoFbhUvuAi9",
+    "label": "Hot Wallet (5tzFk)",
+    "chain": "ethereum"
+  },
+  {
+    "name": "Binance",
+    "slug": "binance",
+    "address": "0xe2fc31F816A9b94326492132018C3aEcC4a93aE1",
+    "label": "Hot Wallet (0xe2f)",
+    "chain": "ethereum"
+  },
+  {
+    "name": "Binance",
+    "slug": "binance",
+    "address": "TK4ykR48cQQoyFcZ5N4xZCbsBaHcg6n3gJ",
+    "label": "Hot Wallet (TK4yk)",
+    "chain": "tron"
+  },
+  {
+    "name": "Binance",
+    "slug": "binance",
+    "address": "0x21a31Ee1afC51d94C2eFcCAa2092aD1028285549",
+    "label": "Hot Wallet (0x21a)",
+    "chain": "ethereum"
+  },
+  {
+    "name": "Binance",
+    "slug": "binance",
+    "address": "0xDFd5293D8e347dFe59E90eFd55b2956a1343963d",
+    "label": "Hot Wallet (0xDFd)",
+    "chain": "ethereum"
+  },
+  {
+    "name": "Binance",
+    "slug": "binance",
+    "address": "0xe7804c37c13166fF0b37F5aE0BB07A3aEbb6e245",
+    "label": "Hot Wallet (0xe78)",
+    "chain": "ethereum"
+  },
+  {
+    "name": "Binance",
+    "slug": "binance",
+    "address": "0x56Eddb7aa87536c09CCc2793473599fD21A8b17F",
+    "label": "Hot Wallet (0x56E)",
+    "chain": "ethereum"
+  },
+  {
+    "name": "Binance",
+    "slug": "binance",
+    "address": "0xB38e8c17e38363aF6EbdCb3dAE12e0243582891D",
+    "label": "Hot Wallet (0xB38)",
+    "chain": "ethereum"
+  },
+  {
+    "name": "Binance",
+    "slug": "binance",
+    "address": "0x9696f59E4d72E237BE84fFD425DCaD154Bf96976",
+    "label": "Hot Wallet (0x969)",
+    "chain": "ethereum"
+  },
+  {
+    "name": "Binance",
+    "slug": "binance",
+    "address": "0x3304E22DDaa22bCdC5fCa2269b418046aE7b566A",
+    "label": "Hot Wallet (0x330)",
+    "chain": "ethereum"
+  },
+  {
+    "name": "Binance",
+    "slug": "binance",
+    "address": "0x4976A4A02f38326660D17bf34b431dC6e2eb2327",
+    "label": "Hot Wallet (0x497)",
+    "chain": "ethereum"
+  },
+  {
+    "name": "Binance",
+    "slug": "binance",
+    "address": "0x9f8c163cBA728e99993ABe7495F06c0A3c8Ac8b9",
+    "label": "Hot Wallet (0x9f8)",
+    "chain": "ethereum"
+  },
+  {
+    "name": "Binance",
+    "slug": "binance",
+    "address": "TYASr5UV6HEcXatwdFQfmLVUqQQQMUxHLS",
+    "label": "Hot Wallet (TYASr)",
+    "chain": "tron"
+  },
+  {
+    "name": "Binance",
+    "slug": "binance",
+    "address": "0xacD03D601e5bB1B275Bb94076fF46ED9D753435A",
+    "label": "Hot Wallet (0xacD)",
+    "chain": "ethereum"
+  },
+  {
+    "name": "Binance",
+    "slug": "binance",
+    "address": "0xBD612a3f30dcA67bF60a39Fd0D35e39B7aB80774",
+    "label": "Hot Wallet (0xBD6)",
+    "chain": "ethereum"
+  },
+  {
+    "name": "Binance",
+    "slug": "binance",
+    "address": "TCLgK89AnXbC9rewvhNb9UgXCc2qJJpBXh",
+    "label": "Hot Wallet (TCLgK)",
+    "chain": "tron"
+  },
+  {
+    "name": "Binance",
+    "slug": "binance",
+    "address": "DJfU2p6woQ9GiBdiXsWZWJnJ9uDdZfSSNC",
+    "label": "Hot Wallet (DJfU2)",
+    "chain": "ethereum"
+  },
+  {
+    "name": "Binance",
+    "slug": "binance",
+    "address": "TJqwA7SoZnERE4zW5uDEiPkbz4B66h9TFj",
+    "label": "Hot Wallet (TJqwA)",
+    "chain": "tron"
+  },
+  {
+    "name": "Binance",
+    "slug": "binance",
+    "address": "0x515b72Ed8a97F42C568D6A143232775018f133C8",
+    "label": "Hot Wallet (0x515)",
+    "chain": "ethereum"
+  },
+  {
+    "name": "Binance",
+    "slug": "binance",
+    "address": "0xdccF3B77dA55107280bd850ea519DF3705D1a75a",
+    "label": "Hot Wallet (0xdcc)",
+    "chain": "ethereum"
+  },
+  {
+    "name": "Binance",
+    "slug": "binance",
+    "address": "0xEB2d2F1b8c558a40207669291Fda468E50c8A0bB",
+    "label": "Hot Wallet (0xEB2)",
+    "chain": "ethereum"
+  },
+  {
+    "name": "Binance",
+    "slug": "binance",
+    "address": "0x73f5ebe90f27B46ea12e5795d16C4b408B19cc6F",
+    "label": "Hot Wallet (0x73f)",
+    "chain": "ethereum"
+  },
+  {
+    "name": "Binance",
+    "slug": "binance",
+    "address": "0xa180Fe01B906A1bE37BE6c534a3300785b20d947",
+    "label": "Hot Wallet (0xa18)",
+    "chain": "ethereum"
+  },
+  {
+    "name": "Binance",
+    "slug": "binance",
+    "address": "TJDENsfBJs4RFETt1X1W8wMDc8M5XnJhCe",
+    "label": "Hot Wallet (TJDEN)",
+    "chain": "tron"
+  },
+  {
+    "name": "Binance",
+    "slug": "binance",
+    "address": "TJ5usJLLwjwn7Pw3TPbdzreG7dvgKzfQ5y",
+    "label": "Hot Wallet (TJ5us)",
+    "chain": "tron"
+  },
+  {
+    "name": "Binance",
+    "slug": "binance",
+    "address": "0x25681Ab599B4E2CEea31F8B498052c53FC2D74db",
+    "label": "Hot Wallet (0x256)",
+    "chain": "ethereum"
+  },
+  {
+    "name": "Binance",
+    "slug": "binance",
+    "address": "0x3931dAb967C3E2dbb492FE12460a66d0fe4cC857",
+    "label": "Hot Wallet (0x393)",
+    "chain": "ethereum"
+  },
+  {
+    "name": "Binance",
+    "slug": "binance",
+    "address": "0x1FBe2AcEe135D991592f167Ac371f3DD893A508B",
+    "label": "Hot Wallet (0x1FB)",
+    "chain": "ethereum"
+  },
+  {
+    "name": "Binance",
+    "slug": "binance",
+    "address": "0x01C952174C24E1210d26961D456A77A39e1F0BB0",
+    "label": "Hot Wallet (0x01C)",
+    "chain": "ethereum"
+  },
+  {
+    "name": "Binance",
+    "slug": "binance",
+    "address": "0x3c783c21a0383057D128bae431894a5C19F9Cf06",
+    "label": "Hot Wallet (0x3c7)",
+    "chain": "ethereum"
+  },
+  {
+    "name": "Binance",
+    "slug": "binance",
+    "address": "0x161bA15A5f335c9f06BB5BbB0A9cE14076FBb645",
+    "label": "Hot Wallet (0x161)",
+    "chain": "ethereum"
+  },
+  {
+    "name": "Binance",
+    "slug": "binance",
+    "address": "0xCddc5d0Ebeb71a08ffF26909AA6c0d4e256b4fE1",
+    "label": "Hot Wallet (0xCdd)",
+    "chain": "ethereum"
+  },
+  {
+    "name": "Binance",
+    "slug": "binance",
+    "address": "0x3BCE63C6C9ABf7A47f52c9A3a7950867700B0158",
+    "label": "Hot Wallet (0x3BC)",
+    "chain": "ethereum"
+  },
+  {
+    "name": "Binance",
+    "slug": "binance",
+    "address": "0xABa2D404C5C41da5964453A368aFF2604Ae80A14",
+    "label": "Hot Wallet (0xABa)",
+    "chain": "ethereum"
+  },
+  {
+    "name": "Binance",
+    "slug": "binance",
+    "address": "0x978B21a854dbEFcD6d51DFd269875d158046240b",
+    "label": "Hot Wallet (0x978)",
+    "chain": "ethereum"
+  },
+  {
+    "name": "Binance",
+    "slug": "binance",
+    "address": "0x1B5B4e441F5A22bfd91B7772C780463F66A74b35",
+    "label": "Hot Wallet (0x1B5)",
+    "chain": "ethereum"
+  },
+  {
+    "name": "Binance",
+    "slug": "binance",
+    "address": "0x6D8bE5cdf0d7DEE1f04E25FD70B001AE3B907824",
+    "label": "Hot Wallet (0x6D8)",
+    "chain": "ethereum"
+  },
+  {
+    "name": "Binance",
+    "slug": "binance",
+    "address": "0xf92402bB795Fd7CD08fb83839689DB79099C8c9C",
+    "label": "Hot Wallet (0xf92)",
+    "chain": "ethereum"
+  },
+  {
+    "name": "Binance",
+    "slug": "binance",
+    "address": "0x505e71695E9bc45943c58adEC1650577BcA68fD9",
+    "label": "Hot Wallet (0x505)",
+    "chain": "ethereum"
+  },
+  {
+    "name": "Binance",
+    "slug": "binance",
+    "address": "0xA4E471dbfe8C95d4c44f520b19CEe436c01c3267",
+    "label": "Hot Wallet (0xA4E)",
+    "chain": "ethereum"
+  },
+  {
+    "name": "Binance",
+    "slug": "binance",
+    "address": "0x290275e3db66394C52272398959845170E4DCb88",
+    "label": "Hot Wallet (0x290)",
+    "chain": "ethereum"
+  },
+  {
+    "name": "Binance",
+    "slug": "binance",
+    "address": "0x3CDfB47b0E910d9190eD788726cD72489bf10499",
+    "label": "Hot Wallet (0x3CD)",
+    "chain": "ethereum"
+  },
+  {
+    "name": "Binance",
+    "slug": "binance",
+    "address": "0x631Fc1EA2270e98fbD9D92658eCe0F5a269Aa161",
+    "label": "Hot Wallet (0x631)",
+    "chain": "ethereum"
+  },
+  {
+    "name": "Binance",
+    "slug": "binance",
+    "address": "2ojv9BAiHUrvsm9gxDe7fJSzbNZSJcxZvf8dqmWGHG8S",
+    "label": "Hot Wallet (2ojv9)",
+    "chain": "solana"
+  },
+  {
+    "name": "Binance",
+    "slug": "binance",
+    "address": "0x082489A616aB4D46d1947eE3F912e080815b08DA",
+    "label": "Hot Wallet (0x082)",
+    "chain": "ethereum"
+  },
+  {
+    "name": "Binance",
+    "slug": "binance",
+    "address": "0x29bDfbf7D27462a2d115748ace2bd71A2646946c",
+    "label": "Hot Wallet (0x29b)",
+    "chain": "ethereum"
+  },
+  {
+    "name": "Binance US",
+    "slug": "binance-us",
+    "address": "0xf60c2Ea62EDBfE808163751DD0d8693DCb30019c",
+    "label": "Hot Wallet (0xf60)",
+    "chain": "ethereum"
+  },
+  {
+    "name": "BingX",
+    "slug": "bingx",
+    "address": "0x2b3bf74B29f59fb8dDA41Cf3d6A8DA28CF8e7921",
+    "label": "Hot Wallet (0x2b3)",
+    "chain": "ethereum"
+  },
+  {
+    "name": "BingX",
+    "slug": "bingx",
+    "address": "TTRMwhxtUdgykYPoeq6eEUKLmj26Y4KtcG",
+    "label": "Hot Wallet (TTRMw)",
+    "chain": "tron"
+  },
+  {
+    "name": "BingX",
+    "slug": "bingx",
+    "address": "GsCY6n5RY7v3qcDAzGYcDShNzthngVs4So4b5nmVuqSN",
+    "label": "Hot Wallet (GsCY6)",
+    "chain": "ethereum"
+  },
+  {
+    "name": "BingX",
+    "slug": "bingx",
+    "address": "0xeF317e433B0836F294866d43f67D6871b609B351",
+    "label": "Hot Wallet (0xeF3)",
+    "chain": "ethereum"
+  },
+  {
+    "name": "BingX",
+    "slug": "bingx",
+    "address": "0x065AC3d33FEC104FBa9f2f4D674AfAA7c4EBcF43",
+    "label": "Hot Wallet (0x065)",
+    "chain": "ethereum"
+  },
+  {
+    "name": "BingX",
+    "slug": "bingx",
+    "address": "0xA0FCA8fA8E9C6aA77305f94bE0e03908d0a42900",
+    "label": "Hot Wallet (0xA0F)",
+    "chain": "ethereum"
+  },
+  {
+    "name": "BingX",
+    "slug": "bingx",
+    "address": "0xdE33e0eddE2a046Bf5CfC1Ba28c482F23A506809",
+    "label": "Hot Wallet (0xdE3)",
+    "chain": "ethereum"
+  },
+  {
+    "name": "BingX",
+    "slug": "bingx",
+    "address": "J1BDJEdvTmmcjeTMVTHLPaaNvuQ3mdxeuWEM1YyMksLy",
+    "label": "Hot Wallet (J1BDJ)",
+    "chain": "ethereum"
+  },
+  {
+    "name": "BingX",
+    "slug": "bingx",
+    "address": "0xD38Cf87F114f2a0582c329Fb9df4f7044CE71330",
+    "label": "Hot Wallet (0xD38)",
+    "chain": "ethereum"
+  },
+  {
+    "name": "Bit2Me",
+    "slug": "bit2me",
+    "address": "0x4637aC1282a183Dcc2e254543437fB6F95BF959e",
+    "label": "Hot Wallet (0x463)",
+    "chain": "ethereum"
+  },
+  {
+    "name": "Bitbank",
+    "slug": "bitbank",
+    "address": "0x3727cfCBD85390Bb11B3fF421878123AdB866be8",
+    "label": "Hot Wallet (0x372)",
+    "chain": "ethereum"
+  },
+  {
+    "name": "Bitcasino",
+    "slug": "bitcasino",
+    "address": "0x094b4cf43908F0AdB3dBDb5025F52470AAc3B160",
+    "label": "Hot Wallet (0x094)",
+    "chain": "ethereum"
+  },
+  {
+    "name": "Bitcasino",
+    "slug": "bitcasino",
+    "address": "0x5BCbdfB6cc624b959c39A2D16110D1f2D9204F72",
+    "label": "Hot Wallet (0x5BC)",
+    "chain": "ethereum"
+  },
+  {
+    "name": "Bitcasino",
+    "slug": "bitcasino",
+    "address": "0x9e3ef83728a399d6f5f757E3FA04f4850BBfB5f0",
+    "label": "Hot Wallet (0x9e3)",
+    "chain": "ethereum"
+  },
+  {
+    "name": "Bitcasino",
+    "slug": "bitcasino",
+    "address": "0x97180753F93E250D846d51034bd2bD62375Dc7b0",
+    "label": "Hot Wallet (0x971)",
+    "chain": "ethereum"
+  },
+  {
+    "name": "Bitfinex",
+    "slug": "bitfinex",
+    "address": "0x77134cbC06cB00b66F4c7e623D5fdBF6777635EC",
+    "label": "Hot Wallet (0x771)",
+    "chain": "ethereum"
+  },
+  {
+    "name": "Bitfinex",
+    "slug": "bitfinex",
+    "address": "TXFBqBbqJommqZf7BV8NNYzePh97UmJodJ",
+    "label": "Hot Wallet (TXFBq)",
+    "chain": "tron"
+  },
+  {
+    "name": "Bitfinex",
+    "slug": "bitfinex",
+    "address": "0x876EabF441B2EE5B5b0554Fd502a8E0600950cFa",
+    "label": "Hot Wallet (0x876)",
+    "chain": "ethereum"
+  },
+  {
+    "name": "bitFlyer",
+    "slug": "bitflyer",
+    "address": "0x111cFf45948819988857BBF1966A0399e0D1141e",
+    "label": "Hot Wallet (0x111)",
+    "chain": "ethereum"
+  },
+  {
+    "name": "BitForex",
+    "slug": "bitforex",
+    "address": "0x704dDD09eF7A6D3034d76ae8Ca8c854eFA59B669",
+    "label": "Hot Wallet (0x704)",
+    "chain": "ethereum"
+  },
+  {
+    "name": "BitForex",
+    "slug": "bitforex",
+    "address": "0x3A723e58C4808DDE4591543282adC7D6b378715b",
+    "label": "Hot Wallet (0x3A7)",
+    "chain": "ethereum"
+  },
+  {
+    "name": "Bitget",
+    "slug": "bitget",
+    "address": "0x1AB4973a48dc892Cd9971ECE8e01DcC7688f8F23",
+    "label": "Hot Wallet (0x1AB)",
+    "chain": "ethereum"
+  },
+  {
+    "name": "Bitget",
+    "slug": "bitget",
+    "address": "TJ7hhYhVhaxNx6BPyq7yFpqZrQULL3JSdb",
+    "label": "Hot Wallet (TJ7hh)",
+    "chain": "tron"
+  },
+  {
+    "name": "Bitget",
+    "slug": "bitget",
+    "address": "TFrRVZFoHty7scd2a1q6BDxPU5fyqiB4iR",
+    "label": "Hot Wallet (TFrRV)",
+    "chain": "tron"
+  },
+  {
+    "name": "BitGo",
+    "slug": "bitgo",
+    "address": "0xbd02c51150a4Ab6Ce97B9de2025644594F3E75B8",
+    "label": "Hot Wallet (0xbd0)",
+    "chain": "ethereum"
+  },
+  {
+    "name": "Bithumb",
+    "slug": "bithumb",
+    "address": "3FuhQLprN9s9MR3bZzR5da7mw75fuahsaU",
+    "label": "Hot Wallet (3FuhQ)",
+    "chain": "bitcoin"
+  },
+  {
+    "name": "BitKan",
+    "slug": "bitkan",
+    "address": "0x8e04Af7F7c76daA9AB429b1340E0327B5B835748",
+    "label": "Hot Wallet (0x8e0)",
+    "chain": "ethereum"
+  },
+  {
+    "name": "BitKan",
+    "slug": "bitkan",
+    "address": "6UsYfLKTdVGJdaWFBLjBYqqxFSUjh6nwpBqdh6R8n3sv",
+    "label": "Hot Wallet (6UsYf)",
+    "chain": "ethereum"
+  },
+  {
+    "name": "BitKan",
+    "slug": "bitkan",
+    "address": "TPEXEpjuuRSxpV7vnCrHAefuAMV5VsNAQ4",
+    "label": "Hot Wallet (TPEXE)",
+    "chain": "tron"
+  },
+  {
+    "name": "Bitkub",
+    "slug": "bitkub",
+    "address": "H13wk1NsagnoFDs3G6PiaCZCnd5k2UwsFosWXE5HUuVv",
+    "label": "Hot Wallet (H13wk)",
+    "chain": "ethereum"
+  },
+  {
+    "name": "Bitlo",
+    "slug": "bitlo",
+    "address": "0x2E3A5Ea84cb76919f26eDA71e2dEE9B2a6aE224c",
+    "label": "Hot Wallet (0x2E3)",
+    "chain": "ethereum"
+  },
+  {
+    "name": "BitMart",
+    "slug": "bitmart",
+    "address": "0x6D0D19bddDC5ED1dD501430c9621DD37ebd9062d",
+    "label": "Hot Wallet (0x6D0)",
+    "chain": "ethereum"
+  },
+  {
+    "name": "BitMart",
+    "slug": "bitmart",
+    "address": "0xa23EF2319bA4C933eBfDbA80c332664A6Cb13F1A",
+    "label": "Hot Wallet (0xa23)",
+    "chain": "ethereum"
+  },
+  {
+    "name": "BitMart",
+    "slug": "bitmart",
+    "address": "0xd11616e66b128c0b756b91cC13466deFaae67D07",
+    "label": "Hot Wallet (0xd11)",
+    "chain": "ethereum"
+  },
+  {
+    "name": "BitMart",
+    "slug": "bitmart",
+    "address": "0x7563758243A262E96880F178aeE7817DcF47Ab0f",
+    "label": "Hot Wallet (0x756)",
+    "chain": "ethereum"
+  },
+  {
+    "name": "BitMart",
+    "slug": "bitmart",
+    "address": "0xee937A6667E52957469f41Bf5326e6a73477b721",
+    "label": "Hot Wallet (0xee9)",
+    "chain": "ethereum"
+  },
+  {
+    "name": "BitMart",
+    "slug": "bitmart",
+    "address": "0xe9ee9f2857b559C67dD03576A1c74589a6AF6197",
+    "label": "Hot Wallet (0xe9e)",
+    "chain": "ethereum"
+  },
+  {
+    "name": "BitMart",
+    "slug": "bitmart",
+    "address": "0x6f6c1073266902197350463620591C0Ff9467e85",
+    "label": "Hot Wallet (0x6f6)",
+    "chain": "ethereum"
+  },
+  {
+    "name": "BitMart",
+    "slug": "bitmart",
+    "address": "0x2982bB64bcd07Ac3315C32Cb2BB7e5E8a2De7d67",
+    "label": "Hot Wallet (0x298)",
+    "chain": "ethereum"
+  },
+  {
+    "name": "BitMart",
+    "slug": "bitmart",
+    "address": "TA7jHA7BR17Sv4vdV2Thx2wJaiUGHNybzU",
+    "label": "Hot Wallet (TA7jH)",
+    "chain": "tron"
+  },
+  {
+    "name": "BitMart",
+    "slug": "bitmart",
+    "address": "CgANddXc7FKSsdLSdFv67X8faZqQaRTeLMXkAVANkZD4",
+    "label": "Hot Wallet (CgANd)",
+    "chain": "ethereum"
+  },
+  {
+    "name": "BitMart",
+    "slug": "bitmart",
+    "address": "0xb4Af4d0b9bd38c9F2FeC9778E48667912F778F01",
+    "label": "Hot Wallet (0xb4A)",
+    "chain": "ethereum"
+  },
+  {
+    "name": "BitMart",
+    "slug": "bitmart",
+    "address": "0xeACB50a28630a4C44a884158eE85cBc10d2B3F10",
+    "label": "Hot Wallet (0xeAC)",
+    "chain": "ethereum"
+  },
+  {
+    "name": "BitMart",
+    "slug": "bitmart",
+    "address": "0x051C869bF94bA4Ad372f88B227D78DE4508EAbf3",
+    "label": "Hot Wallet (0x051)",
+    "chain": "ethereum"
+  },
+  {
+    "name": "BitMart",
+    "slug": "bitmart",
+    "address": "0x328130164d0F2B9D7a52edC73b3632e713ff0ec6",
+    "label": "Hot Wallet (0x328)",
+    "chain": "ethereum"
+  },
+  {
+    "name": "BitMEX",
+    "slug": "bitmex",
+    "address": "47qgBcQGEBuWqNsE7QZ8NsXoe6fm5xLV94TDoYJzhgUV",
+    "label": "Hot Wallet (47qgB)",
+    "chain": "ethereum"
+  },
+  {
+    "name": "BitMEX",
+    "slug": "bitmex",
+    "address": "0xfB8131c260749c7835a08ccBdb64728De432858E",
+    "label": "Hot Wallet (0xfB8)",
+    "chain": "ethereum"
+  },
+  {
+    "name": "Bitrefill",
+    "slug": "bitrefill",
+    "address": "0x4945cE2d1B5BD904CAc839b7FDAbAfd19Cab982b",
+    "label": "Payment Gateway Hot Wallet (0x494)",
+    "chain": "ethereum"
+  },
+  {
+    "name": "Bitrue",
+    "slug": "bitrue",
+    "address": "0x6cc8dCbCA746a6E4Fdefb98E1d0DF903b107fd21",
+    "label": "Hot Wallet (0x6cc)",
+    "chain": "ethereum"
+  },
+  {
+    "name": "Bitrue",
+    "slug": "bitrue",
+    "address": "7RmkMNQerKaVioRnmqZsHM5Gm8F3gngQG8umLNoK97q4",
+    "label": "Hot Wallet (7RmkM)",
+    "chain": "ethereum"
+  },
+  {
+    "name": "Bitrue",
+    "slug": "bitrue",
+    "address": "0x868f027A5e3Bd1cD29606a6681C3ddb7D3dD9b67",
+    "label": "Hot Wallet (0x868)",
+    "chain": "ethereum"
+  },
+  {
+    "name": "Bitrue",
+    "slug": "bitrue",
+    "address": "18uhzy546Qz7CxRNkHohg4W9VSkfTkbSvY",
+    "label": "Hot Wallet (18uhz)",
+    "chain": "bitcoin"
+  },
+  {
+    "name": "Bitrue",
+    "slug": "bitrue",
+    "address": "TKGZE5pXLrRYiAsHMbTvSsgsJgSYPYtsRA",
+    "label": "Hot Wallet (TKGZE)",
+    "chain": "tron"
+  },
+  {
+    "name": "Bitrue",
+    "slug": "bitrue",
+    "address": "0x7560B22b42B3E2596BD989764f1EB9bEC1896C8d",
+    "label": "Hot Wallet (0x756)",
+    "chain": "ethereum"
+  },
+  {
+    "name": "Bitstamp",
+    "slug": "bitstamp",
+    "address": "9D8xSHWqF9NJWqCtn3rNxYEox63aCbWxYzTMfMur7Cc9",
+    "label": "Hot Wallet (9D8xS)",
+    "chain": "ethereum"
+  },
+  {
+    "name": "Bitstamp",
+    "slug": "bitstamp",
+    "address": "0x1522900B6daFac587d499a862861C0869Be6E428",
+    "label": "Hot Wallet (0x152)",
+    "chain": "ethereum"
+  },
+  {
+    "name": "Bitstamp",
+    "slug": "bitstamp",
+    "address": "0x7f604D597c15b2e2F60DC645844f68b1D781b752",
+    "label": "Hot Wallet (0x7f6)",
+    "chain": "ethereum"
+  },
+  {
+    "name": "Bitvavo",
+    "slug": "bitvavo",
+    "address": "2UL8hbNaoErAYNePqgQYPP9yDCDRZGWbzKW4krLqkhNL",
+    "label": "Hot Wallet (2UL8h)",
+    "chain": "ethereum"
+  },
+  {
+    "name": "Bitvavo",
+    "slug": "bitvavo",
+    "address": "0x079A892628EBf28d0Ed8f00151cff225A093dc63",
+    "label": "Hot Wallet (0x079)",
+    "chain": "ethereum"
+  },
+  {
+    "name": "BitVenus (BVOX)",
+    "slug": "bitvenus",
+    "address": "0xCAc68bC941EA5782E484D288852fDDd3baba233C",
+    "label": "Hot Wallet (0xCAc)",
+    "chain": "ethereum"
+  },
+  {
+    "name": "BitVenus (BVOX)",
+    "slug": "bitvenus",
+    "address": "0x1F1b7966B3DC7DAC09feEb7CD2f8cd63da040770",
+    "label": "Hot Wallet (0x1F1)",
+    "chain": "ethereum"
+  },
+  {
+    "name": "BlockFi",
+    "slug": "blockfi",
+    "address": "bc1qeskrez68qp79kjvmx5zlw32s3y9l4dscsnevsf",
+    "label": "Hot Wallet (bc1qe)",
+    "chain": "bitcoin"
+  },
+  {
+    "name": "BlockFi",
+    "slug": "blockfi",
+    "address": "0x530e0A6993eA99ffc96615aF43f327225a5fe536",
+    "label": "Hot Wallet (0x530)",
+    "chain": "ethereum"
+  },
+  {
+    "name": "BloFin",
+    "slug": "blofin",
+    "address": "0x7Ff8bbf9C8AB106db589e7863fb100525F61CCe5",
+    "label": "Hot Wallet (0x7Ff)",
+    "chain": "ethereum"
+  },
+  {
+    "name": "BloFin",
+    "slug": "blofin",
+    "address": "1PM8huQVFSirUT7eAwNm3rBBYTsDRzCaf3",
+    "label": "Hot Wallet (1PM8h)",
+    "chain": "bitcoin"
+  },
+  {
+    "name": "BloFin",
+    "slug": "blofin",
+    "address": "3V11R3pEGSt5XeRaoLDcCdkAB8zVSaKRCm8y3uKBgnsr",
+    "label": "Hot Wallet (3V11R)",
+    "chain": "bitcoin"
+  },
+  {
+    "name": "BloFin",
+    "slug": "blofin",
+    "address": "0x1cA5aa5b1dd8D948bB0971A5fB1762FE172E0040",
+    "label": "Hot Wallet (0x1cA)",
+    "chain": "ethereum"
+  },
+  {
+    "name": "Boerse Stuttgart Digital",
+    "slug": "bsdigital",
+    "address": "3NWndKFmvV6cJ6ENgXVeaDTo3mBfAvr27H",
+    "label": "Hot Wallet (3NWnd)",
+    "chain": "bitcoin"
+  },
+  {
+    "name": "Boerse Stuttgart Digital",
+    "slug": "bsdigital",
+    "address": "0x0b0F7ebF967146566799229394171FC47f1a765a",
+    "label": "Hot Wallet (0x0b0)",
+    "chain": "ethereum"
+  },
+  {
+    "name": "BtcTrade",
+    "slug": "btc-trade",
+    "address": "1Ke9L6pzjcV2WW4SWgYKQy28AHAM5hjrBK",
+    "label": "Hot Wallet (1Ke9L)",
+    "chain": "bitcoin"
+  },
+  {
+    "name": "BtcTurk",
+    "slug": "btcturk",
+    "address": "0x76eC5A0D3632b2133d9f1980903305B62678Fbd3",
+    "label": "Hot Wallet (0x76e)",
+    "chain": "ethereum"
+  },
+  {
+    "name": "BtcTurk",
+    "slug": "btcturk",
+    "address": "TYak24LSNUK6x7FPntxwn6xEDc68UtVJxq",
+    "label": "Hot Wallet (TYak2)",
+    "chain": "tron"
+  },
+  {
+    "name": "BtcTurk",
+    "slug": "btcturk",
+    "address": "0xb334A61a6209F14b5fA5f1684a4eD7621f66e1eF",
+    "label": "Hot Wallet (0xb33)",
+    "chain": "ethereum"
+  },
+  {
+    "name": "BtcTurk",
+    "slug": "btcturk",
+    "address": "TUJMek9erMZ3MKyM2NTm8iENEPgpqdZm6g",
+    "label": "Hot Wallet (TUJMe)",
+    "chain": "tron"
+  },
+  {
+    "name": "BtcTurk",
+    "slug": "btcturk",
+    "address": "0xFf58620EA6411A27Af605Ee61b90F75f42480fD2",
+    "label": "Hot Wallet (0xFf5)",
+    "chain": "ethereum"
+  },
+  {
+    "name": "BTCTURK",
+    "slug": "btcturk",
+    "address": "TSFa2foJ75NmiTPfVwnyJdrvWVH5Bzz3YF",
+    "label": "HOT WALLET (TSFA2)",
+    "chain": "tron"
+  },
+  {
+    "name": "BTSE",
+    "slug": "btse",
+    "address": "TB7dATko4gkk4YjQnu9Exf7chpxwiRGab5",
+    "label": "Hot Wallet (TB7dA)",
+    "chain": "tron"
+  },
+  {
+    "name": "BTSE",
+    "slug": "btse",
+    "address": "0xbB4D1DC5c1ABec4Ea11166ec97E714862863aD1D",
+    "label": "Hot Wallet (0xbB4)",
+    "chain": "ethereum"
+  },
+  {
+    "name": "BTSE",
+    "slug": "btse",
+    "address": "Hn7qzjdWKpFfJNAf1CvxgfRNWST2xB42g21KpUaD7QbP",
+    "label": "Hot Wallet (Hn7qz)",
+    "chain": "ethereum"
+  },
+  {
+    "name": "BTSE",
+    "slug": "btse",
+    "address": "TRcj2uakVDxbM3PRrqQjnyoRzMgrZzPtp8",
+    "label": "Hot Wallet (TRcj2)",
+    "chain": "tron"
+  },
+  {
+    "name": "BTSE",
+    "slug": "btse",
+    "address": "0xeA396eeA989d901446974f589A4DB0A1f95Ac485",
+    "label": "Hot Wallet (0xeA3)",
+    "chain": "ethereum"
+  },
+  {
+    "name": "BTSE",
+    "slug": "btse",
+    "address": "TVuJMV6L1k19v7BeyWAK5fE4xvVVW75Gww",
+    "label": "Hot Wallet (TVuJM)",
+    "chain": "tron"
+  },
+  {
+    "name": "BTSE",
+    "slug": "btse",
+    "address": "TTJbNFVEikUeGtnwk6x6ZzDRW8Hxc9HWZJ",
+    "label": "Hot Wallet (TTJbN)",
+    "chain": "tron"
+  },
+  {
+    "name": "BTSE",
+    "slug": "btse",
+    "address": "TPEMYaCr9Ea3Ms3r6SB145qTt76iuBFoKf",
+    "label": "Hot Wallet (TPEMY)",
+    "chain": "tron"
+  },
+  {
+    "name": "Bullish.com",
+    "slug": "bullish-com",
+    "address": "Bc5bth4Mn2n8DX1etZwvnq3uDEGg479s2D24TCEsnXHf",
+    "label": "Hot Wallet (Bc5bt)",
+    "chain": "ethereum"
+  },
+  {
+    "name": "Bullish.com",
+    "slug": "bullish-com",
+    "address": "81w96XvKAZZFmmuzaohSQUyxtGnAPJmkjwoBFBmtytUj",
+    "label": "Hot Wallet (81w96)",
+    "chain": "ethereum"
+  },
+  {
+    "name": "Bybit",
+    "slug": "bybit",
+    "address": "0xf89d7b9c864f589bbF53a82105107622B35EaA40",
+    "label": "Hot Wallet (0xf89)",
+    "chain": "ethereum"
+  },
+  {
+    "name": "Bybit",
+    "slug": "bybit",
+    "address": "TU4vEruvZwLLkSfV9bNw12EJTPvNr7Pvaa",
+    "label": "Hot Wallet (TU4vE)",
+    "chain": "tron"
+  },
+  {
+    "name": "Bybit",
+    "slug": "bybit",
+    "address": "0xBaeD383EDE0e5d9d72430661f3285DAa77E9439F",
+    "label": "Hot Wallet (0xBae)",
+    "chain": "ethereum"
+  },
+  {
+    "name": "Bybit",
+    "slug": "bybit",
+    "address": "0xC6c6a48eE8e9F593724161C72414d76e94Cda93F",
+    "label": "Hot Wallet (0xC6c)",
+    "chain": "ethereum"
+  },
+  {
+    "name": "Bybit",
+    "slug": "bybit",
+    "address": "0xee5B5B923fFcE93A870B3104b7CA09c3db80047A",
+    "label": "Hot Wallet (0xee5)",
+    "chain": "ethereum"
+  },
+  {
+    "name": "BYEX",
+    "slug": "byex",
+    "address": "0xAE05eB856CB28c156d9722094F5eEfD5693Bc181",
+    "label": "Hot Wallet (0xAE0)",
+    "chain": "ethereum"
+  },
+  {
+    "name": "BYEX",
+    "slug": "byex",
+    "address": "0xD599Ac04A1C786972b81e0Fef6fb0C3e7b52f8A7",
+    "label": "Hot Wallet (0xD59)",
+    "chain": "ethereum"
+  },
+  {
+    "name": "BYEX",
+    "slug": "byex",
+    "address": "TDpwBeBt6KPz2HJRzNNXy62gT1yU1MFLTS",
+    "label": "Hot Wallet (TDpwB)",
+    "chain": "tron"
+  },
+  {
+    "name": "BYEX",
+    "slug": "byex",
+    "address": "THGRp6CbGGhDBLGuoTZki5fpoUtR8R54Dx",
+    "label": "Hot Wallet (THGRp)",
+    "chain": "tron"
+  },
+  {
+    "name": "Ceffu",
+    "slug": "ceffu",
+    "address": "0x3a3C006053a9B40286B9951A11bE4C5808c11dc8",
+    "label": "Custody Hot Wallet (0x3a3)",
+    "chain": "ethereum"
+  },
+  {
+    "name": "Ceffu",
+    "slug": "ceffu",
+    "address": "0x08439901c2bB071cd0812eD329675C9657434083",
+    "label": "Custody Hot Wallet (0x084)",
+    "chain": "ethereum"
+  },
+  {
+    "name": "Ceffu",
+    "slug": "ceffu",
+    "address": "bc1qq393eyjh8hdjvcchy0mxquhh9wx8h3kzlkchfs",
+    "label": "Custody Hot Wallet (bc1qq)",
+    "chain": "bitcoin"
+  },
+  {
+    "name": "Ceffu",
+    "slug": "ceffu",
+    "address": "5SDrsMNTYdhmApjfqYHDvjoW92f2S42vcc7zNDVcQ9Ej",
+    "label": "Custody Hot Wallet (5SDrs)",
+    "chain": "ethereum"
+  },
+  {
+    "name": "Ceffu",
+    "slug": "ceffu",
+    "address": "TQq26fUorctUZvrAgKg8Wz6QyYHvYd6xWK",
+    "label": "Custody Hot Wallet (TQq26)",
+    "chain": "tron"
+  },
+  {
+    "name": "Ceffu",
+    "slug": "ceffu",
+    "address": "0xc8812D1D1918587924ad84bcF8687bFBb1231f85",
+    "label": "Custody Hot Wallet (0xc88)",
+    "chain": "ethereum"
+  },
+  {
+    "name": "Ceffu",
+    "slug": "ceffu",
+    "address": "0x0E4158C85FF724526233c1aeB4fF6f0C46827FbE",
+    "label": "Custody Hot Wallet (0x0E4)",
+    "chain": "ethereum"
+  },
+  {
+    "name": "Ceffu",
+    "slug": "ceffu",
+    "address": "0x2b9ffcD7A44F9afc8770aC1D5E6405410816dAb4",
+    "label": "Custody Hot Wallet (0x2b9)",
+    "chain": "ethereum"
+  },
+  {
+    "name": "Ceffu",
+    "slug": "ceffu",
+    "address": "0x51eD7e59643C406093393b06403f0f79dB1770e2",
+    "label": "Custody Hot Wallet (0x51e)",
+    "chain": "ethereum"
+  },
+  {
+    "name": "Ceffu",
+    "slug": "ceffu",
+    "address": "bc1q78ufzeu8w8fwvxuphrdlg446xhyptf28fkatu5",
+    "label": "Custody Hot Wallet (bc1q7)",
+    "chain": "bitcoin"
+  },
+  {
+    "name": "Ceffu",
+    "slug": "ceffu",
+    "address": "0x4A9E49A45A4b2545Cb177F79C7381A30e1Dc261F",
+    "label": "Custody Hot Wallet (0x4A9)",
+    "chain": "ethereum"
+  },
+  {
+    "name": "Ceffu",
+    "slug": "ceffu",
+    "address": "0xF708e1Eab1A3651b1c73D1bfA2Fc54C148328Be4",
+    "label": "Custody Hot Wallet (0xF70)",
+    "chain": "ethereum"
+  },
+  {
+    "name": "Ceffu",
+    "slug": "ceffu",
+    "address": "TKoMMAMrDCUY212N6M4pzmYABtgkgo7XZn",
+    "label": "Custody Hot Wallet (TKoMM)",
+    "chain": "tron"
+  },
+  {
+    "name": "Ceffu",
+    "slug": "ceffu",
+    "address": "0x417850c1Cd0fB428eb63649E9DC4C78edE9A34E8",
+    "label": "Custody Hot Wallet (0x417)",
+    "chain": "ethereum"
+  },
+  {
+    "name": "Celsius Network",
+    "slug": "celsius-network",
+    "address": "0xDac9A1f454c1cbD7D44fA1bF859B73d132A159F9",
+    "label": "EU UAB Hot Wallet (0xDac)",
+    "chain": "ethereum"
+  },
+  {
+    "name": "Celsius Network",
+    "slug": "celsius-network",
+    "address": "0x90E5e0a5551B4dC4268ee50d39925239C15D7c04",
+    "label": "Hot Wallet (Deprecated) (0x90E)",
+    "chain": "ethereum"
+  },
+  {
+    "name": "Celsius Network",
+    "slug": "celsius-network",
+    "address": "0x32A3256a4b15BadD4a6e072A03d23404d925a5CF",
+    "label": "Hot Wallet Contract (0x32A)",
+    "chain": "ethereum"
+  },
+  {
+    "name": "CEX.IO",
+    "slug": "cex-io",
+    "address": "0xc9f5296Eb3ac266c94568D790b6e91ebA7D76a11",
+    "label": "Hot Wallet (0xc9f)",
+    "chain": "ethereum"
+  },
+  {
+    "name": "CEX.IO",
+    "slug": "cex-io",
+    "address": "TQ8y7omRyKSq42Tri398txQCQE4wxjk97Q",
+    "label": "Hot Wallet (TQ8y7)",
+    "chain": "tron"
+  },
+  {
+    "name": "ChainUp Custody",
+    "slug": "chainup",
+    "address": "0x0e747EB2ff0F26fB77c3a1eA67EE07FAc2DbB783",
+    "label": "Hot Wallet (0x0e7)",
+    "chain": "ethereum"
+  },
+  {
+    "name": "Changehero",
+    "slug": "changehero",
+    "address": "TKfz7Pu3jtxWrfHzVeozQjXsb3RfuUHGE2",
+    "label": "Hot Wallet (TKfz7)",
+    "chain": "tron"
+  },
+  {
+    "name": "ChangeNOW",
+    "slug": "changenow",
+    "address": "0xdd3d72C53Ff982ff59853da71158bf1538b3Ceee",
+    "label": "Hot Wallet (0xdd3)",
+    "chain": "ethereum"
+  },
+  {
+    "name": "ChangeNOW",
+    "slug": "changenow",
+    "address": "t1Qfn52D2TGCAC75aBEKiWkozeJgaQsR638",
+    "label": "Hot Wallet (t1Qfn)",
+    "chain": "ethereum"
+  },
+  {
+    "name": "ChangeNOW",
+    "slug": "changenow",
+    "address": "2jwP4cuugAAYiGMjVuqvwaRS2Axe6H6GvXv3PxMPQNeC",
+    "label": "Hot Wallet (2jwP4)",
+    "chain": "ethereum"
+  },
+  {
+    "name": "ChangeNOW",
+    "slug": "changenow",
+    "address": "0xA96Be652A08D9905F15B7FbE2255708709BeCD09",
+    "label": "Hot Wallet (0xA96)",
+    "chain": "ethereum"
+  },
+  {
+    "name": "ChangeNOW",
+    "slug": "changenow",
+    "address": "37jdMXYbvg3dKzJ4pGSYiABiXoBy4putZq",
+    "label": "Hot Wallet (37jdM)",
+    "chain": "bitcoin"
+  },
+  {
+    "name": "ChangeNOW",
+    "slug": "changenow",
+    "address": "TWS1onJnNTg8tJHomceqxBxTsUB1DHh7PV",
+    "label": "Hot Wallet (TWS1o)",
+    "chain": "tron"
+  },
+  {
+    "name": "ChangeNOW",
+    "slug": "changenow",
+    "address": "0x2caB3DEfed9CC52827ecf37536A131C7da6CD5Aa",
+    "label": "Hot Wallet (0x2ca)",
+    "chain": "ethereum"
+  },
+  {
+    "name": "ChangeNOW",
+    "slug": "changenow",
+    "address": "0x975d9Bd9928F398c7E01F6ba236816Fa558cD94B",
+    "label": "Hot Wallet (0x975)",
+    "chain": "ethereum"
+  },
+  {
+    "name": "ChangeNOW",
+    "slug": "changenow",
+    "address": "G2YxRa6wt1qePMwfJzdXZG62ej4qaTC7YURzuh2Lwd3t",
+    "label": "Hot Wallet (G2YxR)",
+    "chain": "ethereum"
+  },
+  {
+    "name": "ChangeNOW",
+    "slug": "changenow",
+    "address": "0xf9a316B8044E757cF709f390583e671e0c087338",
+    "label": "Hot Wallet (0xf9a)",
+    "chain": "ethereum"
+  },
+  {
+    "name": "ChangeNOW",
+    "slug": "changenow",
+    "address": "0xEbA88149813BEc1cCcccFDb0daCEFaaa5DE94cB1",
+    "label": "Hot Wallet (0xEbA)",
+    "chain": "ethereum"
+  },
+  {
+    "name": "ChangeNOW",
+    "slug": "changenow",
+    "address": "0xCd64f072C86F5D076303d62fCC824D3C86a4901b",
+    "label": "Hot Wallet (0xCd6)",
+    "chain": "ethereum"
+  },
+  {
+    "name": "ChangeNOW",
+    "slug": "changenow",
+    "address": "D6QvE1xGJKcmHv6XCsnkD44r1poG99raBH",
+    "label": "Hot Wallet (D6QvE)",
+    "chain": "ethereum"
+  },
+  {
+    "name": "ChangeNOW",
+    "slug": "changenow",
+    "address": "0x0a1cE4496471867Fac0Ad71b785E5258993C9b33",
+    "label": "Hot Wallet (0x0a1)",
+    "chain": "ethereum"
+  },
+  {
+    "name": "ChangeNOW",
+    "slug": "changenow",
+    "address": "0xD5b73fC035d4d679234323e0d891cAB4A4f5a1Ab",
+    "label": "Hot Wallet (0xD5b)",
+    "chain": "ethereum"
+  },
+  {
+    "name": "ChangeNOW",
+    "slug": "changenow",
+    "address": "0xe2d60CFE3cF8B2079C7DF0144c5b28C03469775C",
+    "label": "Hot Wallet (0xe2d)",
+    "chain": "ethereum"
+  },
+  {
+    "name": "ChangeNOW",
+    "slug": "changenow",
+    "address": "0x29a2dBC5fad0Cb674550428A67143d7722c6C31f",
+    "label": "Hot Wallet (0x29a)",
+    "chain": "ethereum"
+  },
+  {
+    "name": "ChangeNOW",
+    "slug": "changenow",
+    "address": "0x077D360f11D220E4d5D831430c81C26c9be7C4A4",
+    "label": "Hot Wallet (0x077)",
+    "chain": "ethereum"
+  },
+  {
+    "name": "ChangeNOW",
+    "slug": "changenow",
+    "address": "0x4C3d89BBd37AccA70E4146aB6f750CaEbd5f988b",
+    "label": "Hot Wallet (0x4C3)",
+    "chain": "ethereum"
+  },
+  {
+    "name": "ChangeNOW",
+    "slug": "changenow",
+    "address": "0xaFBe66947A21960B4d8a2C8F4534983C5Dcbc56f",
+    "label": "Hot Wallet (0xaFB)",
+    "chain": "ethereum"
+  },
+  {
+    "name": "ChangeNOW",
+    "slug": "changenow",
+    "address": "0xf2E046fA42E4859066D464C460F782f2FbD3Cc40",
+    "label": "Hot Wallet (0xf2E)",
+    "chain": "ethereum"
+  },
+  {
+    "name": "ChangeNOW",
+    "slug": "changenow",
+    "address": "0x1b1D2149d656F8CA33fB633e6F642b5a2426B53D",
+    "label": "Hot Wallet (0x1b1)",
+    "chain": "ethereum"
+  },
+  {
+    "name": "ChangeNOW",
+    "slug": "changenow",
+    "address": "37jAAWEdJ9D9mXybRobcveioxSkt7Lkwog",
+    "label": "Hot Wallet (37jAA)",
+    "chain": "bitcoin"
+  },
+  {
+    "name": "Chatex (OFAC Sanctioned)",
+    "slug": "chatex",
+    "address": "0x6a1544F72A2A275715e8d5924e6D8A017F0e41ed",
+    "label": "Hot Wallet (0x6a1)",
+    "chain": "ethereum"
+  },
+  {
+    "name": "Chatex (OFAC Sanctioned)",
+    "slug": "chatex",
+    "address": "0x67d40EE1A85bf4a4Bb7Ffae16De985e8427B6b45",
+    "label": "Hot Wallet (0x67d)",
+    "chain": "ethereum"
+  },
+  {
+    "name": "Circle",
+    "slug": "circle",
+    "address": "0x55FE002aefF02F77364de339a1292923A15844B8",
+    "label": "Hot Wallet (0x55F)",
+    "chain": "ethereum"
+  },
+  {
+    "name": "Circle",
+    "slug": "circle",
+    "address": "0xaac391f166f33CdaEfaa4AfA6616A3BEA66B694d",
+    "label": "Hot Wallet (0xaac)",
+    "chain": "ethereum"
+  },
+  {
+    "name": "Circle",
+    "slug": "circle",
+    "address": "0x463f5D63e5a5EDB8615b0e485A090a18Aba08578",
+    "label": "Hot Wallet (0x463)",
+    "chain": "ethereum"
+  },
+  {
+    "name": "Circle",
+    "slug": "circle",
+    "address": "0x0A22Ea6f459432220c407bF15e18946ab11e81A3",
+    "label": "Hot Wallet (0x0A2)",
+    "chain": "ethereum"
+  },
+  {
+    "name": "Cobo.com",
+    "slug": "cobo-com",
+    "address": "0x7f04235686F24B9AbBf968C2aFD1c749924585d3",
+    "label": "Hot Wallet (0x7f0)",
+    "chain": "ethereum"
+  },
+  {
+    "name": "Cobo.com",
+    "slug": "cobo-com",
+    "address": "3BHXygmhNMaCcNn76S8DLdnZ5ucPtNtWGb",
+    "label": "Hot Wallet (3BHXy)",
+    "chain": "bitcoin"
+  },
+  {
+    "name": "Cobo.com",
+    "slug": "cobo-com",
+    "address": "0xB8001C3eC9AA1985f6c747E25c28324E4A361ec1",
+    "label": "Custody Hot Wallet (0xB80)",
+    "chain": "ethereum"
+  },
+  {
+    "name": "Cobo.com",
+    "slug": "cobo-com",
+    "address": "TAENFGbFzmEq6GykN3gScA5V38Q3A1bCd3",
+    "label": "Hot Wallet (TAENF)",
+    "chain": "tron"
+  },
+  {
+    "name": "Coinbase",
+    "slug": "coinbase",
+    "address": "0xA9D1e08C7793af67e9d92fe308d5697FB81d3E43",
+    "label": "Hot Wallet (0xA9D)",
+    "chain": "ethereum"
+  },
+  {
+    "name": "Coinbase",
+    "slug": "coinbase",
+    "address": "0xb5d85CBf7cB3EE0D56b3bB207D5Fc4B82f43F511",
+    "label": "Hot Wallet (0xb5d)",
+    "chain": "ethereum"
+  },
+  {
+    "name": "CoinCasino",
+    "slug": "coincasino",
+    "address": "8RgaNBTuALaAaXjte1gxPLskc4qrjme9fS5dLWf71gzi",
+    "label": "Hot Wallet (8RgaN)",
+    "chain": "ethereum"
+  },
+  {
+    "name": "Coincheck",
+    "slug": "coincheck",
+    "address": "bc1q4j7fcl8zx5yl56j00nkqez9zf3f6ggqchwzzcs5hjxwqhsgxvavq3qfgpr",
+    "label": "Hot Wallet (bc1q4)",
+    "chain": "bitcoin"
+  },
+  {
+    "name": "CoinCola",
+    "slug": "coincola-global",
+    "address": "1D9dGn35k5GeWfnYKjVfZzRN81YLP94njn",
+    "label": "Hot Wallet (1D9dG)",
+    "chain": "bitcoin"
+  },
+  {
+    "name": "CoinCorner",
+    "slug": "coincorner",
+    "address": "bc1q4k42tz45r3nrnjwe26wwspc5930gdyavs3d9nr",
+    "label": "Hot Wallet (bc1q4)",
+    "chain": "bitcoin"
+  },
+  {
+    "name": "CoinDCX",
+    "slug": "coindcx",
+    "address": "0x636858D62f2e81DeB7fD563621faef1A6a14D6c5",
+    "label": "Hot Wallet (0x636)",
+    "chain": "ethereum"
+  },
+  {
+    "name": "CoinDCX",
+    "slug": "coindcx",
+    "address": "0x4D24EecEcb86041F47bca41265319e9f06aE2Fcb",
+    "label": "Hot Wallet (0x4D2)",
+    "chain": "ethereum"
+  },
+  {
+    "name": "CoinDCX",
+    "slug": "coindcx",
+    "address": "0xA7e7006F6a3690110F67282830EA447108C0e135",
+    "label": "Hot Wallet (0xA7e)",
+    "chain": "ethereum"
+  },
+  {
+    "name": "CoinEx",
+    "slug": "coinex",
+    "address": "D5jx4wmxuPz18hqmgpCMLGVq3uSksCafCp5xjVe1nw8p",
+    "label": "Hot Wallet (D5jx4)",
+    "chain": "ethereum"
+  },
+  {
+    "name": "CoinEx",
+    "slug": "coinex",
+    "address": "bc1qqz623jyqdsh2w5y5kdmzk2ws6mzr2mt2etv5gx",
+    "label": "Hot Wallet (bc1qq)",
+    "chain": "bitcoin"
+  },
+  {
+    "name": "CoinEx",
+    "slug": "coinex",
+    "address": "TS98H6jSx6uv1gG1vx6CJZMeYGkMZXgQ7K",
+    "label": "Hot Wallet (TS98H)",
+    "chain": "tron"
+  },
+  {
+    "name": "CoinEx",
+    "slug": "coinex",
+    "address": "0x32e3e876aa0C1732ed9Efcf9d8615De7afaEF59f",
+    "label": "Hot Wallet (0x32e)",
+    "chain": "ethereum"
+  },
+  {
+    "name": "CoinEx",
+    "slug": "coinex",
+    "address": "0xbCA34ed5875079cC561840f3409a790769821DBc",
+    "label": "Hot Wallet (0xbCA)",
+    "chain": "ethereum"
+  },
+  {
+    "name": "CoinEx",
+    "slug": "coinex",
+    "address": "0x38f6d5fb32f970Fe60924B282704899411126336",
+    "label": "Hot Wallet (0x38f)",
+    "chain": "ethereum"
+  },
+  {
+    "name": "CoinEx",
+    "slug": "coinex",
+    "address": "t1MYWFMnMbazMP3U8ZCASfdamy6JY5inevP",
+    "label": "Hot Wallet (t1MYW)",
+    "chain": "ethereum"
+  },
+  {
+    "name": "CoinEx",
+    "slug": "coinex",
+    "address": "0xD4d2960E1e58a597723aE021cc811193f79153B1",
+    "label": "Hot Wallet (0xD4d)",
+    "chain": "ethereum"
+  },
+  {
+    "name": "CoinEx",
+    "slug": "coinex",
+    "address": "0x25ce2c2c2E51D7009907Cf24057935d2BFE31388",
+    "label": "Hot Wallet (0x25c)",
+    "chain": "ethereum"
+  },
+  {
+    "name": "CoinEx",
+    "slug": "coinex",
+    "address": "0x20145C5e27408B5C1CF2239d0115EE3BBc27CbD7",
+    "label": "Hot Wallet (0x201)",
+    "chain": "ethereum"
+  },
+  {
+    "name": "CoinEx",
+    "slug": "coinex",
+    "address": "0xaF64f47F6b27C8D69AE2950c71bb4899387e0139",
+    "label": "Hot Wallet (0xaF6)",
+    "chain": "ethereum"
+  },
+  {
+    "name": "CoinEx",
+    "slug": "coinex",
+    "address": "0xf335788b2251dEc93332310d96d15500cdC4C34b",
+    "label": "Hot Wallet (0xf33)",
+    "chain": "ethereum"
+  },
+  {
+    "name": "CoinEx",
+    "slug": "coinex",
+    "address": "0xA6380bFda5986782A15E3E285a1743AeE8523f97",
+    "label": "Hot Wallet (0xA63)",
+    "chain": "ethereum"
+  },
+  {
+    "name": "CoinEx",
+    "slug": "coinex",
+    "address": "0xE70b8dc28E795738A772379E9D456E7d74f50aB5",
+    "label": "Hot Wallet (0xE70)",
+    "chain": "ethereum"
+  },
+  {
+    "name": "CoinEx",
+    "slug": "coinex",
+    "address": "0x240Ed9Fe4F9BAc21ce4fD9233ba077Ab3FBf2Cd1",
+    "label": "Hot Wallet (0x240)",
+    "chain": "ethereum"
+  },
+  {
+    "name": "CoinEx",
+    "slug": "coinex",
+    "address": "DNTNRKNJbocZ9SFCmESNB9LLigX9upDtGh",
+    "label": "Hot Wallet (DNTNR)",
+    "chain": "ethereum"
+  },
+  {
+    "name": "Coinflip",
+    "slug": "coinflip",
+    "address": "0x3db76cc3673FeF9b454562DF53188Ac3147826f8",
+    "label": "Hot Wallet (0x3db)",
+    "chain": "ethereum"
+  },
+  {
+    "name": "CoinLoan",
+    "slug": "coinloan-io",
+    "address": "0x004f74a8388cE91950F29ea3E37EF604693a6395",
+    "label": "Hot Wallet (0x004)",
+    "chain": "ethereum"
+  },
+  {
+    "name": "Coinone",
+    "slug": "coinone",
+    "address": "TDoyjmPJHzRFmYfCRLRsPhKjLETwd9fKr9",
+    "label": "Hot Wallet (TDoyj)",
+    "chain": "tron"
+  },
+  {
+    "name": "CoinPayments.net",
+    "slug": "coinpayments",
+    "address": "0x31d3a108FAc60b0D5584226d9D2aa2294C637d76",
+    "label": "Hot Wallet (0x31d)",
+    "chain": "ethereum"
+  },
+  {
+    "name": "CoinPayments.net",
+    "slug": "coinpayments",
+    "address": "0x005AD9b93955Bf76d180C66f33Fe84bD0f3310b5",
+    "label": "Hot Wallet (0x005)",
+    "chain": "ethereum"
+  },
+  {
+    "name": "COINS.PH",
+    "slug": "coins-ph",
+    "address": "TUwQkNyMSpzCaUFGAinfWCxPPBLAauteqZ",
+    "label": "HOT WALLET (TUWQK)",
+    "chain": "tron"
+  },
+  {
+    "name": "CoinSpot",
+    "slug": "coinspot",
+    "address": "0x9239dF3E9996c776D539EB9f01A8aE8E7957b3c3",
+    "label": "Hot Wallet (0x923)",
+    "chain": "ethereum"
+  },
+  {
+    "name": "CoinSpot",
+    "slug": "coinspot",
+    "address": "0x4207837D4Cd914467EB76bf88c4d6e7Ba11ccDf9",
+    "label": "Hot Wallet (0x420)",
+    "chain": "ethereum"
+  },
+  {
+    "name": "CoinSpot",
+    "slug": "coinspot",
+    "address": "TWC9pmMKkbJn6Q4CoNwBMgFhepmSy6EAqR",
+    "label": "Hot Wallet (TWC9p)",
+    "chain": "tron"
+  },
+  {
+    "name": "COINSPOT",
+    "slug": "coinspot",
+    "address": "TVS1rtEao8P8PfyzPBmjSzspotPV3HjtWY",
+    "label": "HOT WALLET (TVS1R)",
+    "chain": "tron"
+  },
+  {
+    "name": "Coinsuper",
+    "slug": "coinsuper",
+    "address": "3PCnuACSGhJTz9TKMGKBEoXLZMF6VpHUNd",
+    "label": "Hot Wallet (3PCnu)",
+    "chain": "bitcoin"
+  },
+  {
+    "name": "Coinsuper",
+    "slug": "coinsuper",
+    "address": "36xjY7gjLqXYZ14ZruwqEjuu9HkuuidhG3",
+    "label": "Hot Wallet (36xjY)",
+    "chain": "bitcoin"
+  },
+  {
+    "name": "Coinsuper",
+    "slug": "coinsuper",
+    "address": "3QebgF6F3yEvFBiM2rqszhz2RfDKunzxNu",
+    "label": "Hot Wallet (3Qebg)",
+    "chain": "bitcoin"
+  },
+  {
+    "name": "CoinTiger",
+    "slug": "cointiger",
+    "address": "0x5Dd697c77E80C7Fda3dA1cccd5214c3a75503727",
+    "label": "Hot Wallet (0x5Dd)",
+    "chain": "ethereum"
+  },
+  {
+    "name": "CoinW",
+    "slug": "coinw",
+    "address": "0x43B719b9C6cF849DCA549765Ba1Af00f3dFC4aC1",
+    "label": "Hot Wallet (0x43B)",
+    "chain": "ethereum"
+  },
+  {
+    "name": "CoinW",
+    "slug": "coinw",
+    "address": "8JWVtS21nfQddQR5thDQ8bL5ykHKAGLcYSdR3uQqBvoG",
+    "label": "Hot Wallet (8JWVt)",
+    "chain": "ethereum"
+  },
+  {
+    "name": "Commex",
+    "slug": "commex",
+    "address": "bc1qxxzs9wve6krep0uqzahaj7umtpjqhw8wqsz9mq",
+    "label": "Hot Wallet (bc1qx)",
+    "chain": "bitcoin"
+  },
+  {
+    "name": "Copper",
+    "slug": "copper",
+    "address": "0xb937BF362Cd897e05eB3d351575598C4f9B55839",
+    "label": "Hot Wallet (0xb93)",
+    "chain": "ethereum"
+  },
+  {
+    "name": "Copper",
+    "slug": "copper",
+    "address": "0xaeBF02cc97072042ee7DBa94AE4C7e052bfA4B50",
+    "label": "Hot Wallet (0xaeB)",
+    "chain": "ethereum"
+  },
+  {
+    "name": "Copper",
+    "slug": "copper",
+    "address": "16HYWQ8HbyZV38mSAFYk5fnZgEeD27B6s2",
+    "label": "Hot Wallet (16HYW)",
+    "chain": "bitcoin"
+  },
+  {
+    "name": "Copper",
+    "slug": "copper",
+    "address": "0x293AA6F08A7820d97CD17D0Ca7941141767d1a9B",
+    "label": "Hot Wallet (0x293)",
+    "chain": "ethereum"
+  },
+  {
+    "name": "Copper",
+    "slug": "copper",
+    "address": "0x10Ef7A0d8E307dfB41ED27CE09dA2f5C6871A3D6",
+    "label": "Hot Wallet (0x10E)",
+    "chain": "ethereum"
+  },
+  {
+    "name": "Copper",
+    "slug": "copper",
+    "address": "17L2kAQ4M3iYjq6PtaNxNxx7XFqhYz7pfZ",
+    "label": "Hot Wallet (17L2k)",
+    "chain": "bitcoin"
+  },
+  {
+    "name": "Cryptal",
+    "slug": "cryptal",
+    "address": "0xa046FDd5Dd224BA5498F7821A757c4b67622Db2b",
+    "label": "Hot Wallet (0xa04)",
+    "chain": "ethereum"
+  },
+  {
+    "name": "Cryptex",
+    "slug": "cryptex-net",
+    "address": "TUcWfpjnAM75UtruBG19JPcjxf31NFy7FX",
+    "label": "Hot Wallet (TUcWf)",
+    "chain": "tron"
+  },
+  {
+    "name": "Crypto Bot",
+    "slug": "crypto-bot",
+    "address": "TUeapnPqxRyQB2hePL2mSsm5HEZc7aSiwE",
+    "label": "Hot Wallet (TUeap)",
+    "chain": "tron"
+  },
+  {
+    "name": "Crypto.com",
+    "slug": "crypto-com",
+    "address": "0xA023f08c70A23aBc7EdFc5B6b5E171d78dFc947e",
+    "label": "Hot Wallet (0xA02)",
+    "chain": "ethereum"
+  },
+  {
+    "name": "Crypto.com",
+    "slug": "crypto-com",
+    "address": "0xCFFAd3200574698b78f32232aa9D63eABD290703",
+    "label": "Hot Wallet (0xCFF)",
+    "chain": "ethereum"
+  },
+  {
+    "name": "Crypto.com",
+    "slug": "crypto-com",
+    "address": "0x46340b20830761efd32832A74d7169B29FEB9758",
+    "label": "Hot Wallet (0x463)",
+    "chain": "ethereum"
+  },
+  {
+    "name": "Cryptomus",
+    "slug": "cryptomus",
+    "address": "TDEA1UnGUPETFiYs2uoZqjPjphJEaEGqTr",
+    "label": "Hot Wallet (TDEA1)",
+    "chain": "tron"
+  },
+  {
+    "name": "Cryptomus",
+    "slug": "cryptomus",
+    "address": "0x061Be0Bc209A27588b7E85c0032aC8a0cDfD12A5",
+    "label": "Hot Wallet (0x061)",
+    "chain": "ethereum"
+  },
+  {
+    "name": "Cryptomus",
+    "slug": "cryptomus",
+    "address": "0xf52605c7b778563a5a9144EF4Dc53B57463ca2c7",
+    "label": "Hot Wallet (0xf52)",
+    "chain": "ethereum"
+  },
+  {
+    "name": "Cryptopia",
+    "slug": "cryptopia",
+    "address": "0x1B3d794bbEECD9240F46dBb3b79F4f71a972e00A",
+    "label": "Hot Wallet (0x1B3)",
+    "chain": "ethereum"
+  },
+  {
+    "name": "CSGO Empire",
+    "slug": "csgoempire",
+    "address": "bc1qmv76fxychuzcuvt3uy5uy3seu6jvxrsfz4993w",
+    "label": "Hot Wallet (bc1qm)",
+    "chain": "bitcoin"
+  },
+  {
+    "name": "Cwallet (prev. CCTIP)",
+    "slug": "cwallet",
+    "address": "TMfCQLnCDQXhKB35MyJNxe2cHLdtjVqSeU",
+    "label": "Hot Wallet (TMfCQ)",
+    "chain": "tron"
+  },
+  {
+    "name": "Cwallet (prev. CCTIP)",
+    "slug": "cwallet",
+    "address": "TPjJDf6nMjrmRxfW7wEQBM4tvVQag8RDCq",
+    "label": "Hot Wallet (TPjJD)",
+    "chain": "tron"
+  },
+  {
+    "name": "Deriv.com",
+    "slug": "deriv-com",
+    "address": "bc1q79xquvw37zgxn6yycj9c0ap4jjzygfapjwv8dn",
+    "label": "Hot Wallet (bc1q7)",
+    "chain": "bitcoin"
+  },
+  {
+    "name": "DEX-TRADE",
+    "slug": "dex-trade",
+    "address": "TJGyzWET16gyChHtnF5xPdhdp3RRN14QCY",
+    "label": "HOT WALLET (TJGYZ)",
+    "chain": "tron"
+  },
+  {
+    "name": "Dex-Trade",
+    "slug": "dex-trade",
+    "address": "0xD0ACB9C61cD72E0f57B19268D70c73b77DbDd553",
+    "label": "Hot Wallet (0xD0A)",
+    "chain": "ethereum"
+  },
+  {
+    "name": "dtcpay",
+    "slug": "dtcpay",
+    "address": "TF88j658P1qWyRXD4PR3moAUzJgWfBTGAA",
+    "label": "Hot Wallet (TF88j)",
+    "chain": "tron"
+  },
+  {
+    "name": "Duelbits",
+    "slug": "duelbits",
+    "address": "0x014435B1E39945CF4f5F0c3cbb5833195A95CC9B",
+    "label": "Hot Wallet (0x014)",
+    "chain": "ethereum"
+  },
+  {
+    "name": "Duelbits",
+    "slug": "duelbits",
+    "address": "0x4E80744fa23cEC76e1621ce0DfACeB4B1D532e12",
+    "label": "Hot Wallet (0x4E8)",
+    "chain": "ethereum"
+  },
+  {
+    "name": "Duelbits",
+    "slug": "duelbits",
+    "address": "0x786C27C8caeF2c5673c89d0375ce51b09B8d39C0",
+    "label": "Hot Wallet (0x786)",
+    "chain": "ethereum"
+  },
+  {
+    "name": "Dzengi.com",
+    "slug": "dzengi",
+    "address": "1M27tds7iQEYnsBo5YFze7KHEMVxokiZi1",
+    "label": "Hot Wallet (1M27t)",
+    "chain": "bitcoin"
+  },
+  {
+    "name": "eXch.cx",
+    "slug": "exch",
+    "address": "0xf1dA173228fcf015F43f3eA15aBBB51f0d8f1123",
+    "label": "Hot Wallet (0xf1d)",
+    "chain": "ethereum"
+  },
+  {
+    "name": "EXMO",
+    "slug": "exmo",
+    "address": "TCQqA58EmX6AnUZKPCogL2Q441B4ThbJGN",
+    "label": "Hot Wallet (TCQqA)",
+    "chain": "tron"
+  },
+  {
+    "name": "EXMO",
+    "slug": "exmo",
+    "address": "0xC61206FDC09e595b8BE1d2b4a708f27D2bDEA64c",
+    "label": "Hot Wallet (0xC61)",
+    "chain": "ethereum"
+  },
+  {
+    "name": "EXMO",
+    "slug": "exmo",
+    "address": "0x12227DFe5363cbE55919e230653810de0fF317e2",
+    "label": "Hot Wallet (0x122)",
+    "chain": "ethereum"
+  },
+  {
+    "name": "EXMO",
+    "slug": "exmo",
+    "address": "0x71944d613FdbeF00ef1D79154f276c3F09fE3d2C",
+    "label": "Hot Wallet (0x719)",
+    "chain": "ethereum"
+  },
+  {
+    "name": "EXMO",
+    "slug": "exmo",
+    "address": "0x0DB79Bbb99DEFC2356d82848A459A5a13869EB3F",
+    "label": "Hot Wallet (0x0DB)",
+    "chain": "ethereum"
+  },
+  {
+    "name": "FalconX",
+    "slug": "falconx",
+    "address": "9CKnC2kmqG9ZBtQXDfxR5H7Av7X878geV367DdYtybT4",
+    "label": "Hot Wallet (9CKnC)",
+    "chain": "ethereum"
+  },
+  {
+    "name": "FalconX",
+    "slug": "falconx",
+    "address": "0x1157A2076b9bB22a85CC2C162f20fAB3898F4101",
+    "label": "Hot Wallet (0x115)",
+    "chain": "ethereum"
+  },
+  {
+    "name": "FastEx",
+    "slug": "fastex",
+    "address": "0xc21A1D213f64FeDEA3415737CCe2BE37Eb59be81",
+    "label": "Hot Wallet (0xc21)",
+    "chain": "ethereum"
+  },
+  {
+    "name": "FastEx",
+    "slug": "fastex",
+    "address": "TPj7TCJ9rxdd243yQ3tc7iJzqcEYtupB4v",
+    "label": "Hot Wallet (TPj7T)",
+    "chain": "tron"
+  },
+  {
+    "name": "FastEx",
+    "slug": "fastex",
+    "address": "0x85E1De87a7575C6581F7930F857a3813B66A14d8",
+    "label": "Hot Wallet (0x85E)",
+    "chain": "ethereum"
+  },
+  {
+    "name": "FCoin",
+    "slug": "fcoin",
+    "address": "0x5A1b068Da150Cc054eaC01e9a853497eb561AeB4",
+    "label": "Hot Wallet (0x5A1)",
+    "chain": "ethereum"
+  },
+  {
+    "name": "Fidelity Custody",
+    "slug": "fidelity-custody",
+    "address": "0x8825eB97dB23d5420F44285c5b3BdE3d57D8601A",
+    "label": "Hot Wallet (0x882)",
+    "chain": "ethereum"
+  },
+  {
+    "name": "FixedFloat",
+    "slug": "fixedfloat",
+    "address": "bc1qns9f7yfx3ry9lj6yz7c9er0vwa0ye2eklpzqfw",
+    "label": "Hot Wallet (bc1qn)",
+    "chain": "bitcoin"
+  },
+  {
+    "name": "FixedFloat",
+    "slug": "fixedfloat",
+    "address": "TDoXUNZ6PajKuiUkcYg3EDSV9bnqGqsbcf",
+    "label": "Hot Wallet (TDoXU)",
+    "chain": "tron"
+  },
+  {
+    "name": "FixedFloat",
+    "slug": "fixedfloat",
+    "address": "0x4E5B2e1dc63F6b91cb6Cd759936495434C7e972F",
+    "label": "Hot Wallet (0x4E5)",
+    "chain": "ethereum"
+  },
+  {
+    "name": "FixedFloat",
+    "slug": "fixedfloat",
+    "address": "0x4727250679294802377dD6cA6541B8E459077c95",
+    "label": "Hot Wallet (0x472)",
+    "chain": "ethereum"
+  },
+  {
+    "name": "FixedFloat",
+    "slug": "fixedfloat",
+    "address": "5ndLnEYqSFiA5yUFHo6LVZ1eWc6Rhh11K5CfJNkoHEPs",
+    "label": "Hot Wallet (5ndLn)",
+    "chain": "ethereum"
+  },
+  {
+    "name": "FixedFloat",
+    "slug": "fixedfloat",
+    "address": "0xf6Ee635C28Dda95a74BA989807000cbe00317d27",
+    "label": "Hot Wallet (0xf6E)",
+    "chain": "ethereum"
+  },
+  {
+    "name": "FixedFloat",
+    "slug": "fixedfloat",
+    "address": "0x71d4249079684479F2651745fA2fcD79c9b45f53",
+    "label": "Hot Wallet (0x71d)",
+    "chain": "ethereum"
+  },
+  {
+    "name": "Flipster",
+    "slug": "flipster",
+    "address": "31iAUikiV7yKEYBzbA1iHPcanHNsLBFe8C",
+    "label": "Hot Wallet (31iAU)",
+    "chain": "bitcoin"
+  },
+  {
+    "name": "Flipster",
+    "slug": "flipster",
+    "address": "0xCD47f02B261426Ab734Be9271156327327407E43",
+    "label": "Hot Wallet (0xCD4)",
+    "chain": "ethereum"
+  },
+  {
+    "name": "Flipster",
+    "slug": "flipster",
+    "address": "TA6SbszfFYC7NYt48viCM9LMD5F5E1Gbi8",
+    "label": "Hot Wallet (TA6Sb)",
+    "chain": "tron"
+  },
+  {
+    "name": "Flipster",
+    "slug": "flipster",
+    "address": "0xa9b686EE77EfC18e7a08c48FA823CAA0cfDd754E",
+    "label": "Hot Wallet (0xa9b)",
+    "chain": "ethereum"
+  },
+  {
+    "name": "Flipster",
+    "slug": "flipster",
+    "address": "0xd49417f37cED33aBA35DDAbf208D5bFcD87b4eBe",
+    "label": "Hot Wallet (0xd49)",
+    "chain": "ethereum"
+  },
+  {
+    "name": "Flipster",
+    "slug": "flipster",
+    "address": "0x27605eb3BAae062459e1291A65137Da109B1440D",
+    "label": "Hot Wallet (0x276)",
+    "chain": "ethereum"
+  },
+  {
+    "name": "Flipster",
+    "slug": "flipster",
+    "address": "FgQygQyFJ5SB8idVQcee6v1uGoQbJMyVhW8BFPTAEpat",
+    "label": "Hot Wallet (FgQyg)",
+    "chain": "ethereum"
+  },
+  {
+    "name": "Flipster",
+    "slug": "flipster",
+    "address": "0x8f4B87cE14F234163ed28AE7D79E138f07a71638",
+    "label": "Hot Wallet (0x8f4)",
+    "chain": "ethereum"
+  },
+  {
+    "name": "FTX",
+    "slug": "ftx",
+    "address": "0x2FAF487A4414Fe77e2327F0bf4AE2a264a776AD2",
+    "label": "Hot Wallet (0x2FA)",
+    "chain": "ethereum"
+  },
+  {
+    "name": "Galaxy Digital",
+    "slug": "galaxy-digital",
+    "address": "76yGJGQKY69K4ZaV5zVytn5wtCGYQje6x7baWxJm28QA",
+    "label": "Hot Wallet (76yGJ)",
+    "chain": "ethereum"
+  },
+  {
+    "name": "Gamdom",
+    "slug": "gamdom",
+    "address": "0xd5FBDa4C79F38920159fE5f22DF9655FDe292d47",
+    "label": "Hot Wallet (0xd5F)",
+    "chain": "ethereum"
+  },
+  {
+    "name": "Gamdom",
+    "slug": "gamdom",
+    "address": "0x580450Dff316AE00D0fbEF9621A304020A046CE2",
+    "label": "Hot Wallet (0x580)",
+    "chain": "ethereum"
+  },
+  {
+    "name": "Garantex",
+    "slug": "garantex",
+    "address": "0xf4377edA661e04B6DDA78969796Ed31658D602D4",
+    "label": "Hot Wallet (0xf43)",
+    "chain": "ethereum"
+  },
+  {
+    "name": "Garantex",
+    "slug": "garantex",
+    "address": "0xD8500C631dC32FA18645B7436344a99E4825e10e",
+    "label": "Hot Wallet (0xD85)",
+    "chain": "ethereum"
+  },
+  {
+    "name": "Garantex",
+    "slug": "garantex",
+    "address": "0x3051Ca7cB7f6C599fA2f27385AD75010cf0f2bbF",
+    "label": "Hot Wallet (0x305)",
+    "chain": "ethereum"
+  },
+  {
+    "name": "Garantex",
+    "slug": "garantex",
+    "address": "bc1qwxqxd25yk2dtw2ml04vxj9atq3huv4rdytf6vt",
+    "label": "Hot Wallet (bc1qw)",
+    "chain": "bitcoin"
+  },
+  {
+    "name": "Garantex",
+    "slug": "garantex",
+    "address": "0xa26E9795aF46D9d85762F016664B8d4fE4189a03",
+    "label": "Hot Wallet (0xa26)",
+    "chain": "ethereum"
+  },
+  {
+    "name": "Gate",
+    "slug": "gate-io",
+    "address": "u6PJ8DtQuPFnfmwHbGFULQ4u4EgjDiyYKjVEsynXq2w",
+    "label": "Hot Wallet (u6PJ8)",
+    "chain": "ethereum"
+  },
+  {
+    "name": "Gate",
+    "slug": "gate-io",
+    "address": "0x0D0707963952f2fBA59dD06f2b425ace40b492Fe",
+    "label": "Hot Wallet (0x0D0)",
+    "chain": "ethereum"
+  },
+  {
+    "name": "Gate",
+    "slug": "gate-io",
+    "address": "0x1C4b70a3968436B9A0a9cf5205c787eb81Bb558c",
+    "label": "Hot Wallet (0x1C4)",
+    "chain": "ethereum"
+  },
+  {
+    "name": "Gate",
+    "slug": "gate-io",
+    "address": "TBA6CypYJizwA9XdC7Ubgc5F1bxrQ7SqPt",
+    "label": "Hot Wallet (TBA6C)",
+    "chain": "tron"
+  },
+  {
+    "name": "Gate",
+    "slug": "gate-io",
+    "address": "1G47mSr3oANXMafVrR8UC4pzV7FEAzo3r9",
+    "label": "Hot Wallet (1G47m)",
+    "chain": "bitcoin"
+  },
+  {
+    "name": "Gate",
+    "slug": "gate-io",
+    "address": "TYAavN2xCDro5Gdip8UU6W9oQmM43rNxzQ",
+    "label": "Hot Wallet (TYAav)",
+    "chain": "tron"
+  },
+  {
+    "name": "Gate",
+    "slug": "gate-io",
+    "address": "0xF379a3d1AB6625eeF34347D054cFAEAfDF8F24A7",
+    "label": "Hot Wallet (0xF37)",
+    "chain": "ethereum"
+  },
+  {
+    "name": "Gate",
+    "slug": "gate-io",
+    "address": "DJtqonMkvsVr8rVr4Pdf5zYfZrnaLSdnwi",
+    "label": "Hot Wallet (DJtqo)",
+    "chain": "ethereum"
+  },
+  {
+    "name": "Gate",
+    "slug": "gate-io",
+    "address": "TCYpJ6MMzd9ytoUvD82HnS58iV75QimPh6",
+    "label": "Hot Wallet (TCYpJ)",
+    "chain": "tron"
+  },
+  {
+    "name": "Gate",
+    "slug": "gate-io",
+    "address": "TLsUUQZCkcrBRxEKqZbpekdq9LWfmnndPg",
+    "label": "Hot Wallet (TLsUU)",
+    "chain": "tron"
+  },
+  {
+    "name": "Gate",
+    "slug": "gate-io",
+    "address": "0xD793281182A0e3E023116004778F45c29fc14F19",
+    "label": "Hot Wallet Contract (0xD79)",
+    "chain": "ethereum"
+  },
+  {
+    "name": "Gate",
+    "slug": "gate-io",
+    "address": "DLCDJhnh6aGotar6b182jpzbNEyXb3C361",
+    "label": "Hot Wallet (DLCDJ)",
+    "chain": "ethereum"
+  },
+  {
+    "name": "Gate",
+    "slug": "gate-io",
+    "address": "TRhDjtbAtsTN9CskSZWUm4MVquokYyQiha",
+    "label": "Hot Wallet (TRhDj)",
+    "chain": "tron"
+  },
+  {
+    "name": "Gate",
+    "slug": "gate-io",
+    "address": "0x7793cD85c11a924478d358D49b05b37E91B5810F",
+    "label": "Hot Wallet (0x779)",
+    "chain": "ethereum"
+  },
+  {
+    "name": "Gemini",
+    "slug": "gemini",
+    "address": "0x5f65f7b609678448494De4C87521CdF6cEf1e932",
+    "label": "Hot Wallet (0x5f6)",
+    "chain": "ethereum"
+  },
+  {
+    "name": "Giottus",
+    "slug": "giottus",
+    "address": "TA4TvECFVJBheDn5fP2eXYtJXyBbjRijH3",
+    "label": "Hot Wallet (TA4Tv)",
+    "chain": "tron"
+  },
+  {
+    "name": "GSTrade",
+    "slug": "gstrade",
+    "address": "16nnyzPp2teXpoB7a2XASyzzMNFPRY1b9R",
+    "label": "Hot Wallet (16nny)",
+    "chain": "bitcoin"
+  },
+  {
+    "name": "GSTrade",
+    "slug": "gstrade",
+    "address": "13nCMaHDNRGM29UfMMkhUQjHkVYY1ZyrpU",
+    "label": "Hot Wallet (13nCM)",
+    "chain": "bitcoin"
+  },
+  {
+    "name": "Halcyon Super Holdings (Cloudbet)",
+    "slug": "cloudbet",
+    "address": "DiNkTHh8D79dV36puPsqLfiJGz5CJuwMW1PdmAwgot67",
+    "label": "Hot Wallet (DiNkT)",
+    "chain": "ethereum"
+  },
+  {
+    "name": "Halcyon Super Holdings (Cloudbet)",
+    "slug": "cloudbet",
+    "address": "6FfHsebi7gXjJU3vAQ47CvkQNc4bdvATi5Km496KPErg",
+    "label": "Hot Wallet (6FfHs)",
+    "chain": "ethereum"
+  },
+  {
+    "name": "HitBTC",
+    "slug": "hitbtc",
+    "address": "bc1qdfl3dfnwwvlqa5jpckh0ccwpjczh5y566c4g76",
+    "label": "Hot Wallet (bc1qd)",
+    "chain": "bitcoin"
+  },
+  {
+    "name": "HitBTC",
+    "slug": "hitbtc",
+    "address": "TYywPZnnPrsx9NTuGJxSL4bh2FQd1SgPUS",
+    "label": "Hot Wallet (TYywP)",
+    "chain": "tron"
+  },
+  {
+    "name": "HitBTC",
+    "slug": "hitbtc",
+    "address": "0x80787af194C33b74a811f5e5c549316269d7Ee1A",
+    "label": "Hot Wallet (0x807)",
+    "chain": "ethereum"
+  },
+  {
+    "name": "HitBTC",
+    "slug": "hitbtc",
+    "address": "BfP2dBiHbiqYvsmESsgHEL8wQtZt25sbDNKnwmNRB34G",
+    "label": "Hot Wallet (BfP2d)",
+    "chain": "ethereum"
+  },
+  {
+    "name": "HitBTC",
+    "slug": "hitbtc",
+    "address": "0xA3222357a0eCCF60C73606170be6c99ADeCb59b3",
+    "label": "Hot Wallet (0xA32)",
+    "chain": "ethereum"
+  },
+  {
+    "name": "HitBTC",
+    "slug": "hitbtc",
+    "address": "0xe647B0db71985b26a1562Be585bf270EA4023b10",
+    "label": "Hot Wallet (0xe64)",
+    "chain": "ethereum"
+  },
+  {
+    "name": "HitBTC",
+    "slug": "hitbtc",
+    "address": "TJbZXZR9Hru126DiYevDiwVeP1sGoigvU9",
+    "label": "Hot Wallet (TJbZX)",
+    "chain": "tron"
+  },
+  {
+    "name": "HitBTC",
+    "slug": "hitbtc",
+    "address": "0x211da15544Bc1fF66004F839141b13Ec90BaCA55",
+    "label": "Hot Wallet (0x211)",
+    "chain": "ethereum"
+  },
+  {
+    "name": "HitBTC",
+    "slug": "hitbtc",
+    "address": "bc1q8pmuc2v0cku2ty0rfxp2jyvrhv6lpsjzq9y6s8",
+    "label": "Hot Wallet (Union Chain) (bc1q8)",
+    "chain": "bitcoin"
+  },
+  {
+    "name": "HitBTC",
+    "slug": "hitbtc",
+    "address": "t1T3hzteiHcgBcSFQHcnuYRkMku9fP1Bt8y",
+    "label": "Hot Wallet (t1T3h)",
+    "chain": "ethereum"
+  },
+  {
+    "name": "HitBTC",
+    "slug": "hitbtc",
+    "address": "TJtEySoVuAkk3xwXghLgrUFVKSMq9JkE18",
+    "label": "Hot Wallet (TJtEy)",
+    "chain": "tron"
+  },
+  {
+    "name": "HitBTC",
+    "slug": "hitbtc",
+    "address": "0x1240C57c23bc7DEaf34fE51362f3dFE11eCc6702",
+    "label": "Hot Wallet (0x124)",
+    "chain": "ethereum"
+  },
+  {
+    "name": "HitBTC",
+    "slug": "hitbtc",
+    "address": "0x963737C550E70FFe4D59464542a28604eDb2eF9a",
+    "label": "Hot Wallet (Union Chain) (0x963)",
+    "chain": "ethereum"
+  },
+  {
+    "name": "HitBTC",
+    "slug": "hitbtc",
+    "address": "0x974026E01660D11B5b5F08394806b619702Ac35C",
+    "label": "Hot Wallet (0x974)",
+    "chain": "ethereum"
+  },
+  {
+    "name": "HitBTC",
+    "slug": "hitbtc",
+    "address": "0xBFCd86e36D947A9103A7D4a95d178A432723d6aD",
+    "label": "Hot Wallet (0xBFC)",
+    "chain": "ethereum"
+  },
+  {
+    "name": "HTX",
+    "slug": "huobi",
+    "address": "0x18709E89BD403F470088aBDAcEbE86CC60dda12e",
+    "label": "Recovery Hot Wallet (0x187)",
+    "chain": "ethereum"
+  },
+  {
+    "name": "HTX",
+    "slug": "huobi",
+    "address": "TDToUxX8sH4z6moQpK3ZLAN24eupu2ivA4",
+    "label": "Hot Wallet (TDToU)",
+    "chain": "tron"
+  },
+  {
+    "name": "HTX",
+    "slug": "huobi",
+    "address": "TFTWNgDBkQ5wQoP8RXpRznnHvAVV8x5jLu",
+    "label": "HOT WALLET (TFTWN)",
+    "chain": "tron"
+  },
+  {
+    "name": "HTX",
+    "slug": "huobi",
+    "address": "TK86Qm97uM848dMk8G7xNbJB7zG1uW3h1n",
+    "label": "HOT WALLET (TK86Q)",
+    "chain": "tron"
+  },
+  {
+    "name": "HTX",
+    "slug": "huobi",
+    "address": "TU1ZA8T2g8PvLK8BfM7N94xpmSSpyfxZoK",
+    "label": "HOT WALLET (TU1ZA)",
+    "chain": "tron"
+  },
+  {
+    "name": "HTX",
+    "slug": "huobi",
+    "address": "0xa03400E098F4421b34a3a44A1B4e571419517687",
+    "label": "Hot Wallet (0xa03)",
+    "chain": "ethereum"
+  },
+  {
+    "name": "HTX",
+    "slug": "huobi",
+    "address": "0xdd3CB5c974601BC3974d908Ea4A86020f9999E0c",
+    "label": "Hot Wallet (0xdd3)",
+    "chain": "ethereum"
+  },
+  {
+    "name": "HTX",
+    "slug": "huobi",
+    "address": "BY4StcU9Y2BpgH8quZzorg31EGE4L1rjomN8FNsCBEcx",
+    "label": "Hot Wallet (BY4St)",
+    "chain": "ethereum"
+  },
+  {
+    "name": "HTX",
+    "slug": "huobi",
+    "address": "1AQLXAB6aXSVbRMjbhSBudLf1kcsbWSEjg",
+    "label": "Hot Wallet (1AQLX)",
+    "chain": "bitcoin"
+  },
+  {
+    "name": "HTX",
+    "slug": "huobi",
+    "address": "0x7A8bA143F8866242782E5b3A5Ad1410Bb6722206",
+    "label": "Hot Wallet (0x7A8)",
+    "chain": "ethereum"
+  },
+  {
+    "name": "HTX",
+    "slug": "huobi",
+    "address": "0xa77ff0e1C52f58363a53282624C7BaA5fA91687D",
+    "label": "Hot Wallet (0xa77)",
+    "chain": "ethereum"
+  },
+  {
+    "name": "HTX",
+    "slug": "huobi",
+    "address": "0x9A7ffD7F6c42ab805e0eDF16c25101964C6326B6",
+    "label": "Hot Wallet (0x9A7)",
+    "chain": "ethereum"
+  },
+  {
+    "name": "HTX",
+    "slug": "huobi",
+    "address": "1HckjUpRGcrrRAtFaaCAUaGjsPx9oYmLaZ",
+    "label": "Hot Wallet (Deprecated) (1Hckj)",
+    "chain": "bitcoin"
+  },
+  {
+    "name": "HTX",
+    "slug": "huobi",
+    "address": "0xCe7Ec11a5F306c6B896526149dB1a86c7d1531E2",
+    "label": "Hot Wallet (0xCe7)",
+    "chain": "ethereum"
+  },
+  {
+    "name": "HTX",
+    "slug": "huobi",
+    "address": "0xe0B7A39Fef902c21bAd124b144c62E7F85f5f5fA",
+    "label": "Hot Wallet (0xe0B)",
+    "chain": "ethereum"
+  },
+  {
+    "name": "HuionePay",
+    "slug": "huionepay",
+    "address": "TNVaKWQzau7xL9bcnvLmF9KSEQkWEs4Ug8",
+    "label": "Hot Wallet (TNVaK)",
+    "chain": "tron"
+  },
+  {
+    "name": "Hyperunit",
+    "slug": "hyperunit",
+    "address": "bc1pdwu79dady576y3fupmm82m3g7p2p9f6hgyeqy0tdg7ztxg7xrayqlkl8j9",
+    "label": "Hot Wallet (bc1pd)",
+    "chain": "bitcoin"
+  },
+  {
+    "name": "Hyperunit",
+    "slug": "hyperunit",
+    "address": "0xBEa9f7FD27f4EE20066F18DEF0bc586eC221055A",
+    "label": "Hot Wallet (0xBEa)",
+    "chain": "ethereum"
+  },
+  {
+    "name": "Hyperunit",
+    "slug": "hyperunit",
+    "address": "9SLPTL41SPsYkgdsMzdfJsxymEANKr5bYoBsQzJyKpKS",
+    "label": "Hot Wallet (9SLPT)",
+    "chain": "solana"
+  },
+  {
+    "name": "IDAX",
+    "slug": "idax",
+    "address": "0x3c11c3025ce387D76C2eDDf1493eC55a8cC2A0f7",
+    "label": "Hot Wallet (0x3c1)",
+    "chain": "ethereum"
+  },
+  {
+    "name": "Indodax",
+    "slug": "indodax",
+    "address": "4QXXp184iMKjL1ZTLrGtjMFvR2n2YhpUS1WypmzGaYB3",
+    "label": "Hot Wallet (4QXXp)",
+    "chain": "ethereum"
+  },
+  {
+    "name": "Jupiter",
+    "slug": "jupiter",
+    "address": "FVhQ3QHvXudWSdGix2sdcG47YmrmUxRhf3KCBmiKfekf",
+    "label": "Community Hot Wallet (FVhQ3)",
+    "chain": "ethereum"
+  },
+  {
+    "name": "Jupiter",
+    "slug": "jupiter",
+    "address": "CbU4oSFCk8SVgW23NLvb5BwctvWcZZHfxRD6HudP8gAo",
+    "label": "Team Hot Wallet (CbU4o)",
+    "chain": "ethereum"
+  },
+  {
+    "name": "Kanga Exchange",
+    "slug": "kanga-exchange",
+    "address": "0x42D17b7f3532Ec2f7C4E4e5E239BAA476846E2CD",
+    "label": "Hot Wallet (0x42D)",
+    "chain": "ethereum"
+  },
+  {
+    "name": "Kanga Exchange",
+    "slug": "kanga-exchange",
+    "address": "bc1q7e7j5u8rk6we50j2y4vgxnnqq8jwc7xsssws7q",
+    "label": "Hot Wallet (bc1q7)",
+    "chain": "bitcoin"
+  },
+  {
+    "name": "Kanga Exchange",
+    "slug": "kanga-exchange",
+    "address": "0xD65448affe1475F101378A744a62C00F04CF50D6",
+    "label": "Hot Wallet (0xD65)",
+    "chain": "ethereum"
+  },
+  {
+    "name": "Kanga Exchange",
+    "slug": "kanga-exchange",
+    "address": "D85tvpL5K7ZyqbZNFusFe3aA7fbDgUSzWT",
+    "label": "Hot Wallet (D85tv)",
+    "chain": "ethereum"
+  },
+  {
+    "name": "Kanga Exchange",
+    "slug": "kanga-exchange",
+    "address": "0xF4b9D6EEa133627538b7e33d0B0fDc9389da4226",
+    "label": "Hot Wallet (0xF4b)",
+    "chain": "ethereum"
+  },
+  {
+    "name": "Kanga Exchange",
+    "slug": "kanga-exchange",
+    "address": "0xbC4c5C311c25acC40E5BAC412279F0cb80282F38",
+    "label": "Hot Wallet (0xbC4)",
+    "chain": "ethereum"
+  },
+  {
+    "name": "Korbit",
+    "slug": "korbit",
+    "address": "Cmcot2ren9ZrZuMQCUUhZAzmWXyZLVuwm8JeZQuxfmrF",
+    "label": "Hot Wallet (Cmcot)",
+    "chain": "ethereum"
+  },
+  {
+    "name": "Kraken",
+    "slug": "kraken",
+    "address": "bc1qx9n80t5q7tfmutzaj0ramzzzsvtveara68zntc",
+    "label": "Hot Wallet (bc1qx)",
+    "chain": "bitcoin"
+  },
+  {
+    "name": "Kraken",
+    "slug": "kraken",
+    "address": "0xcC282E2004428939ee5149A9e7872F0B4d5d5ec7",
+    "label": "Hot Wallet (0xcC2)",
+    "chain": "ethereum"
+  },
+  {
+    "name": "Kraken",
+    "slug": "kraken",
+    "address": "0xf30ba13e4b04Ce5dC4D254Ae5FA95477800F0EB0",
+    "label": "Hot Wallet (0xf30)",
+    "chain": "ethereum"
+  },
+  {
+    "name": "Kraken",
+    "slug": "kraken",
+    "address": "0xAe2D4617c862309A3d75A0fFB358c7a5009c673F",
+    "label": "Hot Wallet (0xAe2)",
+    "chain": "ethereum"
+  },
+  {
+    "name": "Kraken",
+    "slug": "kraken",
+    "address": "TTd9qHyjqiUkfTxe3gotbuTMpjU8LEbpkN",
+    "label": "Hot Wallet (TTd9q)",
+    "chain": "tron"
+  },
+  {
+    "name": "KuCoin",
+    "slug": "kucoin",
+    "address": "0xD6216fC19DB775Df9774a6E33526131dA7D19a2c",
+    "label": "Hot Wallet (0xD62)",
+    "chain": "ethereum"
+  },
+  {
+    "name": "KuCoin",
+    "slug": "kucoin",
+    "address": "TUpHuDkiCCmwaTZBHZvQdwWzGNm5t8J2b9",
+    "label": "Hot Wallet (TUpHu)",
+    "chain": "tron"
+  },
+  {
+    "name": "KuCoin",
+    "slug": "kucoin",
+    "address": "0x1692E170361cEFD1eb7240ec13D048Fd9aF6d667",
+    "label": "Hot Wallet (0x169)",
+    "chain": "ethereum"
+  },
+  {
+    "name": "Kyrrex",
+    "slug": "kyrrex",
+    "address": "TJiximNcCeT7E3h9wv2yvsV3Dff7txER7X",
+    "label": "Hot Wallet (TJixi)",
+    "chain": "tron"
+  },
+  {
+    "name": "LBank",
+    "slug": "lbank",
+    "address": "0xdd7e7253c73ce7351c6C966Bb852d6D552B75469",
+    "label": "Hot Wallet (0xdd7)",
+    "chain": "ethereum"
+  },
+  {
+    "name": "LBank",
+    "slug": "lbank",
+    "address": "0x120051a72966950B8ce12eB5496B5D1eEEC1541B",
+    "label": "Hot Wallet (0x120)",
+    "chain": "ethereum"
+  },
+  {
+    "name": "LBank",
+    "slug": "lbank",
+    "address": "0x124D9BF2fecBc16b54eC4AcCdB14D44C2144f012",
+    "label": "Hot Wallet (0x124)",
+    "chain": "ethereum"
+  },
+  {
+    "name": "LBank",
+    "slug": "lbank",
+    "address": "1MZwhQkkt9wy8Mwm4rx5W3AYiDCJLasffn",
+    "label": "Hot Wallet (1MZwh)",
+    "chain": "bitcoin"
+  },
+  {
+    "name": "LBank",
+    "slug": "lbank",
+    "address": "0xfa9f7a1cBfBCB688729c522b4F0905CcF4d26D25",
+    "label": "Hot Wallet (0xfa9)",
+    "chain": "ethereum"
+  },
+  {
+    "name": "LBank",
+    "slug": "lbank",
+    "address": "0xEC174c25bba7359b56Fd672c8899664121E7dBCF",
+    "label": "Hot Wallet (0xEC1)",
+    "chain": "ethereum"
+  },
+  {
+    "name": "LBank",
+    "slug": "lbank",
+    "address": "8s9j5qUtuE9PGA5s7QeAXEh5oc2UGr71pmJXgyiZMHkt",
+    "label": "Hot Wallet (8s9j5)",
+    "chain": "ethereum"
+  },
+  {
+    "name": "LBank",
+    "slug": "lbank",
+    "address": "0xe0F0aA98b4A4d305Ac4A04D830C96A158BdA9cd8",
+    "label": "Hot Wallet (0xe0F)",
+    "chain": "ethereum"
+  },
+  {
+    "name": "LBank",
+    "slug": "lbank",
+    "address": "0xC06e0513A150a021104FdCDD20Ce362fA593Ba1F",
+    "label": "Hot Wallet (0xC06)",
+    "chain": "ethereum"
+  },
+  {
+    "name": "LBank",
+    "slug": "lbank",
+    "address": "TNA6MmPGtbaLP8UFUnCxaQxZDGQdVMVri9",
+    "label": "Hot Wallet (TNA6M)",
+    "chain": "tron"
+  },
+  {
+    "name": "LBANK",
+    "slug": "lbank",
+    "address": "TRou4EavgzEMoBp3V93LNaaiKY3Y3Rg5Cx",
+    "label": "HOT WALLET (TROU4)",
+    "chain": "tron"
+  },
+  {
+    "name": "LBank",
+    "slug": "lbank",
+    "address": "ALBZGHCfB8v7geJBRs1rmajHBgqrhEnXdQwzmvsENCKY",
+    "label": "Hot Wallet (ALBZG)",
+    "chain": "ethereum"
+  },
+  {
+    "name": "LBank",
+    "slug": "lbank",
+    "address": "0xa690621b1D2F8cc06dE2De11e4cf69935F82655A",
+    "label": "Hot Wallet (0xa69)",
+    "chain": "ethereum"
+  },
+  {
+    "name": "LBank",
+    "slug": "lbank",
+    "address": "0xb0E5Ec2A0BB8b8f3a727787f90b959611e4062b7",
+    "label": "Hot Wallet (0xb0E)",
+    "chain": "ethereum"
+  },
+  {
+    "name": "LBank",
+    "slug": "lbank",
+    "address": "DMoEafwoCgUSLAiXgisi1wtRpPiLTqfuyp",
+    "label": "Hot Wallet (DMoEa)",
+    "chain": "ethereum"
+  },
+  {
+    "name": "LBank",
+    "slug": "lbank",
+    "address": "0xf8a3A22ea8152A4d3d5a9aCC33BC0c88639fF401",
+    "label": "Hot Wallet (0xf8a)",
+    "chain": "ethereum"
+  },
+  {
+    "name": "Ledn",
+    "slug": "ledn",
+    "address": "3HPQs3vgD2RSx8EkgWfjeLaDQBFm41QywL",
+    "label": "Hot Wallet (3HPQs)",
+    "chain": "bitcoin"
+  },
+  {
+    "name": "Ledn",
+    "slug": "ledn",
+    "address": "0x584920CAD9F10a0Fd94c1857CE1B2A7D0D9b50A4",
+    "label": "Hot Wallet (0x584)",
+    "chain": "ethereum"
+  },
+  {
+    "name": "Ledn",
+    "slug": "ledn",
+    "address": "0x592cB3999D84e061e5E66724C167A4Cb8F117Ee2",
+    "label": "Hot Wallet (0x592)",
+    "chain": "ethereum"
+  },
+  {
+    "name": "Ledn",
+    "slug": "ledn",
+    "address": "3BTZQxHH3Ucwtfu6bZR9ynVvo5rvoywbLV",
+    "label": "Hot Wallet (3BTZQ)",
+    "chain": "bitcoin"
+  },
+  {
+    "name": "Lucky Block",
+    "slug": "luckyblock",
+    "address": "0x316Fb96Cbe2fB52Dbe679d75B928FCFad858241B",
+    "label": "Hot Wallet (0x316)",
+    "chain": "ethereum"
+  },
+  {
+    "name": "Lucky Block",
+    "slug": "luckyblock",
+    "address": "AoBG26bUDJogWVR5HEt8qUzXpRUnPJRCeM2r4rQXKNtR",
+    "label": "Hot Wallet (AoBG2)",
+    "chain": "ethereum"
+  },
+  {
+    "name": "Luno",
+    "slug": "luno",
+    "address": "0x416299AAde6443e6F6e8ab67126e65a7F606eeF5",
+    "label": "Hot Wallet (0x416)",
+    "chain": "ethereum"
+  },
+  {
+    "name": "M2 Exchange",
+    "slug": "m2-exchange",
+    "address": "0xE26abc37b06B819243B4B104270Cc18f7C835FcE",
+    "label": "Hot Wallet (0xE26)",
+    "chain": "ethereum"
+  },
+  {
+    "name": "M2 Exchange",
+    "slug": "m2-exchange",
+    "address": "bc1qgnhyp00vtj97frwrdu6ywwmlzsly99e05smu6l",
+    "label": "Hot Wallet (bc1qg)",
+    "chain": "bitcoin"
+  },
+  {
+    "name": "M2 Exchange",
+    "slug": "m2-exchange",
+    "address": "AC3ZS3XoCf5omwaqD3rxbDC5JWNK87Xo1DH6zsBhycEw",
+    "label": "Hot Wallet (AC3ZS)",
+    "chain": "ethereum"
+  },
+  {
+    "name": "M2 Exchange",
+    "slug": "m2-exchange",
+    "address": "0xb5f798096bd4D969466E2284Bda01F7A51049d3A",
+    "label": "Hot Wallet (0xb5f)",
+    "chain": "ethereum"
+  },
+  {
+    "name": "MaiCoin",
+    "slug": "maicoin",
+    "address": "0x477b8D5eF7C2C42DB84deB555419cd817c336b6F",
+    "label": "Hot Wallet (0x477)",
+    "chain": "ethereum"
+  },
+  {
+    "name": "MaskEX",
+    "slug": "maskex",
+    "address": "0xC812bc945F7A9B347DDdd6e2e829b7ec3F40e25E",
+    "label": "Hot Wallet (0xC81)",
+    "chain": "ethereum"
+  },
+  {
+    "name": "MAX Exchange",
+    "slug": "max-exchange",
+    "address": "0xA9BfF538A906154c80A8dBccd229F3DEddFa52D6",
+    "label": "Hot Wallet (0xA9B)",
+    "chain": "ethereum"
+  },
+  {
+    "name": "Mercado Bitcoin",
+    "slug": "mercado-bitcoin",
+    "address": "0xb8bA36E591FAceE901FfD3d5D82dF491551AD7eF",
+    "label": "Hot Wallet (0xb8b)",
+    "chain": "ethereum"
+  },
+  {
+    "name": "Mercatox",
+    "slug": "mercatox",
+    "address": "0xe03c23519e18D64F144d2800E30E81B0065C48B5",
+    "label": "Hot Wallet (0xe03)",
+    "chain": "ethereum"
+  },
+  {
+    "name": "Mercatox",
+    "slug": "mercatox",
+    "address": "0x9862D074e33003726fA05c74F0142995f33A3250",
+    "label": "Hot Wallet (0x986)",
+    "chain": "ethereum"
+  },
+  {
+    "name": "Mercatox",
+    "slug": "mercatox",
+    "address": "0xf2d2b2ec4a1cd75E26262BEbc7C433cB548d040B",
+    "label": "Hot Wallet (0xf2d)",
+    "chain": "ethereum"
+  },
+  {
+    "name": "METAWIN",
+    "slug": "meta-winners",
+    "address": "MWinVXj3HscKfwcdrJetvSgNFmEYPqC1NDxDd7vZqPd",
+    "label": "Hot Wallet (MWinV)",
+    "chain": "ethereum"
+  },
+  {
+    "name": "METAWIN",
+    "slug": "meta-winners",
+    "address": "0x357c6Fd2cEE77bA5de49e0bB9d49444781A8f0cc",
+    "label": "Hot Wallet (0x357)",
+    "chain": "ethereum"
+  },
+  {
+    "name": "MEXC",
+    "slug": "mexc",
+    "address": "0x3CC936b795A188F0e246cBB2D74C5Bd190aeCF18",
+    "label": "Hot Wallet (0x3CC)",
+    "chain": "ethereum"
+  },
+  {
+    "name": "MEXC",
+    "slug": "mexc",
+    "address": "5PAhQiYdLBd6SVdjzBQDxUAEFyDdF5ExNPQfcscnPRj5",
+    "label": "Hot Wallet (5PAhQ)",
+    "chain": "ethereum"
+  },
+  {
+    "name": "MEXC",
+    "slug": "mexc",
+    "address": "0x9642b23Ed1E01Df1092B92641051881a322F5D4E",
+    "label": "Hot Wallet (0x964)",
+    "chain": "ethereum"
+  },
+  {
+    "name": "MEXC",
+    "slug": "mexc",
+    "address": "13uZyaPbt4rTwYQ8xWFySVUzWH3pk2P5c7",
+    "label": "Hot Wallet (13uZy)",
+    "chain": "bitcoin"
+  },
+  {
+    "name": "MEXC",
+    "slug": "mexc",
+    "address": "0x4982085C9e2F89F2eCb8131Eca71aFAD896e89CB",
+    "label": "Hot Wallet (0x498)",
+    "chain": "ethereum"
+  },
+  {
+    "name": "MEXC",
+    "slug": "mexc",
+    "address": "0x2e8F79aD740de90dC5F5A9F0D8D9661a60725e64",
+    "label": "Hot Wallet (0x2e8)",
+    "chain": "ethereum"
+  },
+  {
+    "name": "MEXC",
+    "slug": "mexc",
+    "address": "TEPSrSYPDSQ7yXpMFPq91Fb1QEWpMkRGfn",
+    "label": "Hot Wallet (TEPSr)",
+    "chain": "tron"
+  },
+  {
+    "name": "MEXC",
+    "slug": "mexc",
+    "address": "0x576b81F0c21EDBc920ad63FeEEB2b0736b018A58",
+    "label": "Hot Wallet (0x576)",
+    "chain": "ethereum"
+  },
+  {
+    "name": "MEXC",
+    "slug": "mexc",
+    "address": "TB37WWozkkenGVYWD7Do2N5WT2CedqDktJ",
+    "label": "Hot Wallet (TB37W)",
+    "chain": "tron"
+  },
+  {
+    "name": "MEXC",
+    "slug": "mexc",
+    "address": "0x4e3ae00E8323558fA5Cac04b152238924AA31B60",
+    "label": "Hot Wallet (0x4e3)",
+    "chain": "ethereum"
+  },
+  {
+    "name": "MEXC",
+    "slug": "mexc",
+    "address": "0x51E3D44172868Acc60D68ca99591Ce4230bc75E0",
+    "label": "Hot Wallet (0x51E)",
+    "chain": "ethereum"
+  },
+  {
+    "name": "MEXC",
+    "slug": "mexc",
+    "address": "ASTyfSima4LLAdDgoFGkgqoKowG1LZFDr9fAQrg7iaJZ",
+    "label": "Hot Wallet (ASTyf)",
+    "chain": "ethereum"
+  },
+  {
+    "name": "MEXC",
+    "slug": "mexc",
+    "address": "bc1qrlsks7xe755m05zfreyjdxn34rypc4lnghtcwc",
+    "label": "Hot Wallet (bc1qr)",
+    "chain": "bitcoin"
+  },
+  {
+    "name": "MEXC",
+    "slug": "mexc",
+    "address": "0xb86f1061E0D79E8319339d5FDbb187D4E7Ad3300",
+    "label": "Hot Wallet (0xb86)",
+    "chain": "ethereum"
+  },
+  {
+    "name": "MEXC",
+    "slug": "mexc",
+    "address": "35C2L1pCgwzBHNcDcVL1a5RuoefeWqyjAR",
+    "label": "Hot Wallet (35C2L)",
+    "chain": "bitcoin"
+  },
+  {
+    "name": "MEXC",
+    "slug": "mexc",
+    "address": "0x9b64203878F24eB0CDF55c8c6fA7D08Ba0cF77E5",
+    "label": "Hot Wallet (0x9b6)",
+    "chain": "ethereum"
+  },
+  {
+    "name": "MEXC",
+    "slug": "mexc",
+    "address": "0xffB3118124cdaEbD9095fA9a479895042018cac2",
+    "label": "Hot Wallet (0xffB)",
+    "chain": "ethereum"
+  },
+  {
+    "name": "MEXC",
+    "slug": "mexc",
+    "address": "0x75e89d5979E4f6Fba9F97c104c2F0AFB3F1dcB88",
+    "label": "Hot Wallet (0x75e)",
+    "chain": "ethereum"
+  },
+  {
+    "name": "MEXC",
+    "slug": "mexc",
+    "address": "0x9Bb6a22dA110c6c9BAb745BCAF0ee142eE83AF37",
+    "label": "Hot Wallet (0x9Bb)",
+    "chain": "ethereum"
+  },
+  {
+    "name": "MEXC",
+    "slug": "mexc",
+    "address": "0xDF90C9B995a3b10A5b8570a47101e6c6a29eb945",
+    "label": "Hot Wallet (0xDF9)",
+    "chain": "ethereum"
+  },
+  {
+    "name": "MEXC",
+    "slug": "mexc",
+    "address": "0x680178D61d910736153991660c5710841C440ec7",
+    "label": "Hot Wallet (0x680)",
+    "chain": "ethereum"
+  },
+  {
+    "name": "MEXC",
+    "slug": "mexc",
+    "address": "0x7354ABB551e41bbD9fB32E2e79F44631349119B8",
+    "label": "Hot Wallet (0x735)",
+    "chain": "ethereum"
+  },
+  {
+    "name": "MEXC",
+    "slug": "mexc",
+    "address": "0x4b68038e910941b7438e70a3943dcC4FD543715C",
+    "label": "Hot Wallet (0x4b6)",
+    "chain": "ethereum"
+  },
+  {
+    "name": "MEXC",
+    "slug": "mexc",
+    "address": "0x5C30940A4544cA845272FE97c4A27F2ED2CD7B64",
+    "label": "Hot Wallet (0x5C3)",
+    "chain": "ethereum"
+  },
+  {
+    "name": "MEXC",
+    "slug": "mexc",
+    "address": "0x0211f3ceDbEf3143223D3ACF0e589747933e8527",
+    "label": "Hot Wallet (0x021)",
+    "chain": "ethereum"
+  },
+  {
+    "name": "MEXC",
+    "slug": "mexc",
+    "address": "0x3644598Cd36c8e3361AeE30F6a28521175B33b10",
+    "label": "Hot Wallet (0x364)",
+    "chain": "ethereum"
+  },
+  {
+    "name": "MEXC",
+    "slug": "mexc",
+    "address": "t1h6PLzb21LzY4NKwgX8WERj5f6VSnLp3Qf",
+    "label": "Hot Wallet (t1h6P)",
+    "chain": "ethereum"
+  },
+  {
+    "name": "MEXC",
+    "slug": "mexc",
+    "address": "0x83c1C224044Ef8573e9a728dBb91013CF80827E6",
+    "label": "Hot Wallet (0x83c)",
+    "chain": "ethereum"
+  },
+  {
+    "name": "Midas.Investments",
+    "slug": "midas-investments",
+    "address": "0xCC850abe97204a34B2f8b701cEc7081Ab666fA2C",
+    "label": "Hot Wallet (0xCC8)",
+    "chain": "ethereum"
+  },
+  {
+    "name": "Mixin",
+    "slug": "mixin",
+    "address": "0x1616b057F8a89955d4A4f9fd9Eb10289ac0e44A1",
+    "label": "Hot Wallet (0x161)",
+    "chain": "ethereum"
+  },
+  {
+    "name": "Mixin",
+    "slug": "mixin",
+    "address": "0x03Ba854bAfC8AD509d6CD9Dce0d8E52E1FBaa436",
+    "label": "Hot Wallet (0x03B)",
+    "chain": "ethereum"
+  },
+  {
+    "name": "n.exchange",
+    "slug": "n-exchange",
+    "address": "0x1bAc08001D761C303901d5E32273a24c07D3f3Da",
+    "label": "Hot Wallet (0x1bA)",
+    "chain": "ethereum"
+  },
+  {
+    "name": "N.EXCHANGE",
+    "slug": "n-exchange",
+    "address": "0xE291cc3e5b9e0C9b37c9FBDd549aBf3B5c0ad342",
+    "label": "HOT WALLET (0XE29)",
+    "chain": "ethereum"
+  },
+  {
+    "name": "n.exchange",
+    "slug": "n-exchange",
+    "address": "TScSLnUodZVsgoGchZspDoimDjDB9bwqVv",
+    "label": "Hot Wallet (TScSL)",
+    "chain": "tron"
+  },
+  {
+    "name": "n.exchange",
+    "slug": "n-exchange",
+    "address": "0x8919A72d99a08B89C16C41907E1e344250F83ba9",
+    "label": "Hot Wallet (0x891)",
+    "chain": "ethereum"
+  },
+  {
+    "name": "n.exchange",
+    "slug": "n-exchange",
+    "address": "0xe67FC443fa1D4927bD9611B8cF50745618b12a04",
+    "label": "Hot Wallet (0xe67)",
+    "chain": "ethereum"
+  },
+  {
+    "name": "n.exchange",
+    "slug": "n-exchange",
+    "address": "TPrMJcmPVuGitekhff6y9mBDyqpjGCcchy",
+    "label": "Hot Wallet (TPrMJ)",
+    "chain": "tron"
+  },
+  {
+    "name": "n.exchange",
+    "slug": "n-exchange",
+    "address": "bc1qy0dahf95e9su0s9ycfmr0v60aat554laxfvt46",
+    "label": "Hot Wallet (bc1qy)",
+    "chain": "bitcoin"
+  },
+  {
+    "name": "n.exchange",
+    "slug": "n-exchange",
+    "address": "0x4c95e2B4D3636e5faD70A2Bc90D0141D50C5C781",
+    "label": "Hot Wallet (0x4c9)",
+    "chain": "ethereum"
+  },
+  {
+    "name": "n.exchange",
+    "slug": "n-exchange",
+    "address": "0x1bb9192107345E2C449b7605f1342F020786aFe6",
+    "label": "Hot Wallet (0x1bb)",
+    "chain": "ethereum"
+  },
+  {
+    "name": "n.exchange",
+    "slug": "n-exchange",
+    "address": "bc1q22hp7n28whk5h94z93vm05hfx2zxs8ca9gglk7",
+    "label": "Hot Wallet (bc1q2)",
+    "chain": "bitcoin"
+  },
+  {
+    "name": "NEAR Intents",
+    "slug": "near-intents",
+    "address": "t1Ku2KLyndDPsR32jwnrTMd3yvi9tfFP8ML",
+    "label": "Bridge Hot Wallet (t1Ku2)",
+    "chain": "ethereum"
+  },
+  {
+    "name": "NEAR Intents",
+    "slug": "near-intents",
+    "address": "0x2CfF890f0378a11913B6129B2E97417a2c302680",
+    "label": "Bridge Hot Wallet (0x2Cf)",
+    "chain": "ethereum"
+  },
+  {
+    "name": "NEAR Intents",
+    "slug": "near-intents",
+    "address": "1C6XJtNXiuXvk4oUAVMkKF57CRpaTrN5Ra",
+    "label": "Bridge Hot Wallet (1C6XJ)",
+    "chain": "bitcoin"
+  },
+  {
+    "name": "NEAR Intents",
+    "slug": "near-intents",
+    "address": "HWjmoUNYckccg9Qrwi43JTzBcGcM1nbdAtATf9GXmz16",
+    "label": "Bridge Hot Wallet (HWjmo)",
+    "chain": "ethereum"
+  },
+  {
+    "name": "NEAR Intents",
+    "slug": "near-intents",
+    "address": "TX5XiRXdyz7sdFwF5mnhT1QoGCpbkncpke",
+    "label": "Bridge Hot Wallet (TX5Xi)",
+    "chain": "tron"
+  },
+  {
+    "name": "NEAR Intents",
+    "slug": "near-intents",
+    "address": "DRmCnxzL9U11EJzLmWkm2ikaZikPFbLuQD",
+    "label": "Bridge Hot Wallet (DRmCn)",
+    "chain": "ethereum"
+  },
+  {
+    "name": "Nexo",
+    "slug": "nexo",
+    "address": "0x7AB6c736baf1DAc266aAb43884d82974a9ADCcCF",
+    "label": "Hot Wallet (0x7AB)",
+    "chain": "ethereum"
+  },
+  {
+    "name": "Nexo",
+    "slug": "nexo",
+    "address": "bc1qn878vf8699p32y3ehq2wwaq876uu7yye5m5ahc",
+    "label": "Hot Wallet (bc1qn)",
+    "chain": "bitcoin"
+  },
+  {
+    "name": "Nexo",
+    "slug": "nexo",
+    "address": "bc1p2ws3jd3krrplhs2r8z7pfv8dyydy2mh0y0ejqj4eesqv4cx4c6xq6x5yjg",
+    "label": "Hot Wallet (bc1p2)",
+    "chain": "bitcoin"
+  },
+  {
+    "name": "Nexo",
+    "slug": "nexo",
+    "address": "0xB60C61DBb7456f024f9338c739B02Be68e3F545C",
+    "label": "Hot Wallet (0xB60)",
+    "chain": "ethereum"
+  },
+  {
+    "name": "Nexo",
+    "slug": "nexo",
+    "address": "0xDdA4260741da3B248DB93D47c825e1680878FbF9",
+    "label": "Hot Wallet (0xDdA)",
+    "chain": "ethereum"
+  },
+  {
+    "name": "Nexo",
+    "slug": "nexo",
+    "address": "0x4d7F1790644Af787933c9fF0e2cff9a9B4299Abb",
+    "label": "Withdrawal Hot Wallet (0x4d7)",
+    "chain": "ethereum"
+  },
+  {
+    "name": "Nexo",
+    "slug": "nexo",
+    "address": "0x7344E478574aCBe6DaC9dE1077430139E17EEc3D",
+    "label": "Hot Wallet (0x734)",
+    "chain": "ethereum"
+  },
+  {
+    "name": "Nexo",
+    "slug": "nexo",
+    "address": "TPQNPnSLA9uxjqVsaknXHJVsmfZtfJhFdG",
+    "label": "Hot Wallet (TPQNP)",
+    "chain": "tron"
+  },
+  {
+    "name": "Nexo",
+    "slug": "nexo",
+    "address": "0x463E5b673d1029989c9B059d36393c539beF9094",
+    "label": "Hot Wallet (0x463)",
+    "chain": "ethereum"
+  },
+  {
+    "name": "Nexo",
+    "slug": "nexo",
+    "address": "0xf36A47300F002c0C9F8c131962F077C3543B2fC6",
+    "label": "Hot Wallet (0xf36)",
+    "chain": "ethereum"
+  },
+  {
+    "name": "Nexo",
+    "slug": "nexo",
+    "address": "0x1a706EB4F22FDc03EE4624cF195cD9dABED2C264",
+    "label": "Hot Wallet (0x1a7)",
+    "chain": "ethereum"
+  },
+  {
+    "name": "Nexo",
+    "slug": "nexo",
+    "address": "0x31E9b3373F2AD5d964CAd0fd01332d6550cBBdE6",
+    "label": "Hot Wallet (0x31E)",
+    "chain": "ethereum"
+  },
+  {
+    "name": "Nexo",
+    "slug": "nexo",
+    "address": "0x8ef0DE27F4D512b48FA143d6a466E72d989575fb",
+    "label": "Hot Wallet (0x8ef)",
+    "chain": "ethereum"
+  },
+  {
+    "name": "Nexo",
+    "slug": "nexo",
+    "address": "0x5600a3988Ff9359Ab1A7C3B3707C867c2EA91F2B",
+    "label": "Hot Wallet (0x560)",
+    "chain": "ethereum"
+  },
+  {
+    "name": "Nexo",
+    "slug": "nexo",
+    "address": "0xAce5904631ee0c5ddB945a77c3c3b8c280A01e6F",
+    "label": "Hot Wallet (0xAce)",
+    "chain": "ethereum"
+  },
+  {
+    "name": "Nexo",
+    "slug": "nexo",
+    "address": "0x2a8e7DC0E0D26d437F3dC60b8c03ED5BfbE5D36d",
+    "label": "Hot Wallet (0x2a8)",
+    "chain": "ethereum"
+  },
+  {
+    "name": "Nexo",
+    "slug": "nexo",
+    "address": "0x9330e45FBb2aC8e490225E6313D9669461Abf276",
+    "label": "Hot Wallet (0x933)",
+    "chain": "ethereum"
+  },
+  {
+    "name": "Nexo",
+    "slug": "nexo",
+    "address": "DKr3ZqvYNpMFAGt3iPPPqJCjDtN2zb63NY",
+    "label": "Hot Wallet (DKr3Z)",
+    "chain": "ethereum"
+  },
+  {
+    "name": "Nexo",
+    "slug": "nexo",
+    "address": "0xd6b26861139a52877Cd7adc437Edd7c5383fF585",
+    "label": "Hot Wallet (0xd6b)",
+    "chain": "ethereum"
+  },
+  {
+    "name": "Nexo",
+    "slug": "nexo",
+    "address": "0x0762AeFe72042F62775ee71ef94E9e050402fA07",
+    "label": "Hot Wallet (0x076)",
+    "chain": "ethereum"
+  },
+  {
+    "name": "Nexo",
+    "slug": "nexo",
+    "address": "0x1D85f929EE6AEDc3b4981d8FE408Ae43942b2e53",
+    "label": "Hot Wallet (0x1D8)",
+    "chain": "ethereum"
+  },
+  {
+    "name": "Nexo",
+    "slug": "nexo",
+    "address": "jmLtKSEWyQhCbHgTa52XZwcfLQ2ze9J8VN3nfSTEjt4",
+    "label": "Hot Wallet (jmLtK)",
+    "chain": "ethereum"
+  },
+  {
+    "name": "Nexo",
+    "slug": "nexo",
+    "address": "0x3D35491d9bE06f42512a84BC914D7a37c27d23AC",
+    "label": "Hot Wallet (0x3D3)",
+    "chain": "ethereum"
+  },
+  {
+    "name": "Nexo",
+    "slug": "nexo",
+    "address": "0xbCfCdF43163A9e056DADeD84aeB65A6a6c350130",
+    "label": "Hot Wallet (0xbCf)",
+    "chain": "ethereum"
+  },
+  {
+    "name": "Nexo",
+    "slug": "nexo",
+    "address": "0x6a17173AA3965502b7f2edc53cee5A30FD37D6BC",
+    "label": "Hot Wallet (0x6a1)",
+    "chain": "ethereum"
+  },
+  {
+    "name": "Nexo",
+    "slug": "nexo",
+    "address": "0xFfec0067F5a79CFf07527f63D83dD5462cCf8BA4",
+    "label": "Hot Wallet (0xFfe)",
+    "chain": "ethereum"
+  },
+  {
+    "name": "Nexo",
+    "slug": "nexo",
+    "address": "0x55e4d16f9c3041EfF17Ca32850662f3e9Dddbce7",
+    "label": "Hot Wallet (0x55e)",
+    "chain": "ethereum"
+  },
+  {
+    "name": "Nexo",
+    "slug": "nexo",
+    "address": "0x7893b8b1A474933eF654596E138298Eba2000237",
+    "label": "Hot Wallet (0x789)",
+    "chain": "ethereum"
+  },
+  {
+    "name": "Nobitex.ir",
+    "slug": "nobitex",
+    "address": "0x53b9B72DC6f96Eb4B54143B211B22e2548e4cf5c",
+    "label": "Hot Wallet (0x53b)",
+    "chain": "ethereum"
+  },
+  {
+    "name": "NOBITEX.IR",
+    "slug": "nobitex",
+    "address": "TAm937jKKHTgJ8qsBuW8CwSRL9shLRQ7yn",
+    "label": "HOT WALLET (TAM93)",
+    "chain": "tron"
+  },
+  {
+    "name": "NoOnes.com",
+    "slug": "noones-com",
+    "address": "0xE86c9677FcC6936B0F6A71a19738dD0911396961",
+    "label": "Hot Wallet (0xE86)",
+    "chain": "ethereum"
+  },
+  {
+    "name": "NoOnes.com",
+    "slug": "noones-com",
+    "address": "0x055D9A4dc18687872D95E2324335AAa4fbd29F05",
+    "label": "Hot Wallet (0x055)",
+    "chain": "ethereum"
+  },
+  {
+    "name": "NYDIG",
+    "slug": "nydig",
+    "address": "bc1qxkz0jr5cne8llsy2ujmfs53fnk8f97pn7njq7a",
+    "label": "Execution Hot Wallet (bc1qx)",
+    "chain": "bitcoin"
+  },
+  {
+    "name": "Okcoin",
+    "slug": "okcoin",
+    "address": "0xD30b438DF65f4f788563b2b3611Bd6059bFF4ad9",
+    "label": "Hot Wallet (0xD30)",
+    "chain": "ethereum"
+  },
+  {
+    "name": "OKCOIN",
+    "slug": "okcoin",
+    "address": "TQ7wK19fhZZqLdj2Xcw2e6Ejs3cTZbfBbF",
+    "label": "HOT WALLET (TQ7WK)",
+    "chain": "tron"
+  },
+  {
+    "name": "OKX",
+    "slug": "okx",
+    "address": "TLaGjwhvA8XQYSxFAcAXy7Dvuue9eGYitv",
+    "label": "Hot Wallet (TLaGj)",
+    "chain": "tron"
+  },
+  {
+    "name": "OKX",
+    "slug": "okx",
+    "address": "0xA9Ac43f5b5e38155A288d1A01D2cbc4478E14573",
+    "label": "Hot Wallet (0xA9A)",
+    "chain": "ethereum"
+  },
+  {
+    "name": "OKX",
+    "slug": "okx",
+    "address": "0x6cC5F688a315f3dC28A7781717a9A798a59fDA7b",
+    "label": "Hot Wallet (0x6cC)",
+    "chain": "ethereum"
+  },
+  {
+    "name": "OKX",
+    "slug": "okx",
+    "address": "TLtEhFAkdE2mmcPWxuQGyjm2dikT5NrJgz",
+    "label": "HOT WALLET (TLTEH)",
+    "chain": "tron"
+  },
+  {
+    "name": "OKX",
+    "slug": "okx",
+    "address": "TM1zzNDZD2DPASbKcgdVoTYhfmYgtfwx9R",
+    "label": "HOT WALLET (TM1ZZ)",
+    "chain": "tron"
+  },
+  {
+    "name": "OKX",
+    "slug": "okx",
+    "address": "TSaRZDiBPD8Rd5vrvX8a4zgunHczM9mj8S",
+    "label": "HOT WALLET (TSARZ)",
+    "chain": "tron"
+  },
+  {
+    "name": "OKX",
+    "slug": "okx",
+    "address": "TWGZbjofbTLY3UCjCV4yiLkRg89zLqwRgi",
+    "label": "HOT WALLET (TWGZB)",
+    "chain": "tron"
+  },
+  {
+    "name": "OKX",
+    "slug": "okx",
+    "address": "0x91D40E4818F4D4C57b4578d9ECa6AFc92aC8DEbE",
+    "label": "Hot Wallet (0x91D)",
+    "chain": "ethereum"
+  },
+  {
+    "name": "Onion Market",
+    "slug": "onion-market",
+    "address": "39d2ZJawPbFrX14ucGHCfBCyhNftWrhnQs",
+    "label": "Hot Wallet (39d2Z)",
+    "chain": "bitcoin"
+  },
+  {
+    "name": "OSL (BC Group)",
+    "slug": "osl",
+    "address": "3Ky9RNarFTwZ4SywztDuBbaLAr5dqTujkt",
+    "label": "Hot Wallet (3Ky9R)",
+    "chain": "bitcoin"
+  },
+  {
+    "name": "OSL (BC Group)",
+    "slug": "osl",
+    "address": "0xBBe1932529AD1A71539BAD6c887674Cb56764ed9",
+    "label": "Hot Wallet (0xBBe)",
+    "chain": "ethereum"
+  },
+  {
+    "name": "OSL (BC Group)",
+    "slug": "osl",
+    "address": "0x92d2C650B8693323e7e8A3F0a0215C187911707A",
+    "label": "Hot Wallet (0x92d)",
+    "chain": "ethereum"
+  },
+  {
+    "name": "OSL (BC Group)",
+    "slug": "osl",
+    "address": "3Q8StmtPCgxNeeeM6Ue9errkDgZ9SiLHE4",
+    "label": "Hot Wallet (3Q8St)",
+    "chain": "bitcoin"
+  },
+  {
+    "name": "OSL (BC Group)",
+    "slug": "osl",
+    "address": "0x113a1c1294DEb0caE51B17a3FdD4C2CF7bA935DF",
+    "label": "Hot Wallet (0x113)",
+    "chain": "ethereum"
+  },
+  {
+    "name": "OSL (BC Group)",
+    "slug": "osl",
+    "address": "0x860ca90f4eAb837d230BC90cE0EeFFbDD028f0EB",
+    "label": "Hot Wallet (0x860)",
+    "chain": "ethereum"
+  },
+  {
+    "name": "OSL (BC Group)",
+    "slug": "osl",
+    "address": "0xb275483694d627242e77b95630168DA4AeC5Da83",
+    "label": "Hot Wallet (0xb27)",
+    "chain": "ethereum"
+  },
+  {
+    "name": "OSL (BC Group)",
+    "slug": "osl",
+    "address": "0x4e185FE2C41860B1d71C6c5B38237bA33Ae8210d",
+    "label": "Hot Wallet (0x4e1)",
+    "chain": "ethereum"
+  },
+  {
+    "name": "OSL (BC Group)",
+    "slug": "osl",
+    "address": "0xb24F5D73218Aa280985493636Ee806e6149388ee",
+    "label": "Hot Wallet (0xb24)",
+    "chain": "ethereum"
+  },
+  {
+    "name": "OTCBTC",
+    "slug": "otcbtc",
+    "address": "0xAeEc6f5aCA72F3A005af1B3420ab8c8c7009BaC8",
+    "label": "Hot Wallet (0xAeE)",
+    "chain": "ethereum"
+  },
+  {
+    "name": "Ourbit",
+    "slug": "ourbit",
+    "address": "0x18D080B89570e4B996EB17fA1F0206F0CE35d604",
+    "label": "Hot Wallet (0x18D)",
+    "chain": "ethereum"
+  },
+  {
+    "name": "Ourbit",
+    "slug": "ourbit",
+    "address": "0x6c6EC4beeAa53171a0ce0691D5c9A5FaAF509a8A",
+    "label": "Hot Wallet (0x6c6)",
+    "chain": "ethereum"
+  },
+  {
+    "name": "Ourbit",
+    "slug": "ourbit",
+    "address": "TJP6zoGwWwUmANvMdrtqYq9iWA8qMAAY4q",
+    "label": "Hot Wallet (TJP6z)",
+    "chain": "tron"
+  },
+  {
+    "name": "Ourbit",
+    "slug": "ourbit",
+    "address": "0xF81b45b1663b7EA8716C74796D99bbe4ea26F488",
+    "label": "Hot Wallet (0xF81)",
+    "chain": "ethereum"
+  },
+  {
+    "name": "Ourbit",
+    "slug": "ourbit",
+    "address": "0xDBF7122c0b7AF893580df087eaBac0b3bE3e9483",
+    "label": "Hot Wallet (0xDBF)",
+    "chain": "ethereum"
+  },
+  {
+    "name": "Ourbit",
+    "slug": "ourbit",
+    "address": "0x040432c11ee833BDCaAc2495329B65Bee7ccA6D9",
+    "label": "Hot Wallet (0x040)",
+    "chain": "ethereum"
+  },
+  {
+    "name": "Ourbit",
+    "slug": "ourbit",
+    "address": "7UhjbynicBP8rqcobwsAJDfRMjwgHSgdxcYNJmLwxfms",
+    "label": "Hot Wallet (7Uhjb)",
+    "chain": "ethereum"
+  },
+  {
+    "name": "Ourbit",
+    "slug": "ourbit",
+    "address": "0x8FC27c899fb2c1044608516450e385378195639d",
+    "label": "Hot Wallet (0x8FC)",
+    "chain": "ethereum"
+  },
+  {
+    "name": "Ourbit",
+    "slug": "ourbit",
+    "address": "TApNqy5BNx11TiNa7oibbBUV63BY5a2sNE",
+    "label": "Hot Wallet (TApNq)",
+    "chain": "tron"
+  },
+  {
+    "name": "Ourbit",
+    "slug": "ourbit",
+    "address": "0x944D6B4C2BF808F9324CA0675f1d7e0E92a35436",
+    "label": "Hot Wallet (0x944)",
+    "chain": "ethereum"
+  },
+  {
+    "name": "Ourbit",
+    "slug": "ourbit",
+    "address": "0x3926aCcf5C2212E35b2b35ADb6d993FA86295931",
+    "label": "Hot Wallet (0x392)",
+    "chain": "ethereum"
+  },
+  {
+    "name": "Ourbit",
+    "slug": "ourbit",
+    "address": "0x4D59BEC2b09052c60C6149c623fb3a461fB1Fe74",
+    "label": "Hot Wallet (0x4D5)",
+    "chain": "ethereum"
+  },
+  {
+    "name": "Paribu",
+    "slug": "paribu",
+    "address": "TUCwJxRJfV2zHz7TDgqsAAgRAs1guU94Ta",
+    "label": "Hot Wallet (TUCwJ)",
+    "chain": "tron"
+  },
+  {
+    "name": "Paxos",
+    "slug": "paxos",
+    "address": "0x2fb074FA59c9294c71246825C1c9A0c7782d41a4",
+    "label": "Hot Wallet (0x2fb)",
+    "chain": "ethereum"
+  },
+  {
+    "name": "Paxos",
+    "slug": "paxos",
+    "address": "0x264bd8291fAE1D75DB2c5F573b07faA6715997B5",
+    "label": "Hot Wallet (0x264)",
+    "chain": "ethereum"
+  },
+  {
+    "name": "Paybis",
+    "slug": "paybis",
+    "address": "TPv76s4smSzmMUiU9pYoM9MPNLZCeCYN7e",
+    "label": "Hot Wallet (TPv76)",
+    "chain": "tron"
+  },
+  {
+    "name": "PlusToken Ponzi",
+    "slug": "plustoken",
+    "address": "19m9Ab7Vj2MJv8DfesM2fGPxD2yV3u1xQA",
+    "label": "Hot Wallet (Seized) (19m9A)",
+    "chain": "bitcoin"
+  },
+  {
+    "name": "PlusToken Ponzi",
+    "slug": "plustoken",
+    "address": "31odn4bxF2TgM4pD7m4hdSr1vGMsjh9ugV",
+    "label": "Hot Wallet (31odn)",
+    "chain": "bitcoin"
+  },
+  {
+    "name": "Poloniex",
+    "slug": "poloniex",
+    "address": "0x8fCA4adE3a517133fF23ca55CdAea29C78C990b8",
+    "label": "Hot Wallet (0x8fC)",
+    "chain": "ethereum"
+  },
+  {
+    "name": "Poloniex",
+    "slug": "poloniex",
+    "address": "TWhDfwC8QE6pQyiYy248dNor3uphPEw5M2",
+    "label": "Hot Wallet (TWhDf)",
+    "chain": "tron"
+  },
+  {
+    "name": "Poloniex",
+    "slug": "poloniex",
+    "address": "0x4068626796a4Ffb573452d5297db134371a33a1c",
+    "label": "Hot Wallet (0x406)",
+    "chain": "ethereum"
+  },
+  {
+    "name": "ProBit",
+    "slug": "probit",
+    "address": "17PpCEuQUT7xxP1ocfhvFdwQyrB5dG1dQP",
+    "label": "Hot Wallet (17PpC)",
+    "chain": "bitcoin"
+  },
+  {
+    "name": "ProBit",
+    "slug": "probit",
+    "address": "TGEwJxVErWagXnriZATPMBFFbbeuad9m3h",
+    "label": "Hot Wallet (TGEwJ)",
+    "chain": "tron"
+  },
+  {
+    "name": "ProBit",
+    "slug": "probit",
+    "address": "0x72E5263FF33D2494692D7F94A758aA9F82062F73",
+    "label": "Hot Wallet (0x72E)",
+    "chain": "ethereum"
+  },
+  {
+    "name": "ProBit",
+    "slug": "probit",
+    "address": "0xF71AfE21Cd32959113Fc47aE2EF886B43A9413d5",
+    "label": "Hot Wallet (0xF71)",
+    "chain": "ethereum"
+  },
+  {
+    "name": "ProBit",
+    "slug": "probit",
+    "address": "FavWP1KXVVNZLTYjfSBWPanxbVeCW4A3pJ96hn2GRWGR",
+    "label": "Hot Wallet (FavWP)",
+    "chain": "ethereum"
+  },
+  {
+    "name": "ProBit",
+    "slug": "probit",
+    "address": "0x898FCE2414A1347C0e12bde6B28B75843Fd9bbad",
+    "label": "Hot Wallet (0x898)",
+    "chain": "ethereum"
+  },
+  {
+    "name": "qmall",
+    "slug": "qmall",
+    "address": "0xd3e5b815843C31f621f2253c836B34f84debFE29",
+    "label": "Hot Wallet (0xd3e)",
+    "chain": "ethereum"
+  },
+  {
+    "name": "qmall",
+    "slug": "qmall",
+    "address": "0x0C0511d1eE844A516B6bDa54db3bcA01E2cE2A19",
+    "label": "Hot Wallet (0x0C0)",
+    "chain": "ethereum"
+  },
+  {
+    "name": "QuadrigaCX",
+    "slug": "quadrigacx",
+    "address": "0x1e143b2588705DfEA63A17f2032CA123dF995CE0",
+    "label": "Hot Wallet (Deprecated) (0x1e1)",
+    "chain": "ethereum"
+  },
+  {
+    "name": "Rapira",
+    "slug": "rapira",
+    "address": "bc1q72ud4m6zf5g37jkhc2ty95zm5vel9ufdxquqpm",
+    "label": "Hot Wallet (bc1q7)",
+    "chain": "bitcoin"
+  },
+  {
+    "name": "Rapira",
+    "slug": "rapira",
+    "address": "0x6b7DC81758483ECF91A14BA263831BfE6989716E",
+    "label": "Hot Wallet (0x6b7)",
+    "chain": "ethereum"
+  },
+  {
+    "name": "Rapira",
+    "slug": "rapira",
+    "address": "TZBrPsrqSqYxKSiuPUz7r4LdBokndqAr5y",
+    "label": "Hot Wallet (TZBrP)",
+    "chain": "tron"
+  },
+  {
+    "name": "Rapira",
+    "slug": "rapira",
+    "address": "TDZiHNjB3gDu8Zu23i7HE4M5sPkBcsvPTJ",
+    "label": "Hot Wallet (TDZiH)",
+    "chain": "tron"
+  },
+  {
+    "name": "Rapira",
+    "slug": "rapira",
+    "address": "0x2CFeDC8A6b4dA46c46a360588A401bceceCcccCc",
+    "label": "Hot Wallet (0x2CF)",
+    "chain": "ethereum"
+  },
+  {
+    "name": "Rapira",
+    "slug": "rapira",
+    "address": "0xeB96Cd04eA3EF6d0B36b4b4c72351377185332bc",
+    "label": "Hot Wallet (0xeB9)",
+    "chain": "ethereum"
+  },
+  {
+    "name": "Remitano",
+    "slug": "remitano",
+    "address": "TQkdaaqcioUeg2cm7Bxd7PWKmnzBsuUzsg",
+    "label": "Hot Wallet (TQkda)",
+    "chain": "tron"
+  },
+  {
+    "name": "Remitano",
+    "slug": "remitano",
+    "address": "0x0AD459E2184ec0d781785D5a22C7Aec590D06F0B",
+    "label": "Hot Wallet (0x0AD)",
+    "chain": "ethereum"
+  },
+  {
+    "name": "RenrenBit",
+    "slug": "renrenbit",
+    "address": "0x1B705bec5CA8406FD621eF09010a4c3a233E19eB",
+    "label": "Hot Wallet (0x1B7)",
+    "chain": "ethereum"
+  },
+  {
+    "name": "RenrenBit",
+    "slug": "renrenbit",
+    "address": "0x4BD671825810Dd7a27D73185a79e095924f2AA12",
+    "label": "Hot Wallet (0x4BD)",
+    "chain": "ethereum"
+  },
+  {
+    "name": "RenrenBit",
+    "slug": "renrenbit",
+    "address": "1MUNUNKhWbuvdrSLQnh7xJCHck9ue24oEh",
+    "label": "Hot Wallet (1MUNU)",
+    "chain": "bitcoin"
+  },
+  {
+    "name": "RenrenBit",
+    "slug": "renrenbit",
+    "address": "TJkQSMi5NQHSr2mFxkbtpaxyqdbK5PgzLd",
+    "label": "Hot Wallet (TJkQS)",
+    "chain": "tron"
+  },
+  {
+    "name": "RenrenBit",
+    "slug": "renrenbit",
+    "address": "TD8mvHVhMKX2wCgbPwZehWAk6wEvNtHcgL",
+    "label": "Hot Wallet (TD8mv)",
+    "chain": "tron"
+  },
+  {
+    "name": "RenrenBit",
+    "slug": "renrenbit",
+    "address": "TYTmqmyS5fgJGk7CPWdEqREJtW69vDVZXd",
+    "label": "Hot Wallet (TYTmq)",
+    "chain": "tron"
+  },
+  {
+    "name": "RenrenBit",
+    "slug": "renrenbit",
+    "address": "0x28c9386eBab8D52Ead4A327e6423316435B2d4fc",
+    "label": "Hot Wallet (0x28c)",
+    "chain": "ethereum"
+  },
+  {
+    "name": "Revolut",
+    "slug": "revolut",
+    "address": "5z7gxL5u4jCW9D6acu28LEw4RKTiBSG1EmXbtCX7efg2",
+    "label": "Hot Wallet (5z7gx)",
+    "chain": "ethereum"
+  },
+  {
+    "name": "Revolut",
+    "slug": "revolut",
+    "address": "Biw4eeaiYYYq6xSqEd7GzdwsrrndxA8mqdxfAtG3PTUU",
+    "label": "Hot Wallet (Biw4e)",
+    "chain": "ethereum"
+  },
+  {
+    "name": "Revolut",
+    "slug": "revolut",
+    "address": "0xb23360CCDd9Ed1b15D45E5d3824Bb409C8D7c460",
+    "label": "Hot Wallet (0xb23)",
+    "chain": "ethereum"
+  },
+  {
+    "name": "Robinhood",
+    "slug": "robinhood",
+    "address": "4xLpwxgYuPwPvtQjE94RLS4WZ4aD8NJYYKr2AJk99Qdg",
+    "label": "Hot Wallet (4xLpw)",
+    "chain": "ethereum"
+  },
+  {
+    "name": "Robinhood",
+    "slug": "robinhood",
+    "address": "DwdrYTtTWHfnfJBiN2RH6EgPbquDQLjZTfTwpykPEq1g",
+    "label": "Hot Wallet (DwdrY)",
+    "chain": "ethereum"
+  },
+  {
+    "name": "Robinhood",
+    "slug": "robinhood",
+    "address": "EMXJqHznGSnSzeMyigBGQNEFw4EeaNDbj1UwaFTpp3sg",
+    "label": "Hot Wallet (EMXJq)",
+    "chain": "ethereum"
+  },
+  {
+    "name": "Rollbit",
+    "slug": "rollbit",
+    "address": "0xEf8801eaf234ff82801821FFe2d78D60a0237F97",
+    "label": "Hot Wallet (0xEf8)",
+    "chain": "ethereum"
+  },
+  {
+    "name": "Rollbit",
+    "slug": "rollbit",
+    "address": "0xCBD6832Ebc203e49E2B771897067fce3c58575ac",
+    "label": "Hot Wallet (0xCBD)",
+    "chain": "ethereum"
+  },
+  {
+    "name": "Roobet",
+    "slug": "roobet",
+    "address": "0xC94eBB328aC25b95DB0E0AA968371885Fa516215",
+    "label": "Hot Wallet (0xC94)",
+    "chain": "ethereum"
+  },
+  {
+    "name": "Roobet",
+    "slug": "roobet",
+    "address": "0xA26148AE51fa8E787DF319C04137602Cc018b521",
+    "label": "Hot Wallet (0xA26)",
+    "chain": "ethereum"
+  },
+  {
+    "name": "SafeTrade Exchange",
+    "slug": "safe-trade",
+    "address": "0x54B50187BEcD0BBCfD52EC5d538433daB044d2A8",
+    "label": "Hot Wallet (0x54B)",
+    "chain": "ethereum"
+  },
+  {
+    "name": "ShapeShift",
+    "slug": "shapeshift",
+    "address": "0x120A270bbC009644e35F0bB6ab13f95b8199c4ad",
+    "label": "Hot Wallet (0x120)",
+    "chain": "ethereum"
+  },
+  {
+    "name": "Shuffle.com",
+    "slug": "shuffle",
+    "address": "76iXe9yKFDjGv3HicUVVy8AYxHLC71L1wYa12zaZzHHp",
+    "label": "Hot Wallet (76iXe)",
+    "chain": "ethereum"
+  },
+  {
+    "name": "Shuffle.com",
+    "slug": "shuffle",
+    "address": "0xb0E62712d08d246C03EF19076dfbA56C355b4022",
+    "label": "Hot Wallet (0xb0E)",
+    "chain": "ethereum"
+  },
+  {
+    "name": "Shuffle.com",
+    "slug": "shuffle",
+    "address": "0xDFaa75323fB721e5f29D43859390f62Cc4B600b8",
+    "label": "Hot Wallet (0xDFa)",
+    "chain": "ethereum"
+  },
+  {
+    "name": "Shuffle.com",
+    "slug": "shuffle",
+    "address": "TWGSJz33dNGMhQYhSRLSKKUyFNewh8JEnp",
+    "label": "Hot Wallet (TWGSJ)",
+    "chain": "tron"
+  },
+  {
+    "name": "SideShift",
+    "slug": "sideshift",
+    "address": "0xcDd37Ada79F589c15bD4f8fD2083dc88E34A2af2",
+    "label": "Hot Wallet (0xcDd)",
+    "chain": "ethereum"
+  },
+  {
+    "name": "SideShift",
+    "slug": "sideshift",
+    "address": "ABNL41SwMLVRaCq6okEWsWyvLwm56nazUNwMrTHgmuyf",
+    "label": "Hot Wallet (ABNL4)",
+    "chain": "ethereum"
+  },
+  {
+    "name": "SideShift",
+    "slug": "sideshift",
+    "address": "TBEkD71bkL7fNz2HuCeisRbtvwwT2JWaMr",
+    "label": "Hot Wallet (TBEkD)",
+    "chain": "tron"
+  },
+  {
+    "name": "Solcasino.io",
+    "slug": "solcasino-io",
+    "address": "5iEFdmkmdEbzfNmBdRioRUQJiPVNwsJaX4Nmh4HBZH9d",
+    "label": "Hot Wallet (5iEFd)",
+    "chain": "ethereum"
+  },
+  {
+    "name": "Solcasino.io",
+    "slug": "solcasino-io",
+    "address": "ArCyjcg4H61XPbsvKGLJJjtn34HVQaWYZKLgJS15v9G2",
+    "label": "Hot Wallet (ArCyj)",
+    "chain": "ethereum"
+  },
+  {
+    "name": "Sportsbet.io",
+    "slug": "sportsbet-io",
+    "address": "TCP5gm36y7uDWgquNuYmNngdq3NgCDcTNL",
+    "label": "Hot Wallet (TCP5g)",
+    "chain": "tron"
+  },
+  {
+    "name": "Sportsbet.io",
+    "slug": "sportsbet-io",
+    "address": "TWtcTcqSeoyRKCV89j8ZWXeqHAwNwq9pt6",
+    "label": "Hot Wallet (TWtcT)",
+    "chain": "tron"
+  },
+  {
+    "name": "Sportsbet.io",
+    "slug": "sportsbet-io",
+    "address": "TRShCA2zaDty28bUJRoacTN614ePmKRh7r",
+    "label": "Hot Wallet (TRShC)",
+    "chain": "tron"
+  },
+  {
+    "name": "Stake.com",
+    "slug": "stake-com",
+    "address": "TZ8Ksz21Hk1tQuztCKCUJBRXStCav9uyjM",
+    "label": "Hot Wallet (TZ8Ks)",
+    "chain": "tron"
+  },
+  {
+    "name": "Stake.com",
+    "slug": "stake-com",
+    "address": "0x974CaA59e49682CdA0AD2bbe82983419A2ECC400",
+    "label": "Hot Wallet (0x974)",
+    "chain": "ethereum"
+  },
+  {
+    "name": "Stake.com",
+    "slug": "stake-com",
+    "address": "0xFa500178de024BF43CFA69B7e636A28AB68F2741",
+    "label": "Hot Wallet (0xFa5)",
+    "chain": "ethereum"
+  },
+  {
+    "name": "Stake.com",
+    "slug": "stake-com",
+    "address": "G9X7F4JzLzbSGMCndiBdWNi5YzZZakmtkdwq7xS3Q3FE",
+    "label": "Hot Wallet (G9X7F)",
+    "chain": "ethereum"
+  },
+  {
+    "name": "Stake.com",
+    "slug": "stake-com",
+    "address": "0x019D0706D65c4768ec8081eD7CE41F59Eef9b86c",
+    "label": "Hot Wallet (0x019)",
+    "chain": "ethereum"
+  },
+  {
+    "name": "Stake.com",
+    "slug": "stake-com",
+    "address": "TYSQTrfNyY8MKy2SMsNQwpVDJU2MAEygwo",
+    "label": "Hot Wallet (TYSQT)",
+    "chain": "tron"
+  },
+  {
+    "name": "Stake.us",
+    "slug": "stake-us",
+    "address": "0x758BE77a3eE14e7193730560daA07dd3fcBFD200",
+    "label": "Hot Wallet (0x758)",
+    "chain": "ethereum"
+  },
+  {
+    "name": "Stake.us",
+    "slug": "stake-us",
+    "address": "0x787B8840100d9BaAdD7463f4a73b5BA73B00C6cA",
+    "label": "Hot Wallet (0x787)",
+    "chain": "ethereum"
+  },
+  {
+    "name": "Stake.us",
+    "slug": "stake-us",
+    "address": "0x4915B09552Ce8353E0FAc30b3a36d584B355431B",
+    "label": "Hot Wallet (0x491)",
+    "chain": "ethereum"
+  },
+  {
+    "name": "StraitsX (Xfers)",
+    "slug": "straitsx",
+    "address": "0x446eD7a8F70011Db648451c668317E9c7390A7D8",
+    "label": "Hot Wallet (0x446)",
+    "chain": "ethereum"
+  },
+  {
+    "name": "Sun Crypto",
+    "slug": "suncrypto",
+    "address": "0xCbbDC70c4068bEFcC4A1b72bb58A88045677dD11",
+    "label": "Hot Wallet (0xCbb)",
+    "chain": "ethereum"
+  },
+  {
+    "name": "SurBitcoin.com",
+    "slug": "surbitcoin",
+    "address": "1SURbDMJTCREQxoTbqi4i6sfnHbo6az1R",
+    "label": "Hot Wallet (1SURb)",
+    "chain": "bitcoin"
+  },
+  {
+    "name": "SwissBorg",
+    "slug": "swissborg",
+    "address": "DMe3ddj7awSR3LFC64rjmCPexsrSv33QAxFoJux4vGH3",
+    "label": "Hot Wallet (DMe3d)",
+    "chain": "ethereum"
+  },
+  {
+    "name": "Tap",
+    "slug": "tap",
+    "address": "0x47da741e9FADa9aFf75C0f2df69e9Cd2B216B225",
+    "label": "Hot Wallet (0x47d)",
+    "chain": "ethereum"
+  },
+  {
+    "name": "TG.Casino",
+    "slug": "tg-casino",
+    "address": "0x3FBd55bbFbb36f45167c9abe1396a4E5A192E8fb",
+    "label": "Hot Wallet (0x3FB)",
+    "chain": "ethereum"
+  },
+  {
+    "name": "TG.Casino",
+    "slug": "tg-casino",
+    "address": "5cLi5RaZ6MN14rC4KJNygDnenyEyfqQat8Tcm9DfAPo9",
+    "label": "Hot Wallet (5cLi5)",
+    "chain": "ethereum"
+  },
+  {
+    "name": "tip.cc",
+    "slug": "tip-cc",
+    "address": "0x820f92c1B3aD8E962E6C6D9d7CaF2a550Aec46fB",
+    "label": "Hot Wallet (0x820)",
+    "chain": "ethereum"
+  },
+  {
+    "name": "TradeOgre",
+    "slug": "tradeogre",
+    "address": "0x4648451b5F87FF8F0F7D622bD40574bb97E25980",
+    "label": "Hot Wallet (0x464)",
+    "chain": "ethereum"
+  },
+  {
+    "name": "Upbit",
+    "slug": "upbit",
+    "address": "0x0E58e8993100F1CBe45376c410F97f4893d9BfCD",
+    "label": "Hot Wallet (0x0E5)",
+    "chain": "ethereum"
+  },
+  {
+    "name": "Upbit",
+    "slug": "upbit",
+    "address": "7mhcgF1DVsj5iv4CxZDgp51H6MBBwqamsH1KnqXhSRc5",
+    "label": "Hot Wallet (7mhcg)",
+    "chain": "ethereum"
+  },
+  {
+    "name": "Upbit",
+    "slug": "upbit",
+    "address": "TASUAUKXCqvwYjesEWv22pFjRsCeF4NKot",
+    "label": "Hot Wallet (TASUA)",
+    "chain": "tron"
+  },
+  {
+    "name": "Uphold",
+    "slug": "uphold",
+    "address": "0x1C727a55eA3c11B0ab7D3a361Fe0F3C47cE6de5d",
+    "label": "Hot Wallet (0x1C7)",
+    "chain": "ethereum"
+  },
+  {
+    "name": "Urdubit.com",
+    "slug": "urdubit",
+    "address": "19xuKwgfphk3mMaN7TEYYYULLou671KxfC",
+    "label": "Hot Wallet (19xuK)",
+    "chain": "bitcoin"
+  },
+  {
+    "name": "VALR",
+    "slug": "valr",
+    "address": "0x05CdB1526F6e224e02919a4C018D9784Ea25eb3d",
+    "label": "Hot Wallet (0x05C)",
+    "chain": "ethereum"
+  },
+  {
+    "name": "VinDAX",
+    "slug": "vindax",
+    "address": "0xc5a7C9D185A47DA11878F46932D23c0fdc56F275",
+    "label": "Hot Wallet (0xc5a)",
+    "chain": "ethereum"
+  },
+  {
+    "name": "VirgoCX",
+    "slug": "virgocx",
+    "address": "0x8cF150c06ae8Ad20F5e1934A20349f0E909201BA",
+    "label": "Hot Wallet (0x8cF)",
+    "chain": "ethereum"
+  },
+  {
+    "name": "VirgoCX",
+    "slug": "virgocx",
+    "address": "0x357c9E10e2cBE30c7DB33AeEB499DC02e6dc6d59",
+    "label": "Hot Wallet (0x357)",
+    "chain": "ethereum"
+  },
+  {
+    "name": "VirgoCX",
+    "slug": "virgocx",
+    "address": "bc1qmhvvprm9uzpa4qvkdr3chmdksg2j8g8myp52e3",
+    "label": "Hot Wallet (bc1qm)",
+    "chain": "bitcoin"
+  },
+  {
+    "name": "Wanbi",
+    "slug": "wanbi",
+    "address": "TPvN1UnH9TcDXHxtTz1Gr7RD7UUsiwj4dG",
+    "label": "Hot Wallet (TPvN1)",
+    "chain": "tron"
+  },
+  {
+    "name": "WEEX",
+    "slug": "weex",
+    "address": "0x7bCEB96a8757114d79c7dCD6B52C460202f17D13",
+    "label": "Hot Wallet (0x7bC)",
+    "chain": "ethereum"
+  },
+  {
+    "name": "WEEX",
+    "slug": "weex",
+    "address": "0x5d75dfc37EFF183435e8fE307bcB05B4d2675F37",
+    "label": "Hot Wallet (0x5d7)",
+    "chain": "ethereum"
+  },
+  {
+    "name": "WEEX",
+    "slug": "weex",
+    "address": "TAZN4ynsgppYb9uyNkrFSY4K68trDBocpz",
+    "label": "Hot Wallet (TAZN4)",
+    "chain": "tron"
+  },
+  {
+    "name": "WEEX",
+    "slug": "weex",
+    "address": "0x1cE0788fABcB32344D05B5c94a5bdDb15f7c749E",
+    "label": "Hot Wallet (0x1cE)",
+    "chain": "ethereum"
+  },
+  {
+    "name": "WEEX",
+    "slug": "weex",
+    "address": "0xE5B33A9cF71c7ef0d6404Cb2E98A99edb576C086",
+    "label": "Hot Wallet (0xE5B)",
+    "chain": "ethereum"
+  },
+  {
+    "name": "WEEX",
+    "slug": "weex",
+    "address": "GzeZm4Lwf2x9JPvtcDiguCJS8Vk59cxii9qs7zk7ETC5",
+    "label": "Hot Wallet (GzeZm)",
+    "chain": "ethereum"
+  },
+  {
+    "name": "WEEX",
+    "slug": "weex",
+    "address": "TXUmtHbZLygwZeEb1zRx8h9GEuj95upAD6",
+    "label": "Hot Wallet (TXUmt)",
+    "chain": "tron"
+  },
+  {
+    "name": "WEEX",
+    "slug": "weex",
+    "address": "TMyVbp3jMTdXpcjjxMZy7Xv4FeXTp4xXTf",
+    "label": "Hot Wallet (TMyVb)",
+    "chain": "tron"
+  },
+  {
+    "name": "WEEX",
+    "slug": "weex",
+    "address": "73BCsWDxqNbXgnjHKqZPtN5buGpzF4SNGf4ueP44D4v2",
+    "label": "Hot Wallet (73BCs)",
+    "chain": "ethereum"
+  },
+  {
+    "name": "WEEX",
+    "slug": "weex",
+    "address": "1NWxo2t1ZEDxwcffh8STHdLZyWGjGRxNbm",
+    "label": "Hot Wallet (1NWxo)",
+    "chain": "bitcoin"
+  },
+  {
+    "name": "WEEX",
+    "slug": "weex",
+    "address": "TRqwFyiNwEnMUM85qC9tQqKDZh6dwo6yKd",
+    "label": "Hot Wallet (TRqwF)",
+    "chain": "tron"
+  },
+  {
+    "name": "WEEX",
+    "slug": "weex",
+    "address": "TLivLCvVQrUfSQcddhg23JDgM58ML91mQf",
+    "label": "Hot Wallet (TLivL)",
+    "chain": "tron"
+  },
+  {
+    "name": "WEEX",
+    "slug": "weex",
+    "address": "0x12838441c7F8D064ea003f131Db847caC123175d",
+    "label": "Hot Wallet (0x128)",
+    "chain": "ethereum"
+  },
+  {
+    "name": "WEEX",
+    "slug": "weex",
+    "address": "0xF0C3b78409BBe1AAcef3f55FD4D50C3F1da8c939",
+    "label": "Hot Wallet (0xF0C)",
+    "chain": "ethereum"
+  },
+  {
+    "name": "WEEX",
+    "slug": "weex",
+    "address": "0x7Cb8e2896234CBc8494F858e05bE30B13Ad5Ddb7",
+    "label": "Hot Wallet (0x7Cb)",
+    "chain": "ethereum"
+  },
+  {
+    "name": "WEEX",
+    "slug": "weex",
+    "address": "0xe955E61Fb93B0871953d5C55f8afd416EbaAfdA4",
+    "label": "Hot Wallet (0xe95)",
+    "chain": "ethereum"
+  },
+  {
+    "name": "WEEX",
+    "slug": "weex",
+    "address": "0xf7e38e6Aa48cE79efA7694a1B9c5BB178253Bd98",
+    "label": "Hot Wallet (0xf7e)",
+    "chain": "ethereum"
+  },
+  {
+    "name": "WEEX",
+    "slug": "weex",
+    "address": "0xa0e8C61d1B378c0eC4cFFED9382e5b7fE37a9860",
+    "label": "Hot Wallet (0xa0e)",
+    "chain": "ethereum"
+  },
+  {
+    "name": "Well Wallet",
+    "slug": "well-wallet",
+    "address": "TQgxyP1jDXGBvmgwqnJ7jKkEqWEogfRM5V",
+    "label": "Hot Wallet (TQgxy)",
+    "chain": "tron"
+  },
+  {
+    "name": "Well Wallet",
+    "slug": "well-wallet",
+    "address": "0x7735590928338f0Ef41B6ea9326C7E39367825e7",
+    "label": "Hot Wallet (0x773)",
+    "chain": "ethereum"
+  },
+  {
+    "name": "WhiteBIT",
+    "slug": "whitebit",
+    "address": "TWBPGLwQw2EbqYLLw1DJnTDt2ZQ9yJW1JJ",
+    "label": "Hot Wallet (TWBPG)",
+    "chain": "tron"
+  },
+  {
+    "name": "WhiteBIT",
+    "slug": "whitebit",
+    "address": "0x39F6a6C85d39d5ABAd8A398310c52E7c374F2bA3",
+    "label": "Hot Wallet (0x39F)",
+    "chain": "ethereum"
+  },
+  {
+    "name": "Wintermute",
+    "slug": "wintermute",
+    "address": "44P5Ct5JkPz76Rs2K6juC65zXMpFRDrHatxcASJ4Dyra",
+    "label": "Hot Wallet (44P5C)",
+    "chain": "ethereum"
+  },
+  {
+    "name": "Wintermute",
+    "slug": "wintermute",
+    "address": "0xf8191D98ae98d2f7aBDFB63A9b0b812b93C873AA",
+    "label": "Hot Wallet (0xf81)",
+    "chain": "ethereum"
+  },
+  {
+    "name": "Wirex",
+    "slug": "wirex",
+    "address": "0x2f13d388b85e0eCd32e7C3D7F36D1053354EF104",
+    "label": "Hot Wallet (0x2f1)",
+    "chain": "ethereum"
+  },
+  {
+    "name": "WORLDCOIN",
+    "slug": "worldcoin",
+    "address": "0xc4151Dd19A38E7224793F5aD8fBDD912750e3565",
+    "label": "WORLD ASSETS LTD. HOT WALLET (0XC41)",
+    "chain": "ethereum"
+  },
+  {
+    "name": "WSM Casino",
+    "slug": "wsm-casino",
+    "address": "HAtFFZeFtjN2mZ8T9Xqiaku35hKsMHJnURK3wuNyZ1Kg",
+    "label": "Hot Wallet (HAtFF)",
+    "chain": "ethereum"
+  },
+  {
+    "name": "XT.com",
+    "slug": "xt-com",
+    "address": "0xde65FF89287C1a8da978D4c6B31EDC3fC664F019",
+    "label": "Hot Wallet (0xde6)",
+    "chain": "ethereum"
+  },
+  {
+    "name": "XT.com",
+    "slug": "xt-com",
+    "address": "0xDB3DED7731C781224EC292E2163D9554c094fD7c",
+    "label": "Hot Wallet (0xDB3)",
+    "chain": "ethereum"
+  },
+  {
+    "name": "XT.com",
+    "slug": "xt-com",
+    "address": "0xcAB044b301D94875aC1502B73e54d63b0162C70f",
+    "label": "Hot Wallet (0xcAB)",
+    "chain": "ethereum"
+  },
+  {
+    "name": "XT.com",
+    "slug": "xt-com",
+    "address": "41uCv6a1JPwZT4pDAN4AGvPosHVx2ndkNFEFgKLzd5wx",
+    "label": "Hot Wallet (41uCv)",
+    "chain": "ethereum"
+  },
+  {
+    "name": "YoBit",
+    "slug": "yobit",
+    "address": "0xF5bEC430576fF1b82e44DDB5a1C93F6F9d0884f3",
+    "label": "Hot Wallet (0xF5b)",
+    "chain": "ethereum"
+  },
+  {
+    "name": "YoBit",
+    "slug": "yobit",
+    "address": "0xa6Fff77b1AC116633cb97021FF937D412baAe826",
+    "label": "Hot Wallet (0xa6F)",
+    "chain": "ethereum"
+  },
+  {
+    "name": "YoBit",
+    "slug": "yobit",
+    "address": "TQ1yfrDCxqN3VXtxrrK3F1tQdbzYESFUYY",
+    "label": "Hot Wallet (TQ1yf)",
+    "chain": "tron"
+  },
+  {
+    "name": "YoBit",
+    "slug": "yobit",
+    "address": "0xCD713F0f805c618f94d6832EddA7e481d60aCA26",
+    "label": "Hot Wallet (0xCD7)",
+    "chain": "ethereum"
+  },
+  {
+    "name": "Yolo.com (Coingaming)",
+    "slug": "yolo-com",
+    "address": "32bf8LDdJRGFuen16hRNrhcmr2KWDxeQte",
+    "label": "Hot Wallet (32bf8)",
+    "chain": "bitcoin"
+  },
+  {
+    "name": "ZB.com",
+    "slug": "zb-com",
+    "address": "TVAqsT3AjsKd2XuP2W4C94V1smq9TxfZZ9",
+    "label": "Hot Wallet (TVAqs)",
+    "chain": "tron"
+  },
+  {
+    "name": "ZB.com",
+    "slug": "zb-com",
+    "address": "0xFD6724B4b3e8eca764F0DD07ccd903aD348D70F8",
+    "label": "Hot Wallet (0xFD6)",
+    "chain": "ethereum"
+  },
+  {
+    "name": "ZB.com",
+    "slug": "zb-com",
+    "address": "0x0e394D3fAcF0Ce3BD5fCcE584E16E0cBAc164346",
+    "label": "Hot Wallet (0x0e3)",
+    "chain": "ethereum"
+  },
+  {
+    "name": "ZB.com",
+    "slug": "zb-com",
+    "address": "0xc97A4ed29F03FD549c4ae79086673523122d2Bc5",
+    "label": "Hot Wallet (0xc97)",
+    "chain": "ethereum"
+  },
+  {
+    "name": "Zero Hash",
+    "slug": "zero-hash",
+    "address": "0xCfC0F98f30742B6d880f90155d4EbB885e55aB33",
+    "label": "Hot Wallet (0xCfC)",
+    "chain": "ethereum"
+  },
+  {
+    "name": "Zero Hash",
+    "slug": "zero-hash",
+    "address": "0xa1271A8A80748abd3F0DaFD4914aD2F481264447",
+    "label": "Hot Wallet (0xa12)",
+    "chain": "ethereum"
+  },
+  {
+    "name": "Zero Hash",
+    "slug": "zero-hash",
+    "address": "0x0780cF08B9A5504a828e666fF38f90e49653560F",
+    "label": "Hot Wallet (0x078)",
+    "chain": "ethereum"
+  },
+  {
+    "name": "Zero Hash",
+    "slug": "zero-hash",
+    "address": "0x85D9aef1Ec67356A0D60c3ABE5aDb2E1dB9DE963",
+    "label": "Hot Wallet (0x85D)",
+    "chain": "ethereum"
+  },
+  {
+    "name": "Zero Hash",
+    "slug": "zero-hash",
+    "address": "0xC1712944C5A544eF1287D6959068EAe6090b89Aa",
+    "label": "Hot Wallet (0xC17)",
+    "chain": "ethereum"
+  },
+  {
+    "name": "Zero Hash",
+    "slug": "zero-hash",
+    "address": "0xb02a9b7400545925746d8B9B985BC74A0601fB8D",
+    "label": "Hot Wallet (0xb02)",
+    "chain": "ethereum"
+  },
+  {
+    "name": "ZixiPay",
+    "slug": "zixipay",
+    "address": "TG1PjN7kR2bBUuKHtvwBWs8STaB28N5Hif",
+    "label": "Hot Wallet (TG1Pj)",
+    "chain": "tron"
+  },
+  {
+    "name": "Zonda (BitBay)",
+    "slug": "zonda",
+    "address": "0x781229c7a798c33EC788520a6bBe12a79eD657FC",
+    "label": "Hot Wallet (0x781)",
+    "chain": "ethereum"
+  }
+]

@@ -65,7 +65,7 @@ function firestoreToChat ( data: any ): Chat
 {
   return {
     id: data.id,
-    title: data.title || "Untitled",
+    title: typeof data.title === "string" ? data.title : "Untitled",
     messages: ( data.messages || [] ).map( firestoreToMessage ),
     createdAt: data.createdAt?.toDate?.() || new Date(),
     updatedAt: data.updatedAt?.toDate?.() || new Date(),
@@ -82,7 +82,7 @@ function firestoreToMessage ( data: any ): ChatMessage
   return {
     id: data.id,
     role: data.role,
-    content: data.content || "",
+    content: typeof data.content === "string" ? data.content : String( data.content || "" ),
     timestamp: data.timestamp?.toDate?.() || new Date(),
     attachments: data.attachments,
     metadata: data.metadata,

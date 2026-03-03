@@ -238,10 +238,10 @@ export function MSInterChainTracker() {
       />
 
       {/* ── Title Bar ── */}
-      <div className="flex items-center justify-between px-4 py-2 border-b border-[var(--default-border-color)] flex-shrink-0">
+      <div className="flex items-center justify-between px-4 py-2 border-b border-white/10 flex-shrink-0">
         <div className="flex items-center gap-2">
           <span className="text-white text-sm font-medium">InterChain Tracker</span>
-          <span className="text-[var(--desc-color)] text-xs">
+          <span className="text-white/60 text-xs">
             {rows.length} transfers
           </span>
         </div>
@@ -266,7 +266,7 @@ export function MSInterChainTracker() {
 
       {/* ── Fund Flow Direction Header (CWTracker index_fundflowDirection parity) ── */}
       {fundFlowEntities.length >= 2 && (
-        <div className="flex items-center gap-1 px-4 py-1.5 border-b border-[var(--default-border-color)] flex-shrink-0 overflow-x-auto">
+        <div className="flex items-center gap-1 px-4 py-1.5 border-b border-white/10 flex-shrink-0 overflow-x-auto">
           {fundFlowEntities.map((entity, i) => (
             <React.Fragment key={entity.address}>
               <div className="flex items-center gap-1 flex-shrink-0">
@@ -283,7 +283,7 @@ export function MSInterChainTracker() {
               </div>
               {i < fundFlowEntities.length - 1 && (
                 <i
-                  className="iconfont icon-tx_to text-[var(--desc-color)]"
+                  className="iconfont icon-tx_to text-white/50"
                   style={{ fontSize: 10, margin: "0 2px", flexShrink: 0 }}
                 />
               )}
@@ -295,8 +295,8 @@ export function MSInterChainTracker() {
       {/* ── Table ── */}
       <div className="flex-1 overflow-auto">
         <table className="w-full text-xs border-collapse">
-          <thead className="sticky top-0 bg-[var(--secondary-background)] z-10">
-            <tr className="text-left text-[var(--desc-color)]">
+          <thead className="sticky top-0 z-10" style={{ background: "rgba(30,28,24,0.92)" }}>
+            <tr className="text-left text-white/60">
               <th className="px-2 py-2 w-10 text-center">
                 <input
                   type="checkbox"
@@ -329,7 +329,7 @@ export function MSInterChainTracker() {
               return (
                 <tr
                   key={row.id}
-                  className={`border-t border-[var(--default-border-color)] transition-colors ${
+                  className={`border-t border-white/8 transition-colors ${
                     selectedRows.has(row.id)
                       ? "bg-[var(--table-active)]"
                       : "hover:bg-[var(--table-hover)]"
@@ -377,7 +377,7 @@ export function MSInterChainTracker() {
                         {row.fromLabel !== row.from && (
                           <span className="text-white text-[11px] truncate">{row.fromLabel}</span>
                         )}
-                        <span className="text-[var(--desc-color)] text-[10px] font-mono truncate">
+                        <span className="text-white/50 text-[10px] font-mono truncate">
                           {msShortenAddress(row.from, 4)}
                         </span>
                       </div>
@@ -397,7 +397,7 @@ export function MSInterChainTracker() {
                     </div>
                   </td>
                   {/* Date */}
-                  <td className="px-2 py-1.5 text-[var(--desc-color)]">{row.sentDate}</td>
+                  <td className="px-2 py-1.5 text-white/50">{row.sentDate}</td>
                   {/* Track button (CWTracker index_trackBtn parity) */}
                   <td className="px-2 py-1.5 text-center">
                     <button
@@ -425,7 +425,7 @@ export function MSInterChainTracker() {
                         {row.toLabel !== row.to && (
                           <span className="text-white text-[11px] truncate">{row.toLabel}</span>
                         )}
-                        <span className="text-[var(--desc-color)] text-[10px] font-mono truncate">
+                        <span className="text-white/50 text-[10px] font-mono truncate">
                           {msShortenAddress(row.to, 4)}
                         </span>
                       </div>
@@ -445,7 +445,7 @@ export function MSInterChainTracker() {
                     </div>
                   </td>
                   {/* Date */}
-                  <td className="px-2 py-1.5 text-[var(--desc-color)]">{row.receivedDate}</td>
+                  <td className="px-2 py-1.5 text-white/50">{row.receivedDate}</td>
                   {/* Status */}
                   <td className="px-2 py-1.5 text-center">
                     <span
@@ -475,7 +475,7 @@ export function MSInterChainTracker() {
       </div>
 
       {/* ── Footer (CWTracker index_footer parity) ── */}
-      <div className="flex items-center justify-between px-4 py-1.5 border-t border-[var(--default-border-color)] flex-shrink-0 text-[10px] text-[var(--desc-color)]">
+      <div className="flex items-center justify-between px-4 py-1.5 border-t border-white/10 flex-shrink-0 text-[10px] text-white/60">
         <span>{rows.length} record{rows.length !== 1 ? "s" : ""}</span>
         <a
           href="#"

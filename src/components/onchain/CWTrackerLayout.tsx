@@ -16,10 +16,8 @@ interface CWTrackerLayoutProps {
   actionBar: React.ReactNode;
   /** Floating graph toolbar top-left (MSGraphToolbar) */
   graphToolbar: React.ReactNode;
-  /** Right vertical toolbar (MSRightToolbar) */
-  rightToolbar: React.ReactNode;
-  /** Bottom-right zoom controls (MSZoomBar) */
-  zoomBar: React.ReactNode;
+  /** Left vertical toolbar (CWLeftToolbar — merged from right toolbar + edge style switcher) */
+  leftToolbar: React.ReactNode;
   /** SVG graph canvas (MSGraphCanvas) */
   graph: React.ReactNode;
   /** Address detail sidebar left (MSAddressDetail) */
@@ -37,8 +35,7 @@ interface CWTrackerLayoutProps {
 export function CWTrackerLayout({
   actionBar,
   graphToolbar,
-  rightToolbar,
-  zoomBar,
+  leftToolbar,
   graph,
   addressDetail,
   interChainTracker,
@@ -74,14 +71,9 @@ export function CWTrackerLayout({
           {graphToolbar}
         </div>
 
-        {/* Floating Right Toolbar — right side */}
-        <div className="absolute right-2 top-2 z-10 sm:right-4 sm:top-4">
-          {rightToolbar}
-        </div>
-
-        {/* Floating Zoom Bar — bottom-right */}
-        <div className="absolute right-2 bottom-2 z-10 sm:right-4 sm:bottom-4">
-          {zoomBar}
+        {/* Floating Left Toolbar — below graph toolbar on left side */}
+        <div className="absolute left-2 top-16 z-10 sm:left-4 sm:top-[72px]">
+          {leftToolbar}
         </div>
 
         {/* Address Detail Sidebar — left overlay */}
