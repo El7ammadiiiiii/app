@@ -118,10 +118,8 @@ function MSGraphCanvasInner({
   const isLayouting = useCWTrackerStore((s) => s.isLayouting);
   const controlMode = useCWTrackerStore((s) => s.controlMode);
   const nodeHoverActionsId = useCWTrackerStore((s) => s.nodeHoverActionsId);
-
-  /* ── Lasso state (default OFF → Selection Mode so pan/click work immediately) ── */
-  const [isLassoActive, setIsLassoActive] = useState(false);
-  const [lassoPartial, setLassoPartial] = useState(false);
+  const isLassoActive = useCWTrackerStore((s) => s.isLassoActive);
+  const lassoPartial = useCWTrackerStore((s) => s.lassoPartial);
 
   /* Actions */
   const selectNode = useCWTrackerStore((s) => s.selectNode);
@@ -426,80 +424,6 @@ function MSGraphCanvasInner({
 
         {/* Lasso freehand selection overlay */}
         {isLassoActive && !isConnectMode && <Lasso partial={lassoPartial} />}
-
-        {/* Lasso / Selection mode toggle (top-left) */}
-        <Panel position="top-left">
-          <div
-            style={{
-              display: "flex",
-              alignItems: "center",
-              gap: 12,
-              background: "#1f1f1f",
-              border: "1px solid #333",
-              borderRadius: 24,
-              padding: 3,
-              fontFamily: "Inter, sans-serif",
-              fontSize: 13,
-            }}
-          >
-            <button
-              onClick={() => setIsLassoActive(true)}
-              style={{
-                padding: "6px 18px",
-                borderRadius: 20,
-                border: "none",
-                fontWeight: 600,
-                fontSize: 13,
-                cursor: "pointer",
-                transition: "all 0.2s",
-                color: isLassoActive ? "#fff" : "#999",
-                background: isLassoActive ? "#ff0073" : "transparent",
-              }}
-            >
-              Lasso Mode
-            </button>
-            <button
-              onClick={() => setIsLassoActive(false)}
-              style={{
-                padding: "6px 18px",
-                borderRadius: 20,
-                border: isLassoActive ? "none" : "1px solid #ff0073",
-                fontWeight: 600,
-                fontSize: 13,
-                cursor: "pointer",
-                transition: "all 0.2s",
-                color: isLassoActive ? "#999" : "#ff0073",
-                background: "transparent",
-              }}
-            >
-              Selection Mode
-            </button>
-            <label
-              style={{
-                display: "flex",
-                alignItems: "center",
-                gap: 6,
-                color: "#ccc",
-                fontSize: 13,
-                cursor: "pointer",
-                marginRight: 8,
-              }}
-            >
-              <input
-                type="checkbox"
-                checked={lassoPartial}
-                onChange={() => setLassoPartial((p) => !p)}
-                style={{
-                  accentColor: "#ff0073",
-                  width: 16,
-                  height: 16,
-                  cursor: "pointer",
-                }}
-              />
-              Partial selection
-            </label>
-          </div>
-        </Panel>
 
         {/* Edge style switcher moved to CWLeftToolbar */}
 

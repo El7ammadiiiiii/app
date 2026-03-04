@@ -62,6 +62,10 @@ interface CWTrackerState {
   filter: MSFilter;
   isPopulating: boolean;
 
+  /* ── Lasso/Selection Mode ── */
+  isLassoActive: boolean;
+  lassoPartial: boolean;
+
   /* ── CWTracker Panels ── */
   /** Edge List bottom drawer */
   edgeListOpen: boolean;
@@ -182,6 +186,8 @@ interface CWTrackerActions {
   setDisplayOptions: (patch: Partial<MSDisplayOptions>) => void;
   setFilter: (patch: Partial<MSFilter>) => void;
   setControlMode: (mode: MSControlMode) => void;
+  setIsLassoActive: (active: boolean) => void;
+  setLassoPartial: (partial: boolean) => void;
   setSidebarTab: (tab: MSSidebarTab) => void;
   toggleSidebar: () => void;
   setTitle: (title: string) => void;
@@ -259,6 +265,8 @@ const initialState: CWTrackerState = {
   displayOptions: { ...DEFAULT_MS_DISPLAY },
   filter: { ...DEFAULT_MS_FILTER },
   isPopulating: false,
+  isLassoActive: false,
+  lassoPartial: false,
   edgeListOpen: false,
   edgeListEdgeId: null,
   edgeStyleEdgeId: null,
@@ -821,6 +829,18 @@ export const useCWTrackerStore = create<CWTrackerState & CWTrackerActions>()(
     setControlMode(mode) {
       set((s) => {
         s.controlMode = mode;
+      });
+    },
+
+    setIsLassoActive(active) {
+      set((s) => {
+        s.isLassoActive = active;
+      });
+    },
+
+    setLassoPartial(partial) {
+      set((s) => {
+        s.lassoPartial = partial;
       });
     },
 

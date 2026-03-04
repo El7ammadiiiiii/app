@@ -24,6 +24,84 @@ function Tip({ text, children }: { text: string; children: React.ReactNode }) {
   );
 }
 
+/* ── Mode Toggle Component ── */
+function ModeToggle({ isMobile }: { isMobile: boolean }) {
+  const isLassoActive = useCWTrackerStore((s) => s.isLassoActive);
+  const lassoPartial = useCWTrackerStore((s) => s.lassoPartial);
+  const setIsLassoActive = useCWTrackerStore((s) => s.setIsLassoActive);
+  const setLassoPartial = useCWTrackerStore((s) => s.setLassoPartial);
+
+  if (isMobile) {
+    return (
+      <div className="flex items-center gap-0.5">
+        <button
+          onClick={() => setIsLassoActive(true)}
+          className={`px-1.5 py-1 rounded text-[9px] font-medium transition-colors ${
+            isLassoActive
+              ? "bg-[#ff0073] text-white"
+              : "text-white/60 hover:text-white hover:bg-white/10"
+          }`}
+        >
+          Lasso
+        </button>
+        <button
+          onClick={() => setIsLassoActive(false)}
+          className={`px-1.5 py-1 rounded text-[9px] font-medium transition-colors ${
+            !isLassoActive
+              ? "border border-[#ff0073] text-[#ff0073]"
+              : "text-white/60 hover:text-white hover:bg-white/10"
+          }`}
+        >
+          Select
+        </button>
+        <label className="flex items-center gap-1 text-[9px] text-white/60 cursor-pointer ml-1">
+          <input
+            type="checkbox"
+            checked={lassoPartial}
+            onChange={() => setLassoPartial(!lassoPartial)}
+            className="w-3 h-3 accent-[#ff0073] cursor-pointer"
+          />
+          <span className="hidden sm:inline">Partial</span>
+        </label>
+      </div>
+    );
+  }
+
+  return (
+    <div className="flex items-center gap-1">
+      <button
+        onClick={() => setIsLassoActive(true)}
+        className={`px-3 py-1.5 rounded-full text-xs font-semibold transition-all ${
+          isLassoActive
+            ? "bg-[#ff0073] text-white"
+            : "text-white/60 hover:text-white hover:bg-white/10"
+        }`}
+      >
+        Lasso Mode
+      </button>
+      <button
+        onClick={() => setIsLassoActive(false)}
+        className={`px-3 py-1.5 rounded-full text-xs font-semibold transition-all ${
+          !isLassoActive
+            ? "border border-[#ff0073] text-[#ff0073]"
+            : "text-white/60 hover:text-white hover:bg-white/10"
+        }`}
+      >
+        Selection Mode
+      </button>
+      <label className="flex items-center gap-1.5 text-xs text-white/70 cursor-pointer ml-2">
+        <input
+          type="checkbox"
+          checked={lassoPartial}
+          onChange={() => setLassoPartial(!lassoPartial)}
+          className="w-4 h-4 accent-[#ff0073] cursor-pointer"
+        />
+        Partial selection
+      </label>
+    </div>
+  );
+}
+
 interface MSGraphToolbarProps {
   onSearchOpen?: () => void;
   onAddAddress?: () => void;
@@ -205,6 +283,12 @@ export function MSGraphToolbar({ onSearchOpen, onAddAddress }: MSGraphToolbarPro
           <i className="iconfont icon-search-lg" style={{ fontSize: isMobile ? 16 : 20 }} />
         </button>
       </Tip>
+
+      {/* ── Divider ── */}
+      <div className={`bg-white/20 mx-1 ${isMobile ? "w-px h-4" : "w-px h-5"}`} />
+
+      {/* ── Mode Toggle (Lasso / Selection / Partial) ── */}
+      <ModeToggle isMobile={isMobile} />
     </div>
   );
 }

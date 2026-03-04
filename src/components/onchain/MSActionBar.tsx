@@ -78,8 +78,6 @@ export function MSActionBar({
   const title = useCWTrackerStore((s) => s.title);
   const setTitle = useCWTrackerStore((s) => s.setTitle);
   const rootChain = useCWTrackerStore((s) => s.rootChain);
-  const controlMode = useCWTrackerStore((s) => s.controlMode);
-  const setControlMode = useCWTrackerStore((s) => s.setControlMode);
   const nodes = useCWTrackerStore((s) => s.nodes);
   const edges = useCWTrackerStore((s) => s.edges);
   const getUniqueChains = useCWTrackerStore((s) => s.getUniqueChains);
@@ -161,31 +159,8 @@ export function MSActionBar({
           </div>
         </div>
 
-        {/* Right side: Analyze / Drag / Draw / Memo mode toggle */}
+        {/* Right side: Chain badges + stats */}
         <div className="flex items-center gap-1">
-          <Divider />
-          <IBtn
-            icon="icon-analyze_mode"
-            size={20}
-            tip="Select mode"
-            active={controlMode === "select"}
-            onClick={() => setControlMode("select")}
-          />
-          <IBtn
-            icon="icon-drag_mode"
-            size={20}
-            tip="Drag mode"
-            active={controlMode === "drag"}
-            onClick={() => setControlMode("drag")}
-          />
-          <IBtn
-            icon="icon-bindedge"
-            size={20}
-            tip="Draw edge"
-            active={controlMode === "draw_edge"}
-            onClick={() => setControlMode(controlMode === "draw_edge" ? "select" : "draw_edge")}
-          />
-
           <Divider />
           {/* Chain badges */}
           {chains.length > 0 && (
