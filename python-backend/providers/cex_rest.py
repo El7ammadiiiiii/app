@@ -588,24 +588,34 @@ EXCHANGE_FETCHERS = {
 }
 
 
+FALLBACK_CHAIN = ["okx", "kucoin", "bitget", "mexc", "gateio", "htx"]
+
+
 async def fetch_ohlcv(exchange: str, symbol: str, timeframe: str = "1h", limit: int = 500) -> List[Dict]:
-    """Universal OHLCV fetcher — tries requested exchange, falls back to binance"""
+    """Universal OHLCV fetcher — tries requested exchange, then fallback chain"""
     fetcher = EXCHANGE_FETCHERS.get(exchange)
     if fetcher:
         try:
             return await fetcher(symbol, timeframe, limit)
         except Exception as e:
-            logger.warning("Exchange %s failed for %s: %s — falling back to binance", exchange, symbol, e)
+            logger.warning("Exchange %s failed for %s: %s — trying fallbacks", exchange, symbol, e)
 
-    # Fallback to binance
-    if exchange != "binance":
+    # Try fallback chain (skip the already-failed exchange)
+    for fb_exchange in FALLBACK_CHAIN:
+        if fb_exchange == exchange:
+            continue
+        fb_fetcher = EXCHANGE_FETCHERS.get(fb_exchange)
+        if not fb_fetcher:
+            continue
         try:
-            return await binance_ohlcv(symbol, timeframe, limit)
-        except Exception as e2:
-            logger.error("Binance fallback also failed for %s: %s", symbol, e2)
-            raise HTTPException(status_code=502, detail=f"Both {exchange} and binance failed")
+            result = await fb_fetcher(symbol, timeframe, limit)
+            if result:
+                logger.info("Fallback %s succeeded for %s", fb_exchange, symbol)
+                return result
+        except Exception:
+            continue
 
-    raise HTTPException(status_code=502, detail=f"Failed to fetch from {exchange}")
+    raise HTTPException(status_code=502, detail=f"All exchanges failed for {symbol}")
 
 
 # ═════════════════════════════════════════════════════════════════════════
