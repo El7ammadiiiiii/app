@@ -26,18 +26,16 @@ export interface CWNodeData extends MSNode {
 
 type CWNodeProps = NodeProps & { data: CWNodeData };
 
-/* ── Floating Action Button (pill with label) ── */
+/* ── Floating Action Button (icon only, smooth small circle) ── */
 function FAB({
   icon,
   stroke,
-  label,
   title,
   onClick,
   badge,
 }: {
   icon: string;
   stroke?: string;
-  label?: string;
   title: string;
   onClick: (e: React.MouseEvent) => void;
   badge?: React.ReactNode;
@@ -47,34 +45,28 @@ function FAB({
       onClick={onClick}
       title={title}
       style={{
-        height: 26,
-        borderRadius: 7,
-        padding: label ? "0 8px 0 6px" : "0 6px",
-        background: "rgba(29,43,40,0.88)",
-        backdropFilter: "blur(10px)",
-        WebkitBackdropFilter: "blur(10px)",
-        border: "1px solid rgba(38,74,70,0.5)",
+        width: 22,
+        height: 22,
+        borderRadius: "50%",
+        padding: 0,
+        background: "rgba(29,43,40,0.92)",
+        backdropFilter: "blur(8px)",
+        WebkitBackdropFilter: "blur(8px)",
+        border: "1px solid rgba(38,74,70,0.4)",
         cursor: "pointer",
         display: "flex",
         alignItems: "center",
         justifyContent: "center",
-        gap: 4,
         position: "relative",
-        boxShadow: "0 2px 8px rgba(0,0,0,0.4)",
-        transition: "transform 0.12s, background 0.15s, box-shadow 0.15s",
-        fontFamily: "Inter, sans-serif",
+        boxShadow: "0 1px 4px rgba(0,0,0,0.3)",
+        transition: "all 0.15s ease",
       }}
-      onMouseOver={(e) => { e.currentTarget.style.background = "rgba(38,74,70,0.95)"; e.currentTarget.style.transform = "scale(1.06)"; e.currentTarget.style.boxShadow = "0 2px 12px rgba(38,74,70,0.35)"; }}
-      onMouseOut={(e) => { e.currentTarget.style.background = "rgba(29,43,40,0.88)"; e.currentTarget.style.transform = "scale(1)"; e.currentTarget.style.boxShadow = "0 2px 8px rgba(0,0,0,0.4)"; }}
+      onMouseOver={(e) => { e.currentTarget.style.background = "rgba(38,74,70,0.95)"; e.currentTarget.style.transform = "scale(1.12)"; e.currentTarget.style.boxShadow = "0 2px 8px rgba(38,74,70,0.4)"; }}
+      onMouseOut={(e) => { e.currentTarget.style.background = "rgba(29,43,40,0.92)"; e.currentTarget.style.transform = "scale(1)"; e.currentTarget.style.boxShadow = "0 1px 4px rgba(0,0,0,0.3)"; }}
     >
-      <svg width={13} height={13} viewBox="0 0 16 16">
-        <path d={icon} fill="none" stroke={stroke || "#b0c4c0"} strokeWidth={1.4} strokeLinecap="round" strokeLinejoin="round" />
+      <svg width={11} height={11} viewBox="0 0 16 16">
+        <path d={icon} fill="none" stroke={stroke || "#b0c4c0"} strokeWidth={1.5} strokeLinecap="round" strokeLinejoin="round" />
       </svg>
-      {label && (
-        <span style={{ fontSize: 10, fontWeight: 500, color: "#cdd9d6", whiteSpace: "nowrap", letterSpacing: 0.2 }}>
-          {label}
-        </span>
-      )}
       {badge}
     </button>
   );
@@ -194,19 +186,17 @@ function CWNodeComponent({ id, data, selected }: CWNodeProps) {
           <FAB
             icon={SVG_ICON.copy}
             stroke={copied ? "#24c197" : "#b0c4c0"}
-            label="Copy"
             title="Copy address"
             onClick={handleCopyAddress}
             badge={copied ? (
-              <div style={{ position: "absolute", top: -18, left: "50%", transform: "translateX(-50%)", background: "#24c197", color: "#fff", fontSize: 8, padding: "1px 5px", borderRadius: 3, whiteSpace: "nowrap", pointerEvents: "none" }}>
-                Copied!
+              <div style={{ position: "absolute", top: -16, left: "50%", transform: "translateX(-50%)", background: "#24c197", color: "#fff", fontSize: 7, padding: "1px 4px", borderRadius: 3, whiteSpace: "nowrap", pointerEvents: "none" }}>
+                ✓
               </div>
             ) : undefined}
           />
           {/* Explorer */}
           <FAB
             icon={SVG_ICON.explorer}
-            label="Explorer"
             title="View on block explorer"
             onClick={handleOpenExplorer}
           />
@@ -214,8 +204,7 @@ function CWNodeComponent({ id, data, selected }: CWNodeProps) {
           <FAB
             icon={SVG_ICON.addressId}
             stroke="#7b9ef7"
-            label="Details"
-            title="Address ID / Details"
+            title="Address details"
             onClick={(e) => { e.stopPropagation(); openNodeDetail(id); }}
           />
         </div>
@@ -229,60 +218,56 @@ function CWNodeComponent({ id, data, selected }: CWNodeProps) {
             title="Expand Incoming"
             style={{
               position: "absolute",
-              left: 4,
-              top: 36 + NODE_H / 2 - 13,
-              width: 26,
-              height: 26,
-              borderRadius: 7,
-              background: "rgba(29,43,40,0.88)",
-              backdropFilter: "blur(10px)",
-              WebkitBackdropFilter: "blur(10px)",
-              border: "1px solid rgba(38,74,70,0.5)",
+              left: 6,
+              top: 36 + NODE_H / 2 - 10,
+              width: 20,
+              height: 20,
+              borderRadius: "50%",
+              background: "rgba(29,43,40,0.92)",
+              backdropFilter: "blur(8px)",
+              WebkitBackdropFilter: "blur(8px)",
+              border: "1px solid rgba(38,74,70,0.4)",
               color: "#b0c4c0",
-              fontSize: 14,
-              fontWeight: 600,
               cursor: "pointer",
               display: "flex",
               alignItems: "center",
               justifyContent: "center",
               zIndex: 10,
-              boxShadow: "0 2px 6px rgba(0,0,0,0.4)",
-              transition: "transform 0.12s, background 0.15s, box-shadow 0.15s",
+              boxShadow: "0 1px 4px rgba(0,0,0,0.3)",
+              transition: "all 0.15s ease",
             }}
-            onMouseOver={(e) => { e.currentTarget.style.background = "rgba(38,74,70,0.95)"; e.currentTarget.style.transform = "scale(1.1)"; e.currentTarget.style.boxShadow = "0 2px 10px rgba(38,74,70,0.35)"; }}
-            onMouseOut={(e) => { e.currentTarget.style.background = "rgba(29,43,40,0.88)"; e.currentTarget.style.transform = "scale(1)"; e.currentTarget.style.boxShadow = "0 2px 6px rgba(0,0,0,0.4)"; }}
+            onMouseOver={(e) => { e.currentTarget.style.background = "rgba(38,74,70,0.95)"; e.currentTarget.style.transform = "scale(1.15)"; e.currentTarget.style.boxShadow = "0 2px 8px rgba(38,74,70,0.4)"; }}
+            onMouseOut={(e) => { e.currentTarget.style.background = "rgba(29,43,40,0.92)"; e.currentTarget.style.transform = "scale(1)"; e.currentTarget.style.boxShadow = "0 1px 4px rgba(0,0,0,0.3)"; }}
           >
-            <svg width={12} height={12} viewBox="0 0 16 16" fill="none"><path d="M10 3L5 8l5 5" stroke="#b0c4c0" strokeWidth={1.6} strokeLinecap="round" strokeLinejoin="round"/></svg>
+            <svg width={10} height={10} viewBox="0 0 16 16" fill="none"><path d="M10 3L5 8l5 5" stroke="#b0c4c0" strokeWidth={1.8} strokeLinecap="round" strokeLinejoin="round"/></svg>
           </button>
           <button
             onClick={(e) => { e.stopPropagation(); expandNodeDirection(id, "right"); }}
             title="Expand Outgoing"
             style={{
               position: "absolute",
-              right: 4,
-              top: 36 + NODE_H / 2 - 13,
-              width: 26,
-              height: 26,
-              borderRadius: 7,
-              background: "rgba(29,43,40,0.88)",
-              backdropFilter: "blur(10px)",
-              WebkitBackdropFilter: "blur(10px)",
-              border: "1px solid rgba(38,74,70,0.5)",
+              right: 6,
+              top: 36 + NODE_H / 2 - 10,
+              width: 20,
+              height: 20,
+              borderRadius: "50%",
+              background: "rgba(29,43,40,0.92)",
+              backdropFilter: "blur(8px)",
+              WebkitBackdropFilter: "blur(8px)",
+              border: "1px solid rgba(38,74,70,0.4)",
               color: "#b0c4c0",
-              fontSize: 14,
-              fontWeight: 600,
               cursor: "pointer",
               display: "flex",
               alignItems: "center",
               justifyContent: "center",
               zIndex: 10,
-              boxShadow: "0 2px 6px rgba(0,0,0,0.4)",
-              transition: "transform 0.12s, background 0.15s, box-shadow 0.15s",
+              boxShadow: "0 1px 4px rgba(0,0,0,0.3)",
+              transition: "all 0.15s ease",
             }}
-            onMouseOver={(e) => { e.currentTarget.style.background = "rgba(38,74,70,0.95)"; e.currentTarget.style.transform = "scale(1.1)"; e.currentTarget.style.boxShadow = "0 2px 10px rgba(38,74,70,0.35)"; }}
-            onMouseOut={(e) => { e.currentTarget.style.background = "rgba(29,43,40,0.88)"; e.currentTarget.style.transform = "scale(1)"; e.currentTarget.style.boxShadow = "0 2px 6px rgba(0,0,0,0.4)"; }}
+            onMouseOver={(e) => { e.currentTarget.style.background = "rgba(38,74,70,0.95)"; e.currentTarget.style.transform = "scale(1.15)"; e.currentTarget.style.boxShadow = "0 2px 8px rgba(38,74,70,0.4)"; }}
+            onMouseOut={(e) => { e.currentTarget.style.background = "rgba(29,43,40,0.92)"; e.currentTarget.style.transform = "scale(1)"; e.currentTarget.style.boxShadow = "0 1px 4px rgba(0,0,0,0.3)"; }}
           >
-            <svg width={12} height={12} viewBox="0 0 16 16" fill="none"><path d="M6 3l5 5-5 5" stroke="#b0c4c0" strokeWidth={1.6} strokeLinecap="round" strokeLinejoin="round"/></svg>
+            <svg width={10} height={10} viewBox="0 0 16 16" fill="none"><path d="M6 3l5 5-5 5" stroke="#b0c4c0" strokeWidth={1.8} strokeLinecap="round" strokeLinejoin="round"/></svg>
           </button>
         </>
       )}
@@ -390,14 +375,12 @@ function CWNodeComponent({ id, data, selected }: CWNodeProps) {
           {/* Rename */}
           <FAB
             icon={SVG_ICON.pencil}
-            label="Rename"
             title="Rename"
             onClick={(e) => { e.stopPropagation(); startEdit(); }}
           />
           {/* Find Relationship */}
           <FAB
             icon="M6.5 2a4.5 4.5 0 013.58 7.2l3.6 3.6-.7.7-3.6-3.6A4.5 4.5 0 116.5 2z"
-            label="Find"
             title="Find Relationship"
             onClick={(e) => { e.stopPropagation(); openFindRelationship(id); }}
           />
@@ -405,7 +388,6 @@ function CWNodeComponent({ id, data, selected }: CWNodeProps) {
           <FAB
             icon={SVG_ICON.bell}
             stroke={alertOn ? "#f59e0b" : undefined}
-            label={alertOn ? "Alert ON" : "Alert"}
             title={alertOn ? "Alert ON — click to disable" : "Set alert"}
             onClick={(e) => { e.stopPropagation(); setAlertOn(!alertOn); }}
           />
