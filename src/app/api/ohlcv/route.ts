@@ -228,7 +228,7 @@ async function fetchFromExchange ( exchange: string, symbol: string, interval: s
   {
     console.error( `Error fetching from ${ exchange }:`, error );
     // Fallback chain: try multiple exchanges until one succeeds
-    const fallbacks = [ "okx", "kucoin", "bitget", "bybit", "mexc", "gate" ].filter( e => e !== exchange );
+    const fallbacks = [ "kucoin", "okx", "bitget", "bybit", "mexc", "gate" ].filter( e => e !== exchange );
     for ( const fb of fallbacks )
     {
       try
@@ -317,8 +317,14 @@ async function fetchCoinbase ( symbol: string, interval: string, limit: number )
 
 async function fetchKucoin ( symbol: string, interval: string, limit: number ): Promise<OHLCV[]>
 {
+  // Proper time-range calculation based on actual interval duration
+  const INTERVAL_SECONDS: Record<string, number> = {
+    "1min": 60, "5min": 300, "15min": 900, "30min": 1800,
+    "1hour": 3600, "4hour": 14400, "1day": 86400, "1week": 604800,
+  };
+  const intervalSec = INTERVAL_SECONDS[ interval ] || 3600;
   const endAt = Math.floor( Date.now() / 1000 );
-  const startAt = endAt - ( limit * 60 * 60 );
+  const startAt = endAt - Math.ceil( limit * intervalSec * 1.1 ); // 10% buffer
   const url = `${ EXCHANGE_APIS.kucoin }/market/candles?type=${ interval }&symbol=${ symbol }&startAt=${ startAt }&endAt=${ endAt }`;
   const response = await fetch( url );
   if ( !response.ok ) throw new Error( `KuCoin API error: ${ response.status }` );
@@ -336,19 +342,42 @@ async function fetchKucoin ( symbol: string, interval: string, limit: number ): 
 
 async function fetchOkx ( symbol: string, interval: string, limit: number ): Promise<OHLCV[]>
 {
-  const url = `${ EXCHANGE_APIS.okx }/market/candles?instId=${ symbol }&bar=${ interval }&limit=${ limit }`;
-  const response = await fetch( url );
-  if ( !response.ok ) throw new Error( `OKX API error: ${ response.status }` );
-  const data = await response.json();
-  if ( data.code !== "0" ) throw new Error( `OKX error: ${ data.msg }` );
-  return data.data.map( ( k: string[] ) => ( {
-    timestamp: parseInt( k[ 0 ] ),
-    open: parseFloat( k[ 1 ] ),
-    high: parseFloat( k[ 2 ] ),
-    low: parseFloat( k[ 3 ] ),
-    close: parseFloat( k[ 4 ] ),
-    volume: parseFloat( k[ 7 ] )
-  } ) ).reverse();
+  // OKX caps at 100 per request, so paginate if needed
+  const perPage = Math.min( limit, 100 );
+  let allCandles: OHLCV[] = [];
+  let after: string | undefined;
+
+  while ( allCandles.length < limit )
+  {
+    const url = after
+      ? `${ EXCHANGE_APIS.okx }/market/candles?instId=${ symbol }&bar=${ interval }&limit=${ perPage }&after=${ after }`
+      : `${ EXCHANGE_APIS.okx }/market/candles?instId=${ symbol }&bar=${ interval }&limit=${ perPage }`;
+    const response = await fetch( url );
+    if ( !response.ok ) throw new Error( `OKX API error: ${ response.status }` );
+    const data = await response.json();
+    if ( data.code !== "0" ) throw new Error( `OKX error: ${ data.msg }` );
+
+    const batch = data.data || [];
+    if ( batch.length === 0 ) break;
+
+    const mapped = batch.map( ( k: string[] ) => ( {
+      timestamp: parseInt( k[ 0 ] ),
+      open: parseFloat( k[ 1 ] ),
+      high: parseFloat( k[ 2 ] ),
+      low: parseFloat( k[ 3 ] ),
+      close: parseFloat( k[ 4 ] ),
+      volume: parseFloat( k[ 7 ] )
+    } ) );
+
+    allCandles = [ ...allCandles, ...mapped ];
+    // OKX returns newest first; last item has oldest timestamp — use as "after" cursor
+    after = batch[ batch.length - 1 ][ 0 ];
+
+    if ( batch.length < perPage ) break; // No more data
+  }
+
+  // OKX returns newest-first, reverse to chronological order and trim to limit
+  return allCandles.reverse().slice( -limit );
 }
 
 async function fetchBitget ( symbol: string, interval: string, limit: number ): Promise<OHLCV[]>

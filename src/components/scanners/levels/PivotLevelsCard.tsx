@@ -51,6 +51,7 @@ export function PivotLevelsCard({
   const [candles, setCandles] = useState<Candle[]>([]);
   const [isLoading, setIsLoading] = useState(true);
   const [error, setError] = useState<string | null>(null);
+  const [visible, setVisible] = useState(true);
 
   const cardId = result.id || `${result.symbol}-${result.timeframe}`;
 
@@ -158,6 +159,15 @@ export function PivotLevelsCard({
 
     candleSeries.setData(candles);
 
+    // Hide card if insufficient candles
+    if (candles.length < 50) {
+      setVisible(false);
+      chart.remove();
+      chartRef.current = null;
+      return;
+    }
+    setVisible(true);
+
     // Draw support/resistance levels as horizontal lines
     if (result.levels && result.levels.length > 0) {
       const currentPrice = candles[candles.length - 1]?.close || result.currentPrice;
@@ -256,6 +266,9 @@ export function PivotLevelsCard({
   // Count levels by type
   const resistanceCount = result.levels?.filter(l => l.type === 'resistance' || l.price > result.currentPrice).length || 0;
   const supportCount = result.levels?.filter(l => l.type === 'support' || l.price < result.currentPrice).length || 0;
+
+  // Don't render cards with insufficient data
+  if (!visible && !isLoading) return null;
 
   return (
     <div className={`rounded-xl overflow-hidden bg-[#0d1514] border ${statusBadge.border} hover:border-opacity-60 transition-all duration-300`}>

@@ -588,7 +588,7 @@ EXCHANGE_FETCHERS = {
 }
 
 
-FALLBACK_CHAIN = ["okx", "kucoin", "bitget", "mexc", "gateio", "htx"]
+FALLBACK_CHAIN = ["kucoin", "okx", "bitget", "mexc", "gateio", "htx"]
 
 
 async def fetch_ohlcv(exchange: str, symbol: str, timeframe: str = "1h", limit: int = 500) -> List[Dict]:

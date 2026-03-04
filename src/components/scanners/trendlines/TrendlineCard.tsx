@@ -72,6 +72,7 @@ export function TrendlineCard({
   const [candles, setCandles] = useState<Candle[]>([]);
   const [isLoading, setIsLoading] = useState(true);
   const [error, setError] = useState<string | null>(null);
+  const [visible, setVisible] = useState(true);
 
   const cardId = trendline.id || `${trendline.symbol}-${trendline.timeframe}`;
 
@@ -184,11 +185,14 @@ export function TrendlineCard({
     const localResult = calculateTrendLines(candles, 20, 3, 3);
     const allLines = [...localResult.uptrend_lines, ...localResult.downtrend_lines];
     
-    console.log(`[${trendline.symbol}] Local calculation: ${allLines.length} lines, type: ${localResult.filter_type}`, {
-      up: localResult.uptrend_lines.length,
-      down: localResult.downtrend_lines.length,
-      candles: candles.length
-    });
+    // Hide card if insufficient candles or no lines detected
+    if (candles.length < 50 || allLines.length === 0) {
+      setVisible(false);
+      chart.remove();
+      chartRef.current = null;
+      return;
+    }
+    setVisible(true);
     
     // Draw trendlines
     if (allLines.length > 0) {
@@ -282,6 +286,9 @@ export function TrendlineCard({
   // Count lines by type
   const upLines = trendline.lines.filter(l => l.type === 'up').length;
   const downLines = trendline.lines.filter(l => l.type === 'down').length;
+
+  // Don't render cards with no trendlines or insufficient data
+  if (!visible && !isLoading) return null;
 
   return (
     <div className={`rounded-xl overflow-hidden bg-[#0d1514] border ${filterBadge.border} hover:border-opacity-60 transition-all duration-300`}>
