@@ -175,6 +175,47 @@ export async function GET ( request: NextRequest )
   }
 }
 
+async function fetchSingleExchange ( exchange: string, formattedSymbol: string, mappedInterval: string, limit: number ): Promise<OHLCV[]>
+{
+  switch ( exchange )
+  {
+    case "binance":
+      return await fetchBinance( formattedSymbol, mappedInterval, limit );
+    case "bybit":
+      return await fetchBybit( formattedSymbol, mappedInterval, limit );
+    case "mexc":
+      return await fetchMexc( formattedSymbol, mappedInterval, limit );
+    case "coinbase":
+      return await fetchCoinbase( formattedSymbol, mappedInterval, limit );
+    case "kucoin":
+      return await fetchKucoin( formattedSymbol, mappedInterval, limit );
+    case "okx":
+      return await fetchOkx( formattedSymbol, mappedInterval, limit );
+    case "bitget":
+      return await fetchBitget( formattedSymbol, mappedInterval, limit );
+    case "bingx":
+      return await fetchBingX( formattedSymbol, mappedInterval, limit );
+    case "phemex":
+      return await fetchPhemex( formattedSymbol, mappedInterval, limit );
+    case "htx":
+      return await fetchHTX( formattedSymbol, mappedInterval, limit );
+    case "gate":
+      return await fetchGate( formattedSymbol, mappedInterval, limit );
+    case "cryptocom":
+      return await fetchCryptoCom( formattedSymbol, mappedInterval, limit );
+    case "kraken":
+      return await fetchKraken( formattedSymbol, mappedInterval, limit );
+    case "bitmart":
+      return await fetchBitmart( formattedSymbol, mappedInterval, limit );
+    case "coinex":
+      return await fetchCoinex( formattedSymbol, mappedInterval, limit );
+    case "digifinex":
+      return await fetchDigifinex( formattedSymbol, mappedInterval, limit );
+    default:
+      return await fetchBinance( formattedSymbol, mappedInterval, limit );
+  }
+}
+
 async function fetchFromExchange ( exchange: string, symbol: string, interval: string, limit: number ): Promise<OHLCV[] | null>
 {
   const formattedSymbol = formatSymbol( symbol, exchange );
@@ -182,55 +223,27 @@ async function fetchFromExchange ( exchange: string, symbol: string, interval: s
 
   try
   {
-    switch ( exchange )
-    {
-      case "binance":
-        return await fetchBinance( formattedSymbol, mappedInterval, limit );
-      case "bybit":
-        return await fetchBybit( formattedSymbol, mappedInterval, limit );
-      case "mexc":
-        return await fetchMexc( symbol, mappedInterval, limit );
-      case "coinbase":
-        return await fetchCoinbase( formattedSymbol, mappedInterval, limit );
-      case "kucoin":
-        return await fetchKucoin( formattedSymbol, mappedInterval, limit );
-      case "okx":
-        return await fetchOkx( formattedSymbol, mappedInterval, limit );
-      case "bitget":
-        return await fetchBitget( formattedSymbol, mappedInterval, limit );
-      case "bingx":
-        return await fetchBingX( formattedSymbol, mappedInterval, limit );
-      case "phemex":
-        return await fetchPhemex( formattedSymbol, mappedInterval, limit );
-      case "htx":
-        return await fetchHTX( formattedSymbol, mappedInterval, limit );
-      case "gate":
-        return await fetchGate( formattedSymbol, mappedInterval, limit );
-      case "cryptocom":
-        return await fetchCryptoCom( formattedSymbol, mappedInterval, limit );
-      case "kraken":
-        return await fetchKraken( formattedSymbol, mappedInterval, limit );
-      case "bitmart":
-        return await fetchBitmart( formattedSymbol, mappedInterval, limit );
-      case "coinex":
-        return await fetchCoinex( formattedSymbol, mappedInterval, limit );
-      case "digifinex":
-        return await fetchDigifinex( formattedSymbol, mappedInterval, limit );
-      default:
-        return await fetchBinance( formattedSymbol, mappedInterval, limit );
-    }
+    return await fetchSingleExchange( exchange, exchange === "mexc" ? symbol : formattedSymbol, mappedInterval, limit );
   } catch ( error )
   {
     console.error( `Error fetching from ${ exchange }:`, error );
-    // Fallback logic: try Bybit
-    if ( exchange !== "bybit" )
+    // Fallback chain: try multiple exchanges until one succeeds
+    const fallbacks = [ "okx", "kucoin", "bitget", "bybit", "mexc", "gate" ].filter( e => e !== exchange );
+    for ( const fb of fallbacks )
     {
       try
       {
-        return await fetchBybit( formatSymbol( symbol, "bybit" ), INTERVAL_MAPPINGS.bybit[ interval ] || interval, limit );
+        const fbSymbol = formatSymbol( symbol, fb );
+        const fbInterval = INTERVAL_MAPPINGS[ fb ]?.[ interval ] || interval;
+        const result = await fetchSingleExchange( fb, fb === "mexc" ? symbol : fbSymbol, fbInterval, limit );
+        if ( result && result.length > 0 )
+        {
+          console.log( `Fallback to ${ fb } succeeded for ${ symbol }` );
+          return result;
+        }
       } catch ( fallbackError )
       {
-        console.error( `Fallback to Bybit failed:`, fallbackError );
+        // continue to next fallback
       }
     }
     return null;
