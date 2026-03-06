@@ -122,7 +122,7 @@ def _choose_line(
 
             violations = _count_violations(candles, slope, intercept, side, start_idx, end_idx)
             violation_pct = (violations / max(1, n)) * 100
-            if violation_pct > 11.0:
+            if violation_pct > 10.0:
                 continue
 
             touches = 0
@@ -260,7 +260,7 @@ def detect_chart_pattern(
     if best is None:
         return None
 
-    return {
+    result = {
         "type": best.pattern_type,
         "name": best.pattern_name,
         "nameAr": best.pattern_name_ar,
@@ -285,3 +285,14 @@ def detect_chart_pattern(
             "touches": best.lower.touches,
         },
     }
+
+    # Embed candle timestamps for line endpoints → frontend can align precisely
+    for line_key in ("upperLine", "lowerLine"):
+        ld = result[line_key]
+        x1i, x2i = ld["x1"], ld["x2"]
+        if 0 <= x1i < len(candles):
+            ld["x1_ts"] = int(candles[x1i].get("timestamp", 0))
+        if 0 <= x2i < len(candles):
+            ld["x2_ts"] = int(candles[x2i].get("timestamp", 0))
+
+    return result

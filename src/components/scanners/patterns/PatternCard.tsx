@@ -42,6 +42,8 @@ export interface BackendPattern {
     y2: number;
     slope?: number;
     touches?: number;
+    x1_ts?: number;
+    x2_ts?: number;
   };
   lowerLine: {
     x1: number;
@@ -50,6 +52,8 @@ export interface BackendPattern {
     y2: number;
     slope?: number;
     touches?: number;
+    x1_ts?: number;
+    x2_ts?: number;
   };
 }
 
@@ -201,8 +205,23 @@ export function PatternCard({ data, onPatternDetected }: PatternCardProps) {
 
     // ── Draw pattern lines ──
     const drawPatternLine = (line: typeof bestPattern.upperLine, color: string) => {
-      const si = Math.max(0, Math.min(line.x1, candles.length - 1));
-      const ei = Math.max(0, Math.min(line.x2, candles.length - 1));
+      let si: number;
+      let ei: number;
+
+      // Prefer timestamp-based lookup (backend embeds x1_ts/x2_ts since v2)
+      if (line.x1_ts && line.x2_ts) {
+        const ts1 = line.x1_ts > 1e12 ? Math.floor(line.x1_ts / 1000) : line.x1_ts;
+        const ts2 = line.x2_ts > 1e12 ? Math.floor(line.x2_ts / 1000) : line.x2_ts;
+        si = candles.findIndex(c => c.time === ts1);
+        ei = candles.findIndex(c => c.time === ts2);
+        // Fallback to index if timestamp not found in candles
+        if (si === -1) si = Math.max(0, Math.min(line.x1, candles.length - 1));
+        if (ei === -1) ei = Math.max(0, Math.min(line.x2, candles.length - 1));
+      } else {
+        si = Math.max(0, Math.min(line.x1, candles.length - 1));
+        ei = Math.max(0, Math.min(line.x2, candles.length - 1));
+      }
+
       if (si >= candles.length || ei >= candles.length) return;
       const t1 = candles[si]?.time;
       const t2 = candles[ei]?.time;
