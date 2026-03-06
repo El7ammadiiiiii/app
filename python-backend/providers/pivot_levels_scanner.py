@@ -289,6 +289,18 @@ def _compute_pivot_levels(
             
             # Get current price
             price = candles[-1]["close"] if candles else 0
+
+            # Embed last 60 candles for frontend chart rendering
+            chart_candles = [
+                {
+                    "timestamp": int(c.get("timestamp", 0)),
+                    "open": round(c["open"], 8),
+                    "high": round(c["high"], 8),
+                    "low": round(c["low"], 8),
+                    "close": round(c["close"], 8),
+                }
+                for c in candles[-60:]
+            ]
             
             results.append({
                 "symbol": symbol,
@@ -302,6 +314,7 @@ def _compute_pivot_levels(
                 "nearestSupport": detection.get("nearestSupport"),
                 "distanceToNearestResistance": detection.get("distanceToNearestResistance"),
                 "distanceToNearestSupport": detection.get("distanceToNearestSupport"),
+                "candles": chart_candles,
                 "detected_at": int(time.time() * 1000),
             })
             

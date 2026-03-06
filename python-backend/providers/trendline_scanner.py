@@ -289,10 +289,10 @@ def _compute_trendlines(
             if filter_type == "none":
                 continue
             
-            # Convert TrendLine objects to dicts
+            # Convert TrendLine objects to dicts with timestamps
             lines = []
             for line in up_lines:
-                lines.append({
+                ld = {
                     "type": "up",
                     "x1": line.x1,
                     "y1": round(line.y1, 8),
@@ -301,9 +301,15 @@ def _compute_trendlines(
                     "slope": round(line.slope, 10),
                     "strength": line.strength,
                     "age_bars": line.age_bars,
-                })
+                }
+                # Embed timestamps for frontend alignment
+                if 0 <= line.x1 < len(candles):
+                    ld["x1_ts"] = int(candles[line.x1].get("timestamp", 0))
+                if 0 <= line.x2 < len(candles):
+                    ld["x2_ts"] = int(candles[line.x2].get("timestamp", 0))
+                lines.append(ld)
             for line in down_lines:
-                lines.append({
+                ld = {
                     "type": "down",
                     "x1": line.x1,
                     "y1": round(line.y1, 8),
@@ -312,10 +318,27 @@ def _compute_trendlines(
                     "slope": round(line.slope, 10),
                     "strength": line.strength,
                     "age_bars": line.age_bars,
-                })
+                }
+                if 0 <= line.x1 < len(candles):
+                    ld["x1_ts"] = int(candles[line.x1].get("timestamp", 0))
+                if 0 <= line.x2 < len(candles):
+                    ld["x2_ts"] = int(candles[line.x2].get("timestamp", 0))
+                lines.append(ld)
             
             # Get current price
             price = candles[-1]["close"] if candles else 0
+
+            # Embed last 80 candles for frontend chart rendering
+            chart_candles = [
+                {
+                    "timestamp": int(c.get("timestamp", 0)),
+                    "open": round(c["open"], 8),
+                    "high": round(c["high"], 8),
+                    "low": round(c["low"], 8),
+                    "close": round(c["close"], 8),
+                }
+                for c in candles[-80:]
+            ]
             
             results.append({
                 "symbol": symbol,
@@ -326,6 +349,7 @@ def _compute_trendlines(
                 "filter_type": filter_type,  # up, down, both
                 "lines": lines,
                 "line_count": len(lines),
+                "candles": chart_candles,
                 "detected_at": int(time.time() * 1000),
             })
             
