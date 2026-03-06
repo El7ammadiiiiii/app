@@ -56,13 +56,6 @@ export const NEWS_SOURCES: NewsSource[] = [
     crawlDelayMs: 5000,
   },
   {
-    id: 'cryptopotato',
-    name: 'CryptoPotato',
-    homepageUrl: 'https://cryptopotato.com',
-    kind: 'rss',
-    feedUrl: 'https://cryptopotato.com/feed/',
-  },
-  {
     id: 'coingape',
     name: 'CoinGape',
     homepageUrl: 'https://coingape.com',

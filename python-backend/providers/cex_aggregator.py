@@ -51,7 +51,8 @@ async def init_aggregator():
     try:
         import cryptofeed
         _cryptofeed_available = True
-        logger.info("✅ cryptofeed available (v%s) — starting aggregator feeds", cryptofeed.__version__)
+        _cf_ver = getattr(cryptofeed, '__version__', getattr(cryptofeed, 'VERSION', 'unknown'))
+        logger.info("✅ cryptofeed available (v%s) — starting aggregator feeds", _cf_ver)
         _bg_tasks.append(asyncio.create_task(_run_cryptofeed()))
     except ImportError:
         _cryptofeed_available = False

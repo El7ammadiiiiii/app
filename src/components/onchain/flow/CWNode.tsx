@@ -15,6 +15,7 @@ import {
   getMSChainBgColor,
   getBlockExplorerUrl,
   msShortenAddress,
+  getMSExchangeIconUrl,
   type MSNode,
 } from "@/lib/onchain/cwtracker-types";
 import { NODE_W, NODE_H, NODE_R, SVG_ICON } from "./constants";
@@ -291,30 +292,54 @@ function CWNodeComponent({ id, data, selected }: CWNodeProps) {
         <Handle type="source" position={Position.Right} id="right" style={{ background: "#555", width: 8, height: 8, border: "2px solid #888" }} />
         <Handle type="target" position={Position.Right} id="right-in" style={{ background: "#555", width: 8, height: 8, border: "2px solid #888", top: "60%" }} />
 
+        {/* Chain badge — top right corner */}
+        <div style={{ position: "absolute", top: -6, right: -6, width: 18, height: 18, borderRadius: "50%", background: "#1d2b28", border: "1px solid #264a46", display: "flex", alignItems: "center", justifyContent: "center", zIndex: 12, boxShadow: "0 1px 3px rgba(0,0,0,0.3)" }}>
+          <img src={getMSChainIconUrl(node.chain || "")} width={12} height={12} alt="" style={{ borderRadius: "50%" }} draggable={false} />
+        </div>
+
+        {/* Entity/Exchange badge — top left corner (only for exchanges/defi) */}
+        {(node.type === "exchange" || node.type === "defi") && (node.entityIconUrl || node.entitySlug) && (
+          <div style={{ position: "absolute", top: -6, left: -6, width: 18, height: 18, borderRadius: "50%", background: "#1d2b28", border: "1px solid #264a46", display: "flex", alignItems: "center", justifyContent: "center", zIndex: 12, boxShadow: "0 1px 3px rgba(0,0,0,0.3)" }}>
+            <img 
+              src={node.entityIconUrl || getMSExchangeIconUrl(node.entitySlug) || ""} 
+              width={12} height={12} alt="" style={{ borderRadius: "50%" }} draggable={false}
+              onError={(e) => { (e.target as HTMLImageElement).style.display = 'none'; }}
+            />
+          </div>
+        )}
+
         {/* Risk badge */}
         {isDanger && (
-          <div style={{ position: "absolute", top: -10, right: -4, width: 20, height: 20, borderRadius: "50%", background: node.riskLevel === "critical" ? "#D60473" : "#FF3B30", display: "flex", alignItems: "center", justifyContent: "center", fontSize: 11, fontWeight: 700, color: "#fff", zIndex: 10 }}>
+          <div style={{ position: "absolute", top: -10, right: 14, width: 16, height: 16, borderRadius: "50%", background: node.riskLevel === "critical" ? "#D60473" : "#FF3B30", display: "flex", alignItems: "center", justifyContent: "center", fontSize: 9, fontWeight: 700, color: "#fff", zIndex: 11 }}>
             !
           </div>
         )}
 
         {/* Alert badge */}
         {alertOn && (
-          <div style={{ position: "absolute", top: -8, left: -4, width: 18, height: 18, borderRadius: "50%", background: "#f59e0b", display: "flex", alignItems: "center", justifyContent: "center", fontSize: 10, zIndex: 10 }}>
+          <div style={{ position: "absolute", top: -8, left: 14, width: 16, height: 16, borderRadius: "50%", background: "#f59e0b", display: "flex", alignItems: "center", justifyContent: "center", fontSize: 9, zIndex: 11 }}>
             🔔
           </div>
         )}
 
-        {/* Main content — icon + label + address */}
+        {/* Main content — entity icon + name + address */}
         <div style={{ display: "flex", alignItems: "center", gap: 10, padding: "8px 12px", height: NODE_H, overflow: "hidden", fontFamily: "Inter, sans-serif" }}>
-          {/* Chain icon */}
-          <div style={{ flexShrink: 0, width: 28, height: 28, borderRadius: "50%", background: getMSChainBgColor(node.chain || "") + "2E", display: "flex", alignItems: "center", justifyContent: "center" }}>
-            <img src={getMSChainIconUrl(node.chain || "")} width={20} height={20} alt="" style={{ borderRadius: "50%" }} draggable={false} />
+          {/* Main icon — Entity logo for exchanges/defi, Chain icon for others */}
+          <div style={{ flexShrink: 0, width: 28, height: 28, borderRadius: "50%", background: getMSChainBgColor(node.chain || "") + "2E", display: "flex", alignItems: "center", justifyContent: "center", position: "relative" }}>
+            {(node.type === "exchange" || node.type === "defi") && (node.entityIconUrl || node.entitySlug) ? (
+              <img 
+                src={node.entityIconUrl || getMSExchangeIconUrl(node.entitySlug) || getMSChainIconUrl(node.chain || "")} 
+                width={20} height={20} alt="" style={{ borderRadius: "50%" }} draggable={false}
+                onError={(e) => { (e.target as HTMLImageElement).src = getMSChainIconUrl(node.chain || ""); }}
+              />
+            ) : (
+              <img src={getMSChainIconUrl(node.chain || "")} width={20} height={20} alt="" style={{ borderRadius: "50%" }} draggable={false} />
+            )}
           </div>
 
-          {/* Text */}
+          {/* Text — Name above Address */}
           <div style={{ flex: 1, minWidth: 0, overflow: "hidden" }}>
-            {/* Label */}
+            {/* Entity Name / Label */}
             {editingLabel ? (
               <input
                 autoFocus
@@ -328,7 +353,7 @@ function CWNodeComponent({ id, data, selected }: CWNodeProps) {
             ) : (
               <div style={{ display: "flex", alignItems: "center", gap: 4, lineHeight: "16px" }}>
                 <span style={{ fontSize: 12, fontWeight: 600, color: textColor, whiteSpace: "nowrap", overflow: "hidden", textOverflow: "ellipsis", maxWidth: 180 }}>
-                  {node.label}
+                  {node.entityName || node.label}
                 </span>
                 {node.isRoot && (
                   <span style={{ fontSize: 8, fontWeight: 700, color: MS_COLORS.primary, flexShrink: 0 }}>ROOT</span>

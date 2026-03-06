@@ -135,7 +135,7 @@ export default function DYORTrendScannerPage() {
   const [sortDir, setSortDir] = useState<SortDir>("ASC");
   const [currentPage, setCurrentPage] = useState(1);
   const [itemsPerPage, setItemsPerPage] = useState(50);
-  const [coinCount, setCoinCount] = useState(100);
+  const [coinCount, setCoinCount] = useState(300);
   const [overlaySymbol, setOverlaySymbol] = useState<string | null>(null);
 
   const abortRef = useRef<AbortController | null>(null);
@@ -335,8 +335,10 @@ export default function DYORTrendScannerPage() {
                 onChange={e => { setCoinCount(Number(e.target.value)); setCurrentPage(1); }}
                 className="px-2 py-1.5 rounded-lg bg-white/5 border border-white/10 text-white/80 text-xs focus:outline-none cursor-pointer"
               >
-                  <option value={50} className="bg-[#0c0e1a]">50 coins</option>
+                <option value={50} className="bg-[#0c0e1a]">50 coins</option>
                 <option value={100} className="bg-[#0c0e1a]">100 coins</option>
+                <option value={200} className="bg-[#0c0e1a]">200 coins</option>
+                <option value={300} className="bg-[#0c0e1a]">300 coins</option>
               </select>
 
               {/* Per page */}

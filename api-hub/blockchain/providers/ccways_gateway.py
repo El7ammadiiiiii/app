@@ -25,6 +25,7 @@ from typing import Any, Dict, List, Optional
 
 from providers.alpha.client import AlphaClient
 from providers.beta.client import BetaClient
+from providers.gamma.client import GammaClient
 from providers.ccways_cache import CacheLayer
 from providers.ccways_sanitizer import (
     sanitize_response,
@@ -236,6 +237,10 @@ class CCWaysGateway:
             rate_limit=float(os.getenv("CCWAYS_BETA_RATE", "2.0")),
             cache_ttl=120,
         )
+        self.gamma = GammaClient(
+            rate_limit=float(os.getenv("CCWAYS_GAMMA_RATE", "0.2")),  # 5 req/sec
+            cache_ttl=300,  # DefiLlama data updates slowly
+        )
 
         # Circuit breakers
         self.cb_alpha = CircuitBreaker(
@@ -247,6 +252,11 @@ class CCWaysGateway:
             "beta",
             threshold=int(os.getenv("CCWAYS_CB_THRESHOLD", "5")),
             cooldown=float(os.getenv("CCWAYS_CB_COOLDOWN", "300")),
+        )
+        self.cb_gamma = CircuitBreaker(
+            "gamma",
+            threshold=int(os.getenv("CCWAYS_CB_THRESHOLD", "10")),  # More lenient
+            cooldown=float(os.getenv("CCWAYS_CB_COOLDOWN", "120")),  # Faster recovery
         )
 
         # Load balancer (adaptive rate + health tracking)
@@ -263,20 +273,23 @@ class CCWaysGateway:
         # Latency tracking (rolling averages)
         self._alpha_latencies: List[float] = []
         self._beta_latencies: List[float] = []
+        self._gamma_latencies: List[float] = []
 
     async def initialize(self) -> None:
-        """Initialize both providers."""
+        """Initialize all providers."""
         await asyncio.gather(
             self.alpha.initialize(),
             self.beta.initialize(),
+            self.gamma.initialize(),
             return_exceptions=True,
         )
 
     async def close(self) -> None:
-        """Close both providers."""
+        """Close all providers."""
         await asyncio.gather(
             self.alpha.close(),
             self.beta.close(),
+            self.gamma.close(),
             return_exceptions=True,
         )
 
@@ -340,6 +353,31 @@ class CCWaysGateway:
             logger.warning("BETA.%s failed: %s", method, exc)
             return None
 
+    async def _call_gamma(self, method: str, *args, **kwargs) -> Optional[Any]:
+        """Call GAMMA (DefiLlama) with circuit breaker — no budget needed (free API)."""
+        if not self.cb_gamma.allow_request():
+            logger.debug("GAMMA circuit open — skipping")
+            return None
+        try:
+            await self.lb.rate_gamma.acquire()
+            t0 = time.time()
+            fn = getattr(self.gamma, method)
+            result = await fn(*args, **kwargs)
+            lat = time.time() - t0
+            self._gamma_latencies.append(lat)
+            if len(self._gamma_latencies) > 100:
+                self._gamma_latencies = self._gamma_latencies[-100:]
+            self.cb_gamma.record_success()
+            self.lb.health_gamma.record_success()
+            return result
+        except Exception as exc:
+            lat = time.time() - t0 if 't0' in dir() else 0
+            was_429 = "429" in str(exc) or "rate" in str(exc).lower()
+            self.lb.health_gamma.record_failure(was_429=was_429)
+            self.cb_gamma.record_failure()
+            logger.warning("GAMMA.%s failed: %s", method, exc)
+            return None
+
     @staticmethod
     def _shorten(addr: str) -> str:
         if len(addr) > 12:
@@ -351,7 +389,10 @@ class CCWaysGateway:
     # ═══════════════════════════════════════════════════════════════════════════
 
     async def chains(self) -> Dict:
-        """Get unified chain list — BETA primary (93+), ALPHA fallback."""
+        """
+        Get unified chain list.
+        Priority: GAMMA (DefiLlama 400+) → BETA (93+) → ALPHA (14).
+        """
         cached = await self.cache.get("chains", "all")
         if cached:
             return cached
@@ -359,76 +400,86 @@ class CCWaysGateway:
         choice = self.lb.choose_provider("chains")
         logger.info("[GW] chains() → provider=%s", choice.value)
 
-        beta_chains = None
-        alpha_chains = None
-
-        if choice in (ProviderChoice.BETA, ProviderChoice.BETA_THEN_ALPHA):
-            beta_chains = await self._call_beta("get_chain_list") or []
-            if not beta_chains and choice == ProviderChoice.BETA_THEN_ALPHA:
-                alpha_chains = await self._call_alpha("get_chains")
-        elif choice in (ProviderChoice.ALPHA, ProviderChoice.ALPHA_THEN_BETA):
-            alpha_chains = await self._call_alpha("get_chains")
-            if not alpha_chains and choice == ProviderChoice.ALPHA_THEN_BETA:
-                beta_chains = await self._call_beta("get_chain_list")
-
         chains = []
 
-        if beta_chains and isinstance(beta_chains, (list, dict)):
-            # BETA may wrap: {data: {chains: [...]}} or just return list
-            chain_list = beta_chains
-            if isinstance(beta_chains, dict):
-                d = beta_chains.get("data") or beta_chains
-                chain_list = d.get("chains") if isinstance(d, dict) else []
-                if not isinstance(chain_list, list):
-                    chain_list = []
-            for c in chain_list:
-                if isinstance(c, dict):
-                    logo = c.get("logo_url") or c.get("svg_logo_url") or ""
-                    if logo:
-                        logo = register_asset_url(logo)
-                    chains.append({
-                        "id": c.get("id", ""),
-                        "name": c.get("name", ""),
-                        "symbol": c.get("token_symbol", ""),
-                        "logoUrl": logo,
-                        "type": "evm",
-                        "explorerUrl": f"https://{c.get('explorer_host', '')}" if c.get("explorer_host") else "",
-                        "isSupported": True,
-                        "networkId": c.get("network_id"),
-                        "nativeWrapped": (c.get("wrapped") or {}).get("id", "") if isinstance(c.get("wrapped"), dict) else str(c.get("wrapped") or ""),
-                    })
-
-        if not chains and alpha_chains:
-            # ALPHA returns: ["ethereum","polygon",...] (plain list of strings)
-            # or could be a dict with chains inside
-            raw_list = alpha_chains
-            if isinstance(alpha_chains, dict):
-                raw_list = alpha_chains.get("chains") or alpha_chains.get("data") or []
-
-            if isinstance(raw_list, list):
-                for c in raw_list:
-                    if isinstance(c, str):
+        # Try GAMMA (DefiLlama) first — 400+ chains, free API
+        if choice in (ProviderChoice.GAMMA, ProviderChoice.GAMMA_THEN_ALPHA) or not chains:
+            gamma_chains = await self._call_gamma("get_chains")
+            if gamma_chains and isinstance(gamma_chains, list):
+                for c in gamma_chains:
+                    if isinstance(c, dict):
                         chains.append({
-                            "id": c,
-                            "name": c.replace("_", " ").title(),
-                            "symbol": "",
-                            "logoUrl": "",
-                            "type": "evm",
+                            "id": c.get("gecko_id") or c.get("name", "").lower().replace(" ", "-"),
+                            "name": c.get("name", ""),
+                            "symbol": c.get("tokenSymbol", ""),
+                            "logoUrl": "",  # DefiLlama doesn't provide logos
+                            "type": "evm" if c.get("chainId") else "non-evm",
                             "explorerUrl": "",
                             "isSupported": True,
-                        })
-                    elif isinstance(c, dict):
-                        chains.append({
-                            "id": c.get("id") or c.get("chain", ""),
-                            "name": c.get("name", ""),
-                            "symbol": c.get("symbol", ""),
-                            "logoUrl": "",
-                            "type": "evm",
-                            "explorerUrl": c.get("explorer", ""),
-                            "isSupported": c.get("isSupported", True),
+                            "networkId": c.get("chainId"),
+                            "tvl": c.get("tvl", 0),
+                            "cmcId": c.get("cmcId"),
                         })
 
-        result = sanitize_response({"success": True, "chains": chains})
+        # Fallback to BETA (DeBank) — 93+ chains with logos
+        if not chains:
+            beta_chains = await self._call_beta("get_chain_list")
+            if beta_chains and isinstance(beta_chains, (list, dict)):
+                chain_list = beta_chains
+                if isinstance(beta_chains, dict):
+                    d = beta_chains.get("data") or beta_chains
+                    chain_list = d.get("chains") if isinstance(d, dict) else []
+                    if not isinstance(chain_list, list):
+                        chain_list = []
+                for c in chain_list:
+                    if isinstance(c, dict):
+                        logo = c.get("logo_url") or c.get("svg_logo_url") or ""
+                        if logo:
+                            logo = register_asset_url(logo)
+                        chains.append({
+                            "id": c.get("id", ""),
+                            "name": c.get("name", ""),
+                            "symbol": c.get("token_symbol", ""),
+                            "logoUrl": logo,
+                            "type": "evm",
+                            "explorerUrl": f"https://{c.get('explorer_host', '')}" if c.get("explorer_host") else "",
+                            "isSupported": True,
+                            "networkId": c.get("network_id"),
+                            "nativeWrapped": (c.get("wrapped") or {}).get("id", "") if isinstance(c.get("wrapped"), dict) else str(c.get("wrapped") or ""),
+                        })
+
+        # Final fallback to ALPHA (Arkham) — ~14 chains
+        if not chains:
+            alpha_chains = await self._call_alpha("get_chains")
+            if alpha_chains:
+                raw_list = alpha_chains
+                if isinstance(alpha_chains, dict):
+                    raw_list = alpha_chains.get("chains") or alpha_chains.get("data") or []
+
+                if isinstance(raw_list, list):
+                    for c in raw_list:
+                        if isinstance(c, str):
+                            chains.append({
+                                "id": c,
+                                "name": c.replace("_", " ").title(),
+                                "symbol": "",
+                                "logoUrl": "",
+                                "type": "evm",
+                                "explorerUrl": "",
+                                "isSupported": True,
+                            })
+                        elif isinstance(c, dict):
+                            chains.append({
+                                "id": c.get("id") or c.get("chain", ""),
+                                "name": c.get("name", ""),
+                                "symbol": c.get("symbol", ""),
+                                "logoUrl": "",
+                                "type": "evm",
+                                "explorerUrl": c.get("explorer", ""),
+                                "isSupported": c.get("isSupported", True),
+                            })
+
+        result = sanitize_response({"success": True, "chains": chains, "count": len(chains)})
         await self.cache.set("chains", result, "all")
         return result
 
@@ -643,6 +694,10 @@ class CCWaysGateway:
             tx_count = cp.get("transactionCount") or cp.get("count") or 0
             cp_chains = cp.get("chains") or [chain]
 
+            # Extract entity name and slug for UI badges
+            entity_name = ent.get("name") if isinstance(ent, dict) else None
+            entity_slug = ent.get("id") or ent.get("slug") if isinstance(ent, dict) else None
+
             node = {
                 "id": cp_id,
                 "address": addr,
@@ -660,6 +715,8 @@ class CCWaysGateway:
                 "riskLevel": _map_risk_level(cp.get("risk")),
                 "totalValueUSD": usd_val,
                 "activeChains": cp_chains if isinstance(cp_chains, list) else [],
+                "entityName": entity_name,
+                "entitySlug": entity_slug,
             }
             nodes.append(node)
 
@@ -1238,6 +1295,9 @@ class CCWaysGateway:
             if isinstance(ent, dict):
                 entity["twitter"] = ent.get("twitter")
                 entity["website"] = ent.get("website") or ent.get("crunchbase")
+                # Entity name and slug for UI badges
+                entity["entityName"] = ent.get("name")
+                entity["entitySlug"] = ent.get("id") or ent.get("slug")
 
         # Enrich from BETA (balances)
         if beta_data and isinstance(beta_data, dict):

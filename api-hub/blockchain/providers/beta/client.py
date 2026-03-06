@@ -3,11 +3,21 @@ CCWAYS Provider BETA — Multi-Chain Balances & DeFi Protocols
 Handles: 93+ chain balances, token lists, protocol positions, NFTs, approvals
 All external identifiers are obfuscated. No third-party names in code.
 
-NOTE: Signing algorithm (Phase 2.5) — currently uses static headers.
-      Will be updated once the HMAC scheme is reverse-engineered.
+NOTE: Uses session-based auth captured from browser.
+      Update env vars when session expires (every 24-48h):
+      
+      HOW TO REFRESH CREDENTIALS:
+      1. Open https://debank.com in Chrome
+      2. F12 → Network → find any request to api.debank.com
+      3. Copy these headers:
+         - x-api-key → DEBANK_API_KEY
+         - x-api-time → DEBANK_SESSION_TIME
+         - account.random_id → DEBANK_SESSION_RANDOM
+      4. Update environment variables on server
 """
 
 import asyncio
+import os
 import time
 import logging
 import uuid
@@ -20,10 +30,11 @@ logger = logging.getLogger(__name__)
 # ─── obfuscated constants ──────────────────────────────────────────────────
 _BETA_BASE = "https://api.debank.com"
 _BETA_VER = "v2"
-# Captured from browser session — refresh periodically
-_BETA_STATIC_KEY = "78730c11-5792-43b1-bd09-a5b7c918422a"  # x-api-key
-_BETA_SESSION_TIME = "1772318336"  # x-api-time / account.random_at
-_BETA_SESSION_RANDOM = "167081e5d87b41c3a4ec4b6ad552974f"  # account.random_id
+
+# Read from environment with fallback to captured values
+_BETA_STATIC_KEY = os.getenv("DEBANK_API_KEY", "78730c11-5792-43b1-bd09-a5b7c918422a")
+_BETA_SESSION_TIME = os.getenv("DEBANK_SESSION_TIME", "1772318336")
+_BETA_SESSION_RANDOM = os.getenv("DEBANK_SESSION_RANDOM", "167081e5d87b41c3a4ec4b6ad552974f")
 
 
 class BetaClient(BaseClient):

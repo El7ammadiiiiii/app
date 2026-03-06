@@ -2,7 +2,6 @@
 📡 cryptofeed_scanner.py — File 1 Provider
 CryptoFeed-based background scanner for OHLCV-dependent pages:
   - fibonacci  (full Python analysis)
-  - pattern    (OHLCV cache for client-side analysis)
   - divergence (OHLCV cache + RSI for client-side analysis)
   - levels     (OHLCV cache for client-side analysis)
 
@@ -136,11 +135,6 @@ async def _scan_all_exchanges(timeframe: str):
             levels_results = _compute_levels_data(all_ohlcv)
             if levels_results:
                 await purge_and_write("levels", exchange, timeframe, levels_results)
-
-            # ─── Page: pattern (OHLCV candles for client-side pattern detection) ───
-            pattern_results = _compute_pattern_data(all_ohlcv)
-            if pattern_results:
-                await purge_and_write("pattern", exchange, timeframe, pattern_results)
 
             _last_run[key] = time.time()
             _stats["total_writes"] += 1
@@ -395,7 +389,6 @@ async def manual_refresh(page_id: str, exchange: str = "binance", timeframe: str
             "fibonacci": _compute_fibonacci,
             "divergence": _compute_divergence_data,
             "levels": _compute_levels_data,
-            "pattern": _compute_pattern_data,
         }.get(page_id)
 
         if compute_fn:

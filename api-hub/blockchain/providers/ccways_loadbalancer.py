@@ -203,41 +203,48 @@ class ProviderHealth:
 class ProviderChoice(Enum):
     ALPHA = "alpha"
     BETA = "beta"
+    GAMMA = "gamma"         # DefiLlama (free, no auth)
     BOTH = "both"           # Parallel call
     ALPHA_THEN_BETA = "alpha_then_beta"  # Sequential fallback
     BETA_THEN_ALPHA = "beta_then_alpha"  # Sequential fallback
+    GAMMA_THEN_ALPHA = "gamma_then_alpha"  # DefiLlama first, then Alpha
+    ALPHA_THEN_GAMMA = "alpha_then_gamma"  # Alpha first, then DefiLlama
 
 
 # Provider capability map: which provider handles which data type
 _CAPABILITIES: Dict[str, Dict[str, bool]] = {
-    "expand":     {"alpha": True,  "beta": True},   # BETA via history
-    "intel":      {"alpha": True,  "beta": True},   # Parallel merge
-    "balance":    {"alpha": True,  "beta": True},   # BETA primary
-    "transfers":  {"alpha": True,  "beta": True},   # BETA via history
-    "flow":       {"alpha": True,  "beta": False},
-    "protocols":  {"alpha": False, "beta": True},
-    "search":     {"alpha": True,  "beta": False},
-    "portfolio":  {"alpha": True,  "beta": False},
-    "token":      {"alpha": True,  "beta": False},
-    "chains":     {"alpha": True,  "beta": True},   # BETA primary
-    "tx":         {"alpha": True,  "beta": False},
-    "nft":        {"alpha": False, "beta": True},
+    "expand":     {"alpha": True,  "beta": True,  "gamma": False},   # BETA via history
+    "intel":      {"alpha": True,  "beta": True,  "gamma": False},   # Parallel merge
+    "balance":    {"alpha": True,  "beta": True,  "gamma": False},   # BETA primary
+    "transfers":  {"alpha": True,  "beta": True,  "gamma": False},   # BETA via history
+    "flow":       {"alpha": True,  "beta": False, "gamma": False},
+    "protocols":  {"alpha": False, "beta": True,  "gamma": True},    # GAMMA has protocol TVL
+    "search":     {"alpha": True,  "beta": False, "gamma": True},    # GAMMA can search protocols
+    "portfolio":  {"alpha": True,  "beta": False, "gamma": False},
+    "token":      {"alpha": True,  "beta": False, "gamma": True},    # GAMMA has prices
+    "chains":     {"alpha": True,  "beta": True,  "gamma": True},    # GAMMA has 400+ chains!
+    "tx":         {"alpha": True,  "beta": False, "gamma": False},
+    "nft":        {"alpha": False, "beta": True,  "gamma": False},
+    "tvl":        {"alpha": False, "beta": False, "gamma": True},    # GAMMA only
+    "prices":     {"alpha": False, "beta": False, "gamma": True},    # GAMMA only
 }
 
 # Default preference: which provider is better for each type
 _PRIMARY: Dict[str, str] = {
     "expand":    "alpha",
-    "intel":     "alpha",   # BETA rate-limited → use ALPHA (Phase 2.5: re-enable)
-    "balance":   "alpha",   # BETA rate-limited → use ALPHA (Phase 2.5: re-enable)
+    "intel":     "alpha",
+    "balance":   "alpha",
     "transfers": "alpha",
     "flow":      "alpha",
-    "protocols": "alpha",   # BETA rate-limited → fallback (Phase 2.5: re-enable)
+    "protocols": "gamma",   # GAMMA has comprehensive protocol data
     "search":    "alpha",
     "portfolio": "alpha",
     "token":     "alpha",
-    "chains":    "alpha",   # BETA rate-limited → use ALPHA 14 chains (Phase 2.5: re-enable)
+    "chains":    "gamma",   # GAMMA has 400+ chains (PRIMARY!)
     "tx":        "alpha",
-    "nft":       "alpha",   # BETA rate-limited → fallback (Phase 2.5: re-enable)
+    "nft":       "alpha",
+    "tvl":       "gamma",   # GAMMA only
+    "prices":    "gamma",   # GAMMA only
 }
 
 
@@ -254,8 +261,12 @@ class LoadBalancer:
         self.rate_beta = AdaptiveRateController(
             "beta", base_rps=2.0, min_rps=0.3, max_rps=5.0,
         )
+        self.rate_gamma = AdaptiveRateController(
+            "gamma", base_rps=5.0, min_rps=1.0, max_rps=10.0,  # DefiLlama is generous
+        )
         self.health_alpha = ProviderHealth("alpha")
         self.health_beta = ProviderHealth("beta")
+        self.health_gamma = ProviderHealth("gamma")
 
         # Request counter for round-robin when both providers are equal
         self._request_counter = 0

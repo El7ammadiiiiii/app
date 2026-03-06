@@ -1,6 +1,6 @@
 """
 📈 trendline_scanner.py — Trend Lines Scanner Provider
-Scans 6 exchanges × 200 symbols × 4 timeframes for trend lines.
+Scans 6 exchanges × 300 symbols × 4 timeframes for trend lines.
 
 Exchanges: BINANCE (default), BYBIT, COINBASE, CRYPTO_COM, KUCOIN, OKX
 Timeframes: 1h, 4h, 1d, 1w
@@ -50,7 +50,7 @@ TRENDLINE_REFRESH_INTERVALS = {
     "1w": 4 * 60 * 60,  # 4 hours
 }
 
-# Top 200 symbols by volume
+# Top 200 symbols by volume (base universe)
 TOP_200_SYMBOLS = [
     "BTCUSDT", "ETHUSDT", "BNBUSDT", "SOLUSDT", "XRPUSDT",
     "DOGEUSDT", "ADAUSDT", "AVAXUSDT", "DOTUSDT", "TRXUSDT",
@@ -95,6 +95,32 @@ TOP_200_SYMBOLS = [
     "PYRUSDT", "RNDRUSDT", "SANTOSUSDT", "LAZIOUSDT", "PORTOUSDT",
 ]
 
+# Extra 100 symbols to reach 300 per exchange
+EXTRA_100_SYMBOLS = [
+    "CTSIUSDT", "PHBUSDT", "LPTUSDT", "AMBUSDT", "OAXUSDT",
+    "OGUSDT", "NKNUSDT", "STEEMUSDT", "WANUSDT", "DOCKUSDT",
+    "FUNUSDT", "CTKUSDT", "AKROUSDT", "HARDUSDT", "DREPUSDT",
+    "FIROUSDT", "VITEUSDT", "COSUSDT", "CTXCUSDT", "BURGERUSDT",
+    "MOBUSDT", "PUNDIXUSDT", "BETAUSDT", "NBSUSDT", "EPXUSDT",
+    "ERNUSDT", "USTCUSDT", "GALUSDT", "LUNAUSDT", "LUNCUSDT",
+    "ANCUSDT", "ASTUSDT", "GMTUSDT", "BNXUSDT", "MULTIUSDT",
+    "BSWUSDT", "REIUSDT", "STGUSDT", "POLSUSDT", "OOKIUSDT",
+    "JASMYUSDT", "PHAUSDT", "VGXUSDT", "KDAUSDT", "LOKAUSDT",
+    "SFPUSDT", "ALPACAUSDT", "DFUSDT", "FIDAUSDT", "FRONTUSDT",
+    "CVPUSDT", "PSGUSDT", "JUVUSDT", "ACMUSDT", "BARUSDT",
+    "CITYUSDT", "ONGUSDT", "QKCUSDT", "PIVXUSDT", "MDXUSDT",
+    "DIAUSDT", "DUSKUSDT", "OMUSDT", "VIDTUSDT", "FORUSDT",
+    "ATMUSDT", "ASRUSDT", "ADXUSDT", "AIONUSDT", "ARDRUSDT",
+    "BRDUSDT", "CMTUSDT", "GXSUSDT", "LENDUSDT", "LSKUSDT",
+    "LUNUSDT", "MCOUSDT", "MFTUSDT", "NASUSDT", "NAVUSDT",
+    "NCASHUSDT", "POEUSDT", "POLYUSDT", "PPTUSDT", "QSPUSDT",
+    "RCLCUSDT", "RCNUSDT", "RDNUSDT", "REPUSDT", "RLCUSDT",
+    "SALTUSDT", "SKYUSDT", "SNTUSDT", "SNMUSDT", "SUBUSDT",
+    "TNBUSDT",
+]
+
+TOP_300_SYMBOLS = (TOP_200_SYMBOLS + EXTRA_100_SYMBOLS)[:300]
+
 # ═══════════════════════════════════════════════════════════════════════
 # 🔧 State
 # ═══════════════════════════════════════════════════════════════════════
@@ -130,7 +156,7 @@ async def init_trendline_scanner():
     
     logger.info(
         "✅ Trendline scanner started (%d timeframes, %d exchanges, %d symbols)",
-        len(TRENDLINE_TIMEFRAMES), len(TRENDLINE_EXCHANGES), len(TOP_200_SYMBOLS)
+        len(TRENDLINE_TIMEFRAMES), len(TRENDLINE_EXCHANGES), len(TOP_300_SYMBOLS)
     )
 
 
@@ -212,11 +238,11 @@ async def _scan_all_exchanges(timeframe: str):
 
 
 async def _fetch_symbols_ohlcv(exchange: str, timeframe: str) -> Dict[str, List[Dict]]:
-    """Fetch OHLCV for all 200 symbols from one exchange."""
+    """Fetch OHLCV for all 300 symbols from one exchange."""
     from providers.cex_rest import fetch_ohlcv
 
     results = {}
-    symbols = TOP_200_SYMBOLS
+    symbols = TOP_300_SYMBOLS
 
     # Fetch in batches
     batch_size = 10
@@ -320,7 +346,7 @@ async def get_trendline_status():
         "running": _running,
         "exchanges": TRENDLINE_EXCHANGES,
         "timeframes": TRENDLINE_TIMEFRAMES,
-        "symbols_count": len(TOP_200_SYMBOLS),
+        "symbols_count": len(TOP_300_SYMBOLS),
         "stats": _stats,
         "last_runs": _last_run,
     }

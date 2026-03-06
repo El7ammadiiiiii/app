@@ -4,7 +4,7 @@
  * 📈 Trendlines Scanner Page
  * 
  * Detects support and resistance trend lines across 6 exchanges,
- * 200 symbols, and 4 timeframes (1h, 4h, 1d, 1w).
+ * 300 symbols, and 4 timeframes (1h, 4h, 1d, 1w).
  * 
  * Uses 2-candle break confirmation for line invalidation.
  * All computation happens server-side (Firebase), frontend only displays results.

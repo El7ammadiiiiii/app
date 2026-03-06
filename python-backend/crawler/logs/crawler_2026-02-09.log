@@ -1,0 +1,1700 @@
+2026-02-09 01:17:47 | INFO    | ════════════════════════════════════════════════════════════
+2026-02-09 01:17:47 | INFO    | 🔗 بدء زحف: Ethereum (https://etherscan.io)
+2026-02-09 01:17:47 | INFO    | ════════════════════════════════════════════════════════════
+2026-02-09 01:17:47 | INFO    |   📄 زحف: homepage → https://etherscan.io/
+2026-02-09 01:17:47 | DEBUG   | 🔗 [1/5] جلب: https://etherscan.io/
+2026-02-09 01:17:48 | ERROR   | 🔌 خطأ اتصال: ClientResponseError: 400, message='Can not decode content-encoding: brotli (br). Please install `Brotli`', url='https://etherscan.io/'
+2026-02-09 01:18:03 | DEBUG   | 🔗 [2/5] جلب: https://etherscan.io/
+2026-02-09 01:18:03 | ERROR   | 🔌 خطأ اتصال: ClientResponseError: 400, message='Can not decode content-encoding: brotli (br). Please install `Brotli`', url='https://etherscan.io/'
+2026-02-09 01:18:33 | DEBUG   | 🔗 [3/5] جلب: https://etherscan.io/
+2026-02-09 01:18:34 | ERROR   | 🔌 خطأ اتصال: ClientResponseError: 400, message='Can not decode content-encoding: brotli (br). Please install `Brotli`', url='https://etherscan.io/'
+2026-02-09 01:19:33 | INFO    | ════════════════════════════════════════════════════════════
+2026-02-09 01:19:33 | INFO    | 🔗 بدء زحف: Ethereum (https://etherscan.io)
+2026-02-09 01:19:33 | INFO    | ════════════════════════════════════════════════════════════
+2026-02-09 01:19:33 | INFO    |   📄 زحف: homepage → https://etherscan.io/
+2026-02-09 01:19:33 | DEBUG   | 🔗 [1/5] جلب: https://etherscan.io/
+2026-02-09 01:19:46 | ERROR   | 🔌 خطأ اتصال: ClientConnectorDNSError: Cannot connect to host etherscan.io:443 ssl:default [Timeout while contacting DNS servers]
+2026-02-09 01:20:01 | DEBUG   | 🔗 [2/5] جلب: https://etherscan.io/
+2026-02-09 01:20:12 | ERROR   | 🔌 خطأ اتصال: ClientConnectorDNSError: Cannot connect to host etherscan.io:443 ssl:default [Timeout while contacting DNS servers]
+2026-02-09 01:20:42 | DEBUG   | 🔗 [3/5] جلب: https://etherscan.io/
+2026-02-09 01:20:52 | ERROR   | 🔌 خطأ اتصال: ClientConnectorDNSError: Cannot connect to host etherscan.io:443 ssl:default [Timeout while contacting DNS servers]
+2026-02-09 01:21:37 | DEBUG   | 🔗 [4/5] جلب: https://etherscan.io/
+2026-02-09 01:21:48 | ERROR   | 🔌 خطأ اتصال: ClientConnectorDNSError: Cannot connect to host etherscan.io:443 ssl:default [Timeout while contacting DNS servers]
+2026-02-09 01:23:03 | INFO    | ════════════════════════════════════════════════════════════
+2026-02-09 01:23:03 | INFO    | 🔗 بدء زحف: Ethereum (https://etherscan.io)
+2026-02-09 01:23:03 | INFO    | ════════════════════════════════════════════════════════════
+2026-02-09 01:23:03 | INFO    |   📄 زحف: homepage → https://etherscan.io/
+2026-02-09 01:23:03 | DEBUG   | 🔗 [1/5] جلب: https://etherscan.io/
+2026-02-09 01:23:05 | DEBUG   | ✅ تم جلب https://etherscan.io/ (137,254 بايت)
+2026-02-09 01:23:05 | INFO    |   ✅ تم تحليل homepage
+2026-02-09 01:23:05 | INFO    |   📄 زحف: charts → https://etherscan.io/charts
+2026-02-09 01:23:05 | DEBUG   | ⏳ انتظار 2.0ث لـ etherscan.io
+2026-02-09 01:23:06 | DEBUG   | 🔗 [1/5] جلب: https://etherscan.io/charts
+2026-02-09 01:23:13 | DEBUG   | ✅ تم جلب https://etherscan.io/charts (331,686 بايت)
+2026-02-09 01:23:13 | DEBUG   | 📊 تم العثور على 39 رسم بياني متاح
+2026-02-09 01:23:13 | INFO    |   ✅ تم تحليل charts
+2026-02-09 01:23:13 | INFO    | ────────────────────────────────────────────────────────────
+2026-02-09 01:23:13 | INFO    | ✅ اكتمل زحف Ethereum: 2 ناجح، 0 فشل، 9.7ث
+2026-02-09 01:23:13 | INFO    | ════════════════════════════════════════════════════════════
+2026-02-09 01:23:13 | INFO    | 💾 تم حفظ ethereum: crawler/data\latest\ethereum.json
+2026-02-09 01:24:10 | INFO    | ════════════════════════════════════════════════════════════
+2026-02-09 01:24:10 | INFO    | 🔗 بدء زحف: Ethereum (https://etherscan.io)
+2026-02-09 01:24:10 | INFO    | ════════════════════════════════════════════════════════════
+2026-02-09 01:24:10 | INFO    |   📄 زحف: homepage → https://etherscan.io/
+2026-02-09 01:24:10 | DEBUG   | 🔗 [1/5] جلب: https://etherscan.io/
+2026-02-09 01:24:11 | DEBUG   | ✅ تم جلب https://etherscan.io/ (137,263 بايت)
+2026-02-09 01:24:11 | INFO    |   ✅ تم تحليل homepage
+2026-02-09 01:24:11 | INFO    |   📄 زحف: charts → https://etherscan.io/charts
+2026-02-09 01:24:11 | DEBUG   | ⏳ انتظار 2.6ث لـ etherscan.io
+2026-02-09 01:24:14 | DEBUG   | 🔗 [1/5] جلب: https://etherscan.io/charts
+2026-02-09 01:24:15 | DEBUG   | ✅ تم جلب https://etherscan.io/charts (331,687 بايت)
+2026-02-09 01:24:15 | DEBUG   | 📊 تم العثور على 39 رسم بياني متاح
+2026-02-09 01:24:15 | INFO    |   ✅ تم تحليل charts
+2026-02-09 01:24:15 | INFO    |   📄 زحف: accounts → https://etherscan.io/accounts
+2026-02-09 01:24:15 | DEBUG   | ⏳ انتظار 2.1ث لـ etherscan.io
+2026-02-09 01:24:17 | DEBUG   | 🔗 [1/5] جلب: https://etherscan.io/accounts
+2026-02-09 01:24:17 | DEBUG   | ✅ تم جلب https://etherscan.io/accounts (137,227 بايت)
+2026-02-09 01:24:17 | INFO    | ✅ تم استخراج 25 حساب، 0 بورصة
+2026-02-09 01:24:17 | INFO    |   ✅ تم تحليل accounts
+2026-02-09 01:24:17 | INFO    |   📄 زحف: tokens → https://etherscan.io/tokens
+2026-02-09 01:24:17 | DEBUG   | ⏳ انتظار 2.4ث لـ etherscan.io
+2026-02-09 01:24:19 | DEBUG   | 🔗 [1/5] جلب: https://etherscan.io/tokens
+2026-02-09 01:24:20 | DEBUG   | ✅ تم جلب https://etherscan.io/tokens (183,006 بايت)
+2026-02-09 01:24:20 | INFO    | ✅ تم استخراج 50 توكن
+2026-02-09 01:24:20 | INFO    |   ✅ تم تحليل tokens
+2026-02-09 01:24:20 | INFO    |   📄 زحف: gas_tracker → https://etherscan.io/gastracker
+2026-02-09 01:24:20 | DEBUG   | ⏳ انتظار 2.4ث لـ etherscan.io
+2026-02-09 01:24:22 | DEBUG   | 🔗 [1/5] جلب: https://etherscan.io/gastracker
+2026-02-09 01:24:23 | DEBUG   | ✅ تم جلب https://etherscan.io/gastracker (366,026 بايت)
+2026-02-09 01:24:23 | INFO    |   ✅ تم تحليل gas_tracker
+2026-02-09 01:24:23 | INFO    |   📄 زحف: blocks → https://etherscan.io/blocks
+2026-02-09 01:24:23 | DEBUG   | ⏳ انتظار 2.7ث لـ etherscan.io
+2026-02-09 01:24:26 | DEBUG   | 🔗 [1/5] جلب: https://etherscan.io/blocks
+2026-02-09 01:24:26 | DEBUG   | ✅ تم جلب https://etherscan.io/blocks (189,336 بايت)
+2026-02-09 01:24:26 | INFO    | ✅ تم استخراج 25 بلوك
+2026-02-09 01:24:26 | INFO    |   ✅ تم تحليل blocks
+2026-02-09 01:24:26 | INFO    |   📄 زحف: supply → https://etherscan.io/stat/supply
+2026-02-09 01:24:26 | DEBUG   | ⏳ انتظار 2.2ث لـ etherscan.io
+2026-02-09 01:24:28 | DEBUG   | 🔗 [1/5] جلب: https://etherscan.io/stat/supply
+2026-02-09 01:24:29 | DEBUG   | ✅ تم جلب https://etherscan.io/stat/supply (90,623 بايت)
+2026-02-09 01:24:29 | INFO    | ✅ إجمالي المعروض: 120,692,631.85
+2026-02-09 01:24:29 | INFO    |   ✅ تم تحليل supply
+2026-02-09 01:24:29 | INFO    |   📄 زحف: node_tracker → https://etherscan.io/nodetracker
+2026-02-09 01:24:29 | DEBUG   | ⏳ انتظار 2.6ث لـ etherscan.io
+2026-02-09 01:24:31 | DEBUG   | 🔗 [1/5] جلب: https://etherscan.io/nodetracker
+2026-02-09 01:24:35 | DEBUG   | ✅ تم جلب https://etherscan.io/nodetracker (147,735 بايت)
+2026-02-09 01:24:35 | INFO    | ✅ عدد العُقد: 13,708
+2026-02-09 01:24:35 | INFO    |   ✅ تم تحليل node_tracker
+2026-02-09 01:24:35 | INFO    |   📄 زحف: dex → https://etherscan.io/dex
+2026-02-09 01:24:35 | DEBUG   | 🔗 [1/5] جلب: https://etherscan.io/dex
+2026-02-09 01:24:35 | DEBUG   | ✅ تم جلب https://etherscan.io/dex (110,297 بايت)
+2026-02-09 01:24:35 | INFO    |   ✅ تم تحليل dex
+2026-02-09 01:24:35 | INFO    | ────────────────────────────────────────────────────────────
+2026-02-09 01:24:35 | INFO    | ✅ اكتمل زحف Ethereum: 9 ناجح، 0 فشل، 24.73ث
+2026-02-09 01:24:35 | INFO    | ════════════════════════════════════════════════════════════
+2026-02-09 01:24:35 | INFO    | 💾 تم حفظ ethereum: crawler/data\latest\ethereum.json
+2026-02-09 01:24:45 | INFO    | 🚀 بدء زحف 2 سلسلة...
+2026-02-09 01:24:45 | INFO    | ════════════════════════════════════════════════════════════
+2026-02-09 01:24:45 | INFO    | 🔗 بدء زحف: BNB Smart Chain (https://bscscan.com)
+2026-02-09 01:24:45 | INFO    | ════════════════════════════════════════════════════════════
+2026-02-09 01:24:45 | INFO    |   📄 زحف: homepage → https://bscscan.com/
+2026-02-09 01:24:45 | DEBUG   | 🔗 [1/5] جلب: https://bscscan.com/
+2026-02-09 01:24:45 | INFO    | ════════════════════════════════════════════════════════════
+2026-02-09 01:24:45 | INFO    | 🔗 بدء زحف: Polygon (https://polygonscan.com)
+2026-02-09 01:24:45 | INFO    | ════════════════════════════════════════════════════════════
+2026-02-09 01:24:45 | INFO    |   📄 زحف: homepage → https://polygonscan.com/
+2026-02-09 01:24:45 | DEBUG   | 🔗 [1/5] جلب: https://polygonscan.com/
+2026-02-09 01:24:46 | DEBUG   | ✅ تم جلب https://bscscan.com/ (131,700 بايت)
+2026-02-09 01:24:46 | INFO    |   ✅ تم تحليل homepage
+2026-02-09 01:24:46 | INFO    |   📄 زحف: charts → https://bscscan.com/charts
+2026-02-09 01:24:46 | DEBUG   | ⏳ انتظار 2.1ث لـ bscscan.com
+2026-02-09 01:24:46 | DEBUG   | ✅ تم جلب https://polygonscan.com/ (124,801 بايت)
+2026-02-09 01:24:46 | INFO    |   ✅ تم تحليل homepage
+2026-02-09 01:24:46 | INFO    |   📄 زحف: charts → https://polygonscan.com/charts
+2026-02-09 01:24:46 | DEBUG   | ⏳ انتظار 1.4ث لـ polygonscan.com
+2026-02-09 01:24:47 | DEBUG   | 🔗 [1/5] جلب: https://polygonscan.com/charts
+2026-02-09 01:24:48 | DEBUG   | 🔗 [1/5] جلب: https://bscscan.com/charts
+2026-02-09 01:24:48 | DEBUG   | ✅ تم جلب https://polygonscan.com/charts (90,367 بايت)
+2026-02-09 01:24:48 | DEBUG   | 📊 تم العثور على 32 رسم بياني متاح
+2026-02-09 01:24:48 | INFO    |   ✅ تم تحليل charts
+2026-02-09 01:24:48 | INFO    | ────────────────────────────────────────────────────────────
+2026-02-09 01:24:48 | INFO    | ✅ اكتمل زحف Polygon: 2 ناجح، 0 فشل، 3.15ث
+2026-02-09 01:24:48 | INFO    | ════════════════════════════════════════════════════════════
+2026-02-09 01:24:48 | DEBUG   | ✅ تم جلب https://bscscan.com/charts (91,942 بايت)
+2026-02-09 01:24:48 | DEBUG   | 📊 تم العثور على 29 رسم بياني متاح
+2026-02-09 01:24:48 | INFO    |   ✅ تم تحليل charts
+2026-02-09 01:24:48 | INFO    | ────────────────────────────────────────────────────────────
+2026-02-09 01:24:48 | INFO    | ✅ اكتمل زحف BNB Smart Chain: 2 ناجح، 0 فشل، 3.43ث
+2026-02-09 01:24:48 | INFO    | ════════════════════════════════════════════════════════════
+2026-02-09 01:24:48 | INFO    | 
+════════════════════════════════════════════════════════════
+2026-02-09 01:24:48 | INFO    | 📊 ملخص الزحف الكلي:
+2026-02-09 01:24:48 | INFO    |    سلاسل: 2/2
+2026-02-09 01:24:48 | INFO    |    صفحات ناجحة: 4
+2026-02-09 01:24:48 | INFO    |    صفحات فاشلة: 0
+2026-02-09 01:24:48 | INFO    |    وقت إجمالي: 6.6ث
+2026-02-09 01:24:48 | INFO    | ════════════════════════════════════════════════════════════
+2026-02-09 01:24:48 | INFO    | 💾 تم حفظ polygon: crawler/data\latest\polygon.json
+2026-02-09 01:24:48 | INFO    | 💾 تم حفظ bsc: crawler/data\latest\bsc.json
+2026-02-09 01:43:02 | INFO    | ════════════════════════════════════════════════════════════
+2026-02-09 01:43:02 | INFO    | 🔗 بدء زحف Blockscout: Harmony (https://explorer.harmony.one)
+2026-02-09 01:43:02 | INFO    | ════════════════════════════════════════════════════════════
+2026-02-09 01:43:02 | INFO    |   🌐 زيارة الصفحة الرئيسية (جلب كوكيز)...
+2026-02-09 01:43:02 | DEBUG   | 🔗 [1/5] جلب: https://explorer.harmony.one
+2026-02-09 01:43:03 | DEBUG   | ✅ تم جلب https://explorer.harmony.one (175,129 بايت)
+2026-02-09 01:43:03 | INFO    |   🔌 API: stats → https://explorer.harmony.one/api/v2/stats
+2026-02-09 01:43:04 | DEBUG   | 🔌 [1/3] API: https://explorer.harmony.one/api/v2/stats
+2026-02-09 01:43:05 | DEBUG   | ✅ API OK: https://explorer.harmony.one/api/v2/stats
+2026-02-09 01:43:05 | DEBUG   | 📊 Stats: addresses=8,337,437, txns=807,819,631, price=$0.0025, gas_avg=227.17
+2026-02-09 01:43:05 | INFO    |   ✅ تم: stats
+2026-02-09 01:43:05 | INFO    |   🔌 API: tx_chart → https://explorer.harmony.one/api/v2/stats/charts/transactions
+2026-02-09 01:43:06 | DEBUG   | 🔌 [1/3] API: https://explorer.harmony.one/api/v2/stats/charts/transactions
+2026-02-09 01:43:06 | DEBUG   | ✅ API OK: https://explorer.harmony.one/api/v2/stats/charts/transactions
+2026-02-09 01:43:06 | INFO    |   ✅ تم: tx_chart
+2026-02-09 01:43:06 | INFO    |   🔌 API: blocks → https://explorer.harmony.one/api/v2/main-page/blocks
+2026-02-09 01:43:07 | DEBUG   | 🔌 [1/3] API: https://explorer.harmony.one/api/v2/main-page/blocks
+2026-02-09 01:43:07 | DEBUG   | ✅ API OK: https://explorer.harmony.one/api/v2/main-page/blocks
+2026-02-09 01:43:07 | INFO    | ✅ تم استخراج 4 بلوك
+2026-02-09 01:43:07 | INFO    |   ✅ تم: blocks
+2026-02-09 01:43:07 | INFO    |   🔌 API: counters → https://explorer.harmony.one/api/v2/counters
+2026-02-09 01:43:08 | DEBUG   | ⏳ انتظار 1.0ث لـ explorer.harmony.one
+2026-02-09 01:43:09 | DEBUG   | 🔌 [1/3] API: https://explorer.harmony.one/api/v2/counters
+2026-02-09 01:43:09 | WARNING | ❌ حالة 400: https://explorer.harmony.one/api/v2/counters
+2026-02-09 01:43:09 | INFO    |   🔌 API: market_chart → https://explorer.harmony.one/api/v2/stats/charts/market
+2026-02-09 01:43:09 | DEBUG   | ⏳ انتظار 1.7ث لـ explorer.harmony.one
+2026-02-09 01:43:11 | DEBUG   | 🔌 [1/3] API: https://explorer.harmony.one/api/v2/stats/charts/market
+2026-02-09 01:43:11 | DEBUG   | ✅ API OK: https://explorer.harmony.one/api/v2/stats/charts/market
+2026-02-09 01:43:11 | INFO    |   ✅ تم: market_chart
+2026-02-09 01:43:11 | INFO    |   🔌 API: transactions → https://explorer.harmony.one/api/v2/main-page/transactions
+2026-02-09 01:43:11 | DEBUG   | ⏳ انتظار 1.6ث لـ explorer.harmony.one
+2026-02-09 01:43:13 | DEBUG   | 🔌 [1/3] API: https://explorer.harmony.one/api/v2/main-page/transactions
+2026-02-09 01:43:13 | DEBUG   | ✅ API OK: https://explorer.harmony.one/api/v2/main-page/transactions
+2026-02-09 01:43:13 | INFO    |   ✅ تم: transactions
+2026-02-09 01:43:13 | INFO    |   🔌 API: tokens → https://explorer.harmony.one/api/v2/tokens?type=ERC-20
+2026-02-09 01:43:14 | DEBUG   | 🔌 [1/3] API: https://explorer.harmony.one/api/v2/tokens?type=ERC-20
+2026-02-09 01:43:15 | DEBUG   | ✅ API OK: https://explorer.harmony.one/api/v2/tokens?type=ERC-20
+2026-02-09 01:43:15 | INFO    | ✅ تم استخراج 50 توكن
+2026-02-09 01:43:15 | INFO    |   ✅ تم: tokens
+2026-02-09 01:43:15 | INFO    |   🔌 API: addresses → https://explorer.harmony.one/api/v2/addresses
+2026-02-09 01:43:16 | DEBUG   | 🔌 [1/3] API: https://explorer.harmony.one/api/v2/addresses
+2026-02-09 01:43:17 | DEBUG   | ✅ API OK: https://explorer.harmony.one/api/v2/addresses
+2026-02-09 01:43:17 | INFO    | ✅ تم استخراج 50 محفظة، 0 بورصة
+2026-02-09 01:43:17 | INFO    |   ✅ تم: addresses
+2026-02-09 01:43:17 | INFO    | ────────────────────────────────────────────────────────────
+2026-02-09 01:43:17 | INFO    | ✅ اكتمل زحف Blockscout Harmony: 8 ناجح، 1 فشل، 14.26ث
+2026-02-09 01:43:17 | INFO    | ════════════════════════════════════════════════════════════
+2026-02-09 01:43:17 | INFO    | 💾 تم حفظ harmony: crawler/data\latest\harmony.json
+2026-02-09 01:43:29 | INFO    | 🚀 بدء زحف 4 سلسلة Blockscout...
+2026-02-09 01:43:29 | INFO    | ════════════════════════════════════════════════════════════
+2026-02-09 01:43:29 | INFO    | 🔗 بدء زحف Blockscout: Harmony (https://explorer.harmony.one)
+2026-02-09 01:43:29 | INFO    | ════════════════════════════════════════════════════════════
+2026-02-09 01:43:29 | INFO    |   🌐 زيارة الصفحة الرئيسية (جلب كوكيز)...
+2026-02-09 01:43:29 | DEBUG   | 🔗 [1/5] جلب: https://explorer.harmony.one
+2026-02-09 01:43:29 | INFO    | ════════════════════════════════════════════════════════════
+2026-02-09 01:43:29 | INFO    | 🔗 بدء زحف Blockscout: Zora (https://explorer.zora.energy)
+2026-02-09 01:43:29 | INFO    | ════════════════════════════════════════════════════════════
+2026-02-09 01:43:29 | INFO    |   🌐 زيارة الصفحة الرئيسية (جلب كوكيز)...
+2026-02-09 01:43:29 | DEBUG   | 🔗 [1/5] جلب: https://explorer.zora.energy
+2026-02-09 01:43:29 | INFO    | ════════════════════════════════════════════════════════════
+2026-02-09 01:43:29 | INFO    | 🔗 بدء زحف Blockscout: BOB (https://explorer.gobob.xyz)
+2026-02-09 01:43:29 | INFO    | ════════════════════════════════════════════════════════════
+2026-02-09 01:43:29 | INFO    |   🌐 زيارة الصفحة الرئيسية (جلب كوكيز)...
+2026-02-09 01:43:29 | DEBUG   | 🔗 [1/5] جلب: https://explorer.gobob.xyz
+2026-02-09 01:43:30 | DEBUG   | ✅ تم جلب https://explorer.harmony.one (175,129 بايت)
+2026-02-09 01:43:30 | INFO    |   🔌 API: stats → https://explorer.harmony.one/api/v2/stats
+2026-02-09 01:43:30 | DEBUG   | ✅ تم جلب https://explorer.gobob.xyz (78,013 بايت)
+2026-02-09 01:43:30 | INFO    |   🔌 API: stats → https://explorer.gobob.xyz/api/v2/stats
+2026-02-09 01:43:31 | DEBUG   | 🔌 [1/3] API: https://explorer.harmony.one/api/v2/stats
+2026-02-09 01:43:31 | DEBUG   | ✅ تم جلب https://explorer.zora.energy (81,341 بايت)
+2026-02-09 01:43:31 | INFO    |   🔌 API: stats → https://explorer.zora.energy/api/v2/stats
+2026-02-09 01:43:31 | DEBUG   | 🔌 [1/3] API: https://explorer.gobob.xyz/api/v2/stats
+2026-02-09 01:43:31 | DEBUG   | ✅ API OK: https://explorer.gobob.xyz/api/v2/stats
+2026-02-09 01:43:31 | DEBUG   | 📊 Stats: addresses=1,259,995, txns=43,342,068, price=$2090.1205, gas_avg=0.01
+2026-02-09 01:43:31 | INFO    |   ✅ تم: stats
+2026-02-09 01:43:31 | INFO    |   🔌 API: market_chart → https://explorer.gobob.xyz/api/v2/stats/charts/market
+2026-02-09 01:43:32 | DEBUG   | 🔌 [1/3] API: https://explorer.zora.energy/api/v2/stats
+2026-02-09 01:43:32 | DEBUG   | ⏳ انتظار 1.2ث لـ explorer.gobob.xyz
+2026-02-09 01:43:32 | DEBUG   | ✅ API OK: https://explorer.zora.energy/api/v2/stats
+2026-02-09 01:43:32 | DEBUG   | 📊 Stats: addresses=10,238,344, txns=102,641,290, price=$2097.8500, gas_avg=0.01
+2026-02-09 01:43:32 | INFO    |   ✅ تم: stats
+2026-02-09 01:43:32 | INFO    |   🔌 API: market_chart → https://explorer.zora.energy/api/v2/stats/charts/market
+2026-02-09 01:43:32 | DEBUG   | ✅ API OK: https://explorer.harmony.one/api/v2/stats
+2026-02-09 01:43:32 | DEBUG   | 📊 Stats: addresses=8,337,437, txns=807,819,631, price=$0.0025, gas_avg=227.17
+2026-02-09 01:43:32 | INFO    |   ✅ تم: stats
+2026-02-09 01:43:32 | INFO    |   🔌 API: market_chart → https://explorer.harmony.one/api/v2/stats/charts/market
+2026-02-09 01:43:33 | DEBUG   | 🔌 [1/3] API: https://explorer.zora.energy/api/v2/stats/charts/market
+2026-02-09 01:43:33 | DEBUG   | ✅ API OK: https://explorer.zora.energy/api/v2/stats/charts/market
+2026-02-09 01:43:33 | INFO    |   ✅ تم: market_chart
+2026-02-09 01:43:33 | INFO    |   🔌 API: blocks → https://explorer.zora.energy/api/v2/main-page/blocks
+2026-02-09 01:43:33 | DEBUG   | 🔌 [1/3] API: https://explorer.harmony.one/api/v2/stats/charts/market
+2026-02-09 01:43:33 | DEBUG   | 🔌 [1/3] API: https://explorer.gobob.xyz/api/v2/stats/charts/market
+2026-02-09 01:43:33 | DEBUG   | ✅ API OK: https://explorer.harmony.one/api/v2/stats/charts/market
+2026-02-09 01:43:33 | INFO    |   ✅ تم: market_chart
+2026-02-09 01:43:33 | INFO    |   🔌 API: addresses → https://explorer.harmony.one/api/v2/addresses
+2026-02-09 01:43:33 | DEBUG   | ✅ API OK: https://explorer.gobob.xyz/api/v2/stats/charts/market
+2026-02-09 01:43:33 | INFO    |   ✅ تم: market_chart
+2026-02-09 01:43:33 | INFO    |   🔌 API: addresses → https://explorer.gobob.xyz/api/v2/addresses
+2026-02-09 01:43:34 | DEBUG   | 🔌 [1/3] API: https://explorer.zora.energy/api/v2/main-page/blocks
+2026-02-09 01:43:34 | DEBUG   | ⏳ انتظار 1.1ث لـ explorer.harmony.one
+2026-02-09 01:43:34 | DEBUG   | ✅ API OK: https://explorer.zora.energy/api/v2/main-page/blocks
+2026-02-09 01:43:34 | INFO    | ✅ تم استخراج 4 بلوك
+2026-02-09 01:43:34 | INFO    |   ✅ تم: blocks
+2026-02-09 01:43:34 | INFO    |   🔌 API: addresses → https://explorer.zora.energy/api/v2/addresses
+2026-02-09 01:43:34 | DEBUG   | 🔌 [1/3] API: https://explorer.gobob.xyz/api/v2/addresses
+2026-02-09 01:43:35 | DEBUG   | 🔌 [1/3] API: https://explorer.harmony.one/api/v2/addresses
+2026-02-09 01:43:35 | DEBUG   | 🔌 [1/3] API: https://explorer.zora.energy/api/v2/addresses
+2026-02-09 01:43:35 | DEBUG   | ✅ API OK: https://explorer.gobob.xyz/api/v2/addresses
+2026-02-09 01:43:35 | INFO    | ✅ تم استخراج 50 محفظة، 1 بورصة
+2026-02-09 01:43:35 | INFO    |   ✅ تم: addresses
+2026-02-09 01:43:35 | INFO    |   🔌 API: blocks → https://explorer.gobob.xyz/api/v2/main-page/blocks
+2026-02-09 01:43:36 | DEBUG   | 🔌 [1/3] API: https://explorer.gobob.xyz/api/v2/main-page/blocks
+2026-02-09 01:43:36 | DEBUG   | ✅ API OK: https://explorer.harmony.one/api/v2/addresses
+2026-02-09 01:43:36 | INFO    | ✅ تم استخراج 50 محفظة، 0 بورصة
+2026-02-09 01:43:36 | INFO    |   ✅ تم: addresses
+2026-02-09 01:43:36 | INFO    |   🔌 API: blocks → https://explorer.harmony.one/api/v2/main-page/blocks
+2026-02-09 01:43:36 | DEBUG   | ✅ API OK: https://explorer.gobob.xyz/api/v2/main-page/blocks
+2026-02-09 01:43:36 | INFO    | ✅ تم استخراج 4 بلوك
+2026-02-09 01:43:36 | INFO    |   ✅ تم: blocks
+2026-02-09 01:43:36 | INFO    |   🔌 API: counters → https://explorer.gobob.xyz/api/v2/counters
+2026-02-09 01:43:37 | DEBUG   | 🔌 [1/3] API: https://explorer.harmony.one/api/v2/main-page/blocks
+2026-02-09 01:43:37 | DEBUG   | ✅ API OK: https://explorer.harmony.one/api/v2/main-page/blocks
+2026-02-09 01:43:37 | INFO    | ✅ تم استخراج 4 بلوك
+2026-02-09 01:43:37 | INFO    |   ✅ تم: blocks
+2026-02-09 01:43:37 | INFO    |   🔌 API: tokens → https://explorer.harmony.one/api/v2/tokens?type=ERC-20
+2026-02-09 01:43:37 | DEBUG   | 🔌 [1/3] API: https://explorer.gobob.xyz/api/v2/counters
+2026-02-09 01:43:37 | WARNING | ❌ حالة 400: https://explorer.gobob.xyz/api/v2/counters
+2026-02-09 01:43:37 | INFO    |   🔌 API: transactions → https://explorer.gobob.xyz/api/v2/main-page/transactions
+2026-02-09 01:43:38 | DEBUG   | 🔌 [1/3] API: https://explorer.harmony.one/api/v2/tokens?type=ERC-20
+2026-02-09 01:43:38 | DEBUG   | 🔌 [1/3] API: https://explorer.gobob.xyz/api/v2/main-page/transactions
+2026-02-09 01:43:38 | DEBUG   | ✅ API OK: https://explorer.harmony.one/api/v2/tokens?type=ERC-20
+2026-02-09 01:43:38 | INFO    | ✅ تم استخراج 50 توكن
+2026-02-09 01:43:38 | INFO    |   ✅ تم: tokens
+2026-02-09 01:43:38 | INFO    |   🔌 API: transactions → https://explorer.harmony.one/api/v2/main-page/transactions
+2026-02-09 01:43:38 | DEBUG   | ✅ API OK: https://explorer.gobob.xyz/api/v2/main-page/transactions
+2026-02-09 01:43:38 | INFO    |   ✅ تم: transactions
+2026-02-09 01:43:38 | INFO    |   🔌 API: tokens → https://explorer.gobob.xyz/api/v2/tokens?type=ERC-20
+2026-02-09 01:43:38 | DEBUG   | 🔌 [1/3] API: https://explorer.harmony.one/api/v2/main-page/transactions
+2026-02-09 01:43:39 | DEBUG   | ✅ API OK: https://explorer.harmony.one/api/v2/main-page/transactions
+2026-02-09 01:43:39 | INFO    |   ✅ تم: transactions
+2026-02-09 01:43:39 | INFO    |   🔌 API: tx_chart → https://explorer.harmony.one/api/v2/stats/charts/transactions
+2026-02-09 01:43:39 | DEBUG   | 🔌 [1/3] API: https://explorer.gobob.xyz/api/v2/tokens?type=ERC-20
+2026-02-09 01:43:39 | DEBUG   | ✅ API OK: https://explorer.gobob.xyz/api/v2/tokens?type=ERC-20
+2026-02-09 01:43:39 | INFO    | ✅ تم استخراج 50 توكن
+2026-02-09 01:43:39 | INFO    |   ✅ تم: tokens
+2026-02-09 01:43:39 | INFO    |   🔌 API: tx_chart → https://explorer.gobob.xyz/api/v2/stats/charts/transactions
+2026-02-09 01:43:39 | DEBUG   | ✅ API OK: https://explorer.zora.energy/api/v2/addresses
+2026-02-09 01:43:39 | INFO    | ✅ تم استخراج 50 محفظة، 1 بورصة
+2026-02-09 01:43:39 | INFO    |   ✅ تم: addresses
+2026-02-09 01:43:39 | INFO    |   🔌 API: transactions → https://explorer.zora.energy/api/v2/main-page/transactions
+2026-02-09 01:43:40 | DEBUG   | 🔌 [1/3] API: https://explorer.harmony.one/api/v2/stats/charts/transactions
+2026-02-09 01:43:40 | DEBUG   | ✅ API OK: https://explorer.harmony.one/api/v2/stats/charts/transactions
+2026-02-09 01:43:40 | INFO    |   ✅ تم: tx_chart
+2026-02-09 01:43:40 | INFO    |   🔌 API: counters → https://explorer.harmony.one/api/v2/counters
+2026-02-09 01:43:40 | DEBUG   | 🔌 [1/3] API: https://explorer.zora.energy/api/v2/main-page/transactions
+2026-02-09 01:43:40 | DEBUG   | ⏳ انتظار 0.7ث لـ explorer.harmony.one
+2026-02-09 01:43:41 | DEBUG   | 🔌 [1/3] API: https://explorer.gobob.xyz/api/v2/stats/charts/transactions
+2026-02-09 01:43:41 | DEBUG   | ✅ API OK: https://explorer.gobob.xyz/api/v2/stats/charts/transactions
+2026-02-09 01:43:41 | INFO    |   ✅ تم: tx_chart
+2026-02-09 01:43:41 | INFO    | ────────────────────────────────────────────────────────────
+2026-02-09 01:43:41 | INFO    | ✅ اكتمل زحف Blockscout BOB: 8 ناجح، 1 فشل، 11.6ث
+2026-02-09 01:43:41 | INFO    | ════════════════════════════════════════════════════════════
+2026-02-09 01:43:41 | INFO    | ════════════════════════════════════════════════════════════
+2026-02-09 01:43:41 | INFO    | 🔗 بدء زحف Blockscout: Manta Pacific (https://pacific-explorer.manta.network)
+2026-02-09 01:43:41 | INFO    | ════════════════════════════════════════════════════════════
+2026-02-09 01:43:41 | INFO    |   🌐 زيارة الصفحة الرئيسية (جلب كوكيز)...
+2026-02-09 01:43:41 | DEBUG   | 🔗 [1/5] جلب: https://pacific-explorer.manta.network
+2026-02-09 01:43:41 | DEBUG   | 🔌 [1/3] API: https://explorer.harmony.one/api/v2/counters
+2026-02-09 01:43:41 | WARNING | ❌ حالة 400: https://explorer.harmony.one/api/v2/counters
+2026-02-09 01:43:41 | INFO    | ────────────────────────────────────────────────────────────
+2026-02-09 01:43:41 | INFO    | ✅ اكتمل زحف Blockscout Harmony: 8 ناجح، 1 فشل، 11.78ث
+2026-02-09 01:43:41 | INFO    | ════════════════════════════════════════════════════════════
+2026-02-09 01:43:42 | DEBUG   | ✅ API OK: https://explorer.zora.energy/api/v2/main-page/transactions
+2026-02-09 01:43:42 | INFO    |   ✅ تم: transactions
+2026-02-09 01:43:42 | INFO    |   🔌 API: tokens → https://explorer.zora.energy/api/v2/tokens?type=ERC-20
+2026-02-09 01:43:43 | DEBUG   | ✅ تم جلب https://pacific-explorer.manta.network (202,973 بايت)
+2026-02-09 01:43:43 | INFO    |   🔌 API: stats → https://pacific-explorer.manta.network/api/v2/stats
+2026-02-09 01:43:43 | DEBUG   | 🔌 [1/3] API: https://explorer.zora.energy/api/v2/tokens?type=ERC-20
+2026-02-09 01:43:43 | DEBUG   | 🔌 [1/3] API: https://pacific-explorer.manta.network/api/v2/stats
+2026-02-09 01:43:44 | DEBUG   | ✅ API OK: https://pacific-explorer.manta.network/api/v2/stats
+2026-02-09 01:43:44 | DEBUG   | 📊 Stats: addresses=4,953,973, txns=131,222,182, price=$0.0000, gas_avg=0.01
+2026-02-09 01:43:44 | INFO    |   ✅ تم: stats
+2026-02-09 01:43:44 | INFO    |   🔌 API: transactions → https://pacific-explorer.manta.network/api/v2/main-page/transactions
+2026-02-09 01:43:44 | DEBUG   | 🔌 [1/3] API: https://pacific-explorer.manta.network/api/v2/main-page/transactions
+2026-02-09 01:43:45 | DEBUG   | ✅ API OK: https://pacific-explorer.manta.network/api/v2/main-page/transactions
+2026-02-09 01:43:45 | INFO    |   ✅ تم: transactions
+2026-02-09 01:43:45 | INFO    |   🔌 API: counters → https://pacific-explorer.manta.network/api/v2/counters
+2026-02-09 01:43:45 | DEBUG   | ✅ API OK: https://explorer.zora.energy/api/v2/tokens?type=ERC-20
+2026-02-09 01:43:45 | INFO    | ✅ تم استخراج 50 توكن
+2026-02-09 01:43:45 | INFO    |   ✅ تم: tokens
+2026-02-09 01:43:45 | INFO    |   🔌 API: tx_chart → https://explorer.zora.energy/api/v2/stats/charts/transactions
+2026-02-09 01:43:45 | DEBUG   | 🔌 [1/3] API: https://pacific-explorer.manta.network/api/v2/counters
+2026-02-09 01:43:46 | WARNING | ❌ حالة 400: https://pacific-explorer.manta.network/api/v2/counters
+2026-02-09 01:43:46 | INFO    |   🔌 API: tx_chart → https://pacific-explorer.manta.network/api/v2/stats/charts/transactions
+2026-02-09 01:43:46 | DEBUG   | 🔌 [1/3] API: https://explorer.zora.energy/api/v2/stats/charts/transactions
+2026-02-09 01:43:46 | DEBUG   | 🔌 [1/3] API: https://pacific-explorer.manta.network/api/v2/stats/charts/transactions
+2026-02-09 01:43:47 | DEBUG   | ✅ API OK: https://explorer.zora.energy/api/v2/stats/charts/transactions
+2026-02-09 01:43:47 | INFO    |   ✅ تم: tx_chart
+2026-02-09 01:43:47 | INFO    |   🔌 API: counters → https://explorer.zora.energy/api/v2/counters
+2026-02-09 01:43:47 | DEBUG   | ✅ API OK: https://pacific-explorer.manta.network/api/v2/stats/charts/transactions
+2026-02-09 01:43:47 | INFO    |   ✅ تم: tx_chart
+2026-02-09 01:43:47 | INFO    |   🔌 API: market_chart → https://pacific-explorer.manta.network/api/v2/stats/charts/market
+2026-02-09 01:43:47 | DEBUG   | ⏳ انتظار 0.7ث لـ pacific-explorer.manta.network
+2026-02-09 01:43:47 | DEBUG   | 🔌 [1/3] API: https://explorer.zora.energy/api/v2/counters
+2026-02-09 01:43:48 | WARNING | ❌ حالة 400: https://explorer.zora.energy/api/v2/counters
+2026-02-09 01:43:48 | INFO    | ────────────────────────────────────────────────────────────
+2026-02-09 01:43:48 | INFO    | ✅ اكتمل زحف Blockscout Zora: 8 ناجح، 1 فشل، 18.26ث
+2026-02-09 01:43:48 | INFO    | ════════════════════════════════════════════════════════════
+2026-02-09 01:43:48 | DEBUG   | 🔌 [1/3] API: https://pacific-explorer.manta.network/api/v2/stats/charts/market
+2026-02-09 01:43:48 | DEBUG   | ✅ API OK: https://pacific-explorer.manta.network/api/v2/stats/charts/market
+2026-02-09 01:43:48 | INFO    |   ✅ تم: market_chart
+2026-02-09 01:43:48 | INFO    |   🔌 API: tokens → https://pacific-explorer.manta.network/api/v2/tokens?type=ERC-20
+2026-02-09 01:43:49 | DEBUG   | 🔌 [1/3] API: https://pacific-explorer.manta.network/api/v2/tokens?type=ERC-20
+2026-02-09 01:43:49 | DEBUG   | ✅ API OK: https://pacific-explorer.manta.network/api/v2/tokens?type=ERC-20
+2026-02-09 01:43:49 | INFO    | ✅ تم استخراج 50 توكن
+2026-02-09 01:43:49 | INFO    |   ✅ تم: tokens
+2026-02-09 01:43:49 | INFO    |   🔌 API: addresses → https://pacific-explorer.manta.network/api/v2/addresses
+2026-02-09 01:43:50 | DEBUG   | 🔌 [1/3] API: https://pacific-explorer.manta.network/api/v2/addresses
+2026-02-09 01:43:53 | DEBUG   | ✅ API OK: https://pacific-explorer.manta.network/api/v2/addresses
+2026-02-09 01:43:53 | INFO    | ✅ تم استخراج 50 محفظة، 0 بورصة
+2026-02-09 01:43:53 | INFO    |   ✅ تم: addresses
+2026-02-09 01:43:53 | INFO    |   🔌 API: blocks → https://pacific-explorer.manta.network/api/v2/main-page/blocks
+2026-02-09 01:43:54 | DEBUG   | 🔌 [1/3] API: https://pacific-explorer.manta.network/api/v2/main-page/blocks
+2026-02-09 01:43:55 | DEBUG   | ✅ API OK: https://pacific-explorer.manta.network/api/v2/main-page/blocks
+2026-02-09 01:43:55 | INFO    | ✅ تم استخراج 4 بلوك
+2026-02-09 01:43:55 | INFO    |   ✅ تم: blocks
+2026-02-09 01:43:55 | INFO    | ────────────────────────────────────────────────────────────
+2026-02-09 01:43:55 | INFO    | ✅ اكتمل زحف Blockscout Manta Pacific: 8 ناجح، 1 فشل، 13.64ث
+2026-02-09 01:43:55 | INFO    | ════════════════════════════════════════════════════════════
+2026-02-09 01:43:55 | INFO    | ════════════════════════════════════════════════════════════
+2026-02-09 01:43:55 | INFO    | 📊 ملخص Blockscout:
+2026-02-09 01:43:55 | INFO    |   سلاسل: 4/4
+2026-02-09 01:43:55 | INFO    |   صفحات ناجحة: 32
+2026-02-09 01:43:55 | INFO    |   صفحات فاشلة: 4
+2026-02-09 01:43:55 | INFO    |   وقت إجمالي: 55.3ث
+2026-02-09 01:43:55 | INFO    | ════════════════════════════════════════════════════════════
+2026-02-09 01:43:55 | INFO    | 💾 تم حفظ harmony: crawler/data\latest\harmony.json
+2026-02-09 01:43:55 | INFO    | 💾 تم حفظ zora: crawler/data\latest\zora.json
+2026-02-09 01:43:55 | INFO    | 💾 تم حفظ bob: crawler/data\latest\bob.json
+2026-02-09 01:43:55 | INFO    | 💾 تم حفظ manta_pacific: crawler/data\latest\manta_pacific.json
+2026-02-09 01:44:16 | INFO    | ════════════════════════════════════════════════════════════
+2026-02-09 01:44:16 | INFO    | 🔗 بدء زحف: Ethereum (https://etherscan.io)
+2026-02-09 01:44:16 | INFO    | ════════════════════════════════════════════════════════════
+2026-02-09 01:44:16 | INFO    |   📄 زحف: homepage → https://etherscan.io/
+2026-02-09 01:44:16 | DEBUG   | 🔗 [1/5] جلب: https://etherscan.io/
+2026-02-09 01:44:17 | DEBUG   | ✅ تم جلب https://etherscan.io/ (137,052 بايت)
+2026-02-09 01:44:17 | INFO    |   ✅ تم تحليل homepage
+2026-02-09 01:44:17 | INFO    |   📄 زحف: charts → https://etherscan.io/charts
+2026-02-09 01:44:17 | DEBUG   | ⏳ انتظار 2.5ث لـ etherscan.io
+2026-02-09 01:44:19 | DEBUG   | 🔗 [1/5] جلب: https://etherscan.io/charts
+2026-02-09 01:44:20 | DEBUG   | ✅ تم جلب https://etherscan.io/charts (331,683 بايت)
+2026-02-09 01:44:20 | DEBUG   | 📊 تم العثور على 39 رسم بياني متاح
+2026-02-09 01:44:20 | INFO    |   ✅ تم تحليل charts
+2026-02-09 01:44:20 | INFO    |   📄 زحف: accounts → https://etherscan.io/accounts
+2026-02-09 01:44:20 | DEBUG   | ⏳ انتظار 2.5ث لـ etherscan.io
+2026-02-09 01:44:23 | DEBUG   | 🔗 [1/5] جلب: https://etherscan.io/accounts
+2026-02-09 01:44:23 | DEBUG   | ✅ تم جلب https://etherscan.io/accounts (137,224 بايت)
+2026-02-09 01:44:23 | INFO    | ✅ تم استخراج 25 حساب، 0 بورصة
+2026-02-09 01:44:23 | INFO    |   ✅ تم تحليل accounts
+2026-02-09 01:44:23 | INFO    |   📄 زحف: tokens → https://etherscan.io/tokens
+2026-02-09 01:44:23 | DEBUG   | ⏳ انتظار 2.8ث لـ etherscan.io
+2026-02-09 01:44:26 | DEBUG   | 🔗 [1/5] جلب: https://etherscan.io/tokens
+2026-02-09 01:44:26 | DEBUG   | ✅ تم جلب https://etherscan.io/tokens (183,101 بايت)
+2026-02-09 01:44:26 | INFO    | ✅ تم استخراج 50 توكن
+2026-02-09 01:44:26 | INFO    |   ✅ تم تحليل tokens
+2026-02-09 01:44:26 | INFO    |   📄 زحف: gas_tracker → https://etherscan.io/gastracker
+2026-02-09 01:44:26 | DEBUG   | ⏳ انتظار 2.3ث لـ etherscan.io
+2026-02-09 01:44:29 | DEBUG   | 🔗 [1/5] جلب: https://etherscan.io/gastracker
+2026-02-09 01:44:29 | DEBUG   | ✅ تم جلب https://etherscan.io/gastracker (366,026 بايت)
+2026-02-09 01:44:29 | INFO    |   ✅ تم تحليل gas_tracker
+2026-02-09 01:44:29 | INFO    |   📄 زحف: blocks → https://etherscan.io/blocks
+2026-02-09 01:44:29 | DEBUG   | ⏳ انتظار 3.0ث لـ etherscan.io
+2026-02-09 01:44:32 | DEBUG   | 🔗 [1/5] جلب: https://etherscan.io/blocks
+2026-02-09 01:44:32 | DEBUG   | ✅ تم جلب https://etherscan.io/blocks (188,927 بايت)
+2026-02-09 01:44:32 | INFO    | ✅ تم استخراج 25 بلوك
+2026-02-09 01:44:32 | INFO    |   ✅ تم تحليل blocks
+2026-02-09 01:44:32 | INFO    |   📄 زحف: supply → https://etherscan.io/stat/supply
+2026-02-09 01:44:32 | DEBUG   | ⏳ انتظار 2.5ث لـ etherscan.io
+2026-02-09 01:44:35 | DEBUG   | 🔗 [1/5] جلب: https://etherscan.io/stat/supply
+2026-02-09 01:44:35 | DEBUG   | ✅ تم جلب https://etherscan.io/stat/supply (90,623 بايت)
+2026-02-09 01:44:35 | INFO    | ✅ إجمالي المعروض: 120,692,631.85
+2026-02-09 01:44:35 | INFO    |   ✅ تم تحليل supply
+2026-02-09 01:44:35 | INFO    |   📄 زحف: node_tracker → https://etherscan.io/nodetracker
+2026-02-09 01:44:35 | DEBUG   | ⏳ انتظار 2.7ث لـ etherscan.io
+2026-02-09 01:44:38 | DEBUG   | 🔗 [1/5] جلب: https://etherscan.io/nodetracker
+2026-02-09 01:44:42 | DEBUG   | ✅ تم جلب https://etherscan.io/nodetracker (147,832 بايت)
+2026-02-09 01:44:42 | INFO    | ✅ عدد العُقد: 13,708
+2026-02-09 01:44:42 | INFO    |   ✅ تم تحليل node_tracker
+2026-02-09 01:44:42 | INFO    |   📄 زحف: dex → https://etherscan.io/dex
+2026-02-09 01:44:42 | DEBUG   | 🔗 [1/5] جلب: https://etherscan.io/dex
+2026-02-09 01:44:42 | DEBUG   | ✅ تم جلب https://etherscan.io/dex (110,297 بايت)
+2026-02-09 01:44:42 | INFO    |   ✅ تم تحليل dex
+2026-02-09 01:44:42 | INFO    | ────────────────────────────────────────────────────────────
+2026-02-09 01:44:42 | INFO    | ✅ اكتمل زحف Ethereum: 9 ناجح، 0 فشل، 25.91ث
+2026-02-09 01:44:42 | INFO    | ════════════════════════════════════════════════════════════
+2026-02-09 01:44:42 | INFO    | 💾 تم حفظ ethereum: crawler/data\latest\ethereum.json
+2026-02-09 01:44:42 | INFO    | ════════════════════════════════════════════════════════════
+2026-02-09 01:44:42 | INFO    | ════════════════════════════════════════════════════════════
+2026-02-09 01:44:42 | INFO    | 🔗 بدء زحف Blockscout: Harmony (https://explorer.harmony.one)
+2026-02-09 01:44:42 | INFO    | 🔗 بدء زحف Blockscout: Harmony (https://explorer.harmony.one)
+2026-02-09 01:44:42 | INFO    | ════════════════════════════════════════════════════════════
+2026-02-09 01:44:42 | INFO    | ════════════════════════════════════════════════════════════
+2026-02-09 01:44:42 | INFO    |   🌐 زيارة الصفحة الرئيسية (جلب كوكيز)...
+2026-02-09 01:44:42 | INFO    |   🌐 زيارة الصفحة الرئيسية (جلب كوكيز)...
+2026-02-09 01:44:42 | DEBUG   | 🔗 [1/5] جلب: https://explorer.harmony.one
+2026-02-09 01:44:42 | DEBUG   | 🔗 [1/5] جلب: https://explorer.harmony.one
+2026-02-09 01:44:44 | DEBUG   | ✅ تم جلب https://explorer.harmony.one (175,129 بايت)
+2026-02-09 01:44:44 | DEBUG   | ✅ تم جلب https://explorer.harmony.one (175,129 بايت)
+2026-02-09 01:44:44 | INFO    |   🔌 API: stats → https://explorer.harmony.one/api/v2/stats
+2026-02-09 01:44:44 | INFO    |   🔌 API: stats → https://explorer.harmony.one/api/v2/stats
+2026-02-09 01:44:44 | DEBUG   | 🔌 [1/3] API: https://explorer.harmony.one/api/v2/stats
+2026-02-09 01:44:44 | DEBUG   | 🔌 [1/3] API: https://explorer.harmony.one/api/v2/stats
+2026-02-09 01:44:47 | DEBUG   | ✅ API OK: https://explorer.harmony.one/api/v2/stats
+2026-02-09 01:44:47 | DEBUG   | ✅ API OK: https://explorer.harmony.one/api/v2/stats
+2026-02-09 01:44:47 | DEBUG   | 📊 Stats: addresses=8,337,437, txns=807,819,631, price=$0.0025, gas_avg=227.17
+2026-02-09 01:44:47 | DEBUG   | 📊 Stats: addresses=8,337,437, txns=807,819,631, price=$0.0025, gas_avg=227.17
+2026-02-09 01:44:47 | INFO    |   ✅ تم: stats
+2026-02-09 01:44:47 | INFO    |   ✅ تم: stats
+2026-02-09 01:44:47 | INFO    |   🔌 API: tokens → https://explorer.harmony.one/api/v2/tokens?type=ERC-20
+2026-02-09 01:44:47 | INFO    |   🔌 API: tokens → https://explorer.harmony.one/api/v2/tokens?type=ERC-20
+2026-02-09 01:44:48 | DEBUG   | 🔌 [1/3] API: https://explorer.harmony.one/api/v2/tokens?type=ERC-20
+2026-02-09 01:44:48 | DEBUG   | 🔌 [1/3] API: https://explorer.harmony.one/api/v2/tokens?type=ERC-20
+2026-02-09 01:44:49 | DEBUG   | ✅ API OK: https://explorer.harmony.one/api/v2/tokens?type=ERC-20
+2026-02-09 01:44:49 | DEBUG   | ✅ API OK: https://explorer.harmony.one/api/v2/tokens?type=ERC-20
+2026-02-09 01:44:49 | INFO    | ✅ تم استخراج 50 توكن
+2026-02-09 01:44:49 | INFO    | ✅ تم استخراج 50 توكن
+2026-02-09 01:44:49 | INFO    |   ✅ تم: tokens
+2026-02-09 01:44:49 | INFO    |   ✅ تم: tokens
+2026-02-09 01:44:49 | INFO    |   🔌 API: market_chart → https://explorer.harmony.one/api/v2/stats/charts/market
+2026-02-09 01:44:49 | INFO    |   🔌 API: market_chart → https://explorer.harmony.one/api/v2/stats/charts/market
+2026-02-09 01:44:49 | DEBUG   | 🔌 [1/3] API: https://explorer.harmony.one/api/v2/stats/charts/market
+2026-02-09 01:44:49 | DEBUG   | 🔌 [1/3] API: https://explorer.harmony.one/api/v2/stats/charts/market
+2026-02-09 01:44:49 | DEBUG   | ✅ API OK: https://explorer.harmony.one/api/v2/stats/charts/market
+2026-02-09 01:44:49 | DEBUG   | ✅ API OK: https://explorer.harmony.one/api/v2/stats/charts/market
+2026-02-09 01:44:49 | INFO    |   ✅ تم: market_chart
+2026-02-09 01:44:49 | INFO    |   ✅ تم: market_chart
+2026-02-09 01:44:49 | INFO    |   🔌 API: blocks → https://explorer.harmony.one/api/v2/main-page/blocks
+2026-02-09 01:44:49 | INFO    |   🔌 API: blocks → https://explorer.harmony.one/api/v2/main-page/blocks
+2026-02-09 01:44:50 | DEBUG   | ⏳ انتظار 1.1ث لـ explorer.harmony.one
+2026-02-09 01:44:50 | DEBUG   | ⏳ انتظار 1.1ث لـ explorer.harmony.one
+2026-02-09 01:44:51 | DEBUG   | 🔌 [1/3] API: https://explorer.harmony.one/api/v2/main-page/blocks
+2026-02-09 01:44:51 | DEBUG   | 🔌 [1/3] API: https://explorer.harmony.one/api/v2/main-page/blocks
+2026-02-09 01:44:51 | DEBUG   | ✅ API OK: https://explorer.harmony.one/api/v2/main-page/blocks
+2026-02-09 01:44:51 | DEBUG   | ✅ API OK: https://explorer.harmony.one/api/v2/main-page/blocks
+2026-02-09 01:44:51 | INFO    | ✅ تم استخراج 4 بلوك
+2026-02-09 01:44:51 | INFO    | ✅ تم استخراج 4 بلوك
+2026-02-09 01:44:51 | INFO    |   ✅ تم: blocks
+2026-02-09 01:44:51 | INFO    |   ✅ تم: blocks
+2026-02-09 01:44:51 | INFO    |   🔌 API: transactions → https://explorer.harmony.one/api/v2/main-page/transactions
+2026-02-09 01:44:51 | INFO    |   🔌 API: transactions → https://explorer.harmony.one/api/v2/main-page/transactions
+2026-02-09 01:44:52 | DEBUG   | 🔌 [1/3] API: https://explorer.harmony.one/api/v2/main-page/transactions
+2026-02-09 01:44:52 | DEBUG   | 🔌 [1/3] API: https://explorer.harmony.one/api/v2/main-page/transactions
+2026-02-09 01:44:52 | DEBUG   | ✅ API OK: https://explorer.harmony.one/api/v2/main-page/transactions
+2026-02-09 01:44:52 | DEBUG   | ✅ API OK: https://explorer.harmony.one/api/v2/main-page/transactions
+2026-02-09 01:44:52 | INFO    |   ✅ تم: transactions
+2026-02-09 01:44:52 | INFO    |   ✅ تم: transactions
+2026-02-09 01:44:52 | INFO    |   🔌 API: tx_chart → https://explorer.harmony.one/api/v2/stats/charts/transactions
+2026-02-09 01:44:52 | INFO    |   🔌 API: tx_chart → https://explorer.harmony.one/api/v2/stats/charts/transactions
+2026-02-09 01:44:53 | DEBUG   | 🔌 [1/3] API: https://explorer.harmony.one/api/v2/stats/charts/transactions
+2026-02-09 01:44:53 | DEBUG   | 🔌 [1/3] API: https://explorer.harmony.one/api/v2/stats/charts/transactions
+2026-02-09 01:44:53 | DEBUG   | ✅ API OK: https://explorer.harmony.one/api/v2/stats/charts/transactions
+2026-02-09 01:44:53 | DEBUG   | ✅ API OK: https://explorer.harmony.one/api/v2/stats/charts/transactions
+2026-02-09 01:44:53 | INFO    |   ✅ تم: tx_chart
+2026-02-09 01:44:53 | INFO    |   ✅ تم: tx_chart
+2026-02-09 01:44:53 | INFO    |   🔌 API: addresses → https://explorer.harmony.one/api/v2/addresses
+2026-02-09 01:44:53 | INFO    |   🔌 API: addresses → https://explorer.harmony.one/api/v2/addresses
+2026-02-09 01:44:54 | DEBUG   | 🔌 [1/3] API: https://explorer.harmony.one/api/v2/addresses
+2026-02-09 01:44:54 | DEBUG   | 🔌 [1/3] API: https://explorer.harmony.one/api/v2/addresses
+2026-02-09 01:44:55 | DEBUG   | ✅ API OK: https://explorer.harmony.one/api/v2/addresses
+2026-02-09 01:44:55 | DEBUG   | ✅ API OK: https://explorer.harmony.one/api/v2/addresses
+2026-02-09 01:44:55 | INFO    | ✅ تم استخراج 50 محفظة، 0 بورصة
+2026-02-09 01:44:55 | INFO    | ✅ تم استخراج 50 محفظة، 0 بورصة
+2026-02-09 01:44:55 | INFO    |   ✅ تم: addresses
+2026-02-09 01:44:55 | INFO    |   ✅ تم: addresses
+2026-02-09 01:44:55 | INFO    | ────────────────────────────────────────────────────────────
+2026-02-09 01:44:55 | INFO    | ────────────────────────────────────────────────────────────
+2026-02-09 01:44:55 | INFO    | ✅ اكتمل زحف Blockscout Harmony: 8 ناجح، 0 فشل، 12.84ث
+2026-02-09 01:44:55 | INFO    | ✅ اكتمل زحف Blockscout Harmony: 8 ناجح، 0 فشل، 12.84ث
+2026-02-09 01:44:55 | INFO    | ════════════════════════════════════════════════════════════
+2026-02-09 01:44:55 | INFO    | ════════════════════════════════════════════════════════════
+2026-02-09 01:44:55 | INFO    | 💾 تم حفظ harmony: crawler/data\latest\harmony.json
+2026-02-09 01:44:55 | INFO    | 💾 تم حفظ harmony: crawler/data\latest\harmony.json
+2026-02-09 02:00:17 | INFO    | ════════════════════════════════════════════════════════════
+2026-02-09 02:00:17 | INFO    | 🌐 بدء زحف Independent: MultiversX (https://explorer.multiversx.com)
+2026-02-09 02:00:17 | INFO    |   📋 النوع: API
+2026-02-09 02:00:17 | INFO    | ════════════════════════════════════════════════════════════
+2026-02-09 02:00:17 | INFO    |   🌐 زيارة الصفحة الرئيسية...
+2026-02-09 02:00:17 | DEBUG   | 🔗 [1/5] جلب: https://explorer.multiversx.com
+2026-02-09 02:00:18 | DEBUG   | ✅ تم جلب https://explorer.multiversx.com (3,522 بايت)
+2026-02-09 02:00:18 | INFO    |   ✅ تم: homepage HTML
+2026-02-09 02:00:18 | INFO    |   🔌 API: stats → https://api.multiversx.com/stats
+2026-02-09 02:00:19 | DEBUG   | 🔌 [1/3] API: https://api.multiversx.com/stats
+2026-02-09 02:00:21 | DEBUG   | ✅ API OK: https://api.multiversx.com/stats
+2026-02-09 02:00:21 | INFO    |   ✅ تم: stats
+2026-02-09 02:00:21 | INFO    |   🔌 API: economics → https://api.multiversx.com/economics
+2026-02-09 02:00:22 | DEBUG   | 🔌 [1/3] API: https://api.multiversx.com/economics
+2026-02-09 02:00:22 | DEBUG   | ✅ API OK: https://api.multiversx.com/economics
+2026-02-09 02:00:22 | INFO    |   ✅ تم: economics
+2026-02-09 02:00:22 | INFO    |   🔌 API: tokens → https://api.multiversx.com/tokens?size=50
+2026-02-09 02:00:23 | DEBUG   | 🔌 [1/3] API: https://api.multiversx.com/tokens?size=50
+2026-02-09 02:00:23 | DEBUG   | ✅ API OK: https://api.multiversx.com/tokens?size=50
+2026-02-09 02:00:23 | INFO    |   ✅ تم: tokens
+2026-02-09 02:00:23 | INFO    |   🔌 API: accounts → https://api.multiversx.com/accounts?size=50&sort=balance&order=desc
+2026-02-09 02:00:25 | DEBUG   | 🔌 [1/3] API: https://api.multiversx.com/accounts?size=50&sort=balance&order=desc
+2026-02-09 02:00:25 | DEBUG   | ✅ API OK: https://api.multiversx.com/accounts?size=50&sort=balance&order=desc
+2026-02-09 02:00:25 | INFO    |   ✅ تم: accounts
+2026-02-09 02:00:25 | INFO    | ────────────────────────────────────────────────────────────
+2026-02-09 02:00:25 | INFO    | ✅ اكتمل Independent MultiversX: 5 ناجح، 0 فشل، 7.75ث
+2026-02-09 02:00:25 | INFO    | ════════════════════════════════════════════════════════════
+2026-02-09 02:00:37 | INFO    | ════════════════════════════════════════════════════════════
+2026-02-09 02:00:37 | INFO    | 🌐 بدء زحف Independent: Tron (https://tronscan.org)
+2026-02-09 02:00:37 | INFO    |   📋 النوع: API
+2026-02-09 02:00:37 | INFO    | ════════════════════════════════════════════════════════════
+2026-02-09 02:00:37 | INFO    |   🌐 زيارة الصفحة الرئيسية...
+2026-02-09 02:00:37 | DEBUG   | 🔗 [1/5] جلب: https://tronscan.org
+2026-02-09 02:00:38 | ERROR   | 🚫 403 Forbidden — الموقع يحظر الزحف: https://tronscan.org
+2026-02-09 02:00:38 | INFO    | 🔄 إعادة محاولة بعد 71ث مع UA جديد...
+2026-02-09 02:01:49 | DEBUG   | 🔗 [2/5] جلب: https://tronscan.org
+2026-02-09 02:01:49 | ERROR   | 🚫 403 Forbidden — الموقع يحظر الزحف: https://tronscan.org
+2026-02-09 02:01:49 | INFO    | 🔄 إعادة محاولة بعد 135ث مع UA جديد...
+2026-02-09 02:02:53 | WARNING | 🚫 تم إلغاء الطلب: https://tronscan.org
+2026-02-09 02:02:53 | INFO    |   🔌 API: status → https://apilist.tronscan.org/api/system/status
+2026-02-09 02:02:54 | DEBUG   | 🔌 [1/3] API: https://apilist.tronscan.org/api/system/status
+2026-02-09 02:02:55 | DEBUG   | ✅ API OK: https://apilist.tronscan.org/api/system/status
+2026-02-09 02:02:55 | INFO    |   ✅ تم: status
+2026-02-09 02:02:55 | INFO    |   🔌 API: accounts → https://apilist.tronscan.org/api/account/list?sort=-balance&limit=50&start=0
+2026-02-09 02:02:56 | DEBUG   | 🔌 [1/3] API: https://apilist.tronscan.org/api/account/list?sort=-balance&limit=50&start=0
+2026-02-09 02:02:57 | DEBUG   | ✅ API OK: https://apilist.tronscan.org/api/account/list?sort=-balance&limit=50&start=0
+2026-02-09 02:02:57 | INFO    |   ✅ تم: accounts
+2026-02-09 02:02:57 | INFO    | ────────────────────────────────────────────────────────────
+2026-02-09 02:02:57 | INFO    | ✅ اكتمل Independent Tron: 2 ناجح، 0 فشل، 139.22ث
+2026-02-09 02:02:57 | INFO    | ════════════════════════════════════════════════════════════
+2026-02-09 02:02:57 | INFO    | ════════════════════════════════════════════════════════════
+2026-02-09 02:02:57 | INFO    | 🌐 بدء زحف Independent: Kaspa (https://explorer.kaspa.org)
+2026-02-09 02:02:57 | INFO    |   📋 النوع: API
+2026-02-09 02:02:57 | INFO    | ════════════════════════════════════════════════════════════
+2026-02-09 02:02:57 | INFO    |   🌐 زيارة الصفحة الرئيسية...
+2026-02-09 02:02:57 | DEBUG   | 🔗 [1/5] جلب: https://explorer.kaspa.org
+2026-02-09 02:02:58 | DEBUG   | ✅ تم جلب https://explorer.kaspa.org (93,409 بايت)
+2026-02-09 02:02:58 | INFO    |   ✅ تم: homepage HTML
+2026-02-09 02:02:58 | INFO    |   🔌 API: network → https://api.kaspa.org/info/network
+2026-02-09 02:02:59 | DEBUG   | 🔌 [1/3] API: https://api.kaspa.org/info/network
+2026-02-09 02:03:00 | DEBUG   | ✅ API OK: https://api.kaspa.org/info/network
+2026-02-09 02:03:00 | INFO    |   ✅ تم: network
+2026-02-09 02:03:00 | INFO    |   🔌 API: hashrate → https://api.kaspa.org/info/hashrate
+2026-02-09 02:03:01 | DEBUG   | 🔌 [1/3] API: https://api.kaspa.org/info/hashrate
+2026-02-09 02:03:01 | DEBUG   | ✅ API OK: https://api.kaspa.org/info/hashrate
+2026-02-09 02:03:01 | INFO    |   ✅ تم: hashrate
+2026-02-09 02:03:01 | INFO    |   🔌 API: blockreward → https://api.kaspa.org/info/blockreward
+2026-02-09 02:03:02 | DEBUG   | 🔌 [1/3] API: https://api.kaspa.org/info/blockreward
+2026-02-09 02:03:02 | DEBUG   | ✅ API OK: https://api.kaspa.org/info/blockreward
+2026-02-09 02:03:02 | INFO    |   ✅ تم: blockreward
+2026-02-09 02:03:02 | INFO    |   🔌 API: supply_circulating → https://api.kaspa.org/info/coinsupply/circulating
+2026-02-09 02:03:03 | DEBUG   | 🔌 [1/3] API: https://api.kaspa.org/info/coinsupply/circulating
+2026-02-09 02:03:03 | DEBUG   | ✅ API OK: https://api.kaspa.org/info/coinsupply/circulating
+2026-02-09 02:03:03 | INFO    |   ✅ تم: supply_circulating
+2026-02-09 02:03:03 | INFO    |   🔌 API: supply → https://api.kaspa.org/info/coinsupply
+2026-02-09 02:03:04 | DEBUG   | 🔌 [1/3] API: https://api.kaspa.org/info/coinsupply
+2026-02-09 02:03:04 | DEBUG   | ✅ API OK: https://api.kaspa.org/info/coinsupply
+2026-02-09 02:03:04 | INFO    |   ✅ تم: supply
+2026-02-09 02:03:04 | INFO    | ────────────────────────────────────────────────────────────
+2026-02-09 02:03:04 | INFO    | ✅ اكتمل Independent Kaspa: 6 ناجح، 0 فشل، 7.16ث
+2026-02-09 02:03:04 | INFO    | ════════════════════════════════════════════════════════════
+2026-02-09 02:03:04 | INFO    | ════════════════════════════════════════════════════════════
+2026-02-09 02:03:04 | INFO    | 🌐 بدء زحف Independent: Ergo (https://explorer.ergoplatform.com)
+2026-02-09 02:03:04 | INFO    |   📋 النوع: API
+2026-02-09 02:03:04 | INFO    | ════════════════════════════════════════════════════════════
+2026-02-09 02:03:04 | INFO    |   🌐 زيارة الصفحة الرئيسية...
+2026-02-09 02:03:04 | DEBUG   | 🔗 [1/5] جلب: https://explorer.ergoplatform.com
+2026-02-09 02:03:04 | DEBUG   | ✅ تم جلب https://explorer.ergoplatform.com (1,132 بايت)
+2026-02-09 02:03:04 | INFO    |   ✅ تم: homepage HTML
+2026-02-09 02:03:04 | INFO    |   🔌 API: info → https://api.ergoplatform.com/api/v1/networkState
+2026-02-09 02:03:05 | DEBUG   | 🔌 [1/3] API: https://api.ergoplatform.com/api/v1/networkState
+2026-02-09 02:03:06 | DEBUG   | ✅ API OK: https://api.ergoplatform.com/api/v1/networkState
+2026-02-09 02:03:06 | INFO    |   ✅ تم: info
+2026-02-09 02:03:06 | INFO    |   🔌 API: blocks → https://api.ergoplatform.com/api/v1/blocks?limit=10
+2026-02-09 02:03:08 | DEBUG   | 🔌 [1/3] API: https://api.ergoplatform.com/api/v1/blocks?limit=10
+2026-02-09 02:03:08 | DEBUG   | ✅ API OK: https://api.ergoplatform.com/api/v1/blocks?limit=10
+2026-02-09 02:03:08 | INFO    |   ✅ تم: blocks
+2026-02-09 02:03:08 | INFO    | ────────────────────────────────────────────────────────────
+2026-02-09 02:03:08 | INFO    | ✅ اكتمل Independent Ergo: 3 ناجح، 0 فشل، 4.14ث
+2026-02-09 02:03:08 | INFO    | ════════════════════════════════════════════════════════════
+2026-02-09 02:03:08 | INFO    | ════════════════════════════════════════════════════════════
+2026-02-09 02:03:08 | INFO    | 🌐 بدء زحف Independent: Decred (https://dcrdata.decred.org)
+2026-02-09 02:03:08 | INFO    |   📋 النوع: API
+2026-02-09 02:03:08 | INFO    | ════════════════════════════════════════════════════════════
+2026-02-09 02:03:08 | INFO    |   🌐 زيارة الصفحة الرئيسية...
+2026-02-09 02:03:08 | DEBUG   | 🔗 [1/5] جلب: https://dcrdata.decred.org
+2026-02-09 02:03:09 | DEBUG   | ✅ تم جلب https://dcrdata.decred.org (48,925 بايت)
+2026-02-09 02:03:09 | INFO    |   ✅ تم: homepage HTML
+2026-02-09 02:03:09 | INFO    |   🔌 API: status → https://dcrdata.decred.org/api/status
+2026-02-09 02:03:11 | DEBUG   | 🔌 [1/3] API: https://dcrdata.decred.org/api/status
+2026-02-09 02:03:11 | DEBUG   | ✅ API OK: https://dcrdata.decred.org/api/status
+2026-02-09 02:03:11 | INFO    |   ✅ تم: status
+2026-02-09 02:03:11 | INFO    |   🔌 API: supply → https://dcrdata.decred.org/api/supply
+2026-02-09 02:03:12 | DEBUG   | 🔌 [1/3] API: https://dcrdata.decred.org/api/supply
+2026-02-09 02:03:12 | DEBUG   | ✅ API OK: https://dcrdata.decred.org/api/supply
+2026-02-09 02:03:12 | INFO    |   ✅ تم: supply
+2026-02-09 02:03:12 | INFO    |   🔌 API: best_block → https://dcrdata.decred.org/api/block/best
+2026-02-09 02:03:13 | DEBUG   | 🔌 [1/3] API: https://dcrdata.decred.org/api/block/best
+2026-02-09 02:03:14 | DEBUG   | ✅ API OK: https://dcrdata.decred.org/api/block/best
+2026-02-09 02:03:14 | INFO    |   ✅ تم: best_block
+2026-02-09 02:03:14 | INFO    | ────────────────────────────────────────────────────────────
+2026-02-09 02:03:14 | INFO    | ✅ اكتمل Independent Decred: 4 ناجح، 0 فشل، 5.7ث
+2026-02-09 02:03:14 | INFO    | ════════════════════════════════════════════════════════════
+2026-02-09 02:03:22 | INFO    | ════════════════════════════════════════════════════════════
+2026-02-09 02:03:22 | INFO    | 🌐 بدء زحف Independent: Kaspa (https://explorer.kaspa.org)
+2026-02-09 02:03:22 | INFO    |   📋 النوع: API
+2026-02-09 02:03:22 | INFO    | ════════════════════════════════════════════════════════════
+2026-02-09 02:03:22 | INFO    |   🌐 زيارة الصفحة الرئيسية...
+2026-02-09 02:03:22 | DEBUG   | 🔗 [1/5] جلب: https://explorer.kaspa.org
+2026-02-09 02:03:22 | DEBUG   | ✅ تم جلب https://explorer.kaspa.org (93,409 بايت)
+2026-02-09 02:03:22 | INFO    |   ✅ تم: homepage HTML
+2026-02-09 02:03:22 | INFO    |   🔌 API: network → https://api.kaspa.org/info/network
+2026-02-09 02:03:23 | DEBUG   | 🔌 [1/3] API: https://api.kaspa.org/info/network
+2026-02-09 02:03:23 | DEBUG   | ✅ API OK: https://api.kaspa.org/info/network
+2026-02-09 02:03:23 | INFO    |   ✅ تم: network
+2026-02-09 02:03:23 | INFO    |   🔌 API: blockreward → https://api.kaspa.org/info/blockreward
+2026-02-09 02:03:25 | DEBUG   | 🔌 [1/3] API: https://api.kaspa.org/info/blockreward
+2026-02-09 02:03:25 | DEBUG   | ✅ API OK: https://api.kaspa.org/info/blockreward
+2026-02-09 02:03:25 | INFO    |   ✅ تم: blockreward
+2026-02-09 02:03:25 | INFO    |   🔌 API: hashrate → https://api.kaspa.org/info/hashrate
+2026-02-09 02:03:26 | DEBUG   | 🔌 [1/3] API: https://api.kaspa.org/info/hashrate
+2026-02-09 02:03:26 | DEBUG   | ✅ API OK: https://api.kaspa.org/info/hashrate
+2026-02-09 02:03:26 | INFO    |   ✅ تم: hashrate
+2026-02-09 02:03:26 | INFO    |   🔌 API: supply → https://api.kaspa.org/info/coinsupply
+2026-02-09 02:03:27 | DEBUG   | 🔌 [1/3] API: https://api.kaspa.org/info/coinsupply
+2026-02-09 02:03:27 | DEBUG   | ✅ API OK: https://api.kaspa.org/info/coinsupply
+2026-02-09 02:03:27 | INFO    |   ✅ تم: supply
+2026-02-09 02:03:27 | INFO    |   🔌 API: supply_circulating → https://api.kaspa.org/info/coinsupply/circulating
+2026-02-09 02:03:28 | DEBUG   | 🔌 [1/3] API: https://api.kaspa.org/info/coinsupply/circulating
+2026-02-09 02:03:28 | DEBUG   | ✅ API OK: https://api.kaspa.org/info/coinsupply/circulating
+2026-02-09 02:03:28 | INFO    |   ✅ تم: supply_circulating
+2026-02-09 02:03:28 | INFO    | ────────────────────────────────────────────────────────────
+2026-02-09 02:03:28 | INFO    | ✅ اكتمل Independent Kaspa: 6 ناجح، 0 فشل، 6.65ث
+2026-02-09 02:03:28 | INFO    | ════════════════════════════════════════════════════════════
+2026-02-09 02:03:28 | INFO    | ════════════════════════════════════════════════════════════
+2026-02-09 02:03:28 | INFO    | 🌐 بدء زحف Independent: Ergo (https://explorer.ergoplatform.com)
+2026-02-09 02:03:28 | INFO    |   📋 النوع: API
+2026-02-09 02:03:28 | INFO    | ════════════════════════════════════════════════════════════
+2026-02-09 02:03:28 | INFO    |   🌐 زيارة الصفحة الرئيسية...
+2026-02-09 02:03:28 | DEBUG   | 🔗 [1/5] جلب: https://explorer.ergoplatform.com
+2026-02-09 02:03:29 | DEBUG   | ✅ تم جلب https://explorer.ergoplatform.com (1,132 بايت)
+2026-02-09 02:03:29 | INFO    |   ✅ تم: homepage HTML
+2026-02-09 02:03:29 | INFO    |   🔌 API: info → https://api.ergoplatform.com/api/v1/networkState
+2026-02-09 02:03:29 | DEBUG   | 🔌 [1/3] API: https://api.ergoplatform.com/api/v1/networkState
+2026-02-09 02:03:30 | DEBUG   | ✅ API OK: https://api.ergoplatform.com/api/v1/networkState
+2026-02-09 02:03:30 | INFO    |   ✅ تم: info
+2026-02-09 02:03:30 | INFO    |   🔌 API: blocks → https://api.ergoplatform.com/api/v1/blocks?limit=10
+2026-02-09 02:03:31 | DEBUG   | 🔌 [1/3] API: https://api.ergoplatform.com/api/v1/blocks?limit=10
+2026-02-09 02:03:31 | DEBUG   | ✅ API OK: https://api.ergoplatform.com/api/v1/blocks?limit=10
+2026-02-09 02:03:31 | INFO    |   ✅ تم: blocks
+2026-02-09 02:03:31 | INFO    | ────────────────────────────────────────────────────────────
+2026-02-09 02:03:31 | INFO    | ✅ اكتمل Independent Ergo: 3 ناجح، 0 فشل، 2.55ث
+2026-02-09 02:03:31 | INFO    | ════════════════════════════════════════════════════════════
+2026-02-09 02:03:31 | INFO    | ════════════════════════════════════════════════════════════
+2026-02-09 02:03:31 | INFO    | 🌐 بدء زحف Independent: Decred (https://dcrdata.decred.org)
+2026-02-09 02:03:31 | INFO    |   📋 النوع: API
+2026-02-09 02:03:31 | INFO    | ════════════════════════════════════════════════════════════
+2026-02-09 02:03:31 | INFO    |   🌐 زيارة الصفحة الرئيسية...
+2026-02-09 02:03:31 | DEBUG   | 🔗 [1/5] جلب: https://dcrdata.decred.org
+2026-02-09 02:03:32 | DEBUG   | ✅ تم جلب https://dcrdata.decred.org (48,925 بايت)
+2026-02-09 02:03:32 | INFO    |   ✅ تم: homepage HTML
+2026-02-09 02:03:32 | INFO    |   🔌 API: status → https://dcrdata.decred.org/api/status
+2026-02-09 02:03:33 | DEBUG   | 🔌 [1/3] API: https://dcrdata.decred.org/api/status
+2026-02-09 02:03:33 | DEBUG   | ✅ API OK: https://dcrdata.decred.org/api/status
+2026-02-09 02:03:33 | INFO    |   ✅ تم: status
+2026-02-09 02:03:33 | INFO    |   🔌 API: supply → https://dcrdata.decred.org/api/supply
+2026-02-09 02:03:33 | DEBUG   | 🔌 [1/3] API: https://dcrdata.decred.org/api/supply
+2026-02-09 02:03:34 | DEBUG   | ✅ API OK: https://dcrdata.decred.org/api/supply
+2026-02-09 02:03:34 | INFO    |   ✅ تم: supply
+2026-02-09 02:03:34 | INFO    |   🔌 API: best_block → https://dcrdata.decred.org/api/block/best
+2026-02-09 02:03:35 | DEBUG   | 🔌 [1/3] API: https://dcrdata.decred.org/api/block/best
+2026-02-09 02:03:35 | DEBUG   | ✅ API OK: https://dcrdata.decred.org/api/block/best
+2026-02-09 02:03:35 | INFO    |   ✅ تم: best_block
+2026-02-09 02:03:35 | INFO    | ────────────────────────────────────────────────────────────
+2026-02-09 02:03:35 | INFO    | ✅ اكتمل Independent Decred: 4 ناجح، 0 فشل، 4.01ث
+2026-02-09 02:03:35 | INFO    | ════════════════════════════════════════════════════════════
+2026-02-09 02:04:40 | INFO    | 🚀 بدء زحف 4 سلسلة مستقلة...
+2026-02-09 02:04:40 | INFO    | ════════════════════════════════════════════════════════════
+2026-02-09 02:04:40 | INFO    | 🌐 بدء زحف Independent: MultiversX (https://explorer.multiversx.com)
+2026-02-09 02:04:40 | INFO    |   📋 النوع: API
+2026-02-09 02:04:40 | INFO    | ════════════════════════════════════════════════════════════
+2026-02-09 02:04:40 | INFO    |   🌐 زيارة الصفحة الرئيسية...
+2026-02-09 02:04:40 | DEBUG   | 🔗 [1/5] جلب: https://explorer.multiversx.com
+2026-02-09 02:04:40 | INFO    | ════════════════════════════════════════════════════════════
+2026-02-09 02:04:40 | INFO    | 🌐 بدء زحف Independent: Kaspa (https://explorer.kaspa.org)
+2026-02-09 02:04:40 | INFO    |   📋 النوع: API
+2026-02-09 02:04:40 | INFO    | ════════════════════════════════════════════════════════════
+2026-02-09 02:04:40 | INFO    |   🌐 زيارة الصفحة الرئيسية...
+2026-02-09 02:04:40 | DEBUG   | 🔗 [1/5] جلب: https://explorer.kaspa.org
+2026-02-09 02:04:40 | INFO    | ════════════════════════════════════════════════════════════
+2026-02-09 02:04:40 | INFO    | 🌐 بدء زحف Independent: Ergo (https://explorer.ergoplatform.com)
+2026-02-09 02:04:40 | INFO    |   📋 النوع: API
+2026-02-09 02:04:40 | INFO    | ════════════════════════════════════════════════════════════
+2026-02-09 02:04:40 | INFO    |   🌐 زيارة الصفحة الرئيسية...
+2026-02-09 02:04:40 | DEBUG   | 🔗 [1/5] جلب: https://explorer.ergoplatform.com
+2026-02-09 02:04:41 | DEBUG   | ✅ تم جلب https://explorer.ergoplatform.com (1,132 بايت)
+2026-02-09 02:04:41 | INFO    |   ✅ تم: homepage HTML
+2026-02-09 02:04:41 | INFO    |   🔌 API: info → https://api.ergoplatform.com/api/v1/networkState
+2026-02-09 02:04:41 | DEBUG   | ✅ تم جلب https://explorer.kaspa.org (93,409 بايت)
+2026-02-09 02:04:41 | INFO    |   ✅ تم: homepage HTML
+2026-02-09 02:04:41 | INFO    |   🔌 API: network → https://api.kaspa.org/info/network
+2026-02-09 02:04:41 | DEBUG   | ✅ تم جلب https://explorer.multiversx.com (3,522 بايت)
+2026-02-09 02:04:41 | INFO    |   ✅ تم: homepage HTML
+2026-02-09 02:04:41 | INFO    |   🔌 API: stats → https://api.multiversx.com/stats
+2026-02-09 02:04:42 | DEBUG   | 🔌 [1/3] API: https://api.kaspa.org/info/network
+2026-02-09 02:04:42 | DEBUG   | 🔌 [1/3] API: https://api.ergoplatform.com/api/v1/networkState
+2026-02-09 02:04:42 | DEBUG   | 🔌 [1/3] API: https://api.multiversx.com/stats
+2026-02-09 02:04:42 | DEBUG   | ✅ API OK: https://api.kaspa.org/info/network
+2026-02-09 02:04:42 | INFO    |   ✅ تم: network
+2026-02-09 02:04:42 | INFO    |   🔌 API: blockreward → https://api.kaspa.org/info/blockreward
+2026-02-09 02:04:43 | DEBUG   | ✅ API OK: https://api.multiversx.com/stats
+2026-02-09 02:04:43 | INFO    |   ✅ تم: stats
+2026-02-09 02:04:43 | INFO    |   🔌 API: economics → https://api.multiversx.com/economics
+2026-02-09 02:04:43 | DEBUG   | ✅ API OK: https://api.ergoplatform.com/api/v1/networkState
+2026-02-09 02:04:43 | INFO    |   ✅ تم: info
+2026-02-09 02:04:43 | INFO    |   🔌 API: blocks → https://api.ergoplatform.com/api/v1/blocks?limit=10
+2026-02-09 02:04:43 | DEBUG   | 🔌 [1/3] API: https://api.kaspa.org/info/blockreward
+2026-02-09 02:04:43 | DEBUG   | ✅ API OK: https://api.kaspa.org/info/blockreward
+2026-02-09 02:04:43 | INFO    |   ✅ تم: blockreward
+2026-02-09 02:04:43 | INFO    |   🔌 API: hashrate → https://api.kaspa.org/info/hashrate
+2026-02-09 02:04:44 | DEBUG   | 🔌 [1/3] API: https://api.ergoplatform.com/api/v1/blocks?limit=10
+2026-02-09 02:04:44 | DEBUG   | ✅ API OK: https://api.ergoplatform.com/api/v1/blocks?limit=10
+2026-02-09 02:04:44 | INFO    |   ✅ تم: blocks
+2026-02-09 02:04:44 | INFO    | ────────────────────────────────────────────────────────────
+2026-02-09 02:04:44 | INFO    | ✅ اكتمل Independent Ergo: 3 ناجح، 0 فشل، 3.37ث
+2026-02-09 02:04:44 | INFO    | ════════════════════════════════════════════════════════════
+2026-02-09 02:04:44 | INFO    | ════════════════════════════════════════════════════════════
+2026-02-09 02:04:44 | INFO    | 🌐 بدء زحف Independent: Decred (https://dcrdata.decred.org)
+2026-02-09 02:04:44 | INFO    |   📋 النوع: API
+2026-02-09 02:04:44 | INFO    | ════════════════════════════════════════════════════════════
+2026-02-09 02:04:44 | INFO    |   🌐 زيارة الصفحة الرئيسية...
+2026-02-09 02:04:44 | DEBUG   | 🔗 [1/5] جلب: https://dcrdata.decred.org
+2026-02-09 02:04:44 | DEBUG   | 🔌 [1/3] API: https://api.multiversx.com/economics
+2026-02-09 02:04:44 | DEBUG   | 🔌 [1/3] API: https://api.kaspa.org/info/hashrate
+2026-02-09 02:04:44 | DEBUG   | ✅ API OK: https://api.multiversx.com/economics
+2026-02-09 02:04:44 | INFO    |   ✅ تم: economics
+2026-02-09 02:04:44 | INFO    |   🔌 API: tokens → https://api.multiversx.com/tokens?size=50
+2026-02-09 02:04:44 | DEBUG   | ✅ API OK: https://api.kaspa.org/info/hashrate
+2026-02-09 02:04:44 | INFO    |   ✅ تم: hashrate
+2026-02-09 02:04:44 | INFO    |   🔌 API: supply → https://api.kaspa.org/info/coinsupply
+2026-02-09 02:04:45 | DEBUG   | ✅ تم جلب https://dcrdata.decred.org (48,925 بايت)
+2026-02-09 02:04:45 | INFO    |   ✅ تم: homepage HTML
+2026-02-09 02:04:45 | INFO    |   🔌 API: status → https://dcrdata.decred.org/api/status
+2026-02-09 02:04:45 | DEBUG   | 🔌 [1/3] API: https://api.multiversx.com/tokens?size=50
+2026-02-09 02:04:45 | DEBUG   | 🔌 [1/3] API: https://api.kaspa.org/info/coinsupply
+2026-02-09 02:04:45 | DEBUG   | ✅ API OK: https://api.kaspa.org/info/coinsupply
+2026-02-09 02:04:45 | INFO    |   ✅ تم: supply
+2026-02-09 02:04:45 | INFO    |   🔌 API: supply_circulating → https://api.kaspa.org/info/coinsupply/circulating
+2026-02-09 02:04:45 | DEBUG   | ✅ API OK: https://api.multiversx.com/tokens?size=50
+2026-02-09 02:04:45 | INFO    |   ✅ تم: tokens
+2026-02-09 02:04:45 | INFO    |   🔌 API: accounts → https://api.multiversx.com/accounts?size=50&sort=balance&order=desc
+2026-02-09 02:04:46 | DEBUG   | 🔌 [1/3] API: https://api.multiversx.com/accounts?size=50&sort=balance&order=desc
+2026-02-09 02:04:46 | DEBUG   | 🔌 [1/3] API: https://api.kaspa.org/info/coinsupply/circulating
+2026-02-09 02:04:46 | DEBUG   | ✅ API OK: https://api.multiversx.com/accounts?size=50&sort=balance&order=desc
+2026-02-09 02:04:46 | INFO    |   ✅ تم: accounts
+2026-02-09 02:04:46 | INFO    | ────────────────────────────────────────────────────────────
+2026-02-09 02:04:46 | INFO    | ✅ اكتمل Independent MultiversX: 5 ناجح، 0 فشل، 5.46ث
+2026-02-09 02:04:46 | INFO    | ════════════════════════════════════════════════════════════
+2026-02-09 02:04:46 | DEBUG   | ✅ API OK: https://api.kaspa.org/info/coinsupply/circulating
+2026-02-09 02:04:46 | INFO    |   ✅ تم: supply_circulating
+2026-02-09 02:04:46 | INFO    | ────────────────────────────────────────────────────────────
+2026-02-09 02:04:46 | INFO    | ✅ اكتمل Independent Kaspa: 6 ناجح، 0 فشل، 5.54ث
+2026-02-09 02:04:46 | INFO    | ════════════════════════════════════════════════════════════
+2026-02-09 02:04:46 | DEBUG   | 🔌 [1/3] API: https://dcrdata.decred.org/api/status
+2026-02-09 02:04:47 | DEBUG   | ✅ API OK: https://dcrdata.decred.org/api/status
+2026-02-09 02:04:47 | INFO    |   ✅ تم: status
+2026-02-09 02:04:47 | INFO    |   🔌 API: supply → https://dcrdata.decred.org/api/supply
+2026-02-09 02:04:48 | DEBUG   | 🔌 [1/3] API: https://dcrdata.decred.org/api/supply
+2026-02-09 02:04:48 | DEBUG   | ✅ API OK: https://dcrdata.decred.org/api/supply
+2026-02-09 02:04:48 | INFO    |   ✅ تم: supply
+2026-02-09 02:04:48 | INFO    |   🔌 API: best_block → https://dcrdata.decred.org/api/block/best
+2026-02-09 02:04:49 | DEBUG   | 🔌 [1/3] API: https://dcrdata.decred.org/api/block/best
+2026-02-09 02:04:50 | DEBUG   | ✅ API OK: https://dcrdata.decred.org/api/block/best
+2026-02-09 02:04:50 | INFO    |   ✅ تم: best_block
+2026-02-09 02:04:50 | INFO    | ────────────────────────────────────────────────────────────
+2026-02-09 02:04:50 | INFO    | ✅ اكتمل Independent Decred: 4 ناجح، 0 فشل، 5.97ث
+2026-02-09 02:04:50 | INFO    | ════════════════════════════════════════════════════════════
+2026-02-09 02:04:50 | INFO    | ════════════════════════════════════════════════════════════
+2026-02-09 02:04:50 | INFO    | 📊 ملخص Independent:
+2026-02-09 02:04:50 | INFO    |   سلاسل: 4/4
+2026-02-09 02:04:50 | INFO    |   صفحات ناجحة: 18
+2026-02-09 02:04:50 | INFO    |   صفحات فاشلة: 0
+2026-02-09 02:04:50 | INFO    |   وقت إجمالي: 20.3ث
+2026-02-09 02:04:50 | INFO    | ════════════════════════════════════════════════════════════
+2026-02-09 02:04:50 | INFO    | 💾 تم حفظ multiversx: crawler/data\latest\multiversx.json
+2026-02-09 02:04:50 | INFO    | 💾 تم حفظ kaspa: crawler/data\latest\kaspa.json
+2026-02-09 02:04:50 | INFO    | 💾 تم حفظ ergo: crawler/data\latest\ergo.json
+2026-02-09 02:04:50 | INFO    | 💾 تم حفظ decred: crawler/data\latest\decred.json
+2026-02-09 02:05:21 | INFO    | ════════════════════════════════════════════════════════════
+2026-02-09 02:05:21 | INFO    | 🔗 بدء زحف: Ethereum (https://etherscan.io)
+2026-02-09 02:05:21 | INFO    | ════════════════════════════════════════════════════════════
+2026-02-09 02:05:21 | INFO    |   📄 زحف: homepage → https://etherscan.io/
+2026-02-09 02:05:21 | DEBUG   | 🔗 [1/5] جلب: https://etherscan.io/
+2026-02-09 02:05:22 | DEBUG   | ✅ تم جلب https://etherscan.io/ (137,129 بايت)
+2026-02-09 02:05:22 | INFO    |   ✅ تم تحليل homepage
+2026-02-09 02:05:22 | INFO    |   📄 زحف: charts → https://etherscan.io/charts
+2026-02-09 02:05:22 | DEBUG   | ⏳ انتظار 1.8ث لـ etherscan.io
+2026-02-09 02:05:24 | DEBUG   | 🔗 [1/5] جلب: https://etherscan.io/charts
+2026-02-09 02:05:25 | DEBUG   | ✅ تم جلب https://etherscan.io/charts (331,683 بايت)
+2026-02-09 02:05:25 | DEBUG   | 📊 تم العثور على 39 رسم بياني متاح
+2026-02-09 02:05:25 | INFO    |   ✅ تم تحليل charts
+2026-02-09 02:05:25 | INFO    |   📄 زحف: accounts → https://etherscan.io/accounts
+2026-02-09 02:05:25 | DEBUG   | ⏳ انتظار 2.1ث لـ etherscan.io
+2026-02-09 02:05:27 | DEBUG   | 🔗 [1/5] جلب: https://etherscan.io/accounts
+2026-02-09 02:05:27 | DEBUG   | ✅ تم جلب https://etherscan.io/accounts (137,224 بايت)
+2026-02-09 02:05:27 | INFO    | ✅ تم استخراج 25 حساب، 0 بورصة
+2026-02-09 02:05:27 | INFO    |   ✅ تم تحليل accounts
+2026-02-09 02:05:27 | INFO    |   📄 زحف: tokens → https://etherscan.io/tokens
+2026-02-09 02:05:27 | DEBUG   | ⏳ انتظار 2.6ث لـ etherscan.io
+2026-02-09 02:05:30 | DEBUG   | 🔗 [1/5] جلب: https://etherscan.io/tokens
+2026-02-09 02:05:30 | DEBUG   | ✅ تم جلب https://etherscan.io/tokens (183,103 بايت)
+2026-02-09 02:05:30 | INFO    | ✅ تم استخراج 50 توكن
+2026-02-09 02:05:30 | INFO    |   ✅ تم تحليل tokens
+2026-02-09 02:05:30 | INFO    |   📄 زحف: gas_tracker → https://etherscan.io/gastracker
+2026-02-09 02:05:30 | DEBUG   | ⏳ انتظار 2.4ث لـ etherscan.io
+2026-02-09 02:05:33 | DEBUG   | 🔗 [1/5] جلب: https://etherscan.io/gastracker
+2026-02-09 02:05:33 | DEBUG   | ✅ تم جلب https://etherscan.io/gastracker (366,032 بايت)
+2026-02-09 02:05:33 | INFO    |   ✅ تم تحليل gas_tracker
+2026-02-09 02:05:33 | INFO    |   📄 زحف: blocks → https://etherscan.io/blocks
+2026-02-09 02:05:33 | DEBUG   | ⏳ انتظار 2.9ث لـ etherscan.io
+2026-02-09 02:05:36 | DEBUG   | 🔗 [1/5] جلب: https://etherscan.io/blocks
+2026-02-09 02:05:36 | DEBUG   | ✅ تم جلب https://etherscan.io/blocks (189,307 بايت)
+2026-02-09 02:05:36 | INFO    | ✅ تم استخراج 25 بلوك
+2026-02-09 02:05:36 | INFO    |   ✅ تم تحليل blocks
+2026-02-09 02:05:36 | INFO    |   📄 زحف: supply → https://etherscan.io/stat/supply
+2026-02-09 02:05:36 | DEBUG   | ⏳ انتظار 2.2ث لـ etherscan.io
+2026-02-09 02:05:39 | DEBUG   | 🔗 [1/5] جلب: https://etherscan.io/stat/supply
+2026-02-09 02:05:39 | DEBUG   | ✅ تم جلب https://etherscan.io/stat/supply (90,627 بايت)
+2026-02-09 02:05:39 | INFO    | ✅ إجمالي المعروض: 120,692,631.85
+2026-02-09 02:05:39 | INFO    |   ✅ تم تحليل supply
+2026-02-09 02:05:39 | INFO    |   📄 زحف: node_tracker → https://etherscan.io/nodetracker
+2026-02-09 02:05:39 | DEBUG   | ⏳ انتظار 3.0ث لـ etherscan.io
+2026-02-09 02:05:42 | DEBUG   | 🔗 [1/5] جلب: https://etherscan.io/nodetracker
+2026-02-09 02:05:46 | DEBUG   | ✅ تم جلب https://etherscan.io/nodetracker (147,873 بايت)
+2026-02-09 02:05:46 | INFO    | ✅ عدد العُقد: 13,708
+2026-02-09 02:05:46 | INFO    |   ✅ تم تحليل node_tracker
+2026-02-09 02:05:46 | INFO    |   📄 زحف: dex → https://etherscan.io/dex
+2026-02-09 02:05:46 | DEBUG   | 🔗 [1/5] جلب: https://etherscan.io/dex
+2026-02-09 02:05:46 | DEBUG   | ✅ تم جلب https://etherscan.io/dex (110,301 بايت)
+2026-02-09 02:05:46 | INFO    |   ✅ تم تحليل dex
+2026-02-09 02:05:46 | INFO    | ────────────────────────────────────────────────────────────
+2026-02-09 02:05:46 | INFO    | ✅ اكتمل زحف Ethereum: 9 ناجح، 0 فشل، 24.74ث
+2026-02-09 02:05:46 | INFO    | ════════════════════════════════════════════════════════════
+2026-02-09 02:05:46 | INFO    | 💾 تم حفظ ethereum: crawler/data\latest\ethereum.json
+2026-02-09 02:05:47 | INFO    | ════════════════════════════════════════════════════════════
+2026-02-09 02:05:47 | INFO    | ════════════════════════════════════════════════════════════
+2026-02-09 02:05:47 | INFO    | 🔗 بدء زحف Blockscout: Harmony (https://explorer.harmony.one)
+2026-02-09 02:05:47 | INFO    | 🔗 بدء زحف Blockscout: Harmony (https://explorer.harmony.one)
+2026-02-09 02:05:47 | INFO    | ════════════════════════════════════════════════════════════
+2026-02-09 02:05:47 | INFO    | ════════════════════════════════════════════════════════════
+2026-02-09 02:05:47 | INFO    |   🌐 زيارة الصفحة الرئيسية (جلب كوكيز)...
+2026-02-09 02:05:47 | INFO    |   🌐 زيارة الصفحة الرئيسية (جلب كوكيز)...
+2026-02-09 02:05:47 | DEBUG   | 🔗 [1/5] جلب: https://explorer.harmony.one
+2026-02-09 02:05:47 | DEBUG   | 🔗 [1/5] جلب: https://explorer.harmony.one
+2026-02-09 02:05:47 | DEBUG   | ✅ تم جلب https://explorer.harmony.one (175,129 بايت)
+2026-02-09 02:05:47 | DEBUG   | ✅ تم جلب https://explorer.harmony.one (175,129 بايت)
+2026-02-09 02:05:47 | INFO    |   🔌 API: stats → https://explorer.harmony.one/api/v2/stats
+2026-02-09 02:05:47 | INFO    |   🔌 API: stats → https://explorer.harmony.one/api/v2/stats
+2026-02-09 02:05:49 | DEBUG   | 🔌 [1/3] API: https://explorer.harmony.one/api/v2/stats
+2026-02-09 02:05:49 | DEBUG   | 🔌 [1/3] API: https://explorer.harmony.one/api/v2/stats
+2026-02-09 02:05:49 | DEBUG   | ✅ API OK: https://explorer.harmony.one/api/v2/stats
+2026-02-09 02:05:49 | DEBUG   | ✅ API OK: https://explorer.harmony.one/api/v2/stats
+2026-02-09 02:05:49 | DEBUG   | 📊 Stats: addresses=8,337,437, txns=801,228,032, price=$0.0025, gas_avg=217.15
+2026-02-09 02:05:49 | DEBUG   | 📊 Stats: addresses=8,337,437, txns=801,228,032, price=$0.0025, gas_avg=217.15
+2026-02-09 02:05:49 | INFO    |   ✅ تم: stats
+2026-02-09 02:05:49 | INFO    |   ✅ تم: stats
+2026-02-09 02:05:49 | INFO    |   🔌 API: transactions → https://explorer.harmony.one/api/v2/main-page/transactions
+2026-02-09 02:05:49 | INFO    |   🔌 API: transactions → https://explorer.harmony.one/api/v2/main-page/transactions
+2026-02-09 02:05:50 | DEBUG   | 🔌 [1/3] API: https://explorer.harmony.one/api/v2/main-page/transactions
+2026-02-09 02:05:50 | DEBUG   | 🔌 [1/3] API: https://explorer.harmony.one/api/v2/main-page/transactions
+2026-02-09 02:05:50 | DEBUG   | ✅ API OK: https://explorer.harmony.one/api/v2/main-page/transactions
+2026-02-09 02:05:50 | DEBUG   | ✅ API OK: https://explorer.harmony.one/api/v2/main-page/transactions
+2026-02-09 02:05:50 | INFO    |   ✅ تم: transactions
+2026-02-09 02:05:50 | INFO    |   ✅ تم: transactions
+2026-02-09 02:05:50 | INFO    |   🔌 API: tx_chart → https://explorer.harmony.one/api/v2/stats/charts/transactions
+2026-02-09 02:05:50 | INFO    |   🔌 API: tx_chart → https://explorer.harmony.one/api/v2/stats/charts/transactions
+2026-02-09 02:05:50 | DEBUG   | ⏳ انتظار 0.8ث لـ explorer.harmony.one
+2026-02-09 02:05:50 | DEBUG   | ⏳ انتظار 0.8ث لـ explorer.harmony.one
+2026-02-09 02:05:51 | DEBUG   | 🔌 [1/3] API: https://explorer.harmony.one/api/v2/stats/charts/transactions
+2026-02-09 02:05:51 | DEBUG   | 🔌 [1/3] API: https://explorer.harmony.one/api/v2/stats/charts/transactions
+2026-02-09 02:05:51 | DEBUG   | ✅ API OK: https://explorer.harmony.one/api/v2/stats/charts/transactions
+2026-02-09 02:05:51 | DEBUG   | ✅ API OK: https://explorer.harmony.one/api/v2/stats/charts/transactions
+2026-02-09 02:05:51 | INFO    |   ✅ تم: tx_chart
+2026-02-09 02:05:51 | INFO    |   ✅ تم: tx_chart
+2026-02-09 02:05:51 | INFO    |   🔌 API: addresses → https://explorer.harmony.one/api/v2/addresses
+2026-02-09 02:05:51 | INFO    |   🔌 API: addresses → https://explorer.harmony.one/api/v2/addresses
+2026-02-09 02:05:52 | DEBUG   | 🔌 [1/3] API: https://explorer.harmony.one/api/v2/addresses
+2026-02-09 02:05:52 | DEBUG   | 🔌 [1/3] API: https://explorer.harmony.one/api/v2/addresses
+2026-02-09 02:05:53 | DEBUG   | ✅ API OK: https://explorer.harmony.one/api/v2/addresses
+2026-02-09 02:05:53 | DEBUG   | ✅ API OK: https://explorer.harmony.one/api/v2/addresses
+2026-02-09 02:05:53 | INFO    | ✅ تم استخراج 50 محفظة، 0 بورصة
+2026-02-09 02:05:53 | INFO    | ✅ تم استخراج 50 محفظة، 0 بورصة
+2026-02-09 02:05:53 | INFO    |   ✅ تم: addresses
+2026-02-09 02:05:53 | INFO    |   ✅ تم: addresses
+2026-02-09 02:05:53 | INFO    |   🔌 API: blocks → https://explorer.harmony.one/api/v2/main-page/blocks
+2026-02-09 02:05:53 | INFO    |   🔌 API: blocks → https://explorer.harmony.one/api/v2/main-page/blocks
+2026-02-09 02:05:54 | DEBUG   | 🔌 [1/3] API: https://explorer.harmony.one/api/v2/main-page/blocks
+2026-02-09 02:05:54 | DEBUG   | 🔌 [1/3] API: https://explorer.harmony.one/api/v2/main-page/blocks
+2026-02-09 02:05:55 | DEBUG   | ✅ API OK: https://explorer.harmony.one/api/v2/main-page/blocks
+2026-02-09 02:05:55 | DEBUG   | ✅ API OK: https://explorer.harmony.one/api/v2/main-page/blocks
+2026-02-09 02:05:55 | INFO    | ✅ تم استخراج 4 بلوك
+2026-02-09 02:05:55 | INFO    | ✅ تم استخراج 4 بلوك
+2026-02-09 02:05:55 | INFO    |   ✅ تم: blocks
+2026-02-09 02:05:55 | INFO    |   ✅ تم: blocks
+2026-02-09 02:05:55 | INFO    |   🔌 API: tokens → https://explorer.harmony.one/api/v2/tokens?type=ERC-20
+2026-02-09 02:05:55 | INFO    |   🔌 API: tokens → https://explorer.harmony.one/api/v2/tokens?type=ERC-20
+2026-02-09 02:05:56 | DEBUG   | 🔌 [1/3] API: https://explorer.harmony.one/api/v2/tokens?type=ERC-20
+2026-02-09 02:05:56 | DEBUG   | 🔌 [1/3] API: https://explorer.harmony.one/api/v2/tokens?type=ERC-20
+2026-02-09 02:05:56 | DEBUG   | ✅ API OK: https://explorer.harmony.one/api/v2/tokens?type=ERC-20
+2026-02-09 02:05:56 | DEBUG   | ✅ API OK: https://explorer.harmony.one/api/v2/tokens?type=ERC-20
+2026-02-09 02:05:56 | INFO    | ✅ تم استخراج 50 توكن
+2026-02-09 02:05:56 | INFO    | ✅ تم استخراج 50 توكن
+2026-02-09 02:05:56 | INFO    |   ✅ تم: tokens
+2026-02-09 02:05:56 | INFO    |   ✅ تم: tokens
+2026-02-09 02:05:56 | INFO    |   🔌 API: market_chart → https://explorer.harmony.one/api/v2/stats/charts/market
+2026-02-09 02:05:56 | INFO    |   🔌 API: market_chart → https://explorer.harmony.one/api/v2/stats/charts/market
+2026-02-09 02:05:57 | DEBUG   | 🔌 [1/3] API: https://explorer.harmony.one/api/v2/stats/charts/market
+2026-02-09 02:05:57 | DEBUG   | 🔌 [1/3] API: https://explorer.harmony.one/api/v2/stats/charts/market
+2026-02-09 02:05:57 | DEBUG   | ✅ API OK: https://explorer.harmony.one/api/v2/stats/charts/market
+2026-02-09 02:05:57 | DEBUG   | ✅ API OK: https://explorer.harmony.one/api/v2/stats/charts/market
+2026-02-09 02:05:57 | INFO    |   ✅ تم: market_chart
+2026-02-09 02:05:57 | INFO    |   ✅ تم: market_chart
+2026-02-09 02:05:57 | INFO    | ────────────────────────────────────────────────────────────
+2026-02-09 02:05:57 | INFO    | ────────────────────────────────────────────────────────────
+2026-02-09 02:05:57 | INFO    | ✅ اكتمل زحف Blockscout Harmony: 8 ناجح، 0 فشل، 10.37ث
+2026-02-09 02:05:57 | INFO    | ✅ اكتمل زحف Blockscout Harmony: 8 ناجح، 0 فشل، 10.37ث
+2026-02-09 02:05:57 | INFO    | ════════════════════════════════════════════════════════════
+2026-02-09 02:05:57 | INFO    | ════════════════════════════════════════════════════════════
+2026-02-09 02:05:57 | INFO    | 💾 تم حفظ harmony: crawler/data\latest\harmony.json
+2026-02-09 02:05:57 | INFO    | 💾 تم حفظ harmony: crawler/data\latest\harmony.json
+2026-02-09 02:05:58 | INFO    | ════════════════════════════════════════════════════════════
+2026-02-09 02:05:58 | INFO    | ════════════════════════════════════════════════════════════
+2026-02-09 02:05:58 | INFO    | ════════════════════════════════════════════════════════════
+2026-02-09 02:05:58 | INFO    | 🌐 بدء زحف Independent: MultiversX (https://explorer.multiversx.com)
+2026-02-09 02:05:58 | INFO    | 🌐 بدء زحف Independent: MultiversX (https://explorer.multiversx.com)
+2026-02-09 02:05:58 | INFO    | 🌐 بدء زحف Independent: MultiversX (https://explorer.multiversx.com)
+2026-02-09 02:05:58 | INFO    |   📋 النوع: API
+2026-02-09 02:05:58 | INFO    |   📋 النوع: API
+2026-02-09 02:05:58 | INFO    |   📋 النوع: API
+2026-02-09 02:05:58 | INFO    | ════════════════════════════════════════════════════════════
+2026-02-09 02:05:58 | INFO    | ════════════════════════════════════════════════════════════
+2026-02-09 02:05:58 | INFO    | ════════════════════════════════════════════════════════════
+2026-02-09 02:05:58 | INFO    |   🌐 زيارة الصفحة الرئيسية...
+2026-02-09 02:05:58 | INFO    |   🌐 زيارة الصفحة الرئيسية...
+2026-02-09 02:05:58 | INFO    |   🌐 زيارة الصفحة الرئيسية...
+2026-02-09 02:05:58 | DEBUG   | 🔗 [1/5] جلب: https://explorer.multiversx.com
+2026-02-09 02:05:58 | DEBUG   | 🔗 [1/5] جلب: https://explorer.multiversx.com
+2026-02-09 02:05:58 | DEBUG   | 🔗 [1/5] جلب: https://explorer.multiversx.com
+2026-02-09 02:05:58 | DEBUG   | ✅ تم جلب https://explorer.multiversx.com (3,522 بايت)
+2026-02-09 02:05:58 | DEBUG   | ✅ تم جلب https://explorer.multiversx.com (3,522 بايت)
+2026-02-09 02:05:58 | DEBUG   | ✅ تم جلب https://explorer.multiversx.com (3,522 بايت)
+2026-02-09 02:05:58 | INFO    |   ✅ تم: homepage HTML
+2026-02-09 02:05:58 | INFO    |   ✅ تم: homepage HTML
+2026-02-09 02:05:58 | INFO    |   ✅ تم: homepage HTML
+2026-02-09 02:05:58 | INFO    |   🔌 API: stats → https://api.multiversx.com/stats
+2026-02-09 02:05:58 | INFO    |   🔌 API: stats → https://api.multiversx.com/stats
+2026-02-09 02:05:58 | INFO    |   🔌 API: stats → https://api.multiversx.com/stats
+2026-02-09 02:05:59 | DEBUG   | 🔌 [1/3] API: https://api.multiversx.com/stats
+2026-02-09 02:05:59 | DEBUG   | 🔌 [1/3] API: https://api.multiversx.com/stats
+2026-02-09 02:05:59 | DEBUG   | 🔌 [1/3] API: https://api.multiversx.com/stats
+2026-02-09 02:06:00 | DEBUG   | ✅ API OK: https://api.multiversx.com/stats
+2026-02-09 02:06:00 | DEBUG   | ✅ API OK: https://api.multiversx.com/stats
+2026-02-09 02:06:00 | DEBUG   | ✅ API OK: https://api.multiversx.com/stats
+2026-02-09 02:06:00 | INFO    |   ✅ تم: stats
+2026-02-09 02:06:00 | INFO    |   ✅ تم: stats
+2026-02-09 02:06:00 | INFO    |   ✅ تم: stats
+2026-02-09 02:06:00 | INFO    |   🔌 API: tokens → https://api.multiversx.com/tokens?size=50
+2026-02-09 02:06:00 | INFO    |   🔌 API: tokens → https://api.multiversx.com/tokens?size=50
+2026-02-09 02:06:00 | INFO    |   🔌 API: tokens → https://api.multiversx.com/tokens?size=50
+2026-02-09 02:06:01 | DEBUG   | 🔌 [1/3] API: https://api.multiversx.com/tokens?size=50
+2026-02-09 02:06:01 | DEBUG   | 🔌 [1/3] API: https://api.multiversx.com/tokens?size=50
+2026-02-09 02:06:01 | DEBUG   | 🔌 [1/3] API: https://api.multiversx.com/tokens?size=50
+2026-02-09 02:06:03 | DEBUG   | ✅ API OK: https://api.multiversx.com/tokens?size=50
+2026-02-09 02:06:03 | DEBUG   | ✅ API OK: https://api.multiversx.com/tokens?size=50
+2026-02-09 02:06:03 | DEBUG   | ✅ API OK: https://api.multiversx.com/tokens?size=50
+2026-02-09 02:06:03 | INFO    |   ✅ تم: tokens
+2026-02-09 02:06:03 | INFO    |   ✅ تم: tokens
+2026-02-09 02:06:03 | INFO    |   ✅ تم: tokens
+2026-02-09 02:06:03 | INFO    |   🔌 API: accounts → https://api.multiversx.com/accounts?size=50&sort=balance&order=desc
+2026-02-09 02:06:03 | INFO    |   🔌 API: accounts → https://api.multiversx.com/accounts?size=50&sort=balance&order=desc
+2026-02-09 02:06:03 | INFO    |   🔌 API: accounts → https://api.multiversx.com/accounts?size=50&sort=balance&order=desc
+2026-02-09 02:06:04 | DEBUG   | 🔌 [1/3] API: https://api.multiversx.com/accounts?size=50&sort=balance&order=desc
+2026-02-09 02:06:04 | DEBUG   | 🔌 [1/3] API: https://api.multiversx.com/accounts?size=50&sort=balance&order=desc
+2026-02-09 02:06:04 | DEBUG   | 🔌 [1/3] API: https://api.multiversx.com/accounts?size=50&sort=balance&order=desc
+2026-02-09 02:06:04 | DEBUG   | ✅ API OK: https://api.multiversx.com/accounts?size=50&sort=balance&order=desc
+2026-02-09 02:06:04 | DEBUG   | ✅ API OK: https://api.multiversx.com/accounts?size=50&sort=balance&order=desc
+2026-02-09 02:06:04 | DEBUG   | ✅ API OK: https://api.multiversx.com/accounts?size=50&sort=balance&order=desc
+2026-02-09 02:06:04 | INFO    |   ✅ تم: accounts
+2026-02-09 02:06:04 | INFO    |   ✅ تم: accounts
+2026-02-09 02:06:04 | INFO    |   ✅ تم: accounts
+2026-02-09 02:06:04 | INFO    |   🔌 API: economics → https://api.multiversx.com/economics
+2026-02-09 02:06:04 | INFO    |   🔌 API: economics → https://api.multiversx.com/economics
+2026-02-09 02:06:04 | INFO    |   🔌 API: economics → https://api.multiversx.com/economics
+2026-02-09 02:06:05 | DEBUG   | 🔌 [1/3] API: https://api.multiversx.com/economics
+2026-02-09 02:06:05 | DEBUG   | 🔌 [1/3] API: https://api.multiversx.com/economics
+2026-02-09 02:06:05 | DEBUG   | 🔌 [1/3] API: https://api.multiversx.com/economics
+2026-02-09 02:06:05 | DEBUG   | ✅ API OK: https://api.multiversx.com/economics
+2026-02-09 02:06:05 | DEBUG   | ✅ API OK: https://api.multiversx.com/economics
+2026-02-09 02:06:05 | DEBUG   | ✅ API OK: https://api.multiversx.com/economics
+2026-02-09 02:06:05 | INFO    |   ✅ تم: economics
+2026-02-09 02:06:05 | INFO    |   ✅ تم: economics
+2026-02-09 02:06:05 | INFO    |   ✅ تم: economics
+2026-02-09 02:06:05 | INFO    | ────────────────────────────────────────────────────────────
+2026-02-09 02:06:05 | INFO    | ────────────────────────────────────────────────────────────
+2026-02-09 02:06:05 | INFO    | ────────────────────────────────────────────────────────────
+2026-02-09 02:06:05 | INFO    | ✅ اكتمل Independent MultiversX: 5 ناجح، 0 فشل، 7.33ث
+2026-02-09 02:06:05 | INFO    | ✅ اكتمل Independent MultiversX: 5 ناجح، 0 فشل، 7.33ث
+2026-02-09 02:06:05 | INFO    | ✅ اكتمل Independent MultiversX: 5 ناجح، 0 فشل، 7.33ث
+2026-02-09 02:06:05 | INFO    | ════════════════════════════════════════════════════════════
+2026-02-09 02:06:05 | INFO    | ════════════════════════════════════════════════════════════
+2026-02-09 02:06:05 | INFO    | ════════════════════════════════════════════════════════════
+2026-02-09 02:06:05 | INFO    | 💾 تم حفظ multiversx: crawler/data\latest\multiversx.json
+2026-02-09 02:06:05 | INFO    | 💾 تم حفظ multiversx: crawler/data\latest\multiversx.json
+2026-02-09 02:06:05 | INFO    | 💾 تم حفظ multiversx: crawler/data\latest\multiversx.json
+2026-02-09 02:37:18 | INFO    | ════════════════════════════════════════════════════════════
+2026-02-09 02:37:18 | INFO    | 🟣 بدء زحف Subscan: Polkadot (polkadot.api.subscan.io)
+2026-02-09 02:37:18 | INFO    | ════════════════════════════════════════════════════════════
+2026-02-09 02:37:18 | INFO    |   🟣 POST: metadata → https://polkadot.api.subscan.io/api/scan/metadata
+2026-02-09 02:37:19 | DEBUG   | 🟣 [1/3] POST: https://polkadot.api.subscan.io/api/scan/metadata
+2026-02-09 02:37:20 | DEBUG   | ✅ POST OK: https://polkadot.api.subscan.io/api/scan/metadata
+2026-02-09 02:37:20 | INFO    |   ✅ تم: metadata
+2026-02-09 02:37:20 | INFO    |   🟣 POST: token → https://polkadot.api.subscan.io/api/scan/token
+2026-02-09 02:37:21 | DEBUG   | ⏳ انتظار 1.6ث لـ polkadot.api.subscan.io
+2026-02-09 02:37:22 | DEBUG   | 🟣 [1/3] POST: https://polkadot.api.subscan.io/api/scan/token
+2026-02-09 02:37:22 | DEBUG   | ✅ POST OK: https://polkadot.api.subscan.io/api/scan/token
+2026-02-09 02:37:22 | INFO    |   ✅ تم: token
+2026-02-09 02:37:22 | INFO    |   🟣 POST: daily → https://polkadot.api.subscan.io/api/scan/daily
+2026-02-09 02:37:23 | DEBUG   | ⏳ انتظار 2.3ث لـ polkadot.api.subscan.io
+2026-02-09 02:37:26 | DEBUG   | 🟣 [1/3] POST: https://polkadot.api.subscan.io/api/scan/daily
+2026-02-09 02:37:26 | DEBUG   | ✅ POST OK: https://polkadot.api.subscan.io/api/scan/daily
+2026-02-09 02:37:26 | INFO    |   ✅ تم: daily
+2026-02-09 02:37:26 | INFO    |   🟣 POST: validators → https://polkadot.api.subscan.io/api/scan/staking/validators
+2026-02-09 02:37:27 | DEBUG   | ⏳ انتظار 2.4ث لـ polkadot.api.subscan.io
+2026-02-09 02:37:29 | DEBUG   | 🟣 [1/3] POST: https://polkadot.api.subscan.io/api/scan/staking/validators
+2026-02-09 02:37:29 | DEBUG   | ✅ POST OK: https://polkadot.api.subscan.io/api/scan/staking/validators
+2026-02-09 02:37:29 | INFO    |   ✅ تم: validators
+2026-02-09 02:37:29 | INFO    | ────────────────────────────────────────────────────────────
+2026-02-09 02:37:29 | INFO    | ✅ اكتمل Subscan Polkadot: 4 ناجح، 0 فشل، 11.79ث
+2026-02-09 02:37:29 | INFO    | ════════════════════════════════════════════════════════════
+2026-02-09 02:37:29 | INFO    | 💾 تم حفظ polkadot: crawler/data\latest\polkadot.json
+2026-02-09 02:37:39 | INFO    | ════════════════════════════════════════════════════════════
+2026-02-09 02:37:39 | INFO    | 🔵 بدء زحف Cosmos: Cosmos Hub (cosmoshub)
+2026-02-09 02:37:39 | INFO    | ════════════════════════════════════════════════════════════
+2026-02-09 02:37:39 | INFO    |   🔵 LCD: blocks_latest → https://rest.cosmos.directory/cosmoshub/cosmos/base/tendermint/v1beta1/blocks/latest
+2026-02-09 02:37:40 | DEBUG   | 🔵 [1/3] GET: https://rest.cosmos.directory/cosmoshub/cosmos/base/tendermint/v1beta1/blocks/latest
+2026-02-09 02:37:43 | DEBUG   | ✅ LCD OK: https://rest.cosmos.directory/cosmoshub/cosmos/base/tendermint/v1beta1/blocks/latest
+2026-02-09 02:37:43 | INFO    |   ✅ تم: blocks_latest
+2026-02-09 02:37:43 | INFO    |   🔵 LCD: staking_pool → https://rest.cosmos.directory/cosmoshub/cosmos/staking/v1beta1/pool
+2026-02-09 02:37:44 | DEBUG   | 🔵 [1/3] GET: https://rest.cosmos.directory/cosmoshub/cosmos/staking/v1beta1/pool
+2026-02-09 02:37:44 | DEBUG   | ✅ LCD OK: https://rest.cosmos.directory/cosmoshub/cosmos/staking/v1beta1/pool
+2026-02-09 02:37:44 | INFO    |   ✅ تم: staking_pool
+2026-02-09 02:37:44 | INFO    |   🔵 LCD: staking_params → https://rest.cosmos.directory/cosmoshub/cosmos/staking/v1beta1/params
+2026-02-09 02:37:45 | DEBUG   | ⏳ انتظار 1.0ث لـ rest.cosmos.directory
+2026-02-09 02:37:46 | DEBUG   | 🔵 [1/3] GET: https://rest.cosmos.directory/cosmoshub/cosmos/staking/v1beta1/params
+2026-02-09 02:37:46 | DEBUG   | ✅ LCD OK: https://rest.cosmos.directory/cosmoshub/cosmos/staking/v1beta1/params
+2026-02-09 02:37:46 | INFO    |   ✅ تم: staking_params
+2026-02-09 02:37:46 | INFO    |   🔵 LCD: validators → https://rest.cosmos.directory/cosmoshub/cosmos/staking/v1beta1/validators?status=BOND_STATUS_BONDED&pagination.limit=20
+2026-02-09 02:37:47 | DEBUG   | ⏳ انتظار 0.7ث لـ rest.cosmos.directory
+2026-02-09 02:37:48 | DEBUG   | 🔵 [1/3] GET: https://rest.cosmos.directory/cosmoshub/cosmos/staking/v1beta1/validators?status=BOND_STATUS_BONDED&pagination.limit=20
+2026-02-09 02:37:48 | DEBUG   | ✅ LCD OK: https://rest.cosmos.directory/cosmoshub/cosmos/staking/v1beta1/validators?status=BOND_STATUS_BONDED&pagination.limit=20
+2026-02-09 02:37:48 | INFO    |   ✅ تم: validators
+2026-02-09 02:37:48 | INFO    |   🔵 LCD: node_info → https://rest.cosmos.directory/cosmoshub/cosmos/base/tendermint/v1beta1/node_info
+2026-02-09 02:37:50 | DEBUG   | 🔵 [1/3] GET: https://rest.cosmos.directory/cosmoshub/cosmos/base/tendermint/v1beta1/node_info
+2026-02-09 02:37:50 | DEBUG   | ✅ LCD OK: https://rest.cosmos.directory/cosmoshub/cosmos/base/tendermint/v1beta1/node_info
+2026-02-09 02:37:50 | INFO    |   ✅ تم: node_info
+2026-02-09 02:37:50 | INFO    |   🔵 Chain Registry...
+2026-02-09 02:37:51 | DEBUG   | 🔵 [1/3] GET: https://chains.cosmos.directory/cosmoshub
+2026-02-09 02:37:52 | DEBUG   | ✅ LCD OK: https://chains.cosmos.directory/cosmoshub
+2026-02-09 02:37:52 | INFO    |   ✅ تم: chain_registry
+2026-02-09 02:37:52 | INFO    | ────────────────────────────────────────────────────────────
+2026-02-09 02:37:52 | INFO    | ✅ اكتمل Cosmos Cosmos Hub: 6 ناجح، 0 فشل، 12.24ث
+2026-02-09 02:37:52 | INFO    | ════════════════════════════════════════════════════════════
+2026-02-09 02:37:52 | INFO    | 💾 تم حفظ cosmos: crawler/data\latest\cosmos.json
+2026-02-09 02:38:02 | INFO    | ════════════════════════════════════════════════════════════
+2026-02-09 02:38:02 | INFO    | 🟠 بدء زحف Level2: Celestia (https://api.celenium.io/v1)
+2026-02-09 02:38:02 | INFO    | ════════════════════════════════════════════════════════════
+2026-02-09 02:38:02 | INFO    |   🟠 GET: head → https://api.celenium.io/v1/head
+2026-02-09 02:38:04 | DEBUG   | 🟠 [1/3] GET: https://api.celenium.io/v1/head
+2026-02-09 02:38:04 | DEBUG   | ✅ OK: https://api.celenium.io/v1/head
+2026-02-09 02:38:04 | INFO    |   ✅ تم: head
+2026-02-09 02:38:04 | INFO    | ────────────────────────────────────────────────────────────
+2026-02-09 02:38:04 | INFO    | ✅ اكتمل Level2 Celestia: 1 ناجح، 0 فشل، 2.07ث
+2026-02-09 02:38:04 | INFO    | ════════════════════════════════════════════════════════════
+2026-02-09 02:38:04 | INFO    | 💾 تم حفظ celestia: crawler/data\latest\celestia.json
+2026-02-09 02:38:12 | INFO    | 🟠 بدء زحف 3 سلسلة Level 2...
+2026-02-09 02:38:12 | INFO    | ════════════════════════════════════════════════════════════
+2026-02-09 02:38:12 | INFO    | 🟠 بدء زحف Level2: Tezos (https://api.tzkt.io/v1)
+2026-02-09 02:38:12 | INFO    | ════════════════════════════════════════════════════════════
+2026-02-09 02:38:12 | INFO    |   🟠 GET: statistics → https://api.tzkt.io/v1/statistics/current
+2026-02-09 02:38:12 | INFO    | ════════════════════════════════════════════════════════════
+2026-02-09 02:38:12 | INFO    | 🟠 بدء زحف Level2: Radix (https://mainnet.radixdlt.com)
+2026-02-09 02:38:12 | INFO    | ════════════════════════════════════════════════════════════
+2026-02-09 02:38:12 | INFO    |   🟠 POST: config → https://mainnet.radixdlt.com/status/network-configuration
+2026-02-09 02:38:12 | INFO    | ════════════════════════════════════════════════════════════
+2026-02-09 02:38:12 | INFO    | 🟠 بدء زحف Level2: Litecoin (https://litecoinspace.org)
+2026-02-09 02:38:12 | INFO    | ════════════════════════════════════════════════════════════
+2026-02-09 02:38:12 | INFO    |   🟠 GET: hashrate → https://litecoinspace.org/api/v1/mining/hashrate/1w
+2026-02-09 02:38:13 | DEBUG   | 🟠 [1/3] POST: https://mainnet.radixdlt.com/status/network-configuration
+2026-02-09 02:38:13 | DEBUG   | 🟠 [1/3] GET: https://litecoinspace.org/api/v1/mining/hashrate/1w
+2026-02-09 02:38:13 | DEBUG   | 🟠 [1/3] GET: https://api.tzkt.io/v1/statistics/current
+2026-02-09 02:38:14 | DEBUG   | ✅ OK: https://mainnet.radixdlt.com/status/network-configuration
+2026-02-09 02:38:14 | INFO    |   ✅ تم: config
+2026-02-09 02:38:14 | INFO    |   🟠 POST: status → https://mainnet.radixdlt.com/status/gateway-status
+2026-02-09 02:38:14 | DEBUG   | ✅ OK: https://litecoinspace.org/api/v1/mining/hashrate/1w
+2026-02-09 02:38:14 | INFO    |   ✅ تم: hashrate
+2026-02-09 02:38:14 | INFO    |   🟠 GET: difficulty → https://litecoinspace.org/api/v1/difficulty-adjustment
+2026-02-09 02:38:14 | DEBUG   | ✅ OK: https://api.tzkt.io/v1/statistics/current
+2026-02-09 02:38:14 | INFO    |   ✅ تم: statistics
+2026-02-09 02:38:14 | INFO    |   🟠 GET: head → https://api.tzkt.io/v1/head
+2026-02-09 02:38:15 | DEBUG   | 🟠 [1/3] GET: https://litecoinspace.org/api/v1/difficulty-adjustment
+2026-02-09 02:38:15 | DEBUG   | ✅ OK: https://litecoinspace.org/api/v1/difficulty-adjustment
+2026-02-09 02:38:15 | INFO    |   ✅ تم: difficulty
+2026-02-09 02:38:15 | INFO    |   🟠 GET: blocks_tip → https://litecoinspace.org/api/blocks/tip/height
+2026-02-09 02:38:15 | DEBUG   | 🟠 [1/3] POST: https://mainnet.radixdlt.com/status/gateway-status
+2026-02-09 02:38:15 | DEBUG   | ✅ OK: https://mainnet.radixdlt.com/status/gateway-status
+2026-02-09 02:38:15 | INFO    |   ✅ تم: status
+2026-02-09 02:38:15 | INFO    | ────────────────────────────────────────────────────────────
+2026-02-09 02:38:15 | INFO    | ✅ اكتمل Level2 Radix: 2 ناجح، 0 فشل، 2.73ث
+2026-02-09 02:38:15 | INFO    | ════════════════════════════════════════════════════════════
+2026-02-09 02:38:16 | DEBUG   | 🟠 [1/3] GET: https://api.tzkt.io/v1/head
+2026-02-09 02:38:16 | DEBUG   | ✅ OK: https://api.tzkt.io/v1/head
+2026-02-09 02:38:16 | INFO    |   ✅ تم: head
+2026-02-09 02:38:16 | INFO    | ────────────────────────────────────────────────────────────
+2026-02-09 02:38:16 | INFO    | ✅ اكتمل Level2 Tezos: 2 ناجح، 0 فشل، 3.59ث
+2026-02-09 02:38:16 | INFO    | ════════════════════════════════════════════════════════════
+2026-02-09 02:38:16 | DEBUG   | 🟠 [1/3] GET: https://litecoinspace.org/api/blocks/tip/height
+2026-02-09 02:38:16 | DEBUG   | ✅ OK: https://litecoinspace.org/api/blocks/tip/height
+2026-02-09 02:38:16 | INFO    |   ✅ تم: blocks_tip
+2026-02-09 02:38:16 | INFO    |   🟠 GET: pools → https://litecoinspace.org/api/v1/mining/pools/1w
+2026-02-09 02:38:18 | DEBUG   | 🟠 [1/3] GET: https://litecoinspace.org/api/v1/mining/pools/1w
+2026-02-09 02:38:18 | DEBUG   | ✅ OK: https://litecoinspace.org/api/v1/mining/pools/1w
+2026-02-09 02:38:18 | INFO    |   ✅ تم: pools
+2026-02-09 02:38:18 | INFO    | ────────────────────────────────────────────────────────────
+2026-02-09 02:38:18 | INFO    | ✅ اكتمل Level2 Litecoin: 4 ناجح، 0 فشل، 5.68ث
+2026-02-09 02:38:18 | INFO    | ════════════════════════════════════════════════════════════
+2026-02-09 02:38:18 | INFO    | ════════════════════════════════════════════════════════════
+2026-02-09 02:38:18 | INFO    | 📊 ملخص Level 2:
+2026-02-09 02:38:18 | INFO    |   سلاسل: 3/3
+2026-02-09 02:38:18 | INFO    |   صفحات ناجحة: 8
+2026-02-09 02:38:18 | INFO    |   صفحات فاشلة: 0
+2026-02-09 02:38:18 | INFO    |   وقت إجمالي: 12.0ث
+2026-02-09 02:38:18 | INFO    | ════════════════════════════════════════════════════════════
+2026-02-09 02:38:18 | INFO    | 💾 تم حفظ tezos: crawler/data\latest\tezos.json
+2026-02-09 02:38:18 | INFO    | 💾 تم حفظ radix: crawler/data\latest\radix.json
+2026-02-09 02:38:18 | INFO    | 💾 تم حفظ litecoin: crawler/data\latest\litecoin.json
+2026-02-09 02:38:25 | INFO    | 🟠 بدء زحف 10 سلسلة Level 2...
+2026-02-09 02:38:25 | INFO    | ════════════════════════════════════════════════════════════
+2026-02-09 02:38:25 | INFO    | 🟠 بدء زحف Level2: Celestia (https://api.celenium.io/v1)
+2026-02-09 02:38:25 | INFO    | ════════════════════════════════════════════════════════════
+2026-02-09 02:38:25 | INFO    |   🟠 GET: head → https://api.celenium.io/v1/head
+2026-02-09 02:38:25 | INFO    | ════════════════════════════════════════════════════════════
+2026-02-09 02:38:25 | INFO    | 🟠 بدء زحف Level2: Stacks (https://api.hiro.so)
+2026-02-09 02:38:25 | INFO    | ════════════════════════════════════════════════════════════
+2026-02-09 02:38:25 | INFO    |   🟠 GET: info → https://api.hiro.so/v2/info
+2026-02-09 02:38:25 | INFO    | ════════════════════════════════════════════════════════════
+2026-02-09 02:38:25 | INFO    | 🟠 بدء زحف Level2: Litecoin (https://litecoinspace.org)
+2026-02-09 02:38:25 | INFO    | ════════════════════════════════════════════════════════════
+2026-02-09 02:38:25 | INFO    |   🟠 GET: pools → https://litecoinspace.org/api/v1/mining/pools/1w
+2026-02-09 02:38:25 | DEBUG   | 🟠 [1/3] GET: https://litecoinspace.org/api/v1/mining/pools/1w
+2026-02-09 02:38:25 | DEBUG   | ✅ OK: https://litecoinspace.org/api/v1/mining/pools/1w
+2026-02-09 02:38:25 | INFO    |   ✅ تم: pools
+2026-02-09 02:38:25 | INFO    |   🟠 GET: blocks_tip → https://litecoinspace.org/api/blocks/tip/height
+2026-02-09 02:38:26 | DEBUG   | 🟠 [1/3] GET: https://api.hiro.so/v2/info
+2026-02-09 02:38:26 | DEBUG   | 🟠 [1/3] GET: https://api.celenium.io/v1/head
+2026-02-09 02:38:26 | DEBUG   | ⏳ انتظار 2.1ث لـ litecoinspace.org
+2026-02-09 02:38:26 | DEBUG   | ✅ OK: https://api.celenium.io/v1/head
+2026-02-09 02:38:26 | INFO    |   ✅ تم: head
+2026-02-09 02:38:26 | INFO    | ────────────────────────────────────────────────────────────
+2026-02-09 02:38:26 | INFO    | ✅ اكتمل Level2 Celestia: 1 ناجح، 0 فشل، 1.93ث
+2026-02-09 02:38:26 | INFO    | ════════════════════════════════════════════════════════════
+2026-02-09 02:38:26 | INFO    | ════════════════════════════════════════════════════════════
+2026-02-09 02:38:26 | INFO    | 🟠 بدء زحف Level2: Tezos (https://api.tzkt.io/v1)
+2026-02-09 02:38:26 | INFO    | ════════════════════════════════════════════════════════════
+2026-02-09 02:38:26 | INFO    |   🟠 GET: head → https://api.tzkt.io/v1/head
+2026-02-09 02:38:27 | DEBUG   | 🟠 [1/3] GET: https://api.tzkt.io/v1/head
+2026-02-09 02:38:28 | DEBUG   | ✅ OK: https://api.hiro.so/v2/info
+2026-02-09 02:38:28 | INFO    |   ✅ تم: info
+2026-02-09 02:38:28 | INFO    |   🟠 GET: extended → https://api.hiro.so/extended/v1/status
+2026-02-09 02:38:28 | DEBUG   | ✅ OK: https://api.tzkt.io/v1/head
+2026-02-09 02:38:28 | INFO    |   ✅ تم: head
+2026-02-09 02:38:28 | INFO    |   🟠 GET: statistics → https://api.tzkt.io/v1/statistics/current
+2026-02-09 02:38:28 | DEBUG   | 🟠 [1/3] GET: https://litecoinspace.org/api/blocks/tip/height
+2026-02-09 02:38:28 | DEBUG   | 🟠 [1/3] GET: https://api.hiro.so/extended/v1/status
+2026-02-09 02:38:28 | DEBUG   | ✅ OK: https://litecoinspace.org/api/blocks/tip/height
+2026-02-09 02:38:28 | INFO    |   ✅ تم: blocks_tip
+2026-02-09 02:38:28 | INFO    |   🟠 GET: hashrate → https://litecoinspace.org/api/v1/mining/hashrate/1w
+2026-02-09 02:38:29 | DEBUG   | ⏳ انتظار 1.3ث لـ litecoinspace.org
+2026-02-09 02:38:29 | DEBUG   | 🟠 [1/3] GET: https://api.tzkt.io/v1/statistics/current
+2026-02-09 02:38:29 | DEBUG   | ✅ OK: https://api.hiro.so/extended/v1/status
+2026-02-09 02:38:29 | INFO    |   ✅ تم: extended
+2026-02-09 02:38:29 | INFO    | ────────────────────────────────────────────────────────────
+2026-02-09 02:38:29 | INFO    | ✅ اكتمل Level2 Stacks: 2 ناجح، 0 فشل، 4.96ث
+2026-02-09 02:38:29 | INFO    | ════════════════════════════════════════════════════════════
+2026-02-09 02:38:29 | INFO    | ════════════════════════════════════════════════════════════
+2026-02-09 02:38:29 | INFO    | 🟠 بدء زحف Level2: Hedera (https://mainnet.mirrornode.hedera.com/api/v1)
+2026-02-09 02:38:29 | INFO    | ════════════════════════════════════════════════════════════
+2026-02-09 02:38:29 | INFO    |   🟠 GET: supply → https://mainnet.mirrornode.hedera.com/api/v1/network/supply
+2026-02-09 02:38:30 | DEBUG   | ✅ OK: https://api.tzkt.io/v1/statistics/current
+2026-02-09 02:38:30 | INFO    |   ✅ تم: statistics
+2026-02-09 02:38:30 | INFO    | ────────────────────────────────────────────────────────────
+2026-02-09 02:38:30 | INFO    | ✅ اكتمل Level2 Tezos: 2 ناجح، 0 فشل، 3.17ث
+2026-02-09 02:38:30 | INFO    | ════════════════════════════════════════════════════════════
+2026-02-09 02:38:30 | INFO    | ════════════════════════════════════════════════════════════
+2026-02-09 02:38:30 | INFO    | 🟠 بدء زحف Level2: Aptos (https://fullnode.mainnet.aptoslabs.com)
+2026-02-09 02:38:30 | INFO    | ════════════════════════════════════════════════════════════
+2026-02-09 02:38:30 | INFO    |   🟠 GET: ledger → https://fullnode.mainnet.aptoslabs.com/v1
+2026-02-09 02:38:30 | DEBUG   | 🟠 [1/3] GET: https://fullnode.mainnet.aptoslabs.com/v1
+2026-02-09 02:38:31 | DEBUG   | 🟠 [1/3] GET: https://litecoinspace.org/api/v1/mining/hashrate/1w
+2026-02-09 02:38:31 | DEBUG   | ✅ OK: https://litecoinspace.org/api/v1/mining/hashrate/1w
+2026-02-09 02:38:31 | INFO    |   ✅ تم: hashrate
+2026-02-09 02:38:31 | INFO    |   🟠 GET: difficulty → https://litecoinspace.org/api/v1/difficulty-adjustment
+2026-02-09 02:38:31 | DEBUG   | 🟠 [1/3] GET: https://mainnet.mirrornode.hedera.com/api/v1/network/supply
+2026-02-09 02:38:31 | DEBUG   | ✅ OK: https://fullnode.mainnet.aptoslabs.com/v1
+2026-02-09 02:38:31 | INFO    |   ✅ تم: ledger
+2026-02-09 02:38:31 | INFO    | ────────────────────────────────────────────────────────────
+2026-02-09 02:38:31 | INFO    | ✅ اكتمل Level2 Aptos: 1 ناجح، 0 فشل، 1.61ث
+2026-02-09 02:38:31 | INFO    | ════════════════════════════════════════════════════════════
+2026-02-09 02:38:31 | INFO    | ════════════════════════════════════════════════════════════
+2026-02-09 02:38:31 | INFO    | 🟠 بدء زحف Level2: IOTA (https://api.stardust-mainnet.iotaledger.net)
+2026-02-09 02:38:31 | INFO    | ════════════════════════════════════════════════════════════
+2026-02-09 02:38:31 | INFO    |   🟠 GET: info → https://api.stardust-mainnet.iotaledger.net/api/core/v2/info
+2026-02-09 02:38:32 | DEBUG   | ✅ OK: https://mainnet.mirrornode.hedera.com/api/v1/network/supply
+2026-02-09 02:38:32 | INFO    |   ✅ تم: supply
+2026-02-09 02:38:32 | INFO    |   🟠 GET: blocks → https://mainnet.mirrornode.hedera.com/api/v1/blocks?limit=1&order=desc
+2026-02-09 02:38:32 | DEBUG   | 🟠 [1/3] GET: https://litecoinspace.org/api/v1/difficulty-adjustment
+2026-02-09 02:38:32 | DEBUG   | 🟠 [1/3] GET: https://api.stardust-mainnet.iotaledger.net/api/core/v2/info
+2026-02-09 02:38:32 | DEBUG   | ✅ OK: https://litecoinspace.org/api/v1/difficulty-adjustment
+2026-02-09 02:38:32 | INFO    |   ✅ تم: difficulty
+2026-02-09 02:38:32 | INFO    | ────────────────────────────────────────────────────────────
+2026-02-09 02:38:32 | INFO    | ✅ اكتمل Level2 Litecoin: 4 ناجح، 0 فشل، 7.68ث
+2026-02-09 02:38:32 | INFO    | ════════════════════════════════════════════════════════════
+2026-02-09 02:38:32 | INFO    | ════════════════════════════════════════════════════════════
+2026-02-09 02:38:32 | INFO    | 🟠 بدء زحف Level2: Telos (https://mainnet.telos.net)
+2026-02-09 02:38:32 | INFO    | ════════════════════════════════════════════════════════════
+2026-02-09 02:38:32 | INFO    |   🟠 GET: info → https://mainnet.telos.net/v1/chain/get_info
+2026-02-09 02:38:32 | DEBUG   | 🟠 [1/3] GET: https://mainnet.mirrornode.hedera.com/api/v1/blocks?limit=1&order=desc
+2026-02-09 02:38:33 | DEBUG   | ✅ OK: https://mainnet.mirrornode.hedera.com/api/v1/blocks?limit=1&order=desc
+2026-02-09 02:38:33 | INFO    |   ✅ تم: blocks
+2026-02-09 02:38:33 | INFO    | ────────────────────────────────────────────────────────────
+2026-02-09 02:38:33 | INFO    | ✅ اكتمل Level2 Hedera: 2 ناجح، 0 فشل، 3.17ث
+2026-02-09 02:38:33 | INFO    | ════════════════════════════════════════════════════════════
+2026-02-09 02:38:33 | INFO    | ════════════════════════════════════════════════════════════
+2026-02-09 02:38:33 | INFO    | 🟠 بدء زحف Level2: Radix (https://mainnet.radixdlt.com)
+2026-02-09 02:38:33 | INFO    | ════════════════════════════════════════════════════════════
+2026-02-09 02:38:33 | INFO    |   🟠 POST: config → https://mainnet.radixdlt.com/status/network-configuration
+2026-02-09 02:38:33 | DEBUG   | ✅ OK: https://api.stardust-mainnet.iotaledger.net/api/core/v2/info
+2026-02-09 02:38:33 | INFO    |   ✅ تم: info
+2026-02-09 02:38:33 | INFO    | ────────────────────────────────────────────────────────────
+2026-02-09 02:38:33 | INFO    | ✅ اكتمل Level2 IOTA: 1 ناجح، 0 فشل، 1.58ث
+2026-02-09 02:38:33 | INFO    | ════════════════════════════════════════════════════════════
+2026-02-09 02:38:33 | INFO    | ════════════════════════════════════════════════════════════
+2026-02-09 02:38:33 | INFO    | 🟠 بدء زحف Level2: Theta (https://explorer-api.thetatoken.org/api)
+2026-02-09 02:38:33 | INFO    | ════════════════════════════════════════════════════════════
+2026-02-09 02:38:33 | INFO    |   🟠 GET: blocks → https://explorer-api.thetatoken.org/api/blocks/top_blocks
+2026-02-09 02:38:33 | DEBUG   | 🟠 [1/3] GET: https://mainnet.telos.net/v1/chain/get_info
+2026-02-09 02:38:33 | DEBUG   | 🟠 [1/3] GET: https://explorer-api.thetatoken.org/api/blocks/top_blocks
+2026-02-09 02:38:34 | DEBUG   | ✅ OK: https://mainnet.telos.net/v1/chain/get_info
+2026-02-09 02:38:34 | INFO    |   ✅ تم: info
+2026-02-09 02:38:34 | INFO    | ────────────────────────────────────────────────────────────
+2026-02-09 02:38:34 | INFO    | ✅ اكتمل Level2 Telos: 1 ناجح، 0 فشل، 1.77ث
+2026-02-09 02:38:34 | INFO    | ════════════════════════════════════════════════════════════
+2026-02-09 02:38:34 | DEBUG   | 🟠 [1/3] POST: https://mainnet.radixdlt.com/status/network-configuration
+2026-02-09 02:38:34 | DEBUG   | ✅ OK: https://explorer-api.thetatoken.org/api/blocks/top_blocks
+2026-02-09 02:38:34 | ERROR   |   ❌ خطأ في blocks: BlockInfo.__init__() got an unexpected keyword argument 'tx_count'
+2026-02-09 02:38:34 | INFO    | ────────────────────────────────────────────────────────────
+2026-02-09 02:38:34 | INFO    | ✅ اكتمل Level2 Theta: 0 ناجح، 1 فشل، 1.35ث
+2026-02-09 02:38:34 | INFO    | ════════════════════════════════════════════════════════════
+2026-02-09 02:38:34 | DEBUG   | ✅ OK: https://mainnet.radixdlt.com/status/network-configuration
+2026-02-09 02:38:34 | INFO    |   ✅ تم: config
+2026-02-09 02:38:34 | INFO    |   🟠 POST: status → https://mainnet.radixdlt.com/status/gateway-status
+2026-02-09 02:38:36 | DEBUG   | 🟠 [1/3] POST: https://mainnet.radixdlt.com/status/gateway-status
+2026-02-09 02:38:36 | DEBUG   | ✅ OK: https://mainnet.radixdlt.com/status/gateway-status
+2026-02-09 02:38:36 | INFO    |   ✅ تم: status
+2026-02-09 02:38:36 | INFO    | ────────────────────────────────────────────────────────────
+2026-02-09 02:38:36 | INFO    | ✅ اكتمل Level2 Radix: 2 ناجح، 0 فشل، 3.11ث
+2026-02-09 02:38:36 | INFO    | ════════════════════════════════════════════════════════════
+2026-02-09 02:38:36 | INFO    | ════════════════════════════════════════════════════════════
+2026-02-09 02:38:36 | INFO    | 📊 ملخص Level 2:
+2026-02-09 02:38:36 | INFO    |   سلاسل: 10/10
+2026-02-09 02:38:36 | INFO    |   صفحات ناجحة: 16
+2026-02-09 02:38:36 | INFO    |   صفحات فاشلة: 1
+2026-02-09 02:38:36 | INFO    |   وقت إجمالي: 30.3ث
+2026-02-09 02:38:36 | INFO    | ════════════════════════════════════════════════════════════
+2026-02-09 02:38:36 | INFO    | 💾 تم حفظ celestia: crawler/data\latest\celestia.json
+2026-02-09 02:38:36 | INFO    | 💾 تم حفظ stacks: crawler/data\latest\stacks.json
+2026-02-09 02:38:36 | INFO    | 💾 تم حفظ litecoin: crawler/data\latest\litecoin.json
+2026-02-09 02:38:36 | INFO    | 💾 تم حفظ tezos: crawler/data\latest\tezos.json
+2026-02-09 02:38:36 | INFO    | 💾 تم حفظ hedera: crawler/data\latest\hedera.json
+2026-02-09 02:38:36 | INFO    | 💾 تم حفظ aptos: crawler/data\latest\aptos.json
+2026-02-09 02:38:36 | INFO    | 💾 تم حفظ iota: crawler/data\latest\iota.json
+2026-02-09 02:38:36 | INFO    | 💾 تم حفظ telos: crawler/data\latest\telos.json
+2026-02-09 02:38:36 | INFO    | 💾 تم حفظ radix: crawler/data\latest\radix.json
+2026-02-09 02:38:36 | INFO    | 💾 تم حفظ theta: crawler/data\latest\theta.json
+2026-02-09 02:39:12 | INFO    | ════════════════════════════════════════════════════════════
+2026-02-09 02:39:12 | INFO    | 🟠 بدء زحف Level2: Theta (https://explorer-api.thetatoken.org/api)
+2026-02-09 02:39:12 | INFO    | ════════════════════════════════════════════════════════════
+2026-02-09 02:39:12 | INFO    |   🟠 GET: blocks → https://explorer-api.thetatoken.org/api/blocks/top_blocks
+2026-02-09 02:39:13 | DEBUG   | 🟠 [1/3] GET: https://explorer-api.thetatoken.org/api/blocks/top_blocks
+2026-02-09 02:39:13 | DEBUG   | ✅ OK: https://explorer-api.thetatoken.org/api/blocks/top_blocks
+2026-02-09 02:39:13 | INFO    |   ✅ تم: blocks
+2026-02-09 02:39:13 | INFO    | ────────────────────────────────────────────────────────────
+2026-02-09 02:39:13 | INFO    | ✅ اكتمل Level2 Theta: 1 ناجح، 0 فشل، 1.13ث
+2026-02-09 02:39:13 | INFO    | ════════════════════════════════════════════════════════════
+2026-02-09 02:39:13 | INFO    | 💾 تم حفظ theta: crawler/data\latest\theta.json
+2026-02-09 17:28:04 | INFO    | ════════════════════════════════════════════════════════════
+2026-02-09 17:28:04 | INFO    | 🦙 بدء زحف DeFiLlama — كل النقاط
+2026-02-09 17:28:04 | INFO    | ════════════════════════════════════════════════════════════
+2026-02-09 17:28:04 | INFO    |   🦙 TVL لكل السلاسل → https://api.llama.fi/v2/chains
+2026-02-09 17:28:05 | DEBUG   | 🦙 [1/3] GET: https://api.llama.fi/v2/chains
+2026-02-09 17:28:06 | DEBUG   | ✅ OK: https://api.llama.fi/v2/chains
+2026-02-09 17:28:06 | INFO    |   ✅ تم: chains_tvl
+2026-02-09 17:28:06 | INFO    |   🦙 أحجام DEX → https://api.llama.fi/overview/dexs
+2026-02-09 17:28:07 | DEBUG   | 🦙 [1/3] GET: https://api.llama.fi/overview/dexs
+2026-02-09 17:28:08 | DEBUG   | ✅ OK: https://api.llama.fi/overview/dexs
+2026-02-09 17:28:08 | INFO    |   ✅ تم: dex_volumes
+2026-02-09 17:28:08 | INFO    | ────────────────────────────────────────────────────────────
+2026-02-09 17:28:08 | INFO    | ✅ اكتمل DeFiLlama: 2 ناجح، 0 فشل، 4.27ث
+2026-02-09 17:28:08 | INFO    | ════════════════════════════════════════════════════════════
+2026-02-09 17:28:08 | INFO    | 💾 تم حفظ __defillama__: crawler/data\latest\__defillama__.json
+2026-02-09 17:28:16 | INFO    | ════════════════════════════════════════════════════════════
+2026-02-09 17:28:16 | INFO    | 🦙 بدء زحف DeFiLlama — كل النقاط
+2026-02-09 17:28:16 | INFO    | ════════════════════════════════════════════════════════════
+2026-02-09 17:28:16 | INFO    |   🦙 TVL لكل السلاسل → https://api.llama.fi/v2/chains
+2026-02-09 17:28:16 | DEBUG   | 🦙 [1/3] GET: https://api.llama.fi/v2/chains
+2026-02-09 17:28:16 | DEBUG   | ✅ OK: https://api.llama.fi/v2/chains
+2026-02-09 17:28:16 | INFO    |   ✅ تم: chains_tvl
+2026-02-09 17:28:16 | INFO    |   🦙 كل البروتوكولات → https://api.llama.fi/protocols
+2026-02-09 17:28:17 | DEBUG   | ⏳ انتظار 0.6ث لـ api.llama.fi
+2026-02-09 17:28:18 | DEBUG   | 🦙 [1/3] GET: https://api.llama.fi/protocols
+2026-02-09 17:28:21 | DEBUG   | ✅ OK: https://api.llama.fi/protocols
+2026-02-09 17:28:21 | INFO    |   ✅ تم: protocols
+2026-02-09 17:28:21 | INFO    |   🦙 أحجام DEX → https://api.llama.fi/overview/dexs
+2026-02-09 17:28:21 | DEBUG   | 🦙 [1/3] GET: https://api.llama.fi/overview/dexs
+2026-02-09 17:28:22 | DEBUG   | ✅ OK: https://api.llama.fi/overview/dexs
+2026-02-09 17:28:22 | INFO    |   ✅ تم: dex_volumes
+2026-02-09 17:28:22 | INFO    |   🦙 الرسوم والإيرادات → https://api.llama.fi/overview/fees
+2026-02-09 17:28:23 | DEBUG   | 🦙 [1/3] GET: https://api.llama.fi/overview/fees
+2026-02-09 17:28:25 | DEBUG   | ✅ OK: https://api.llama.fi/overview/fees
+2026-02-09 17:28:25 | INFO    |   ✅ تم: fees
+2026-02-09 17:28:25 | INFO    |   🦙 مسابح العوائد + APY → https://yields.llama.fi/pools
+2026-02-09 17:28:26 | DEBUG   | 🦙 [1/3] GET: https://yields.llama.fi/pools
+2026-02-09 17:28:30 | DEBUG   | ✅ OK: https://yields.llama.fi/pools
+2026-02-09 17:28:30 | INFO    |   ✅ تم: yield_pools
+2026-02-09 17:28:30 | INFO    |   🦙 العملات المستقرة → https://stablecoins.llama.fi/stablecoins
+2026-02-09 17:28:31 | DEBUG   | 🦙 [1/3] GET: https://stablecoins.llama.fi/stablecoins
+2026-02-09 17:28:32 | DEBUG   | ✅ OK: https://stablecoins.llama.fi/stablecoins
+2026-02-09 17:28:32 | INFO    |   ✅ تم: stablecoins
+2026-02-09 17:28:32 | INFO    |   🦙 الجسور → https://bridges.llama.fi/bridges
+2026-02-09 17:28:33 | DEBUG   | 🦙 [1/3] GET: https://bridges.llama.fi/bridges
+2026-02-09 17:28:33 | DEBUG   | ✅ OK: https://bridges.llama.fi/bridges
+2026-02-09 17:28:33 | INFO    |   ✅ تم: bridges
+2026-02-09 17:28:33 | INFO    |   🦙 Perps OI → https://api.llama.fi/overview/open-interest
+2026-02-09 17:28:34 | DEBUG   | 🦙 [1/3] GET: https://api.llama.fi/overview/open-interest
+2026-02-09 17:28:34 | DEBUG   | ✅ OK: https://api.llama.fi/overview/open-interest
+2026-02-09 17:28:34 | INFO    |   ✅ تم: open_interest
+2026-02-09 17:28:34 | INFO    | ────────────────────────────────────────────────────────────
+2026-02-09 17:28:34 | INFO    | ✅ اكتمل DeFiLlama: 8 ناجح، 0 فشل، 18.07ث
+2026-02-09 17:28:34 | INFO    | ════════════════════════════════════════════════════════════
+2026-02-09 17:28:34 | INFO    | 💾 تم حفظ __defillama__: crawler/data\latest\__defillama__.json
+2026-02-09 17:28:49 | INFO    | 🥩 ═══ بدء زحف StakingRewards ═══
+2026-02-09 17:28:51 | DEBUG   | 🌐 GET https://www.stakingrewards.com/assets (محاولة 1/3)
+2026-02-09 17:28:54 | INFO    | ✅ https://www.stakingrewards.com/assets → 1,291,693 bytes
+2026-02-09 17:28:54 | INFO    | 🥩 عثرنا على 19 أصل في RSC payload
+2026-02-09 17:28:54 | DEBUG   |   ✅ ETH    rate=    8.29 price=$     83.72 providers=0
+2026-02-09 17:28:54 | DEBUG   |   ✅ SOL    rate=    6.39 price=$     31.32 providers=0
+2026-02-09 17:28:54 | DEBUG   |   ✅ HYPE   rate=2.20005323 price=$      0.28 providers=0
+2026-02-09 17:28:54 | DEBUG   |   ✅ TRX    rate=3.2596153214008883 price=$      0.93 providers=0
+2026-02-09 17:28:54 | DEBUG   |   ✅ SUI    rate=1.7280023614049476 price=$      0.26 providers=0
+2026-02-09 17:28:54 | DEBUG   |   ✅ ADA    rate=2.6555066674957413 price=$ 68,478.00 providers=0
+2026-02-09 17:28:54 | DEBUG   |   ✅ BTC    rate=0.03473180189684703 price=$      8.76 providers=0
+2026-02-09 17:28:54 | DEBUG   |   ✅ AVAX   rate=6.674311587606246 price=$      1.29 providers=0
+2026-02-09 17:28:54 | DEBUG   |   ✅ DOT    rate=11.612971887237439 price=$      0.08 providers=0
+2026-02-09 17:28:54 | DEBUG   |   ✅ CRO    rate=1.6865073285514964 price=$      1.02 providers=0
+2026-02-09 17:28:54 | DEBUG   |   ✅ APT    rate=6.999678000000001 price=$      0.99 providers=0
+2026-02-09 17:28:54 | DEBUG   |   ✅ NEAR   rate=4.597399109877741 price=$      1.92 providers=0
+2026-02-09 17:28:54 | DEBUG   |   ✅ ATOM   rate=19.116575073704656 price=$      1.21 providers=0
+2026-02-09 17:28:54 | DEBUG   |   ✅ IP     rate=   16.69 price=$      0.00 providers=0
+2026-02-09 17:28:54 | DEBUG   |   ✅ MATIC  rate=4.724671243121438 price=$      0.07 providers=0
+2026-02-09 17:28:54 | DEBUG   |   ✅ SEI    rate=6.948336115725312 price=$      0.40 providers=0
+2026-02-09 17:28:54 | DEBUG   |   ✅ XTZ    rate=0.0018976309183416891 price=$      0.02 providers=0
+2026-02-09 17:28:54 | DEBUG   |   ✅ MON    rate=15.362795242351751 price=$      3.10 providers=0
+2026-02-09 17:28:54 | DEBUG   |   ✅ INJ    rate=5.942951987083286 price=$      0.00 providers=0
+2026-02-09 17:28:54 | INFO    | 🥩 StakingRewards: 19 أصل | متوسط المكافآت: 6.57%
+2026-02-09 17:28:54 | INFO    | ✅ StakingRewards: 19 أصل | متوسط المكافآت: 6.57%
+2026-02-09 17:28:54 | INFO    | 🥩 ═══ اكتمل زحف StakingRewards (4.8ث) ═══
+2026-02-09 17:28:54 | INFO    | 💾 تم حفظ __stakingrewards__: crawler/data\latest\__stakingrewards__.json
+2026-02-09 17:29:38 | INFO    | 🥩 ═══ بدء زحف StakingRewards ═══
+2026-02-09 17:29:40 | DEBUG   | 🌐 GET https://www.stakingrewards.com/assets (محاولة 1/3)
+2026-02-09 17:29:43 | INFO    | ✅ https://www.stakingrewards.com/assets → 1,291,693 bytes
+2026-02-09 17:29:43 | INFO    | 🥩 عثرنا على 19 أصل في RSC payload
+2026-02-09 17:29:43 | DEBUG   |   ✅ ETH    rate=       ? price=$      0.00 providers=0
+2026-02-09 17:29:43 | DEBUG   |   ✅ SOL    rate=       ? price=$      0.00 providers=0
+2026-02-09 17:29:43 | DEBUG   |   ✅ HYPE   rate=       ? price=$      0.00 providers=0
+2026-02-09 17:29:43 | DEBUG   |   ✅ TRX    rate=       ? price=$      0.00 providers=0
+2026-02-09 17:29:43 | DEBUG   |   ✅ SUI    rate=       ? price=$      0.00 providers=0
+2026-02-09 17:29:43 | DEBUG   |   ✅ ADA    rate=       ? price=$      0.00 providers=0
+2026-02-09 17:29:43 | DEBUG   |   ✅ BTC    rate=       ? price=$      0.00 providers=0
+2026-02-09 17:29:43 | DEBUG   |   ✅ AVAX   rate=       ? price=$      0.00 providers=0
+2026-02-09 17:29:43 | DEBUG   |   ✅ DOT    rate=       ? price=$      0.00 providers=0
+2026-02-09 17:29:43 | DEBUG   |   ✅ CRO    rate=       ? price=$      0.00 providers=0
+2026-02-09 17:29:43 | DEBUG   |   ✅ APT    rate=       ? price=$      0.00 providers=0
+2026-02-09 17:29:43 | DEBUG   |   ✅ NEAR   rate=       ? price=$      0.00 providers=0
+2026-02-09 17:29:43 | DEBUG   |   ✅ ATOM   rate=       ? price=$      0.00 providers=0
+2026-02-09 17:29:43 | DEBUG   |   ✅ IP     rate=       ? price=$      0.00 providers=0
+2026-02-09 17:29:43 | DEBUG   |   ✅ MATIC  rate=       ? price=$      0.00 providers=0
+2026-02-09 17:29:43 | DEBUG   |   ✅ SEI    rate=       ? price=$      0.00 providers=0
+2026-02-09 17:29:43 | DEBUG   |   ✅ XTZ    rate=       ? price=$      0.00 providers=0
+2026-02-09 17:29:43 | DEBUG   |   ✅ MON    rate=       ? price=$      0.00 providers=0
+2026-02-09 17:29:43 | DEBUG   |   ✅ INJ    rate=       ? price=$      0.00 providers=0
+2026-02-09 17:29:43 | INFO    | ?
+2026-02-09 17:29:43 | INFO    | ?
+2026-02-09 17:29:43 | INFO    | 🥩 ═══ اكتمل زحف StakingRewards (4.4ث) ═══
+2026-02-09 17:29:43 | INFO    | 💾 تم حفظ __stakingrewards__: crawler/data\latest\__stakingrewards__.json
+2026-02-09 17:30:16 | INFO    | 🥩 ═══ بدء زحف StakingRewards ═══
+2026-02-09 17:30:18 | DEBUG   | 🌐 GET https://www.stakingrewards.com/assets (محاولة 1/3)
+2026-02-09 17:30:21 | INFO    | ✅ https://www.stakingrewards.com/assets → 1,291,693 bytes
+2026-02-09 17:30:21 | INFO    | 🥩 عثرنا على 19 أصل في RSC payload
+2026-02-09 17:30:21 | DEBUG   |   ✅ ETH    rate=    8.29 price=$     83.72 providers=0
+2026-02-09 17:30:21 | DEBUG   |   ✅ SOL    rate=    6.39 price=$     31.32 providers=0
+2026-02-09 17:30:21 | DEBUG   |   ✅ HYPE   rate=2.20005323 price=$      0.28 providers=0
+2026-02-09 17:30:21 | DEBUG   |   ✅ TRX    rate=3.2596153214008883 price=$      0.93 providers=0
+2026-02-09 17:30:21 | DEBUG   |   ✅ SUI    rate=1.7280023614049476 price=$      0.26 providers=0
+2026-02-09 17:30:21 | DEBUG   |   ✅ ADA    rate=2.6555066674957413 price=$ 68,478.00 providers=0
+2026-02-09 17:30:21 | DEBUG   |   ✅ BTC    rate=0.03473180189684703 price=$      8.76 providers=0
+2026-02-09 17:30:21 | DEBUG   |   ✅ AVAX   rate=6.674311587606246 price=$      1.29 providers=0
+2026-02-09 17:30:21 | DEBUG   |   ✅ DOT    rate=11.612971887237439 price=$      0.08 providers=0
+2026-02-09 17:30:21 | DEBUG   |   ✅ CRO    rate=1.6865073285514964 price=$      1.02 providers=0
+2026-02-09 17:30:21 | DEBUG   |   ✅ APT    rate=6.999678000000001 price=$      0.99 providers=0
+2026-02-09 17:30:21 | DEBUG   |   ✅ NEAR   rate=4.597399109877741 price=$      1.92 providers=0
+2026-02-09 17:30:21 | DEBUG   |   ✅ ATOM   rate=19.116575073704656 price=$      1.21 providers=0
+2026-02-09 17:30:21 | DEBUG   |   ✅ IP     rate=   16.69 price=$      0.00 providers=0
+2026-02-09 17:30:21 | DEBUG   |   ✅ MATIC  rate=4.724671243121438 price=$      0.07 providers=0
+2026-02-09 17:30:21 | DEBUG   |   ✅ SEI    rate=6.948336115725312 price=$      0.40 providers=0
+2026-02-09 17:30:21 | DEBUG   |   ✅ XTZ    rate=0.0018976309183416891 price=$      0.02 providers=0
+2026-02-09 17:30:21 | DEBUG   |   ✅ MON    rate=15.362795242351751 price=$      3.10 providers=0
+2026-02-09 17:30:21 | DEBUG   |   ✅ INJ    rate=5.942951987083286 price=$      0.00 providers=0
+2026-02-09 17:30:21 | INFO    | 🥩 StakingRewards: 19 أصل | متوسط المكافآت: 6.57%
+2026-02-09 17:30:21 | INFO    | ✅ StakingRewards: 19 أصل | متوسط المكافآت: 6.57%
+2026-02-09 17:30:21 | INFO    | 🥩 ═══ اكتمل زحف StakingRewards (4.7ث) ═══
+2026-02-09 17:30:21 | INFO    | 💾 تم حفظ __stakingrewards__: crawler/data\latest\__stakingrewards__.json
+2026-02-09 17:32:01 | INFO    | 🥩 ═══ بدء زحف StakingRewards ═══
+2026-02-09 17:32:03 | DEBUG   | 🌐 GET https://www.stakingrewards.com/assets (محاولة 1/3)
+2026-02-09 17:32:05 | INFO    | ✅ https://www.stakingrewards.com/assets → 1,291,693 bytes
+2026-02-09 17:32:05 | INFO    | 🥩 عثرنا على 19 أصل في RSC payload
+2026-02-09 17:32:05 | DEBUG   |   ✅ ETH    rate=    8.29 price=$  2,012.67 providers=0
+2026-02-09 17:32:05 | DEBUG   |   ✅ SOL    rate=    2.25 price=$     83.72 providers=0
+2026-02-09 17:32:05 | DEBUG   |   ✅ HYPE   rate=    5.75 price=$     31.32 providers=0
+2026-02-09 17:32:05 | DEBUG   |   ✅ TRX    rate=2.17760371 price=$      0.28 providers=0
+2026-02-09 17:32:05 | DEBUG   |   ✅ SUI    rate=3.141694845806729 price=$      0.93 providers=0
+2026-02-09 17:32:05 | DEBUG   |   ✅ ADA    rate=1.5908536423958781 price=$      0.26 providers=0
+2026-02-09 17:32:05 | DEBUG   |   ✅ BTC    rate=2.0378556380902197 price=$ 68,478.00 providers=0
+2026-02-09 17:32:05 | DEBUG   |   ✅ AVAX   rate=0.034015682270107914 price=$      8.76 providers=0
+2026-02-09 17:32:05 | DEBUG   |   ✅ DOT    rate=5.060580173926656 price=$      1.29 providers=0
+2026-02-09 17:32:05 | DEBUG   |   ✅ CRO    rate=11.032323292875565 price=$      0.08 providers=0
+2026-02-09 17:32:05 | DEBUG   |   ✅ APT    rate=1.6172717645372772 price=$      1.02 providers=0
+2026-02-09 17:32:05 | DEBUG   |   ✅ NEAR   rate=       ? price=$      0.99 providers=0
+2026-02-09 17:32:05 | DEBUG   |   ✅ ATOM   rate=4.162222793062856 price=$      1.92 providers=0
+2026-02-09 17:32:05 | DEBUG   |   ✅ IP     rate=18.510082096913937 price=$      1.21 providers=0
+2026-02-09 17:32:05 | DEBUG   |   ✅ MATIC  rate=    0.39 price=$      0.07 providers=0
+2026-02-09 17:32:05 | DEBUG   |   ✅ SEI    rate=2.9272789013360674 price=$      0.07 providers=0
+2026-02-09 17:32:05 | DEBUG   |   ✅ XTZ    rate=2.2370025110875167 price=$      0.40 providers=0
+2026-02-09 17:32:05 | DEBUG   |   ✅ MON    rate=0.0016759134556785966 price=$      0.02 providers=0
+2026-02-09 17:32:05 | DEBUG   |   ✅ INJ    rate=12.937090730401476 price=$      3.10 providers=0
+2026-02-09 17:32:05 | INFO    | 🥩 StakingRewards: 19 أصل | متوسط المكافآت: 4.67%
+2026-02-09 17:32:05 | INFO    | ✅ StakingRewards: 19 أصل | متوسط المكافآت: 4.67%
+2026-02-09 17:32:05 | INFO    | 🥩 ═══ اكتمل زحف StakingRewards (4.6ث) ═══
+2026-02-09 17:32:05 | INFO    | 💾 تم حفظ __stakingrewards__: crawler/data\latest\__stakingrewards__.json
+2026-02-09 17:33:14 | INFO    | 🥩 ═══ بدء زحف StakingRewards ═══
+2026-02-09 17:33:16 | DEBUG   | 🌐 GET https://www.stakingrewards.com/assets (محاولة 1/3)
+2026-02-09 17:33:19 | INFO    | ✅ https://www.stakingrewards.com/assets → 1,291,693 bytes
+2026-02-09 17:33:19 | INFO    | 🥩 عثرنا على 19 أصل في RSC payload
+2026-02-09 17:33:19 | DEBUG   |   ✅ ETH    rate=       ? price=$  2,012.67 providers=0
+2026-02-09 17:33:19 | DEBUG   |   ✅ SOL    rate=    2.07 price=$     83.72 providers=0
+2026-02-09 17:33:19 | DEBUG   |   ✅ HYPE   rate=    5.72 price=$     31.32 providers=0
+2026-02-09 17:33:19 | DEBUG   |   ✅ TRX    rate=1.7568930300000003 price=$      0.28 providers=0
+2026-02-09 17:33:19 | DEBUG   |   ✅ SUI    rate=3.1226798343732387 price=$      0.93 providers=0
+2026-02-09 17:33:19 | DEBUG   |   ✅ ADA    rate=1.5824224379269063 price=$      0.26 providers=0
+2026-02-09 17:33:19 | DEBUG   |   ✅ BTC    rate=1.66417686535209 price=$ 68,478.00 providers=0
+2026-02-09 17:33:19 | DEBUG   |   ✅ AVAX   rate=0.03222538320326013 price=$      8.76 providers=0
+2026-02-09 17:33:19 | DEBUG   |   ✅ DOT    rate=1.0166013285725015 price=$      1.29 providers=0
+2026-02-09 17:33:19 | DEBUG   |   ✅ CRO    rate=       ? price=$      0.08 providers=0
+2026-02-09 17:33:19 | DEBUG   |   ✅ APT    rate=1.5977437849435232 price=$      1.02 providers=0
+2026-02-09 17:33:19 | DEBUG   |   ✅ NEAR   rate=       ? price=$      0.99 providers=0
+2026-02-09 17:33:19 | DEBUG   |   ✅ ATOM   rate=4.137659198889967 price=$      1.92 providers=0
+2026-02-09 17:33:19 | DEBUG   |   ✅ IP     rate=18.277633104561634 price=$      1.21 providers=0
+2026-02-09 17:33:19 | DEBUG   |   ✅ MATIC  rate=    0.39 price=$      0.00 providers=0
+2026-02-09 17:33:19 | DEBUG   |   ✅ SEI    rate=2.878636487060399 price=$      0.07 providers=0
+2026-02-09 17:33:19 | DEBUG   |   ✅ XTZ    rate=       ? price=$      0.40 providers=0
+2026-02-09 17:33:19 | DEBUG   |   ✅ MON    rate=       ? price=$      0.02 providers=0
+2026-02-09 17:33:19 | DEBUG   |   ✅ INJ    rate=12.937090730401476 price=$      3.10 providers=0
+2026-02-09 17:33:19 | INFO    | 🥩 StakingRewards: 19 أصل | متوسط المكافآت: 4.08%
+2026-02-09 17:33:19 | INFO    | ✅ StakingRewards: 19 أصل | متوسط المكافآت: 4.08%
+2026-02-09 17:33:19 | INFO    | 🥩 ═══ اكتمل زحف StakingRewards (4.5ث) ═══
+2026-02-09 17:33:19 | INFO    | 💾 تم حفظ __stakingrewards__: crawler/data\latest\__stakingrewards__.json
+2026-02-09 18:05:26 | INFO    | 🥩 ═══ بدء زحف StakingRewards ═══
+2026-02-09 18:05:28 | DEBUG   | 🌐 GET https://www.stakingrewards.com/assets (محاولة 1/3)
+2026-02-09 18:05:31 | INFO    | ✅ https://www.stakingrewards.com/assets → 1,296,682 bytes
+2026-02-09 18:05:31 | INFO    | 🥩 عثرنا على 19 أصل في RSC payload
+2026-02-09 18:05:31 | DEBUG   |   ✅ ETH    rate=    8.29 price=$  2,036.61 providers=0
+2026-02-09 18:05:31 | DEBUG   |   ✅ SOL    rate=    6.39 price=$     84.35 providers=0
+2026-02-09 18:05:31 | DEBUG   |   ✅ HYPE   rate=2.20005323 price=$     31.96 providers=0
+2026-02-09 18:05:31 | DEBUG   |   ✅ TRX    rate=3.2596400702053336 price=$      0.28 providers=0
+2026-02-09 18:05:31 | DEBUG   |   ✅ SUI    rate=1.7280023614049476 price=$      0.94 providers=0
+2026-02-09 18:05:31 | DEBUG   |   ✅ ADA    rate=2.6555066674957413 price=$      0.27 providers=0
+2026-02-09 18:05:31 | DEBUG   |   ✅ BTC    rate=0.034802441633752096 price=$ 69,270.00 providers=0
+2026-02-09 18:05:31 | DEBUG   |   ✅ AVAX   rate=6.674311587606246 price=$      8.91 providers=0
+2026-02-09 18:05:31 | DEBUG   |   ✅ DOT    rate=11.612971887237439 price=$      1.30 providers=0
+2026-02-09 18:05:31 | DEBUG   |   ✅ CRO    rate=1.6865059393789061 price=$      0.08 providers=0
+2026-02-09 18:05:31 | DEBUG   |   ✅ APT    rate=6.999678000000001 price=$      1.03 providers=0
+2026-02-09 18:05:31 | DEBUG   |   ✅ NEAR   rate=4.597399109877741 price=$      1.00 providers=0
+2026-02-09 18:05:31 | DEBUG   |   ✅ ATOM   rate=19.115354067356726 price=$      1.93 providers=0
+2026-02-09 18:05:31 | DEBUG   |   ✅ IP     rate=   16.69 price=$      1.22 providers=0
+2026-02-09 18:05:31 | DEBUG   |   ✅ MATIC  rate=4.724671243121438 price=$      0.00 providers=0
+2026-02-09 18:05:31 | DEBUG   |   ✅ SEI    rate=6.948336115725312 price=$      0.07 providers=0
+2026-02-09 18:05:31 | DEBUG   |   ✅ XTZ    rate=0.0018976309183416891 price=$      0.41 providers=0
+2026-02-09 18:05:31 | DEBUG   |   ✅ MON    rate=15.362795242351751 price=$      0.02 providers=0
+2026-02-09 18:05:31 | DEBUG   |   ✅ INJ    rate=5.942951987083286 price=$      3.13 providers=0
+2026-02-09 18:05:31 | INFO    | 🥩 StakingRewards: 19 أصل | متوسط المكافآت: 6.57%
+2026-02-09 18:05:31 | INFO    | ✅ StakingRewards: 19 أصل | متوسط المكافآت: 6.57%
+2026-02-09 18:05:31 | INFO    | 🥩 ═══ اكتمل زحف StakingRewards (4.7ث) ═══
+2026-02-09 18:05:31 | INFO    | 💾 تم حفظ __stakingrewards__: crawler/data\latest\__stakingrewards__.json
+2026-02-09 19:03:43 | INFO    | ════════════════════════════════════════════════════════════
+2026-02-09 19:03:43 | INFO    | 🟠 بدء زحف Level2: Bitcoin (https://api.blockchair.com)
+2026-02-09 19:03:43 | INFO    | ════════════════════════════════════════════════════════════
+2026-02-09 19:03:43 | INFO    |   🟠 GET: mempool_lightning → https://mempool.space/api/v1/lightning/statistics/latest
+2026-02-09 19:03:44 | DEBUG   | 🟠 [1/3] GET: https://mempool.space/api/v1/lightning/statistics/latest
+2026-02-09 19:03:45 | DEBUG   | ✅ OK: https://mempool.space/api/v1/lightning/statistics/latest
+2026-02-09 19:03:45 | INFO    |   ✅ تم: mempool_lightning
+2026-02-09 19:03:45 | INFO    |   🟠 GET: blockchair_stats → https://api.blockchair.com/bitcoin/stats
+2026-02-09 19:03:46 | DEBUG   | 🟠 [1/3] GET: https://api.blockchair.com/bitcoin/stats
+2026-02-09 19:03:46 | DEBUG   | ✅ OK: https://api.blockchair.com/bitcoin/stats
+2026-02-09 19:03:46 | INFO    |   ✅ تم: blockchair_stats
+2026-02-09 19:03:46 | INFO    |   🟠 GET: blockchain_stats → https://api.blockchain.info/stats
+2026-02-09 19:03:47 | DEBUG   | 🟠 [1/3] GET: https://api.blockchain.info/stats
+2026-02-09 19:03:48 | DEBUG   | ✅ OK: https://api.blockchain.info/stats
+2026-02-09 19:03:48 | INFO    |   ✅ تم: blockchain_stats
+2026-02-09 19:03:48 | INFO    |   🟠 GET: mempool_pools → https://mempool.space/api/v1/mining/pools/1w
+2026-02-09 19:03:48 | DEBUG   | 🟠 [1/3] GET: https://mempool.space/api/v1/mining/pools/1w
+2026-02-09 19:03:48 | DEBUG   | ✅ OK: https://mempool.space/api/v1/mining/pools/1w
+2026-02-09 19:03:48 | INFO    |   ✅ تم: mempool_pools
+2026-02-09 19:03:48 | INFO    |   🟠 GET: mempool_fees → https://mempool.space/api/v1/fees/recommended
+2026-02-09 19:03:49 | DEBUG   | ⏳ انتظار 3.6ث لـ mempool.space
+2026-02-09 19:03:53 | DEBUG   | 🟠 [1/3] GET: https://mempool.space/api/v1/fees/recommended
+2026-02-09 19:03:53 | DEBUG   | ✅ OK: https://mempool.space/api/v1/fees/recommended
+2026-02-09 19:03:53 | INFO    |   ✅ تم: mempool_fees
+2026-02-09 19:03:53 | INFO    | ────────────────────────────────────────────────────────────
+2026-02-09 19:03:53 | INFO    | ✅ اكتمل Level2 Bitcoin: 5 ناجح، 0 فشل، 9.41ث
+2026-02-09 19:03:53 | INFO    | ════════════════════════════════════════════════════════════
+2026-02-09 19:03:53 | INFO    | 💾 تم حفظ bitcoin: crawler/data\latest\bitcoin.json
+2026-02-09 22:32:43 | INFO    | ════════════════════════════════════════════════════════════
+2026-02-09 22:32:43 | INFO    | 🔗 بدء زحف: Ethereum (https://etherscan.io)
+2026-02-09 22:32:43 | INFO    | ════════════════════════════════════════════════════════════
+2026-02-09 22:32:43 | INFO    |   📄 زحف: homepage → https://etherscan.io/
+2026-02-09 22:32:43 | DEBUG   | 🔗 [1/5] جلب: https://etherscan.io/
+2026-02-09 22:32:43 | DEBUG   | ✅ تم جلب https://etherscan.io/ (137,069 بايت)
+2026-02-09 22:32:43 | INFO    |   ✅ تم تحليل homepage
+2026-02-09 22:32:43 | INFO    |   📄 زحف: charts → https://etherscan.io/charts
+2026-02-09 22:32:43 | DEBUG   | ⏳ انتظار 2.5ث لـ etherscan.io
+2026-02-09 22:32:46 | DEBUG   | 🔗 [1/5] جلب: https://etherscan.io/charts
+2026-02-09 22:32:52 | DEBUG   | ✅ تم جلب https://etherscan.io/charts (331,677 بايت)
+2026-02-09 22:32:52 | DEBUG   | 📊 تم العثور على 39 رسم بياني متاح
+2026-02-09 22:32:52 | INFO    |   ✅ تم تحليل charts
+2026-02-09 22:32:52 | INFO    | ────────────────────────────────────────────────────────────
+2026-02-09 22:32:52 | INFO    | ✅ اكتمل زحف Ethereum: 2 ناجح، 0 فشل، 9.6ث
+2026-02-09 22:32:52 | INFO    | ════════════════════════════════════════════════════════════
+2026-02-09 22:32:52 | INFO    | 💾 تم حفظ ethereum: crawler/data\latest\ethereum.json
+2026-02-09 22:34:43 | INFO    | ════════════════════════════════════════════════════════════
+2026-02-09 22:34:43 | INFO    | 🔗 بدء زحف: Ethereum (https://etherscan.io)
+2026-02-09 22:34:43 | INFO    | ════════════════════════════════════════════════════════════
+2026-02-09 22:34:43 | INFO    |   📄 زحف: homepage → https://etherscan.io/
+2026-02-09 22:34:43 | DEBUG   | 🔗 [1/5] جلب: https://etherscan.io/
+2026-02-09 22:34:43 | DEBUG   | ✅ تم جلب https://etherscan.io/ (137,052 بايت)
+2026-02-09 22:34:43 | INFO    |   ✅ تم تحليل homepage
+2026-02-09 22:34:43 | INFO    |   📄 زحف: charts → https://etherscan.io/charts
+2026-02-09 22:34:43 | DEBUG   | ⏳ انتظار 2.7ث لـ etherscan.io
+2026-02-09 22:34:46 | DEBUG   | 🔗 [1/5] جلب: https://etherscan.io/charts
+2026-02-09 22:34:47 | DEBUG   | ✅ تم جلب https://etherscan.io/charts (331,674 بايت)
+2026-02-09 22:34:47 | DEBUG   | 📊 تم العثور على 39 رسم بياني متاح
+2026-02-09 22:34:47 | INFO    |   ✅ تم تحليل charts
+2026-02-09 22:34:47 | INFO    | ────────────────────────────────────────────────────────────
+2026-02-09 22:34:47 | INFO    | ✅ اكتمل زحف Ethereum: 2 ناجح، 0 فشل، 4.63ث
+2026-02-09 22:34:47 | INFO    | ════════════════════════════════════════════════════════════
+2026-02-09 22:34:47 | INFO    | 💾 تم حفظ ethereum: crawler/data\latest\ethereum.json
+2026-02-09 22:35:09 | DEBUG   | 🔗 [1/5] جلب: https://etherscan.io/charts
+2026-02-09 22:35:10 | DEBUG   | ✅ تم جلب https://etherscan.io/charts (331,674 بايت)
+2026-02-09 22:35:47 | DEBUG   | 🔗 [1/5] جلب: https://etherscan.io/charts
+2026-02-09 22:35:48 | DEBUG   | ✅ تم جلب https://etherscan.io/charts (331,670 بايت)
+2026-02-09 22:36:24 | INFO    | ════════════════════════════════════════════════════════════
+2026-02-09 22:36:24 | INFO    | 🔗 بدء زحف: Ethereum (https://etherscan.io)
+2026-02-09 22:36:24 | INFO    | ════════════════════════════════════════════════════════════
+2026-02-09 22:36:24 | INFO    |   📄 زحف: homepage → https://etherscan.io/
+2026-02-09 22:36:24 | DEBUG   | 🔗 [1/5] جلب: https://etherscan.io/
+2026-02-09 22:36:25 | DEBUG   | ✅ تم جلب https://etherscan.io/ (137,387 بايت)
+2026-02-09 22:36:25 | INFO    |   ✅ تم تحليل homepage
+2026-02-09 22:36:25 | INFO    |   📄 زحف: charts → https://etherscan.io/charts
+2026-02-09 22:36:25 | DEBUG   | ⏳ انتظار 2.1ث لـ etherscan.io
+2026-02-09 22:36:27 | DEBUG   | 🔗 [1/5] جلب: https://etherscan.io/charts
+2026-02-09 22:36:28 | DEBUG   | ✅ تم جلب https://etherscan.io/charts (331,674 بايت)
+2026-02-09 22:36:28 | DEBUG   | 📊 تم العثور على 39 رسم بياني متاح
+2026-02-09 22:36:28 | INFO    |   ✅ تم تحليل charts
+2026-02-09 22:36:28 | INFO    | ────────────────────────────────────────────────────────────
+2026-02-09 22:36:28 | INFO    | ✅ اكتمل زحف Ethereum: 2 ناجح، 0 فشل، 3.65ث
+2026-02-09 22:36:28 | INFO    | ════════════════════════════════════════════════════════════
+2026-02-09 22:36:28 | INFO    | 💾 تم حفظ ethereum: crawler/data\latest\ethereum.json
+2026-02-09 22:36:37 | INFO    | ════════════════════════════════════════════════════════════
+2026-02-09 22:36:37 | INFO    | 🔗 بدء زحف: Ethereum (https://etherscan.io)
+2026-02-09 22:36:37 | INFO    | ════════════════════════════════════════════════════════════
+2026-02-09 22:36:37 | INFO    |   📄 زحف: homepage → https://etherscan.io/
+2026-02-09 22:36:37 | DEBUG   | 🔗 [1/5] جلب: https://etherscan.io/
+2026-02-09 22:36:37 | DEBUG   | ✅ تم جلب https://etherscan.io/ (137,189 بايت)
+2026-02-09 22:36:37 | INFO    |   ✅ تم تحليل homepage
+2026-02-09 22:36:37 | INFO    |   📄 زحف: charts → https://etherscan.io/charts
+2026-02-09 22:36:37 | DEBUG   | ⏳ انتظار 2.5ث لـ etherscan.io
+2026-02-09 22:36:40 | DEBUG   | 🔗 [1/5] جلب: https://etherscan.io/charts
+2026-02-09 22:36:41 | DEBUG   | ✅ تم جلب https://etherscan.io/charts (331,674 بايت)
+2026-02-09 22:36:41 | DEBUG   | 📊 تم العثور على 39 رسم بياني متاح
+2026-02-09 22:36:41 | INFO    |   ✅ تم تحليل charts
+2026-02-09 22:36:41 | INFO    |   📄 زحف: accounts → https://etherscan.io/accounts
+2026-02-09 22:36:41 | DEBUG   | ⏳ انتظار 1.8ث لـ etherscan.io
+2026-02-09 22:36:43 | DEBUG   | 🔗 [1/5] جلب: https://etherscan.io/accounts
+2026-02-09 22:36:43 | DEBUG   | ✅ تم جلب https://etherscan.io/accounts (137,215 بايت)
+2026-02-09 22:36:43 | INFO    | ✅ تم استخراج 25 حساب، 0 بورصة
+2026-02-09 22:36:43 | INFO    |   ✅ تم تحليل accounts
+2026-02-09 22:36:43 | INFO    |   📄 زحف: tokens → https://etherscan.io/tokens
+2026-02-09 22:36:43 | DEBUG   | ⏳ انتظار 3.1ث لـ etherscan.io
+2026-02-09 22:36:46 | DEBUG   | 🔗 [1/5] جلب: https://etherscan.io/tokens
+2026-02-09 22:36:46 | DEBUG   | ✅ تم جلب https://etherscan.io/tokens (183,119 بايت)
+2026-02-09 22:36:46 | INFO    | ✅ تم استخراج 50 توكن
+2026-02-09 22:36:46 | INFO    |   ✅ تم تحليل tokens
+2026-02-09 22:36:46 | INFO    |   📄 زحف: gas_tracker → https://etherscan.io/gastracker
+2026-02-09 22:36:46 | DEBUG   | ⏳ انتظار 2.2ث لـ etherscan.io
+2026-02-09 22:36:49 | DEBUG   | 🔗 [1/5] جلب: https://etherscan.io/gastracker
+2026-02-09 22:36:49 | DEBUG   | ✅ تم جلب https://etherscan.io/gastracker (366,010 بايت)
+2026-02-09 22:36:49 | INFO    |   ✅ تم تحليل gas_tracker
+2026-02-09 22:36:49 | INFO    |   📄 زحف: blocks → https://etherscan.io/blocks
+2026-02-09 22:36:49 | DEBUG   | ⏳ انتظار 2.9ث لـ etherscan.io
+2026-02-09 22:36:52 | DEBUG   | 🔗 [1/5] جلب: https://etherscan.io/blocks
+2026-02-09 22:36:52 | DEBUG   | ✅ تم جلب https://etherscan.io/blocks (189,210 بايت)
+2026-02-09 22:36:52 | INFO    | ✅ تم استخراج 25 بلوك
+2026-02-09 22:36:52 | INFO    |   ✅ تم تحليل blocks
+2026-02-09 22:36:52 | INFO    |   📄 زحف: supply → https://etherscan.io/stat/supply
+2026-02-09 22:36:52 | DEBUG   | ⏳ انتظار 3.1ث لـ etherscan.io
+2026-02-09 22:36:55 | DEBUG   | 🔗 [1/5] جلب: https://etherscan.io/stat/supply
+2026-02-09 22:36:56 | DEBUG   | ✅ تم جلب https://etherscan.io/stat/supply (90,623 بايت)
+2026-02-09 22:36:56 | INFO    | ✅ إجمالي المعروض: 120,692,619.44
+2026-02-09 22:36:56 | INFO    |   ✅ تم تحليل supply
+2026-02-09 22:36:56 | INFO    |   📄 زحف: node_tracker → https://etherscan.io/nodetracker
+2026-02-09 22:36:56 | DEBUG   | ⏳ انتظار 2.3ث لـ etherscan.io
+2026-02-09 22:36:58 | DEBUG   | 🔗 [1/5] جلب: https://etherscan.io/nodetracker
+2026-02-09 22:37:02 | DEBUG   | ✅ تم جلب https://etherscan.io/nodetracker (147,935 بايت)
+2026-02-09 22:37:02 | INFO    | ✅ عدد العُقد: 14,036
+2026-02-09 22:37:02 | INFO    |   ✅ تم تحليل node_tracker
+2026-02-09 22:37:02 | INFO    |   📄 زحف: dex → https://etherscan.io/dex
+2026-02-09 22:37:02 | DEBUG   | 🔗 [1/5] جلب: https://etherscan.io/dex
+2026-02-09 22:37:02 | DEBUG   | ✅ تم جلب https://etherscan.io/dex (110,293 بايت)
+2026-02-09 22:37:02 | INFO    |   ✅ تم تحليل dex
+2026-02-09 22:37:02 | INFO    | ────────────────────────────────────────────────────────────
+2026-02-09 22:37:02 | INFO    | ✅ اكتمل زحف Ethereum: 9 ناجح، 0 فشل، 25.7ث
+2026-02-09 22:37:02 | INFO    | ════════════════════════════════════════════════════════════
+2026-02-09 22:37:02 | INFO    | 💾 تم حفظ ethereum: crawler/data\latest\ethereum.json

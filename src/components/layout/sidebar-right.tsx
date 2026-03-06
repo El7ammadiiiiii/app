@@ -114,6 +114,13 @@ const analysisCategories: AnalysisCategory[] = [
         path: "/chat/trendlines"
       },
       {
+        id: "patterns-v2-scanner",
+        label: "🔷 Patterns V2",
+        icon: <Sparkles className="w-4 h-4" />,
+        description: "16 نموذج فني — محرك TrendLines V2",
+        path: "/chat/patterns-v2"
+      },
+      {
         id: "news",
         label: "📰 News",
         icon: <Newspaper className="w-4 h-4" />,

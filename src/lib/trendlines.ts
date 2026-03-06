@@ -34,7 +34,7 @@ export interface TrendLinesResult {
  * Detect pivot high at position idx
  * A pivot high is the highest point with pivotPeriod bars on each side being lower
  */
-function detectPivotHigh(highs: number[], idx: number, pivotPeriod: number): number | null {
+export function detectPivotHigh(highs: number[], idx: number, pivotPeriod: number): number | null {
   if (idx < pivotPeriod || idx >= highs.length - pivotPeriod) {
     return null;
   }
@@ -63,7 +63,7 @@ function detectPivotHigh(highs: number[], idx: number, pivotPeriod: number): num
  * Detect pivot low at position idx
  * A pivot low is the lowest point with pivotPeriod bars on each side being higher
  */
-function detectPivotLow(lows: number[], idx: number, pivotPeriod: number): number | null {
+export function detectPivotLow(lows: number[], idx: number, pivotPeriod: number): number | null {
   if (idx < pivotPeriod || idx >= lows.length - pivotPeriod) {
     return null;
   }

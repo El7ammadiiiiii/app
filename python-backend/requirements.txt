@@ -2,13 +2,17 @@ fastapi==0.115.6
 uvicorn[standard]==0.34.0
 python-binance==1.0.22
 pybit==5.9.0
-coinbase-advanced-py==1.8.1
 python-okx==0.4.1
-bitfinex-api-py==3.0.4
 cryptofeed==2.4.1
-websockets>=10.4
 httpx==0.28.1
 pydantic==2.10.4
 python-dotenv==1.0.1
 firebase-admin==6.6.0
 google-cloud-firestore==2.19.0
+
+# ─── Crawler Dependencies ───
+aiohttp>=3.9.0
+beautifulsoup4>=4.12.0
+lxml>=5.0.0
+loguru>=0.7.0
+numpy>=1.26.0

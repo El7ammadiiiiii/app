@@ -1,0 +1,61 @@
+# ═══════════════════════════════════════════════
+# cloudbuild.yaml — Build & deploy ccways-backend to Cloud Run
+# Triggered by: gcloud builds submit OR Cloud Build trigger
+# ═══════════════════════════════════════════════
+
+steps:
+  # Build Docker image
+  - name: 'gcr.io/cloud-builders/docker'
+    args:
+      - 'build'
+      - '-t'
+      - 'gcr.io/$PROJECT_ID/ccways-backend:$SHORT_SHA'
+      - '-t'
+      - 'gcr.io/$PROJECT_ID/ccways-backend:latest'
+      - '-f'
+      - 'python-backend/Dockerfile'
+      - 'python-backend'
+
+  # Push to Container Registry
+  - name: 'gcr.io/cloud-builders/docker'
+    args: ['push', 'gcr.io/$PROJECT_ID/ccways-backend:$SHORT_SHA']
+
+  - name: 'gcr.io/cloud-builders/docker'
+    args: ['push', 'gcr.io/$PROJECT_ID/ccways-backend:latest']
+
+  # Deploy to Cloud Run
+  - name: 'gcr.io/google.com/cloudsdktool/cloud-sdk'
+    entrypoint: gcloud
+    args:
+      - 'run'
+      - 'deploy'
+      - 'ccways-backend'
+      - '--image'
+      - 'gcr.io/$PROJECT_ID/ccways-backend:$SHORT_SHA'
+      - '--region'
+      - 'us-central1'
+      - '--platform'
+      - 'managed'
+      - '--allow-unauthenticated'
+      - '--memory'
+      - '2Gi'
+      - '--cpu'
+      - '2'
+      - '--timeout'
+      - '3600'
+      - '--min-instances'
+      - '1'
+      - '--max-instances'
+      - '3'
+      - '--set-env-vars'
+      - 'FASTAPI_PORT=8080,CORS_ORIGINS=*,FIREBASE_PROJECT_ID=$PROJECT_ID'
+      - '--port'
+      - '8080'
+
+images:
+  - 'gcr.io/$PROJECT_ID/ccways-backend:$SHORT_SHA'
+  - 'gcr.io/$PROJECT_ID/ccways-backend:latest'
+
+timeout: '900s'
+options:
+  logging: CLOUD_LOGGING_ONLY

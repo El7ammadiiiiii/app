@@ -543,7 +543,7 @@ export async function GET(request: NextRequest) {
   try {
     const { searchParams } = new URL(request.url);
     const exchange = (searchParams.get('exchange') || 'binance').toLowerCase();
-    const count = Math.min(parseInt(searchParams.get('count') || '100'), 200);
+    const count = Math.min(parseInt(searchParams.get('count') || '300'), 300);
     const debugSymbol = searchParams.get('debug'); // e.g. ?debug=BTCUSDT
     const debugTf = searchParams.get('tf') || '1d'; // e.g. ?tf=4h
 

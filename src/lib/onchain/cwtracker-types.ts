@@ -334,6 +334,12 @@ export interface MSNode {
   totalKnownTransfers?: number;
   /** Per-chain first-seen dates */
   chainFirstSeen?: Record<string, string>;
+  /** Entity/Exchange name (e.g., "Binance", "Uniswap") */
+  entityName?: string;
+  /** Entity slug for icon lookup (e.g., "binance", "uniswap") */
+  entitySlug?: string;
+  /** Direct URL to entity icon/logo */
+  entityIconUrl?: string;
 }
 
 /* ────────────────────────────── EDGE ────────────────────────────── */
@@ -785,6 +791,50 @@ export function getMSTokenIconUrl(symbol: string): string | null {
   const mapped = aliases[key];
   if (mapped) return `/token-icons/${mapped}.png`;
   return null;
+}
+
+/** Exchange/Protocol icon URL from multiple CDN sources */
+export function getMSExchangeIconUrl(entitySlug: string | undefined | null): string | null {
+  if (!entitySlug) return null;
+  const slug = entitySlug.toLowerCase().replace(/[\s_]/g, "-");
+  // Known CEX/DEX icons map to specific URLs
+  const knownIcons: Record<string, string> = {
+    binance: "https://icons.llamao.fi/icons/protocols/binance-cex?w=48&h=48",
+    coinbase: "https://icons.llamao.fi/icons/protocols/coinbase?w=48&h=48",
+    kraken: "https://icons.llamao.fi/icons/protocols/kraken?w=48&h=48",
+    okx: "https://icons.llamao.fi/icons/protocols/okx?w=48&h=48",
+    bybit: "https://icons.llamao.fi/icons/protocols/bybit?w=48&h=48",
+    kucoin: "https://icons.llamao.fi/icons/protocols/kucoin?w=48&h=48",
+    huobi: "https://icons.llamao.fi/icons/protocols/huobi?w=48&h=48",
+    htx: "https://icons.llamao.fi/icons/protocols/huobi?w=48&h=48",
+    gateio: "https://icons.llamao.fi/icons/protocols/gate.io?w=48&h=48",
+    "gate-io": "https://icons.llamao.fi/icons/protocols/gate.io?w=48&h=48",
+    bitfinex: "https://icons.llamao.fi/icons/protocols/bitfinex?w=48&h=48",
+    gemini: "https://icons.llamao.fi/icons/protocols/gemini?w=48&h=48",
+    bitstamp: "https://icons.llamao.fi/icons/protocols/bitstamp?w=48&h=48",
+    uniswap: "https://icons.llamao.fi/icons/protocols/uniswap?w=48&h=48",
+    "uniswap-v2": "https://icons.llamao.fi/icons/protocols/uniswap-v2?w=48&h=48",
+    "uniswap-v3": "https://icons.llamao.fi/icons/protocols/uniswap-v3?w=48&h=48",
+    sushiswap: "https://icons.llamao.fi/icons/protocols/sushi?w=48&h=48",
+    pancakeswap: "https://icons.llamao.fi/icons/protocols/pancakeswap?w=48&h=48",
+    curve: "https://icons.llamao.fi/icons/protocols/curve?w=48&h=48",
+    aave: "https://icons.llamao.fi/icons/protocols/aave?w=48&h=48",
+    compound: "https://icons.llamao.fi/icons/protocols/compound?w=48&h=48",
+    maker: "https://icons.llamao.fi/icons/protocols/makerdao?w=48&h=48",
+    makerdao: "https://icons.llamao.fi/icons/protocols/makerdao?w=48&h=48",
+    lido: "https://icons.llamao.fi/icons/protocols/lido?w=48&h=48",
+    opensea: "https://icons.llamao.fi/icons/protocols/opensea?w=48&h=48",
+    blur: "https://icons.llamao.fi/icons/protocols/blur?w=48&h=48",
+    "1inch": "https://icons.llamao.fi/icons/protocols/1inch-network?w=48&h=48",
+    balancer: "https://icons.llamao.fi/icons/protocols/balancer?w=48&h=48",
+    dydx: "https://icons.llamao.fi/icons/protocols/dydx?w=48&h=48",
+    gmx: "https://icons.llamao.fi/icons/protocols/gmx?w=48&h=48",
+    "tornado-cash": "https://icons.llamao.fi/icons/protocols/tornado-cash?w=48&h=48",
+    tornadocash: "https://icons.llamao.fi/icons/protocols/tornado-cash?w=48&h=48",
+  };
+  if (knownIcons[slug]) return knownIcons[slug];
+  // Fallback: try DefiLlama icons CDN
+  return `https://icons.llamao.fi/icons/protocols/${slug}?w=48&h=48`;
 }
 
 /** Native chain symbol to chain-icon mapping for SVG node rendering */
